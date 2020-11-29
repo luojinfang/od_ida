@@ -1,0 +1,395 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ws2_32.71A25D82==>
+	71A25D88    E8 84E4FFFF     call ws2_32.socket
+
+
+断点 ws2_32.socket 
+调用堆栈：     线程  00000568
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0174FD98   71A25E32   ws2_32.71A25D82                       ws2_32.71A25E2D               0174FDE0
+0174FDE4   71A25DDC   ws2_32.71A25DF0                       ws2_32.71A25DD7               0174FDE0
+0174FED8   71A22ACA   ws2_32.GetAddrInfoW                   ws2_32.71A22AC5               0174FED4
+0174FF00   30091D75   包含ws2_32.71A22ACA                     Common.30091D73               0174FEFC
+0174FF1C   3009EA0D   Common.30091D4F                       Common.3009EA08               0174FF18
+0174FF68   300E0AD7   包含Common.3009EA0D                     Common.300E0AD4               0174FF64
+
+
+
+创建了线程
+方法地址：
+3009E9CA    55              push ebp
+signed int __thiscall sub_3009E9CA(void *this)
+{
+  void *v1; // esi@1
+  unsigned int *v2; // eax@1
+  int v3; // ebx@1
+  int v4; // edi@3
+  void *v5; // ebx@3
+  int v6; // eax@4
+  _DWORD *v7; // eax@11
+  char Dst; // [sp+Ch] [bp-28h]@1
+  int v10; // [sp+10h] [bp-24h]@1
+  int v11; // [sp+14h] [bp-20h]@1
+  int v12; // [sp+18h] [bp-1Ch]@1
+  void *v13; // [sp+2Ch] [bp-8h]@3
+  int v14; // [sp+30h] [bp-4h]@1
+
+  v1 = this;
+  v14 = 0;
+  memset(&Dst, 0, 0x20u);
+  v10 = 0;
+  v11 = 0;
+  v12 = 17;
+  v2 = Big::getbig((Big *)((char *)v1 + 56));
+  v3 = sub_30091D4F((int)v2, 0, (int)&Dst, (int)&v14);
+  if ( v3 )
+  {
+    if ( v14 )
+      sub_30091D85(v14);
+  }
+  else if ( v14 )
+  {
+    v4 = v14;
+    v5 = operator new(0x400u);
+    v13 = v5;
+    while ( v4 )
+    {
+      v6 = *(_DWORD *)(v4 + 24);
+      if ( *(_WORD *)v6 == 2 && *(_DWORD *)(v4 + 16) == 16 )
+      {
+        memcpy(v13, (const void *)(v6 + 4), 4u);
+        v13 = (char *)v13 + 4;
+      }
+      if ( v13 >= (char *)v5 + 1020 )
+        break;
+      v4 = *(_DWORD *)(v4 + 28);
+    }
+    *(_DWORD *)v13 = 0;
+    sub_30091D85(v14);
+    if ( IsWindow(*((HWND *)v1 + 11)) )
+    {
+      v7 = operator new(0xCu);
+      if ( v7 )
+      {
+        v7[2] = 0;
+        *v7 = v1;
+        v7[1] = v5;
+LABEL_19:
+        PostMessageW(*((HWND *)v1 + 11), *((_DWORD *)v1 + 12), *((_DWORD *)v1 + 13), (LPARAM)v7);
+        return 1;
+      }
+      goto LABEL_18;
+    }
+    return 1;
+  }
+  if ( IsWindow(*((HWND *)v1 + 11)) )
+  {
+    v7 = operator new(0xCu);
+    if ( v7 )
+    {
+      v7[2] = v3;
+      *v7 = v1;
+      v7[1] = 0;
+      goto LABEL_19;
+    }
+LABEL_18:
+    v7 = 0;
+    goto LABEL_19;
+  }
+  return 1;
+}
+
+
+//创建socket??
+int __stdcall sub_30091D4F(int a1, int a2, int a3, int a4)
+{
+  int (__stdcall *v4)(int, int, int, int); // eax@1
+  int v5; // esi@3
+
+  v4 = (int (__stdcall *)(int, int, int, int))dword_30281344;
+  if ( !dword_30281344 )  // init once
+  {
+    v4 = (int (__stdcall *)(int, int, int, int))sub_30091BB0(dword_30281344);
+    dword_30281344 = (int)v4;
+  }
+  v5 = v4(a1, a2, a3, a4);
+  WSASetLastError(v5);
+  return v5;
+}
+
+
+
+//获得 对应偏移a1 在ws2_32.dll里的函数,存在 off_301BF5A8
+_DWORD __stdcall sub_30091BB0(unsigned __int16 a1)
+{
+  HMODULE v1; // eax@3
+  HMODULE v2; // edi@3
+  HMODULE v3; // eax@7
+  _DWORD v4; // esi@11
+  FARPROC v5; // eax@12
+  signed int v6; // eax@17
+  LPCSTR lpProcName; // [sp+0h] [bp-230h]@1
+  int (__stdcall *v9)(char *, char *, int, int); // [sp+4h] [bp-22Ch]@1
+  const char *v10; // [sp+8h] [bp-228h]@1
+  int (__stdcall *v11)(int, int, int, rsize_t, int, rsize_t, int); // [sp+Ch] [bp-224h]@1
+  const char *v12; // [sp+10h] [bp-220h]@1
+  int (__stdcall *v13)(void *); // [sp+14h] [bp-21Ch]@1
+  CHAR Buffer; // [sp+18h] [bp-218h]@2
+  char Dst; // [sp+120h] [bp-110h]@3
+
+  lpProcName = "getaddrinfo";
+  v9 = sub_3009176B;   //后面有详细
+  v10 = "getnameinfo";
+  v11 = sub_300919F3;
+  v12 = "freeaddrinfo";
+  v13 = sub_3009172C;
+  if ( !dword_30281340 )
+  {
+    if ( GetSystemDirectoryA(&Buffer, 0x104u) )
+    {
+      strcpy_s(&Dst, 0x10Cu, &Buffer);
+      strcat_s(&Dst, 0x10Cu, "\\ws2_32");
+      v1 = LoadLibraryA(&Dst);   //--------------load ws2_32.dll
+      v2 = v1;
+      if ( v1 )
+      {
+        if ( !GetProcAddress(v1, "getaddrinfo") )
+        {
+          FreeLibrary(v2);
+          v2 = 0;
+        }
+        if ( v2 )
+          goto LABEL_23;
+      }
+      strcpy_s(&Dst, 0x10Cu, &Buffer);
+      strcat_s(&Dst, 0x10Cu, "\\wship6");
+      v3 = LoadLibraryA(&Dst);
+      v2 = v3;
+      if ( v3 )
+      {
+        if ( !GetProcAddress(v3, "getaddrinfo") )
+        {
+          FreeLibrary(v2);
+          v2 = 0;
+        }
+        if ( v2 )
+        {
+LABEL_23:
+          v4 = 0;
+          while ( 1 )
+          {
+            v5 = GetProcAddress(v2, (&lpProcName)[8 * v4]);
+            *(&v9 + 2 * v4) = (int (__stdcall *)(char *, char *, int, int))v5;
+            if ( !v5 )
+              break;
+            if ( ++v4 >= 3 )
+              goto LABEL_16;
+          }
+          FreeLibrary(v2);
+          v2 = 0;
+LABEL_16:
+          if ( v2 )
+          {
+            v6 = 0;
+            do
+            {
+              *(int (__stdcall **)(char *, char *, int, int))((char *)&off_301BF5A8 + v6) = *(int (__stdcall **)(char *, char *, int, int))((char *)&v9 + v6);
+              v6 += 8;
+            }
+            while ( v6 < 24 );
+          }
+        }
+      }
+    }
+    dword_30281340 = 1;
+  }
+  return *(&off_301BF5A8 + 2 * a1);
+}
+
+
+
+int __stdcall sub_3009176B(char *cp, char *Str, int a3, int a4)
+{
+  int v4; // esi@1
+  int v6; // ecx@12
+  unsigned __int16 v7; // ax@22
+  bool v8; // zf@22
+  unsigned __int16 v9; // ax@23
+  struct servent *v10; // eax@28
+  struct servent *v11; // eax@32
+  _DWORD *v12; // eax@46
+  char *v13; // eax@50
+  char *EndPtr; // [sp+Ch] [bp-24h]@1
+  int v15; // [sp+10h] [bp-20h]@1
+  int v16; // [sp+14h] [bp-1Ch]@1
+  unsigned int v17; // [sp+18h] [bp-18h]@1
+  int v18; // [sp+1Ch] [bp-14h]@1
+  struct in_addr in; // [sp+20h] [bp-10h]@1
+  int v20; // [sp+24h] [bp-Ch]@1
+  int v21; // [sp+28h] [bp-8h]@1
+  int v22; // [sp+2Ch] [bp-4h]@1
+
+  v4 = 0;
+  v21 = 0;
+  v20 = 0;
+  v15 = 0;
+  v22 = 0;
+  in = 0;
+  EndPtr = 0;
+  v18 = 0;
+  v16 = 0;
+  v17 = 0;
+  *(_DWORD *)a4 = 0;
+  if ( !cp && !Str )
+    return 11001;
+  if ( a3 )
+  {
+    if ( *(_DWORD *)(a3 + 16) || *(_DWORD *)(a3 + 20) || *(_DWORD *)(a3 + 24) || *(_DWORD *)(a3 + 28) )
+      return 11003;
+    v20 = *(_DWORD *)a3;
+    if ( v20 & 2 && !cp )
+      return 10022;
+    v6 = *(_DWORD *)(a3 + 4);
+    if ( v6 && v6 != 2 )
+      return 10047;
+    v4 = *(_DWORD *)(a3 + 8);
+    if ( v4 && v4 != 1 && v4 != 2 && v4 != 3 )
+      return 10044;
+    v15 = *(_DWORD *)(a3 + 12);
+  }
+  if ( Str )
+  {
+    v7 = strtoul(Str, &EndPtr, 10);
+    v8 = *EndPtr == 0;
+    v22 = v7;
+    if ( v8 )
+    {
+      v9 = byteswap_ushort(v7);
+      v17 = v9;
+      v22 = v9;
+      if ( !v4 )
+      {
+        v4 = 1;
+        v18 = 1;
+      }
+    }
+    else
+    {
+      if ( !v4 || v4 == 2 )
+      {
+        v10 = getservbyname(Str, "udp");
+        if ( v10 )
+        {
+          v17 = v10->s_port;
+          v22 = (unsigned __int16)v17;
+        }
+      }
+      if ( !v4 || v4 == 1 )
+      {
+        v11 = getservbyname(Str, "tcp");
+        if ( v11 )
+        {
+          v16 = v11->s_port;
+          v22 = (unsigned __int16)v16;
+        }
+      }
+      if ( !(_WORD)v22 )
+        return v4 != 0 ? 10109 : 11001;
+      if ( !v4 )
+      {
+        v4 = ((_WORD)v16 == 0) + 1;
+        if ( !(_WORD)v16 || (v18 = 1, !(_WORD)v17) )
+          v18 = 0;
+      }
+    }
+  }
+  if ( !cp )
+  {
+    in = (struct in_addr)byteswap_ulong((v20 & 1) != 0 ? 0 : 2130706433);
+    goto LABEL_46;
+  }
+  if ( sub_3009145E(cp, (int)&in) )
+  {
+LABEL_46:
+    v12 = (_DWORD *)((_DWORD (__stdcall *)(_DWORD, _DWORD, __int16, _DWORD))sub_3009149D)(v4, v15, v22, in);
+    *(_DWORD *)a4 = v12;
+    if ( !v12 )
+    {
+      v21 = 8;
+      goto LABEL_55;
+    }
+    if ( !cp
+      || (*v12 |= 4u, !(v20 & 2))
+      || (v13 = inet_ntoa(in), (*(_DWORD *)(*(_DWORD *)a4 + 20) = sub_3009141C(v13)) != 0) )
+    {
+LABEL_53:
+      if ( !v18 )
+        return v21;
+      v21 = sub_300916EA(v17, *(_DWORD *)a4);
+      if ( !v21 )
+        return v21;
+      goto LABEL_55;
+    }
+    v21 = 8;
+LABEL_52:
+    if ( v21 )
+      goto LABEL_55;
+    goto LABEL_53;
+  }
+  if ( !(v20 & 4) )
+  {
+    v21 = sub_300915A9(cp, v4, v15, v22, v20 & 2, a4);
+    goto LABEL_52;
+  }
+  v21 = 11001;
+LABEL_55:
+  sub_3009172C(*(void **)a4);
+  *(_DWORD *)a4 = 0;
+  return v21;
+}
+
+
+
+
+
+
+
+
+
+//使用socket
+int __thiscall sub_30093A94(int this, unsigned __int16 Short, int type, __int32 lEvent, wchar_t *Str, int a6, int protocol)
+{
+  void *v7; // esi@1
+  int v9; // edi@4
+
+  v7 = (void *)this;
+  *(_DWORD *)(this + 216) = a6;
+  if ( sub_30093A48((_DWORD *)this, type, lEvent, protocol, 2) )//创建socket
+  {
+    if ( sub_3009214D(v7, Short, Str) )         // bind socket
+      return 1;
+    v9 = WSAGetLastError();
+    (*(void (__thiscall **)(void *))(*(_DWORD *)v7 + 44))(v7);
+    WSASetLastError(v9);
+  }
+  return 0;
+}
+
+
+

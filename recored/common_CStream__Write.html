@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>IDA - C:\Program Files\Tencent\QQIntl\Bin\Common.dll</title>
+</head>
+<body bgcolor="white">
+<span style="white-space: pre; font-family: FixedSys; color: blue; background: white">
+
+<span style="color:gray">signed int __thiscall CStream::Write(CStream *this, const void *a2, unsigned __int32 a3, unsigned __int32 *a4)
+</span><span style="color:navy">{
+  </span><span style="color:gray">CStream *v4</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">esi@1
+  </span><span style="color:gray">signed int v5</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">esi@4
+  </span><span style="color:gray">volatile LONG **v7</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">ebx@8
+  </span><span style="color:navy">int v8; // </span><span style="color:#8080ff">eax@8
+  </span><span style="color:gray">int v9</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">eax@9
+  </span><span style="color:gray">unsigned __int32 v10</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">edi@11
+  </span><span style="color:navy">char v11; // </span><span style="color:#8080ff">al@11
+  </span><span style="color:gray">unsigned int v12</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">ST10_4@13
+  </span><span style="color:gray">bool v13</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">sf@14
+  </span><span style="color:gray">volatile LONG *v14</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">ecx@16
+  </span><span style="color:navy">char v15; // </span><span style="color:#8080ff">al@19
+  </span><span style="color:gray">unsigned int v16</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">ST10_4@19
+  </span><span style="color:gray">unsigned __int32 v17</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">ST0C_4@19
+  </span><span style="color:navy">void *v18; // </span><span style="color:#8080ff">ST08_4@19
+  </span><span style="color:gray">int v19</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">eax@19
+  </span><span style="color:gray">volatile LONG *v20</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">edi@20
+  </span><span style="color:navy">int v21; // </span><span style="color:#8080ff">eax@20
+  </span><span style="color:gray">volatile LONG *v22</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">eax@21
+  </span><span style="color:gray">bool v23</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">zf@21
+  </span><span style="color:gray">volatile LONG *v24</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">ebx@24
+  </span><span style="color:gray">int v25</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">eax@25
+  </span><span style="color:gray">int v26</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">eax@27
+  </span><span style="color:navy">int v27; // </span><span style="color:#8080ff">esi@32
+  </span><span style="color:navy">char v28; // </span><span style="color:#8080ff">[sp+Ch] [bp-44h]@32
+  </span><span style="color:navy">char v29; // </span><span style="color:#8080ff">[sp+14h] [bp-3Ch]@20
+  </span><span style="color:navy">char v30; // </span><span style="color:#8080ff">[sp+1Ch] [bp-34h]@19
+  </span><span style="color:navy">char v31; // </span><span style="color:#8080ff">[sp+24h] [bp-2Ch]@11
+  </span><span style="color:navy">int v32; // </span><span style="color:#8080ff">[sp+28h] [bp-28h]@11
+  </span><span style="color:gray">LPCRITICAL_SECTION lpCriticalSection</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">[sp+2Ch] [bp-24h]@5
+  </span><span style="color:gray">unsigned int v34</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">[sp+30h] [bp-20h]@8
+  </span><span style="color:gray">unsigned __int32 v35</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">[sp+34h] [bp-1Ch]@20
+  </span><span style="color:gray">void *v36</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">[sp+38h] [bp-18h]@11
+  </span><span style="color:navy">int v37; // </span><span style="color:#8080ff">[sp+3Ch] [bp-14h]@14
+  </span><span style="color:gray">volatile LONG *lpAddend</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">[sp+40h] [bp-10h]@13
+  </span><span style="color:navy">int v39; // </span><span style="color:#8080ff">[sp+4Ch] [bp-4h]@1
+
+  v4 </span><span style="color:navy">= </span><span style="color:#8080ff">this</span><span style="color:navy">;
+  </span>sub_300735C4<span style="color:navy">((</span><span style="color:gray">LPCRITICAL_SECTION</span><span style="color:navy">)((</span><span style="color:gray">char *</span><span style="color:navy">)</span><span style="color:#8080ff">this </span><span style="color:navy">+ 232));
+  </span><span style="color:#8080ff">v39 </span><span style="color:navy">= 0;
+  if ( </span><span style="color:#8080ff">a4 </span><span style="color:navy">)
+    *</span><span style="color:#8080ff">a4 </span><span style="color:navy">= 0;
+  if ( *((</span><span style="color:gray">_DWORD *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 57) )
+  {
+    if ( !*((</span><span style="color:gray">_DWORD *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 13) )
+    {
+      </span><span style="color:#8080ff">v5 </span><span style="color:navy">= -2147024891;
+      goto LABEL_5;
+    </span><span style="background:navy"></span><span style="color:navy">}
+    </span><span style="color:#8080ff">v7 </span><span style="color:navy">= (</span><span style="color:gray">volatile LONG **</span><span style="color:navy">)((</span><span style="color:gray">char *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 36);
+    </span><span style="color:#8080ff">v34 </span><span style="color:navy">= </span>sub_3005EA99<span style="color:navy">((</span><span style="color:gray">char *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 56);
+    </span><span style="color:#8080ff">v8 </span><span style="color:navy">= *((</span><span style="color:gray">_DWORD *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 9);
+    if ( </span><span style="color:#8080ff">v8 </span><span style="color:navy">)
+      </span><span style="color:#8080ff">v9 </span><span style="color:navy">= </span><span style="color:#8080ff">v8 </span><span style="color:navy">- 4;
+    else
+      </span><span style="color:#8080ff">v9 </span><span style="color:navy">= 0;
+    </span><span style="color:#8080ff">v36 </span><span style="color:navy">= (</span><span style="color:gray">void *</span><span style="color:navy">)</span>sub_300BFB50<span style="color:navy">(</span><span style="color:#8080ff">v9 </span><span style="color:navy">+ 40);
+    </span><span style="color:#8080ff">v10 </span><span style="color:navy">= (</span><span style="color:gray">_DWORD</span><span style="color:navy">)</span><span style="color:#8080ff">v36 </span><span style="color:navy">* </span>CStream::GetSectorSize<span style="color:navy">(</span><span style="color:#8080ff">v4</span><span style="color:navy">);
+    </span>sub_30026248<span style="color:navy">((</span><span style="color:gray">char *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 44);
+    </span>sub_30050F02<span style="color:navy">(&amp;</span><span style="color:#8080ff">v31</span><span style="color:navy">);
+    </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 1;
+    </span><span style="color:#8080ff">v11 </span><span style="color:navy">= </span>sub_30002215<span style="color:navy">(&amp;</span><span style="color:#8080ff">v31</span><span style="color:navy">);
+    if ( !(</span><span style="color:#8080ff">v11 </span><span style="color:navy">!= 0 ? </span><span style="color:#8080ff">v32 </span><span style="color:navy">: 0) )
+    {
+      </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 0;
+      </span>sub_30002209<span style="color:navy">(&amp;</span><span style="color:#8080ff">v31</span><span style="color:navy">);
+      </span><span style="color:#8080ff">v5 </span><span style="color:navy">= -2147467259;
+      goto LABEL_5;
+    </span><span style="background:navy"></span><span style="color:navy">}
+    </span><span style="color:#8080ff">lpAddend </span><span style="color:navy">= 0;
+    </span><span style="color:#8080ff">v12 </span><span style="color:navy">= </span><span style="color:#8080ff">a3 </span><span style="color:navy">+ *((</span><span style="color:gray">_DWORD *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 10);
+    </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 2;
+    if ( </span>CStream::ShouldMoveToNormalStream<span style="color:navy">(</span><span style="color:#8080ff">v4</span><span style="color:navy">, </span><span style="color:#8080ff">v12</span><span style="color:navy">) )
+    {
+      </span><span style="color:#8080ff">v37 </span><span style="color:navy">= </span>CStream::CopyToNewRegion<span style="color:navy">(0, </span><span style="color:#8080ff">a3 </span><span style="color:navy">+ *((</span><span style="color:gray">_DWORD *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 10), &amp;</span><span style="color:#8080ff">lpAddend</span><span style="color:navy">);
+      </span><span style="color:#8080ff">v13 </span><span style="color:navy">= </span><span style="color:#8080ff">v37 &lt; </span><span style="color:navy">0;
+    </span><span style="background:navy"></span><span style="color:navy">}
+    else
+    {
+      </span>sub_3005286A<span style="color:navy">(*</span><span style="color:#8080ff">v7</span><span style="color:navy">);
+      if ( </span><span style="color:#8080ff">a3 </span><span style="color:navy">+ *((</span><span style="color:gray">_DWORD *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 10) &lt;= </span><span style="color:#8080ff">v10 </span><span style="color:navy">)
+        goto LABEL_20;
+      </span><span style="color:#8080ff">v36 </span><span style="color:navy">= (</span><span style="color:gray">void *</span><span style="color:navy">)</span>base::SupportsWeakPtr&lt;CShortStreamContainer&gt;::AsWeakPtr<span style="color:navy">(&amp;</span><span style="color:#8080ff">v30</span><span style="color:navy">);
+      </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 3;
+      </span><span style="color:#8080ff">v15 </span><span style="color:navy">= </span>sub_30002215<span style="color:navy">(&amp;</span><span style="color:#8080ff">v31</span><span style="color:navy">);
+      </span><span style="color:#8080ff">v16 </span><span style="color:navy">= </span><span style="color:#8080ff">v34</span><span style="color:navy">;
+      </span><span style="color:#8080ff">v37 </span><span style="color:navy">= </span><span style="color:#8080ff">v15 </span><span style="color:navy">!= 0 ? </span><span style="color:#8080ff">v32 </span><span style="color:navy">: 0;
+      </span><span style="color:#8080ff">v17 </span><span style="color:navy">= </span><span style="color:#8080ff">a3 </span><span style="color:navy">+ *((</span><span style="color:gray">_DWORD *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 10) - </span><span style="color:#8080ff">v10</span><span style="color:navy">;
+      </span><span style="color:#8080ff">v18 </span><span style="color:navy">= </span><span style="color:#8080ff">v36</span><span style="color:navy">;
+      </span><span style="color:#8080ff">v19 </span><span style="color:navy">= (*(</span><span style="color:gray">int (__thiscall **)(CStream *)</span><span style="color:navy">)(*(</span><span style="color:gray">_DWORD *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 28))(</span><span style="color:#8080ff">v4</span><span style="color:navy">);
+      </span><span style="color:#8080ff">v37 </span><span style="color:navy">= </span>sub_30053A26<span style="color:navy">(</span><span style="color:#8080ff">v19</span><span style="color:navy">, </span><span style="color:#8080ff">v18</span><span style="color:navy">, </span><span style="color:#8080ff">v17</span><span style="color:navy">, </span><span style="color:#8080ff">v16</span><span style="color:navy">);
+      </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 2;
+      </span>sub_30002209<span style="color:navy">(&amp;</span><span style="color:#8080ff">v30</span><span style="color:navy">);
+      </span><span style="color:#8080ff">v13 </span><span style="color:navy">= </span><span style="color:#8080ff">v37 &lt; </span><span style="color:navy">0;
+    </span><span style="background:navy"></span><span style="color:navy">}
+    if ( </span><span style="color:#8080ff">v13 </span><span style="color:navy">)
+      goto LABEL_16;
+LABEL_20:
+    </span><span style="color:#8080ff">v20 </span><span style="color:navy">= </span><span style="color:#8080ff">lpAddend</span><span style="color:navy">;
+    </span><span style="color:#8080ff">v35 </span><span style="color:navy">= 0;
+    </span><span style="color:#8080ff">v21 </span><span style="color:navy">= </span>base::SupportsWeakPtr&lt;CShortStreamContainer&gt;::AsWeakPtr<span style="color:navy">(&amp;</span><span style="color:#8080ff">v29</span><span style="color:navy">);
+    </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 4;
+    </span><span style="color:#8080ff">v37 </span><span style="color:navy">= </span>CStream::WriteInternal<span style="color:navy">(</span><span style="color:#8080ff">v21</span><span style="color:navy">, *((</span><span style="color:gray">_DWORD *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 10), </span><span style="color:#8080ff">a2</span><span style="color:navy">, </span><span style="color:#8080ff">a3</span><span style="color:navy">, &amp;</span><span style="color:#8080ff">v35</span><span style="color:navy">);
+    </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 2;
+    </span>sub_30002209<span style="color:navy">(&amp;</span><span style="color:#8080ff">v29</span><span style="color:navy">);
+    if ( </span><span style="color:#8080ff">v37 &gt;</span><span style="color:navy">= 0 )
+    {
+      *((</span><span style="color:gray">_DWORD *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 10) += </span><span style="color:#8080ff">v35</span><span style="color:navy">;
+      </span><span style="color:#8080ff">v36 </span><span style="color:navy">= 0;
+      </span><span style="color:#8080ff">v22 </span><span style="color:navy">= *</span><span style="color:#8080ff">v7</span><span style="color:navy">;
+      </span><span style="color:#8080ff">v23 </span><span style="color:navy">= *</span><span style="color:#8080ff">v7 </span><span style="color:navy">== </span><span style="color:#8080ff">v20</span><span style="color:navy">;
+      </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 5;
+      if ( !</span><span style="color:#8080ff">v23 </span><span style="color:navy">)
+      {
+        </span>sub_3005286A<span style="color:navy">(</span><span style="color:#8080ff">v22</span><span style="color:navy">);
+        </span>sub_3005286A<span style="color:navy">(</span><span style="color:#8080ff">v20</span><span style="color:navy">);
+      </span><span style="background:navy"></span><span style="color:navy">}
+      if ( *((</span><span style="color:gray">_DWORD *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 10) &gt; </span><span style="color:#8080ff">v34 </span><span style="color:navy">)
+      {
+        </span>sub_3005EE4B<span style="color:navy">(*((</span><span style="color:gray">_DWORD *</span><span style="color:navy">)</span><span style="color:#8080ff">v4 </span><span style="color:navy">+ 10));
+        </span><span style="color:#8080ff">v24 </span><span style="color:navy">= *</span><span style="color:#8080ff">v7</span><span style="color:navy">;
+        if ( </span><span style="color:#8080ff">v24 </span><span style="color:navy">)
+          </span><span style="color:#8080ff">v25 </span><span style="color:navy">= (</span><span style="color:gray">int</span><span style="color:navy">)(</span><span style="color:#8080ff">v24 </span><span style="color:navy">- 1);
+        else
+          </span><span style="color:#8080ff">v25 </span><span style="color:navy">= 0;
+        </span><span style="color:#8080ff">v26 </span><span style="color:navy">= </span>sub_3005224C<span style="color:navy">(</span><span style="color:#8080ff">v25 </span><span style="color:navy">+ 4);
+        </span>sub_3005EE2A<span style="color:navy">(</span><span style="color:#8080ff">v26</span><span style="color:navy">);
+        </span><span style="color:#8080ff">v37 </span><span style="color:navy">= </span>CStream::CommitEntry<span style="color:navy">(</span><span style="color:#8080ff">v4</span><span style="color:navy">);
+        if ( </span><span style="color:#8080ff">v37 &lt; </span><span style="color:navy">0 )
+        {
+          </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 2;
+          if ( </span><span style="color:#8080ff">v36 </span><span style="color:navy">)
+            </span>sub_30052786<span style="color:navy">(</span><span style="color:#8080ff">v36</span><span style="color:navy">);
+LABEL_16:
+          </span><span style="color:#8080ff">v14 </span><span style="color:navy">= </span><span style="color:#8080ff">lpAddend</span><span style="color:navy">;
+          </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 1;
+          if ( </span><span style="color:#8080ff">lpAddend </span><span style="color:navy">)
+            goto LABEL_39;
+          goto LABEL_40;
+        </span><span style="background:navy"></span><span style="color:navy">}
+        </span><span style="color:#8080ff">v20 </span><span style="color:navy">= </span><span style="color:#8080ff">lpAddend</span><span style="color:navy">;
+      </span><span style="background:#8080ff"></span><span style="color:navy">}
+      if ( </span><span style="color:#8080ff">v36 </span><span style="color:navy">)
+      {
+        </span><span style="color:#8080ff">v27 </span><span style="color:navy">= </span>base::SupportsWeakPtr&lt;CShortStreamContainer&gt;::AsWeakPtr<span style="color:navy">(&amp;</span><span style="color:#8080ff">v28</span><span style="color:navy">);
+        </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 6;
+        </span>sub_30002215<span style="color:navy">(&amp;</span><span style="color:#8080ff">v31</span><span style="color:navy">);
+        </span>sub_30053979<span style="color:navy">(</span><span style="color:#8080ff">v27</span><span style="color:navy">);
+        </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 5;
+        </span>sub_30002209<span style="color:navy">(&amp;</span><span style="color:#8080ff">v28</span><span style="color:navy">);
+      </span><span style="background:navy"></span><span style="color:navy">}
+      if ( </span><span style="color:#8080ff">a4 </span><span style="color:navy">)
+        *</span><span style="color:#8080ff">a4 </span><span style="color:navy">= </span><span style="color:#8080ff">v35</span><span style="color:navy">;
+      </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 2;
+      if ( </span><span style="color:#8080ff">v36 </span><span style="color:navy">)
+        </span>sub_30052786<span style="color:navy">(</span><span style="color:#8080ff">v36</span><span style="color:navy">);
+    </span><span style="background:navy"></span><span style="color:navy">}
+    </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 1;
+    if ( </span><span style="color:#8080ff">v20 </span><span style="color:navy">)
+    {
+      </span><span style="color:#8080ff">v14 </span><span style="color:navy">= </span><span style="color:#8080ff">v20</span><span style="color:navy">;
+LABEL_39:
+      </span>sub_30052786<span style="color:navy">((</span><span style="color:gray">void *</span><span style="color:navy">)</span><span style="color:#8080ff">v14</span><span style="color:navy">);
+    </span><span style="background:navy"></span><span style="color:navy">}
+LABEL_40:
+    </span>LOBYTE<span style="color:navy">(</span><span style="color:#8080ff">v39</span><span style="color:navy">) = 0;
+    </span>sub_30002209<span style="color:navy">(&amp;</span><span style="color:#8080ff">v31</span><span style="color:navy">);
+    </span><span style="color:#8080ff">v5 </span><span style="color:navy">= </span><span style="color:#8080ff">v37</span><span style="color:navy">;
+    goto LABEL_5;
+  </span><span style="background:navy"></span><span style="color:navy">}
+  </span><span style="color:#8080ff">v5 </span><span style="color:navy">= -530381841;
+LABEL_5:
+  </span><span style="color:#ff00ff">LeaveCriticalSection</span><span style="color:navy">(</span><span style="color:#8080ff">lpCriticalSection</span><span style="color:navy">);
+  return </span><span style="color:#8080ff">v5</span><span style="color:navy">;
+</span><span style="background:#8080ff"></span><span style="color:navy">}
+</span></body></html>

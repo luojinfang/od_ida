@@ -1,0 +1,8 @@
+修改创建进程的参数，将其设成suspend,然后单步执行过后这个进程就已经存在了，启动ollydbg attach。
+ 然后再原来的ollydbg中直接汇编调用resumethread.如果你经常要做不如把它给patch一下。要不然就是编辑被创建的进程的exe文件，
+ 在入口点加入一个int 3然后把OllyDbg设置成JIT，这些都应该行得通。我调试过类似的东西，就是断Createprocess搞得 
+ 
+ 
+ 
+ 
+可行； 在createprocess断点，运行创建完成进程后，再开一个OD，附加到该进程上调试

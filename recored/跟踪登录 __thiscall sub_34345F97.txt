@@ -1,0 +1,5724 @@
+
+
+//查看  ./流程/__008 sendData 在 SSOPlatf.3434624E 处引用了帐号 11111111
+SSOPlatf.3434624E 地址在这个方法: 成员方法
+		signed int __thiscall sub_34345F97(void *this, _DWORD *a2)					
+			<=[1] int __thiscall sub_34343DAD(int this, int a2, int a3)
+				<= int __stdcall sub_3434075A(int a1)  //构造工厂,初始化类? a1是一个类实例指针?  //引用 sub_34343DAD
+					<= signed int __stdcall sub_34317490(_DWORD *a1) [  v2 = operator new(0x58u); sub_3434075A((int)v2);]
+						<= signed int __usercall sub_343171B3@<eax>(int *a1@<edi>)							
+									<=[1]signed int __stdcall sub_343153C6(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
+									<=[2]int __stdcall sub_3431171A(int a1, int a2, int a3, wchar_t *a4, int a5, int a6, int a7, int a8, int a9, int a10)
+										<= int __thiscall sub_343114E6(int this, int a2)
+											<=int __stdcall sub_34311048(int a1) //引用 sub_343114E6
+												<= signed int __stdcall sub_34304993(_DWORD *a1)
+													<=int __stdcall sub_34303B4F(int a1, int a2, int a3, HWND hWnd, int a5, int a6, int a7)
+														<= off_3440C320
+															<=[1引用] void *sub_34303A38()
+															<=[2引用] int __stdcall sub_34303A9E(int a1)
+																<=signed int __stdcall sub_343102D2(int a1)																	
+																	<=[1].rdata:3440F9F8 dd offset sub_343102D2
+																	<=[2].rdata:3440FA58 dd offset sub_343102D2
+																	<=[3].rdata:3440FB00 dd offset sub_343102D2
+			<=[2] int __thiscall sub_343452AD(_DWORD *this, int a2, _DWORD *a3)
+				<= int __stdcall sub_3434075A(int a1)
+//__thiscall sub_34345F97
+signed int __thiscall sub_34345F97(void *this, _DWORD *a2)
+{
+  void *v2; // esi@1
+  _DWORD *v3; // eax@3
+  char v5; // al@9
+  int v6; // eax@12
+  int v7; // eax@12
+  int v8; // eax@12
+  int v9; // eax@12
+  int v10; // eax@12
+  int v11; // eax@12
+  int v12; // eax@12
+  int v13; // eax@12
+  int v14; // edi@13
+  int v15; // ST2C_4@13
+  int v16; // eax@13
+  int v17; // eax@17
+  int v18; // edi@17
+  void *v19; // eax@19
+  int v20; // eax@20
+  signed int v21; // esi@23
+  int v22; // edi@25
+  char v23; // [sp+14h] [bp-F8h]@12
+  int v24; // [sp+18h] [bp-F4h]@12
+  int v25; // [sp+1Ch] [bp-F0h]@12
+  int v26; // [sp+20h] [bp-ECh]@12
+  int v27; // [sp+24h] [bp-E8h]@12
+  int v28; // [sp+28h] [bp-E4h]@12
+  char v29; // [sp+2Ch] [bp-E0h]@12
+  char v30; // [sp+30h] [bp-DCh]@12
+  char v31; // [sp+34h] [bp-D8h]@12
+  char v32; // [sp+38h] [bp-D4h]@12
+  char v33; // [sp+3Ch] [bp-D0h]@12
+  char v34; // [sp+40h] [bp-CCh]@12
+  int v35; // [sp+44h] [bp-C8h]@12
+  int v36; // [sp+48h] [bp-C4h]@13
+  int v37; // [sp+4Ch] [bp-C0h]@17
+  int v38; // [sp+50h] [bp-BCh]@17
+  char v39; // [sp+54h] [bp-B8h]@17
+  int v40; // [sp+108h] [bp-4h]@12
+
+  v2 = this;
+  sub_3430511B(2011, (int)L"TXSSO", (unsigned int)L">> SSO: Step2A CheckTGTGT");
+  if ( a2 )
+    *a2 = 10;
+  v3 = (_DWORD *)*((_DWORD *)v2 + 16);
+  if ( !v3 )
+  {
+    sub_3430511B(
+      2019,
+      (int)L"TXSSO_Assert",
+      (unsigned int)L"### SSO: Step2A_CheckTGTGT , CurJob is NULL, Critical Error !!!");
+    return 1;
+  }
+  if ( *v3 || !v3 )
+  {
+    v5 = sub_34328691();
+    sub_3430F9BA(
+      (int)L"file",
+      2021,
+      (int)L"func",
+      (int)L"TXSSO",
+      (int)L"## SSO: Current Job is Cancelled, Start Next Job, PendingJobCount=%lu",
+      v5);
+    if ( *((_DWORD *)v2 + 16) )
+      sub_34340B08(*((void **)v2 + 16));
+    *((_DWORD *)v2 + 16) = 0;
+    sub_34347F09(v2);
+    return 1;
+  }
+  sub_3432025B(&v23);
+  v40 = 0;
+  v6 = *((_DWORD *)v2 + 16);
+  v24 = *(_DWORD *)(v6 + 160);
+  CTXBSTR::operator=(&v23, v6 + 164);  //.faq 获得帐号?? this_v16_v164
+  v7 = *((_DWORD *)v2 + 16);
+  LOWORD(v25) = *(_BYTE *)(v7 + 168);
+  v27 = *(_DWORD *)(v7 + 172);
+  v26 = *(_DWORD *)(v7 + 12);
+  v28 = *(_DWORD *)(v7 + 28);
+  sub_3431E6E6(&v29);
+  v8 = *((_DWORD *)v2 + 16);
+  sub_3431E6E6(&v30);
+  v9 = *((_DWORD *)v2 + 16);
+  sub_3431E6E6(&v31);
+  v10 = *((_DWORD *)v2 + 16);
+  sub_3431E6E6(&v32);
+  v11 = *((_DWORD *)v2 + 16);
+  sub_3431E6E6(&v33);
+  v12 = *((_DWORD *)v2 + 16);
+  sub_3431E6E6(&v34);
+  v13 = *((_DWORD *)v2 + 16);
+  v35 = *(_DWORD *)(v13 + 100);
+  if ( *(_DWORD *)(v13 + 176) )
+  {
+    v14 = v13;
+    v15 = *(_DWORD *)(v13 + 176);
+    v16 = CTXBSTR::operator wchar_t *(v13 + 164);  //.faq 获得帐号?? this_v16_v164
+    sub_34361494(v15, *(_DWORD *)(v14 + 12), v16, &v36);
+    if ( !sub_343176C8(&v36) && sub_343182C0() != 16 )
+    {
+      sub_3430511B(2053, (int)L"TXSSO", (unsigned int)L"### SSO: Fail to Load SID, SID Exists but SIDLen is Invalid.");
+      if ( v36 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)v36 + 32))(v36);
+    }
+  }
+  v17 = *((_DWORD *)v2 + 16);
+  v37 = *(_DWORD *)(v17 + 88);
+  v38 = *(_DWORD *)(v17 + 92);
+  sub_34320EB3(&v39, v17 + 260);
+  v18 = *((_DWORD *)v2 + 16) + 236;
+  if ( *(_DWORD *)v18 )
+    (**(void (__thiscall ***)(_DWORD, _DWORD))(*(_DWORD *)v18 + 4))(*(_DWORD *)v18 + 4, 1);
+  *(_DWORD *)v18 = 0;
+  v19 = operator new(0x1D8u);
+  LOBYTE(v40) = 1;
+  if ( v19 )
+    v20 = sub_343207E7(v19);
+  else
+    v20 = 0;
+  LOBYTE(v40) = 0;
+  *(_DWORD *)(*((_DWORD *)v2 + 16) + 236) = v20;
+  if ( sub_34320C35(
+         *(_DWORD *)(*((_DWORD *)v2 + 16) + 236),
+         *(_DWORD *)(*((_DWORD *)v2 + 16) + 224),
+         *((_DWORD *)v2 + 13),
+         a2) )
+  {
+    ++*(_DWORD *)(*((_DWORD *)v2 + 16) + 1112);
+    v22 = *((_DWORD *)v2 + 16);
+    *(_DWORD *)(v22 + 1116) = GetTickCount();
+    *(_DWORD *)(*((_DWORD *)v2 + 16) + 1140) = 0;
+    *(_DWORD *)(*((_DWORD *)v2 + 16) + 1144) = 0;
+    *(_DWORD *)(*((_DWORD *)v2 + 16) + 1152) = 0;
+    *(_DWORD *)(*((_DWORD *)v2 + 16) + 1156) = 0;
+    v21 = 1;
+  }
+  else
+  {
+    v21 = 0;
+  }
+  v40 = -1;
+  sub_343202AC(&v23);
+  return v21;
+}
+
+
+int __thiscall sub_34343DAD(int this, int a2, int a3)
+{
+  int v3; // esi@1
+  int v4; // edi@1
+  DWORD v6; // eax@4
+  int v7; // ebx@4
+  void **v8; // eax@6
+  void *v9; // ecx@6
+  int v10; // eax@6
+  int v11; // eax@6
+  int *v12; // eax@8
+  int v13; // eax@23
+  void *v14; // [sp-18h] [bp-64h]@6
+  int v15; // [sp-14h] [bp-60h]@6
+  int v16; // [sp-10h] [bp-5Ch]@6
+  void *v17; // [sp-Ch] [bp-58h]@6
+  int v18; // [sp-8h] [bp-54h]@6
+  void **v19; // [sp+10h] [bp-3Ch]@6
+  int v20; // [sp+1Ch] [bp-30h]@28
+  int v21; // [sp+20h] [bp-2Ch]@27
+  int v22; // [sp+24h] [bp-28h]@21
+  int v23; // [sp+28h] [bp-24h]@18
+  int v24; // [sp+2Ch] [bp-20h]@17
+  int v25; // [sp+30h] [bp-1Ch]@14
+  int v26; // [sp+34h] [bp-18h]@8
+  int v27; // [sp+38h] [bp-14h]@1
+  int v28; // [sp+48h] [bp-4h]@6
+
+  v3 = this;
+  v27 = this;
+  v4 = *(_DWORD *)(this + 64);
+  if ( !v4 )
+  {
+    sub_3430511B(
+      1085,
+      (int)L"TXSSO_Assert",
+      (unsigned int)L"### SSO: OnCsEnvInit_OK , CurJob is NULL, Critical Error !!!");
+    return 0;
+  }
+  v6 = GetTickCount();
+  v7 = a3;
+  *(_DWORD *)(v4 + 1108) = v6;
+  if ( *(_DWORD *)(*(_DWORD *)(v3 + 64) + 224) != *(_DWORD *)(v7 + 32) )
+  {
+    sub_3430FB53();
+    v3 = v27;
+  }
+  sub_34320EB3(*(_DWORD *)(v3 + 64) + 260, v7 + 4);
+  sub_3432BBD0(*(_DWORD *)(v3 + 64) + 828);
+  sub_343285A9(*(_DWORD *)(v3 + 64) + 1064);
+  v18 = *(_WORD *)(v7 + 36);
+  v8 = (void **)Util::Network::IPToString(&a3, *(_DWORD *)(v7 + 20));
+  v9 = v17;
+  v28 = 0;
+  v17 = *v8;
+  v10 = *(_WORD *)(v7 + 8);
+  v16 = *(_DWORD *)(v7 + 12);
+  v15 = v10;
+  v14 = v9;
+  v19 = &v14;
+  CTXBSTR::CTXBSTR(&v14);
+  sub_3431DFF8(
+    L"file",
+    1099,
+    L"func",
+    L"TXSSO",
+    L">>> SSO: Select Server OK: Address=%s:%d:%d, WanIP=%s, RedirectCount=%d",
+    v7 + 4);
+  v28 = -1;
+  CTXStringW::~CTXStringW((CTXStringW *)&a3);
+  v28 = 1;
+  v11 = *(_DWORD *)(v3 + 64);
+  if ( *(_DWORD *)(v11 + 8) == 3 )
+  {
+    sub_3430511B(1105, (int)L"TXSSO", (unsigned int)L"SSO: Start to Renew TGT");
+    a3 = 0;
+    if ( sub_343462B0(&a3) )
+      return 0;
+    v26 = a3;
+    v17 = &unk_34436B14;
+    v12 = &v26;
+LABEL_9:
+    _CxxThrowException(v12, v17);
+  }
+  if ( *(_DWORD *)(v11 + 8) == 4 )
+  {
+    sub_3430511B(1116, (int)L"TXSSO", (unsigned int)L"SSO: Start to Relogin Simple Flow");
+    if ( sub_34346684(v3) )
+      return 0;
+    a3 = 0;
+    if ( sub_343176C8(*(_DWORD *)(v3 + 64) + 192) )
+    {
+      if ( *(_DWORD *)(*(_DWORD *)(v3 + 64) + 212) )
+      {
+        if ( sub_343462B0(&a3) )
+          return 0;
+        v24 = a3;
+        v17 = &unk_34436B14;
+        v12 = &v24;
+      }
+      else
+      {
+        v23 = 8;
+        v17 = &unk_34436AAC;
+        v12 = &v23;
+      }
+    }
+    else
+    {
+      if ( sub_34345F97((void *)v3, &a3) ) //.faq 传帐号
+        return 0;
+      v25 = a3;
+      v17 = &unk_34436B14;
+      v12 = &v25;
+    }
+    goto LABEL_9;
+  }
+  if ( *(_DWORD *)(v11 + 8) == 2 )
+  {
+    sub_3430511B(1152, (int)L"TXSSO", (unsigned int)L"SSO: Start to Exchange TGT");
+    a3 = 0;
+    if ( sub_343462B0(&a3) )
+      return 0;
+    v22 = a3;
+    v17 = &unk_34436B14;
+    v12 = &v22;
+    goto LABEL_9;
+  }
+  if ( *(_DWORD *)(v11 + 8) != 1 )
+  {
+    sub_3430F9BA(
+      (int)L"file",
+      1183,
+      (int)L"func",
+      (int)L"TXSSO",
+      (int)L"### SSO: CsEnvInit Reply OK. Unknown Job Type, JobType=%d.",
+      *(_DWORD *)(v11 + 8));
+    v20 = 10;
+    v17 = &unk_34436AAC;
+    v12 = &v20;
+    goto LABEL_9;
+  }
+  sub_3430511B(1164, (int)L"TXSSO", (unsigned int)L"SSO: Start to Check TGTGT");
+  v13 = *(_DWORD *)(v3 + 64);
+  if ( *(_BYTE *)(v13 + 20) == 6 || *(_BYTE *)(v13 + 20) == 7 )
+    sub_3430511B(
+      1169,
+      (int)L"TXSSO",
+      (unsigned int)L"### SSO: CsEnvInit Reply OK, Job Type SSO_SPECIFYLOGIN_TEST_SERVER is unexpected.");
+  a3 = 0;
+  if ( !sub_34345F97((void *)v3, &a3) ) //.faq 传帐号
+  {
+    v21 = a3;
+    v17 = &unk_34436B14;
+    v12 = &v21;
+    goto LABEL_9;
+  }
+  return 0;
+}
+
+
+
+--------------------
+int __stdcall sub_3434075A(int a1)
+{
+  int v1; // esi@1
+  int v2; // eax@1
+  int v3; // eax@1
+  int v4; // eax@1
+  int v5; // eax@1
+  int v6; // eax@1
+  int v7; // eax@1
+  int v8; // eax@1
+  int v9; // eax@1
+  int v10; // eax@1
+  int v11; // eax@1
+  int v12; // eax@1
+  int v13; // eax@1
+  int v14; // eax@1
+  int v15; // eax@1
+  int v16; // eax@1
+  int v17; // eax@1
+  int v18; // eax@1
+
+  v1 = a1;
+  *(_DWORD *)(a1 + 4) = 0;
+  *(_DWORD *)a1 = off_34426A0C;
+  sub_3434B0FF(a1 + 8, a1);
+  sub_3434B174(v1 + 16, v1);
+  sub_3434B174(v1 + 24, v1);
+  sub_3434B174(v1 + 32, v1);
+  sub_3434B20B(v1 + 40, v1);
+  sub_3434B2B5(v1 + 48, v1);
+  sub_3434B35F(v1 + 56, v1);
+  *(_DWORD *)(a1 + 64) = 0;
+  *(_DWORD *)(a1 + 68) = 0;
+  *(_DWORD *)(a1 + 76) = 0;
+  *(_DWORD *)(a1 + 80) = 0;
+  *(_DWORD *)(a1 + 84) = 0;
+  sub_34340A70();
+  v2 = *(_DWORD *)(a1 + 12);
+  *(_DWORD *)(v2 + 44) = 0;
+  *(_DWORD *)(v2 + 40) = sub_34345972;
+  v3 = *(_DWORD *)(a1 + 36);
+  *(_DWORD *)(v3 + 44) = 0;
+  *(_DWORD *)(v3 + 40) = sub_3434A3ED;
+  v4 = *(_DWORD *)(a1 + 20);
+  *(_DWORD *)(v4 + 44) = 0;
+  *(_DWORD *)(v4 + 40) = sub_3434774B;
+  v5 = *(_DWORD *)(a1 + 28);
+  *(_DWORD *)(v5 + 44) = 0;
+  *(_DWORD *)(v5 + 40) = sub_34349BAA;
+  v6 = *(_DWORD *)(a1 + 44);
+  *(_DWORD *)(v6 + 40) = sub_34343DAD;
+  *(_DWORD *)(v6 + 44) = 0;
+  v7 = *(_DWORD *)(a1 + 44);
+  *(_DWORD *)(v7 + 48) = sub_3434411D;
+  *(_DWORD *)(v7 + 52) = 0;
+  v8 = *(_DWORD *)(a1 + 44);
+  *(_DWORD *)(v8 + 56) = sub_343442E3;
+  *(_DWORD *)(v8 + 60) = 0;
+  v9 = *(_DWORD *)(a1 + 52);
+  *(_DWORD *)(v9 + 44) = 0;
+  *(_DWORD *)(v9 + 40) = sub_3434434A;
+  v10 = *(_DWORD *)(a1 + 52);
+  *(_DWORD *)(v10 + 52) = 0;
+  *(_DWORD *)(v10 + 48) = sub_343447C5;
+  v11 = *(_DWORD *)(a1 + 52);
+  *(_DWORD *)(v11 + 60) = 0;
+  *(_DWORD *)(v11 + 56) = sub_3434486C;
+  v12 = *(_DWORD *)(a1 + 52);
+  *(_DWORD *)(v12 + 68) = 0;
+  *(_DWORD *)(v12 + 64) = sub_34344989;
+  v13 = *(_DWORD *)(a1 + 52);
+  *(_DWORD *)(v13 + 76) = 0;
+  *(_DWORD *)(v13 + 72) = sub_34344B3B;
+  v14 = *(_DWORD *)(a1 + 52);
+  *(_DWORD *)(v14 + 84) = 0;
+  *(_DWORD *)(v14 + 80) = sub_34344E03;
+  v15 = *(_DWORD *)(a1 + 60);
+  *(_DWORD *)(v15 + 44) = 0;
+  *(_DWORD *)(v15 + 40) = sub_34345019;
+  v16 = *(_DWORD *)(a1 + 60);
+  *(_DWORD *)(v16 + 68) = 0;
+  *(_DWORD *)(v16 + 64) = sub_343452AD;
+  v17 = *(_DWORD *)(a1 + 60);
+  *(_DWORD *)(v17 + 48) = sub_34345360;
+  *(_DWORD *)(v17 + 52) = 0;
+  v18 = *(_DWORD *)(a1 + 60);
+  *(_DWORD *)(v18 + 56) = sub_343454D1;
+  *(_DWORD *)(v18 + 60) = 0;
+  return a1;
+}
+
+------------
+signed int __stdcall sub_34317490(_DWORD *a1)
+{
+  signed int result; // eax@2
+  _DWORD *v2; // eax@3
+  _DWORD *v3; // esi@3
+  _DWORD *v4; // eax@4
+  signed int v5; // [sp+14h] [bp-14h]@3
+
+  if ( a1 )
+  {
+    *a1 = 0;
+    v5 = -2147024882;
+    v2 = operator new(0x58u);
+    v3 = v2;
+    if ( v2 )
+    {
+      sub_3434075A((int)v2);
+      *v3 = &off_34413F8C;
+      (*(void (**)(void))(*(_DWORD *)dword_344529CC + 4))();
+      v4 = v3;
+    }
+    else
+    {
+      v4 = 0;
+    }
+    if ( v4 )
+    {
+      ++v4[1];
+      v5 = 0;
+      --v4[1];
+    }
+    *a1 = v4;
+    result = v5;
+  }
+  else
+  {
+    result = -2147467261;
+  }
+  return result;
+}
+----------------------------
+signed int __usercall sub_343171B3@<eax>(int *a1@<edi>)
+{
+  signed int result; // eax@2
+  int v2; // esi@3
+  int v3; // [sp+4h] [bp-4h]@3
+
+  if ( a1 && (*a1 = 0, v3 = 0, sub_34317490(&v3), (v2 = v3) != 0) )
+  {
+    (*(void (__stdcall **)(int))(*(_DWORD *)v3 + 4))(v3);
+    *a1 = v2;
+    result = 1;
+  }
+  else
+  {
+    result = 0;
+  }
+  return result;
+}
+
+
+---------------------------------------------------------------------------------------------------------
+int __stdcall sub_3431171A(int a1, int a2, int a3, wchar_t *a4, int a5, int a6, int a7, int a8, int a9, int a10)
+{
+  int v11; // eax@3
+  _DWORD *v12; // esi@8
+  int v13; // eax@8
+  int v14; // edi@8
+  _DWORD *v15; // edi@14
+  int v16; // eax@15
+  void (__stdcall **v17)(_DWORD, _DWORD); // esi@15
+  int v18; // eax@15
+  _DWORD *v19; // edi@15
+  int v20; // eax@15
+  void (__stdcall **v21)(_DWORD, _DWORD); // esi@15
+  int v22; // eax@15
+  _DWORD *v23; // edi@15
+  int v24; // eax@15
+  void (__stdcall **v25)(_DWORD, _DWORD); // esi@15
+  int v26; // eax@15
+  int v27; // eax@15
+  int v28; // edi@17
+  void (__stdcall **v29)(_DWORD, _DWORD, _DWORD); // esi@17
+  int v30; // eax@17
+  int v31; // eax@18
+  _BYTE *v32; // esi@22
+  int v33; // ST2C_4@22
+  wchar_t *v34; // ST2C_4@42
+  int v35; // eax@42
+  int v36; // ST28_4@58
+  int v37; // eax@62
+  void (__stdcall **v38)(_DWORD, _DWORD); // esi@62
+  int v39; // eax@62
+  int v40; // eax@62
+  void (__stdcall **v41)(_DWORD, _DWORD); // esi@62
+  int v42; // eax@62
+  int *v43; // edi@65
+  int v44; // eax@65
+  int v45; // ebx@65
+  int v46; // eax@65
+  int *v47; // ebx@66
+  void (__stdcall **v48)(_DWORD, _DWORD); // edi@66
+  int v49; // eax@66
+  int v50; // esi@69
+  int v51; // ST2C_4@70
+  int v52; // eax@71
+  _DWORD *v53; // edi@79
+  int v54; // eax@80
+  void (__stdcall **v55)(_DWORD, _DWORD); // esi@80
+  int v56; // eax@80
+  const wchar_t *v57; // esi@80
+  const wchar_t *v58; // ebx@80
+  _DWORD *v59; // edi@90
+  int v60; // eax@90
+  void (__stdcall **v61)(_DWORD, _DWORD); // edi@90
+  int v62; // eax@90
+  int v63; // eax@91
+  void (__stdcall **v64)(_DWORD, _DWORD); // edi@91
+  int v65; // eax@91
+  int v66; // edi@92
+  int v67; // ST2C_4@95
+  int v68; // eax@114
+  struct ITXDataRead *v69; // edi@118
+  int v70; // eax@119
+  void (__stdcall **v71)(_DWORD, _DWORD); // edi@119
+  int v72; // eax@119
+  int v73; // eax@121
+  int v74; // eax@121
+  int v75; // eax@122
+  int v76; // ST28_4@125
+  int v77; // edi@132
+  int v78; // ST2C_4@133
+  int v79; // eax@137
+  int v80; // ST2C_4@138
+  int v81; // ST2C_4@143
+  int v82; // ST2C_4@151
+  int v83; // eax@159
+  int v84; // edi@168
+  int v85; // eax@176
+  int v86; // eax@182
+  void (__stdcall **v87)(_DWORD, _DWORD); // edi@182
+  int v88; // eax@182
+  int v89; // eax@183
+  int v90; // edi@183
+  int v91; // eax@183
+  int v92; // eax@189
+  void (__stdcall **v93)(_DWORD, _DWORD); // edi@189
+  int v94; // eax@189
+  int v95; // eax@193
+  int v96; // ST2C_4@196
+  _DWORD *v97; // edi@220
+  int v98; // eax@220
+  void (__stdcall **v99)(_DWORD, _DWORD); // ebx@220
+  int v100; // eax@220
+  int v101; // eax@220
+  void (__stdcall **v102)(_DWORD, _DWORD); // ebx@220
+  int v103; // eax@220
+  int v104; // eax@220
+  void (__stdcall **v105)(_DWORD, _DWORD); // ebx@220
+  int v106; // eax@220
+  int v107; // eax@220
+  int v108; // ST2C_4@220
+  void (__stdcall **v109)(_DWORD, _DWORD); // ebx@220
+  int v110; // eax@220
+  int v111; // eax@220
+  void (__stdcall **v112)(_DWORD, _DWORD); // ebx@220
+  int v113; // eax@220
+  int v114; // eax@220
+  void (__stdcall **v115)(_DWORD, _DWORD); // ebx@220
+  int v116; // eax@220
+  int v117; // [sp-Ch] [bp-178h]@81
+  int v118; // [sp-Ch] [bp-178h]@160
+  const wchar_t *v119; // [sp-8h] [bp-174h]@81
+  struct ITXBuffer **v120; // [sp-4h] [bp-170h]@66
+  int v121; // [sp-4h] [bp-170h]@70
+  const wchar_t *v122; // [sp-4h] [bp-170h]@81
+  char v123; // [sp+2Ch] [bp-140h]@15
+  char v124; // [sp+30h] [bp-13Ch]@62
+  char v125; // [sp+34h] [bp-138h]@15
+  int v126; // [sp+38h] [bp-134h]@170
+  int v127; // [sp+3Ch] [bp-130h]@152
+  char v128; // [sp+40h] [bp-12Ch]@66
+  int v129; // [sp+44h] [bp-128h]@142
+  int v130; // [sp+48h] [bp-124h]@162
+  int v131; // [sp+4Ch] [bp-120h]@124
+  int v132; // [sp+50h] [bp-11Ch]@99
+  int v133; // [sp+54h] [bp-118h]@134
+  int v134; // [sp+58h] [bp-114h]@245
+  char v135; // [sp+5Ch] [bp-110h]@91
+  int v136; // [sp+60h] [bp-10Ch]@243
+  char v137; // [sp+64h] [bp-108h]@80
+  int v138; // [sp+68h] [bp-104h]@221
+  char v139; // [sp+6Ch] [bp-100h]@62
+  char v140; // [sp+70h] [bp-FCh]@220
+  int v141; // [sp+74h] [bp-F8h]@164
+  char v142; // [sp+78h] [bp-F4h]@220
+  int v143; // [sp+7Ch] [bp-F0h]@155
+  char v144; // [sp+80h] [bp-ECh]@220
+  int v145; // [sp+84h] [bp-E8h]@144
+  char v146; // [sp+88h] [bp-E4h]@220
+  int v147; // [sp+8Ch] [bp-E0h]@140
+  char v148; // [sp+90h] [bp-DCh]@220
+  int v149; // [sp+94h] [bp-D8h]@130
+  char v150; // [sp+98h] [bp-D4h]@220
+  char v151; // [sp+9Ch] [bp-D0h]@119
+  int v152; // [sp+A0h] [bp-CCh]@219
+  char v153; // [sp+A4h] [bp-C8h]@90
+  int v154; // [sp+A8h] [bp-C4h]@197
+  char v155; // [sp+ACh] [bp-C0h]@15
+  int v156; // [sp+B0h] [bp-BCh]@195
+  int v157; // [sp+B4h] [bp-B8h]@67
+  char v158; // [sp+B8h] [bp-B4h]@189
+  char v159; // [sp+BCh] [bp-B0h]@65
+  char v160; // [sp+C0h] [bp-ACh]@183
+  char v161; // [sp+C4h] [bp-A8h]@182
+  int v162; // [sp+C8h] [bp-A4h]@97
+  int v163; // [sp+CCh] [bp-A0h]@15
+  int v164; // [sp+D0h] [bp-9Ch]@50
+  void *v165; // [sp+D4h] [bp-98h]@71
+  int v166; // [sp+D8h] [bp-94h]@51
+  char v167; // [sp+DCh] [bp-90h]@8
+  int v168; // [sp+E0h] [bp-8Ch]@53
+  int v169; // [sp+E4h] [bp-88h]@53
+  char v170; // [sp+E8h] [bp-84h]@53
+  int v171; // [sp+FCh] [bp-70h]@1
+  unsigned int v172; // [sp+100h] [bp-6Ch]@16
+  unsigned int v173; // [sp+104h] [bp-68h]@13
+  unsigned int v174; // [sp+108h] [bp-64h]@66
+  int v175; // [sp+10Ch] [bp-60h]@120
+  char v176; // [sp+110h] [bp-5Ch]@17
+  int v177; // [sp+114h] [bp-58h]@12
+  int v178; // [sp+118h] [bp-54h]@148
+  int v179; // [sp+11Ch] [bp-50h]@118
+  _DWORD *v180; // [sp+120h] [bp-4Ch]@14
+  int v181; // [sp+124h] [bp-48h]@15
+  Util::SSOConvert *v182; // [sp+128h] [bp-44h]@120
+  int v183; // [sp+12Ch] [bp-40h]@79
+  int *v184; // [sp+130h] [bp-3Ch]@63
+  int v185; // [sp+134h] [bp-38h]@13
+  int v186; // [sp+138h] [bp-34h]@16
+  Util::Data *v187; // [sp+13Ch] [bp-30h]@62
+  _DWORD *v188; // [sp+140h] [bp-2Ch]@59
+  int v189; // [sp+144h] [bp-28h]@59
+  int v190; // [sp+148h] [bp-24h]@40
+  int v191; // [sp+14Ch] [bp-20h]@40
+  Util::Data *v192; // [sp+150h] [bp-1Ch]@59
+  struct ITXDataRead *v193; // [sp+154h] [bp-18h]@59
+  int v194; // [sp+168h] [bp-4h]@8
+
+  v171 = 0;
+  sub_3430F9BA(
+    (int)L"file",
+    195,
+    (int)L"func",
+    (int)L"TXSSO",
+    (int)L">>> SSOAPP: Request Service Ticket AppHandle=%lu, ServiceID=%lu, Account=%s, CredentialType=%u, CredentialData="
+          "0x%08x, RequestInfo=0x%08x",
+    a2);
+  *(_DWORD *)a8 = 0;
+  *(_BYTE *)a9 = 0;
+  *(_DWORD *)a10 = 10;
+  if ( *(_DWORD *)(a1 + 12) )
+    return -2147024891;
+  v11 = *(_DWORD *)(a1 + 44);
+  if ( v11 != a2 )
+  {
+    sub_3430F9BA(
+      (int)L"file",
+      209,
+      (int)L"func",
+      (int)L"TXSSO_Assert",
+      (int)L"## SSOApp: Invalid App Handle, RegAppHandle=%d, InAppHandle=%d",
+      v11);
+    return -2147024809;
+  }
+  if ( !wcslen(a4) )
+  {
+    sub_3430511B(215, (int)L"TXSSO_Assert", (unsigned int)L"## SSOApp: Account Len is 0.");
+    *(_DWORD *)a10 = 78;
+    return -2147024809;
+  }
+  CTXStringW::CTXStringW(&v167, a4);
+  v12 = (_DWORD *)a8;
+  v194 = 0;
+  v13 = sub_34362F6F(&v167);
+  v194 = -1;
+  v14 = v13;
+  CTXStringW::~CTXStringW((CTXStringW *)&v167);
+  if ( v14 )
+  {
+    *(_BYTE *)a9 = 2;
+    goto LABEL_40;
+  }
+  if ( *v12 && *(_BYTE *)a9 )
+    goto LABEL_38;
+  sub_3430F9BA(
+    (int)L"file",
+    258,
+    (int)L"func",
+    (int)L"TXSSO",
+    (int)L"SSOApp: Try to Get Email Account Uin From PVA List, Account=%s",
+    (char)a4);
+  v177 = 0;
+  v194 = 1;
+  sub_34305657();
+  sub_3430CB7A(&v177);
+  if ( !v177 )
+    goto LABEL_36;
+  v173 = 0;
+  (*(void (__stdcall **)(int, int *))(*(_DWORD *)v177 + 88))(v177, (int *)&v173);
+  v185 = 0;
+  if ( v173 <= 0 )
+    goto LABEL_36;
+  while ( 1 )
+  {
+    v180 = 0;
+    LOBYTE(v194) = 2;
+    (*(void (__stdcall **)(int, int, int *))(*(_DWORD *)v177 + 248))(v177, v185, (int *)&v180);
+    v15 = v180;
+    if ( v180 )
+      break;
+LABEL_28:
+    LOBYTE(v194) = 1;
+    if ( v180 )
+      (*(void (__stdcall **)(int))(*v180 + 8))((int)v180);
+    if ( ++v185 >= v173 )
+      goto LABEL_36;
+  }
+  v163 = 0;
+  v181 = 0;
+  BYTE3(a2) = 0;
+  LOBYTE(v194) = 3;
+  v16 = sub_343051DB(&v155, L"cSSO_Account_cAccountType");
+  LOBYTE(v194) = 4;
+  v17 = (void (__stdcall **)(_DWORD, _DWORD))(*v15 + 32);
+  v18 = CTXBSTR::operator wchar_t *(v16);
+  (*v17)(v15, v18);
+  LOBYTE(v194) = 3;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v155);
+  v19 = v180;
+  v20 = sub_343051DB(&v125, L"dwSSO_Account_dwAccountUin");
+  LOBYTE(v194) = 5;
+  v21 = (void (__stdcall **)(_DWORD, _DWORD))(*v19 + 48);
+  v22 = CTXBSTR::operator wchar_t *(v20);
+  (*v21)(v19, v22);
+  LOBYTE(v194) = 3;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v125);
+  v23 = v180;
+  v24 = sub_343051DB(&v123, L"SSO_Account_AccountValueList");
+  LOBYTE(v194) = 6;
+  v25 = (void (__stdcall **)(_DWORD, _DWORD))(*v23 + 192);
+  v26 = CTXBSTR::operator wchar_t *(v24);
+  (*v25)(v23, v26);
+  LOBYTE(v194) = 3;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v123);
+  v27 = v181;
+  if ( v181 )
+  {
+    v172 = 0;
+    (*(void (__stdcall **)(int, int *))(*(_DWORD *)v181 + 88))(v181, (int *)&v172);
+    v186 = 0;
+    if ( v172 > 0 )
+    {
+      while ( 1 )
+      {
+        CTXBSTR::CTXBSTR(&v176);
+        LOBYTE(v194) = 7;
+        v28 = v181;
+        v29 = (void (__stdcall **)(_DWORD, _DWORD, _DWORD))(*(_DWORD *)v181 + 56);
+        v30 = CTXBSTR::operator&(&v176);
+        (*v29)(v28, v186, v30);
+        if ( (unsigned __int8)CTXBSTR::operator==(&v176, a4) )
+        {
+          v31 = v163;
+          if ( v163 )
+          {
+            if ( BYTE3(a2) )
+              break;
+          }
+        }
+        CTXBSTR::~CTXBSTR((CTXBSTR *)&v176);
+        if ( ++v186 >= v172 )
+          goto LABEL_23;
+      }
+      v32 = (_BYTE *)a9;
+      *(_BYTE *)a9 = BYTE3(a2);
+      *(_DWORD *)a8 = v31;
+      v33 = *v32;
+      sub_3430F9BA(
+        (int)L"file",
+        294,
+        (int)L"func",
+        (int)L"TXSSO",
+        (int)L"SSOApp: Get Email Account Uin From PVA List, %s->%lu, Type=%d",
+        (char)a4);
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v176);
+    }
+LABEL_23:
+    v27 = v181;
+  }
+  if ( !*(_DWORD *)a8 || !*(_BYTE *)a9 )
+  {
+    LOBYTE(v194) = 2;
+    if ( v27 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)v27 + 8))(v27);
+    goto LABEL_28;
+  }
+  LOBYTE(v194) = 2;
+  if ( v27 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v27 + 8))(v27);
+  LOBYTE(v194) = 1;
+  if ( v180 )
+    (*(void (__stdcall **)(_DWORD *))(*v180 + 8))(v180);
+LABEL_36:
+  v194 = -1;
+  if ( v177 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v177 + 8))(v177);
+LABEL_38:
+  if ( !*(_DWORD *)a8 )
+    sub_3430F9BA(
+      (int)L"file",
+      315,
+      (int)L"func",
+      (int)L"TXSSO",
+      (int)L"# SSOApp: Fail to Get Email Account Uin, Account=%s",
+      (char)a4);
+LABEL_40:
+  v191 = 0;
+  v194 = 8;
+  v190 = a1 + 100;
+  sub_3433D5C1();
+  while ( 1 )
+  {
+    sub_3431624E();
+    if ( !(unsigned __int8)sub_3431645A() )
+      break;
+    if ( *(_DWORD *)(sub_3433D630() + 4) == *(_DWORD *)a8
+      || (v34 = a4, v35 = sub_3433D630(), (unsigned __int8)CTXBSTR::operator==(v35 + 8, v34)) )
+    {
+      if ( !*(_DWORD *)sub_3433D630() )
+        sub_3430511B(326, (int)L"TXSSO_Assert", (unsigned int)L"## SSOApp: Found SSO in VecSSOList, But pSSO is NULL.");
+      if ( *(_DWORD *)sub_3433D630() )
+        sub_3430FB53();
+      break;
+    }
+    sub_3432CC12();
+  }
+  v164 = 0;
+  if ( v191 )
+  {
+    v36 = *(_DWORD *)a8;
+    v164 = 1;
+    sub_3430F9BA(
+      (int)L"file",
+      358,
+      (int)L"func",
+      (int)L"TXSSO",
+      (int)L"SSOApp: SSO Instance Found. Account=%s, Uin=%lu, ServiceId=%d",
+      (char)a4);
+  }
+  else
+  {
+    v166 = 0;
+    if ( !sub_343171B3(&v166) )
+    {
+      sub_3430511B(340, (int)L"TXSSO_Assert", (unsigned int)L"## SSOApp: Fail to Create SSO Instance.");
+      return -2147467259;
+    }
+    v168 = 0;
+    v169 = 0;
+    CTXBSTR::CTXBSTR(&v170);
+    LOBYTE(v194) = 9;
+    v169 = *(_DWORD *)a8;
+    CTXBSTR::operator=(&v170, a4);
+    if ( v168 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)v168 + 8))(v168);
+    v168 = v166;
+    sub_34316268(&v168);
+    if ( v168 )
+      sub_3430FB53();
+    sub_3430511B(352, (int)L"TXSSO", (unsigned int)L"SSOApp: SSO Instance NOT Found, Create New One.");
+    sub_34312FA9();
+  }
+  v189 = 0;
+  v188 = 0;
+  v193 = 0;
+  v192 = 0;
+  LOBYTE(v194) = 14;
+  if ( a7 && Util::SSOConvert::ConvertTXSSODataToTXData((Util::SSOConvert *)a7, (struct ITXSSOData *)&v192) >= 0 && v192 )
+  {
+    Util::Data::CreateTXData((Util::Data *)&v193);
+    v187 = v192;
+    v37 = sub_343051DB(&v124, L"dataProxyData");
+    LOBYTE(v194) = 15;
+    v38 = (void (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)v187 + 284);
+    v39 = CTXBSTR::operator wchar_t *(v37);
+    (*v38)(v187, v39);
+    LOBYTE(v194) = 14;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v124);
+    v187 = v192;
+    v40 = sub_343051DB(&v139, L"dataSpecifyLoginData");
+    LOBYTE(v194) = 16;
+    v41 = (void (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)v187 + 284);
+    v42 = CTXBSTR::operator wchar_t *(v40);
+    (*v41)(v187, v42);
+    LOBYTE(v194) = 14;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v139);
+    Util::Data::CopyTXDataField(v192, v193, (struct ITXData *)L"dwPGConfigID", L"dwPGConfigID");
+    Util::Data::CopyTXDataField(v192, v193, (struct ITXData *)L"dwPGConfigSeq", L"dwPGConfigSeq");
+    Util::Data::CopyTXDataField(v192, v193, (struct ITXData *)L"bShareTicket", L"bShareTicket");
+    Util::Data::CopyTXDataField(v192, v193, (struct ITXData *)L"dataSpareLoginServer", L"dataSpareLoginServer");
+    Util::Data::CopyTXDataField(v192, v193, (struct ITXData *)L"bNotifyPicError", L"bNotifyPicError");
+    Util::Data::CopyTXDataField(v192, v193, (struct ITXData *)L"cQDCSigType", L"cQDCSigType");
+    Util::Data::CopyTXDataField(v192, v193, (struct ITXData *)L"dwConsumerID", L"dwConsumerID");
+    Util::Data::CopyTXDataField(v192, v193, (struct ITXData *)L"dwPreferredTGTAppId", L"dwPreferredTGTAppId");
+    Util::Data::CopyTXDataField(v192, v193, (struct ITXData *)L"SSO_HardcodeIP_data", L"SSO_HardcodeIP_data");
+    Util::Data::CopyTXDataField(v192, v193, (struct ITXData *)L"bufTlvLoginReason", L"bufTlvLoginReason");
+  }
+  v184 = 0;
+  LOBYTE(v194) = 17;
+  Util::Data::CreateTXData((Util::Data *)&v184);
+  v190 = 0;
+  LOBYTE(v194) = 18;
+  if ( sub_34315259() >= 0 && v190 )
+  {
+    v43 = v184;
+    v44 = sub_343051DB(&v159, L"SSO_Prelogin_pSSOConfig");
+    LOBYTE(v194) = 19;
+    v45 = *v43;
+    v46 = CTXBSTR::operator wchar_t *(v44);
+    (*(void (__stdcall **)(int *, int))(v45 + 240))(v43, v46);
+    LOBYTE(v194) = 18;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v159);
+  }
+  v47 = v184;
+  v174 = sub_3431768B(&v128);
+  LOBYTE(v194) = 20;
+  v48 = (void (__stdcall **)(_DWORD, _DWORD))(*v47 + 232);
+  v120 = (struct ITXBuffer **)CTXBSTR::operator wchar_t *(a1 + 56);
+  v49 = CTXBSTR::operator wchar_t *(v174);
+  (*v48)(v47, v49);
+  LOBYTE(v194) = 18;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v128);
+  if ( (*(int (__stdcall **)(int, int, _DWORD, wchar_t *, _DWORD, _DWORD, int, _DWORD))(*(_DWORD *)v191 + 12))(
+         v191,
+         *(_DWORD *)a8,
+         *(_BYTE *)a9,
+         a4,
+         *(_DWORD *)(a1 + 64),
+         0,
+         (int)v184,
+         *(_DWORD *)(a1 + 68)) < 0 )
+  {
+    v157 = 10;
+    _CxxThrowException(&v157, &unk_34436AAC);
+  }
+  a7 = 0;
+  LOBYTE(v194) = 21;
+  v50 = a6;
+  if ( a6 )
+  {
+    Util::SSOConvert::ConvertTXSSOBufferToTXBuffer((Util::SSOConvert *)a6, (struct ITXSSOBuffer *)&a7, v120);
+    if ( (*(int (__thiscall **)(int, int))(*(_DWORD *)v50 + 28))(v51, v50) == 1 )
+    {
+      v52 = *(_DWORD *)v50;
+      v165 = 0;
+      v174 = 0;
+      if ( (*(int (__stdcall **)(int, int *, int))(v52 + 52))(v50, (int *)&v174, v121) >= 0
+        && (*(int (__stdcall **)(int, int *))(*(_DWORD *)v50 + 48))(v50, (int *)&v165) >= 0
+        && v165
+        && v174 )
+      {
+        memset(v165, 0, v174);
+      }
+      (*(void (__cdecl **)(int))(*(_DWORD *)v50 + 32))(v50);
+    }
+  }
+  v186 = a7;
+  if ( a7 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)a7 + 4))(a7);
+  LOBYTE(v194) = 22;
+  v53 = v188;
+  LOBYTE(v183) = 0;
+  if ( !v188 )
+  {
+    sub_3430511B(521, (int)L"TXSSO", (unsigned int)L"SSOApp: App Request Service Ticket Not Specify Login.");
+    v58 = L"func";
+    v57 = L"TXSSO";
+    goto LABEL_118;
+  }
+  v54 = sub_343051DB(&v137, L"cSpecifyLoginType");
+  LOBYTE(v194) = 23;
+  v55 = (void (__stdcall **)(_DWORD, _DWORD))(*v53 + 32);
+  v56 = CTXBSTR::operator wchar_t *(v54);
+  (*v55)(v53, v56);
+  LOBYTE(v194) = 22;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v137);
+  v57 = L"TXSSO";
+  v58 = L"func";
+  sub_3430F9BA(
+    (int)L"file",
+    442,
+    (int)L"func",
+    (int)L"TXSSO",
+    (int)L"TXSSOAPP: Request Service Ticket Specify Login, cOrgSpecifyLoginType=%d",
+    v183);
+  if ( (_BYTE)v183 == 6 )
+  {
+    v122 = L"> SSOApp: App Request Service Ticket Specify SSO_SPECIFYLOGIN_TEST_SERVER.";
+    v119 = L"TXSSO";
+    v117 = 446;
+    goto LABEL_86;
+  }
+  if ( (_BYTE)v183 == 7 )
+  {
+    v122 = L"> SSOApp: App Request Service Ticket Specify SSO_SPECIFYLOGIN_SPECIFY_TEST_SERVERLIST.";
+    v119 = L"TXSSO";
+    v117 = 450;
+    goto LABEL_86;
+  }
+  if ( (_BYTE)v183 == 5 )
+  {
+    v122 = L"> SSOApp: App Request Service Ticket Specify SSO_SPECIFYLOGIN_TCP_TYPE_SERVER.";
+    v119 = L"TXSSO";
+    v117 = 454;
+LABEL_86:
+    sub_3430511B(v117, (int)v119, (char)v122);
+  }
+  if ( !a7 )
+  {
+LABEL_90:
+    sub_3430511B(
+      507,
+      (int)L"TXSSO",
+      (unsigned int)L"TXSSOAPP: Request Service Ticket Specify Login, NO Credential Set!!.");
+    v59 = v188;
+    BYTE3(a9) = 0;
+    a2 = (int)v188;
+    v60 = sub_343051DB(&v153, L"bRememberPwdLogin");
+    LOBYTE(v194) = 24;
+    v61 = (void (__stdcall **)(_DWORD, _DWORD))(*v59 + 112);
+    v62 = CTXBSTR::operator wchar_t *(v60);
+    (*v61)(a2, v62);
+    LOBYTE(v194) = 22;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v153);
+    if ( BYTE3(a9) == 1 )
+    {
+      a2 = (int)v188;
+      v63 = sub_343051DB(&v135, L"bRememberPwdLogin");
+      LOBYTE(v194) = 25;
+      v64 = (void (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)a2 + 204);
+      v65 = CTXBSTR::operator wchar_t *(v63);
+      (*v64)(a2, v65);
+      LOBYTE(v194) = 22;
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v135);
+    }
+LABEL_118:
+    v69 = v193;
+    v179 = 0;
+    if ( v193 )
+    {
+      a9 = (int)v193;
+      v70 = sub_343051DB(&v151, L"dwPreferredTGTAppId");
+      LOBYTE(v194) = 26;
+      v71 = (void (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)v69 + 48);
+      v72 = CTXBSTR::operator wchar_t *(v70);
+      (*v71)(a9, v72);
+      LOBYTE(v194) = 22;
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v151);
+    }
+    sub_3430F9BA(
+      (int)L"file",
+      530,
+      (int)v58,
+      (int)v57,
+      (int)L"SSOApp: Start to Get Local ST, Preferred TGT Appid=%lu.",
+      v179);
+    v182 = 0;
+    LOBYTE(v194) = 27;
+    v175 = 0;
+    if ( v179 )
+    {
+      v75 = sub_34305657();
+      v74 = sub_3430A4CC(v75, *(_DWORD *)(a1 + 44), a3, v179, *(_DWORD *)a8, &v175, &v182);
+    }
+    else
+    {
+      v73 = sub_34305657();
+      v74 = sub_34309855(v73, *(_DWORD *)(a1 + 44), a3, *(_DWORD *)a8, &v175, &v182);
+    }
+    if ( v74 < 0 )
+    {
+      v131 = 10;
+      _CxxThrowException(&v131, &unk_34436AAC);
+    }
+    v76 = *(_DWORD *)(a1 + 44);
+    sub_3430F9BA(
+      (int)L"file",
+      554,
+      (int)v58,
+      (int)v57,
+      (int)L"SSOApp: GetLocalServiceTicket, Uin=%lu, ServiceID=%lu, AppHandle=%d, Result=%d",
+      *(_DWORD *)a8);
+    if ( !v175 )
+    {
+      sub_3430F9BA(
+        (int)L"file",
+        560,
+        (int)v58,
+        (int)v57,
+        (int)L"# SSOApp: Internal Get Ticket, GetLocalServiceTicket Error, Uin=%lu, AppId=%lu",
+        *(_DWORD *)a8);
+      v134 = 10;
+      _CxxThrowException(&v134, &unk_34436AAC);
+    }
+    if ( v175 != 1 )
+    {
+      if ( v175 != 2 )
+      {
+        if ( v175 != 3 )
+        {
+          sub_3430511B(810, (int)L"TXSSO_Assert", (unsigned int)L"## SSOApp: Getting local ticket unknown error occur!");
+          v149 = 10;
+          _CxxThrowException(&v149, &unk_34436AAC);
+        }
+        sub_3430F9BA(
+          (int)L"file",
+          768,
+          (int)v58,
+          (int)v57,
+          (int)L"SSOApp: Internal Get Ticket, No Local Ticket Found, Uin=%lu, AppId=%lu",
+          *(_DWORD *)a8);
+        if ( !a7 )
+        {
+          v81 = *(_DWORD *)a8;
+          sub_3430F9BA(
+            (int)L"file",
+            781,
+            (int)v58,
+            (int)v57,
+            (int)L"## SSOApp: Internal Get Ticket, failed by no set pwd, ServiceID=%lu, Uin=%lu",
+            a3);
+          v145 = 8;
+          _CxxThrowException(&v145, &unk_34436AAC);
+        }
+        v77 = v191;
+        if ( (*(int (__stdcall **)(int, int, int))(*(_DWORD *)v191 + 16))(v191, a5, a7) < 0 )
+        {
+          v78 = *(_DWORD *)a8;
+          sub_3430F9BA(
+            (int)L"file",
+            775,
+            (int)v58,
+            (int)v57,
+            (int)L"## SSOApp: Internal Get Ticket, set credential error, ServiceID=%lu, Uin=%lu",
+            a3);
+          v133 = 8;
+          _CxxThrowException(&v133, &unk_34436AAC);
+        }
+        if ( v189 )
+          (*(void (__stdcall **)(int, int))(*(_DWORD *)v77 + 28))(v77, v189);
+        v79 = (*(int (__stdcall **)(int, int, _DWORD, _DWORD, _DWORD, struct ITXDataRead *))(*(_DWORD *)v77 + 20))(
+                v77,
+                a3,
+                *(_DWORD *)(a1 + 44),
+                *(_DWORD *)(a1 + 120),
+                0,
+                v193);
+        if ( v79 )
+        {
+          v80 = *(_DWORD *)a8;
+          if ( v79 == 1 )
+          {
+            sub_3430F9BA(
+              (int)L"file",
+              795,
+              (int)v58,
+              (int)v57,
+              (int)L"## Internal Get Ticket, GetTicketFromServer Error by same call, ServiceID=%lu, UIN=%lu",
+              a3);
+            v147 = 9;
+            _CxxThrowException(&v147, &unk_34436AAC);
+          }
+          sub_3430F9BA(
+            (int)L"file",
+            800,
+            (int)v58,
+            (int)v57,
+            (int)L"## Internal Get Ticket, GetTicketFromServer Error, ServiceID=%lu, UIN=%lu",
+            a3);
+          v129 = 10;
+          _CxxThrowException(&v129, &unk_34436AAC);
+        }
+LABEL_202:
+        LOBYTE(v194) = 22;
+        if ( v182 )
+          (*(void (__stdcall **)(Util::SSOConvert *))(*(_DWORD *)v182 + 8))(v182);
+        LOBYTE(v194) = 21;
+        sub_34310DF1(&v186);
+        LOBYTE(v194) = 18;
+        if ( a7 )
+          (*(void (__stdcall **)(int))(*(_DWORD *)a7 + 8))(a7);
+        LOBYTE(v194) = 17;
+        if ( v190 )
+          (*(void (__stdcall **)(int))(*(_DWORD *)v190 + 8))(v190);
+        LOBYTE(v194) = 14;
+        if ( v184 )
+          (*(void (__stdcall **)(int))(*v184 + 8))((int)v184);
+        LOBYTE(v194) = 13;
+        if ( v192 )
+          (*(void (__stdcall **)(Util::Data *))(*(_DWORD *)v192 + 8))(v192);
+        LOBYTE(v194) = 12;
+        if ( v193 )
+          (*(void (__stdcall **)(struct ITXDataRead *))(*(_DWORD *)v193 + 8))(v193);
+        LOBYTE(v194) = 11;
+        if ( v188 )
+          (*(void (__stdcall **)(int))(*v188 + 8))((int)v188);
+        LOBYTE(v194) = 10;
+        if ( v189 )
+          (*(void (__stdcall **)(int))(*(_DWORD *)v189 + 8))(v189);
+        v194 = -1;
+        (*(void (__stdcall **)(int))(*(_DWORD *)v77 + 8))(v77);
+        return 0;
+      }
+      if ( a7 )
+      {
+        sub_3430F9BA(
+          (int)L"file",
+          709,
+          (int)v58,
+          (int)v57,
+          (int)L"SSOApp: Internal Get Ticket, Get Local TGT OK, Credential is OK, Use Credential, Uin=%lu, AppId=%lu",
+          *(_DWORD *)a8);
+        if ( (*(int (__stdcall **)(int, int, int))(*(_DWORD *)v191 + 16))(v191, a5, a7) >= 0 )
+        {
+          v77 = v191;
+LABEL_157:
+          if ( v189 )
+            (*(void (__stdcall **)(int, int))(*(_DWORD *)v77 + 28))(v77, v189);
+          v83 = (*(int (__stdcall **)(int, int, _DWORD, _DWORD, _DWORD, struct ITXDataRead *))(*(_DWORD *)v77 + 20))(
+                  v77,
+                  a3,
+                  *(_DWORD *)(a1 + 44),
+                  *(_DWORD *)(a1 + 120),
+                  0,
+                  v193);
+          if ( v83 )
+          {
+            v118 = *(_DWORD *)a8;
+            if ( v83 == 1 )
+            {
+              sub_3430F9BA(
+                (int)L"file",
+                752,
+                (int)v58,
+                (int)v57,
+                (int)L"## SSOApp: Internal Get Ticket, GetTicketFromServer Error by same call, Uin=%lu, ServiceID=%lu",
+                v118);
+              v130 = 9;
+              _CxxThrowException(&v130, &unk_34436AAC);
+            }
+            sub_3430F9BA(
+              (int)L"file",
+              757,
+              (int)v58,
+              (int)v57,
+              (int)L"## SSOApp: Internal Get Ticket, GetTicketFromServer Error, UIN=%lu, SID=%lu",
+              v118);
+            v141 = 10;
+            _CxxThrowException(&v141, &unk_34436AAC);
+          }
+          goto LABEL_202;
+        }
+        sub_3430F9BA(
+          (int)L"file",
+          715,
+          (int)v58,
+          (int)v57,
+          (int)L"## SSOApp: Internal Get Ticket, SetCredential Error, Uin=%lu, ServiceID=%lu, CredentialType=%d, CredentialData=0x%08x",
+          *(_DWORD *)a8);
+      }
+      sub_3430F9BA(
+        (int)L"file",
+        722,
+        (int)v58,
+        (int)v57,
+        (int)L"SSOApp: Internal Get Ticket, Get Local TGT OK, Credential is NULL Or Invalid, Use Local TGT, Uin=%lu, AppId=%lu",
+        *(_DWORD *)a8);
+      v178 = 0;
+      LOBYTE(v194) = 39;
+      if ( Util::SSOConvert::ConvertTXSSODataToTXData(v182, (struct ITXSSOData *)&v178) < 0 || !v178 )
+      {
+        v143 = 10;
+        _CxxThrowException(&v143, &unk_34436AAC);
+      }
+      v77 = v191;
+      if ( (*(int (__stdcall **)(int, int))(*(_DWORD *)v191 + 32))(v191, v178) < 0 )
+      {
+        v82 = *(_DWORD *)a8;
+        sub_3430F9BA(
+          (int)L"file",
+          735,
+          (int)v58,
+          (int)v57,
+          (int)L"## SSOApp: Internal Get Ticket, set TGTInfoList Error, UIN=%lu, ServiceID=%lu",
+          a3);
+        v127 = 8;
+        _CxxThrowException(&v127, &unk_34436AAC);
+      }
+      LOBYTE(v194) = 27;
+      if ( v178 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)v178 + 8))(v178);
+      goto LABEL_157;
+    }
+    sub_3430F9BA(
+      (int)L"file",
+      566,
+      (int)v58,
+      (int)v57,
+      (int)L"SSOApp: Internal Get Ticket, Get Local ST OK, Uin=%lu, AppId=%lu",
+      *(_DWORD *)a8);
+    a6 = 0;
+    LOBYTE(v194) = 28;
+    if ( Util::SSOConvert::ConvertTXSSODataToTXData(v182, (struct ITXSSOData *)&a6) < 0 || !a6 )
+    {
+      sub_3430F9BA(
+        (int)L"file",
+        573,
+        (int)v58,
+        (int)v57,
+        (int)L"## SSOApp: Internal Get Ticket, convert txdata Error, Uin=%lu, ServiceId=%lu",
+        *(_DWORD *)a8);
+      v136 = 10;
+      _CxxThrowException(&v136, &unk_34436AAC);
+    }
+    if ( a3 != 1 )
+    {
+      v97 = (_DWORD *)a6;
+      v98 = sub_343051DB(&v150, L"bSSO_Result_bSucceed");
+      LOBYTE(v194) = 33;
+      v99 = (void (__stdcall **)(_DWORD, _DWORD))(*v97 + 204);
+      v100 = CTXBSTR::operator wchar_t *(v98);
+      (*v99)(v97, v100);
+      LOBYTE(v194) = 28;
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v150);
+      a9 = a6;
+      v101 = sub_343051DB(&v148, L"strSSO_In_Params_strInAccountValue");
+      LOBYTE(v194) = 34;
+      v102 = (void (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)a9 + 232);
+      v103 = CTXBSTR::operator wchar_t *(v101);
+      (*v102)(a9, v103);
+      LOBYTE(v194) = 28;
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v148);
+      a4 = (wchar_t *)a6;
+      v104 = sub_343051DB(&v146, L"dwSSO_In_Params_dwInServiceID");
+      LOBYTE(v194) = 35;
+      v105 = (void (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)a4 + 224);
+      v106 = CTXBSTR::operator wchar_t *(v104);
+      (*v105)(a4, v106);
+      LOBYTE(v194) = 28;
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v146);
+      a3 = a6;
+      v107 = sub_343051DB(&v144, L"dwSSO_Account_dwAccountUin");
+      LOBYTE(v194) = 36;
+      v108 = *(_DWORD *)a8;
+      v109 = (void (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)a3 + 224);
+      v110 = CTXBSTR::operator wchar_t *(v107);
+      (*v109)(a3, v110);
+      LOBYTE(v194) = 28;
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v144);
+      a3 = a6;
+      v111 = sub_343051DB(&v142, L"cSSO_Account_cAccountType");
+      LOBYTE(v194) = 37;
+      v112 = (void (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)a3 + 208);
+      v113 = CTXBSTR::operator wchar_t *(v111);
+      (*v112)(a3, v113);
+      LOBYTE(v194) = 28;
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v142);
+      a3 = a6;
+      v114 = sub_343051DB(&v140, L"wSSO_GetTicket_Local");
+      LOBYTE(v194) = 38;
+      v115 = (void (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)a3 + 208);
+      v116 = CTXBSTR::operator wchar_t *(v114);
+      (*v115)(a3, v116);
+      LOBYTE(v194) = 28;
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v140);
+      if ( sub_34314BF0(a1, *(_DWORD *)a8) < 0 )
+      {
+        v138 = 10;
+        _CxxThrowException(&v138, &unk_34436AAC);
+      }
+      LOBYTE(v194) = 27;
+      if ( a6 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)a6 + 8))(a6);
+      LOBYTE(v194) = 22;
+      if ( v182 )
+        (*(void (__stdcall **)(Util::SSOConvert *))(*(_DWORD *)v182 + 8))(v182);
+      LOBYTE(v194) = 21;
+      sub_34310DF1(&v186);
+      LOBYTE(v194) = 18;
+      if ( a7 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)a7 + 8))(a7);
+      LOBYTE(v194) = 17;
+      if ( v190 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)v190 + 8))(v190);
+      LOBYTE(v194) = 14;
+      if ( v184 )
+        (*(void (__stdcall **)(int *))(*v184 + 8))(v184);
+      LOBYTE(v194) = 13;
+      if ( v192 )
+        (*(void (__stdcall **)(Util::Data *))(*(_DWORD *)v192 + 8))(v192);
+      LOBYTE(v194) = 12;
+      if ( v193 )
+        (*(void (__stdcall **)(struct ITXDataRead *))(*(_DWORD *)v193 + 8))(v193);
+      LOBYTE(v194) = 11;
+      if ( v188 )
+        (*(void (__stdcall **)(_DWORD *))(*v188 + 8))(v188);
+      LOBYTE(v194) = 10;
+      if ( v189 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)v189 + 8))(v189);
+      v194 = -1;
+      v68 = v191;
+      if ( v191 )
+        goto LABEL_115;
+      return 0;
+    }
+    v84 = v191;
+    if ( (*(int (__stdcall **)(int, int))(*(_DWORD *)v191 + 32))(v191, a6) < 0 )
+    {
+      sub_3430F9BA(
+        (int)L"file",
+        585,
+        (int)v58,
+        (int)v57,
+        (int)L"## SSOApp: Internal Get Ticket, Set tgt info list error, UIN=%lu, ServiceId=%lu",
+        *(_DWORD *)a8);
+      v126 = 8;
+      _CxxThrowException(&v126, &unk_34436AAC);
+    }
+    if ( v189 )
+      (*(void (__stdcall **)(int, int))(*(_DWORD *)v84 + 28))(v84, v189);
+    v185 = 0;
+    LOBYTE(v194) = 29;
+    if ( !Util::Data::CreateTXData((Util::Data *)&v185) || !v185 )
+    {
+      v152 = 10;
+      _CxxThrowException(&v152, &unk_34436AAC);
+    }
+    if ( (_BYTE)v183 == 7 )
+    {
+      v85 = (int)v188;
+      if ( !v188 )
+      {
+        sub_3430511B(
+          610,
+          (int)L"TXSSO_Assert",
+          (unsigned int)L"## SSOApp: SSO_SPECIFYLOGIN_SPECIFY_TEST_SERVERLIST, SpecifyLoginData is NULL.");
+        goto LABEL_193;
+      }
+    }
+    else
+    {
+      if ( (_BYTE)v183 != 6 )
+      {
+        a3 = v185;
+        v86 = sub_343051DB(&v161, L"cSpecifyLoginType");
+        LOBYTE(v194) = 30;
+        v87 = (void (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)a3 + 208);
+        v88 = CTXBSTR::operator wchar_t *(v86);
+        (*v87)(a3, v88);
+        LOBYTE(v194) = 29;
+        CTXBSTR::~CTXBSTR((CTXBSTR *)&v161);
+        v187 = 0;
+        if ( !v188
+          || (a3 = (int)v188,
+              v89 = sub_343051DB(&v160, L"bSimpleReloginFlow"),
+              LOBYTE(v194) = 31,
+              v90 = *(_DWORD *)a3,
+              v171 |= 1u,
+              v91 = CTXBSTR::operator wchar_t *(v89),
+              (*(int (__stdcall **)(int, int))(v90 + 28))(a3, v91) < 0)
+          || (BYTE3(a3) = 1, !v187) )
+        {
+          BYTE3(a3) = 0;
+        }
+        v194 = 29;
+        if ( v171 & 1 )
+          CTXBSTR::~CTXBSTR((CTXBSTR *)&v160);
+        if ( BYTE3(a3) )
+        {
+          a3 = v185;
+          v92 = sub_343051DB(&v158, L"bSimpleReloginFlow");
+          LOBYTE(v194) = 32;
+          v93 = (void (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)a3 + 204);
+          v94 = CTXBSTR::operator wchar_t *(v92);
+          (*v93)(a3, v94);
+          LOBYTE(v194) = 29;
+          CTXBSTR::~CTXBSTR((CTXBSTR *)&v158);
+        }
+        if ( v187 )
+          sub_3430511B(643, (int)v57, (unsigned int)L">>> SSOApp: IM Local ST OK, Simple Login Flow.");
+        else
+          sub_3430511B(648, (int)v57, (unsigned int)L">>> SSOApp: IM Local ST OK, Normal Login Flow.");
+        goto LABEL_193;
+      }
+      v85 = (int)v188;
+      if ( !v188 )
+      {
+        sub_3430511B(
+          622,
+          (int)L"TXSSO_Assert",
+          (unsigned int)L"## SSOApp: SSO_SPECIFYLOGIN_TEST_SERVER, SpecifyLoginData is NULL.");
+        goto LABEL_193;
+      }
+    }
+    (*(void (__stdcall **)(int, int))(*(_DWORD *)v85 + 96))(v85, v185);
+LABEL_193:
+    v77 = v191;
+    v95 = (*(int (__stdcall **)(int, signed int, _DWORD, _DWORD, int, struct ITXDataRead *))(*(_DWORD *)v191 + 20))(
+            v191,
+            1,
+            *(_DWORD *)(a1 + 44),
+            *(_DWORD *)(a1 + 120),
+            v185,
+            v193);
+    if ( v95 )
+    {
+      if ( v95 == 1 )
+      {
+        v156 = 9;
+        _CxxThrowException(&v156, &unk_34436AAC);
+      }
+      v96 = *(_DWORD *)a8;
+      sub_3430F9BA(
+        (int)L"file",
+        663,
+        (int)v58,
+        (int)v57,
+        (int)L"SSOApp: Get Ticket, Fail to GetTicketFromServer Error, ServiceId=%lu, UIN=%lu",
+        1);
+      v154 = 10;
+      _CxxThrowException(&v154, &unk_34436AAC);
+    }
+    LOBYTE(v194) = 28;
+    if ( v185 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)v185 + 8))(v185);
+    LOBYTE(v194) = 27;
+    if ( a6 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)a6 + 8))(a6);
+    goto LABEL_202;
+  }
+  if ( (*(int (__stdcall **)(int, int, int))(*(_DWORD *)v191 + 16))(v191, a5, a7) < 0 )
+  {
+    sub_3430F9BA(
+      (int)L"file",
+      465,
+      (int)L"func",
+      (int)L"TXSSO",
+      (int)L"## SSOApp: Specify Login, Fail to SetCredential, CredentialType=%d, CredentialData=0x%08x",
+      a5);
+    goto LABEL_90;
+  }
+  sub_3430511B(476, (int)L"TXSSO", (unsigned int)L"TXSSOAPP: Request Service Ticket Specify Login, Credential is OK.");
+  v66 = v191;
+  if ( v189 )
+    (*(void (__stdcall **)(int, int))(*(_DWORD *)v191 + 28))(v191, v189);
+  a4 = (wchar_t *)(*(int (__stdcall **)(int, int, _DWORD, _DWORD, int))(*(_DWORD *)v66 + 20))(
+                    v66,
+                    a3,
+                    *(_DWORD *)(a1 + 44),
+                    *(_DWORD *)(a1 + 120),
+                    (int)v188);
+  if ( a4 )
+  {
+    sub_3430511B(
+      487,
+      (int)L"TXSSO",
+      (unsigned int)L"## TXSSOApp: Request Service Ticket Specify Login, GetTicketFromServer Failed!!");
+    v67 = *(_DWORD *)a8;
+    if ( a4 == (wchar_t *)1 )
+    {
+      sub_3430F9BA(
+        (int)L"file",
+        490,
+        (int)L"func",
+        (int)L"TXSSO",
+        (int)L"## TXSSOApp: Internal Get Ticket, GetTicketFromServer Error by same call, ServiceId=%lu, Uin=%lu",
+        a3);
+      v162 = 9;
+      _CxxThrowException(&v162, &unk_34436AAC);
+    }
+    sub_3430F9BA(
+      (int)L"file",
+      495,
+      (int)L"func",
+      (int)L"TXSSO",
+      (int)L"## TXSSOApp: Internal Get Ticket, GetTicketFromServer Error, ServiceID=%lu, Uin=%lu",
+      a3);
+    v132 = 10;
+    _CxxThrowException(&v132, &unk_34436AAC);
+  }
+  sub_3430511B(502, (int)L"TXSSO", (unsigned int)L"TXSSOApp: Request Service Ticket Specify Login, Wait Notify.");
+  LOBYTE(v194) = 21;
+  sub_34310DF1(&v186);
+  LOBYTE(v194) = 18;
+  if ( a7 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)a7 + 8))(a7);
+  LOBYTE(v194) = 17;
+  if ( v190 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v190 + 8))(v190);
+  LOBYTE(v194) = 14;
+  if ( v184 )
+    (*(void (__stdcall **)(int *))(*v184 + 8))(v184);
+  LOBYTE(v194) = 13;
+  if ( v192 )
+    (*(void (__stdcall **)(Util::Data *))(*(_DWORD *)v192 + 8))(v192);
+  LOBYTE(v194) = 12;
+  if ( v193 )
+    (*(void (__stdcall **)(struct ITXDataRead *))(*(_DWORD *)v193 + 8))(v193);
+  LOBYTE(v194) = 11;
+  if ( v188 )
+    (*(void (__stdcall **)(_DWORD *))(*v188 + 8))(v188);
+  LOBYTE(v194) = 10;
+  if ( v189 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v189 + 8))(v189);
+  v194 = -1;
+  v68 = v191;
+LABEL_115:
+  (*(void (__stdcall **)(int))(*(_DWORD *)v68 + 8))(v68);
+  return 0;
+}
+---------------------------------------------------------------------------------------------------------
+signed int __stdcall sub_343153C6(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
+{
+  int v8; // ST1C_4@1
+  int v9; // ST34_4@3
+  int v10; // eax@3
+  int *v12; // esi@20
+  int v13; // eax@20
+  int v14; // edi@20
+  int v15; // eax@20
+  int *v16; // esi@20
+  void (__stdcall **v17)(_DWORD, _DWORD); // edi@20
+  int v18; // eax@20
+  int v19; // esi@20
+  int v20; // edi@20
+  __int32 v21; // eax@22
+  int v22; // eax@27
+  int v23; // eax@30
+  void (__stdcall **v24)(_DWORD, _DWORD); // edi@30
+  int v25; // eax@30
+  int v26; // eax@30
+  _DWORD *v27; // esi@31
+  int v28; // eax@31
+  void (__stdcall **v29)(_DWORD, _DWORD); // edi@31
+  int v30; // eax@31
+  _DWORD *v31; // esi@31
+  void (__stdcall **v32)(_DWORD, _DWORD); // edi@33
+  int v33; // eax@33
+  _DWORD *v34; // esi@33
+  void (__stdcall **v35)(_DWORD, _DWORD); // edi@35
+  int v36; // eax@35
+  _DWORD *v37; // esi@35
+  void (__stdcall **v38)(_DWORD, _DWORD); // edi@37
+  int v39; // eax@37
+  _DWORD *v40; // esi@37
+  void (__stdcall **v41)(_DWORD, _DWORD); // edi@39
+  int v42; // eax@39
+  _DWORD *v43; // edi@51
+  int v44; // eax@51
+  void (__stdcall **v45)(_DWORD, _DWORD); // esi@51
+  int v46; // eax@51
+  int v47; // ebx@63
+  int v48; // ST30_4@64
+  int v49; // ST38_4@67
+  int v50; // ST30_4@81
+  int v51; // [sp+10h] [bp-74h]@82
+  __int32 v52; // [sp+14h] [bp-70h]@80
+  int v53; // [sp+18h] [bp-6Ch]@68
+  int v54; // [sp+1Ch] [bp-68h]@14
+  int v55; // [sp+20h] [bp-64h]@14
+  int v56; // [sp+24h] [bp-60h]@14
+  int v57; // [sp+28h] [bp-5Ch]@65
+  char v58; // [sp+30h] [bp-54h]@51
+  char v59; // [sp+34h] [bp-50h]@37
+  char v60; // [sp+38h] [bp-4Ch]@35
+  char v61; // [sp+3Ch] [bp-48h]@33
+  char v62; // [sp+40h] [bp-44h]@31
+  int v63; // [sp+44h] [bp-40h]@31
+  char v64; // [sp+48h] [bp-3Ch]@31
+  char v65; // [sp+4Ch] [bp-38h]@30
+  int v66; // [sp+50h] [bp-34h]@25
+  int v67; // [sp+54h] [bp-30h]@11
+  int v68; // [sp+58h] [bp-2Ch]@12
+  Util::SSOConvert *v69; // [sp+5Ch] [bp-28h]@20
+  _DWORD *v70; // [sp+60h] [bp-24h]@20
+  int *v71; // [sp+64h] [bp-20h]@20
+  int v72; // [sp+68h] [bp-1Ch]@20
+  int v73; // [sp+6Ch] [bp-18h]@1
+  _DWORD *v74; // [sp+70h] [bp-14h]@1
+  int v75; // [sp+80h] [bp-4h]@1
+
+  v8 = *(_DWORD *)(a1 + 52);
+  sub_3430F9BA(
+    (int)L"file",
+    1958,
+    (int)L"func",
+    (int)L"TXSSO",
+    (int)L"SSOApp: Start to internal renew ticket, AppHandle=%lu, AppProcessName=%s, Account=%s, UIN=%lu, Appid=%lu, Accou"
+          "ntLoginSig=0x%08x, OtherRegisterInfo=0x%08x, ProxyData=0x%08x",
+    *(_DWORD *)(a1 + 44));
+  v73 = 0;
+  v75 = 0;
+  v74 = (_DWORD *)(a1 + 100);
+  sub_3433D5C1();
+  while ( 1 )
+  {
+    sub_3431624E();
+    if ( !(unsigned __int8)sub_3431645A() )
+      break;
+    if ( *(_DWORD *)(sub_3433D630() + 4) == a2
+      || (v9 = a5, v10 = sub_3433D630(), (unsigned __int8)CTXBSTR::operator==(v10 + 8, v9)) )
+    {
+      if ( !*(_DWORD *)sub_3433D630() )
+        sub_3430511B(1966, (int)L"TXSSO_Assert", (unsigned int)L"## SSOApp: Found SSO in VecSSOList, But pSSO is NULL.");
+      if ( *(_DWORD *)sub_3433D630() )
+        sub_3430FB53();
+      break;
+    }
+    sub_3432CC12();
+  }
+  v67 = 0;
+  if ( v73 )
+  {
+    v67 = 1;
+    sub_3430F9BA(
+      (int)L"file",
+      1997,
+      (int)L"func",
+      (int)L"TXSSO",
+      (int)L"SSOApp: SSO Instance Found. Account=%s, Uin=%lu, ServiceId=%d",
+      a5);
+  }
+  else
+  {
+    v68 = 0;
+    if ( !sub_343171B3(&v68) )
+      return -2147467259;
+    v54 = 0;
+    v55 = 0;
+    CTXBSTR::CTXBSTR(&v56);
+    LOBYTE(v75) = 1;
+    v55 = a2;
+    CTXBSTR::operator=(&v56, a5);
+    v54 = v68;
+    sub_34316268(&v54);
+    if ( v54 )
+      sub_3430FB53();
+    sub_3430511B(1991, (int)L"TXSSO", (unsigned int)L"SSOApp: SSO Instance NOT Found, Create New One.");
+    sub_34312FA9();
+  }
+  v71 = 0;
+  LOBYTE(v75) = 3;
+  Util::Data::CreateTXData((Util::Data *)&v71);
+  v68 = 0;
+  LOBYTE(v75) = 4;
+  sub_34315259();
+  v12 = v71;
+  v13 = sub_343051DB(&v70, L"SSO_Prelogin_pSSOConfig");
+  LOBYTE(v75) = 5;
+  v14 = *v12;
+  v15 = CTXBSTR::operator wchar_t *(v13);
+  (*(void (__stdcall **)(int *, int))(v14 + 240))(v12, v15);
+  LOBYTE(v75) = 4;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v70);
+  v16 = v71;
+  v70 = (_DWORD *)sub_3431768B(&v72);
+  LOBYTE(v75) = 6;
+  v17 = (void (__stdcall **)(_DWORD, _DWORD))(*v16 + 232);
+  CTXBSTR::operator wchar_t *(a1 + 56);
+  v18 = CTXBSTR::operator wchar_t *(v70);
+  (*v17)(v16, v18);
+  LOBYTE(v75) = 4;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v72);
+  v19 = a1;
+  v20 = v73;
+  (*(void (__stdcall **)(int, int, int, int, _DWORD, int, int, int))(*(_DWORD *)v73 + 12))(
+    v73,
+    a2,
+    a4,
+    a5,
+    *(_DWORD *)(a1 + 64),
+    a6,
+    (int)v71,
+    a7);
+  v69 = 0;
+  LOBYTE(v75) = 7;
+  a5 = 0;
+  v56 = sub_34305657();
+  sub_34309855(v56, *(_DWORD *)(a1 + 44), a3, a2, &a5, &v69);
+  if ( a5 <= 0 || a5 > 2 )
+  {
+    v50 = *(_DWORD *)(a1 + 52);
+    sub_3430F9BA(
+      (int)L"file",
+      2132,
+      (int)L"func",
+      (int)L"TXSSO",
+      (int)L"SSOApp: start internal renew ticket, but no TGT, failed!AppHandle=%lu, AppProcessName=%s, UIN=%lu, TGTSID=%lu",
+      *(_DWORD *)(a1 + 44));
+    v51 = -2147467259;
+    _CxxThrowException(&v51, &unk_34436AE0);
+  }
+  v72 = 0;
+  LOBYTE(v75) = 8;
+  v21 = Util::SSOConvert::ConvertTXSSODataToTXData(v69, (struct ITXSSOData *)&v72);
+  if ( v21 < 0 || !v72 )
+  {
+    v52 = v21;
+    _CxxThrowException(&v52, &unk_34436AE0);
+  }
+  a5 = (*(int (__stdcall **)(int, int))(*(_DWORD *)v20 + 32))(v20, v72);
+  if ( a5 < 0 )
+  {
+    sub_3430F9BA(
+      (int)L"file",
+      2046,
+      (int)L"func",
+      (int)L"TXSSO",
+      (int)L"## SSOApp: Internal Get Ticket, Fail to Set TGTInfoList, ServiceID=%lu, Uin=%lu",
+      a3);
+    v66 = a5;
+    _CxxThrowException(&v66, &unk_34436AE0);
+  }
+  v22 = *(_DWORD *)v20;
+  if ( a8 )
+    (*(void (__stdcall **)(int, int))(v22 + 28))(v20, a8);
+  else
+    (*(void (__stdcall **)(int, int))(v22 + 28))(v20, 0);
+  v70 = 0;
+  v74 = 0;
+  LOBYTE(v75) = 10;
+  a5 = v72;
+  v23 = sub_343051DB(&v65, L"SSO_Account_ServiceInfo");
+  LOBYTE(v75) = 11;
+  v24 = (void (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)a5 + 284);
+  v25 = CTXBSTR::operator wchar_t *(v23);
+  (*v24)(a5, v25);
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v65);
+  v26 = (int)v74;
+  if ( v74 )
+  {
+    a6 = 0;
+    a4 = 0;
+    a7 = 0;
+    a8 = 0;
+    a5 = 0;
+    v27 = v74;
+    LOBYTE(v75) = 15;
+    v28 = sub_343051DB(&v64, L"dwConsumerId");
+    LOBYTE(v75) = 16;
+    v29 = (void (__stdcall **)(_DWORD, _DWORD))(*v27 + 48);
+    v30 = CTXBSTR::operator wchar_t *(v28);
+    (*v29)(v27, v30);
+    LOBYTE(v75) = 15;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v64);
+    v31 = v74;
+    v63 = sub_343051DB(&v62, L"bufOpenId");
+    LOBYTE(v75) = 17;
+    if ( a4 )
+    {
+      (*(void (__stdcall **)(int))(*(_DWORD *)a4 + 8))(a4);
+      a4 = 0;
+    }
+    v32 = (void (__stdcall **)(_DWORD, _DWORD))(*v31 + 68);
+    v33 = CTXBSTR::operator wchar_t *(v63);
+    (*v32)(v31, v33);
+    LOBYTE(v75) = 15;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v62);
+    v34 = v74;
+    v63 = sub_343051DB(&v61, L"bufOpenST");
+    LOBYTE(v75) = 18;
+    if ( a7 )
+    {
+      (*(void (__stdcall **)(int))(*(_DWORD *)a7 + 8))(a7);
+      a7 = 0;
+    }
+    v35 = (void (__stdcall **)(_DWORD, _DWORD))(*v34 + 68);
+    v36 = CTXBSTR::operator wchar_t *(v63);
+    (*v35)(v34, v36);
+    LOBYTE(v75) = 15;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v61);
+    v37 = v74;
+    v63 = sub_343051DB(&v60, L"bufGTKey_OpenST");
+    LOBYTE(v75) = 19;
+    if ( a8 )
+    {
+      (*(void (__stdcall **)(int))(*(_DWORD *)a8 + 8))(a8);
+      a8 = 0;
+    }
+    v38 = (void (__stdcall **)(_DWORD, _DWORD))(*v37 + 68);
+    v39 = CTXBSTR::operator wchar_t *(v63);
+    (*v38)(v37, v39);
+    LOBYTE(v75) = 15;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v60);
+    v40 = v74;
+    v63 = sub_343051DB(&v59, L"bufOpenData");
+    LOBYTE(v75) = 20;
+    if ( a5 )
+    {
+      (*(void (__stdcall **)(int))(*(_DWORD *)a5 + 8))(a5);
+      a5 = 0;
+    }
+    v41 = (void (__stdcall **)(_DWORD, _DWORD))(*v40 + 68);
+    v42 = CTXBSTR::operator wchar_t *(v63);
+    (*v41)(v40, v42);
+    LOBYTE(v75) = 15;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v59);
+    if ( !a6 )
+    {
+      if ( sub_343176C8(&a4) && sub_343176C8(&a7) && sub_343176C8(&a8) && sub_343176C8(&a5) )
+        goto LABEL_50;
+      if ( !a6 )
+        goto LABEL_85;
+    }
+    if ( sub_343176C8(&a4) || sub_343176C8(&a7) || sub_343176C8(&a8) || sub_343176C8(&a5) )
+    {
+LABEL_85:
+      v63 = sub_343176C8(&a5);
+      sub_343176C8(&a8);
+      sub_343176C8(&a7);
+      sub_343176C8(&a4);
+      sub_3430F9BA(
+        (int)L"file",
+        2093,
+        (int)L"func",
+        (int)L"TXSSO_Assert",
+        (int)L"## SSOApp: InternalRenewTGT, Some OpenID Field is Invalid, ConsumerId=%lu, OpenId=%d, OpenidST=%d, GTKey_Op"
+              "enST=%d, OpenidData=%d",
+        a6);
+      a6 = 0;
+    }
+LABEL_50:
+    if ( a6 )
+    {
+      sub_3430511B(2102, (int)L"TXSSO", (unsigned int)L"SSOApp: InternalRenewTGT, renew TGT with open st.");
+      Util::Data::CreateTXData((Util::Data *)&v70);
+      v43 = v70;
+      v44 = sub_343051DB(&v58, L"dwConsumerID");
+      LOBYTE(v75) = 21;
+      v45 = (void (__stdcall **)(_DWORD, _DWORD))(*v43 + 224);
+      v46 = CTXBSTR::operator wchar_t *(v44);
+      (*v45)(v43, v46);
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v58);
+    }
+    LOBYTE(v75) = 14;
+    if ( a5 )
+    {
+      (*(void (__stdcall **)(int))(*(_DWORD *)a5 + 8))(a5);
+      a5 = 0;
+    }
+    LOBYTE(v75) = 13;
+    if ( a8 )
+    {
+      (*(void (__stdcall **)(int))(*(_DWORD *)a8 + 8))(a8);
+      a8 = 0;
+    }
+    LOBYTE(v75) = 12;
+    if ( a7 )
+    {
+      (*(void (__stdcall **)(int))(*(_DWORD *)a7 + 8))(a7);
+      a7 = 0;
+    }
+    LOBYTE(v75) = 10;
+    if ( a4 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)a4 + 8))(a4);
+    v26 = (int)v74;
+    v19 = a1;
+  }
+  LOBYTE(v75) = 9;
+  if ( v26 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v26 + 8))(v26);
+  v47 = v73;
+  a5 = (*(int (__stdcall **)(int, int, _DWORD, _DWORD, int))(*(_DWORD *)v73 + 60))(
+         v73,
+         a3,
+         *(_DWORD *)(v19 + 128),
+         0,
+         (int)v70);
+  if ( a5 < 0 )
+  {
+    v48 = *(_DWORD *)(v19 + 52);
+    sub_3430F9BA(
+      (int)L"file",
+      2114,
+      (int)L"func",
+      (int)L"TXSSO",
+      (int)L"## SSOApp: start internal renew ticket, AppHandle=%lu, AppProcessName=%s, UIN=%lu, TGTSID=%lu",
+      *(_DWORD *)(v19 + 44));
+    v57 = a5;
+    _CxxThrowException(&v57, &unk_34436AE0);
+  }
+  a5 = sub_34308E9C(v56, *(_DWORD *)(v19 + 44), a2, a3);
+  if ( a5 < 0 )
+  {
+    v49 = *(_DWORD *)(v19 + 44);
+    sub_3430F9BA(
+      (int)L"file",
+      2123,
+      (int)L"func",
+      (int)L"TXSSO_Assert",
+      (int)L"## SSOApp: internal renew ticket, fail to set renew app owner. uin=%lu, appid=%lu, appHandle=%d",
+      a2);
+    v53 = a5;
+    _CxxThrowException(&v53, &unk_34436AE0);
+  }
+  LOBYTE(v75) = 8;
+  if ( v70 )
+    (*(void (__stdcall **)(int))(*v70 + 8))((int)v70);
+  LOBYTE(v75) = 7;
+  if ( v72 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v72 + 8))(v72);
+  LOBYTE(v75) = 4;
+  if ( v69 )
+    (*(void (__stdcall **)(Util::SSOConvert *))(*(_DWORD *)v69 + 8))(v69);
+  LOBYTE(v75) = 3;
+  if ( v68 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v68 + 8))(v68);
+  LOBYTE(v75) = 2;
+  if ( v71 )
+    (*(void (__stdcall **)(int))(*v71 + 8))((int)v71);
+  v75 = -1;
+  (*(void (__cdecl **)(int))(*(_DWORD *)v47 + 8))(v47);
+  return 0;
+}
+
+
+
+----------------------------
+0012C6DC   3434402E  RETURN to SSOPlatf.3434402E from SSOPlatf.34345F97
+0012C6E0   0012C740
+0012C6E4   EEEE6D8C
+0012C6E8   01C75AD8
+0012C6EC   01C75380
+0012C6F0   01C754C0
+0012C6F4   343676AE  RETURN to SSOPlatf.343676AE
+0012C6F8   0012C6D0
+0012C6FC   00000000
+0012C700   00000004
+0012C704   00000001
+0012C708   01C75BAC
+0012C70C   01C75BAC
+0012C710   0012C854
+0012C714   34049DC3  RETURN to SSOCommo.34049DC3 from SSOCommo.340C6FEB
+0012C718   341A3000  SSOCommo.341A3000
+0012C71C   341A3000  SSOCommo.341A3000
+0012C720   01C75380
+0012C724   0012C6E4
+0012C728   0012C770  Pointer to next SEH record
+0012C72C   343DB45D  SE handler
+0012C730   00000001
+0012C734  /0012C748
+0012C738  |343583B0  RETURN to SSOPlatf.343583B0
+0012C73C  |01C75AD8
+0012C740  |00000000
+0012C744  |01C75B98
+0012C748  ]0012C77C
+0012C74C  |3432BBBA  RETURN to SSOPlatf.3432BBBA
+0012C750  |01C754C0
+0012C754  |01C75AD8
+0012C758  |0012C7A8
+0012C75C  |EEEE6DC4
+0012C760  |00000000
+0012C764  |01C75AD8
+0012C768  |3440BFC8  UNICODE "TXSSO"
+0012C76C  |01C754C0
+0012C770  |0012C874  Pointer to next SEH record
+0012C774  |343D1C19  SE handler
+0012C778  |00000000
+0012C77C  ]0012C880
+0012C780  |3432A49F  RETURN to SSOPlatf.3432A49F from SSOPlatf.3432BB56
+0012C784  |01C75AD8
+0012C788  |0012C7A8
+0012C78C  |EEEE6D28
+0012C790  |00000002
+0012C794  |029A02D0
+0012C798  |00000000
+0012C79C  |01C75C04
+0012C7A0  |029A1278
+0012C7A4  |01C75ADC
+0012C7A8  |00000000
+0012C7AC  |01A3C55C  UNICODE "125.39.45.58"
+0012C7B0  |EEED1F40
+0012C7B4  |00000000
+0012C7B8  |5EA5A2B4
+0012C7BC  |C167F63A
+0012C7C0  |02AC9430
+0012C7C4  |02AC9450
+0012C7C8  |01C76118
+0012C7CC  |00000000
+0012C7D0  |00000000
+0012C7D4  |34418028  SSOPlatf.34418028
+0012C7D8  |00000000
+0012C7DC  |00000000
+0012C7E0  |00000000
+0012C7E4  |00000000
+0012C7E8  |00000000
+0012C7EC  |7C930000  ntdll.7C930000
+0012C7F0  |00000000
+0012C7F4  |34418028  SSOPlatf.34418028
+0012C7F8  |00000000
+0012C7FC  |00000000
+0012C800  |00000000
+0012C804  |00000000
+0012C808  |00000000
+0012C80C  |029A0000
+0012C810  |00000000
+0012C814  |00000004
+0012C818  |002EA4AF
+0012C81C  |002EA4CD
+0012C820  |002EA33C
+0012C824  |002EA3BF
+0012C828  |341A3000  SSOCommo.341A3000
+0012C82C  |029A0000
+0012C830  |00000000
+0012C834  |00000000
+0012C838  |00000000
+0012C83C  |00000000
+0012C840  |00000000
+0012C844  |00000004
+0012C848  |029A0588
+0012C84C  |029A058C
+0012C850  |029A058C
+0012C854  |341A3000  SSOCommo.341A3000
+0012C858  |01C70000
+0012C85C  |00000000
+0012C860  |00000000
+0012C864  |00000000
+0012C868  |00000000
+0012C86C  |34320F4B  RETURN to SSOPlatf.34320F4B from SSOPlatf.343285A9
+0012C870  |00000002
+0012C874  |0012C94C  Pointer to next SEH record
+0012C878  |343D9D7D  SE handler
+0012C87C  |00000000
+0012C880  ]0012C958
+0012C884  |3433DF61  RETURN to SSOPlatf.3433DF61
+0012C888  |029A02D0
+0012C88C  |0012C8A0
+0012C890  |EEEE63E0
+0012C894  |00000002
+0012C898  |029A1520
+0012C89C  |02AC2800
+0012C8A0  |00000000
+0012C8A4  |01A3C55C  UNICODE "125.39.45.58"
+0012C8A8  |00001F40
+0012C8AC  |00000000
+0012C8B0  |5EA5A2B4
+0012C8B4  |C167F63A
+0012C8B8  |02AC9190
+0012C8BC  |02AC91B0
+0012C8C0  |01C76118
+0012C8C4  |7C930000  ntdll.7C930000
+0012C8C8  |00000000
+0012C8CC  |34418028  SSOPlatf.34418028
+0012C8D0  |00000000
+0012C8D4  |00000000
+0012C8D8  |00000000
+0012C8DC  |00000000
+0012C8E0  |00000000
+0012C8E4  |029A0000
+0012C8E8  |00000000
+0012C8EC  |34418028  SSOPlatf.34418028
+0012C8F0  |00000000
+0012C8F4  |00000000
+0012C8F8  |00000000
+0012C8FC  |00000000
+0012C900  |00000000
+0012C904  |00120000
+0012C908  |00000000
+0012C90C  |00000004
+0012C910  |002EA4AF
+0012C914  |002EA4CD
+0012C918  |002EA33C
+0012C91C  |002EA3BF
+0012C920  |341A3000  SSOCommo.341A3000
+0012C924  |00120000
+0012C928  |00000000
+0012C92C  |00000000
+0012C930  |00000000
+0012C934  |00000000
+0012C938  |00000000
+0012C93C  |0012C954
+0012C940  |029A0130  ASCII "}'-:<"
+0012C944  |029A0134
+0012C948  |029A0134
+0012C94C  |0012CBD4  Pointer to next SEH record
+0012C950  |343D82A4  SE handler
+0012C954  |00000000
+0012C958  ]0012CBE0
+0012C95C  |34339F05  RETURN to SSOPlatf.34339F05
+0012C960  |029A1520
+0012C964  |0012C978
+0012C968  |EEEE6158
+0012C96C  |00000002
+0012C970  |01C76118
+0012C974  |029A0518
+0012C978  |01A3C55C  UNICODE "125.39.45.58"
+0012C97C  |00001F40
+0012C980  |00000000
+0012C984  |5EA5A2B4
+0012C988  |C167F63A
+0012C98C  |02AC8960
+0012C990  |02AC9038
+0012C994  |01C76118
+0012C998  |00000000
+0012C99C  |00000000
+0012C9A0  |34418028  SSOPlatf.34418028
+0012C9A4  |00000000
+0012C9A8  |00000000
+0012C9AC  |00000000
+0012C9B0  |00000000
+0012C9B4  |00000000
+0012C9B8  |01A30000
+0012C9BC  |00000000
+0012C9C0  |34418028  SSOPlatf.34418028
+0012C9C4  |00000000
+0012C9C8  |00000000
+0012C9CC  |00000000
+0012C9D0  |00000000
+0012C9D4  |00000000
+0012C9D8  |01A30000
+0012C9DC  |00000000
+0012C9E0  |00000004
+0012C9E4  |002EA4AF
+0012C9E8  |002EA4CD
+0012C9EC  |002EA33C
+0012C9F0  |002EA3BF
+0012C9F4  |341A3000  SSOCommo.341A3000
+0012C9F8  |01A30000
+0012C9FC  |00000000
+0012CA00  |00000000
+0012CA04  |00000000
+0012CA08  |00000000
+0012CA0C  |00000000
+0012CA10  |02AC8B30
+0012CA14  |029A1100
+0012CA18  |029A1104
+0012CA1C  |029A1104
+0012CA20  |00000001
+0012CA24  |01A30000
+0012CA28  |02AC7FF0
+0012CA2C  |0012CA4C
+0012CA30  |34018F95  RETURN to SSOCommo.34018F95 from SSOCommo.34078855
+0012CA34  |02AC1BA0
+0012CA38  |00000000
+0012CA3C  |0012CAD8
+0012CA40  |01A32300
+0012CA44  |0012CA6D
+0012CA48  |01A32300
+0012CA4C  |0012CA70
+0012CA50  |34019A00  RETURN to SSOCommo.34019A00 from SSOCommo.34018F79
+0012CA54  |02AC1BA0
+0012CA58  |00000001
+0012CA5C  |0012CAD8
+0012CA60  |01A32300
+0012CA64  |01A32300
+0012CA68  |02AC1BA0
+0012CA6C  |01A32300
+0012CA70  |0012CA8C
+0012CA74  |340254E7  RETURN to SSOCommo.340254E7 from SSOCommo.340199E1
+0012CA78  |02AC1BA0
+0012CA7C  |00000001
+0012CA80  |0012CAD8
+0012CA84  |0000007C
+0012CA88  |01A32378
+0012CA8C  |0012CAB0
+0012CA90  |3407D4D7  RETURN to SSOCommo.3407D4D7 from SSOCommo.340254D2
+0012CA94  |02AC1BA0
+0012CA98  |00000001
+0012CA9C  |0012CAD8
+0012CAA0  |01A32378
+0012CAA4  |01A32138
+0012CAA8  |01A32378
+0012CAAC  |01A32378
+0012CAB0  |0012CAD0
+0012CAB4  |3400712C  RETURN to SSOCommo.3400712C from SSOCommo.340C5196
+0012CAB8  |34006E16  RETURN to SSOCommo.34006E16 from ntdll.RtlLeaveCriticalSection
+0012CABC  |01A33F24
+0012CAC0  |00000002
+0012CAC4  |02A91154
+0012CAC8  |0012CAD8
+0012CACC  |34006FC2  RETURN to SSOCommo.34006FC2
+0012CAD0  |02A91154
+0012CAD4  |02A91154
+0012CAD8  |0012CAE4
+0012CADC  |34046F4D  RETURN to SSOCommo.34046F4D from SSOCommo.34006F9D
+0012CAE0  |02A91154
+0012CAE4  |0012CAF0
+0012CAE8  |3404909E  RETURN to SSOCommo.3404909E from SSOCommo.34046F32
+0012CAEC  |02A91154
+0012CAF0  |0012CB24
+0012CAF4  |34049116  RETURN to SSOCommo.34049116
+0012CAF8  |02A91154
+0012CAFC  |0012CB58
+0012CB00  |34049B43  RETURN to SSOCommo.34049B43 from SSOCommo.340C5196
+0012CB04  |EEED807E
+0012CB08  |00000002
+0012CB0C  |0012CB70
+0012CB10  |00000000
+0012CB14  |0012CB58
+0012CB18  |0012CB44
+0012CB1C  |340E969C  SSOCommo.340E969C
+0012CB20  |00000000
+0012CB24  |34049B43  RETURN to SSOCommo.34049B43 from SSOCommo.340C5196
+0012CB28  |340262B2  RETURN to SSOCommo.340262B2 from SSOCommo.340C5196
+0012CB2C  |0012CB8C
+0012CB30  |00000002
+0012CB34  |00000000
+0012CB38  |029A0518
+0012CB3C  |029A0518
+0012CB40  |3436A246  RETURN to SSOPlatf.3436A246 from SSOPlatf.34370270
+0012CB44  |0012CC28
+0012CB48  |340E6A72  SSOCommo.340E6A72
+0012CB4C  |FFFFFFFF
+0012CB50  |340262B2  RETURN to SSOCommo.340262B2 from SSOCommo.340C5196
+0012CB54  |34304AE8  RETURN to SSOPlatf.34304AE8 from SSOCommo.TXLog_DoTXLogVW
+0012CB58  |02A91164
+0012CB5C  |3440BFC8  UNICODE "TXSSO"
+0012CB60  |344273D8  UNICODE "Recv Packet"
+0012CB64  |0012CBF4
+0012CB68  |0012CC80
+0012CB6C  |0000001A
+0012CB70  |0000000C
+0012CB74  |00000002
+0012CB78  |000003BD
+0012CB7C  |00000000
+0012CB80  |000002B4
+0012CB84  |002EA4CD
+0012CB88  |00000000
+0012CB8C  |01A3DD5C
+0012CB90  |3441E76C  SSOPlatf.3441E76C
+0012CB94  |000E0017
+0012CB98  |02AC88C0
+0012CB9C  |00000001
+0012CBA0  |5EA5A2B4
+0012CBA4  |C167F63A
+0012CBA8  |3440D521  SSOPlatf.3440D521
+0012CBAC  |02AC8E88
+0012CBB0  |029A1520
+0012CBB4  |34046F4D  RETURN to SSOCommo.34046F4D from SSOCommo.34006F9D
+0012CBB8  |344180B0  SSOPlatf.344180B0
+0012CBBC  |00380112
+0012CBC0  |02AC8940
+0012CBC4  |02AC7FD8
+0012CBC8  |3440BF00  UNICODE "func"
+0012CBCC  |02AC8920
+0012CBD0  |0012C968
+0012CBD4  |0012CC28  Pointer to next SEH record
+0012CBD8  |343DAA26  SE handler
+0012CBDC  |00000007
+0012CBE0  ]0012CBF0
+0012CBE4  |34335F4E  RETURN to SSOPlatf.34335F4E
+0012CBE8  |01A3DDDC
+0012CBEC  |0012C950
+0012CBF0  ]0012CC34
+0012CBF4  |3434EA66  RETURN to SSOPlatf.3434EA66
+0012CBF8  |029A0798
+0012CBFC  |02AC28D8
+0012CC00  |02AA7190
+0012CC04  |EEEE668C
+0012CC08  |002EA4CD
+0012CC0C  |7C80934A  kernel32.GetTickCount
+0012CC10  |3440BF00  UNICODE "func"
+0012CC14  |01C76124
+0012CC18  |029A06D0
+0012CC1C  |01C76124
+0012CC20  |34427100  UNICODE "d:0x%x seq:%d"
+0012CC24  |02AC28D8
+0012CC28  |0012CC8C  Pointer to next SEH record
+0012CC2C  |343D5C65  SE handler
+0012CC30  |00000001
+0012CC34  ]0012CC98
+0012CC38  |3434E3E0  RETURN to SSOPlatf.3434E3E0 from SSOPlatf.3434E6F6
+0012CC3C  |01C76118
+0012CC40  |01A3DD5C
+0012CC44  |34109FCC  SSOCommo.34109FCC
+0012CC48  |0012CDF8
+0012CC4C  |EEEE66E8
+0012CC50  |00000000
+0012CC54  |01C76118
+0012CC58  |00000000
+0012CC5C  |FFAC88B4
+0012CC60  |00000000
+0012CC64  |00000001
+0012CC68  |00000000
+0012CC6C  |01C76124
+0012CC70  |029A1048
+0012CC74  |002EA4CD
+0012CC78  |01C76124
+0012CC7C  |029A06D0
+0012CC80  |34640825
+0012CC84  |00000000
+0012CC88  |0012CD20
+0012CC8C  |0012CD34  Pointer to next SEH record
+0012CC90  |343D7FEF  SE handler
+0012CC94  |FFFFFFFF
+0012CC98  ]0012CCC4
+0012CC9C  |3434E6DF  RETURN to SSOPlatf.3434E6DF from SSOPlatf.3434E131
+0012CCA0  |01C76118
+0012CCA4  |00000000
+0012CCA8  |01A3DC9C  UNICODE "125.39.45.58"
+0012CCAC  |00001F40
+0012CCB0  |00000077
+0012CCB4  |0012CE44
+0012CCB8  |0012CDF8
+0012CCBC  |02AC21B0
+0012CCC0  |01C76118
+0012CCC4  ]0012CCE8
+0012CCC8  |3434F246  RETURN to SSOPlatf.3434F246
+0012CCCC  |00000000
+0012CCD0  |01A3DC9C  UNICODE "125.39.45.58"
+0012CCD4  |00001F40
+0012CCD8  |00000077
+0012CCDC  |0012CE44
+0012CCE0  |0012CDF8
+0012CCE4  |0012CDF8
+0012CCE8  ]0012CD40
+0012CCEC  |34070EE3  RETURN to SSOCommo.34070EE3
+0012CCF0  |029A0DF0
+0012CCF4  |00000000
+0012CCF8  |01A3DC9C  UNICODE "125.39.45.58"
+0012CCFC  |00001F40
+0012CD00  |00000077
+0012CD04  |0012CE44
+0012CD08  |0012CDF8
+0012CD0C  |EEED861A
+0012CD10  |00000000
+0012CD14  |02AC21B0
+0012CD18  |00000000
+0012CD1C  |34111E58  SSOCommo.34111E58
+0012CD20  |0012CD34
+0012CD24  |02AC88B0
+0012CD28  |02AC88B4
+0012CD2C  |02AC88B4
+0012CD30  |00000001
+0012CD34  |0012CDB8  Pointer to next SEH record
+0012CD38  |340EB977  SE handler
+0012CD3C  |00000000
+0012CD40  ]0012CD64
+0012CD44  |340704A4  RETURN to SSOCommo.340704A4
+0012CD48  |00000000
+0012CD4C  |01A3DC9C  UNICODE "125.39.45.58"
+0012CD50  |00001F40
+0012CD54  |00000077
+0012CD58  |0012CE44
+0012CD5C  |00000001
+0012CD60  |02AC7414
+0012CD64  ]0012CDC4
+0012CD68  |34078E2F  RETURN to SSOCommo.34078E2F
+0012CD6C  |02AC2250
+0012CD70  |00000000
+0012CD74  |01A3DC9C  UNICODE "125.39.45.58"
+0012CD78  |00001F40
+0012CD7C  |00000077
+0012CD80  |0012CE44
+0012CD84  |0012CDF8
+0012CD88  |EEED869E
+0012CD8C  |00000000
+0012CD90  |02AC7320
+0012CD94  |00000000
+0012CD98  |0012CE10
+0012CD9C  |02AC23A0
+0012CDA0  |02AC23A4
+0012CDA4  |02AC23A4
+0012CDA8  |0012CD98
+0012CDAC  |02AC23A4
+0012CDB0  |0012CD98
+0012CDB4  |02AC23A0
+0012CDB8  |0012CDFC  Pointer to next SEH record
+0012CDBC  |340EB66E  SE handler
+0012CDC0  |00000000
+0012CDC4  ]0012CE08
+0012CDC8  |34078FAB  RETURN to SSOCommo.34078FAB from SSOCommo.34078D7C
+0012CDCC  |00000000
+0012CDD0  |01A3DC9C  UNICODE "125.39.45.58"
+0012CDD4  |00001F40
+0012CDD8  |00000077
+0012CDDC  |0012CE44
+0012CDE0  |0012CDF8
+0012CDE4  |EEED8552
+0012CDE8  |00000000
+0012CDEC  |02AC7320
+0012CDF0  |00000000
+0012CDF4  |00000000
+0012CDF8  |00000001
+0012CDFC  |0012F648  Pointer to next SEH record
+0012CE00  |340EC4EC  SE handler
+0012CE04  |00000002
+0012CE08  ]0012F654
+0012CE0C  |340791B6  RETURN to SSOCommo.340791B6 from SSOCommo.34078F0D
+0012CE10  |01A3DC9C  UNICODE "125.39.45.58"
+0012CE14  |01A3C51C  UNICODE "125.39.45.58"
+0012CE18  |00001F40
+0012CE1C  |00000077
+0012CE20  |0012CE44
+0012CE24  |EEEDBD0E
+0012CE28  |02AC734C
+0012CE2C  |02AC74B0
+0012CE30  |00000000
+0012CE34  |00001F40
+0012CE38  |7C933FAC  UNICODE "\??\"
+0012CE3C  |00000002
+0012CE40  |01A3C51C  UNICODE "125.39.45.58"
+0012CE44  |085D3202
+0012CE48  |07643425
+0012CE4C  |00923D58
+0012CE50  |188B0000
+0012CE54  |DB240C9A
+0012CE58  |74BB62B4
+0012CE5C  |8AC73438
+0012CE60  |C54FAE00
+0012CE64  |D6308D87
+0012CE68  |2F56D917
+0012CE6C  |93BE59B6
+0012CE70  |543B17E4
+0012CE74  |C043787A
+0012CE78  |CB4C1666
+0012CE7C  |5E7C3265
+0012CE80  |08830122
+0012CE84  |976332DE
+0012CE88  |DF077FB6
+0012CE8C  |2DAEA7FC
+0012CE90  |0515C628
+0012CE94  |F2E2E9F2
+0012CE98  |2EBABC27
+0012CE9C  |B7FBA33B
+0012CEA0  |8E3A9B61
+0012CEA4  |41649474
+0012CEA8  |4E0528E8
+0012CEAC  |08E70AB8
+0012CEB0  |0E2E75C9
+0012CEB4  |99BFBB82
+0012CEB8  |0003995B
+0012CEBC  |00000000
+0012CEC0  |00000000
+0012CEC4  |00000000
+0012CEC8  |00000000
+0012CECC  |00000000
+0012CED0  |00000000
+0012CED4  |00000000
+0012CED8  |00000000
+0012CEDC  |00000000
+0012CEE0  |00000000
+0012CEE4  |00000000
+0012CEE8  |00000000
+0012CEEC  |00000000
+0012CEF0  |00000000
+0012CEF4  |00000000
+0012CEF8  |00000000
+0012CEFC  |00000000
+0012CF00  |00000000
+0012CF04  |00000000
+0012CF08  |00000000
+0012CF0C  |00000000
+0012CF10  |00000000
+0012CF14  |00000000
+0012CF18  |00000000
+0012CF1C  |00000000
+0012CF20  |00000000
+0012CF24  |00000000
+0012CF28  |00000000
+0012CF2C  |00000000
+0012CF30  |00000000
+0012CF34  |00000000
+0012CF38  |00000000
+0012CF3C  |00000000
+0012CF40  |00000000
+0012CF44  |00000000
+0012CF48  |00000000
+0012CF4C  |00000000
+0012CF50  |00000000
+0012CF54  |00000000
+0012CF58  |00000000
+0012CF5C  |00000000
+0012CF60  |00000000
+0012CF64  |00000000
+0012CF68  |00000000
+0012CF6C  |00000000
+0012CF70  |00000000
+0012CF74  |00000000
+0012CF78  |00000000
+0012CF7C  |00000000
+0012CF80  |00000000
+0012CF84  |00000000
+0012CF88  |00000000
+0012CF8C  |00000000
+0012CF90  |00000000
+0012CF94  |00000000
+0012CF98  |00000000
+0012CF9C  |00000000
+0012CFA0  |00000000
+0012CFA4  |00000000
+0012CFA8  |00000000
+0012CFAC  |00000000
+0012CFB0  |00000000
+0012CFB4  |00000000
+0012CFB8  |00000000
+0012CFBC  |00000000
+0012CFC0  |00000000
+0012CFC4  |00000000
+0012CFC8  |00000000
+0012CFCC  |00000000
+0012CFD0  |00000000
+0012CFD4  |00000000
+0012CFD8  |00000000
+0012CFDC  |00000000
+0012CFE0  |00000000
+0012CFE4  |00000000
+0012CFE8  |00000000
+0012CFEC  |00000000
+0012CFF0  |00000000
+0012CFF4  |00000000
+0012CFF8  |00000000
+0012CFFC  |00000000
+0012D000  |00000000
+0012D004  |00000000
+0012D008  |00000000
+0012D00C  |00000000
+0012D010  |00000000
+0012D014  |00000000
+0012D018  |00000000
+0012D01C  |00000000
+0012D020  |00000000
+0012D024  |00000000
+0012D028  |00000000
+0012D02C  |00000000
+0012D030  |00000000
+0012D034  |00000000
+0012D038  |00000000
+0012D03C  |00000000
+0012D040  |00000000
+0012D044  |00000000
+0012D048  |00000000
+0012D04C  |00000000
+0012D050  |00000000
+0012D054  |00000000
+0012D058  |00000000
+0012D05C  |00000000
+0012D060  |00000000
+0012D064  |00000000
+0012D068  |00000000
+0012D06C  |00000000
+0012D070  |00000000
+0012D074  |00000000
+0012D078  |00000000
+0012D07C  |00000000
+0012D080  |00000000
+0012D084  |00000000
+0012D088  |00000000
+0012D08C  |00000000
+0012D090  |00000000
+0012D094  |00000000
+0012D098  |00000000
+0012D09C  |00000000
+0012D0A0  |00000000
+0012D0A4  |00000000
+0012D0A8  |00000000
+0012D0AC  |00000000
+0012D0B0  |00000000
+0012D0B4  |00000000
+0012D0B8  |00000000
+0012D0BC  |00000000
+0012D0C0  |00000000
+0012D0C4  |00000000
+0012D0C8  |00000000
+0012D0CC  |00000000
+0012D0D0  |00000000
+0012D0D4  |00000000
+0012D0D8  |00000000
+0012D0DC  |00000000
+0012D0E0  |00000000
+0012D0E4  |00000000
+0012D0E8  |00000000
+0012D0EC  |00000000
+0012D0F0  |00000000
+0012D0F4  |00000000
+0012D0F8  |00000000
+0012D0FC  |00000000
+0012D100  |00000000
+0012D104  |00000000
+0012D108  |00000000
+0012D10C  |00000000
+0012D110  |00000000
+0012D114  |00000000
+0012D118  |00000000
+0012D11C  |00000000
+0012D120  |00000000
+0012D124  |00000000
+0012D128  |00000000
+0012D12C  |00000000
+0012D130  |00000000
+0012D134  |00000000
+0012D138  |00000000
+0012D13C  |00000000
+0012D140  |00000000
+0012D144  |00000000
+0012D148  |00000000
+0012D14C  |00000000
+0012D150  |00000000
+0012D154  |00000000
+0012D158  |00000000
+0012D15C  |00000000
+0012D160  |00000000
+0012D164  |00000000
+0012D168  |00000000
+0012D16C  |00000000
+0012D170  |00000000
+0012D174  |00000000
+0012D178  |00000000
+0012D17C  |00000000
+0012D180  |00000000
+0012D184  |00000000
+0012D188  |00000000
+0012D18C  |00000000
+0012D190  |00000000
+0012D194  |00000000
+0012D198  |00000000
+0012D19C  |00000000
+0012D1A0  |00000000
+0012D1A4  |00000000
+0012D1A8  |00000000
+0012D1AC  |00000000
+0012D1B0  |00000000
+0012D1B4  |00000000
+0012D1B8  |00000000
+0012D1BC  |00000000
+0012D1C0  |00000000
+0012D1C4  |00000000
+0012D1C8  |00000000
+0012D1CC  |00000000
+0012D1D0  |00000000
+0012D1D4  |00000000
+0012D1D8  |00000000
+0012D1DC  |00000000
+0012D1E0  |00000000
+0012D1E4  |00000000
+0012D1E8  |00000000
+0012D1EC  |00000000
+0012D1F0  |00000000
+0012D1F4  |00000000
+0012D1F8  |00000000
+0012D1FC  |00000000
+0012D200  |00000000
+0012D204  |00000000
+0012D208  |00000000
+0012D20C  |00000000
+0012D210  |00000000
+0012D214  |00000000
+0012D218  |00000000
+0012D21C  |00000000
+0012D220  |00000000
+0012D224  |00000000
+0012D228  |00000000
+0012D22C  |00000000
+0012D230  |00000000
+0012D234  |00000000
+0012D238  |00000000
+0012D23C  |00000000
+0012D240  |00000000
+0012D244  |00000000
+0012D248  |00000000
+0012D24C  |00000000
+0012D250  |00000000
+0012D254  |00000000
+0012D258  |00000000
+0012D25C  |00000000
+0012D260  |00000000
+0012D264  |00000000
+0012D268  |00000000
+0012D26C  |00000000
+0012D270  |00000000
+0012D274  |00000000
+0012D278  |00000000
+0012D27C  |00000000
+0012D280  |00000000
+0012D284  |00000000
+0012D288  |00000000
+0012D28C  |00000000
+0012D290  |00000000
+0012D294  |00000000
+0012D298  |00000000
+0012D29C  |00000000
+0012D2A0  |00000000
+0012D2A4  |00000000
+0012D2A8  |00000000
+0012D2AC  |00000000
+0012D2B0  |00000000
+0012D2B4  |00000000
+0012D2B8  |00000000
+0012D2BC  |00000000
+0012D2C0  |00000000
+0012D2C4  |00000000
+0012D2C8  |00000000
+0012D2CC  |00000000
+0012D2D0  |00000000
+0012D2D4  |00000000
+0012D2D8  |00000000
+0012D2DC  |00000000
+0012D2E0  |00000000
+0012D2E4  |00000000
+0012D2E8  |00000000
+0012D2EC  |00000000
+0012D2F0  |00000000
+0012D2F4  |00000000
+0012D2F8  |00000000
+0012D2FC  |00000000
+0012D300  |00000000
+0012D304  |00000000
+0012D308  |00000000
+0012D30C  |00000000
+0012D310  |00000000
+0012D314  |00000000
+0012D318  |00000000
+0012D31C  |00000000
+0012D320  |00000000
+0012D324  |00000000
+0012D328  |00000000
+0012D32C  |00000000
+0012D330  |00000000
+0012D334  |00000000
+0012D338  |00000000
+0012D33C  |00000000
+0012D340  |00000000
+0012D344  |00000000
+0012D348  |00000000
+0012D34C  |00000000
+0012D350  |00000000
+0012D354  |00000000
+0012D358  |00000000
+0012D35C  |00000000
+0012D360  |00000000
+0012D364  |00000000
+0012D368  |00000000
+0012D36C  |00000000
+0012D370  |00000000
+0012D374  |00000000
+0012D378  |00000000
+0012D37C  |00000000
+0012D380  |00000000
+0012D384  |00000000
+0012D388  |00000000
+0012D38C  |00000000
+0012D390  |00000000
+0012D394  |00000000
+0012D398  |00000000
+0012D39C  |00000000
+0012D3A0  |00000000
+0012D3A4  |00000000
+0012D3A8  |00000000
+0012D3AC  |00000000
+0012D3B0  |00000000
+0012D3B4  |00000000
+0012D3B8  |00000000
+0012D3BC  |00000000
+0012D3C0  |00000000
+0012D3C4  |00000000
+0012D3C8  |00000000
+0012D3CC  |00000000
+0012D3D0  |00000000
+0012D3D4  |00000000
+0012D3D8  |00000000
+0012D3DC  |00000000
+0012D3E0  |00000000
+0012D3E4  |00000000
+0012D3E8  |00000000
+0012D3EC  |00000000
+0012D3F0  |00000000
+0012D3F4  |00000000
+0012D3F8  |00000000
+0012D3FC  |00000000
+0012D400  |00000000
+0012D404  |00000000
+0012D408  |00000000
+0012D40C  |00000000
+0012D410  |00000000
+0012D414  |00000000
+0012D418  |00000000
+0012D41C  |00000000
+0012D420  |00000000
+0012D424  |00000000
+0012D428  |00000000
+0012D42C  |00000000
+0012D430  |00000000
+0012D434  |00000000
+0012D438  |00000000
+0012D43C  |00000000
+0012D440  |00000000
+0012D444  |00000000
+0012D448  |00000000
+0012D44C  |00000000
+0012D450  |00000000
+0012D454  |00000000
+0012D458  |00000000
+0012D45C  |00000000
+0012D460  |00000000
+0012D464  |00000000
+0012D468  |00000000
+0012D46C  |00000000
+0012D470  |00000000
+0012D474  |00000000
+0012D478  |00000000
+0012D47C  |00000000
+0012D480  |00000000
+0012D484  |00000000
+0012D488  |00000000
+0012D48C  |00000000
+0012D490  |00000000
+0012D494  |00000000
+0012D498  |00000000
+0012D49C  |00000000
+0012D4A0  |00000000
+0012D4A4  |00000000
+0012D4A8  |00000000
+0012D4AC  |00000000
+0012D4B0  |00000000
+0012D4B4  |00000000
+0012D4B8  |00000000
+0012D4BC  |00000000
+0012D4C0  |00000000
+0012D4C4  |00000000
+0012D4C8  |00000000
+0012D4CC  |00000000
+0012D4D0  |00000000
+0012D4D4  |00000000
+0012D4D8  |00000000
+0012D4DC  |00000000
+0012D4E0  |00000000
+0012D4E4  |00000000
+0012D4E8  |00000000
+0012D4EC  |00000000
+0012D4F0  |00000000
+0012D4F4  |00000000
+0012D4F8  |00000000
+0012D4FC  |00000000
+0012D500  |00000000
+0012D504  |00000000
+0012D508  |00000000
+0012D50C  |00000000
+0012D510  |00000000
+0012D514  |00000000
+0012D518  |00000000
+0012D51C  |00000000
+0012D520  |00000000
+0012D524  |00000000
+0012D528  |00000000
+0012D52C  |00000000
+0012D530  |00000000
+0012D534  |00000000
+0012D538  |00000000
+0012D53C  |00000000
+0012D540  |00000000
+0012D544  |00000000
+0012D548  |00000000
+0012D54C  |00000000
+0012D550  |00000000
+0012D554  |00000000
+0012D558  |00000000
+0012D55C  |00000000
+0012D560  |00000000
+0012D564  |00000000
+0012D568  |00000000
+0012D56C  |00000000
+0012D570  |00000000
+0012D574  |00000000
+0012D578  |00000000
+0012D57C  |00000000
+0012D580  |00000000
+0012D584  |00000000
+0012D588  |00000000
+0012D58C  |00000000
+0012D590  |00000000
+0012D594  |00000000
+0012D598  |00000000
+0012D59C  |00000000
+0012D5A0  |00000000
+0012D5A4  |00000000
+0012D5A8  |00000000
+0012D5AC  |00000000
+0012D5B0  |00000000
+0012D5B4  |00000000
+0012D5B8  |00000000
+0012D5BC  |00000000
+0012D5C0  |00000000
+0012D5C4  |00000000
+0012D5C8  |00000000
+0012D5CC  |00000000
+0012D5D0  |00000000
+0012D5D4  |00000000
+0012D5D8  |00000000
+0012D5DC  |00000000
+0012D5E0  |00000000
+0012D5E4  |00000000
+0012D5E8  |00000000
+0012D5EC  |00000000
+0012D5F0  |00000000
+0012D5F4  |00000000
+0012D5F8  |00000000
+0012D5FC  |00000000
+0012D600  |00000000
+0012D604  |00000000
+0012D608  |00000000
+0012D60C  |00000000
+0012D610  |00000000
+0012D614  |00000000
+0012D618  |00000000
+0012D61C  |00000000
+0012D620  |00000000
+0012D624  |00000000
+0012D628  |00000000
+0012D62C  |00000000
+0012D630  |00000000
+0012D634  |00000000
+0012D638  |00000000
+0012D63C  |00000000
+0012D640  |00000000
+0012D644  |00000000
+0012D648  |00000000
+0012D64C  |00000000
+0012D650  |00000000
+0012D654  |00000000
+0012D658  |00000000
+0012D65C  |00000000
+0012D660  |00000000
+0012D664  |00000000
+0012D668  |00000000
+0012D66C  |00000000
+0012D670  |00000000
+0012D674  |00000000
+0012D678  |00000000
+0012D67C  |00000000
+0012D680  |00000000
+0012D684  |00000000
+0012D688  |00000000
+0012D68C  |00000000
+0012D690  |00000000
+0012D694  |00000000
+0012D698  |00000000
+0012D69C  |00000000
+0012D6A0  |00000000
+0012D6A4  |00000000
+0012D6A8  |00000000
+0012D6AC  |00000000
+0012D6B0  |00000000
+0012D6B4  |00000000
+0012D6B8  |00000000
+0012D6BC  |00000000
+0012D6C0  |00000000
+0012D6C4  |00000000
+0012D6C8  |00000000
+0012D6CC  |00000000
+0012D6D0  |00000000
+0012D6D4  |00000000
+0012D6D8  |00000000
+0012D6DC  |00000000
+0012D6E0  |00000000
+0012D6E4  |00000000
+0012D6E8  |00000000
+0012D6EC  |00000000
+0012D6F0  |00000000
+0012D6F4  |00000000
+0012D6F8  |00000000
+0012D6FC  |00000000
+0012D700  |00000000
+0012D704  |00000000
+0012D708  |00000000
+0012D70C  |00000000
+0012D710  |00000000
+0012D714  |00000000
+0012D718  |00000000
+0012D71C  |00000000
+0012D720  |00000000
+0012D724  |00000000
+0012D728  |00000000
+0012D72C  |00000000
+0012D730  |00000000
+0012D734  |00000000
+0012D738  |00000000
+0012D73C  |00000000
+0012D740  |00000000
+0012D744  |00000000
+0012D748  |00000000
+0012D74C  |00000000
+0012D750  |00000000
+0012D754  |00000000
+0012D758  |00000000
+0012D75C  |00000000
+0012D760  |00000000
+0012D764  |00000000
+0012D768  |00000000
+0012D76C  |00000000
+0012D770  |00000000
+0012D774  |00000000
+0012D778  |00000000
+0012D77C  |00000000
+0012D780  |00000000
+0012D784  |00000000
+0012D788  |00000000
+0012D78C  |00000000
+0012D790  |00000000
+0012D794  |00000000
+0012D798  |00000000
+0012D79C  |00000000
+0012D7A0  |00000000
+0012D7A4  |00000000
+0012D7A8  |00000000
+0012D7AC  |00000000
+0012D7B0  |00000000
+0012D7B4  |00000000
+0012D7B8  |00000000
+0012D7BC  |00000000
+0012D7C0  |00000000
+0012D7C4  |00000000
+0012D7C8  |00000000
+0012D7CC  |00000000
+0012D7D0  |00000000
+0012D7D4  |00000000
+0012D7D8  |00000000
+0012D7DC  |00000000
+0012D7E0  |00000000
+0012D7E4  |00000000
+0012D7E8  |00000000
+0012D7EC  |00000000
+0012D7F0  |00000000
+0012D7F4  |00000000
+0012D7F8  |00000000
+0012D7FC  |00000000
+0012D800  |00000000
+0012D804  |00000000
+0012D808  |00000000
+0012D80C  |00000000
+0012D810  |00000000
+0012D814  |00000000
+0012D818  |00000000
+0012D81C  |00000000
+0012D820  |00000000
+0012D824  |00000000
+0012D828  |00000000
+0012D82C  |00000000
+0012D830  |00000000
+0012D834  |00000000
+0012D838  |00000000
+0012D83C  |00000000
+0012D840  |00000000
+0012D844  |00000000
+0012D848  |00000000
+0012D84C  |00000000
+0012D850  |00000000
+0012D854  |00000000
+0012D858  |00000000
+0012D85C  |00000000
+0012D860  |00000000
+0012D864  |00000000
+0012D868  |00000000
+0012D86C  |00000000
+0012D870  |00000000
+0012D874  |00000000
+0012D878  |00000000
+0012D87C  |00000000
+0012D880  |00000000
+0012D884  |00000000
+0012D888  |00000000
+0012D88C  |00000000
+0012D890  |00000000
+0012D894  |00000000
+0012D898  |00000000
+0012D89C  |00000000
+0012D8A0  |00000000
+0012D8A4  |00000000
+0012D8A8  |00000000
+0012D8AC  |00000000
+0012D8B0  |00000000
+0012D8B4  |00000000
+0012D8B8  |00000000
+0012D8BC  |00000000
+0012D8C0  |00000000
+0012D8C4  |00000000
+0012D8C8  |00000000
+0012D8CC  |00000000
+0012D8D0  |00000000
+0012D8D4  |00000000
+0012D8D8  |00000000
+0012D8DC  |00000000
+0012D8E0  |00000000
+0012D8E4  |00000000
+0012D8E8  |00000000
+0012D8EC  |00000000
+0012D8F0  |00000000
+0012D8F4  |00000000
+0012D8F8  |00000000
+0012D8FC  |00000000
+0012D900  |00000000
+0012D904  |00000000
+0012D908  |00000000
+0012D90C  |00000000
+0012D910  |00000000
+0012D914  |00000000
+0012D918  |00000000
+0012D91C  |00000000
+0012D920  |00000000
+0012D924  |00000000
+0012D928  |00000000
+0012D92C  |00000000
+0012D930  |00000000
+0012D934  |00000000
+0012D938  |00000000
+0012D93C  |00000000
+0012D940  |00000000
+0012D944  |00000000
+0012D948  |00000000
+0012D94C  |00000000
+0012D950  |00000000
+0012D954  |00000000
+0012D958  |00000000
+0012D95C  |00000000
+0012D960  |00000000
+0012D964  |00000000
+0012D968  |00000000
+0012D96C  |00000000
+0012D970  |00000000
+0012D974  |00000000
+0012D978  |00000000
+0012D97C  |00000000
+0012D980  |00000000
+0012D984  |00000000
+0012D988  |00000000
+0012D98C  |00000000
+0012D990  |00000000
+0012D994  |00000000
+0012D998  |00000000
+0012D99C  |00000000
+0012D9A0  |00000000
+0012D9A4  |00000000
+0012D9A8  |00000000
+0012D9AC  |00000000
+0012D9B0  |00000000
+0012D9B4  |00000000
+0012D9B8  |00000000
+0012D9BC  |00000000
+0012D9C0  |00000000
+0012D9C4  |00000000
+0012D9C8  |00000000
+0012D9CC  |00000000
+0012D9D0  |00000000
+0012D9D4  |00000000
+0012D9D8  |00000000
+0012D9DC  |00000000
+0012D9E0  |00000000
+0012D9E4  |00000000
+0012D9E8  |00000000
+0012D9EC  |00000000
+0012D9F0  |00000000
+0012D9F4  |00000000
+0012D9F8  |00000000
+0012D9FC  |00000000
+0012DA00  |00000000
+0012DA04  |00000000
+0012DA08  |00000000
+0012DA0C  |00000000
+0012DA10  |00000000
+0012DA14  |00000000
+0012DA18  |00000000
+0012DA1C  |00000000
+0012DA20  |00000000
+0012DA24  |00000000
+0012DA28  |00000000
+0012DA2C  |00000000
+0012DA30  |00000000
+0012DA34  |00000000
+0012DA38  |00000000
+0012DA3C  |00000000
+0012DA40  |00000000
+0012DA44  |00000000
+0012DA48  |00000000
+0012DA4C  |00000000
+0012DA50  |00000000
+0012DA54  |00000000
+0012DA58  |00000000
+0012DA5C  |00000000
+0012DA60  |00000000
+0012DA64  |00000000
+0012DA68  |00000000
+0012DA6C  |00000000
+0012DA70  |00000000
+0012DA74  |00000000
+0012DA78  |00000000
+0012DA7C  |00000000
+0012DA80  |00000000
+0012DA84  |00000000
+0012DA88  |00000000
+0012DA8C  |00000000
+0012DA90  |00000000
+0012DA94  |00000000
+0012DA98  |00000000
+0012DA9C  |00000000
+0012DAA0  |00000000
+0012DAA4  |00000000
+0012DAA8  |00000000
+0012DAAC  |00000000
+0012DAB0  |00000000
+0012DAB4  |00000000
+0012DAB8  |00000000
+0012DABC  |00000000
+0012DAC0  |00000000
+0012DAC4  |00000000
+0012DAC8  |00000000
+0012DACC  |00000000
+0012DAD0  |00000000
+0012DAD4  |00000000
+0012DAD8  |00000000
+0012DADC  |00000000
+0012DAE0  |00000000
+0012DAE4  |00000000
+0012DAE8  |00000000
+0012DAEC  |00000000
+0012DAF0  |00000000
+0012DAF4  |00000000
+0012DAF8  |00000000
+0012DAFC  |00000000
+0012DB00  |00000000
+0012DB04  |00000000
+0012DB08  |00000000
+0012DB0C  |00000000
+0012DB10  |00000000
+0012DB14  |00000000
+0012DB18  |00000000
+0012DB1C  |00000000
+0012DB20  |00000000
+0012DB24  |00000000
+0012DB28  |00000000
+0012DB2C  |00000000
+0012DB30  |00000000
+0012DB34  |00000000
+0012DB38  |00000000
+0012DB3C  |00000000
+0012DB40  |00000000
+0012DB44  |00000000
+0012DB48  |00000000
+0012DB4C  |00000000
+0012DB50  |00000000
+0012DB54  |00000000
+0012DB58  |00000000
+0012DB5C  |00000000
+0012DB60  |00000000
+0012DB64  |00000000
+0012DB68  |00000000
+0012DB6C  |00000000
+0012DB70  |00000000
+0012DB74  |00000000
+0012DB78  |00000000
+0012DB7C  |00000000
+0012DB80  |00000000
+0012DB84  |00000000
+0012DB88  |00000000
+0012DB8C  |00000000
+0012DB90  |00000000
+0012DB94  |00000000
+0012DB98  |00000000
+0012DB9C  |00000000
+0012DBA0  |00000000
+0012DBA4  |00000000
+0012DBA8  |00000000
+0012DBAC  |00000000
+0012DBB0  |00000000
+0012DBB4  |00000000
+0012DBB8  |00000000
+0012DBBC  |00000000
+0012DBC0  |00000000
+0012DBC4  |00000000
+0012DBC8  |00000000
+0012DBCC  |00000000
+0012DBD0  |00000000
+0012DBD4  |00000000
+0012DBD8  |00000000
+0012DBDC  |00000000
+0012DBE0  |00000000
+0012DBE4  |00000000
+0012DBE8  |00000000
+0012DBEC  |00000000
+0012DBF0  |00000000
+0012DBF4  |00000000
+0012DBF8  |00000000
+0012DBFC  |00000000
+0012DC00  |00000000
+0012DC04  |00000000
+0012DC08  |00000000
+0012DC0C  |00000000
+0012DC10  |00000000
+0012DC14  |00000000
+0012DC18  |00000000
+0012DC1C  |00000000
+0012DC20  |00000000
+0012DC24  |00000000
+0012DC28  |00000000
+0012DC2C  |00000000
+0012DC30  |00000000
+0012DC34  |00000000
+0012DC38  |00000000
+0012DC3C  |00000000
+0012DC40  |00000000
+0012DC44  |00000000
+0012DC48  |00000000
+0012DC4C  |00000000
+0012DC50  |00000000
+0012DC54  |00000000
+0012DC58  |00000000
+0012DC5C  |00000000
+0012DC60  |00000000
+0012DC64  |00000000
+0012DC68  |00000000
+0012DC6C  |00000000
+0012DC70  |00000000
+0012DC74  |00000000
+0012DC78  |00000000
+0012DC7C  |00000000
+0012DC80  |00000000
+0012DC84  |00000000
+0012DC88  |00000000
+0012DC8C  |00000000
+0012DC90  |00000000
+0012DC94  |00000000
+0012DC98  |00000000
+0012DC9C  |00000000
+0012DCA0  |00000000
+0012DCA4  |00000000
+0012DCA8  |00000000
+0012DCAC  |00000000
+0012DCB0  |00000000
+0012DCB4  |00000000
+0012DCB8  |00000000
+0012DCBC  |00000000
+0012DCC0  |00000000
+0012DCC4  |00000000
+0012DCC8  |00000000
+0012DCCC  |00000000
+0012DCD0  |00000000
+0012DCD4  |00000000
+0012DCD8  |00000000
+0012DCDC  |00000000
+0012DCE0  |00000000
+0012DCE4  |00000000
+0012DCE8  |00000000
+0012DCEC  |00000000
+0012DCF0  |00000000
+0012DCF4  |00000000
+0012DCF8  |00000000
+0012DCFC  |00000000
+0012DD00  |00000000
+0012DD04  |00000000
+0012DD08  |00000000
+0012DD0C  |00000000
+0012DD10  |00000000
+0012DD14  |00000000
+0012DD18  |00000000
+0012DD1C  |00000000
+0012DD20  |00000000
+0012DD24  |00000000
+0012DD28  |00000000
+0012DD2C  |00000000
+0012DD30  |00000000
+0012DD34  |00000000
+0012DD38  |00000000
+0012DD3C  |00000000
+0012DD40  |00000000
+0012DD44  |00000000
+0012DD48  |00000000
+0012DD4C  |00000000
+0012DD50  |00000000
+0012DD54  |00000000
+0012DD58  |00000000
+0012DD5C  |00000000
+0012DD60  |00000000
+0012DD64  |00000000
+0012DD68  |00000000
+0012DD6C  |00000000
+0012DD70  |00000000
+0012DD74  |00000000
+0012DD78  |00000000
+0012DD7C  |00000000
+0012DD80  |00000000
+0012DD84  |00000000
+0012DD88  |00000000
+0012DD8C  |00000000
+0012DD90  |00000000
+0012DD94  |00000000
+0012DD98  |00000000
+0012DD9C  |00000000
+0012DDA0  |00000000
+0012DDA4  |00000000
+0012DDA8  |00000000
+0012DDAC  |00000000
+0012DDB0  |00000000
+0012DDB4  |00000000
+0012DDB8  |00000000
+0012DDBC  |00000000
+0012DDC0  |00000000
+0012DDC4  |00000000
+0012DDC8  |00000000
+0012DDCC  |00000000
+0012DDD0  |00000000
+0012DDD4  |00000000
+0012DDD8  |00000000
+0012DDDC  |00000000
+0012DDE0  |00000000
+0012DDE4  |00000000
+0012DDE8  |00000000
+0012DDEC  |00000000
+0012DDF0  |00000000
+0012DDF4  |00000000
+0012DDF8  |00000000
+0012DDFC  |00000000
+0012DE00  |00000000
+0012DE04  |00000000
+0012DE08  |00000000
+0012DE0C  |00000000
+0012DE10  |00000000
+0012DE14  |00000000
+0012DE18  |00000000
+0012DE1C  |00000000
+0012DE20  |00000000
+0012DE24  |00000000
+0012DE28  |00000000
+0012DE2C  |00000000
+0012DE30  |00000000
+0012DE34  |00000000
+0012DE38  |00000000
+0012DE3C  |00000000
+0012DE40  |00000000
+0012DE44  |00000000
+0012DE48  |00000000
+0012DE4C  |00000000
+0012DE50  |00000000
+0012DE54  |00000000
+0012DE58  |00000000
+0012DE5C  |00000000
+0012DE60  |00000000
+0012DE64  |00000000
+0012DE68  |00000000
+0012DE6C  |00000000
+0012DE70  |00000000
+0012DE74  |00000000
+0012DE78  |00000000
+0012DE7C  |00000000
+0012DE80  |00000000
+0012DE84  |00000000
+0012DE88  |00000000
+0012DE8C  |00000000
+0012DE90  |00000000
+0012DE94  |00000000
+0012DE98  |00000000
+0012DE9C  |00000000
+0012DEA0  |00000000
+0012DEA4  |00000000
+0012DEA8  |00000000
+0012DEAC  |00000000
+0012DEB0  |00000000
+0012DEB4  |00000000
+0012DEB8  |00000000
+0012DEBC  |00000000
+0012DEC0  |00000000
+0012DEC4  |00000000
+0012DEC8  |00000000
+0012DECC  |00000000
+0012DED0  |00000000
+0012DED4  |00000000
+0012DED8  |00000000
+0012DEDC  |00000000
+0012DEE0  |00000000
+0012DEE4  |00000000
+0012DEE8  |00000000
+0012DEEC  |00000000
+0012DEF0  |00000000
+0012DEF4  |00000000
+0012DEF8  |00000000
+0012DEFC  |00000000
+0012DF00  |00000000
+0012DF04  |00000000
+0012DF08  |00000000
+0012DF0C  |00000000
+0012DF10  |00000000
+0012DF14  |00000000
+0012DF18  |00000000
+0012DF1C  |00000000
+0012DF20  |00000000
+0012DF24  |00000000
+0012DF28  |00000000
+0012DF2C  |00000000
+0012DF30  |00000000
+0012DF34  |00000000
+0012DF38  |00000000
+0012DF3C  |00000000
+0012DF40  |00000000
+0012DF44  |00000000
+0012DF48  |00000000
+0012DF4C  |00000000
+0012DF50  |00000000
+0012DF54  |00000000
+0012DF58  |00000000
+0012DF5C  |00000000
+0012DF60  |00000000
+0012DF64  |00000000
+0012DF68  |00000000
+0012DF6C  |00000000
+0012DF70  |00000000
+0012DF74  |00000000
+0012DF78  |00000000
+0012DF7C  |00000000
+0012DF80  |00000000
+0012DF84  |00000000
+0012DF88  |00000000
+0012DF8C  |00000000
+0012DF90  |00000000
+0012DF94  |00000000
+0012DF98  |00000000
+0012DF9C  |00000000
+0012DFA0  |00000000
+0012DFA4  |00000000
+0012DFA8  |00000000
+0012DFAC  |00000000
+0012DFB0  |00000000
+0012DFB4  |00000000
+0012DFB8  |00000000
+0012DFBC  |00000000
+0012DFC0  |00000000
+0012DFC4  |00000000
+0012DFC8  |00000000
+0012DFCC  |00000000
+0012DFD0  |00000000
+0012DFD4  |00000000
+0012DFD8  |00000000
+0012DFDC  |00000000
+0012DFE0  |00000000
+0012DFE4  |00000000
+0012DFE8  |00000000
+0012DFEC  |00000000
+0012DFF0  |00000000
+0012DFF4  |00000000
+0012DFF8  |00000000
+0012DFFC  |00000000
+0012E000  |00000000
+0012E004  |00000000
+0012E008  |00000000
+0012E00C  |00000000
+0012E010  |00000000
+0012E014  |00000000
+0012E018  |00000000
+0012E01C  |00000000
+0012E020  |00000000
+0012E024  |00000000
+0012E028  |00000000
+0012E02C  |00000000
+0012E030  |00000000
+0012E034  |00000000
+0012E038  |00000000
+0012E03C  |00000000
+0012E040  |00000000
+0012E044  |00000000
+0012E048  |00000000
+0012E04C  |00000000
+0012E050  |00000000
+0012E054  |00000000
+0012E058  |00000000
+0012E05C  |00000000
+0012E060  |00000000
+0012E064  |00000000
+0012E068  |00000000
+0012E06C  |00000000
+0012E070  |00000000
+0012E074  |00000000
+0012E078  |00000000
+0012E07C  |00000000
+0012E080  |00000000
+0012E084  |00000000
+0012E088  |00000000
+0012E08C  |00000000
+0012E090  |00000000
+0012E094  |00000000
+0012E098  |00000000
+0012E09C  |00000000
+0012E0A0  |00000000
+0012E0A4  |00000000
+0012E0A8  |00000000
+0012E0AC  |00000000
+0012E0B0  |00000000
+0012E0B4  |00000000
+0012E0B8  |00000000
+0012E0BC  |00000000
+0012E0C0  |00000000
+0012E0C4  |00000000
+0012E0C8  |00000000
+0012E0CC  |00000000
+0012E0D0  |00000000
+0012E0D4  |00000000
+0012E0D8  |00000000
+0012E0DC  |00000000
+0012E0E0  |00000000
+0012E0E4  |00000000
+0012E0E8  |00000000
+0012E0EC  |00000000
+0012E0F0  |00000000
+0012E0F4  |00000000
+0012E0F8  |00000000
+0012E0FC  |00000000
+0012E100  |00000000
+0012E104  |00000000
+0012E108  |00000000
+0012E10C  |00000000
+0012E110  |00000000
+0012E114  |00000000
+0012E118  |00000000
+0012E11C  |00000000
+0012E120  |00000000
+0012E124  |00000000
+0012E128  |00000000
+0012E12C  |00000000
+0012E130  |00000000
+0012E134  |00000000
+0012E138  |00000000
+0012E13C  |00000000
+0012E140  |00000000
+0012E144  |00000000
+0012E148  |00000000
+0012E14C  |00000000
+0012E150  |00000000
+0012E154  |00000000
+0012E158  |00000000
+0012E15C  |00000000
+0012E160  |00000000
+0012E164  |00000000
+0012E168  |00000000
+0012E16C  |00000000
+0012E170  |00000000
+0012E174  |00000000
+0012E178  |00000000
+0012E17C  |00000000
+0012E180  |00000000
+0012E184  |00000000
+0012E188  |00000000
+0012E18C  |00000000
+0012E190  |00000000
+0012E194  |00000000
+0012E198  |00000000
+0012E19C  |00000000
+0012E1A0  |00000000
+0012E1A4  |00000000
+0012E1A8  |00000000
+0012E1AC  |00000000
+0012E1B0  |00000000
+0012E1B4  |00000000
+0012E1B8  |00000000
+0012E1BC  |00000000
+0012E1C0  |00000000
+0012E1C4  |00000000
+0012E1C8  |00000000
+0012E1CC  |00000000
+0012E1D0  |00000000
+0012E1D4  |00000000
+0012E1D8  |00000000
+0012E1DC  |00000000
+0012E1E0  |00000000
+0012E1E4  |00000000
+0012E1E8  |00000000
+0012E1EC  |00000000
+0012E1F0  |00000000
+0012E1F4  |00000000
+0012E1F8  |00000000
+0012E1FC  |00000000
+0012E200  |00000000
+0012E204  |00000000
+0012E208  |00000000
+0012E20C  |00000000
+0012E210  |00000000
+0012E214  |00000000
+0012E218  |00000000
+0012E21C  |00000000
+0012E220  |00000000
+0012E224  |00000000
+0012E228  |00000000
+0012E22C  |00000000
+0012E230  |00000000
+0012E234  |00000000
+0012E238  |00000000
+0012E23C  |00000000
+0012E240  |00000000
+0012E244  |00000000
+0012E248  |00000000
+0012E24C  |00000000
+0012E250  |00000000
+0012E254  |00000000
+0012E258  |00000000
+0012E25C  |00000000
+0012E260  |00000000
+0012E264  |00000000
+0012E268  |00000000
+0012E26C  |00000000
+0012E270  |00000000
+0012E274  |00000000
+0012E278  |00000000
+0012E27C  |00000000
+0012E280  |00000000
+0012E284  |00000000
+0012E288  |00000000
+0012E28C  |00000000
+0012E290  |00000000
+0012E294  |00000000
+0012E298  |00000000
+0012E29C  |00000000
+0012E2A0  |00000000
+0012E2A4  |00000000
+0012E2A8  |00000000
+0012E2AC  |00000000
+0012E2B0  |00000000
+0012E2B4  |00000000
+0012E2B8  |00000000
+0012E2BC  |00000000
+0012E2C0  |00000000
+0012E2C4  |00000000
+0012E2C8  |00000000
+0012E2CC  |00000000
+0012E2D0  |00000000
+0012E2D4  |00000000
+0012E2D8  |00000000
+0012E2DC  |00000000
+0012E2E0  |00000000
+0012E2E4  |00000000
+0012E2E8  |00000000
+0012E2EC  |00000000
+0012E2F0  |00000000
+0012E2F4  |00000000
+0012E2F8  |00000000
+0012E2FC  |00000000
+0012E300  |00000000
+0012E304  |00000000
+0012E308  |00000000
+0012E30C  |00000000
+0012E310  |00000000
+0012E314  |00000000
+0012E318  |00000000
+0012E31C  |00000000
+0012E320  |00000000
+0012E324  |00000000
+0012E328  |00000000
+0012E32C  |00000000
+0012E330  |00000000
+0012E334  |00000000
+0012E338  |00000000
+0012E33C  |00000000
+0012E340  |00000000
+0012E344  |00000000
+0012E348  |00000000
+0012E34C  |00000000
+0012E350  |00000000
+0012E354  |00000000
+0012E358  |00000000
+0012E35C  |00000000
+0012E360  |00000000
+0012E364  |00000000
+0012E368  |00000000
+0012E36C  |00000000
+0012E370  |00000000
+0012E374  |00000000
+0012E378  |00000000
+0012E37C  |00000000
+0012E380  |00000000
+0012E384  |00000000
+0012E388  |00000000
+0012E38C  |00000000
+0012E390  |00000000
+0012E394  |00000000
+0012E398  |00000000
+0012E39C  |00000000
+0012E3A0  |00000000
+0012E3A4  |00000000
+0012E3A8  |00000000
+0012E3AC  |00000000
+0012E3B0  |00000000
+0012E3B4  |00000000
+0012E3B8  |00000000
+0012E3BC  |00000000
+0012E3C0  |00000000
+0012E3C4  |00000000
+0012E3C8  |00000000
+0012E3CC  |00000000
+0012E3D0  |00000000
+0012E3D4  |00000000
+0012E3D8  |00000000
+0012E3DC  |00000000
+0012E3E0  |00000000
+0012E3E4  |00000000
+0012E3E8  |00000000
+0012E3EC  |00000000
+0012E3F0  |00000000
+0012E3F4  |00000000
+0012E3F8  |00000000
+0012E3FC  |00000000
+0012E400  |00000000
+0012E404  |00000000
+0012E408  |00000000
+0012E40C  |00000000
+0012E410  |00000000
+0012E414  |00000000
+0012E418  |00000000
+0012E41C  |00000000
+0012E420  |00000000
+0012E424  |00000000
+0012E428  |00000000
+0012E42C  |00000000
+0012E430  |00000000
+0012E434  |00000000
+0012E438  |00000000
+0012E43C  |00000000
+0012E440  |00000000
+0012E444  |00000000
+0012E448  |00000000
+0012E44C  |00000000
+0012E450  |00000000
+0012E454  |00000000
+0012E458  |00000000
+0012E45C  |00000000
+0012E460  |00000000
+0012E464  |00000000
+0012E468  |00000000
+0012E46C  |00000000
+0012E470  |00000000
+0012E474  |00000000
+0012E478  |00000000
+0012E47C  |00000000
+0012E480  |00000000
+0012E484  |00000000
+0012E488  |00000000
+0012E48C  |00000000
+0012E490  |00000000
+0012E494  |00000000
+0012E498  |00000000
+0012E49C  |00000000
+0012E4A0  |00000000
+0012E4A4  |00000000
+0012E4A8  |00000000
+0012E4AC  |00000000
+0012E4B0  |00000000
+0012E4B4  |00000000
+0012E4B8  |00000000
+0012E4BC  |00000000
+0012E4C0  |00000000
+0012E4C4  |00000000
+0012E4C8  |00000000
+0012E4CC  |00000000
+0012E4D0  |00000000
+0012E4D4  |00000000
+0012E4D8  |00000000
+0012E4DC  |00000000
+0012E4E0  |00000000
+0012E4E4  |00000000
+0012E4E8  |00000000
+0012E4EC  |00000000
+0012E4F0  |00000000
+0012E4F4  |00000000
+0012E4F8  |00000000
+0012E4FC  |00000000
+0012E500  |00000000
+0012E504  |00000000
+0012E508  |00000000
+0012E50C  |00000000
+0012E510  |00000000
+0012E514  |00000000
+0012E518  |00000000
+0012E51C  |00000000
+0012E520  |00000000
+0012E524  |00000000
+0012E528  |00000000
+0012E52C  |00000000
+0012E530  |00000000
+0012E534  |00000000
+0012E538  |00000000
+0012E53C  |00000000
+0012E540  |00000000
+0012E544  |00000000
+0012E548  |00000000
+0012E54C  |00000000
+0012E550  |00000000
+0012E554  |00000000
+0012E558  |00000000
+0012E55C  |00000000
+0012E560  |00000000
+0012E564  |00000000
+0012E568  |00000000
+0012E56C  |00000000
+0012E570  |00000000
+0012E574  |00000000
+0012E578  |00000000
+0012E57C  |00000000
+0012E580  |00000000
+0012E584  |00000000
+0012E588  |00000000
+0012E58C  |00000000
+0012E590  |00000000
+0012E594  |00000000
+0012E598  |00000000
+0012E59C  |00000000
+0012E5A0  |00000000
+0012E5A4  |00000000
+0012E5A8  |00000000
+0012E5AC  |00000000
+0012E5B0  |00000000
+0012E5B4  |00000000
+0012E5B8  |00000000
+0012E5BC  |00000000
+0012E5C0  |00000000
+0012E5C4  |00000000
+0012E5C8  |00000000
+0012E5CC  |00000000
+0012E5D0  |00000000
+0012E5D4  |00000000
+0012E5D8  |00000000
+0012E5DC  |00000000
+0012E5E0  |00000000
+0012E5E4  |00000000
+0012E5E8  |00000000
+0012E5EC  |00000000
+0012E5F0  |00000000
+0012E5F4  |00000000
+0012E5F8  |00000000
+0012E5FC  |00000000
+0012E600  |00000000
+0012E604  |00000000
+0012E608  |00000000
+0012E60C  |00000000
+0012E610  |00000000
+0012E614  |00000000
+0012E618  |00000000
+0012E61C  |00000000
+0012E620  |00000000
+0012E624  |00000000
+0012E628  |00000000
+0012E62C  |00000000
+0012E630  |00000000
+0012E634  |00000000
+0012E638  |00000000
+0012E63C  |00000000
+0012E640  |00000000
+0012E644  |00000000
+0012E648  |00000000
+0012E64C  |00000000
+0012E650  |00000000
+0012E654  |00000000
+0012E658  |00000000
+0012E65C  |00000000
+0012E660  |00000000
+0012E664  |00000000
+0012E668  |00000000
+0012E66C  |00000000
+0012E670  |00000000
+0012E674  |00000000
+0012E678  |00000000
+0012E67C  |00000000
+0012E680  |00000000
+0012E684  |00000000
+0012E688  |00000000
+0012E68C  |00000000
+0012E690  |00000000
+0012E694  |00000000
+0012E698  |00000000
+0012E69C  |00000000
+0012E6A0  |00000000
+0012E6A4  |00000000
+0012E6A8  |00000000
+0012E6AC  |00000000
+0012E6B0  |00000000
+0012E6B4  |00000000
+0012E6B8  |00000000
+0012E6BC  |00000000
+0012E6C0  |00000000
+0012E6C4  |00000000
+0012E6C8  |00000000
+0012E6CC  |00000000
+0012E6D0  |00000000
+0012E6D4  |00000000
+0012E6D8  |00000000
+0012E6DC  |00000000
+0012E6E0  |00000000
+0012E6E4  |00000000
+0012E6E8  |00000000
+0012E6EC  |00000000
+0012E6F0  |00000000
+0012E6F4  |00000000
+0012E6F8  |00000000
+0012E6FC  |00000000
+0012E700  |00000000
+0012E704  |00000000
+0012E708  |00000000
+0012E70C  |00000000
+0012E710  |00000000
+0012E714  |00000000
+0012E718  |00000000
+0012E71C  |00000000
+0012E720  |00000000
+0012E724  |00000000
+0012E728  |00000000
+0012E72C  |00000000
+0012E730  |00000000
+0012E734  |00000000
+0012E738  |00000000
+0012E73C  |00000000
+0012E740  |00000000
+0012E744  |00000000
+0012E748  |00000000
+0012E74C  |00000000
+0012E750  |00000000
+0012E754  |00000000
+0012E758  |00000000
+0012E75C  |00000000
+0012E760  |00000000
+0012E764  |00000000
+0012E768  |00000000
+0012E76C  |00000000
+0012E770  |00000000
+0012E774  |00000000
+0012E778  |00000000
+0012E77C  |00000000
+0012E780  |00000000
+0012E784  |00000000
+0012E788  |00000000
+0012E78C  |00000000
+0012E790  |00000000
+0012E794  |00000000
+0012E798  |00000000
+0012E79C  |00000000
+0012E7A0  |00000000
+0012E7A4  |00000000
+0012E7A8  |00000000
+0012E7AC  |00000000
+0012E7B0  |00000000
+0012E7B4  |00000000
+0012E7B8  |00000000
+0012E7BC  |00000000
+0012E7C0  |00000000
+0012E7C4  |00000000
+0012E7C8  |00000000
+0012E7CC  |00000000
+0012E7D0  |00000000
+0012E7D4  |00000000
+0012E7D8  |00000000
+0012E7DC  |00000000
+0012E7E0  |00000000
+0012E7E4  |00000000
+0012E7E8  |00000000
+0012E7EC  |00000000
+0012E7F0  |00000000
+0012E7F4  |00000000
+0012E7F8  |00000000
+0012E7FC  |00000000
+0012E800  |00000000
+0012E804  |00000000
+0012E808  |00000000
+0012E80C  |00000000
+0012E810  |00000000
+0012E814  |00000000
+0012E818  |00000000
+0012E81C  |00000000
+0012E820  |00000000
+0012E824  |00000000
+0012E828  |00000000
+0012E82C  |00000000
+0012E830  |00000000
+0012E834  |00000000
+0012E838  |00000000
+0012E83C  |00000000
+0012E840  |00000000
+0012E844  |00000000
+0012E848  |00000000
+0012E84C  |00000000
+0012E850  |00000000
+0012E854  |00000000
+0012E858  |00000000
+0012E85C  |00000000
+0012E860  |00000000
+0012E864  |00000000
+0012E868  |00000000
+0012E86C  |00000000
+0012E870  |00000000
+0012E874  |00000000
+0012E878  |00000000
+0012E87C  |00000000
+0012E880  |00000000
+0012E884  |00000000
+0012E888  |00000000
+0012E88C  |00000000
+0012E890  |00000000
+0012E894  |00000000
+0012E898  |00000000
+0012E89C  |00000000
+0012E8A0  |00000000
+0012E8A4  |00000000
+0012E8A8  |00000000
+0012E8AC  |00000000
+0012E8B0  |00000000
+0012E8B4  |00000000
+0012E8B8  |00000000
+0012E8BC  |00000000
+0012E8C0  |00000000
+0012E8C4  |00000000
+0012E8C8  |00000000
+0012E8CC  |00000000
+0012E8D0  |00000000
+0012E8D4  |00000000
+0012E8D8  |00000000
+0012E8DC  |00000000
+0012E8E0  |00000000
+0012E8E4  |00000000
+0012E8E8  |00000000
+0012E8EC  |00000000
+0012E8F0  |00000000
+0012E8F4  |00000000
+0012E8F8  |00000000
+0012E8FC  |00000000
+0012E900  |00000000
+0012E904  |00000000
+0012E908  |00000000
+0012E90C  |00000000
+0012E910  |00000000
+0012E914  |00000000
+0012E918  |00000000
+0012E91C  |00000000
+0012E920  |00000000
+0012E924  |00000000
+0012E928  |00000000
+0012E92C  |00000000
+0012E930  |00000000
+0012E934  |00000000
+0012E938  |00000000
+0012E93C  |00000000
+0012E940  |00000000
+0012E944  |00000000
+0012E948  |00000000
+0012E94C  |00000000
+0012E950  |00000000
+0012E954  |00000000
+0012E958  |00000000
+0012E95C  |00000000
+0012E960  |00000000
+0012E964  |00000000
+0012E968  |00000000
+0012E96C  |00000000
+0012E970  |00000000
+0012E974  |00000000
+0012E978  |00000000
+0012E97C  |00000000
+0012E980  |00000000
+0012E984  |00000000
+0012E988  |00000000
+0012E98C  |00000000
+0012E990  |00000000
+0012E994  |00000000
+0012E998  |00000000
+0012E99C  |00000000
+0012E9A0  |00000000
+0012E9A4  |00000000
+0012E9A8  |00000000
+0012E9AC  |00000000
+0012E9B0  |00000000
+0012E9B4  |00000000
+0012E9B8  |00000000
+0012E9BC  |00000000
+0012E9C0  |00000000
+0012E9C4  |00000000
+0012E9C8  |00000000
+0012E9CC  |00000000
+0012E9D0  |00000000
+0012E9D4  |00000000
+0012E9D8  |00000000
+0012E9DC  |00000000
+0012E9E0  |00000000
+0012E9E4  |00000000
+0012E9E8  |00000000
+0012E9EC  |00000000
+0012E9F0  |00000000
+0012E9F4  |00000000
+0012E9F8  |00000000
+0012E9FC  |00000000
+0012EA00  |00000000
+0012EA04  |00000000
+0012EA08  |00000000
+0012EA0C  |00000000
+0012EA10  |00000000
+0012EA14  |00000000
+0012EA18  |00000000
+0012EA1C  |00000000
+0012EA20  |00000000
+0012EA24  |00000000
+0012EA28  |00000000
+0012EA2C  |00000000
+0012EA30  |00000000
+0012EA34  |00000000
+0012EA38  |00000000
+0012EA3C  |00000000
+0012EA40  |00000000
+0012EA44  |00000000
+0012EA48  |00000000
+0012EA4C  |00000000
+0012EA50  |00000000
+0012EA54  |00000000
+0012EA58  |00000000
+0012EA5C  |00000000
+0012EA60  |00000000
+0012EA64  |00000000
+0012EA68  |00000000
+0012EA6C  |00000000
+0012EA70  |00000000
+0012EA74  |00000000
+0012EA78  |00000000
+0012EA7C  |00000000
+0012EA80  |00000000
+0012EA84  |00000000
+0012EA88  |00000000
+0012EA8C  |00000000
+0012EA90  |00000000
+0012EA94  |00000000
+0012EA98  |00000000
+0012EA9C  |00000000
+0012EAA0  |00000000
+0012EAA4  |00000000
+0012EAA8  |00000000
+0012EAAC  |00000000
+0012EAB0  |00000000
+0012EAB4  |00000000
+0012EAB8  |00000000
+0012EABC  |00000000
+0012EAC0  |00000000
+0012EAC4  |00000000
+0012EAC8  |00000000
+0012EACC  |00000000
+0012EAD0  |00000000
+0012EAD4  |00000000
+0012EAD8  |00000000
+0012EADC  |00000000
+0012EAE0  |00000000
+0012EAE4  |00000000
+0012EAE8  |00000000
+0012EAEC  |00000000
+0012EAF0  |00000000
+0012EAF4  |00000000
+0012EAF8  |00000000
+0012EAFC  |00000000
+0012EB00  |00000000
+0012EB04  |00000000
+0012EB08  |00000000
+0012EB0C  |00000000
+0012EB10  |00000000
+0012EB14  |00000000
+0012EB18  |00000000
+0012EB1C  |00000000
+0012EB20  |00000000
+0012EB24  |00000000
+0012EB28  |00000000
+0012EB2C  |00000000
+0012EB30  |00000000
+0012EB34  |00000000
+0012EB38  |00000000
+0012EB3C  |00000000
+0012EB40  |00000000
+0012EB44  |00000000
+0012EB48  |00000000
+0012EB4C  |00000000
+0012EB50  |00000000
+0012EB54  |00000000
+0012EB58  |00000000
+0012EB5C  |00000000
+0012EB60  |00000000
+0012EB64  |00000000
+0012EB68  |00000000
+0012EB6C  |00000000
+0012EB70  |00000000
+0012EB74  |00000000
+0012EB78  |00000000
+0012EB7C  |00000000
+0012EB80  |00000000
+0012EB84  |00000000
+0012EB88  |00000000
+0012EB8C  |00000000
+0012EB90  |00000000
+0012EB94  |00000000
+0012EB98  |00000000
+0012EB9C  |00000000
+0012EBA0  |00000000
+0012EBA4  |00000000
+0012EBA8  |00000000
+0012EBAC  |00000000
+0012EBB0  |00000000
+0012EBB4  |00000000
+0012EBB8  |00000000
+0012EBBC  |00000000
+0012EBC0  |00000000
+0012EBC4  |00000000
+0012EBC8  |00000000
+0012EBCC  |00000000
+0012EBD0  |00000000
+0012EBD4  |00000000
+0012EBD8  |00000000
+0012EBDC  |00000000
+0012EBE0  |00000000
+0012EBE4  |00000000
+0012EBE8  |00000000
+0012EBEC  |00000000
+0012EBF0  |00000000
+0012EBF4  |00000000
+0012EBF8  |00000000
+0012EBFC  |00000000
+0012EC00  |00000000
+0012EC04  |00000000
+0012EC08  |00000000
+0012EC0C  |00000000
+0012EC10  |00000000
+0012EC14  |00000000
+0012EC18  |00000000
+0012EC1C  |00000000
+0012EC20  |00000000
+0012EC24  |00000000
+0012EC28  |00000000
+0012EC2C  |00000000
+0012EC30  |00000000
+0012EC34  |00000000
+0012EC38  |00000000
+0012EC3C  |00000000
+0012EC40  |00000000
+0012EC44  |00000000
+0012EC48  |00000000
+0012EC4C  |00000000
+0012EC50  |00000000
+0012EC54  |00000000
+0012EC58  |00000000
+0012EC5C  |00000000
+0012EC60  |00000000
+0012EC64  |00000000
+0012EC68  |00000000
+0012EC6C  |00000000
+0012EC70  |00000000
+0012EC74  |00000000
+0012EC78  |00000000
+0012EC7C  |00000000
+0012EC80  |00000000
+0012EC84  |00000000
+0012EC88  |00000000
+0012EC8C  |00000000
+0012EC90  |00000000
+0012EC94  |00000000
+0012EC98  |00000000
+0012EC9C  |00000000
+0012ECA0  |00000000
+0012ECA4  |00000000
+0012ECA8  |00000000
+0012ECAC  |00000000
+0012ECB0  |00000000
+0012ECB4  |00000000
+0012ECB8  |00000000
+0012ECBC  |00000000
+0012ECC0  |00000000
+0012ECC4  |00000000
+0012ECC8  |00000000
+0012ECCC  |00000000
+0012ECD0  |00000000
+0012ECD4  |00000000
+0012ECD8  |00000000
+0012ECDC  |00000000
+0012ECE0  |00000000
+0012ECE4  |00000000
+0012ECE8  |00000000
+0012ECEC  |00000000
+0012ECF0  |00000000
+0012ECF4  |00000000
+0012ECF8  |00000000
+0012ECFC  |00000000
+0012ED00  |00000000
+0012ED04  |00000000
+0012ED08  |00000000
+0012ED0C  |00000000
+0012ED10  |00000000
+0012ED14  |00000000
+0012ED18  |00000000
+0012ED1C  |00000000
+0012ED20  |00000000
+0012ED24  |00000000
+0012ED28  |00000000
+0012ED2C  |00000000
+0012ED30  |00000000
+0012ED34  |00000000
+0012ED38  |00000000
+0012ED3C  |00000000
+0012ED40  |00000000
+0012ED44  |00000000
+0012ED48  |00000000
+0012ED4C  |00000000
+0012ED50  |00000000
+0012ED54  |00000000
+0012ED58  |00000000
+0012ED5C  |00000000
+0012ED60  |00000000
+0012ED64  |00000000
+0012ED68  |00000000
+0012ED6C  |00000000
+0012ED70  |00000000
+0012ED74  |00000000
+0012ED78  |00000000
+0012ED7C  |00000000
+0012ED80  |00000000
+0012ED84  |00000000
+0012ED88  |00000000
+0012ED8C  |00000000
+0012ED90  |00000000
+0012ED94  |00000000
+0012ED98  |00000000
+0012ED9C  |00000000
+0012EDA0  |00000000
+0012EDA4  |00000000
+0012EDA8  |00000000
+0012EDAC  |00000000
+0012EDB0  |00000000
+0012EDB4  |00000000
+0012EDB8  |00000000
+0012EDBC  |00000000
+0012EDC0  |00000000
+0012EDC4  |00000000
+0012EDC8  |00000000
+0012EDCC  |00000000
+0012EDD0  |00000000
+0012EDD4  |00000000
+0012EDD8  |00000000
+0012EDDC  |00000000
+0012EDE0  |00000000
+0012EDE4  |00000000
+0012EDE8  |00000000
+0012EDEC  |00000000
+0012EDF0  |00000000
+0012EDF4  |00000000
+0012EDF8  |00000000
+0012EDFC  |00000000
+0012EE00  |00000000
+0012EE04  |00000000
+0012EE08  |00000000
+0012EE0C  |00000000
+0012EE10  |00000000
+0012EE14  |00000000
+0012EE18  |00000000
+0012EE1C  |00000000
+0012EE20  |00000000
+0012EE24  |00000000
+0012EE28  |00000000
+0012EE2C  |00000000
+0012EE30  |00000000
+0012EE34  |00000000
+0012EE38  |00000000
+0012EE3C  |00000000
+0012EE40  |00000000
+0012EE44  |00000000
+0012EE48  |00000000
+0012EE4C  |00000000
+0012EE50  |00000000
+0012EE54  |00000000
+0012EE58  |00000000
+0012EE5C  |00000000
+0012EE60  |00000000
+0012EE64  |00000000
+0012EE68  |00000000
+0012EE6C  |00000000
+0012EE70  |00000000
+0012EE74  |00000000
+0012EE78  |00000000
+0012EE7C  |00000000
+0012EE80  |00000000
+0012EE84  |00000000
+0012EE88  |00000000
+0012EE8C  |00000000
+0012EE90  |00000000
+0012EE94  |00000000
+0012EE98  |00000000
+0012EE9C  |00000000
+0012EEA0  |00000000
+0012EEA4  |00000000
+0012EEA8  |00000000
+0012EEAC  |00000000
+0012EEB0  |00000000
+0012EEB4  |00000000
+0012EEB8  |00000000
+0012EEBC  |00000000
+0012EEC0  |00000000
+0012EEC4  |00000000
+0012EEC8  |00000000
+0012EECC  |00000000
+0012EED0  |00000000
+0012EED4  |00000000
+0012EED8  |00000000
+0012EEDC  |00000000
+0012EEE0  |00000000
+0012EEE4  |00000000
+0012EEE8  |00000000
+0012EEEC  |00000000
+0012EEF0  |00000000
+0012EEF4  |00000000
+0012EEF8  |00000000
+0012EEFC  |00000000
+0012EF00  |00000000
+0012EF04  |00000000
+0012EF08  |00000000
+0012EF0C  |00000000
+0012EF10  |00000000
+0012EF14  |00000000
+0012EF18  |00000000
+0012EF1C  |00000000
+0012EF20  |00000000
+0012EF24  |00000000
+0012EF28  |00000000
+0012EF2C  |00000000
+0012EF30  |00000000
+0012EF34  |00000000
+0012EF38  |00000000
+0012EF3C  |00000000
+0012EF40  |00000000
+0012EF44  |00000000
+0012EF48  |00000000
+0012EF4C  |00000000
+0012EF50  |00000000
+0012EF54  |00000000
+0012EF58  |00000000
+0012EF5C  |00000000
+0012EF60  |00000000
+0012EF64  |00000000
+0012EF68  |00000000
+0012EF6C  |00000000
+0012EF70  |00000000
+0012EF74  |00000000
+0012EF78  |00000000
+0012EF7C  |00000000
+0012EF80  |00000000
+0012EF84  |00000000
+0012EF88  |00000000
+0012EF8C  |00000000
+0012EF90  |00000000
+0012EF94  |00000000
+0012EF98  |00000000
+0012EF9C  |00000000
+0012EFA0  |00000000
+0012EFA4  |00000000
+0012EFA8  |00000000
+0012EFAC  |00000000
+0012EFB0  |00000000
+0012EFB4  |00000000
+0012EFB8  |00000000
+0012EFBC  |00000000
+0012EFC0  |00000000
+0012EFC4  |00000000
+0012EFC8  |00000000
+0012EFCC  |00000000
+0012EFD0  |00000000
+0012EFD4  |00000000
+0012EFD8  |00000000
+0012EFDC  |00000000
+0012EFE0  |00000000
+0012EFE4  |00000000
+0012EFE8  |00000000
+0012EFEC  |00000000
+0012EFF0  |00000000
+0012EFF4  |00000000
+0012EFF8  |00000000
+0012EFFC  |00000000
+0012F000  |00000000
+0012F004  |00000000
+0012F008  |00000000
+0012F00C  |00000000
+0012F010  |00000000
+0012F014  |00000000
+0012F018  |00000000
+0012F01C  |00000000
+0012F020  |00000000
+0012F024  |00000000
+0012F028  |00000000
+0012F02C  |00000000
+0012F030  |00000000
+0012F034  |00000000
+0012F038  |00000000
+0012F03C  |00000000
+0012F040  |00000000
+0012F044  |00000000
+0012F048  |00000000
+0012F04C  |00000000
+0012F050  |00000000
+0012F054  |00000000
+0012F058  |00000000
+0012F05C  |00000000
+0012F060  |00000000
+0012F064  |00000000
+0012F068  |00000000
+0012F06C  |00000000
+0012F070  |00000000
+0012F074  |00000000
+0012F078  |00000000
+0012F07C  |00000000
+0012F080  |00000000
+0012F084  |00000000
+0012F088  |00000000
+0012F08C  |00000000
+0012F090  |00000000
+0012F094  |00000000
+0012F098  |00000000
+0012F09C  |00000000
+0012F0A0  |00000000
+0012F0A4  |00000000
+0012F0A8  |00000000
+0012F0AC  |00000000
+0012F0B0  |00000000
+0012F0B4  |00000000
+0012F0B8  |00000000
+0012F0BC  |00000000
+0012F0C0  |00000000
+0012F0C4  |00000000
+0012F0C8  |00000000
+0012F0CC  |00000000
+0012F0D0  |00000000
+0012F0D4  |00000000
+0012F0D8  |00000000
+0012F0DC  |00000000
+0012F0E0  |00000000
+0012F0E4  |00000000
+0012F0E8  |00000000
+0012F0EC  |00000000
+0012F0F0  |00000000
+0012F0F4  |00000000
+0012F0F8  |00000000
+0012F0FC  |00000000
+0012F100  |00000000
+0012F104  |00000000
+0012F108  |00000000
+0012F10C  |00000000
+0012F110  |00000000
+0012F114  |00000000
+0012F118  |00000000
+0012F11C  |00000000
+0012F120  |00000000
+0012F124  |00000000
+0012F128  |00000000
+0012F12C  |00000000
+0012F130  |00000000
+0012F134  |00000000
+0012F138  |00000000
+0012F13C  |00000000
+0012F140  |00000000
+0012F144  |00000000
+0012F148  |00000000
+0012F14C  |00000000
+0012F150  |00000000
+0012F154  |00000000
+0012F158  |00000000
+0012F15C  |00000000
+0012F160  |00000000
+0012F164  |00000000
+0012F168  |00000000
+0012F16C  |00000000
+0012F170  |00000000
+0012F174  |00000000
+0012F178  |00000000
+0012F17C  |00000000
+0012F180  |00000000
+0012F184  |00000000
+0012F188  |00000000
+0012F18C  |00000000
+0012F190  |00000000
+0012F194  |00000000
+0012F198  |00000000
+0012F19C  |00000000
+0012F1A0  |00000000
+0012F1A4  |00000000
+0012F1A8  |00000000
+0012F1AC  |00000000
+0012F1B0  |00000000
+0012F1B4  |00000000
+0012F1B8  |00000000
+0012F1BC  |00000000
+0012F1C0  |00000000
+0012F1C4  |00000000
+0012F1C8  |00000000
+0012F1CC  |00000000
+0012F1D0  |00000000
+0012F1D4  |00000000
+0012F1D8  |00000000
+0012F1DC  |00000000
+0012F1E0  |00000000
+0012F1E4  |00000000
+0012F1E8  |00000000
+0012F1EC  |00000000
+0012F1F0  |00000000
+0012F1F4  |00000000
+0012F1F8  |00000000
+0012F1FC  |00000000
+0012F200  |00000000
+0012F204  |00000000
+0012F208  |00000000
+0012F20C  |00000000
+0012F210  |00000000
+0012F214  |00000000
+0012F218  |00000000
+0012F21C  |00000000
+0012F220  |00000000
+0012F224  |00000000
+0012F228  |00000000
+0012F22C  |00000000
+0012F230  |00000000
+0012F234  |00000000
+0012F238  |00000000
+0012F23C  |00000000
+0012F240  |00000000
+0012F244  |00000000
+0012F248  |00000000
+0012F24C  |00000000
+0012F250  |00000000
+0012F254  |00000000
+0012F258  |00000000
+0012F25C  |00000000
+0012F260  |00000000
+0012F264  |00000000
+0012F268  |00000000
+0012F26C  |00000000
+0012F270  |00000000
+0012F274  |00000000
+0012F278  |00000000
+0012F27C  |00000000
+0012F280  |00000000
+0012F284  |00000000
+0012F288  |00000000
+0012F28C  |00000000
+0012F290  |00000000
+0012F294  |00000000
+0012F298  |00000000
+0012F29C  |00000000
+0012F2A0  |00000000
+0012F2A4  |00000000
+0012F2A8  |00000000
+0012F2AC  |00000000
+0012F2B0  |00000000
+0012F2B4  |00000000
+0012F2B8  |00000000
+0012F2BC  |00000000
+0012F2C0  |00000000
+0012F2C4  |00000000
+0012F2C8  |00000000
+0012F2CC  |00000000
+0012F2D0  |00000000
+0012F2D4  |00000000
+0012F2D8  |00000000
+0012F2DC  |00000000
+0012F2E0  |00000000
+0012F2E4  |00000000
+0012F2E8  |00000000
+0012F2EC  |00000000
+0012F2F0  |00000000
+0012F2F4  |00000000
+0012F2F8  |00000000
+0012F2FC  |00000000
+0012F300  |00000000
+0012F304  |00000000
+0012F308  |00000000
+0012F30C  |00000000
+0012F310  |00000000
+0012F314  |00000000
+0012F318  |00000000
+0012F31C  |00000000
+0012F320  |00000000
+0012F324  |00000000
+0012F328  |00000000
+0012F32C  |00000000
+0012F330  |00000000
+0012F334  |00000000
+0012F338  |00000000
+0012F33C  |00000000
+0012F340  |00000000
+0012F344  |00000000
+0012F348  |00000000
+0012F34C  |00000000
+0012F350  |00000000
+0012F354  |00000000
+0012F358  |00000000
+0012F35C  |00000000
+0012F360  |00000000
+0012F364  |00000000
+0012F368  |00000000
+0012F36C  |00000000
+0012F370  |00000000
+0012F374  |00000000
+0012F378  |00000000
+0012F37C  |00000000
+0012F380  |00000000
+0012F384  |00000000
+0012F388  |00000000
+0012F38C  |00000000
+0012F390  |00000000
+0012F394  |00000000
+0012F398  |00000000
+0012F39C  |00000000
+0012F3A0  |00000000
+0012F3A4  |00000000
+0012F3A8  |00000000
+0012F3AC  |00000000
+0012F3B0  |00000000
+0012F3B4  |00000000
+0012F3B8  |00000000
+0012F3BC  |00000000
+0012F3C0  |00000000
+0012F3C4  |00000000
+0012F3C8  |00000000
+0012F3CC  |00000000
+0012F3D0  |00000000
+0012F3D4  |00000000
+0012F3D8  |00000000
+0012F3DC  |00000000
+0012F3E0  |00000000
+0012F3E4  |00000000
+0012F3E8  |00000000
+0012F3EC  |00000000
+0012F3F0  |00000000
+0012F3F4  |00000000
+0012F3F8  |00000000
+0012F3FC  |00000000
+0012F400  |00000000
+0012F404  |00000000
+0012F408  |00000000
+0012F40C  |00000000
+0012F410  |00000000
+0012F414  |00000000
+0012F418  |00000000
+0012F41C  |00000000
+0012F420  |00000000
+0012F424  |00000000
+0012F428  |00000000
+0012F42C  |00000000
+0012F430  |00000000
+0012F434  |00000000
+0012F438  |00000000
+0012F43C  |00000000
+0012F440  |00000000
+0012F444  |00000000
+0012F448  |00000000
+0012F44C  |00000000
+0012F450  |00000000
+0012F454  |00000000
+0012F458  |00000000
+0012F45C  |00000000
+0012F460  |00000000
+0012F464  |00000000
+0012F468  |00000000
+0012F46C  |00000000
+0012F470  |00000000
+0012F474  |00000000
+0012F478  |00000000
+0012F47C  |00000000
+0012F480  |00000000
+0012F484  |00000000
+0012F488  |00000000
+0012F48C  |00000000
+0012F490  |00000000
+0012F494  |00000000
+0012F498  |00000000
+0012F49C  |00000000
+0012F4A0  |00000000
+0012F4A4  |00000000
+0012F4A8  |00000000
+0012F4AC  |00000000
+0012F4B0  |00000000
+0012F4B4  |00000000
+0012F4B8  |00000000
+0012F4BC  |00000000
+0012F4C0  |00000000
+0012F4C4  |00000000
+0012F4C8  |00000000
+0012F4CC  |00000000
+0012F4D0  |00000000
+0012F4D4  |00000000
+0012F4D8  |00000000
+0012F4DC  |00000000
+0012F4E0  |00000000
+0012F4E4  |00000000
+0012F4E8  |00000000
+0012F4EC  |00000000
+0012F4F0  |00000000
+0012F4F4  |00000000
+0012F4F8  |00000000
+0012F4FC  |00000000
+0012F500  |00000000
+0012F504  |00000000
+0012F508  |00000000
+0012F50C  |00000000
+0012F510  |00000000
+0012F514  |00000000
+0012F518  |00000000
+0012F51C  |00000000
+0012F520  |00000000
+0012F524  |00000000
+0012F528  |00000000
+0012F52C  |00000000
+0012F530  |00000000
+0012F534  |00000000
+0012F538  |00000000
+0012F53C  |00000000
+0012F540  |00000000
+0012F544  |00000000
+0012F548  |00000000
+0012F54C  |00000000
+0012F550  |00000000
+0012F554  |00000000
+0012F558  |00000000
+0012F55C  |00000000
+0012F560  |00000000
+0012F564  |00000000
+0012F568  |00000000
+0012F56C  |00000000
+0012F570  |00000000
+0012F574  |00000000
+0012F578  |00000000
+0012F57C  |00000000
+0012F580  |00000000
+0012F584  |00000000
+0012F588  |00000000
+0012F58C  |00000000
+0012F590  |00000000
+0012F594  |00000000
+0012F598  |00000000
+0012F59C  |00000000
+0012F5A0  |00000000
+0012F5A4  |00000000
+0012F5A8  |00000000
+0012F5AC  |00000000
+0012F5B0  |00000000
+0012F5B4  |00000000
+0012F5B8  |00000000
+0012F5BC  |00000000
+0012F5C0  |00000000
+0012F5C4  |00000000
+0012F5C8  |00000000
+0012F5CC  |00000000
+0012F5D0  |00000000
+0012F5D4  |00000000
+0012F5D8  |00000000
+0012F5DC  |00000000
+0012F5E0  |00000000
+0012F5E4  |00000000
+0012F5E8  |00000000
+0012F5EC  |00000000
+0012F5F0  |00000000
+0012F5F4  |00000000
+0012F5F8  |00000000
+0012F5FC  |00000000
+0012F600  |00000000
+0012F604  |00000000
+0012F608  |00000000
+0012F60C  |00000000
+0012F610  |00000000
+0012F614  |00000000
+0012F618  |00000000
+0012F61C  |00000000
+0012F620  |00000000
+0012F624  |00000000
+0012F628  |00000000
+0012F62C  |00000000
+0012F630  |00000000
+0012F634  |00000000
+0012F638  |00000000
+0012F63C  |00000000
+0012F640  |00000000
+0012F644  |EEEDBD0E
+0012F648  |0012F76C  Pointer to next SEH record
+0012F64C  |340ECB66  SE handler
+0012F650  |00000001
+0012F654  ]0012F670
+0012F658  |34071C16  RETURN to SSOCommo.34071C16
+0012F65C  |00000000
+0012F660  |00000000
+0012F664  |02AC734C
+0012F668  |000004D4
+0012F66C  |02AC7350
+0012F670  ]0012F688
+0012F674  |34072F01  RETURN to SSOCommo.34072F01
+0012F678  |00000000
+0012F67C  |02AC8CF8
+0012F680  |341A30EC  SSOCommo.341A30EC
+0012F684  |341A30F0  SSOCommo.341A30F0
+0012F688  ]0012F6E0
+0012F68C  |34072FC8  RETURN to SSOCommo.34072FC8 from SSOCommo.34072DB3
+0012F690  |000004D4
+0012F694  |00000077
+0012F698  |340730EC  SSOCommo.340730EC
+0012F69C  |00000000
+0012F6A0  |0012F750
+0012F6A4  |3406AFCA  RETURN to SSOCommo.3406AFCA from SSOCommo.3407612F
+0012F6A8  |341A30F0  SSOCommo.341A30F0
+0012F6AC  |02AC7740
+0012F6B0  |0012F6D0
+0012F6B4  |341A30F0  SSOCommo.341A30F0
+0012F6B8  |02AC7740
+0012F6BC  |02AC7740
+0012F6C0  |0012F6D4
+0012F6C4  |341A30F0  SSOCommo.341A30F0
+0012F6C8  |02AC2670
+0012F6CC  |340730EC  SSOCommo.340730EC
+0012F6D0  |02AC8CF8
+0012F6D4  |0012F6E8
+0012F6D8  |341A30EC  SSOCommo.341A30EC
+0012F6DC  |00000001
+0012F6E0  ]0012F6E8
+0012F6E4  |3407312A  RETURN to SSOCommo.3407312A from SSOCommo.34072F42
+0012F6E8  ]0012F714
+0012F6EC  |77D18734  RETURN to USER32.77D18734
+0012F6F0  |003104F2
+0012F6F4  |00000373
+0012F6F8  |000004D4
+0012F6FC  |00000001
+0012F700  |340730EC  SSOCommo.340730EC
+0012F704  |DCBAABCD
+0012F708  |00000000
+0012F70C  |0012F750
+0012F710  |340730EC  SSOCommo.340730EC
+0012F714  ]0012F77C
+0012F718  |77D18816  RETURN to USER32.77D18816 from USER32.77D1870C
+0012F71C  |340730EC  SSOCommo.340730EC
+0012F720  |003104F2
+0012F724  |00000373
+0012F728  |000004D4
+0012F72C  |00000001
+0012F730  |0012F814
+0012F734  |0012F80C
+0012F738  |00694310
+0012F73C  |00000014
+0012F740  |00000001
+0012F744  |00000000
+0012F748  |00000000
+0012F74C  |00000010
+0012F750  |00000000
+0012F754  |0012F784
+0012F758  |00000000
+0012F75C  |00000000
+0012F760  |00000000
+0012F764  |0012F730
+0012F768  |0012F914
+0012F76C  |0012F7CC  Pointer to next SEH record
+0012F770  |77D4048F  SE handler
+0012F774  |77D18830  USER32.77D18830
+0012F778  |00000000
+0012F77C  ]0012F7DC
+0012F780  |77D189CD  RETURN to USER32.77D189CD from USER32.77D1875F
+0012F784  |00000000
+0012F788  |340730EC  SSOCommo.340730EC
+0012F78C  |003104F2
+0012F790  |00000373
+0012F794  |000004D4
+0012F798  |00000001
+0012F79C  |00694324
+0012F7A0  |00000001
+0012F7A4  |01237728
+0012F7A8  |0012F80C
+0012F7AC  |00008FFF
+0012F7B0  |00000001
+0012F7B4  |0012F7EC
+0012F7B8  |69F060DC  RETURN to HummerEn.69F060DC from HummerEn.69F04FFB
+0012F7BC  |000004D4
+0012F7C0  |00000000
+0012F7C4  |0012F7A4
+0012F7C8  |0012F80C
+0012F7CC  |0012F874  Pointer to next SEH record
+0012F7D0  |77D4048F  SE handler
+0012F7D4  |77D189F0  USER32.77D189F0
+0012F7D8  |FFFFFFFF
+0012F7DC  ]0012F7EC
+0012F7E0  |77D18A10  RETURN to USER32.77D18A10 from USER32.77D188F1
+0012F7E4  |0012F80C
+0012F7E8  |00000000
+0012F7EC  ]0012F828
+0012F7F0  |69F0652A  RETURN to HummerEn.69F0652A from USER32.DispatchMessageW
+0012F7F4  |0012F80C
+0012F7F8  |69F10C00  HummerEn.69F10C00
+0012F7FC  |69F0633C  RETURN to HummerEn.69F0633C from HummerEn.69F064C3
+0012F800  |00000000
+0012F804  |01237728
+0012F808  |69F10C10  UNICODE "func"
+0012F80C  |003104F2
+0012F810  |00000373
+0012F814  |000004D4
+0012F818  |00000001
+0012F81C  |002EA4CD
+0012F820  |0000009B
+0012F824  |0000002F
+0012F828  ]0012F844
+0012F82C  |69F06059  RETURN to HummerEn.69F06059
+0012F830  |69F109E8  UNICODE "/MLogin"
+0012F834  |69F10C04  UNICODE "file"
+0012F838  |0012FA64
+0012F83C  |0012FD00
+0012F840  |00000001
+0012F844  ]0012F880
+0012F848  |69F04529  RETURN to HummerEn.69F04529
+0012F84C  |0012FA64
+0012F850  |69F04BFA  RETURN to HummerEn.69F04BFA from HummerEn.69F04513
+0012F854  |02666557  xpsp2res.02666557
+0012F858  |69F109E8  UNICODE "/MLogin"
+0012F85C  |69F10C04  UNICODE "file"
+0012F860  |69F10C10  UNICODE "func"
+0012F864  |00000001
+0012F868  |012D5300
+0012F86C  |0012FA64
+0012F870  |00000000
+0012F874  |0012FD84  Pointer to next SEH record
+0012F878  |69F0E9D9  SE handler
+0012F87C  |00000000
+0012F880  ]0012FD90
+0012F884  |69F0AF44  RETURN to HummerEn.69F0AF44 from HummerEn.69F04BD9
+0012F888  |02666047  xpsp2res.02666047
+0012F88C  |7C92FE21  ntdll.RtlGetLastWin32Error
+0012F890  |69F00000  HummerEn.69F00000
+0012F894  |00000000
+0012F898  |00000000
+0012F89C  |00001000
+0012F8A0  |00010000  UNICODE "ALLUSERSPROFILE=C:\Documents and Settings\All Users"
+0012F8A4  |7FFEFFFF
+0012F8A8  |00000001
+0012F8AC  |00000001
+0012F8B0  |0000024A
+0012F8B4  |00010000  UNICODE "ALLUSERSPROFILE=C:\Documents and Settings\All Users"
+0012F8B8  |25050006
+0012F8BC  |00000020
+0012F8C0  |00000010
+0012F8C4  |7FF7C000
+0012F8C8  |6B510000
+0012F8CC  |F67CD000
+0012F8D0  |E9D56000
+0012F8D4  |7FFE0000
+0012F8D8  |7C5D3000
+0012F8DC  |00000000
+0012F8E0  |00000000
+0012F8E4  |00000003
+0012F8E8  |00000000
+0012F8EC  |00000000
+0012F8F0  |00000000
+0012F8F4  |302817A4  Common.302817A4
+0012F8F8  |302817A4  Common.302817A4
+0012F8FC  |00000000
+0012F900  |00000000
+0012F904  |302817A4  Common.302817A4
+0012F908  |00369E99
+0012F90C  |00000000
+0012F910  |69F110B4  HummerEn.69F110B4
+0012F914  |00000000
+0012F918  |00000000
+0012F91C  |00000000
+0012F920  |00000000
+0012F924  |00000000
+0012F928  |0012F93C
+0012F92C  |00000002
+0012F930  |00000002
+0012F934  |01325370
+0012F938  |012D0CD0
+0012F93C  |012376A8
+0012F940  |00005370
+0012F944  |0012FD98
+0012F948  |69F11240  UNICODE "InitAutoUpdate"
+0012F94C  |01325370
+0012F950  |7C935B58  RETURN to ntdll.7C935B58 from ntdll.RtlFreeUnicodeString
+0012F954  |0012F998
+0012F958  |0012FB38
+0012F95C  |00000001
+0012F960  |7C935BBD  RETURN to ntdll.7C935BBD from ntdll.7C92FE77
+0012F964  |76990000  ole32.76990000
+0012F968  |7C99E214  ntdll.7C99E214
+0012F96C  |FFFFFFFD
+0012F970  |00000000
+0012F974  |0012FD8C
+0012F978  |0012FB30
+0012F97C  |00000000
+0012F980  |0012FB38
+0012F984  |00000000
+0012F988  |0012FB28
+0012F98C  |00000000
+0012F990  |0012F9B0
+0012F994  |78147344  RETURN to MSVCR80.78147344 from MSVCR80.781472B7
+0012F998  |0012F9F0
+0012F99C  |7FFDF000
+0012F9A0  |0012F9E8
+0012F9A4  |0012F9C8
+0012F9A8  |7C9467C0  RETURN to ntdll.7C9467C0 from ntdll.wcsncpy
+0012F9AC  |0012F9FC  UNICODE "Service Pack 3"
+0012F9B0  |7F6F06C2  UNICODE "Service Pack 3"
+0012F9B4  |0000000E
+0012F9B8  |00000000
+0012F9BC  |0000011C
+0012F9C0  |0012F9E8
+0012F9C4  |00000000
+0012F9C8  |0012F9DC
+0012F9CC  |7C80AF25  RETURN to kernel32.7C80AF25 from ntdll.RtlGetVersion
+0012F9D0  |0012F9E8
+0012F9D4  |7C92FE21  ntdll.RtlGetLastWin32Error
+0012F9D8  |69F00000  HummerEn.69F00000
+0012F9DC  |0012FB00
+0012F9E0  |300E7FCD  RETURN to Common.300E7FCD from kernel32.GetVersionExW
+0012F9E4  |300E7FE1  RETURN to Common.300E7FE1 from Common.301316D8
+0012F9E8  |00000114
+0012F9EC  |00000005
+0012F9F0  |00000001
+0012F9F4  |00000A28
+0012F9F8  |00000002
+0012F9FC  |00650053
+0012FA00  |00760072
+0012FA04  |00630069
+0012FA08  |00200065
+0012FA0C  |00610050
+0012FA10  |006B0063
+0012FA14  |00330020
+0012FA18  |00000000
+0012FA1C  |00000000
+0012FA20  |00000000
+0012FA24  |00000000
+0012FA28  |00000000
+0012FA2C  |00000000
+0012FA30  |00000000
+0012FA34  |00000000
+0012FA38  |00000000
+0012FA3C  |00000000
+0012FA40  |00000000
+0012FA44  |00000000
+0012FA48  |00000000
+0012FA4C  |00000000
+0012FA50  |00000000
+0012FA54  |00000000
+0012FA58  |00000000
+0012FA5C  |00000000
+0012FA60  |00000000
+0012FA64  |69F10C44  HummerEn.69F10C44
+0012FA68  |00000000
+0012FA6C  |00000000
+0012FA70  |00000000
+0012FA74  |00000000
+0012FA78  |00000000
+0012FA7C  |00000000
+0012FA80  |0012FDBC
+0012FA84  |00000000
+0012FA88  |00000000
+0012FA8C  |00000000
+0012FA90  |0012FAC4
+0012FA94  |003E0000
+0012FA98  |00000000
+0012FA9C  |00000000
+0012FAA0  |00000000
+0012FAA4  |00000000
+0012FAA8  |01237728
+0012FAAC  |0012FA9C
+0012FAB0  |00000000
+0012FAB4  |00000000
+0012FAB8  |00000000
+0012FABC  |00000000
+0012FAC0  |00000000
+0012FAC4  |7C930001  ntdll.7C930001
+0012FAC8  |7C931086  RETURN to ntdll.7C931086 from ntdll.RtlLeaveCriticalSection
+0012FACC  |7C930100  ntdll.7C930100
+0012FAD0  |0000002C
+0012FAD4  |00000000
+0012FAD8  |0000002C
+0012FADC  |00000000
+0012FAE0  |0000000F
+0012FAE4  |00000000
+0012FAE8  |00000000
+0012FAEC  |00000000
+0012FAF0  |00000000
+0012FAF4  |00000000
+0012FAF8  |0015E748
+0012FAFC  |FFFFFFFF
+0012FB00  |00000000
+0012FB04  |00000000
+0012FB08  |00000000
+0012FB0C  |00000000
+0012FB10  |0012F864
+0012FB14  |00000000
+0012FB18  |00000000
+0012FB1C  |00000000
+0012FB20  |02B40092
+0012FB24  |00000000
+0012FB28  |00000000
+0012FB2C  |00000000
+0012FB30  |00000000
+0012FB34  |00000000
+0012FB38  |00251E9C
+0012FB3C  |69F10A40  HummerEn.69F10A40
+0012FB40  |00250001
+0012FB44  |00000000
+0012FB48  |000001F8
+0012FB4C  |0142FEB8
+0012FB50  |01280E00
+0012FB54  |00000990
+0012FB58  |000001FA
+0012FB5C  |69676F4C
+0012FB60  |006C6163
+0012FB64  |7C80B4D0  kernel32.7C80B4D0
+0012FB68  |01230000
+0012FB6C  |00000007
+0012FB70  |0000000F
+0012FB74  |003A0043
+0012FB78  |0050005C
+0012FB7C  |006F0072
+0012FB80  |00720067
+0012FB84  |006D0061
+0012FB88  |00460020
+0012FB8C  |006C0069
+0012FB90  |00730065
+0012FB94  |0054005C
+0012FB98  |006E0065
+0012FB9C  |00650063
+0012FBA0  |0074006E
+0012FBA4  |0051005C
+0012FBA8  |00490051
+0012FBAC  |0074006E
+0012FBB0  |005C006C
+0012FBB4  |00690042
+0012FBB8  |005C006E
+0012FBBC  |00510051
+0012FBC0  |0065002E
+0012FBC4  |00650078  ASCII "20A"
+0012FBC8  |00000000
+0012FBCC  |00000000
+0012FBD0  |00000000
+0012FBD4  |00000000
+0012FBD8  |00000000
+0012FBDC  |00000000
+0012FBE0  |00000000
+0012FBE4  |00000000
+0012FBE8  |00000000
+0012FBEC  |00000000
+0012FBF0  |00000000
+0012FBF4  |00000000
+0012FBF8  |00000000
+0012FBFC  |00000000
+0012FC00  |00000000
+0012FC04  |00000000
+0012FC08  |00000000
+0012FC0C  |00000000
+0012FC10  |00000000
+0012FC14  |00000000
+0012FC18  |00000000
+0012FC1C  |00000000
+0012FC20  |00000000
+0012FC24  |00000000
+0012FC28  |00000000
+0012FC2C  |00000000
+0012FC30  |00000000
+0012FC34  |00000000
+0012FC38  |00000000
+0012FC3C  |00000000
+0012FC40  |00000000
+0012FC44  |00000000
+0012FC48  |00000000
+0012FC4C  |00000000
+0012FC50  |00000000
+0012FC54  |00000000
+0012FC58  |00000000
+0012FC5C  |00000000
+0012FC60  |00000000
+0012FC64  |00000000
+0012FC68  |00000000
+0012FC6C  |00000000
+0012FC70  |00000000
+0012FC74  |00000000
+0012FC78  |00000000
+0012FC7C  |00000000
+0012FC80  |00000000
+0012FC84  |00000000
+0012FC88  |00000000
+0012FC8C  |00000000
+0012FC90  |00000000
+0012FC94  |00000000
+0012FC98  |00000000
+0012FC9C  |00000000
+0012FCA0  |00000000
+0012FCA4  |00000000
+0012FCA8  |00000000
+0012FCAC  |00000000
+0012FCB0  |00000000
+0012FCB4  |00000000
+0012FCB8  |00000000
+0012FCBC  |00000000
+0012FCC0  |00000000
+0012FCC4  |00000000
+0012FCC8  |00000000
+0012FCCC  |00000000
+0012FCD0  |00000000
+0012FCD4  |00000000
+0012FCD8  |00000000
+0012FCDC  |00000000
+0012FCE0  |00000000
+0012FCE4  |00000000
+0012FCE8  |00000000
+0012FCEC  |00000000
+0012FCF0  |00000000
+0012FCF4  |00000000
+0012FCF8  |00000000
+0012FCFC  |00000000
+0012FD00  |00000000
+0012FD04  |00000000
+0012FD08  |00000000
+0012FD0C  |00000000
+0012FD10  |00000000
+0012FD14  |00000000
+0012FD18  |00000000
+0012FD1C  |00000000
+0012FD20  |00000000
+0012FD24  |00000000
+0012FD28  |00000000
+0012FD2C  |00000000
+0012FD30  |00000000
+0012FD34  |00000000
+0012FD38  |00000000
+0012FD3C  |00000000
+0012FD40  |00000000
+0012FD44  |00000000
+0012FD48  |00000000
+0012FD4C  |00000000
+0012FD50  |00000000
+0012FD54  |00000000
+0012FD58  |00000000
+0012FD5C  |00000000
+0012FD60  |00000000
+0012FD64  |00000000
+0012FD68  |00000000
+0012FD6C  |00000000
+0012FD70  |00000000
+0012FD74  |00000000
+0012FD78  |00000000
+0012FD7C  |00000000
+0012FD80  |02666047  xpsp2res.02666047
+0012FD84  |0012FFB0  Pointer to next SEH record
+0012FD88  |69F0E30C  SE handler
+0012FD8C  |00000007
+0012FD90  ]0012FDDC
+0012FD94  |69F0B146  RETURN to HummerEn.69F0B146 from HummerEn.69F0A4A4
+0012FD98  |69F10EF4  HummerEn.69F10EF4
+0012FD9C  |00000240
+0012FDA0  |00000000
+0012FDA4  |00001101
+0012FDA8  |00000370
+0012FDAC  |69F1229C  HummerEn.69F1229C
+0012FDB0  |01280900
+0012FDB4  |69F1229C  HummerEn.69F1229C
+0012FDB8  |01280938
+0012FDBC  |0015E720
+0012FDC0  |FFFFFFFF
+0012FDC4  |00000000
+0012FDC8  |00000000
+0012FDCC  |00000000
+0012FDD0  |00000000
+0012FDD4  |01290A20
+0012FDD8  |0012FD98
+0012FDDC  ]0012FF20
+0012FDE0  |004014D9  RETURN to QQ.004014D9
+0012FDE4  |0000000A
+0012FDE8  |00404458  QQ.00404458
+0012FDEC  |00000001
+0012FDF0  |00000000
+0012FDF4  |3AA15042
+0012FDF8  |60197F1F
+0012FDFC  |142D153B
+0012FE00  |00000114
+0012FE04  |00000005
+0012FE08  |00000001
+0012FE0C  |00000A28
+0012FE10  |00000002
+0012FE14  |00650053
+0012FE18  |00760072
+0012FE1C  |00630069
+0012FE20  |00200065
+0012FE24  |00610050
+0012FE28  |006B0063
+0012FE2C  |00330020
+0012FE30  |00000000
+0012FE34  |00000000
+0012FE38  |00000000
+0012FE3C  |00000000
+0012FE40  |00000000
+0012FE44  |00000000
+0012FE48  |00000000
+0012FE4C  |00000000
+0012FE50  |00000000
+0012FE54  |00000000
+0012FE58  |00000000
+0012FE5C  |00000000
+0012FE60  |00000000
+0012FE64  |00000000
+0012FE68  |00000000
+0012FE6C  |00000000
+0012FE70  |00000000
+0012FE74  |00000000
+0012FE78  |00000000
+0012FE7C  |00000000
+0012FE80  |00000000
+0012FE84  |00000000
+0012FE88  |00000000
+0012FE8C  |00000000
+0012FE90  |00000000
+0012FE94  |00000000
+0012FE98  |00000000
+0012FE9C  |00000000
+0012FEA0  |00000000
+0012FEA4  |00000000
+0012FEA8  |00000000
+0012FEAC  |00000000
+0012FEB0  |00000000
+0012FEB4  |00000000
+0012FEB8  |00000000
+0012FEBC  |00000000
+0012FEC0  |00000000
+0012FEC4  |00000000
+0012FEC8  |00000000
+0012FECC  |00000000
+0012FED0  |00000000
+0012FED4  |00000000
+0012FED8  |00000000
+0012FEDC  |00000000
+0012FEE0  |00000000
+0012FEE4  |00000000
+0012FEE8  |00000000
+0012FEEC  |00000000
+0012FEF0  |00000000
+0012FEF4  |00000000
+0012FEF8  |00000000
+0012FEFC  |00000000
+0012FF00  |00000000
+0012FF04  |00000000
+0012FF08  |00000000
+0012FF0C  |00000000
+0012FF10  |00000000
+0012FF14  |02154002
+0012FF18  |FFFFFFFE
+0012FF1C  |02478EAE  xpsp2res.02478EAE
+0012FF20  ]0012FF2C
+0012FF24  |0040128B  RETURN to QQ.0040128B from QQ.0040128F
+0012FF28  |0000000A
+0012FF2C  ]0012FFC0
+0012FF30  |00401A8F  RETURN to QQ.00401A8F from QQ.00401280
+0012FF34  |00400000  QQ.00400000
+0012FF38  |00000000
+0012FF3C  |000207B8  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\QQ.exe "
+0012FF40  |0000000A
+0012FF44  |02478C9A  xpsp2res.02478C9A
+0012FF48  |001601C8
+0012FF4C  |7C930981  RETURN to ntdll.7C930981 from ntdll.RtlLeaveCriticalSection
+0012FF50  |7FFDF000
+0012FF54  |00000044
+0012FF58  |00020888
+0012FF5C  |00020868  UNICODE "WinSta0\Default"
+0012FF60  |00020810  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\QQ.exe"
+0012FF64  |00000000
+0012FF68  |00000000
+0012FF6C  |00000000
+0012FF70  |00000000
+0012FF74  |00000000
+0012FF78  |00000000
+0012FF7C  |00000000
+0012FF80  |00000000
+0012FF84  |00000000
+0012FF88  |00000000
+0012FF8C  |00369E99
+0012FF90  |00000000
+0012FF94  |0012FFBC
+0012FF98  |00402017  RETURN to QQ.00402017 from kernel32.QueryPerformanceCounter
+0012FF9C  |000207B8  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\QQ.exe "
+0012FFA0  |00000000
+0012FFA4  |00000000
+0012FFA8  |0012FF44
+0012FFAC  |D928B946
+0012FFB0  |0012FFE0  Pointer to next SEH record
+0012FFB4  |00401C61  SE handler
+0012FFB8  |02154022
+0012FFBC  |00000001
+0012FFC0  \0012FFF0
+0012FFC4   7C817077  RETURN to kernel32.7C817077
+0012FFC8   001601C8
+0012FFCC   7C930981  RETURN to ntdll.7C930981 from ntdll.RtlLeaveCriticalSection
+0012FFD0   7FFDF000
+0012FFD4   8054C6B8
+0012FFD8   0012FFC8
+0012FFDC   8910B020
+0012FFE0   FFFFFFFF  End of SEH chain
+0012FFE4   7C839AD8  SE handler
+0012FFE8   7C817080  kernel32.7C817080
+0012FFEC   00000000
+0012FFF0   00000000
+0012FFF4   00000000
+0012FFF8   00401BFB  QQ.<ModuleEntryPoint>
+0012FFFC   00000000
+

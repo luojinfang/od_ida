@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta charset="unicode">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>IDA - C:\Program Files\Tencent\QQIntl\Bin\Common.dll</title>
+</head>
+<body bgcolor="white">
+<span style="white-space: pre; font-family: FixedSys; color: blue; background: white">
+
+<span style="color:gray">int __thiscall sub_30093A94(int this, unsigned __int16 Short, int type, __int32 lEvent, wchar_t *Str, int a6, int protocol)
+</span><span style="color:navy">{
+  void *v7; // </span><span style="color:#8080ff">esi@1
+  </span><span style="color:gray">int v9</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">edi@4
+
+  v7 </span><span style="color:navy">= (</span><span style="color:gray">void *</span><span style="color:navy">)</span><span style="color:#8080ff">this</span><span style="color:navy">;
+  *(</span><span style="color:gray">_DWORD *</span><span style="color:navy">)(</span><span style="color:#8080ff">this </span><span style="color:navy">+ 216) = </span><span style="color:#8080ff">a6</span><span style="color:navy">;
+  if ( </span>sub_30093A48<span style="color:navy">((</span><span style="color:gray">_DWORD *</span><span style="color:navy">)</span><span style="color:#8080ff">this</span><span style="color:navy">, </span><span style="color:#8080ff">type</span><span style="color:navy">, </span><span style="color:#8080ff">lEvent</span><span style="color:navy">, </span><span style="color:#8080ff">protocol</span><span style="color:navy">, 2) )</span><span style="color:green">// //´´½¨socket
+  </span><span style="color:navy">{
+    if ( </span>sub_3009214D<span style="color:navy">(</span><span style="color:#8080ff">v7</span><span style="color:navy">, </span><span style="color:#8080ff">Short</span><span style="color:navy">, </span><span style="color:#8080ff">Str</span><span style="color:navy">) )         </span><span style="color:green">// bind socket
+      </span><span style="color:navy">return 1;
+    </span><span style="color:#8080ff">v9 </span><span style="color:navy">= </span><span style="color:#ff00ff">WSAGetLastError</span><span style="color:navy">();
+    (*(</span><span style="color:gray">void (__thiscall **)(void *)</span><span style="color:navy">)(*(</span><span style="color:gray">_DWORD *</span><span style="color:navy">)</span><span style="color:#8080ff">v7 </span><span style="color:navy">+ 44))(</span><span style="color:#8080ff">v7</span><span style="color:navy">);
+    </span><span style="color:#ff00ff">WSASetLastError</span><span style="color:navy">(</span><span style="color:#8080ff">v9</span><span style="color:navy">);
+  </span><span style="background:navy"></span><span style="color:navy">}
+  return 0;
+</span><span style="background:navy"></span><span style="color:navy">}
+</span></body></html>

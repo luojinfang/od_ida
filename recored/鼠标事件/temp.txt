@@ -1,0 +1,21 @@
+//CTXUDPDataSender 340719A4 
+int __thiscall CTXUDPDataSender::CTXUDPDataSender(int this)
+{
+  int v1; // esi@1
+
+  v1 = this;  //CTXUDPDataSender
+  *(_DWORD *)this = &CTXUDPDataSender::`vftable';  
+  *(_DWORD *)(this + 4) = 0  //发送buf
+  CTXBSTR::CTXBSTR((CTXStringW *)(this + 8));
+  *(_WORD *)(v1 + 12) = 0;
+  *(_DWORD *)(v1 + 16) = 0;
+  *(_DWORD *)(v1 + 20) = 0;
+  sub_3406F96F(v1 + 24);
+  *(_DWORD *)(v1 + 36) = 0;
+  sub_3407154B(v1);  //这里会处理  *(_DWORD *)(this + 4) 
+  *(_DWORD *)(*(_DWORD *)(v1 + 44) + 40) = CTXUDPDataSender::OnTimer;
+  return v1;
+}
+
+构造方法断点？
+看 CTXUDPDataSender 在哪里创建,内存读写断点  *(_DWORD *)(this + 4) = 0  //这是发送的buf数据

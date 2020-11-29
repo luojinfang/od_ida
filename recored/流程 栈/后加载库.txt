@@ -1,0 +1,203 @@
+Executable modules
+Base       Size       Entry      Name       File version      Path
+
+023B0000   00549000   023B0000   xpsp2res   5.1.2600.5512 (x  C:\WINDOWS.0\system32\xpsp2res.dll
+02F00000   00415000   0317D931   IM         1.91.1370.0       C:\Program Files\Tencent\QQIntl\Bin\IM.dll
+03320000   00113000   0333C1D5   msxml3     8.90.1101.0       C:\WINDOWS.0\system32\msxml3.dll
+34000000   001B8000   340CCA6E   SSOCommo   1.2.1.12          C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\bin\SSOCommon.dll
+34300000   0016B000   3436B50C   SSOPlatf   1.2.2.1           C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\bin\SSOPlatform.dll
+
+62000000   0005B000   62033691   TaskTray   1.91.1370.0       C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll
+66200000   00262000   663118D6   AppFrame   1.91.1370.0       C:\Program Files\Tencent\QQIntl\Bin\AppFramework.dll
+68000000   00036000   68014E88   rsaenh     5.1.2600.5507 (x  C:\WINDOWS.0\system32\rsaenh.dll
+71B70000   00013000   71B7118D   samlib     5.1.2600.5512 (x  C:\WINDOWS.0\system32\samlib.dll
+76AF0000   00011000   76AFA268   atl        3.05.2284         C:\WINDOWS.0\system32\atl.dll
+76D10000   00018000   76D1265C   mprapi     5.1.2600.5512 (x  C:\WINDOWS.0\system32\mprapi.dll
+76DE0000   00025000   76DE1300   adsldpc    5.1.2600.5512 (x  C:\WINDOWS.0\system32\adsldpc.dll
+76F30000   0002C000   76F31130   wldap32    5.1.2600.5512 (x  C:\WINDOWS.0\system32\wldap32.dll
+76F80000   00008000   76F8115D   winrnr     5.1.2600.5512 (x  C:\WINDOWS.0\system32\winrnr.dll
+
+77C90000   00032000   77C91300   activeds   5.1.2600.5512 (x  C:\WINDOWS.0\system32\activeds.dll
+
+
+============================================
+CTXTCPDataSender::ApplySettings(ITXData *,tagTXTCPPacket *)                     3406F706 383         
+CTXTCPDataSender::CTXTCPDataSender(void)                                        3406FF22 46          
+CTXTCPDataSender::DeleteAllPacket(void)                                         3406FA14 613         
+CTXTCPDataSender::DeletePacket(ulong,uchar &)                                   3406FB1F 617         
+CTXTCPDataSender::ForceAllPacketsTimeOut(void)                                  3406FDD4 752         
+CTXTCPDataSender::GetNextCookie(void)                                           3406F494 892         
+CTXTCPDataSender::InternalSendData(tagTXTCPPacket *)                            3406F55A 1032        
+CTXTCPDataSender::IsPaused(void)                                                3400631D 1056        
+CTXTCPDataSender::IsReadyToSendData(void)                                       3406F5B3 1059        
+CTXTCPDataSender::IsSocketSet(void)                                             3406F535 1068        
+CTXTCPDataSender::OnTimer(uint)                                                 3406FBB1 1206        
+CTXTCPDataSender::PauseSendData(int)                                            3406FAFD 1228        
+CTXTCPDataSender::SendAllData(void)                                             3406FA87 1350        
+CTXTCPDataSender::SendData(ITXData *,int,uchar *,ulong *)                       3407001E 1352        
+CTXTCPDataSender::SetRetryTimePos(uint)                                         34071098 1420        
+CTXTCPDataSender::SetSocket(ITXTCP *)                                           3406FF7C 1426        
+CTXTCPDataSender::SetTimeOutCallback(VTXTCPDataSenderTimeOutCallback *)         3406F4A2 1440        
+CTXTCPDataSender::~CTXTCPDataSender(void)                                       3406FD55 114         
+CTXTLVCodecBase::CTXTLVCodecBase(void)                                          3401237D 47          
+CTXTLVCodecBase::ChangeConfig(bool)                                             34012169 416         
+CTXTLVCodecBase::CodeAddBuffer(uchar,ITXBuffer *)                               34012CC7 442         
+CTXTLVCodecBase::CodeBuffer(uchar,wchar_t const *,ulong)                        34012BFF 458         
+CTXTLVCodecBase::CodeByte(uchar,wchar_t const *)                                34012D90 461         
+CTXTLVCodecBase::CodeByteEx(uchar,wchar_t const *,uchar,bool,bool)              3401272D 462         
+CTXTLVCodecBase::CodeChar(uchar,wchar_t const *)                                34012DD8 463         
+CTXTLVCodecBase::CodeCharEx(uchar,wchar_t const *,char,bool,bool)               34012996 464         
+CTXTLVCodecBase::CodeDWord(uchar,wchar_t const *)                               34012DC0 465         
+CTXTLVCodecBase::CodeDWordEx(uchar,wchar_t const *,ulong,bool,bool)             340128C7 466         
+CTXTLVCodecBase::CodeInt(uchar,wchar_t const *)                                 34012E08 468         
+CTXTLVCodecBase::CodeIntEx(uchar,wchar_t const *,int,bool,bool)                 34012B30 469         
+CTXTLVCodecBase::CodeShort(uchar,wchar_t const *)                               34012DF0 471         
+CTXTLVCodecBase::CodeShortEx(uchar,wchar_t const *,short,bool,bool)             34012A60 472         
+CTXTLVCodecBase::CodeWord(uchar,wchar_t const *)                                34012DA8 477         
+CTXTLVCodecBase::CodeWordEx(uchar,wchar_t const *,ushort,bool,bool)             340127F7 478         
+CTXTLVCodecBase::CodecTLV(ulong,ITXData *,ITXBuffer * *)                        34012E20 479         
+CTXTLVCodecBase::GetBufferOut(ITXBuffer * *)                                    3401228B 799         
+CTXTLVCodecBase::SetCodeStruct(ulong)                                           34012166 1371        
+CTXTLVCodecBase::~CTXTLVCodecBase(void)                                         3401239A 115         
+CTXThreadModel::AddEvent(void *)                                                34080B69 308         
+CTXThreadModel::CTXThreadModel(void)                                            34080BC8 48          
+CTXThreadModel::EnableLowCpuPriority(int)                                       34006426 647         
+CTXThreadModel::IsThreadRunning(void)                                           34061C41 1073        
+CTXThreadModel::QueryEvent(void * &,int)                                        34080A70 1262        
+CTXThreadModel::QueryExitEvent(void)                                            34080A28 1263        
+CTXThreadModel::StartThread(void)                                               3408094A 1476        
+CTXThreadModel::StopThread(ulong)                                               340809AA 1478        
+CTXThreadModel::WaitThread(ulong)                                               340809ED 1579        
+CTXThreadModel::~CTXThreadModel(void)                                           34080AD5 116         
+
+======================================================================
+CTXUDPDataSender::ApplySettings(ITXData *,tagTXUDPPacket *)                     340711F5 384         
+CTXUDPDataSender::CTXUDPDataSender(void)                                        340719A4 49          
+CTXUDPDataSender::DeleteAllPacket(void)                                         3407147C 614         
+CTXUDPDataSender::DeletePacket(ulong,uchar &)                                   3407158B 618         
+CTXUDPDataSender::ForceAllPacketsTimeOut(void)                                  34071856 753         
+CTXUDPDataSender::GetNextCookie(void)                                           3407104C 893         
+CTXUDPDataSender::InternalSendData(tagTXUDPPacket *)                            340710A5 1033        
+CTXUDPDataSender::IsPaused(void)                                                3400631D 1057        
+CTXUDPDataSender::IsReadyToSendData(void)                                       34071125 1060        
+CTXUDPDataSender::OnTimer(uint)                                                 3407161D 1207        
+CTXUDPDataSender::PauseSendData(int)                                            34071569 1229        
+CTXUDPDataSender::SendAllData(void)                                             340714EF 1351        
+CTXUDPDataSender::SendData(ITXData *,int,uchar *,ulong *)                       34071A39 1353        
+CTXUDPDataSender::SetDestAddr(wchar_t const *,ushort)                           3407105A 1380        
+CTXUDPDataSender::SetRetryTimePos(uint)                                         34071098 1421        
+CTXUDPDataSender::SetSocket(ITXUDP *)                                           34071A03 1427        
+CTXUDPDataSender::SetTimeOutCallback(VTXUDPDataSenderTimeOutCallback *)         3406F4A2 1441        
+CTXUDPDataSender::~CTXUDPDataSender(void)                                       340717DB 117         
+                                                                 
+============================================
+0012D8B4   769C760E  /CALL to LoadLibraryExA from ole32.769C7608
+0012D8B8   769C7618  |FileName = "xpsp2res.dll"
+0012D8BC   00000000  |hFile = NULL
+0012D8C0   00000000  \Flags = 0
+
+
+
+=================================
+0012DC48   77E6D57C  /CALL to LoadLibraryW from RPCRT4.77E6D576
+0012DC4C   77E6D77C  \FileName = "OLE32"
+
+
+===============================
+0012DC34   7C80AEFC  /CALL to LoadLibraryExW from kernel32.7C80AEF7
+0012DC38   77E6D77C  |FileName = "OLE32"
+0012DC3C   00000000  |hFile = NULL
+0012DC40   00000000  \Flags = 0
+
+===============================
+0012E8D4   76A46AF9  /CALL to LoadLibraryExW from ole32.76A46AF3
+0012E8D8   015D56EC  |FileName = "C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll"
+0012E8DC   00000000  |hFile = NULL
+0012E8E0   00000008  \Flags = LOAD_WITH_ALTERED_SEARCH_PATH
+0012E8E4  /0012E924
+0012E8E8  |300E7E3C  RETURN to Common.300E7E3C from ole32.CoLoadLibrary
+0012E8EC  |015D56EC  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll"
+0012E8F0  |00000001
+
+
+===============================
+0012E6AC   76A46AF9  /CALL to LoadLibraryExW from ole32.76A46AF3
+0012E6B0   010D1AD4  |FileName = "C:\Program Files\Tencent\QQIntl\Bin\AppFramework.dll"
+0012E6B4   00000000  |hFile = NULL
+0012E6B8   00000008  \Flags = LOAD_WITH_ALTERED_SEARCH_PATH
+0012E6BC  /0012E6FC
+0012E6C0  |300E7E3C  RETURN to Common.300E7E3C from ole32.CoLoadLibrary
+0012E6C4  |010D1AD4  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\AppFramework.dll"
+
+===============================
+0012DA98   7C801DA8  /CALL to LoadLibraryExA from kernel32.7C801DA3
+0012DA9C   7D788130  |FileName = "ole32.dll"
+0012DAA0   00000000  |hFile = NULL
+0012DAA4   00000000  \Flags = 0
+0012DAA8   7D7A043C  SHELL32.7D7A043C
+0012DAAC   7D788130  ASCII "ole32.dll"
+0012DAB0  /0012DAF0
+0012DAB4  |7D5D64EF  RETURN to SHELL32.7D5D64EF from kernel32.LoadLibraryA
+0012DAB8  |7D788130  ASCII "ole32.dll"
+
+
+
+
+
+===============================
+0012D758   7C801DA8  /CALL to LoadLibraryExA from kernel32.7C801DA3
+0012D75C   7D788280  |FileName = "SETUPAPI.dll"
+0012D760   00000000  |hFile = NULL
+0012D764   00000000  \Flags = 0
+0012D768   7D7A045C  SHELL32.7D7A045C
+0012D76C   7D788280  ASCII "SETUPAPI.dll"
+0012D770  /0012D7B0
+0012D774  |7D5D64EF  RETURN to SHELL32.7D5D64EF from kernel32.LoadLibraryA
+0012D778  |7D788280  ASCII "SETUPAPI.dll"
+0012D77C  |7C80934A  kernel32.GetTickCount
+0012D780  |7D5D7730  SHELL32.7D5D7730
+0012D784  |00000000
+0012D788  |77F4890A  RETURN to SHLWAPI.77F4890A from SHLWAPI.77F44030
+
+
+===============================
+0012C0C0   7C801DA8  /CALL to LoadLibraryExA from kernel32.7C801DA3
+0012C0C4   77FA9460  |FileName = "SHELL32.dll"
+0012C0C8   00000000  |hFile = NULL
+0012C0CC   00000000  \Flags = 0
+0012C0D0   77FA92FC  SHLWAPI.77FA92FC
+0012C0D4   00000000
+0012C0D8  /0012C134
+0012C0DC  |77F517B4  RETURN to SHLWAPI.77F517B4 from kernel32.LoadLibraryA
+0012C0E0  |77FA9460  ASCII "SHELL32.dll"
+0012C0E4  |0012CDA4  UNICODE "C:\Program Files\desktop.ini"
+
+
+===============================
+02CFFC5C   7C801DA8  /CALL to LoadLibraryExA from kernel32.7C801DA3
+02CFFC60   343DF090  |FileName = "ADVAPI32.DLL"
+02CFFC64   00000000  |hFile = NULL
+02CFFC68   00000000  \Flags = 0
+02CFFC6C   7C801D7B  kernel32.LoadLibraryA
+02CFFC70   00D05BB0
+02CFFC74  /02CFFDFC
+02CFFC78  |34380E69  RETURN to SSOPlatf.34380E69
+02CFFC7C  |343DF090  ASCII "ADVAPI32.DLL"
+
+
+===============================
+
+===============================
+
+===============================
+===============================
+
+===============================
+
+===============================
+
+===============================
+
+===============================
+
+

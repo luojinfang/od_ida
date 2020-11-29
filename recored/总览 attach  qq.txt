@@ -1,0 +1,3120 @@
+//.faq输入密码5个字符就触发 LoadLibraryExW
+//.faq 输完密码点确定 栈里有对应的帐号 1122222333,  GetWindowLongW,WaitForMultipleObjectsEx
+//.faq 平台总配置？C:\Program Files\Tencent\QQIntl\platform1033.tpc
+//.faq 语言包
+
+
+
+
+//.faq 平台总配置？C:\Program Files\Tencent\QQIntl\platform1033.tpc
+<?xml version="1.0" encoding="utf-8"?>
+<tpc version="1.0.0">
+  <file-systems>
+    <file-system name="@thismisc:" path="Misc" type="windows"/>
+    <file-system name="@thisdata:" path="Resource.1.91.1370\Data"/>
+    <file-system name="@thisres:" path="Resource.1.91.1370\Res"/>
+    <file-system name="@thisxtml:" path="Resource.1.91.1370\Xtml1031"/>
+	<file-system name="@defaultxtml:" path="@thisxtml:\Template"/>
+    <file-system name="@thistheme:" path="Resource.1.91.1370\Themes\Default"/>
+    <file-system name="sysres:" path="@thisres:AppFramework"/>
+    <file-system name="sysxtml:" path="@thisxtml:AppFramework"/>
+    <file-system name="systheme:" path="@thistheme:AppFramework"/>
+  </file-systems>
+  <core-configs>
+    <core-config file="common.xml"/>
+    <core-config file="xgui.xml"/>	
+    <core-config file="kernel.xml"/>
+    <core-config file="af.xml"/>
+    <core-config file="app.xml"/>
+  </core-configs>
+  <gf-config file="gf-config.xml"/>
+  <delay-gf-config file="gf-config-postlogin.xml"/>
+  <i18n-config file="I18N\Config1031.xml"/>
+</tpc>
+
+
+
+
+//.faq 语言包
+C:\Program Files\Tencent\QQIntl\I18N\config1033.xml
+C:\Program Files\Tencent\QQIntl\I18N\1033\StringBundle.xml
+//.faq 哪里写到这里的字符串？配置？
+0x01310000  
+01310040  00330034       UNICODE ".nls"
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                                                                                         调用来自                      结构
+0012F468   651445AF   kernel32.CreateProcessW                                                                                 LoginPan.651445A9             0012F720
+0012F46C   0160902C     ModuleFileName = "C:\Program Files\Tencent\QQIntl\Bin\QQ.exe"
+0012F470   01741178     CommandLine = "/MLogin:F79E8B42-F693-4601-A6B5-B4B8D14D51E2_0_0__PreProcess0000000000000000000000000
+0012F474   00000000     pProcessSecurity = NULL
+0012F478   00000000     pThreadSecurity = NULL
+0012F47C   00000000     InheritHandles = FALSE
+0012F480   00000000     CreationFlags = 0
+0012F484   00000000     pEnvironment = NULL
+0012F488   00000000     CurrentDir = NULL
+0012F48C   0012F4A4     pStartupInfo = 0012F4A4
+0012F490   0012F4E8     pProcessInfo = 0012F4E8
+0012F724   651452E8   ? LoginPan.6514447D                                                                                     LoginPan.651452E3
+0012F760   6512EBB7   ? LoginPan.651451B6                                                                                     LoginPan.6512EBB2             0012F75C
+0012F79C   65139D1C   ? LoginPan.6512EABB                                                                                     LoginPan.65139D17             0012F798
+
+
+//运行程序时，创建一个进程
+DWORD __thiscall LoginPan.6514447D(void *this, char a2)
+	kernel32.CreateProcessW => C:\Program Files\Tencent\QQIntl\Bin\QQ.exe
+
+qq.exe
+	=>    v6 = LoadLibraryW(L"HummerEngine.dll");		
+		  if ( v6 )
+			v7 = GetProcAddress(v6, "RunQQHummerEngine");
+		  else
+			v7 = 0;
+		  if ( v7 )
+		  {
+			result = ((int (__cdecl *)(int))v7)(a1);
+		  }
+
+Tencent\QQIntl\Bin\HummerEngine.dll
+	
+		 
+		 
+		 
+//69F0652A=>DispatchMessageW
+char __usercall HummerEngine.69F064C3@<al>(int a1@<edi>, const MSG *a2@<esi>)
+{
+  UINT v2; // eax@1
+
+  v2 = a2->message;
+  if ( v2 == 18 )
+  {
+    *(_BYTE *)(*(_DWORD *)(a1 + 44) + 4) = 1;
+    PostQuitMessage(a2->wParam);
+    return 0;
+  }
+  if ( v2 == 36863 && a2->hwnd == *(HWND *)(a1 + 48) )
+    return HummerEngine.69F06536(a1);
+  if ( !CallMsgFilterW((LPMSG)a2, 20481) )
+  {
+    HummerEngine.69F06081(a2);
+    TranslateMessage(a2);
+    if ( a2->message == 36863 && a2->hwnd == *(HWND *)(a1 + 48) )
+      return HummerEngine.69F06536(a1);
+    DispatchMessageW(a2);
+    HummerEngine.69F060E4(a2);
+  }
+  return 1;
+}
+
+
+
+
+int __thiscall HummerEngine.69F06023(_DWORD *this, int a2)
+{
+  _DWORD *v2; // esi@1
+  int v3; // edi@1
+  int result; // eax@4
+  int v5; // [sp+8h] [bp-Ch]@1
+  char v6; // [sp+Ch] [bp-8h]@1
+  int v7; // [sp+10h] [bp-4h]@2
+
+  v2 = this;
+  v3 = this[11];
+  v5 = a2;
+  v6 = 0;
+  if ( v3 )
+    v7 = *(_DWORD *)(v3 + 8) + 1;
+  else
+    v7 = 1;
+  this[11] = &v5;
+  result = (*(int (**)(void))(*this + 20))();  // =>HummerEngine.69F064C3
+  v2[11] = v3;
+  return result;
+}
+
+			
+int __usercall HummerEngine.69F04513@<eax>(int a1@<ecx>, int a2@<ebp>)
+{
+  int result; // eax@2
+  int v3; // ecx@3
+  int v4; // edi@3
+  LONG (__stdcall *v5)(struct _EXCEPTION_POINTERS *); // eax@3
+  int v6; // ST2C_4@3
+  int v7; // ST30_4@3
+  int v8; // [sp-30h] [bp-30h]@0
+  int v9; // [sp-2Ch] [bp-2Ch]@0
+  int v10; // [sp-28h] [bp-28h]@0
+  int v11; // [sp-24h] [bp-24h]@0
+  int v12; // [sp-20h] [bp-20h]@0
+  int v13; // [sp-1Ch] [bp-1Ch]@0
+  int v14; // [sp-18h] [bp-18h]@0
+  int v15; // [sp-14h] [bp-14h]@0
+  int v16; // [sp-10h] [bp-10h]@0
+  int v17; // [sp-Ch] [bp-Ch]@0
+
+  if ( *(_BYTE *)(a1 + 97) ) //HummerEngine.69F06023
+  {
+    _SEH_prolog4("", 12);
+    v4 = v3;
+    v5 = SetUnhandledExceptionFilter(0);
+    *(_DWORD *)(a2 - 28) = v5;
+    SetUnhandledExceptionFilter(v5);
+    *(_DWORD *)(a2 - 4) = 0;
+    (*(void (__stdcall **)(int, int, int, int, int, int, int, int, int, int, int, int, int))(**(_DWORD **)(v4 + 68) + 4))(
+      v4,
+      v8,
+      v9,
+      v10,
+      v11,
+      v12,
+      v13,
+      v14,
+      v15,
+      v16,
+      v17,
+      v6,
+      v7);
+    *(_DWORD *)(a2 - 4) = -2;
+    result = _SEH_epilog4();
+  }
+  else
+  {
+    result = (*(int (__thiscall **)(_DWORD, int))(**(_DWORD **)(a1 + 68) + 4))(*(_DWORD *)(a1 + 68), a1);
+  }
+  return result;
+}			
+
+
+int __thiscall HummerEngine.69F04BD9(void *this)
+{
+  int v1; // ebp@0
+  int v2; // edx@1
+  int result; // eax@1
+  int v4; // [sp+14h] [bp-14h]@1
+  int v5; // [sp+18h] [bp-10h]@1
+  int v6; // [sp+24h] [bp-4h]@1
+
+  HummerEngine.69F04B50(this, this);
+  v6 = 0;
+  HummerEngine.69F04513(v2, v1);//HummerEngine.69F04513
+  result = v5;
+  *(_DWORD *)(v4 + 172) = v5;
+  return result;
+}
+
+=> HummerEngine.69F04BD9
+=>[.faq 之前做了些什么？] => ntdll.RtlLeaveCriticalSection //离开临界区
+signed int __thiscall HummerEngine.69F0A4A4(void *this)
+{
+  unsigned __int32 v1; // ST38_4@1
+  Util::Misc *v2; // eax@1
+  int v3; // edx@1
+  int v4; // ecx@1
+  void *v5; // eax@6
+  int v7; // edi@18
+  void *v8; // eax@36
+  int v9; // eax@46
+  const wchar_t *v10; // eax@56
+  const wchar_t *v11; // edi@56
+  int v12; // edx@58
+  int v13; // ecx@58
+  signed int v14; // esi@61
+  const wchar_t *v15; // eax@65
+  HMODULE v16; // eax@70
+  bool v17; // zf@83
+  int v18; // edi@95
+  const wchar_t *v19; // eax@97
+  const wchar_t *v20; // eax@100
+  HMODULE v21; // eax@104
+  bool v22; // zf@104
+  int v23; // edi@105
+  wchar_t *v24; // ST34_4@105
+  unsigned __int32 v25; // eax@105
+  DWORD v26; // eax@111
+  const WCHAR *v27; // eax@111
+  HANDLE v28; // eax@111
+  void *v29; // esi@111
+  void *v30; // eax@112
+  int v31; // ST30_4@115
+  unsigned __int8 v32; // bl@115
+  signed int v33; // [sp-18h] [bp-51Ch]@98
+  const wchar_t *v34; // [sp-14h] [bp-518h]@98
+  const WCHAR *v35; // [sp-Ch] [bp-510h]@10
+  const wchar_t *v36; // [sp-Ch] [bp-510h]@98
+  WCHAR *v37; // [sp-8h] [bp-50Ch]@10
+  struct MessageLoop *v38; // [sp+0h] [bp-504h]@1
+  struct _SYSTEM_INFO SystemInfo; // [sp+Ch] [bp-4F8h]@1
+  struct _MEMORYSTATUS Buffer; // [sp+30h] [bp-4D4h]@1
+  DWORD dwCreationFlags; // [sp+50h] [bp-4B4h]@1
+  int v42; // [sp+54h] [bp-4B0h]@1
+  int v43; // [sp+58h] [bp-4ACh]@115
+  char v44; // [sp+5Ch] [bp-4A8h]@1
+  char v45; // [sp+68h] [bp-49Ch]@1
+  LARGE_INTEGER Frequency; // [sp+7Ch] [bp-488h]@1
+  char v47; // [sp+84h] [bp-480h]@1
+  Util::MultiLogin *v48; // [sp+9Ch] [bp-468h]@115
+  char v49; // [sp+A0h] [bp-464h]@115
+  struct _TRACE_GUID_REGISTRATION TraceGuidReg; // [sp+A4h] [bp-460h]@1
+  int v51; // [sp+ACh] [bp-458h]@51
+  int v52; // [sp+B0h] [bp-454h]@7
+  HMODULE hModule; // [sp+B4h] [bp-450h]@2
+  LPVOID lpParameter; // [sp+B8h] [bp-44Ch]@1
+  DWORD ThreadId; // [sp+BCh] [bp-448h]@4
+  int v56; // [sp+C0h] [bp-444h]@9
+  struct _OSVERSIONINFOW VersionInformation; // [sp+C4h] [bp-440h]@68
+  int (__thiscall **v58)(void *, char); // [sp+1D8h] [bp-32Ch]@1
+  char Parameter; // [sp+2B0h] [bp-254h]@1
+  struct MessageLoopForUI *v60; // [sp+2C0h] [bp-244h]@1
+  unsigned __int32 v61; // [sp+2C8h] [bp-23Ch]@1
+  WCHAR Filename; // [sp+2E8h] [bp-21Ch]@9
+  char v63; // [sp+2EAh] [bp-21Ah]@9
+  int v64; // [sp+500h] [bp-4h]@1
+
+  lpParameter = this;
+  HummerEngine.69F08643(&unk_69F1B6B0);
+  HummerEngine.69F09FB6(&v47);
+  v64 = 0;
+  HummerEngine.69F04290(0);
+  v58 = &off_69F10C44;
+  LOBYTE(v64) = 1;
+  HummerEngine.69F04BCA(&v58, &v47);
+  dwCreationFlags = 0;
+  v42 = 0;
+  HummerEngine.69F0783F("Logical");
+  LOBYTE(v64) = 2;
+  HummerEngine.69F03E58(&Parameter, (DWORD)&dwCreationFlags);
+  Util::Misc::SetMainAndLogicMsgLoop((Util::Misc *)&v58, v60, v38);
+  v1 = v61;
+  v2 = (Util::Misc *)GetCurrentThreadId();
+  Util::Misc::SetMainAndLogicThreadId(v2, v1, (unsigned __int32)v38);
+  HummerEngine.69F07E72(&v44);
+  LOBYTE(v64) = 3;
+  Version::GetVersionExW((Version *)&v44, v38);
+  TraceGuidReg.RegHandle = &v38;
+  CTXStringW::CTXStringW(&v38);
+  HummerEngine.69F087CA(L"file", 2084, L"func", 2, L"TXPerf", &unk_69F11744, (unsigned int)&v45);
+  GetSystemInfo(&SystemInfo);
+  Frequency.QuadPart = 0i64;
+  QueryPerformanceFrequency(&Frequency);
+  HummerEngine.69F08825(
+    L"file",
+    2093,
+    L"func",
+    2,
+    L"TXPerf",
+    (const char *)L"CPU\u6709%d\u4e2a\uff0c\u9ad8\u6027\u80fd\u8ba1\u6570\u5668\u9891\u7387\u9ad8\u4f4d%lu\uff0c\u4f4e\u4f4d%lu",
+    SystemInfo.dwNumberOfProcessors,
+    Frequency.s.HighPart,
+    Frequency.s.LowPart);
+  GlobalMemoryStatus(&Buffer);
+  HummerEngine.69F08825(
+    L"file",
+    2099,
+    L"func",
+    2,
+    L"TXPerf",
+    "匭X[臽礠\f",
+    Buffer.dwMemoryLoad,
+    Buffer.dwTotalPhys,
+    Buffer.dwAvailPhys,
+    Buffer.dwTotalPageFile,
+    Buffer.dwAvailPageFile);
+  if ( HummerEngine.69F0B1B3(v4, v3) )
+  {
+    hModule = 0;
+    LOBYTE(v64) = 4;
+    HummerEngine.69F0909C(&hModule);
+    if ( hModule )
+      (*(void (__stdcall **)(HMODULE, _DWORD, signed int, _DWORD))(*(_DWORD *)hModule + 24))(hModule, 0, 8, 0);
+    ThreadId = 0;
+    *((_DWORD *)lpParameter + 4) = CreateThread(0, 0, HummerEngine.69F08D5E, lpParameter, 0, &ThreadId);
+    HummerEngine.69F07B2C();
+    HummerEngine.69F08825(L"file", 2133, L"func", 2, L"Startup", (const char *)L"%s", L"background startup");
+    LOBYTE(v64) = 3;
+    if ( hModule )
+      (*(void (__stdcall **)(HMODULE))(*(_DWORD *)hModule + 8))(hModule);
+  }
+  v5 = operator new(0xCu);
+  TraceGuidReg.RegHandle = v5;
+  LOBYTE(v64) = 5;
+  if ( v5 )
+    v52 = HummerEngine.69F0CAC1(v5);
+  else
+    v52 = 0;
+  Filename = 0;
+  v56 = v52;
+  LOBYTE(v64) = 3;
+  memset(&v63, 0, 0x208u);
+  GetModuleFileNameW(0, &Filename, 0x104u);
+  if ( !HummerEngine.69F0C2EE(v52) )
+  {
+    v37 = &Filename;
+    v35 = L"Initialization failure: 0x00000001";
+LABEL_11:
+    MessageBoxW(0, v35, v37, 0x10u);
+    HummerEngine.69F0880B(&v56);
+LABEL_12:
+    LOBYTE(v64) = 2;
+    HummerEngine.69F07EA8(&v44);
+    LOBYTE(v64) = 1;
+    HummerEngine.69F03D22(&Parameter);
+    LOBYTE(v64) = 0;
+    HummerEngine.69F0A313(&v58);
+    HummerEngine.69F09FE7(&v47);
+    return 0;
+  }
+  if ( !Version::Init(v38) )
+  {
+    v37 = &Filename;
+    v35 = L"Initialization failure: 0x00000002";
+    goto LABEL_11;
+  }
+  if ( (unsigned __int16)HummerEngine.69F076F6() < 0x7ECu )
+  {
+    HummerEngine.69F08825(L"file", 2170, L"func", 2, L"Startup", (const char *)L"%s", L"err CSVersion in vi.dat");
+    HummerEngine.69F0880B(&v56);
+    goto LABEL_12;
+  }
+  v7 = v52;
+  if ( !HummerEngine.69F0C730(v52) )
+  {
+    v37 = &Filename;
+    v35 = L"Initialization failure: 0x00000003";
+    goto LABEL_11;
+  }
+  if ( !HummerEngine.69F0C965(v7) )
+  {
+    v37 = &Filename;
+    v35 = L"Initialization failure: 0x00000004";
+    goto LABEL_11;
+  }
+  if ( !HummerEngine.69F0C3DC(v7) )
+  {
+    v37 = &Filename;
+    v35 = L"Initialization failure: 0x00000005";
+    goto LABEL_11;
+  }
+  if ( !HummerEngine.69F0C30D(v7) )
+  {
+    v37 = &Filename;
+    v35 = L"Initialization failure: 0x00000006";
+    goto LABEL_11;
+  }
+  if ( !Util::Boot::InitPlatformFileSystem(v38) )
+  {
+    v37 = &Filename;
+    v35 = L"Initialization failure: 0x00000007";
+    goto LABEL_11;
+  }
+  if ( !Util::Boot::InitPlatformCoreConfig(v38) )
+  {
+    v37 = &Filename;
+    v35 = L"Initialization failure: 0x00000008";
+    goto LABEL_11;
+  }
+  if ( !HummerEngine.69F0CA3B(v7) )
+  {
+    v37 = &Filename;
+    v35 = L"Initialization failure: 0x00000009";
+    goto LABEL_11;
+  }
+  if ( !HummerEngine.69F0CA67(v7) )
+  {
+    v37 = &Filename;
+    v35 = L"Initialization failure: 0x0000000B";
+    goto LABEL_11;
+  }
+  if ( !Util::Network::InitNetwork(v38) )
+  {
+    v37 = &Filename;
+    v35 = L"Initialization failure: 0x0000000C";
+    goto LABEL_11;
+  }
+  v8 = operator new(0x1Cu);
+  TraceGuidReg.RegHandle = v8;
+  LOBYTE(v64) = 6;
+  if ( v8 )
+    v56 = HummerEngine.69F0C254(v8);
+  else
+    v56 = 0;
+  LOBYTE(v64) = 3;
+  if ( !HummerEngine.69F09444(lpParameter) )
+    goto LABEL_110;
+  if ( v56 && !HummerEngine.69F0B2FC(v56) )
+  {
+    MessageBoxW(0, L"Initialization failure: 0x0000000D", &Filename, 0x10u);
+    HummerEngine.69F0A1DF(v7, v56);
+    goto LABEL_12;
+  }
+  if ( TXUpdateCfg::IsNeedRestore(v38) )
+  {
+    ThreadId = (DWORD)L"Need restore";
+    HummerEngine.69F083A0(L"file", 2346, L"func", 3, L"TXUPD", (const char *)L"%s", &ThreadId);
+    ThreadId = (DWORD)L"InitTXUpdate";
+    HummerEngine.69F083A0(L"file", 2349, L"func", 3, L"txupd", (const char *)L"%s", &ThreadId);
+    if ( !v56 )
+      goto LABEL_51;
+    v9 = HummerEngine.69F0C19A(v56);
+  }
+  else
+  {
+    ThreadId = (DWORD)L"Do not need restore";
+    HummerEngine.69F083A0(L"file", 2360, L"func", 3, L"TXUPD", (const char *)L"%s", &ThreadId);
+    ThreadId = (DWORD)L"InitAutoUpdate";
+    HummerEngine.69F083A0(L"file", 2363, L"func", 3, L"txupd", (const char *)L"%s", &ThreadId);
+    if ( !v56 )
+      goto LABEL_51;
+    v9 = HummerEngine.69F0B50C(v56);
+  }
+  if ( !v9 )
+  {
+    HummerEngine.69F0A1DF(v52, v56);
+    goto LABEL_12;
+  }
+LABEL_51:
+  HummerEngine.69F0922D(lpParameter);
+  v51 = 0;
+  LOBYTE(v64) = 7;
+  HummerEngine.69F090B0(&v51);
+  if ( v51 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v51 + 16))(v51);
+  if ( !HummerEngine.69F0B700(v56) )
+  {
+    HummerEngine.69F0A1DF(v52, v56);
+    LOBYTE(v64) = 3;
+    if ( v51 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)v51 + 8))(v51);
+    goto LABEL_12;
+  }
+  v10 = GetCommandLineW();
+  v11 = L"/MLogin";
+  if ( wcsstr(v10, L"/MLogin") )
+    HummerEngine.69F0BBA3();
+  HummerEngine.69F0935A(lpParameter);
+  if ( !HummerEngine.69F0B1B3(v13, v12) )
+    TXTimer::SetIdleCallback(*((TXTimer **)lpParameter + 8), 0, (unsigned int)v38);
+  if ( !Util::Window::AddIdleCallback((Util::Window *)lpParameter, v38) )
+  {
+    if ( !Util::Sys::IsVista(v38) || (v15 = GetCommandLineW(), wcsstr(v15, L"/MLogin")) )
+    {
+LABEL_97:
+      v19 = GetCommandLineW();
+      if ( wcsstr(v19, v11) )
+      {
+        v36 = L"PerfStand.StartupEx.End";
+        v34 = L"func";
+        v33 = 2574;
+      }
+      else
+      {
+        v36 = L"PerfStand.Startup.End";
+        v34 = L"func";
+        v33 = 2570;
+      }
+      HummerEngine.69F08825(L"file", v33, v34, 2, v36, (const char *)L"%d", 1);
+      v20 = GetCommandLineW();
+      if ( !wcsstr(v20, v11) )
+      {
+        hModule = 0;
+        LOBYTE(v64) = 8;
+        HummerEngine.69F090C4(&hModule);
+        if ( hModule )
+        {
+          ThreadId = 0;
+          (*(void (__stdcall **)(HMODULE, DWORD *))(*(_DWORD *)hModule + 72))(hModule, &ThreadId);
+          if ( ThreadId )
+          {
+            v23 = CTXBSTR::CTXBSTR((CTXBSTR *)&TraceGuidReg.RegHandle, L"wStartToShowLP");
+            LOBYTE(v64) = 9;
+            v24 = (wchar_t *)(GetTickCount() - dword_69F1B65C);
+            v25 = CTXBSTR::operator wchar_t *(v23);
+            PerfDataReportUtil::SetPerfOPReportDataForWord((PerfDataReportUtil *)ThreadId, v25, v24, 5u, v38);
+            CTXBSTR::~CTXBSTR((CTXBSTR *)&TraceGuidReg.RegHandle);
+            v21 = hModule;
+            v22 = hModule == 0;
+          }
+          else
+          {
+            v21 = hModule;
+            v22 = hModule == 0;
+          }
+          LOBYTE(v64) = 7;
+          if ( !v22 )
+            (*(void (__stdcall **)(HMODULE))(*(_DWORD *)v21 + 8))(v21);
+        }
+        else
+        {
+          LOBYTE(v64) = 7;
+        }
+      }
+      HummerEngine.69F07CCA();
+      HummerEngine.69F0A3D8((char *)lpParameter + 36, HummerEngine.69F08677, 0, 0);
+      HummerEngine.69F04BD9(&v58);   //HummerEngine.69F04BD9
+      HummerEngine.69F07D1B();
+      LOBYTE(v64) = 3;
+      if ( v51 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)v51 + 8))(v51);
+LABEL_110:
+      Util::GF::ClosePopupWindows(v38);
+      Util::Misc::SetEnablePreload(0, v38);
+      TraceGuidReg.RegHandle = &unk_69F11158;
+      HummerEngine.69F083A0(L"file", 2644, L"func", 2, L"TBH|AddrSearch", (const char *)L"%s", &TraceGuidReg.RegHandle);
+      HummerEngine.69F08825(L"file", 2646, L"func", 2, L"ExitFlow", (const char *)L"%s", L"exit message loop");
+      if ( !dword_69F19008 )
+      {
+        HummerEngine.69F08825(L"file", 2653, L"func", 2, L"ExitFlow", (const char *)L"%s", L"Begin Exit Set PreThreadExit.");
+        CTXStringW::CTXStringW(&ThreadId);
+        LOBYTE(v64) = 10;
+        v26 = GetCurrentProcessId();
+        CTXStringW::Format((CTXStringW *)&ThreadId, L"EvtPreLoadThreadExit%u", v26);
+        v27 = (const WCHAR *)CTXStringW::operator wchar_t const *(&ThreadId);
+        v28 = OpenEventW(2u, 1, v27);
+        v29 = v28;
+        if ( v28 )
+        {
+          SetEvent(v28);
+          CloseHandle(v29);
+          v30 = (void *)*((_DWORD *)lpParameter + 4);
+          if ( v30 )
+            WaitForSingleObject(v30, 0xFFFFFFFF);
+        }
+        LOBYTE(v64) = 3;
+        CTXStringW::~CTXStringW((CTXStringW *)&ThreadId);
+      }
+      CTXStringW::CTXStringW(&v49);
+      LOBYTE(v64) = 11;
+      v43 = 0;
+      v48 = 0;
+      Util::MultiLogin::GetMultiLoginInfo(
+        (Util::MultiLogin *)&v49,
+        (struct CTXStringW *)&v43,
+        (unsigned __int32 *)&v48,
+        (unsigned __int32 *)v38);
+      v32 = Util::MultiLogin::GetFLoginState(v48, v31);
+      if ( !Util::MultiLogin::GetIfLoginProcess(v38) || v32 )
+      {
+        HummerEngine.69F0A1B3(&v58);
+        HummerEngine.69F03EE7(&Parameter);
+        Util::Misc::SetMainAndLogicMsgLoop(0, 0, v38);
+        HummerEngine.69F0A1B3(&v58);
+      }
+      else
+      {
+        Util::MultiLogin::MarkLoginState(v48, 2, (unsigned __int8)v38);
+      }
+      HummerEngine.69F0A1DF(v52, v56);
+      LOBYTE(v64) = 3;
+      CTXStringW::~CTXStringW((CTXStringW *)&v49);
+      v14 = 1;
+      goto LABEL_63;
+    }
+    if ( *(_QWORD *)&qword_69F1B618 )
+    {
+LABEL_80:
+      if ( !dword_69F1B644 )
+        goto LABEL_91;
+      if ( byte_69F1B609 )
+      {
+        if ( (unsigned __int8)byte_69F1B648 >= 4u )
+        {
+LABEL_90:
+          HummerEngine.69F077DF(qword_69F1B618, *(&qword_69F1B618 + 1), "h", "x&r4G欗J犤\x1EKz");
+          goto LABEL_91;
+        }
+        v17 = byte_69F1B648 == 0;
+      }
+      else
+      {
+        if ( (unsigned __int8)byte_69F1B648 < 4u && byte_69F1B648 || !(dword_69F1B634 & 0x80000000) || dword_69F1B638 )
+          goto LABEL_91;
+        v17 = (dword_69F1B63C & 0x80000000) == dword_69F1B63C;
+      }
+      if ( v17 )
+        goto LABEL_90;
+LABEL_91:
+      if ( byte_69F1B608 && *(_QWORD *)&qword_69F1B618 )
+      {
+        if ( byte_69F1B609 )
+        {
+          v18 = qword_69F1B618;
+          UnregisterTraceGuids(*(_QWORD *)qword_69F1B618);
+          *(_DWORD *)(v18 + 32) = 0;
+          *(_BYTE *)(v18 + 40) = 0;
+          *(_DWORD *)(v18 + 8) = 0;
+          *(_DWORD *)(v18 + 12) = 0;
+          *(_DWORD *)v18 = 0;
+          *(_DWORD *)(v18 + 4) = 0;
+          v11 = L"/MLogin";
+        }
+        else
+        {
+          dword_69F1B610(qword_69F1B618, *(&qword_69F1B618 + 1));
+        }
+        *(_QWORD *)&qword_69F1B618 = 0i64;
+      }
+      goto LABEL_97;
+    }
+    if ( byte_69F1B608 != (*((_BYTE *)&qword_69F1B618 + 4) | (unsigned __int8)qword_69F1B618) )
+    {
+LABEL_77:
+      if ( byte_69F1B609 )
+      {
+        *(&qword_69F1B618 + 1) = (unsigned __int64)(signed int)&RequestContext >> 32;
+        TraceGuidReg.RegHandle = 0;
+        qword_69F1B618 = &RequestContext;
+        TraceGuidReg.Guid = &ControlGuid;
+        RegisterTraceGuidsW(RequestAddress, &RequestContext, &ControlGuid, 1u, &TraceGuidReg, 0, 0, &RequestContext);
+      }
+      else
+      {
+        off_69F19000(&ControlGuid, HummerEngine.69F0778F, &RequestContext, &qword_69F1B618);
+      }
+      goto LABEL_80;
+    }
+    VersionInformation.dwOSVersionInfoSize = 276;
+    if ( !GetVersionExW(&VersionInformation)
+      || (byte_69F1B609 = VersionInformation.dwMajorVersion < 6, VersionInformation.dwMajorVersion >= 6) )
+    {
+      v16 = GetModuleHandleW(L"advapi32.dll");
+      hModule = v16;
+      if ( v16 )
+      {
+        dword_69F1B60C = (int)GetProcAddress(v16, "EventWrite");
+        if ( dword_69F1B60C )
+        {
+          off_69F19000 = (int (__stdcall *)(_DWORD, _DWORD, _DWORD, _DWORD))GetProcAddress(hModule, "EventRegister");
+          if ( off_69F19000 )
+          {
+            dword_69F1B610 = (int (__stdcall *)(_DWORD, _DWORD))GetProcAddress(hModule, "EventUnregister");
+            if ( dword_69F1B610 )
+              goto LABEL_76;
+          }
+          off_69F19000 = (int (__stdcall *)(_DWORD, _DWORD, _DWORD, _DWORD))HummerEngine.69F084BD;
+        }
+      }
+      byte_69F1B609 = 1;
+    }
+LABEL_76:
+    byte_69F1B608 = 1;
+    v11 = L"/MLogin";
+    goto LABEL_77;
+  }
+  v14 = 0;
+  MessageBoxW(0, L"Initialization failure: 0x00000011", &Filename, 0x10u);
+  HummerEngine.69F0A1DF(v52, v56);
+  LOBYTE(v64) = 3;
+  if ( v51 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v51 + 8))(v51);
+LABEL_63:
+  LOBYTE(v64) = 2;
+  HummerEngine.69F07EA8(&v44);
+  LOBYTE(v64) = 1;
+  HummerEngine.69F03D22(&Parameter);
+  LOBYTE(v64) = 0;
+  HummerEngine.69F0A313(&v58);
+  HummerEngine.69F09FE7(&v47);
+  return v14;
+}
+
+
+//HummerEngine.69F0A4A4
+signed int RunQQHummerEngine()
+{
+  signed int result; // eax@2
+  Util::Sys *v1; // [sp+0h] [bp-44h]@1
+
+  if ( Util::Sys::CheckVistaAndStartSelfMediumLevel(v1) )
+  {
+    result = 1;
+  }
+  else
+  {
+    HummerEngine.69F07BA3();
+    HummerEngine.69F09C08(&v1);
+    HummerEngine.69F0A4A4(&v1);
+    HummerEngine.69F091CB((int)&v1);
+    result = 0;
+  }
+  return result;
+}
+---------------------------------------------------------------------------------------------------------------
+
+int __cdecl sub_69F08D0A(int a1, int a2)
+{
+  int result; // eax@1
+  bool v3; // sf@2
+  int v4; // esi@2
+  int v5; // [sp+Ch] [bp-10h]@1
+  int v6; // [sp+18h] [bp-4h]@1
+
+  v5 = 0;
+  v6 = 0;
+  Util::Core::GetPlatformCore((Util::Core *)&v5);
+  result = v5;
+  if ( v5 )
+  {
+    v3 = (*(int (__stdcall **)(int, int, int))(*(_DWORD *)v5 + 32))(v5, a1, a2) < 0;
+    v6 = -1;
+    v4 = !v3;
+    if ( v5 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)v5 + 8))(v5);
+    result = v4;
+  }
+  return result;
+}
+
+int __cdecl sub_69F090C4(int a1)
+{
+  return sub_69F08D0A(&unk_69F10E7C, a1);
+}
+
+//signed int __thiscall sub_69F0A4A4(void *this) => sub_69F0B700
+int __thiscall sub_69F0B700(int **this)
+{
+  int v1; // ebx@1
+  int v3; // eax@6
+  const char *v4; // ecx@9
+  int v5; // eax@9
+  int v6; // ecx@11
+  int v7; // esi@12
+  int v8; // ecx@20
+  int *v9; // ebx@26
+  int v10; // eax@26
+  int v11; // eax@26
+  int v12; // esi@26
+  int v13; // edx@26
+  int v14; // ecx@26
+  int v15; // esi@26
+  int *v16; // eax@27
+  bool v17; // zf@27
+  int v18; // ecx@29
+  const char *v19; // ebx@32
+  const wchar_t *v20; // eax@32
+  int v21; // eax@32
+  int v22; // esi@32
+  int v23; // eax@32
+  int v24; // ecx@34
+  int v25; // ecx@37
+  int *v26; // ebx@38
+  int v27; // eax@38
+  int v28; // esi@38
+  int v29; // edx@38
+  int v30; // ecx@38
+  const char *v31; // ebx@39
+  const wchar_t *v32; // eax@39
+  int v33; // eax@39
+  int v34; // esi@39
+  const char *v35; // [sp-8h] [bp-60h]@9
+  int *v36; // [sp-4h] [bp-5Ch]@9
+  unsigned __int32 *v37; // [sp+0h] [bp-58h]@1
+  int **v38; // [sp+Ch] [bp-4Ch]@1
+  const wchar_t *v39; // [sp+10h] [bp-48h]@1
+  const char *v40; // [sp+14h] [bp-44h]@1
+  int *v41; // [sp+18h] [bp-40h]@1
+  const wchar_t *v42; // [sp+1Ch] [bp-3Ch]@6
+  int v43; // [sp+20h] [bp-38h]@15
+  int v44; // [sp+24h] [bp-34h]@1
+  wchar_t *v45; // [sp+28h] [bp-30h]@15
+  wchar_t *v46; // [sp+2Ch] [bp-2Ch]@16
+  char v47; // [sp+30h] [bp-28h]@9
+  char v48; // [sp+34h] [bp-24h]@1
+  char v49; // [sp+38h] [bp-20h]@1
+  int v50; // [sp+3Ch] [bp-1Ch]@15
+  char v51; // [sp+40h] [bp-18h]@6
+  int *v52; // [sp+44h] [bp-14h]@1
+  char v53; // [sp+4Bh] [bp-Dh]@6
+  int v54; // [sp+54h] [bp-4h]@1
+
+  v38 = this;
+  CTXStringW::CTXStringW(&v48);
+  v1 = 0;
+  v54 = 0;
+  v40 = 0;
+  v41 = 0;
+  CTXStringW::CTXStringW(&v49);
+  LOBYTE(v54) = 1;
+  v39 = (const wchar_t *)Util::MultiLogin::GetMultiLoginInfo(
+                           (Util::MultiLogin *)&v48,
+                           (struct CTXStringW *)&v40,
+                           (unsigned __int32 *)&v41,
+                           v37);
+  v44 = 0;
+  v52 = 0;
+  LOBYTE(v54) = 2;
+  sub_69F090C4(&v52);
+  if ( !v52 )
+  {
+    LOBYTE(v54) = 0;
+    CTXStringW::~CTXStringW((CTXStringW *)&v49);
+    v54 = -1;
+    CTXStringW::~CTXStringW((CTXStringW *)&v48);
+    return 0;
+  }
+  if ( v39 )
+    goto LABEL_45;
+  if ( _argc > 0 )
+  {
+    while ( 1 )
+    {
+      CTXStringW::CTXStringW((CTXStringW *)&v51, _wargv[v1]);
+      LOBYTE(v54) = 3;
+      v3 = CTXStringW::Left(&v51, &v42, 12);
+      LOBYTE(v54) = 4;
+      v53 = operator==(v3, L"/quicklunch:");
+      LOBYTE(v54) = 3;
+      CTXStringW::~CTXStringW((CTXStringW *)&v42);
+      if ( v53 )
+        break;
+      LOBYTE(v54) = 2;
+      CTXStringW::~CTXStringW((CTXStringW *)&v51);
+      if ( ++v1 >= _argc )
+        goto LABEL_15;
+    }
+    v36 = (int *)12;
+    CTXStringW::Mid(&v51, &v47);
+    v35 = v4;
+    v42 = (const wchar_t *)&v35;
+    LOBYTE(v54) = 5;
+    CTXStringW::CTXStringW(&v35);
+    v5 = ShortcutUtil::DecodeSCBootParam(v36);
+    LOBYTE(v54) = 3;
+    if ( v5 < 0 )
+    {
+      CTXStringW::~CTXStringW((CTXStringW *)&v47);
+      LOBYTE(v54) = 2;
+      CTXStringW::~CTXStringW((CTXStringW *)&v51);
+      LOBYTE(v54) = 1;
+      if ( v52 )
+      {
+        v6 = *v52;
+        v36 = v52;
+        (*(void (__stdcall **)(int *))(v6 + 8))(v52);
+      }
+      v7 = 0;
+      goto LABEL_13;
+    }
+    CTXStringW::~CTXStringW((CTXStringW *)&v47);
+    LOBYTE(v54) = 2;
+    CTXStringW::~CTXStringW((CTXStringW *)&v51);
+  }
+LABEL_15:
+  v45 = 0;
+  v43 = 0;
+  v42 = 0;
+  v50 = 0;
+  if ( _argc <= 0 )
+    goto LABEL_31;
+  while ( 1 )
+  {
+    v46 = _wargv[v50];
+    if ( wcsncmp(v46, L"/uin:", 5u) )
+      break;
+    v45 = v46 + 5;
+    v43 = 1;
+LABEL_21:
+    v8 = ++v50;
+    if ( v50 >= _argc )
+      goto LABEL_24;
+  }
+  if ( !wcsncmp(v46, L"/quicklunch:", 0xCu) )
+  {
+    v42 = (const wchar_t *)1;
+    goto LABEL_21;
+  }
+  if ( wcsncmp(v46, L"_PreProcess:", 0xCu) )
+    goto LABEL_21;
+  v44 = 1;
+LABEL_24:
+  if ( v43 && v42 )
+  {
+    v36 = (int *)v8;
+    v38 = &v36;
+    CTXStringW::CTXStringW((CTXStringW *)&v36, v45);
+    sub_69F087CA(L"file", 260, L"func", 3, L"Shortcut", L"detect quicklaunch. uin(%s)", (char)v35);
+    v9 = v52;
+    v10 = CTXStringW::CTXStringW((CTXStringW *)&v42, v45);
+    LOBYTE(v54) = 6;
+    v11 = CTXBSTR::CTXBSTR(&v39, v10);
+    v12 = *v9;
+    LOBYTE(v54) = 7;
+    v36 = (int *)CTXBSTR::operator wchar_t *(v11);
+    v35 = (const char *)sub_69F0B1B3(v14, v13);
+    v15 = (*(int (__stdcall **)(int *, const char *, int *))(v12 + 12))(v9, v35, v36);
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v39);
+    LOBYTE(v54) = 2;
+    CTXStringW::~CTXStringW((CTXStringW *)&v42);
+    goto LABEL_27;
+  }
+  if ( v44 )
+  {
+LABEL_45:
+    v36 = (int *)&v42;
+    v42 = L"child process";
+    sub_69F083A0(L"file", 270, L"func", 2, L"SSOLogin", (const char *)L"%s", &v42);
+    v31 = (const char *)v52;
+    v32 = (const wchar_t *)CTXStringW::operator wchar_t const *(&v48);
+    v33 = CTXBSTR::CTXBSTR((CTXBSTR *)&v42, v32);
+    v36 = v41;
+    v34 = *(_DWORD *)v31;
+    v35 = v40;
+    LOBYTE(v54) = 8;
+    v36 = (int *)CTXBSTR::operator wchar_t *(v33);
+    v35 = v31;
+    v15 = (*(int (__stdcall **)(const char *, int *))(v34 + 36))(v31, v36);
+    LOBYTE(v54) = 2;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v42);
+    if ( !v39 && !v44 )
+      goto LABEL_41;
+    goto LABEL_27;
+  }
+LABEL_31:
+  v17 = Util::SSOLogin::GetSSOLoginInfo((Util::SSOLogin *)&v49, (struct CTXStringW *)v37) == 0;
+  v36 = (int *)&v39;
+  v35 = (const char *)L"%s";
+  if ( !v17 )
+  {
+    v39 = L"do SSOLogin";
+    sub_69F083A0(L"file", 275, L"func", 2, L"SSOLogin", v35, v36);
+    v19 = (const char *)v52;
+    v20 = (const wchar_t *)CTXStringW::operator wchar_t const *(&v49);
+    v21 = CTXBSTR::CTXBSTR((CTXBSTR *)&v39, v20);
+    v22 = *(_DWORD *)v19;
+    LOBYTE(v54) = 9;
+    v36 = (int *)CTXBSTR::operator wchar_t *(v21);
+    v35 = v19;
+    v23 = (*(int (__stdcall **)(const char *, int *))(v22 + 40))(v19, v36);
+    goto LABEL_33;
+  }
+  v39 = L"do normal login";
+  sub_69F083A0(L"file", 280, L"func", 2, L"SSOLogin", v35, v36);
+  v7 = 0;
+  v36 = (int *)&v42;
+  v42 = 0;
+  v24 = *v52;
+  v35 = (const char *)v52;
+  if ( (*(int (__stdcall **)(int *, int *))(v24 + 28))(v52, (int *)&v42) < 0 )
+  {
+LABEL_35:
+    v16 = v52;
+    v17 = v52 == 0;
+    goto LABEL_28;
+  }
+  if ( v42 )
+  {
+    v25 = *v52;
+    v36 = v52;
+    v15 = (*(int (__stdcall **)(int *))(v25 + 24))(v52);
+  }
+  else
+  {
+    v26 = v52;
+    v27 = sub_69F0B21F(&v39);
+    v28 = *v26;
+    LOBYTE(v54) = 10;
+    v36 = (int *)CTXBSTR::operator wchar_t *(v27);
+    v35 = (const char *)sub_69F0B1B3(v30, v29);
+    v23 = (*(int (__stdcall **)(int *, const char *, int *))(v28 + 12))(v26, v35, v36);
+LABEL_33:
+    v15 = v23;
+    LOBYTE(v54) = 2;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v39);
+  }
+LABEL_41:
+  if ( !sub_69F0B30D() )
+  {
+    v7 = 0;
+    MessageBoxW(0, L"Initialization failure: 0x0000000F", L"QQ International", 0x10u);
+    goto LABEL_35;
+  }
+LABEL_27:
+  v7 = v15 >= 0;
+  v16 = v52;
+  v17 = v52 == 0;
+LABEL_28:
+  LOBYTE(v54) = 1;
+  if ( !v17 )
+  {
+    v18 = *v16;
+    v36 = v16;
+    (*(void (__stdcall **)(int *))(v18 + 8))(v16);
+  }
+LABEL_13:
+  LOBYTE(v54) = 0;
+  CTXStringW::~CTXStringW((CTXStringW *)&v49);
+  v54 = -1;
+  CTXStringW::~CTXStringW((CTXStringW *)&v48);
+  return v7;
+}
+---------------------------------------------------------------------------------------------------------------
+//.faq 输完密码点确定 栈里有对应的帐号 1122222333,  GetWindowLongW,WaitForMultipleObjectsEx
+0012E8FC   76A46950  /CALL to LoadLibraryExW from ole32.76A4694A
+0012E900   013456EC  |FileName = "C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll"
+0012E904   00000000  |hFile = NULL
+0012E908   00000008  \Flags = LOAD_WITH_ALTERED_SEARCH_PATH
+0012E90C  /0012E94C
+0012E910  |300E7E3C  RETURN to Common.300E7E3C from ole32.CoLoadLibrary
+0012E914  |013456EC  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll"
+0012E918  |00000001
+0012E91C  |817E5B04
+0012E920  |301C0E5C  Common.301C0E5C
+0012E924  |301C0E74  Common.301C0E74
+0012E928  |00000000
+0012E92C  |7C839AC0  kernel32.7C839AC0
+0012E930  |7C80E6C0  kernel32.7C80E6C0
+0012E934  |FFFFFFFF
+0012E938  |7C80E6BB  RETURN to kernel32.7C80E6BB from kernel32.7C802511
+0012E93C  |7C80E4EC  RETURN to kernel32.7C80E4EC from kernel32.7C80E549
+0012E940  |0012E97C  Pointer to next SEH record
+0012E944  |30147E31  SE handler
+0012E948  |FFFFFFFF
+0012E94C  ]0012E988
+0012E950  |300041B8  RETURN to Common.300041B8 from Common.Util::Sys::SafeCoLoadLibrary
+0012E954  |013456EC  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll"
+0012E958  |00000001
+0012E95C  |817E5BC0
+0012E960  |013F0130
+0012E964  |013F0118
+0012E968  |00000000
+0012E96C  |301C0E5C  Common.301C0E5C
+0012E970  |00000000
+0012E974  |301C0E5C  Common.301C0E5C
+0012E978  |003E59E0
+0012E97C  |0012E9C8  Pointer to next SEH record
+0012E980  |30132688  SE handler
+0012E984  |FFFFFFFF
+0012E988  ]0012E9D4
+0012E98C  |300102C8  RETURN to Common.300102C8 from Common.Util::Com::CreateObjectFromDllFile
+0012E990  |013456EC  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll"
+0012E994  |013F011C
+0012E998  |301673B4  Common.301673B4
+0012E99C  |0012E9DC
+0012E9A0  |00000000
+0012E9A4  |817E5B9C
+0012E9A8  |00F9E3F0
+0012E9AC  |3016756C  Common.3016756C
+0012E9B0  |0012EB1C
+0012E9B4  |00F9E414
+0012E9B8  |013F0108
+0012E9BC  |00F9E3F0
+0012E9C0  |00F9E414
+0012E9C4  |00F9E450
+0012E9C8  |0012EA5C  Pointer to next SEH record
+0012E9CC  |3013345F  SE handler
+0012E9D0  |00000000
+0012E9D4  ]0012E9EC
+0012E9D8  |300106E6  RETURN to Common.300106E6 from Common.300101E9
+0012E9DC  |00000000
+0012E9E0  |00ED7FDC  UNICODE "CTXTrayMgr"
+0012E9E4  |651970EC  LoginPan.651970EC
+0012E9E8  |0012EB1C
+0012E9EC  ]0012EA30
+0012E9F0  |3001F1CC  RETURN to Common.3001F1CC
+0012E9F4  |00F9E3F0
+0012E9F8  |00ED7FDC  UNICODE "CTXTrayMgr"
+0012E9FC  |651970EC  LoginPan.651970EC
+0012EA00  |0012EB1C
+0012EA04  |80070490
+0012EA08  |003E5BB8
+0012EA0C  |00000000
+0012EA10  |300DB1D2  RETURN to Common.300DB1D2
+0012EA14  |0169586C
+0012EA18  |00F9E4F8
+0012EA1C  |00F9E518
+0012EA20  |00F9E4F8
+0012EA24  |00FFC408
+0012EA28  |003E5BB8
+0012EA2C  |00000000
+0012EA30  ]0012EA68
+0012EA34  |30013E4E  RETURN to Common.30013E4E
+0012EA38  |00FFC428
+0012EA3C  |00FA0A30
+0012EA40  |651970EC  LoginPan.651970EC
+0012EA44  |0012EB1C
+0012EA48  |817E5820
+0012EA4C  |0146905C
+0012EA50  |003E5BB8
+0012EA54  |00000000
+0012EA58  |0169587C  UNICODE "CTXTrayMgr"
+0012EA5C  |0012EAC0  Pointer to next SEH record
+0012EA60  |30134EA8  SE handler
+0012EA64  |FFFFFFFF
+0012EA68  ]0012EA80
+0012EA6C  |30015D21  RETURN to Common.30015D21
+0012EA70  |00FA0A30
+0012EA74  |651970EC  LoginPan.651970EC
+0012EA78  |0012EB1C
+0012EA7C  |01469008
+0012EA80  ]0012EA98
+0012EA84  |3001BDAC  RETURN to Common.3001BDAC
+0012EA88  |00F91FC8
+0012EA8C  |00FA0A30
+0012EA90  |651970EC  LoginPan.651970EC
+0012EA94  |0012EB1C
+0012EA98  ]0012EACC
+0012EA9C  |6510265C  RETURN to LoginPan.6510265C
+0012EAA0  |00FA0A30
+0012EAA4  |651970EC  LoginPan.651970EC
+0012EAA8  |0012EB1C
+0012EAAC  |815D5596
+0012EAB0  |0146905C
+0012EAB4  |01469008
+0012EAB8  |00000000
+0012EABC  |00FA0A30
+0012EAC0  |0012EB00  Pointer to next SEH record
+0012EAC4  |651760F4  SE handler
+0012EAC8  |00000000
+0012EACC  ]0012EADC
+0012EAD0  |6512173A  RETURN to LoginPan.6512173A from LoginPan.6510262A
+0012EAD4  |651970EC  LoginPan.651970EC
+0012EAD8  |0012EB1C
+0012EADC  ]0012EB0C
+0012EAE0  |6512255D  RETURN to LoginPan.6512255D from LoginPan.6512172A
+0012EAE4  |0012EB1C
+0012EAE8  |815D5456
+0012EAEC  |300DCCF5  Common.CTXStringW::CTXStringW
+0012EAF0  |01469498
+0012EAF4  |01469008
+0012EAF8  |0012EB18
+0012EAFC  |00000010
+0012EB00  |0012ECB4  Pointer to next SEH record
+0012EB04  |65172041  SE handler
+0012EB08  |00000003
+0012EB0C  ]0012EB3C
+0012EB10  |65130A88  RETURN to LoginPan.65130A88 from LoginPan.651223E4
+0012EB14  |01848C34  UNICODE "1122222333"
+0012EB18  |014F4B48
+0012EB1C  |00000000
+0012EB20  |00000000
+0012EB24  |00000000
+0012EB28  |6518DA80  LoginPan.6518DA80
+0012EB2C  |300DBC37  Common.CTXStringW::~CTXStringW
+0012EB30  |01469498
+0012EB34  |0012EB24
+0012EB38  |00040284
+0012EB3C  ]0012ECC0
+0012EB40  |6510F8F7  RETURN to LoginPan.6510F8F7
+0012EB44  |00000000
+0012EB48  |01848C34  UNICODE "1122222333"
+0012EB4C  |014F4B48
+0012EB50  |0000000A
+0012EB54  |00000000
+0012EB58  |815D539A
+0012EB5C  |300D9102  Common.CTXBSTR::operator wchar_t *
+0012EB60  |3007EE3E  Common.CTXBSTR::~CTXBSTR
+0012EB64  |014DFC20
+0012EB68  |00005D32
+0012EB6C  |0000055A
+0012EB70  |00000000
+0012EB74  |00E925D4  UNICODE "1.91.1370.201"
+0012EB78  |018F80C4  UNICODE "QQ International Preview4(1.91.1370.201)"
+0012EB7C  |00020101
+0012EB80  |000066B1
+0012EB84  |00F91E48  UNICODE "HummerEngine.dll:954ADF1F5FAFEBF15F817A493AB3A13B|LongCnn.dll:661FCEFA918549D4DCF1030D1B3E3A36|Kerne"
+0012EB88  |00000000
+0012EB8C  |016A5F3C  UNICODE "B589341D-BED3-4429-AFAE-8E085F806BDA"
+0012EB90  |FFFFFFFF
+0012EB94  |0012EB50
+0012EB98  |01848C34  UNICODE "1122222333"
+0012EB9C  |00000000
+0012EBA0  |01848C34  UNICODE "1122222333"
+0012EBA4  |0000000A
+0012EBA8  |014F4B48
+0012EBAC  |0012EB98
+0012EBB0  |0012EBC0
+0012EBB4  |0012ECB4
+0012EBB8  |00000000
+0012EBBC  |300D9040  RETURN to Common.300D9040 from <jmp.&MSVCR80.memset>
+0012EBC0  |30281794  Common.30281794
+0012EBC4  |00010001
+0012EBC8  |0000001F
+0012EBCC  |0012EB28
+0012EBD0  |01480BB8
+0012EBD4  |0012EC20
+0012EBD8  |7C92E900  ntdll.7C92E900
+0012EBDC  |7C930040  ntdll.7C930040
+0012EBE0  |FFFFFFFF
+0012EBE4  |7C93003D  RETURN to ntdll.7C93003D from ntdll.7C92E8E6
+0012EBE8  |78134C39  RETURN to MSVCR80.78134C39 from ntdll.RtlFreeHeap
+0012EBEC  |003E0000
+0012EBF0  |00000000
+0012EBF4  |78134C58  RETURN to MSVCR80.78134C58 from MSVCR80.78138CD9
+0012EBF8  |8097C9BA
+0012EBFC  |300DBC37  Common.CTXStringW::~CTXStringW
+0012EC00  |01480BA8
+0012EC04  |300DC6F7  Common.CTXStringW::operator wchar_t const *
+0012EC08  |0012EC1C
+0012EC0C  |300DB2BB  RETURN to Common.300DB2BB from <jmp.&MSVCR80.memcpy>
+0012EC10  |01480BB8
+0012EC14  |003E3CF8  UNICODE "/MLogin:B589341D-BED3-4429-AFAE-8E085F806BDA_859_0_SingleLogin"
+0012EC18  |0012EBF8
+0012EC1C  |0012EBF8
+0012EC20  |0012EC90
+0012EC24  |78138CED  MSVCR80.78138CED
+0012EC28  |F89E69EA
+0012EC2C  |FFFFFFFE
+0012EC30  |78134C58  RETURN to MSVCR80.78134C58 from MSVCR80.78138CD9
+0012EC34  |300DE525  RETURN to Common.300DE525 from MSVCR80.free
+0012EC38  |01480BA8
+0012EC3C  |01480BA8
+0012EC40  |0012EC50
+0012EC44  |300DE686  RETURN to Common.300DE686
+0012EC48  |01480BA8
+0012EC4C  |01480BA8
+0012EC50  |0012EC5C
+0012EC54  |300D9063  RETURN to Common.300D9063 from Common.300DE654
+0012EC58  |01480BA8
+0012EC5C  |0012EC68
+0012EC60  |300DB18E  RETURN to Common.300DB18E from Common.300D9048
+0012EC64  |01480BA8
+0012EC68  |0012EC9C
+0012EC6C  |300DB1C1  RETURN to Common.300DB1C1 from kernel32.InterlockedDecrement
+0012EC70  |00FDF34C
+0012EC74  |0012ECD0
+0012EC78  |300DBC60  RETURN to Common.300DBC60 from Common.301317BF
+0012EC7C  |817E5ED4
+0012EC80  |300DBC37  Common.CTXStringW::~CTXStringW
+0012EC84  |00000000
+0012EC88  |300DB417  RETURN to Common.300DB417 from kernel32.InterlockedIncrement
+0012EC8C  |016A5F30
+0012EC90  |300D9102  Common.CTXBSTR::operator wchar_t *
+0012EC94  |0012ECE8
+0012EC98  |0012ECA8
+0012EC9C  |300DB4FB  RETURN to Common.300DB4FB from Common.300DB3F2
+0012ECA0  |016A5F2C
+0012ECA4  |0012ECE8
+0012ECA8  |0012ECB8
+0012ECAC  |300DBCC2  RETURN to Common.300DBCC2 from Common.300DB4E7
+0012ECB0  |815D539A
+0012ECB4  |0012ED04  Pointer to next SEH record
+0012ECB8  |6516FD93  SE handler
+0012ECBC  |0000000F
+0012ECC0  ]0012ED10
+0012ECC4  |6511067B  RETURN to LoginPan.6511067B from LoginPan.6510F366
+0012ECC8  |016A5F3C  UNICODE "B589341D-BED3-4429-AFAE-8E085F806BDA"
+0012ECCC  |0000035B
+0012ECD0  |00000000
+0012ECD4  |815D524A
+0012ECD8  |000008BC
+0012ECDC  |01469008
+0012ECE0  |00000001
+0012ECE4  |0000035B
+0012ECE8  |016A5F3C  UNICODE "B589341D-BED3-4429-AFAE-8E085F806BDA"
+0012ECEC  |0012ECCC
+0012ECF0  |0012ECE8
+0012ECF4  |00000000
+0012ECF8  |016A5F3C  UNICODE "B589341D-BED3-4429-AFAE-8E085F806BDA"
+0012ECFC  |00FDF358  UNICODE "/MLogin:B589341D-BED3-4429-AFAE-8E085F806BDA_859_0_SingleLogin"
+0012ED00  |014DFC20
+0012ED04  |0012ED2C  Pointer to next SEH record
+0012ED08  |6516FF4B  SE handler
+0012ED0C  |00000007
+0012ED10  ]0012ED38
+0012ED14  |65134791  RETURN to LoginPan.65134791
+0012ED18  |014249C0
+0012ED1C  |815D5262
+0012ED20  |000008BC
+0012ED24  |01469008
+0012ED28  |0000084F
+0012ED2C  |0012F5B8  Pointer to next SEH record
+0012ED30  |6516FBB6  SE handler
+0012ED34  |00000000
+0012ED38  ]0012ED4C
+0012ED3C  |6510C512  RETURN to LoginPan.6510C512
+0012ED40  |014249C0
+0012ED44  |00000000
+0012ED48  |00000000
+0012ED4C  ]0012F5C4
+0012ED50  |65141BC6  RETURN to LoginPan.65141BC6
+0012ED54  |00FF7C58
+0012ED58  |0000000B
+0012ED5C  |00000000
+0012ED60  |815D4A9E
+0012ED64  |0012F6C0
+0012ED68  |651CA56C  LoginPan.651CA56C
+0012ED6C  |00000000
+0012ED70  |0012ED60
+0012ED74  |01521508
+0012ED78  |01521510
+0012ED7C  |01521510
+0012ED80  |00000000
+0012ED84  |FFFFFFFF
+0012ED88  |0012EDBC  UNICODE "ginPanelEvent"
+0012ED8C  |003E0000
+0012ED90  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012ED94  |0012ED70
+0012ED98  |01521510
+0012ED9C  |003E0000
+0012EDA0  |01487948
+0012EDA4  |0012ED94
+0012EDA8  |0012ED70
+0012EDAC  |01521508
+0012EDB0  |00040284
+0012EDB4  |006E004F
+0012EDB8  |006F004C
+0012EDBC  |00690067
+0012EDC0  |0050006E
+0012EDC4  |006E0061
+0012EDC8  |006C0065
+0012EDCC  |00760045
+0012EDD0  |006E0065
+0012EDD4  |00000074
+0012EDD8  |7C930208  ntdll.7C930208
+0012EDDC  |FFFFFFFF
+0012EDE0  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012EDE4  |7C93017B  RETURN to ntdll.7C93017B from ntdll.7C9301D1
+0012EDE8  |7C9301BB  RETURN to ntdll.7C9301BB from ntdll.7C92E8E6
+0012EDEC  |00000020
+0012EDF0  |00000000
+0012EDF4  |00000020
+0012EDF8  |FFFFFFFF
+0012EDFC  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012EE00  |7C93017B  RETURN to ntdll.7C93017B from ntdll.7C9301D1
+0012EE04  |7C9301BB  RETURN to ntdll.7C9301BB from ntdll.7C92E8E6
+0012EE08  |00000020
+0012EE0C  |00000000
+0012EE10  |00000020
+0012EE14  |73FF0578  USP10.73FF0578
+0012EE18  |73FF0638  USP10.73FF0638
+0012EE1C  |0000000A
+0012EE20  |00000014
+0012EE24  |00000000
+0012EE28  |73FF0250  USP10.73FF0250
+0012EE2C  |0000000A
+0012EE30  |73FF0460  USP10.73FF0460
+0012EE34  |014E83C4
+0012EE38  |00000000
+0012EE3C  |7C63115F  RETURN to ATL80.7C63115F
+0012EE40  |0012EE50  RETURN to 0012EE50
+0012EE44  |00000000
+0012EE48  |7C930098  RETURN to ntdll.7C930098 from ntdll.7C922AB0
+0012EE4C  |0151FF00
+0012EE50  |0012EF1C
+0012EE54  |7C930021  RETURN to ntdll.7C930021 from ntdll.7C930072
+0012EE58  |003E06E8
+0012EE5C  |7C93003D  RETURN to ntdll.7C93003D from ntdll.7C92E8E6
+0012EE60  |014E10C0
+0012EE64  |0151FF08
+0012EE68  |00000000
+0012EE6C  |00000000
+0012EE70  |3096918C  GF.3096918C
+0012EE74  |0012EE84  RETURN to 0012EE84
+0012EE78  |00000000
+0012EE7C  |7C930098  RETURN to ntdll.7C930098 from ntdll.7C922AB0
+0012EE80  |0151FF00
+0012EE84  |0012EF50
+0012EE88  |7C930021  RETURN to ntdll.7C930021 from ntdll.7C930072
+0012EE8C  |003E06E8
+0012EE90  |7C93003D  RETURN to ntdll.7C93003D from ntdll.7C92E8E6
+0012EE94  |014E10C0
+0012EE98  |0151FF08
+0012EE9C  |00000000
+0012EEA0  |7C930098  RETURN to ntdll.7C930098 from ntdll.7C922AB0
+0012EEA4  |01424D70
+0012EEA8  |0012EEEC
+0012EEAC  |0012EEC0
+0012EEB0  |65120D80  RETURN to LoginPan.65120D80 from LoginPan.6511FA05
+0012EEB4  |01022918
+0012EEB8  |00000002
+0012EEBC  |00000010
+0012EEC0  |0012EED0
+0012EEC4  |0012EEDC
+0012EEC8  |7C63115F  RETURN to ATL80.7C63115F
+0012EECC  |014E1078
+0012EED0  |014E1080
+0012EED4  |0012EF38
+0012EED8  |014E1078
+0012EEDC  |0012EEF4
+0012EEE0  |30889B7F  RETURN to GF.30889B7F from ATL80.AtlInternalQueryInterface
+0012EEE4  |014E1078
+0012EEE8  |00000000
+0012EEEC  |3096AB24  GF.3096AB24
+0012EEF0  |0012EF38
+0012EEF4  |0012EF04
+0012EEF8  |30889B94  RETURN to GF.30889B94 from GF.30889B6A
+0012EEFC  |3096AB24  GF.3096AB24
+0012EF00  |0012EF38
+0012EF04  |0012EF1C
+0012EF08  |3082E85C  RETURN to GF.3082E85C
+0012EF0C  |014E1078
+0012EF10  |3096AB24  GF.3096AB24
+0012EF14  |0012EF38
+0012EF18  |014E1078
+0012EF1C  |0012EF4C
+0012EF20  |3082ECD6  RETURN to GF.3082ECD6
+0012EF24  |3082ECDD  RETURN to GF.3082ECDD from GF.30949737
+0012EF28  |817FF88E
+0012EF2C  |014E1080
+0012EF30  |0012F128
+0012EF34  |014E1078
+0012EF38  |014E1078
+0012EF3C  |3083AADE  RETURN to GF.3083AADE from GF.30916FBA
+0012EF40  |0012EF50
+0012EF44  |00000000
+0012EF48  |7C930098  RETURN to ntdll.7C930098 from ntdll.7C922AB0
+0012EF4C  |01487940
+0012EF50  |0012F01C
+0012EF54  |7C930021  RETURN to ntdll.7C930021 from ntdll.7C930072
+0012EF58  |003E0778
+0012EF5C  |7C93003D  RETURN to ntdll.7C93003D from ntdll.7C92E8E6
+0012EF60  |014E1078
+0012EF64  |01487948
+0012EF68  |00000001
+0012EF6C  |30953BD4  GF.30953BD4
+0012EF70  |FFFFFFFF
+0012EF74  |3083AAE3  RETURN to GF.3083AAE3 from GF.30949737
+0012EF78  |3082FF65  RETURN to GF.3082FF65 from GF.3083A83B
+0012EF7C  |014E1078
+0012EF80  |0012F128
+0012EF84  |0012F1C4
+0012EF88  |0012F16C
+0012EF8C  |0012F0C8
+0012EF90  |014E1080
+0012EF94  |0012F128
+0012EF98  |0012EFBC
+0012EF9C  |308FB8F8  RETURN to GF.308FB8F8 from GF.3082FD42
+0012EFA0  |014E1078
+0012EFA4  |0012F128
+0012EFA8  |0012F1C4
+0012EFAC  |0012F16C
+0012EFB0  |0012F0C8
+0012EFB4  |014E1078
+0012EFB8  |014E1080
+0012EFBC  |00000028
+0012EFC0  |308F6209  RETURN to GF.308F6209 from GF.308FB6F9
+0012EFC4  |014E1078
+0012EFC8  |0012F128
+0012EFCC  |0012F1C4
+0012EFD0  |0012F16C
+0012EFD4  |0012F0C8
+0012EFD8  |00000000
+0012EFDC  |014E1080
+0012EFE0  |0012F000
+0012EFE4  |003E0000
+0012EFE8  |014E1078
+0012EFEC  |0012F128
+0012EFF0  |0012F1C4
+0012EFF4  |0012F16C
+0012EFF8  |0012F0C8
+0012EFFC  |0001F0C8
+0012F000  |00000005
+0012F004  |0012EF60
+0012F008  |014E1080
+0012F00C  |0012F058
+0012F010  |7C92E900  ntdll.7C92E900
+0012F014  |7C930040  ntdll.7C930040
+0012F018  |FFFFFFFF
+0012F01C  |00000002
+0012F020  |0012F118
+0012F024  |77D28D20  USER32.DefWindowProcW
+0012F028  |00000000
+0012F02C  |78134C58  RETURN to MSVCR80.78134C58 from MSVCR80.78138CD9
+0012F030  |8097D5E2
+0012F034  |014E1078
+0012F038  |0012F098
+0012F03C  |00000001
+0012F040  |817FE7AA
+0012F044  |014E1078
+0012F048  |00000000
+0012F04C  |0012F068
+0012F050  |77D28DD9  RETURN to USER32.77D28DD9 from USER32.77D28BFB
+0012F054  |00040276
+0012F058  |00000047
+0012F05C  |00000000
+0012F060  |0012F324
+0012F064  |00000000
+0012F068  |0012F0B0
+0012F06C  |77D28D77  RETURN to USER32.77D28D77 from USER32.77D28DB2
+0012F070  |00040276
+0012F074  |00000047
+0012F078  |00000000
+0012F07C  |77D28D8B  RETURN to USER32.77D28D8B from USER32.77D18600
+0012F080  |0012F118
+0012F084  |77D28D20  USER32.DefWindowProcW
+0012F088  |00000000
+0012F08C  |00000000
+0012F090  |77D28D20  USER32.DefWindowProcW
+0012F094  |00000000
+0012F098  |0012F080
+0012F09C  |00000000
+0012F0A0  |0012F134
+0012F0A4  |77D4048F  USER32.77D4048F
+0012F0A8  |77D28D90  USER32.77D28D90
+0012F0AC  |FFFFFFFF
+0012F0B0  |77D28D8B  RETURN to USER32.77D28D8B from USER32.77D18600
+0012F0B4  |77D18734  RETURN to USER32.77D18734
+0012F0B8  |00040276
+0012F0BC  |00000047
+0012F0C0  |00000000
+0012F0C4  |0012F324
+0012F0C8  |77D28D20  USER32.DefWindowProcW
+0012F0CC  |DCBAABCD
+0012F0D0  |00000000
+0012F0D4  |0012F118
+0012F0D8  |77D28D20  USER32.DefWindowProcW
+0012F0DC  |0012F144
+0012F0E0  |77D18816  RETURN to USER32.77D18816 from USER32.77D1870C
+0012F0E4  |7FFDF000
+0012F0E8  |0012F144
+0012F0EC  |77D1885A  RETURN to USER32.77D1885A from ntdll.RtlDeactivateActivationContextUnsafeFast
+0012F0F0  |0012F104
+0012F0F4  |77D1882A  RETURN to USER32.77D1882A from USER32.77D18600
+0012F0F8  |00000047
+0012F0FC  |77D28D20  USER32.DefWindowProcW
+0012F100  |00000082
+0012F104  |0012F138
+0012F108  |003E0000
+0012F10C  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012F110  |00000002
+0012F114  |003E06E8
+0012F118  |003E0000
+0012F11C  |0151FF08
+0012F120  |0012F110
+0012F124  |00000000
+0012F128  |0012F354
+0012F12C  |7C92E900  ntdll.7C92E900
+0012F130  |7C930208  ntdll.7C930208
+0012F134  |FFFFFFFF
+0012F138  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012F13C  |7C93017B  RETURN to ntdll.7C93017B from ntdll.7C9301D1
+0012F140  |7C9301BB  RETURN to ntdll.7C9301BB from ntdll.7C92E8E6
+0012F144  |00000008
+0012F148  |00000000
+0012F14C  |00000008
+0012F150  |77D28D20  USER32.DefWindowProcW
+0012F154  |00040276
+0012F158  |00000047
+0012F15C  |00000000
+0012F160  |0012F324
+0012F164  |00000000
+0012F168  |00000000
+0012F16C  |00000047
+0012F170  |01522EE8
+0012F174  |0012F194
+0012F178  |77D2A039  RETURN to USER32.77D2A039 from USER32.77D29FC2
+0012F17C  |77D28D20  USER32.DefWindowProcW
+0012F180  |00040276
+0012F184  |00000047
+0012F188  |00000000
+0012F18C  |0012F324
+0012F190  |00000000
+0012F194  |0012F1B0
+0012F198  |30801988  RETURN to GF.30801988 from USER32.CallWindowProcW
+0012F19C  |77D28D20  USER32.DefWindowProcW
+0012F1A0  |00040276
+0012F1A4  |00000047
+0012F1A8  |00000000
+0012F1AC  |0012F324
+0012F1B0  |0012F1F8
+0012F1B4  |30801A70  RETURN to GF.30801A70 from GF.30801970
+0012F1B8  |00000047
+0012F1BC  |00000000
+0012F1C0  |0012F324
+0012F1C4  |00000000
+0012F1C8  |0012F260
+0012F1CC  |0018CBB8
+0012F1D0  |0012F204
+0012F1D4  |003E0000
+0012F1D8  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012F1DC  |00000005
+0012F1E0  |003E0778
+0012F1E4  |003E0000
+0012F1E8  |01487920
+0012F1EC  |0012F1DC
+0012F1F0  |00000001
+0012F1F4  |0012F420
+0012F1F8  |7C92E900  ntdll.7C92E900
+0012F1FC  |7C930208  ntdll.7C930208
+0012F200  |FFFFFFFF
+0012F204  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012F208  |7C93017B  RETURN to ntdll.7C93017B from ntdll.7C9301D1
+0012F20C  |7C9301BB  RETURN to ntdll.7C9301BB from ntdll.7C92E8E6
+0012F210  |00000020
+0012F214  |00000000
+0012F218  |00000020
+0012F21C  |0012F260
+0012F220  |0018CBB8
+0012F224  |0012F28C
+0012F228  |77D18816  RETURN to USER32.77D18816 from USER32.77D1870C
+0012F22C  |7FFDF000
+0012F230  |0012F28C
+0012F234  |77D1885A  RETURN to USER32.77D1885A from ntdll.RtlDeactivateActivationContextUnsafeFast
+0012F238  |0012F24C
+0012F23C  |77D1882A  RETURN to USER32.77D1882A from USER32.77D18600
+0012F240  |00000000
+0012F244  |00040276
+0012F248  |00040276
+0012F24C  |00000014
+0012F250  |00000001
+0012F254  |00000000
+0012F258  |00000000
+0012F25C  |00000010
+0012F260  |00000000
+0012F264  |0018CBB8
+0012F268  |00000000
+0012F26C  |00000000
+0012F270  |00000000
+0012F274  |0012F240
+0012F278  |0063CDF4
+0012F27C  |0012F2D0
+0012F280  |77D4048F  USER32.77D4048F
+0012F284  |77D18830  USER32.77D18830
+0012F288  |FFFFFFFF
+0012F28C  |77D1882A  RETURN to USER32.77D1882A from USER32.77D18600
+0012F290  |77D28EA0  RETURN to USER32.77D28EA0 from USER32.77D1875F
+0012F294  |00000000
+0012F298  |0018CBB8
+0012F29C  |00040276
+0012F2A0  |00000047
+0012F2A4  |00000000
+0012F2A8  |0012F324
+0012F2AC  |0063CDF4
+0012F2B0  |77D28EAB  RETURN to USER32.77D28EAB from USER32.77D18600
+0012F2B4  |860F0000
+0012F2B8  |77D188A6  USER32.GetWindowLongW   
+0012F2BC  |0012F2CC  RETURN to 0012F2CC
+0012F2C0  |00000000
+0012F2C4  |7C930098  RETURN to ntdll.7C930098 from ntdll.7C922AB0
+0012F2C8  |0151FF00
+0012F2CC  |0012F398
+0012F2D0  |7C930021  RETURN to ntdll.7C930021 from ntdll.7C930072
+0012F2D4  |003E06E8
+0012F2D8  |7C93003D  RETURN to ntdll.7C93003D from ntdll.7C92E8E6
+0012F2DC  |014E10C0
+0012F2E0  |0151FF08
+0012F2E4  |00000000
+0012F2E8  |0063CDE0
+0012F2EC  |00000047
+0012F2F0  |00000000
+0012F2F4  |77D2BE4B  RETURN to USER32.77D2BE4B from USER32.77D194A4
+0012F2F8  |00000000
+0012F2FC  |00000000
+0012F300  |00000002
+0012F304  |0012F31C
+0012F308  |7C63115F  RETURN to ATL80.7C63115F
+0012F30C  |0012F324
+0012F310  |7C63115F  RETURN to ATL80.7C63115F
+0012F314  |014E1078
+0012F318  |014E1080
+0012F31C  |0012F380
+0012F320  |014E1078
+0012F324  |0012F33C
+0012F328  |30889B7F  RETURN to GF.30889B7F from ATL80.AtlInternalQueryInterface
+0012F32C  |014E1078
+0012F330  |00000000
+0012F334  |3096AB24  GF.3096AB24
+0012F338  |0012F380
+0012F33C  |0012F34C
+0012F340  |30889B94  RETURN to GF.30889B94 from GF.30889B6A
+0012F344  |3096AB24  GF.3096AB24
+0012F348  |0012F380
+0012F34C  |0012F380
+0012F350  |003E0000
+0012F354  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012F358  |00000005
+0012F35C  |003E0778
+0012F360  |003E0000
+0012F364  |01487920
+0012F368  |0012F358
+0012F36C  |3082ECDD  RETURN to GF.3082ECDD from GF.30949737
+0012F370  |0012F59C
+0012F374  |7C92E900  ntdll.7C92E900
+0012F378  |7C930208  ntdll.7C930208
+0012F37C  |FFFFFFFF
+0012F380  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012F384  |7C93017B  RETURN to ntdll.7C93017B from ntdll.7C9301D1
+0012F388  |7C9301BB  RETURN to ntdll.7C9301BB from ntdll.7C92E8E6
+0012F38C  |00000020
+0012F390  |00000000
+0012F394  |00000020
+0012F398  |0012F464
+0012F39C  |7C930021  RETURN to ntdll.7C930021 from ntdll.7C930072
+0012F3A0  |003E0778
+0012F3A4  |7C93003D  RETURN to ntdll.7C93003D from ntdll.7C92E8E6
+0012F3A8  |014E1078
+0012F3AC  |01487920
+0012F3B0  |00000001
+0012F3B4  |30953BD4  GF.30953BD4
+0012F3B8  |FFFFFFFF
+0012F3BC  |3083AAE3  RETURN to GF.3083AAE3 from GF.30949737
+0012F3C0  |3082FF65  RETURN to GF.3082FF65 from GF.3083A83B
+0012F3C4  |014E1078
+0012F3C8  |0012F570  UNICODE "Timer_Class"
+0012F3CC  |0012F60C
+0012F3D0  |0012F5B4
+0012F3D4  |0012F510
+0012F3D8  |014E1080
+0012F3DC  |0012F570  UNICODE "Timer_Class"
+0012F3E0  |0012F404
+0012F3E4  |308FB8F8  RETURN to GF.308FB8F8 from GF.3082FD42
+0012F3E8  |014E1078
+0012F3EC  |0012F570  UNICODE "Timer_Class"
+0012F3F0  |0012F60C
+0012F3F4  |0012F5B4
+0012F3F8  |0012F510
+0012F3FC  |014E1078
+0012F400  |014E1080
+0012F404  |0012F438
+0012F408  |003E0000
+0012F40C  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012F410  |00000003
+0012F414  |003E0718
+0012F418  |003E0000
+0012F41C  |014FEE50
+0012F420  |0012F410
+0012F424  |014E1080
+0012F428  |0012F654
+0012F42C  |7C92E900  ntdll.7C92E900
+0012F430  |7C930208  ntdll.7C930208
+0012F434  |FFFFFFFF
+0012F438  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012F43C  |7C93017B  RETURN to ntdll.7C93017B from ntdll.7C9301D1
+0012F440  |7C9301BB  RETURN to ntdll.7C9301BB from ntdll.7C92E8E6
+0012F444  |00000010
+0012F448  |00000000
+0012F44C  |00000010
+0012F450  |817E4638
+0012F454  |00000000
+0012F458  |300DE476  RETURN to Common.300DE476 from ntdll.RtlLeaveCriticalSection
+0012F45C  |302817B0  Common.302817B0
+0012F460  |00000000
+0012F464  |0000000D
+0012F468  |00000000
+0012F46C  |300D9040  RETURN to Common.300D9040 from <jmp.&MSVCR80.memset>
+0012F470  |30281794  Common.30281794
+0012F474  |00000001
+0012F478  |0012F48C
+0012F47C  |300DB2BB  RETURN to Common.300DB2BB from <jmp.&MSVCR80.memcpy>
+0012F480  |01848C34  UNICODE "1122222333"
+0012F484  |302817A4  Common.302817A4
+0012F488  |00000002
+0012F48C  |0012F4B0
+0012F490  |300DB1C1  RETURN to Common.300DB1C1 from kernel32.InterlockedDecrement
+0012F494  |30281798  Common.30281798
+0012F498  |30281794  Common.30281794
+0012F49C  |300DB3E3  RETURN to Common.300DB3E3 from Common.300DB1B4
+0012F4A0  |00000000
+0012F4A4  |0000000D
+0012F4A8  |0012F564
+0012F4AC  |0012F564
+0012F4B0  |0012F4E4
+0012F4B4  |003E0000
+0012F4B8  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012F4BC  |00000003
+0012F4C0  |003E0718
+0012F4C4  |003E0000
+0012F4C8  |013F5F18
+0012F4CC  |0012F4BC
+0012F4D0  |E7F56EE4
+0012F4D4  |0012F700
+0012F4D8  |7C92E900  ntdll.7C92E900
+0012F4DC  |7C930208  ntdll.7C930208
+0012F4E0  |FFFFFFFF
+0012F4E4  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012F4E8  |7C93017B  RETURN to ntdll.7C93017B from ntdll.7C9301D1
+0012F4EC  |7C9301BB  RETURN to ntdll.7C9301BB from ntdll.7C92E8E6
+0012F4F0  |00000010
+0012F4F4  |00000000
+0012F4F8  |00000010
+0012F4FC  |01848C24
+0012F500  |0012F50C
+0012F504  |300D9063  RETURN to Common.300D9063 from Common.300DE654
+0012F508  |01848C24
+0012F50C  |0012F518
+0012F510  |300DB18E  RETURN to Common.300DB18E from Common.300D9048
+0012F514  |01848C24
+0012F518  |0012F54C
+0012F51C  |300DB1D2  RETURN to Common.300DB1D2
+0012F520  |01848C24
+0012F524  |0012F564
+0012F528  |300DBC60  RETURN to Common.300DBC60 from Common.301317BF
+0012F52C  |817E4704
+0012F530  |0012F910
+0012F534  |0005025C
+0012F538  |0012F80C
+0012F53C  |0012F564
+0012F540  |0012F778
+0012F544  |30146EBD  Common.30146EBD
+0012F548  |00000000
+0012F54C  |69F0CC62  RETURN to HummerEn.69F0CC62 from HummerEn.69F0CB56
+0012F550  |69F07E63  RETURN to HummerEn.69F07E63 from HummerEn.69F0CC58
+0012F554  |81785DB2
+0012F558  |0012F910
+0012F55C  |0005025C
+0012F560  |0012F80C
+0012F564  |01848C34  UNICODE "1122222333"   ///第一次出现在栈里
+0012F568  |003E6760
+0012F56C  |00580054
+0012F570  |00690054
+0012F574  |0065006D
+0012F578  |005F0072
+0012F57C  |006C0043
+0012F580  |00730061
+0012F584  |00000073
+0012F588  |00000000
+0012F58C  |00000000
+0012F590  |00000000
+0012F594  |00000000
+0012F598  |00000000
+0012F59C  |00000000
+0012F5A0  |00000000
+0012F5A4  |00000000
+0012F5A8  |00000000
+0012F5AC  |00000000
+0012F5B0  |00000000
+0012F5B4  |815D4A9E
+0012F5B8  |0012F634  Pointer to next SEH record
+0012F5BC  |65175BA7  SE handler
+0012F5C0  |0000001A
+0012F5C4  ]0012F640
+0012F5C8  |6515C84A  RETURN to LoginPan.6515C84A
+0012F5CC  |00040284
+0012F5D0  |000008BC
+0012F5D4  |00000000
+0012F5D8  |00000000
+0012F5DC  |815D491A
+0012F5E0  |0012F6C0
+0012F5E4  |6515C8C2  LoginPan.6515C8C2
+0012F5E8  |00000000
+0012F5EC  |00000000
+0012F5F0  |00000000
+0012F5F4  |00000000
+0012F5F8  |00000000
+0012F5FC  |00000000
+0012F600  |00000003
+0012F604  |00000000
+0012F608  |00000000
+0012F60C  |00000000
+0012F610  |00000000
+0012F614  |00000000
+0012F618  |00000000
+0012F61C  |00000000
+0012F620  |6510AF6C  RETURN to LoginPan.6510AF6C from LoginPan.6516E22B
+0012F624  |651CA56C  LoginPan.651CA56C
+0012F628  |0012F6C0
+0012F62C  |6515C8C2  LoginPan.6515C8C2
+0012F630  |00000000
+0012F634  |0012F6DC  Pointer to next SEH record
+0012F638  |65179D23  SE handler
+0012F63C  |FFFFFFFF
+0012F640  ]0012F658
+0012F644  |6515C8DD  RETURN to LoginPan.6515C8DD from LoginPan.6515C47E
+0012F648  |00040284
+0012F64C  |000008BC
+0012F650  |00000000
+0012F654  |00000000
+0012F658  ]0012F684
+0012F65C  |77D18734  RETURN to USER32.77D18734
+0012F660  |00040284
+0012F664  |000008BC
+0012F668  |00000000
+0012F66C  |00000000
+0012F670  |6515C8C2  LoginPan.6515C8C2
+0012F674  |DCBAABCD
+0012F678  |00000000
+0012F67C  |0012F6C0
+0012F680  |6515C8C2  LoginPan.6515C8C2
+0012F684  ]0012F6EC
+0012F688  |77D18816  RETURN to USER32.77D18816 from USER32.77D1870C
+0012F68C  |6515C8C2  LoginPan.6515C8C2
+0012F690  |00040284
+0012F694  |000008BC
+0012F698  |00000000
+0012F69C  |00000000
+0012F6A0  |00000000
+0012F6A4  |00040284
+0012F6A8  |00000102
+0012F6AC  |00000014
+0012F6B0  |00000001
+0012F6B4  |00000000
+0012F6B8  |00000000
+0012F6BC  |00000010
+0012F6C0  |00000000
+0012F6C4  |7FFDF000
+0012F6C8  |00000000
+0012F6CC  |00000000
+0012F6D0  |00000000
+0012F6D4  |0012F6A0
+0012F6D8  |00000000
+0012F6DC  |0012F730  Pointer to next SEH record
+0012F6E0  |77D4048F  SE handler
+0012F6E4  |77D18830  USER32.77D18830
+0012F6E8  |00000000
+0012F6EC  ]0012F740
+0012F6F0  |77D28EA0  RETURN to USER32.77D28EA0 from USER32.77D1875F
+0012F6F4  |00000000
+0012F6F8  |6515C8C2  LoginPan.6515C8C2
+0012F6FC  |00040284
+0012F700  |000008BC
+0012F704  |00000000
+0012F708  |00000000
+0012F70C  |0063C5C4
+0012F710  |00000001
+0012F714  |00000000
+0012F718  |0012F80C
+0012F71C  |00000102
+0012F720  |30003A29  RETURN to Common.30003A29 from Common.3007DFEB
+0012F724  |00000000
+0012F728  |0012F714
+0012F72C  |302816A4  Common.302816A4
+0012F730  |0012F874  Pointer to next SEH record
+0012F734  |77D4048F  SE handler
+0012F738  |77D28EB0  USER32.77D28EB0
+0012F73C  |FFFFFFFF
+0012F740  ]0012F768
+0012F744  |77D28EEC  RETURN to USER32.77D28EEC
+0012F748  |0063C5B0
+0012F74C  |000008BC
+0012F750  |00000000
+0012F754  |00000000
+0012F758  |6515C8C2  LoginPan.6515C8C2
+0012F75C  |77D195F9  RETURN to USER32.77D195F9 from kernel32.WaitForMultipleObjectsEx
+0012F760  |00000000
+0012F764  |00000000
+0012F768  ]0012F7B8
+0012F76C  |7C92E453  RETURN to ntdll.7C92E453
+0012F770  |0012F778
+0012F774  |00000018
+0012F778  |0063C5B0
+0012F77C  |000008BC
+0012F780  |00000000
+0012F784  |00000000
+0012F788  |6515C8C2  LoginPan.6515C8C2
+0012F78C  |77D28E53  USER32.77D28E53
+0012F790  |77D193E9  RETURN to USER32.77D193E9
+0012F794  |77D193A8  RETURN to USER32.77D193A8 from USER32.77D193DD
+0012F798  |0012F80C
+0012F79C  |00000000
+0012F7A0  |00000000
+0012F7A4  |00000000
+0012F7A8  |00000001
+0012F7AC  |0062FAC0
+0012F7B0  |7FFDF000
+0012F7B4  |69F10C01  HummerEn.69F10C01
+0012F7B8  ]0012F7E4
+0012F7BC  |77D19402  RETURN to USER32.77D19402 from USER32.77D1937B
+0012F7C0  |0012F80C
+0012F7C4  |00000000
+0012F7C8  |00000000
+0012F7CC  |00000000
+0012F7D0  |00000001
+0012F7D4  |00000000
+0012F7D8  |00F472D8
+0012F7DC  |00F472F8
+0012F7E0  |69F10C01  HummerEn.69F10C01
+0012F7E4  ]0012F828
+0012F7E8  |69F0632F  RETURN to HummerEn.69F0632F from USER32.PeekMessageW
+0012F7EC  |0012F80C
+0012F7F0  |00000000
+0012F7F4  |00000000
+0012F7F8  |00000000
+0012F7FC  |00000001
+0012F800  |00000000
+0012F804  |00F472D8
+0012F808  |69F10C10  UNICODE "func"
+0012F80C  |0005025C
+0012F810  |00000113
+0012F814  |00000400
+0012F818  |00000000
+0012F81C  |000A83AE
+0012F820  |00000622
+0012F824  |00000361
+0012F828  ]0012F844
+0012F82C  |69F06059  RETURN to HummerEn.69F06059
+0012F830  |69F109E8  UNICODE "/MLogin"
+0012F834  |69F10C04  UNICODE "file"
+0012F838  |0012FA64
+0012F83C  |0012FD00
+0012F840  |00000001
+0012F844  ]0012F880
+0012F848  |69F04529  RETURN to HummerEn.69F04529
+0012F84C  |0012FA64
+0012F850  |69F04BFA  RETURN to HummerEn.69F04BFA from HummerEn.69F04513
+0012F854  |817852B6
+0012F858  |69F109E8  UNICODE "/MLogin"
+0012F85C  |69F10C04  UNICODE "file"
+0012F860  |69F10C10  UNICODE "func"
+0012F864  |00000001
+0012F868  |01472F00
+0012F86C  |0012FA64
+0012F870  |00000000
+0012F874  |0012FD84  Pointer to next SEH record
+0012F878  |69F0E9D9  SE handler
+0012F87C  |00000000
+0012F880  ]0012FD90
+0012F884  |69F0AF44  RETURN to HummerEn.69F0AF44 from HummerEn.69F04BD9
+0012F888  |817857A6
+0012F88C  |7C92FE01  ntdll.RtlGetLastWin32Error
+0012F890  |69F00000  HummerEn.69F00000
+0012F894  |00000000
+0012F898  |00000000
+0012F89C  |00001000
+0012F8A0  |00010000  UNICODE "ALLUSERSPROFILE=C:\Documents and Settings\All Users"
+0012F8A4  |7FFEFFFF
+0012F8A8  |00000001
+0012F8AC  |00000001
+0012F8B0  |0000024A
+0012F8B4  |00010000  UNICODE "ALLUSERSPROFILE=C:\Documents and Settings\All Users"
+0012F8B8  |18010017
+0012F8BC  |00000020
+0012F8C0  |00000007
+0012F8C4  |7FFFFFFF
+0012F8C8  |7FFFFFFF
+0012F8CC  |FFFFFFFF
+0012F8D0  |FFFFFFFF
+0012F8D4  |7FFE0000
+0012F8D8  |7CD1E000
+0012F8DC  |00000000
+0012F8E0  |00000000
+0012F8E4  |00000003
+0012F8E8  |00000000
+0012F8EC  |00000000
+0012F8F0  |00000000
+0012F8F4  |302817A4  Common.302817A4
+0012F8F8  |302817A4  Common.302817A4
+0012F8FC  |00000000
+0012F900  |00000000
+0012F904  |302817A4  Common.302817A4
+0012F908  |00369E99
+0012F90C  |00000000
+0012F910  |69F110B4  HummerEn.69F110B4
+0012F914  |00000000
+0012F918  |00000000
+0012F91C  |00000000
+0012F920  |00000000
+0012F924  |00000000
+0012F928  |0012F93C
+0012F92C  |00000002
+0012F930  |00000002
+0012F934  |00FAC368
+0012F938  |00FE2608
+0012F93C  |00F43F18
+0012F940  |0000A157
+0012F944  |0012FD98
+0012F948  |69F11240  UNICODE "InitAutoUpdate"
+0012F94C  |00FAC368
+0012F950  |7C935BD8  RETURN to ntdll.7C935BD8 from ntdll.RtlFreeUnicodeString
+0012F954  |0012F998
+0012F958  |0012FB38
+0012F95C  |00000001
+0012F960  |7C935C3D  RETURN to ntdll.7C935C3D from ntdll.7C92FE57
+0012F964  |76990000  ole32.76990000
+0012F968  |7C99B214  ntdll.7C99B214
+0012F96C  |FFFFFFFD
+0012F970  |00000000
+0012F974  |0012FD8C
+0012F978  |0012FB30
+0012F97C  |00000000
+0012F980  |0012FB38
+0012F984  |00000000
+0012F988  |0012FB28
+0012F98C  |00000000
+0012F990  |0012F9B0
+0012F994  |78147344  RETURN to MSVCR80.78147344 from MSVCR80.781472B7
+0012F998  |0012F9F0
+0012F99C  |7FFD4000
+0012F9A0  |0012F9E8
+0012F9A4  |0012F9C8
+0012F9A8  |7C9396BF  RETURN to ntdll.7C9396BF from ntdll.wcsncpy
+0012F9AC  |0012F9FC  UNICODE "Service Pack 3"
+0012F9B0  |7F6F06C2  UNICODE "Service Pack 3"
+0012F9B4  |0000000E
+0012F9B8  |00000000
+0012F9BC  |0000011C
+0012F9C0  |0012F9E8
+0012F9C4  |00000000
+0012F9C8  |0012F9DC
+0012F9CC  |7C80AF15  RETURN to kernel32.7C80AF15 from ntdll.RtlGetVersion
+0012F9D0  |0012F9E8
+0012F9D4  |7C92FE01  ntdll.RtlGetLastWin32Error
+0012F9D8  |69F00000  HummerEn.69F00000
+0012F9DC  |0012FB00
+0012F9E0  |300E7FCD  RETURN to Common.300E7FCD from kernel32.GetVersionExW
+0012F9E4  |300E7FE1  RETURN to Common.300E7FE1 from Common.301316D8
+0012F9E8  |00000114
+0012F9EC  |00000005
+0012F9F0  |00000001
+0012F9F4  |00000A28
+0012F9F8  |00000002
+0012F9FC  |00650053
+0012FA00  |00760072
+0012FA04  |00630069
+0012FA08  |00200065
+0012FA0C  |00610050
+0012FA10  |006B0063
+0012FA14  |00330020
+0012FA18  |00000000
+0012FA1C  |00000000
+0012FA20  |00000000
+0012FA24  |00000000
+0012FA28  |00000000
+0012FA2C  |00000000
+0012FA30  |00000000
+0012FA34  |00000000
+0012FA38  |00000000
+0012FA3C  |00000000
+0012FA40  |0012FA74
+0012FA44  |00150000
+0012FA48  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012FA4C  |00000005
+0012FA50  |00150778
+0012FA54  |00150000
+0012FA58  |00000000
+0012FA5C  |0012FA4C
+0012FA60  |00000000
+0012FA64  |69F10C44  HummerEn.69F10C44
+0012FA68  |00000000
+0012FA6C  |7C930208  ntdll.7C930208
+0012FA70  |00000000
+0012FA74  |00000000
+0012FA78  |00000000
+0012FA7C  |00000000
+0012FA80  |0012FDBC
+0012FA84  |00000000
+0012FA88  |00000000
+0012FA8C  |00000000
+0012FA90  |0012FAC4
+0012FA94  |003E0000
+0012FA98  |00000000
+0012FA9C  |00000000
+0012FAA0  |00000000
+0012FAA4  |00000000
+0012FAA8  |00F472D8
+0012FAAC  |0012FA9C
+0012FAB0  |00000000
+0012FAB4  |00000000
+0012FAB8  |00000000
+0012FABC  |00000000
+0012FAC0  |00000000
+0012FAC4  |7C930001  ntdll.7C930001
+0012FAC8  |7C931066  RETURN to ntdll.7C931066 from ntdll.RtlLeaveCriticalSection
+0012FACC  |7C930100  ntdll.7C930100
+0012FAD0  |0000002C
+0012FAD4  |00000000
+0012FAD8  |0000002C
+0012FADC  |00000000
+0012FAE0  |0000000F
+0012FAE4  |00000000
+0012FAE8  |00000000
+0012FAEC  |00000000
+0012FAF0  |00000000
+0012FAF4  |00000000
+0012FAF8  |00167E28
+0012FAFC  |FFFFFFFF
+0012FB00  |00000000
+0012FB04  |00000000
+0012FB08  |00000000
+0012FB0C  |00000000
+0012FB10  |0012F864
+0012FB14  |00000000
+0012FB18  |00000000
+0012FB1C  |00000000
+0012FB20  |0614007D
+0012FB24  |00000000
+0012FB28  |00000000
+0012FB2C  |00000000
+0012FB30  |00000000
+0012FB34  |00000000
+0012FB38  |00251E9C
+0012FB3C  |69F10A40  HummerEn.69F10A40
+0012FB40  |00250001
+0012FB44  |00000000
+0012FB48  |000001B0
+0012FB4C  |0114FEB8
+0012FB50  |00F90CB8
+0012FB54  |00000630
+0012FB58  |000001FA
+0012FB5C  |69676F4C
+0012FB60  |006C6163
+0012FB64  |7C80B4C0  kernel32.7C80B4C0
+0012FB68  |00F40000
+0012FB6C  |00000007
+0012FB70  |0000000F
+0012FB74  |003A0043
+0012FB78  |0050005C
+0012FB7C  |006F0072
+0012FB80  |00720067
+0012FB84  |006D0061
+0012FB88  |00460020
+0012FB8C  |006C0069
+0012FB90  |00730065
+0012FB94  |0054005C
+0012FB98  |006E0065
+0012FB9C  |00650063
+0012FBA0  |0074006E
+0012FBA4  |0051005C
+0012FBA8  |00490051
+0012FBAC  |0074006E
+0012FBB0  |005C006C
+0012FBB4  |00690042
+0012FBB8  |005C006E
+0012FBBC  |00510051
+0012FBC0  |0065002E
+0012FBC4  |00650078
+0012FBC8  |00000000
+0012FBCC  |00000000
+0012FBD0  |00000000
+0012FBD4  |00000000
+0012FBD8  |00000000
+0012FBDC  |00000000
+0012FBE0  |00000000
+0012FBE4  |00000000
+0012FBE8  |00000000
+0012FBEC  |00000000
+0012FBF0  |00000000
+0012FBF4  |00000000
+0012FBF8  |00000000
+0012FBFC  |00000000
+0012FC00  |00000000
+0012FC04  |00000000
+0012FC08  |00000000
+0012FC0C  |00000000
+0012FC10  |00000000
+0012FC14  |00000000
+0012FC18  |00000000
+0012FC1C  |00000000
+0012FC20  |00000000
+0012FC24  |00000000
+0012FC28  |00000000
+0012FC2C  |00000000
+0012FC30  |00000000
+0012FC34  |00000000
+0012FC38  |00000000
+0012FC3C  |00000000
+0012FC40  |00000000
+0012FC44  |00000000
+0012FC48  |00000000
+0012FC4C  |00000000
+0012FC50  |00000000
+0012FC54  |00000000
+0012FC58  |00000000
+0012FC5C  |00000000
+0012FC60  |00000000
+0012FC64  |00000000
+0012FC68  |00000000
+0012FC6C  |00000000
+0012FC70  |00000000
+0012FC74  |00000000
+0012FC78  |00000000
+0012FC7C  |00000000
+0012FC80  |00000000
+0012FC84  |00000000
+0012FC88  |00000000
+0012FC8C  |00000000
+0012FC90  |00000000
+0012FC94  |00000000
+0012FC98  |00000000
+0012FC9C  |00000000
+0012FCA0  |00000000
+0012FCA4  |00000000
+0012FCA8  |00000000
+0012FCAC  |00000000
+0012FCB0  |00000000
+0012FCB4  |00000000
+0012FCB8  |00000000
+0012FCBC  |00000000
+0012FCC0  |00000000
+0012FCC4  |00000000
+0012FCC8  |00000000
+0012FCCC  |00000000
+0012FCD0  |00000000
+0012FCD4  |00000000
+0012FCD8  |00000000
+0012FCDC  |00000000
+0012FCE0  |00000000
+0012FCE4  |00000000
+0012FCE8  |00000000
+0012FCEC  |00000000
+0012FCF0  |00000000
+0012FCF4  |00000000
+0012FCF8  |00000000
+0012FCFC  |00000000
+0012FD00  |00000000
+0012FD04  |00000000
+0012FD08  |00000000
+0012FD0C  |00000000
+0012FD10  |00000000
+0012FD14  |00000000
+0012FD18  |00000000
+0012FD1C  |00000000
+0012FD20  |00000000
+0012FD24  |00000000
+0012FD28  |00000000
+0012FD2C  |00000000
+0012FD30  |00000000
+0012FD34  |00000000
+0012FD38  |00000000
+0012FD3C  |00000000
+0012FD40  |00000000
+0012FD44  |00000000
+0012FD48  |00000000
+0012FD4C  |00000000
+0012FD50  |00000000
+0012FD54  |00000000
+0012FD58  |00000000
+0012FD5C  |00000000
+0012FD60  |00000000
+0012FD64  |00000000
+0012FD68  |00000000
+0012FD6C  |00000000
+0012FD70  |00000000
+0012FD74  |00000000
+0012FD78  |00000000
+0012FD7C  |00000000
+0012FD80  |817857A6
+0012FD84  |0012FFB0  Pointer to next SEH record
+0012FD88  |69F0E30C  SE handler
+0012FD8C  |00000007
+0012FD90  ]0012FDDC
+0012FD94  |69F0B146  RETURN to HummerEn.69F0B146 from HummerEn.69F0A4A4
+0012FD98  |69F10EF4  HummerEn.69F10EF4
+0012FD9C  |000001F8
+0012FDA0  |00000000
+0012FDA4  |00001101
+0012FDA8  |000001F0
+0012FDAC  |69F1229C  HummerEn.69F1229C
+0012FDB0  |00F90868
+0012FDB4  |69F1229C  HummerEn.69F1229C
+0012FDB8  |00F908A0
+0012FDBC  |00167E00
+0012FDC0  |FFFFFFFF
+0012FDC4  |00000000
+0012FDC8  |00000000
+0012FDCC  |00000000
+0012FDD0  |00000000
+0012FDD4  |00FF6D00
+0012FDD8  |0012FD98
+0012FDDC  ]0012FF20
+0012FDE0  |004014D9  RETURN to QQ.004014D9
+0012FDE4  |0000000A
+0012FDE8  |00404458  QQ.00404458
+0012FDEC  |00000001
+0012FDF0  |00000000
+0012FDF4  |66F7D71A
+0012FDF8  |5628D7F4
+0012FDFC  |2F6A0E89
+0012FE00  |00000114
+0012FE04  |00000005
+0012FE08  |00000001
+0012FE0C  |00000A28
+0012FE10  |00000002
+0012FE14  |00650053
+0012FE18  |00760072
+0012FE1C  |00630069
+0012FE20  |00200065
+0012FE24  |00610050
+0012FE28  |006B0063
+0012FE2C  |00330020
+0012FE30  |00000000
+0012FE34  |00000000
+0012FE38  |00000000
+0012FE3C  |00000000
+0012FE40  |00000000
+0012FE44  |00000000
+0012FE48  |00000000
+0012FE4C  |00000000
+0012FE50  |00000000
+0012FE54  |00000000
+0012FE58  |00000000
+0012FE5C  |00000000
+0012FE60  |00000000
+0012FE64  |00000000
+0012FE68  |00000000
+0012FE6C  |00000000
+0012FE70  |00000000
+0012FE74  |00000000
+0012FE78  |00000000
+0012FE7C  |00000000
+0012FE80  |00000000
+0012FE84  |00000000
+0012FE88  |00000000
+0012FE8C  |00000000
+0012FE90  |00000000
+0012FE94  |00000000
+0012FE98  |00000000
+0012FE9C  |00000000
+0012FEA0  |00000000
+0012FEA4  |00000000
+0012FEA8  |00000000
+0012FEAC  |00000000
+0012FEB0  |00000000
+0012FEB4  |00000000
+0012FEB8  |00000000
+0012FEBC  |00000000
+0012FEC0  |00000000
+0012FEC4  |00000000
+0012FEC8  |00000000
+0012FECC  |00000000
+0012FED0  |00000000
+0012FED4  |00000000
+0012FED8  |00000000
+0012FEDC  |00000000
+0012FEE0  |00000000
+0012FEE4  |00000000
+0012FEE8  |00000000
+0012FEEC  |00000000
+0012FEF0  |00000000
+0012FEF4  |00000000
+0012FEF8  |00000000
+0012FEFC  |00000000
+0012FF00  |00000000
+0012FF04  |00000000
+0012FF08  |00000000
+0012FF0C  |00000000
+0012FF10  |00000000
+0012FF14  |80C50FB0
+0012FF18  |FFFFFFFE
+0012FF1C  |8097C11C
+0012FF20  ]0012FF2C
+0012FF24  |0040128B  RETURN to QQ.0040128B from QQ.0040128F
+0012FF28  |0000000A
+0012FF2C  ]0012FFC0
+0012FF30  |00401A8F  RETURN to QQ.00401A8F from QQ.00401280
+0012FF34  |00400000  QQ.00400000
+0012FF38  |00000000
+0012FF3C  |0002074C  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\QQ.exe "
+0012FF40  |0000000A
+0012FF44  |8097C328
+0012FF48  |0012EF30
+0012FF4C  |7C930021  RETURN to ntdll.7C930021 from ntdll.7C930072
+0012FF50  |7FFD4000
+0012FF54  |00000044
+0012FF58  |0002081C
+0012FF5C  |000207FC  UNICODE "WinSta0\Default"
+0012FF60  |000207A4  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\QQ.exe"
+0012FF64  |00000000
+0012FF68  |00000000
+0012FF6C  |00000000
+0012FF70  |00000000
+0012FF74  |00000000
+0012FF78  |00000000
+0012FF7C  |00000000
+0012FF80  |00000000
+0012FF84  |00000000
+0012FF88  |00000000
+0012FF8C  |00369E99
+0012FF90  |00000000
+0012FF94  |0012FFBC
+0012FF98  |00402017  RETURN to QQ.00402017 from kernel32.QueryPerformanceCounter
+0012FF9C  |0002074C  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\QQ.exe "
+0012FFA0  |00000000
+0012FFA4  |00000000
+0012FFA8  |0012FF44
+0012FFAC  |1FAC34FC
+0012FFB0  |0012FFE0  Pointer to next SEH record
+0012FFB4  |00401C61  SE handler
+0012FFB8  |80C50F90
+0012FFBC  |00000001
+0012FFC0  \0012FFF0
+0012FFC4   7C817067  RETURN to kernel32.7C817067
+0012FFC8   0012EF30
+0012FFCC   7C930021  RETURN to ntdll.7C930021 from ntdll.7C930072
+0012FFD0   7FFD4000
+0012FFD4   8054C6B8
+0012FFD8   0012FFC8
+0012FFDC   89EF5988
+0012FFE0   FFFFFFFF  End of SEH chain
+0012FFE4   7C839AC0  SE handler
+0012FFE8   7C817070  kernel32.7C817070
+0012FFEC   00000000
+0012FFF0   00000000
+0012FFF4   00000000
+0012FFF8   00401BFB  QQ.<ModuleEntryPoint>
+0012FFFC   00000000
+
+
+
+
+
+
+
+
+//.faq输入密码5个字符就触发 LoadLibraryExW
+0012F6D8   77D28055  /CALL to LoadLibraryExW from USER32.77D2804F
+0012F6DC   0012F738  |FileName = "C:\Program Files\Tencent\QQIntl\Bin\QQ.exe"
+0012F6E0   00000000  |hFile = NULL
+0012F6E4   00000008  \Flags = LOAD_WITH_ALTERED_SEARCH_PATH
+0012F6E8   00000000
+0012F6EC   0012F80C
+0012F6F0   00000102
+0012F6F4   0012F708
+0012F6F8   00000000
+0012F6FC   00000000
+0012F700  /0012F7B8
+0012F704  |7C92E453  RETURN to ntdll.7C92E453
+0012F708  |0012F710
+0012F70C  |00000080
+0012F710  |00000080
+0012F714  |00000058
+0012F718  |00000001
+0012F71C  |B564780C
+0012F720  |00000024
+0012F724  |00000000
+0012F728  |00560054
+0012F72C  |0012F738  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\QQ.exe"
+0012F730  |00000000
+0012F734  |0000001C
+0012F738  |003A0043
+0012F73C  |0050005C
+0012F740  |006F0072
+0012F744  |00720067
+0012F748  |006D0061
+0012F74C  |00460020
+0012F750  |006C0069
+0012F754  |00730065
+0012F758  |0054005C
+0012F75C  |006E0065
+0012F760  |00650063
+0012F764  |0074006E
+0012F768  |0051005C
+0012F76C  |00490051
+0012F770  |0074006E
+0012F774  |005C006C
+0012F778  |00690042
+0012F77C  |005C006E
+0012F780  |00510051
+0012F784  |0065002E
+0012F788  |00650078
+0012F78C  |00000000
+0012F790  |77D193E9  RETURN to USER32.77D193E9
+0012F794  |77D193A8  RETURN to USER32.77D193A8 from USER32.77D193DD
+0012F798  |0012F80C
+0012F79C  |00000000
+0012F7A0  |00000000
+0012F7A4  |00000000
+0012F7A8  |00000001
+0012F7AC  |0062FAC0
+0012F7B0  |7FFDF000
+0012F7B4  |69F10C01  HummerEn.69F10C01
+0012F7B8  ]0012F7E4
+0012F7BC  |77D19402  RETURN to USER32.77D19402 from USER32.77D1937B
+0012F7C0  |0012F80C
+0012F7C4  |00000000
+0012F7C8  |00000000
+0012F7CC  |00000000
+0012F7D0  |00000001
+0012F7D4  |00000000
+0012F7D8  |00F472D8
+0012F7DC  |00F472F8
+0012F7E0  |69F10C01  HummerEn.69F10C01
+0012F7E4  ]0012F828
+0012F7E8  |69F0632F  RETURN to HummerEn.69F0632F from USER32.PeekMessageW
+0012F7EC  |0012F80C
+0012F7F0  |00000000
+0012F7F4  |00000000
+0012F7F8  |00000000
+0012F7FC  |00000001
+0012F800  |00000000
+0012F804  |00F472D8
+0012F808  |69F10C10  UNICODE "func"
+0012F80C  |0005025C
+0012F810  |00000113
+0012F814  |00000400
+0012F818  |00000000
+0012F81C  |00062890
+0012F820  |0000061D
+0012F824  |00000313
+0012F828  ]0012F844
+0012F82C  |69F06059  RETURN to HummerEn.69F06059
+0012F830  |69F109E8  UNICODE "/MLogin"
+0012F834  |69F10C04  UNICODE "file"
+0012F838  |0012FA64
+0012F83C  |0012FD00
+0012F840  |00000001
+0012F844  ]0012F880
+0012F848  |69F04529  RETURN to HummerEn.69F04529
+0012F84C  |0012FA64
+0012F850  |69F04BFA  RETURN to HummerEn.69F04BFA from HummerEn.69F04513
+0012F854  |817852B6
+0012F858  |69F109E8  UNICODE "/MLogin"
+0012F85C  |69F10C04  UNICODE "file"
+0012F860  |69F10C10  UNICODE "func"
+0012F864  |00000001
+0012F868  |01472F00
+0012F86C  |0012FA64
+0012F870  |00000000
+0012F874  |0012FD84  Pointer to next SEH record
+0012F878  |69F0E9D9  SE handler
+0012F87C  |00000000
+0012F880  ]0012FD90
+0012F884  |69F0AF44  RETURN to HummerEn.69F0AF44 from HummerEn.69F04BD9
+0012F888  |817857A6
+0012F88C  |7C92FE01  ntdll.RtlGetLastWin32Error
+0012F890  |69F00000  HummerEn.69F00000
+0012F894  |00000000
+0012F898  |00000000
+0012F89C  |00001000
+0012F8A0  |00010000  UNICODE "ALLUSERSPROFILE=C:\Documents and Settings\All Users"
+0012F8A4  |7FFEFFFF
+0012F8A8  |00000001
+0012F8AC  |00000001
+0012F8B0  |0000024A
+0012F8B4  |00010000  UNICODE "ALLUSERSPROFILE=C:\Documents and Settings\All Users"
+0012F8B8  |18010017
+0012F8BC  |00000020
+0012F8C0  |00000007
+0012F8C4  |7FFFFFFF
+0012F8C8  |7FFFFFFF
+0012F8CC  |FFFFFFFF
+0012F8D0  |FFFFFFFF
+0012F8D4  |7FFE0000
+0012F8D8  |7CD1E000
+0012F8DC  |00000000
+0012F8E0  |00000000
+0012F8E4  |00000003
+0012F8E8  |00000000
+0012F8EC  |00000000
+0012F8F0  |00000000
+0012F8F4  |302817A4  Common.302817A4
+0012F8F8  |302817A4  Common.302817A4
+0012F8FC  |00000000
+0012F900  |00000000
+0012F904  |302817A4  Common.302817A4
+0012F908  |00369E99
+0012F90C  |00000000
+0012F910  |69F110B4  HummerEn.69F110B4
+0012F914  |00000000
+0012F918  |00000000
+0012F91C  |00000000
+0012F920  |00000000
+0012F924  |00000000
+0012F928  |0012F93C
+0012F92C  |00000002
+0012F930  |00000002
+0012F934  |00FAC368
+0012F938  |00FE2608
+0012F93C  |00F43F18
+0012F940  |0000A157
+0012F944  |0012FD98
+0012F948  |69F11240  UNICODE "InitAutoUpdate"
+0012F94C  |00FAC368
+0012F950  |7C935BD8  RETURN to ntdll.7C935BD8 from ntdll.RtlFreeUnicodeString
+0012F954  |0012F998
+0012F958  |0012FB38
+0012F95C  |00000001
+0012F960  |7C935C3D  RETURN to ntdll.7C935C3D from ntdll.7C92FE57
+0012F964  |76990000  ole32.76990000
+0012F968  |7C99B214  ntdll.7C99B214
+0012F96C  |FFFFFFFD
+0012F970  |00000000
+0012F974  |0012FD8C
+0012F978  |0012FB30
+0012F97C  |00000000
+0012F980  |0012FB38
+0012F984  |00000000
+0012F988  |0012FB28
+0012F98C  |00000000
+0012F990  |0012F9B0
+0012F994  |78147344  RETURN to MSVCR80.78147344 from MSVCR80.781472B7
+0012F998  |0012F9F0
+0012F99C  |7FFD4000
+0012F9A0  |0012F9E8
+0012F9A4  |0012F9C8
+0012F9A8  |7C9396BF  RETURN to ntdll.7C9396BF from ntdll.wcsncpy
+0012F9AC  |0012F9FC  UNICODE "Service Pack 3"
+0012F9B0  |7F6F06C2  UNICODE "Service Pack 3"
+0012F9B4  |0000000E
+0012F9B8  |00000000
+0012F9BC  |0000011C
+0012F9C0  |0012F9E8
+0012F9C4  |00000000
+0012F9C8  |0012F9DC
+0012F9CC  |7C80AF15  RETURN to kernel32.7C80AF15 from ntdll.RtlGetVersion
+0012F9D0  |0012F9E8
+0012F9D4  |7C92FE01  ntdll.RtlGetLastWin32Error
+0012F9D8  |69F00000  HummerEn.69F00000
+0012F9DC  |0012FB00
+0012F9E0  |300E7FCD  RETURN to Common.300E7FCD from kernel32.GetVersionExW
+0012F9E4  |300E7FE1  RETURN to Common.300E7FE1 from Common.301316D8
+0012F9E8  |00000114
+0012F9EC  |00000005
+0012F9F0  |00000001
+0012F9F4  |00000A28
+0012F9F8  |00000002
+0012F9FC  |00650053
+0012FA00  |00760072
+0012FA04  |00630069
+0012FA08  |00200065
+0012FA0C  |00610050
+0012FA10  |006B0063
+0012FA14  |00330020
+0012FA18  |00000000
+0012FA1C  |00000000
+0012FA20  |00000000
+0012FA24  |00000000
+0012FA28  |00000000
+0012FA2C  |00000000
+0012FA30  |00000000
+0012FA34  |00000000
+0012FA38  |00000000
+0012FA3C  |00000000
+0012FA40  |0012FA74
+0012FA44  |00150000
+0012FA48  |7C930202  RETURN to ntdll.7C930202 from ntdll.7C92E8E6
+0012FA4C  |00000005
+0012FA50  |00150778
+0012FA54  |00150000
+0012FA58  |00000000
+0012FA5C  |0012FA4C
+0012FA60  |00000000
+0012FA64  |69F10C44  HummerEn.69F10C44
+0012FA68  |00000000
+0012FA6C  |7C930208  ntdll.7C930208
+0012FA70  |00000000
+0012FA74  |00000000
+0012FA78  |00000000
+0012FA7C  |00000000
+0012FA80  |0012FDBC
+0012FA84  |00000000
+0012FA88  |00000000
+0012FA8C  |00000000
+0012FA90  |0012FAC4
+0012FA94  |003E0000
+0012FA98  |00000000
+0012FA9C  |00000000
+0012FAA0  |00000000
+0012FAA4  |00000000
+0012FAA8  |00F472D8
+0012FAAC  |0012FA9C
+0012FAB0  |00000000
+0012FAB4  |00000000
+0012FAB8  |00000000
+0012FABC  |00000000
+0012FAC0  |00000000
+0012FAC4  |7C930001  ntdll.7C930001
+0012FAC8  |7C931066  RETURN to ntdll.7C931066 from ntdll.RtlLeaveCriticalSection
+0012FACC  |7C930100  ntdll.7C930100
+0012FAD0  |0000002C
+0012FAD4  |00000000
+0012FAD8  |0000002C
+0012FADC  |00000000
+0012FAE0  |0000000F
+0012FAE4  |00000000
+0012FAE8  |00000000
+0012FAEC  |00000000
+0012FAF0  |00000000
+0012FAF4  |00000000
+0012FAF8  |00167E28
+0012FAFC  |FFFFFFFF
+0012FB00  |00000000
+0012FB04  |00000000
+0012FB08  |00000000
+0012FB0C  |00000000
+0012FB10  |0012F864
+0012FB14  |00000000
+0012FB18  |00000000
+0012FB1C  |00000000
+0012FB20  |0614007D
+0012FB24  |00000000
+0012FB28  |00000000
+0012FB2C  |00000000
+0012FB30  |00000000
+0012FB34  |00000000
+0012FB38  |00251E9C
+0012FB3C  |69F10A40  HummerEn.69F10A40
+0012FB40  |00250001
+0012FB44  |00000000
+0012FB48  |000001B0
+0012FB4C  |0114FEB8
+0012FB50  |00F90CB8
+0012FB54  |00000630
+0012FB58  |000001FA
+0012FB5C  |69676F4C
+0012FB60  |006C6163
+0012FB64  |7C80B4C0  kernel32.7C80B4C0
+0012FB68  |00F40000
+0012FB6C  |00000007
+0012FB70  |0000000F
+0012FB74  |003A0043
+0012FB78  |0050005C
+0012FB7C  |006F0072
+0012FB80  |00720067
+0012FB84  |006D0061
+0012FB88  |00460020
+0012FB8C  |006C0069
+0012FB90  |00730065
+0012FB94  |0054005C
+0012FB98  |006E0065
+0012FB9C  |00650063
+0012FBA0  |0074006E
+0012FBA4  |0051005C
+0012FBA8  |00490051
+0012FBAC  |0074006E
+0012FBB0  |005C006C
+0012FBB4  |00690042
+0012FBB8  |005C006E
+0012FBBC  |00510051
+0012FBC0  |0065002E
+0012FBC4  |00650078
+0012FBC8  |00000000
+0012FBCC  |00000000
+0012FBD0  |00000000
+0012FBD4  |00000000
+0012FBD8  |00000000
+0012FBDC  |00000000
+0012FBE0  |00000000
+0012FBE4  |00000000
+0012FBE8  |00000000
+0012FBEC  |00000000
+0012FBF0  |00000000
+0012FBF4  |00000000
+0012FBF8  |00000000
+0012FBFC  |00000000
+0012FC00  |00000000
+0012FC04  |00000000
+0012FC08  |00000000
+0012FC0C  |00000000
+0012FC10  |00000000
+0012FC14  |00000000
+0012FC18  |00000000
+0012FC1C  |00000000
+0012FC20  |00000000
+0012FC24  |00000000
+0012FC28  |00000000
+0012FC2C  |00000000
+0012FC30  |00000000
+0012FC34  |00000000
+0012FC38  |00000000
+0012FC3C  |00000000
+0012FC40  |00000000
+0012FC44  |00000000
+0012FC48  |00000000
+0012FC4C  |00000000
+0012FC50  |00000000
+0012FC54  |00000000
+0012FC58  |00000000
+0012FC5C  |00000000
+0012FC60  |00000000
+0012FC64  |00000000
+0012FC68  |00000000
+0012FC6C  |00000000
+0012FC70  |00000000
+0012FC74  |00000000
+0012FC78  |00000000
+0012FC7C  |00000000
+0012FC80  |00000000
+0012FC84  |00000000
+0012FC88  |00000000
+0012FC8C  |00000000
+0012FC90  |00000000
+0012FC94  |00000000
+0012FC98  |00000000
+0012FC9C  |00000000
+0012FCA0  |00000000
+0012FCA4  |00000000
+0012FCA8  |00000000
+0012FCAC  |00000000
+0012FCB0  |00000000
+0012FCB4  |00000000
+0012FCB8  |00000000
+0012FCBC  |00000000
+0012FCC0  |00000000
+0012FCC4  |00000000
+0012FCC8  |00000000
+0012FCCC  |00000000
+0012FCD0  |00000000
+0012FCD4  |00000000
+0012FCD8  |00000000
+0012FCDC  |00000000
+0012FCE0  |00000000
+0012FCE4  |00000000
+0012FCE8  |00000000
+0012FCEC  |00000000
+0012FCF0  |00000000
+0012FCF4  |00000000
+0012FCF8  |00000000
+0012FCFC  |00000000
+0012FD00  |00000000
+0012FD04  |00000000
+0012FD08  |00000000
+0012FD0C  |00000000
+0012FD10  |00000000
+0012FD14  |00000000
+0012FD18  |00000000
+0012FD1C  |00000000
+0012FD20  |00000000
+0012FD24  |00000000
+0012FD28  |00000000
+0012FD2C  |00000000
+0012FD30  |00000000
+0012FD34  |00000000
+0012FD38  |00000000
+0012FD3C  |00000000
+0012FD40  |00000000
+0012FD44  |00000000
+0012FD48  |00000000
+0012FD4C  |00000000
+0012FD50  |00000000
+0012FD54  |00000000
+0012FD58  |00000000
+0012FD5C  |00000000
+0012FD60  |00000000
+0012FD64  |00000000
+0012FD68  |00000000
+0012FD6C  |00000000
+0012FD70  |00000000
+0012FD74  |00000000
+0012FD78  |00000000
+0012FD7C  |00000000
+0012FD80  |817857A6
+0012FD84  |0012FFB0  Pointer to next SEH record
+0012FD88  |69F0E30C  SE handler
+0012FD8C  |00000007
+0012FD90  ]0012FDDC
+0012FD94  |69F0B146  RETURN to HummerEn.69F0B146 from HummerEn.69F0A4A4
+0012FD98  |69F10EF4  HummerEn.69F10EF4
+0012FD9C  |000001F8
+0012FDA0  |00000000
+0012FDA4  |00001101
+0012FDA8  |000001F0
+0012FDAC  |69F1229C  HummerEn.69F1229C
+0012FDB0  |00F90868
+0012FDB4  |69F1229C  HummerEn.69F1229C
+0012FDB8  |00F908A0
+0012FDBC  |00167E00
+0012FDC0  |FFFFFFFF
+0012FDC4  |00000000
+0012FDC8  |00000000
+0012FDCC  |00000000
+0012FDD0  |00000000
+0012FDD4  |00FF6D00
+0012FDD8  |0012FD98
+0012FDDC  ]0012FF20
+0012FDE0  |004014D9  RETURN to QQ.004014D9
+0012FDE4  |0000000A
+0012FDE8  |00404458  QQ.00404458
+0012FDEC  |00000001
+0012FDF0  |00000000
+0012FDF4  |66F7D71A
+0012FDF8  |5628D7F4
+0012FDFC  |2F6A0E89
+0012FE00  |00000114
+0012FE04  |00000005
+0012FE08  |00000001
+0012FE0C  |00000A28
+0012FE10  |00000002
+0012FE14  |00650053
+0012FE18  |00760072
+0012FE1C  |00630069
+0012FE20  |00200065
+0012FE24  |00610050
+0012FE28  |006B0063
+0012FE2C  |00330020
+0012FE30  |00000000
+0012FE34  |00000000
+0012FE38  |00000000
+0012FE3C  |00000000
+0012FE40  |00000000
+0012FE44  |00000000
+0012FE48  |00000000
+0012FE4C  |00000000
+0012FE50  |00000000
+0012FE54  |00000000
+0012FE58  |00000000
+0012FE5C  |00000000
+0012FE60  |00000000
+0012FE64  |00000000
+0012FE68  |00000000
+0012FE6C  |00000000
+0012FE70  |00000000
+0012FE74  |00000000
+0012FE78  |00000000
+0012FE7C  |00000000
+0012FE80  |00000000
+0012FE84  |00000000
+0012FE88  |00000000
+0012FE8C  |00000000
+0012FE90  |00000000
+0012FE94  |00000000
+0012FE98  |00000000
+0012FE9C  |00000000
+0012FEA0  |00000000
+0012FEA4  |00000000
+0012FEA8  |00000000
+0012FEAC  |00000000
+0012FEB0  |00000000
+0012FEB4  |00000000
+0012FEB8  |00000000
+0012FEBC  |00000000
+0012FEC0  |00000000
+0012FEC4  |00000000
+0012FEC8  |00000000
+0012FECC  |00000000
+0012FED0  |00000000
+0012FED4  |00000000
+0012FED8  |00000000
+0012FEDC  |00000000
+0012FEE0  |00000000
+0012FEE4  |00000000
+0012FEE8  |00000000
+0012FEEC  |00000000
+0012FEF0  |00000000
+0012FEF4  |00000000
+0012FEF8  |00000000
+0012FEFC  |00000000
+0012FF00  |00000000
+0012FF04  |00000000
+0012FF08  |00000000
+0012FF0C  |00000000
+0012FF10  |00000000
+0012FF14  |80C50FB0
+0012FF18  |FFFFFFFE
+0012FF1C  |8097C11C
+0012FF20  ]0012FF2C
+0012FF24  |0040128B  RETURN to QQ.0040128B from QQ.0040128F
+0012FF28  |0000000A
+0012FF2C  ]0012FFC0
+0012FF30  |00401A8F  RETURN to QQ.00401A8F from QQ.00401280
+0012FF34  |00400000  QQ.00400000
+0012FF38  |00000000
+0012FF3C  |0002074C  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\QQ.exe "
+0012FF40  |0000000A
+0012FF44  |8097C328
+0012FF48  |0012EF30
+0012FF4C  |7C930021  RETURN to ntdll.7C930021 from ntdll.7C930072
+0012FF50  |7FFD4000
+0012FF54  |00000044
+0012FF58  |0002081C
+0012FF5C  |000207FC  UNICODE "WinSta0\Default"
+0012FF60  |000207A4  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\QQ.exe"
+0012FF64  |00000000
+0012FF68  |00000000
+0012FF6C  |00000000
+0012FF70  |00000000
+0012FF74  |00000000
+0012FF78  |00000000
+0012FF7C  |00000000
+0012FF80  |00000000
+0012FF84  |00000000
+0012FF88  |00000000
+0012FF8C  |00369E99
+0012FF90  |00000000
+0012FF94  |0012FFBC
+0012FF98  |00402017  RETURN to QQ.00402017 from kernel32.QueryPerformanceCounter
+0012FF9C  |0002074C  UNICODE "C:\Program Files\Tencent\QQIntl\Bin\QQ.exe "
+0012FFA0  |00000000
+0012FFA4  |00000000
+0012FFA8  |0012FF44
+0012FFAC  |1FAC34FC
+0012FFB0  |0012FFE0  Pointer to next SEH record
+0012FFB4  |00401C61  SE handler
+0012FFB8  |80C50F90
+0012FFBC  |00000001
+0012FFC0  \0012FFF0
+0012FFC4   7C817067  RETURN to kernel32.7C817067
+0012FFC8   0012EF30
+0012FFCC   7C930021  RETURN to ntdll.7C930021 from ntdll.7C930072
+0012FFD0   7FFD4000
+0012FFD4   8054C6B8
+0012FFD8   0012FFC8
+0012FFDC   89EF5988
+0012FFE0   FFFFFFFF  End of SEH chain
+0012FFE4   7C839AC0  SE handler
+0012FFE8   7C817070  kernel32.7C817070
+0012FFEC   00000000
+0012FFF0   00000000
+0012FFF4   00000000
+0012FFF8   00401BFB  QQ.<ModuleEntryPoint>
+0012FFFC   00000000
+

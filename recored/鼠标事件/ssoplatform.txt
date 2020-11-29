@@ -1,0 +1,408 @@
+C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\bin\SSOPlatform.dll
+
+
+//=>sub_3432B788
+signed int __thiscall sub_3432A4D8(char *this, char a2, int a3)
+{
+  char *v3; // esi@1
+  int v4; // esi@1
+  unsigned int v5; // edi@2
+  signed int result; // eax@4
+  _DWORD *v7; // eax@6
+  int v8; // edi@6
+  char *v9; // [sp+14h] [bp-58h]@1
+  char *v10; // [sp+18h] [bp-54h]@1
+  int v11; // [sp+20h] [bp-4Ch]@6
+  int (__stdcall **v12)(int); // [sp+24h] [bp-48h]@11
+  int v13; // [sp+28h] [bp-44h]@11
+  int v14; // [sp+2Ch] [bp-40h]@11
+  int v15; // [sp+30h] [bp-3Ch]@11
+  char v16; // [sp+34h] [bp-38h]@11
+  char v17; // [sp+44h] [bp-28h]@20
+  int v18; // [sp+68h] [bp-4h]@8
+
+  v3 = this;
+  v10 = this;
+  v9 = this - 4;
+  sub_3432BCAA(this - 4);
+  sub_3430511B(346, L"TXSSO", (unsigned int)L"## CSEnvInit: Select Server Return Fail, Cancel Ping Flow Timer");
+  TXTimer::EraseTimerCallback(*((TXTimer **)v3 + 73), 0);
+  v4 = a3;
+  if ( !*(_DWORD *)(a3 + 28) )
+  {
+    if ( *(_DWORD *)(a3 + 48) != -1 )
+    {
+      sub_3430F9BA(
+        L"file",
+        374,
+        L"func",
+        L"TXSSO",
+        L"CsEnvInit: Server Request Ping Domain, Type=%u",
+        *(_DWORD *)(a3 + 48));
+      sub_3432BD0D();
+      v7 = v10 + 188;
+      v8 = *((_DWORD *)v10 + 47);
+      v11 = v8;
+      if ( v8 )
+      {
+        (*(void (__stdcall **)(int))(*(_DWORD *)v8 + 4))(v8);
+        v7 = v10 + 188;
+      }
+      v18 = 0;
+      if ( *v7 )
+      {
+        sub_3430FB53();
+        v8 = v11;
+        v4 = a3;
+      }
+      if ( v8 )
+      {
+        sub_3432A7D9(&v12);
+        LOBYTE(v18) = 1;
+        v13 = *(_DWORD *)(v4 + 40);
+        LOWORD(v14) = *(_WORD *)(v4 + 44);
+        v15 = *(_DWORD *)(v4 + 48);
+        sub_343285A9(&v16);
+        (*(void (__stdcall **)(int, void *, int *))(*(_DWORD *)v8 + 16))(v8, v9, (int *)&v12);
+        sub_3432858A(&v16);
+        v15 = -1;
+        v18 = -1;
+        v12 = &off_34419CC0;
+        LOWORD(v14) = 1;
+        return (*(int (__stdcall **)(int))(*(_DWORD *)v8 + 8))(v8);
+      }
+      v18 = -1;
+    }
+    if ( *(_DWORD *)(v4 + 24)
+      && (sub_3430511B(
+            394,
+            L"TXSSO",
+            (unsigned int)L"## CSEnvInit: Force All Stop, Stop All Select Operation, Notify Fail."),
+          sub_3432BD0D(),
+          *((_DWORD *)v10 + 47)) )
+    {
+      sub_34310E84();
+      sub_34310E9B();
+      v18 = 2;
+      sub_3431B21A();
+      sub_3432BBF2(v9, &v12);
+    }
+    else
+    {
+      if ( !*((_DWORD *)v10 + 47) )
+        return sub_3430511B(
+                 435,
+                 L"TXSSO",
+                 (unsigned int)L"## CSEnvInit: Select Server return fail, and pCsEnvInitSink is NULL, Do Nothing.");
+      result = sub_3432B788(v9, &v11);
+      if ( result )
+        return result;
+      if ( *((_DWORD *)v10 + 76) )
+        return sub_3430F9BA(
+                 L"file",
+                 427,
+                 L"func",
+                 L"TXSSO",
+                 L"## CSEnvInit: Fail to Start Next Ping Task, Still there are unfinished Tasks, Wait result, UnfinishedTaskCount=%d",
+                 *((_DWORD *)v10 + 76));
+      sub_3430511B(
+        418,
+        L"TXSSO",
+        (unsigned int)L"## CSEnvInit: Fail to Start Next Ping Task, And All Task failed, Notify Fail.");
+      sub_34310E84();
+      sub_34310E9B();
+      v18 = 3;
+      sub_3431B21A();
+      sub_3432BBF2(v9, &v17);
+    }
+    v18 = -1;
+    return sub_34310ECC();
+  }
+  sub_3430F9BA(
+    L"file",
+    352,
+    L"func",
+    L"TXSSO",
+    L"CSEnvInit: Overload Protect Start. DelaySecond=%d",
+    *(_DWORD *)(a3 + 32));
+  sub_3432BD0D();
+  v5 = *(_DWORD *)(a3 + 32);
+  if ( v5 > 0x3C )
+    v5 = 60;
+  *((_DWORD *)v10 + 82) = 1;
+  sub_3432A82C();
+  return TXTimer::SetTimeout((TXTimer *)(1000 * v5), *((_DWORD *)v10 + 101), 0);
+}
+
+
+
+//=> while(1)
+signed int __stdcall sub_3432B788(void *a1, _DWORD *a2)
+{
+  unsigned int v2; // esi@5
+  int v3; // esi@7
+  _DWORD *v4; // esi@11
+  void *v5; // ebx@22
+  Util::Network *v6; // eax@24
+  int v7; // esi@25
+  int v8; // eax@25
+  signed int v9; // esi@29
+  int *v11; // eax@31
+  int v12; // ST24_4@31
+  int v13; // eax@32
+  signed int v14; // [sp-10h] [bp-E4h]@14
+  const wchar_t *v15; // [sp-Ch] [bp-E0h]@14
+  const wchar_t *v16; // [sp-8h] [bp-DCh]@14
+  int v17; // [sp-4h] [bp-D8h]@0
+  int v18; // [sp-4h] [bp-D8h]@31
+  char v19; // [sp+Ch] [bp-C8h]@20
+  int (__thiscall **v20)(void *, char); // [sp+28h] [bp-ACh]@21
+  char v21; // [sp+50h] [bp-84h]@7
+  int v22; // [sp+60h] [bp-74h]@22
+  char v23; // [sp+64h] [bp-70h]@22
+  int v24; // [sp+68h] [bp-6Ch]@22
+  int v25; // [sp+6Ch] [bp-68h]@22
+  int v26; // [sp+70h] [bp-64h]@25
+  unsigned __int32 v27; // [sp+74h] [bp-60h]@23
+  char v28; // [sp+A4h] [bp-30h]@22
+  _DWORD *v29; // [sp+BCh] [bp-18h]@11
+  unsigned int v30; // [sp+C0h] [bp-14h]@5
+  int v31; // [sp+D0h] [bp-4h]@20
+  void *v32; // [sp+DCh] [bp+8h]@28
+
+  while ( 1 )
+  {
+    while ( 1 )
+    {
+      if ( *((_DWORD *)a1 + 71) >= (unsigned int)sub_3432C57C() )
+      {
+        if ( !*((_DWORD *)a1 + 103) )
+        {
+          *a2 = 1;
+          return 0;
+        }
+        sub_3430511B(1012, L"TXSSO", (unsigned int)L">>> CSEnvInit: Switch To No Proxy");// 日志?
+        *((_DWORD *)a1 + 71) = 0;
+        *((_DWORD *)a1 + 103) = 0;
+        if ( *((_DWORD *)a1 + 31) )
+          sub_3430FB53();
+      }
+      v30 = *((_DWORD *)a1 + 71);
+      v2 = v30;
+      if ( v2 < sub_3432C57C() )
+      {
+        *((_DWORD *)a1 + 71) = v2 + 1;
+        if ( sub_3432C57C() <= v2 )
+        {
+          sub_343035EC("invalid vector<T> subscript");
+          v31 = 0;
+          sub_343034C4(&v19);
+          v20 = &off_343DD704;
+          _CxxThrowException(&v20, &unk_34436A04);
+        }
+        sub_3433D5C1();
+        v3 = sub_3432D189(&v21);
+        if ( !*(_DWORD *)v3 )
+          _invalid_parameter_noinfo();
+        if ( *(_DWORD *)(v3 + 4) >= *(_DWORD *)(*(_DWORD *)v3 + 8) )
+          _invalid_parameter_noinfo();
+        v4 = *(_DWORD **)(v3 + 4);
+        v29 = v4;
+        if ( sub_34351320(v17) )
+          break;
+      }
+    }
+    if ( *v4 == 40 && *((_DWORD *)a1 + 10) )
+    {
+      v16 = L"# CsEnvInit: Start Ping Task, Skip Last Login IP.";
+      v15 = L"TXSSO";
+      v14 = 1038;
+      goto LABEL_18;
+    }
+    if ( *v4 != 30 || !*((_DWORD *)a1 + 11) )
+      break;
+    v16 = L"# CsEnvInit: Start Ping Task, Skip Last Spare IP.";
+    v15 = L"TXSSO";
+    v14 = 1043;
+LABEL_18:
+    sub_3430511B(v14, v15, (char)v16);
+  }
+  sub_34329152(&v22);
+  v31 = 1;
+  v22 = *((_DWORD *)a1 + 3);
+  CTXBSTR::operator=(&v23, (char *)a1 + 16);
+  v24 = *((_DWORD *)a1 + 5);
+  v25 = *((_DWORD *)a1 + 6);
+  sub_3432C22D();
+  v5 = a1;
+  sub_343285A9(&v28);
+  sub_34329A94((char *)a1 + 148);
+  if ( CTXBSTR::IsEmpty((CTXBSTR *)((char *)a1 + 212)) )
+  {
+    v27 = 0;
+  }
+  else
+  {
+    v6 = (Util::Network *)CTXBSTR::operator wchar_t *((char *)a1 + 212);
+    v27 = Util::Network::StringToIP(v6);
+  }
+  v7 = *v4;
+  v8 = *((_DWORD *)a1 + 36) != -1;
+  v26 = 0;
+  if ( v8 )
+    v26 = 5;
+  else
+    sub_343646F3(&v26, v7);
+  v32 = (void *)sub_3432BC4C(a1, v30);
+  if ( !v32 )
+  {
+    v9 = 0;
+LABEL_30:
+    sub_3432BAD8();
+    return v9;
+  }
+  v11 = (int *)Util::Network::IPToString(&a2, v27);
+  LOBYTE(v31) = 2;
+  v12 = *v11;
+  sub_34351320(v26);
+  sub_3430F9BA(
+    L"file",
+    1070,
+    L"func",
+    L"TXSSO",
+    L"CSEnvInit: Start Next Ping Task, Index=%d, ServerListCount=%d, Type=%u, LastLoginIP=%s",
+    v30);
+  LOBYTE(v31) = 1;
+  CTXStringW::~CTXStringW((CTXStringW *)&a2);
+  if ( sub_34351320(v17) )
+  {
+    v13 = sub_3432C329();
+    sub_3432B620(*v29, *(_DWORD *)(v13 + 8));
+  }
+  if ( sub_3433DB96((int)v32, (int)&v22, v5, (int)v5 + 4) )
+  {
+    v9 = 1;
+    goto LABEL_30;
+  }
+  sub_3432BCAA(v5);
+  sub_3430511B(1085, L"TXSSO", (unsigned int)L"## CSEnvInit: Fail to Start Select Server, Cancel Ping Flow Timer");
+  TXTimer::EraseTimerCallback(*((TXTimer **)v5 + 74), 0);
+  sub_34351320(v18);
+  sub_3430F9BA(
+    L"file",
+    1088,
+    L"func",
+    L"TXSSO",
+    L"## CSEnvInit: Fail to Start Next Ping Task, Index=%d, ServerListCount=%d",
+    v30);
+  sub_3432BAD8();
+  return 0;
+}
+
+
+//日志?
+void __usercall sub_3430511B(signed int a1@<edi>, int a2, const wchar_t *a3, char a4)
+{
+  sub_34304A6F((int)L"file", a1, a2, (int)L"func", a3, L"%s", &a4);
+}
+
+
+//=>  SSOCommon.TXLog_DoTXLogVW
+void __usercall sub_34304A6F(int a1@<eax>, signed int a2@<edi>, int a3, int a4, const wchar_t *a5, const wchar_t *a6, char *a7)
+{
+  char v7; // [sp+8h] [bp-4Ch]@4
+  int v8; // [sp+Ch] [bp-48h]@1
+  int v9; // [sp+10h] [bp-44h]@1
+  int v10; // [sp+14h] [bp-40h]@1
+  DWORD v11; // [sp+18h] [bp-3Ch]@1
+  DWORD v12; // [sp+1Ch] [bp-38h]@1
+  int v13; // [sp+20h] [bp-34h]@1
+  __time64_t Time; // [sp+28h] [bp-2Ch]@1
+  __int64 v15; // [sp+30h] [bp-24h]@2
+  int v16; // [sp+38h] [bp-1Ch]@1
+  int v17; // [sp+3Ch] [bp-18h]@1
+  int v18; // [sp+40h] [bp-14h]@1
+  int v19; // [sp+44h] [bp-10h]@1
+  LARGE_INTEGER PerformanceCount; // [sp+48h] [bp-Ch]@2
+
+  v17 = a1;
+  v18 = a4;
+  v16 = 0;
+  v19 = 0;
+  v9 = a3;
+  v10 = 0;
+  v11 = GetCurrentThreadId();
+  v8 = a2;
+  v12 = GetTickCount();
+  v13 = 0;
+  _time64(&Time);
+  if ( a2 < 4 )
+  {
+    v15 = 0i64;
+  }
+  else
+  {
+    QueryPerformanceCounter(&PerformanceCount);
+    v15 = PerformanceCount.QuadPart;
+  }
+  TXLog_DoTXLogVW((struct tagLogObj *)&v7, a5, a6, a7);
+}
+
+void __cdecl TXLog_DoTXLogVW(struct tagLogObj *a1, const wchar_t *a2, const wchar_t *a3, char *a4)
+{
+  struct tagLogObj *v4; // esi@1
+  HANDLE v5; // eax@6
+  wchar_t *v6; // eax@10
+  LARGE_INTEGER Frequency; // [sp+Ch] [bp-14h]@9
+  int v8; // [sp+1Ch] [bp-4h]@10
+  void *retaddr; // [sp+24h] [bp+4h]@6
+
+  v4 = a1;
+  if ( a1 )
+  {
+    if ( a2 )
+    {
+      if ( a3 )
+      {
+        if ( a4 )
+        {
+          if ( !BYTE3(dword_34162DFC[23].SpinCount) )
+          {
+            *((_DWORD *)a1 + 15) = retaddr;
+            v5 = dword_34162DFC[23].OwningThread;
+            if ( (signed int)v5 >= 0 && *((_DWORD *)v4 + 1) <= (signed int)v5 )
+            {
+              if ( !dword_34162F08 )
+              {
+                dword_34162F08 = 1;
+                QueryPerformanceFrequency(&Frequency);
+                sub_3401DD12(
+                  L"file",
+                  914,
+                  L"func",
+                  1,
+                  L"PerfBenchmark",
+                  (const char *)L"%I64d",
+                  SLOBYTE(Frequency.QuadPart));
+              }
+              CTXStringW::CTXStringW(&a1);
+              v8 = 0;
+              CTXStringW::FormatV((CTXStringW *)&a1, a3, a4);
+              v6 = (wchar_t *)CTXStringW::operator wchar_t const *(&a1);
+              sub_34025F4E((void *)v4, (wchar_t *)a2, v6);
+              v8 = -1;
+              CTXStringW::~CTXStringW((CTXStringW *)&a1);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+

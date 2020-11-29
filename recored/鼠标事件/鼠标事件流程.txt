@@ -1,0 +1,830 @@
+
+//LoginPan.dll   追踪系统鼠标事件
+-----------------------------
+//点击左下角箭头, 在 LoginPan.6515C8C2 处断条件 ss:[ebp+0xc]==0x201
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012F6EC   77D18734   包含LoginPan.6515C8D8                   user32.77D18731               0012F6E8
+0012F718   77D18816   ? user32.77D1870C                     user32.77D18811               0012F714
+0012F780   77D189CD   ? user32.77D1875F                     user32.77D189C8               0012F77C
+0012F7E0   77D18A10   ? user32.77D188F1                     user32.77D18A0B               0012F7DC
+0012F7F0   69F0652A   ? user32.DispatchMessageW             HummerEn.69F06524             0012F7EC
+0012F7F4   0012F80C     pMsg = WM_LBUTTONDOWN hw = A058C (
+0012F7FC   69F0633C   ? HummerEn.69F064C3                   HummerEn.69F06337
+
+//继续执行
+=> sub_65147F6A  初始化显示界面对应的事件回调？数据？  比如下面的 cancel 回调 LoginPan.65148120  ?
+
+=>显示小界面
+
+//点击 cancel,  在 LoginPan.6515C8C2 处断条件 ss:[ebp+0xc]==0x201
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012E864   77D18734   包含LoginPan.6515C8D8                   user32.77D18731               0012E860
+0012E890   77D18816   ? user32.77D1870C                     user32.77D18811               0012E88C
+0012E8F8   77D189CD   ? user32.77D1875F                     user32.77D189C8               0012E8F4
+0012E958   77D18A10   ? user32.77D188F1                     user32.77D18A0B               0012E954
+0012E968   6512CA87   ? user32.DispatchMessageW             LoginPan.6512CA81             0012E964
+0012E96C   0012E97C     pMsg = WM_LBUTTONDOWN hw = B056A (
+0012E9A0   65148123   包含LoginPan.6512CA87                   LoginPan.65148120             0012E99C
+
+
+signed int __thiscall sub_6512C9CF(int this) //6512CA87
+{
+  while ( !*(_BYTE *)(v1 + 12) && GetMessageW(&Msg, 0, 0, 0) )
+  {
+	   DispatchMessageW(&Msg);
+  }
+   
+	  if ( Msg.message == 18 )
+	  {
+		PostQuitMessage(0);
+	  }
+	  else if ( v4 )
+	  {
+		PostMessageW(Msg.hwnd, Msg.message, Msg.wParam, Msg.lParam);
+	  } 
+}
+
+  
+int __stdcall sub_65147F6A(int a1, int a2, int a3, signed int a4, _DWORD *a5, int *a6) //65148120
+-----------------------------
+
+//点击登陆
+//在 LoginPan.6515C8C2 处断条件 ss:[ebp+0xc]==0x201
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012F6EC   77D18734   包含LoginPan.6515C8D8                   user32.77D18731               0012F6E8
+0012F718   77D18816   ? user32.77D1870C                     user32.77D18811               0012F714
+0012F780   77D189CD   ? user32.77D1875F                     user32.77D189C8               0012F77C
+0012F7E0   77D18A10   ? user32.77D188F1                     user32.77D18A0B               0012F7DC
+0012F7F0   69F0652A   ? user32.DispatchMessageW             HummerEn.69F06524             0012F7EC
+0012F7F4   0012F80C     pMsg = WM_LBUTTONDOWN hw = A058C (
+0012F7FC   69F0633C   ? HummerEn.69F064C3                   HummerEn.69F06337
+
+//继续 .faq  LoginPan.6515C8D8 =>[...]=>  [WndProc]LoginPan.6515C8C2()
+//在 CreateProcessW 处断点
+Call stack of main thread
+Address    Stack      Procedure / arguments                 Called from                   Frame
+调用堆栈：     主线程
+地址       堆栈       函数(名)过程 / 参数                       调用来自                      结构
+0012DA8C   651445AF   kernel32.CreateProcessW               LoginPan.651445A9             0012DD44
+0012DA90   0222FD14     ModuleFileName = "C:\Program Files
+0012DA94   01FA28F0     CommandLine = "/MLogin:EE4C3694-CA
+0012DA98   00000000     pProcessSecurity = NULL
+0012DA9C   00000000     pThreadSecurity = NULL
+0012DAA0   00000000     InheritHandles = FALSE
+0012DAA4   00000000     CreationFlags = 0
+0012DAA8   00000000     pEnvironment = NULL6
+0012DAAC   00000000     CurrentDir = NULL
+0012DAB0   0012DAC8     pStartupInfo = 0012DAC8
+0012DAB4   0012DB0C     pProcessInfo = 0012DB0C
+0012DD48   651452E8   ? LoginPan.6514447D                   LoginPan.651452E3
+0012DD84   6512EBB7   ? LoginPan.651451B6                   LoginPan.6512EBB2             0012DD80
+0012DDC0   6512FD7F   ? LoginPan.6512EABB                   LoginPan.6512FD7A             0012DDBC
+0012DDE0   65138853   LoginPan.6512FC9C                     LoginPan.6513884E             0012DDDC
+0012DE04   30829411   包含LoginPan.65138853                   GF.3082940E                   0012DE00
+0012DE4C   3082562B   ? GF.30829384                         GF.30825626                   0012DE48
+0012DEC4   30918690   ? GF.Util::GF::DispatchFrameMsg       GF.3091868B                   0012DEC0
+0012DEE4   309192CB   GF.30918658                           GF.309192C6                   0012DEE0
+0012DF28   30921FA5   包含GF.309192CB                         GF.30921F9F                   0012DF24
+0012DF44   30921211   包含GF.30921FA5                         GF.3092120B                   0012DF40
+0012DF6C   30922171   包含GF.30921211                         GF.3092216E                   0012DF68
+0012DF84   30801A54   包含GF.30922171                         GF.30801A52                   0012DF80
+0012DFD4   65141C29   包含GF.30801A54                         LoginPan.65141C27             0012DFD0   //在 LoginPan.65140CBD 中调用
+	=> LoginPan.65141C27 // ((int (__stdcall *)(HWND, UINT, HWND *, __int16 *))dwNewLong)(hWnd, Msg, v92, v93);  //v92 = (HWND *)wParam; //v93 初始为  LPARAM a5 ，但会经过一系例处理 
+				
+							
+
+
+    
+					
+							
+							
+							=> 30801A52  call dword ptr ds:[eax]                  ; GF.30922146
+						=> int __stdcall GF.30801A10(int a1, UINT Msg, WPARAM wParam, LPARAM lParam)
+					0018C230   jmp GF.30801A10 
+				=> 	0018C228   mov dword ptr ss:[esp+4],0FB7BF0   //这里放进去的0FB7BF0，是一个类实例地址?在 GF.30801A10 使用， 就是参数 a1?
+			=> LoginPan.65141C27[地址]  .  FFD0          call eax ; //这里可能是变化的地址? ((int (__thiscall *)(HWND *, HWND, UINT, signed int, char *))dwNewLong)(this, hWnd, Msg, v94, v95);
+			
+			//int __thiscall LoginPan.65140CBD(HWND *this, HWND a2, UINT Msg, __int16 *wParam, LPARAM a5)//这个在IDA里处理过,create function //响应系统事件.处理转化为QQ内部处理事件?? Msg是系统事件(Winuser.h定义),也可能是自定义事件
+			//if ( a2 != *(_DWORD *)(this + 24) )return (*(int (__stdcall **)(int, int, int *, int))(v5 + 20))(a2, a3, a4, a5);					 
+		=>6515C847   call dword ptr ds:[esi+14] ; call LoginPan.65140CBD [*********** 关键方法 ***********]
+	=>int __thiscall LoginPan.6515C47E(int this, int a2, int a3, int *a4, int a5)//this, HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam
+
+//LRESULTCALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+int __stdcall LoginPan.6515C8C2(int a1, int a2, int a3, int a4)
+{
+  LoginPan.6510AF2E();
+  return LoginPan.6515C47E(a1, a2, a3, a4);
+  
+  //LoginPan.6515C47E =>  LoginPan.6515C84A[ 地址 6515C847  call dword ptr ds:[esi+0x14] ] =>LoginPan.651CA56C[全局地址] 或 LoginPan.65140CBD => [...] => LoginPan.65141C27 
+} 
+
+//设置 WndProc
+char __thiscall sub_6515C8E1(void *this)
+{
+  void *v1; // esi@1
+  const wchar_t *v2; // eax@2
+  HWND hWnd; // [sp+4h] [bp-4h]@3
+
+  v1 = this;
+  if ( !*(_BYTE *)this )
+  {
+    *(_BYTE *)this = 1;
+    (*(void (__stdcall **)(int, int))(*(_DWORD *)dword_651CAB20 + 512))(dword_651CAB20, (int)this + 24);
+    *((_DWORD *)v1 + 5) = SetWindowLongW(*((HWND *)v1 + 6), -4, (LONG)sub_6515C8C2);  //设置 WndProc 为 sub_6515C8C2
+    v2 = GetCommandLineW();
+    if ( wcsstr(v2, L"/MLogin") )
+    {
+      IPCHandler::GetHwnd(0, (unsigned int)&hWnd);
+      PostMessageW(hWnd, 0x978u, 0, 0);
+    }
+  }
+  return 1;
+}
+
+
+
+//LoginPan.651CA56C
+01290FC0    C74424 04 206BF>mov dword ptr ss:[esp+0x4],0xFF6B20
+01290FC8  - E9 430A572F     jmp GF.30801A10
+
+
+
+-------------------------
+
+int __thiscall LoginPan.6512FC9C(int this, int a2, HWND a3, int a4, int a5, int a6) //自定义事件分支？
+
+int __thiscall LoginPan.6512EABB(void *this, char a2)  //格式化帐号密码??
+
+
+int __thiscall LoginPan.651451B6(void *this, char a2)
+	//https://blog.csdn.net/sunshuang1s/article/details/6291123
+	 SendMessageW(hWnd, 0x4Au, 0, (LPARAM)&lParam);  // 0x4A 当一个应用程序传递数据给另一个应用程序时发送此消息, u代表无符号
+//输完帐号密码，点击登陆,创建进程
+DWORD __thiscall LoginPan.6514447D(void *this, char a2)
+	=>StartupInfo.dwXSize = CreateProcessW(v6, 0, 0, 0, 0, 0, 0, CurrentDirectory, &StartupInfo, v10);
+
+----------------------
+//鼠标按下   0x201
+
+=>PostMessage();  SendMessage(); 
+=> Util::Data::CreateTXData()  //msg ==2127							
+int __thiscall LoginPan.65140CBD(HWND *this, HWND a2, UINT Msg, __int16 *wParam, LPARAM a5) 
+{
+	... ...
+	  CTXStringW::CTXStringW(&v94, L"g_pwdEMkpicData");
+      IPCHandler::GetShareInfo(v94, v95);
+	... ...	
+	 CTXStringW::CTXStringW(&v94, L"g_PwdGuardData");
+	  IPCHandler::SetShareInfo(v94, v95);
+	  IPCHandler::GetHwnd((IPCHandler *)1, (unsigned int)&hWnd);
+	  SendMessageW(hWnd, 0x7E8u, 2u, 0);
+	... ...	
+	  
+	  IPCHandler::SendMessageTo((IPCHandler *)1, 0x7E8u, 0xAu, 0, (__int32)v96);
+	... ...	
+  
+	   hWnd = 0;
+	IPCHandler::GetHwnd(0, (unsigned int)&hWnd);
+	PostMessageW(hWnd, 0x3C41u, 0, 0);
+	PostQuitMessage(0);
+	... ...	
+
+	
+	  Util::Data::CreateTXData((Util::Data *)&hWnd, (struct ITXData **)v96);
+	  v64 = hWnd;
+	  if ( hWnd )
+	  {
+		lParam = (LPARAM)hWnd;
+		v65 = CTXBSTR::CTXBSTR(&v111, L"pcFrame");
+		v66 = *(_DWORD *)v64;
+		v95 = (char *)wParam;
+		LOBYTE(v115) = 19;
+		v67 = CTXBSTR::operator wchar_t *(v65);
+		(*(void (__stdcall **)(LPARAM, int))(v66 + 224))(lParam, v67);
+		LOBYTE(v115) = 18;
+		CTXBSTR::~CTXBSTR((CTXBSTR *)&v111);
+		v68 = hWnd;
+		v111 = hWnd;
+		v69 = CTXBSTR::CTXBSTR(&lParam, L"nFrameLen");
+		v70 = *(_DWORD *)v68;
+		v95 = (char *)v101;
+		LOBYTE(v115) = 20;
+		v71 = CTXBSTR::operator wchar_t *(v69);
+		(*(void (__stdcall **)(HWND, int))(v70 + 224))(v111, v71);
+		LOBYTE(v115) = 18;
+		CTXBSTR::~CTXBSTR((CTXBSTR *)&lParam);
+	  }
+		... ...	
+	  
+}
+
+----------------------
+
+
+//当前追到的 top 调用方法
+//设置 LoginPan.6515C8C2 为窗口响应方法
+char __thiscall LoginPan.6515C8E1(void *this)
+{
+  void *v1; // esi@1
+  const wchar_t *v2; // eax@2
+  HWND hWnd; // [sp+4h] [bp-4h]@3
+
+  v1 = this;
+  if ( !*(_BYTE *)this )
+  {
+    *(_BYTE *)this = 1;
+    (*(void (__stdcall **)(int, int))(*(_DWORD *)dword_651CAB20 + 512))(dword_651CAB20, (int)this + 24);
+    *((_DWORD *)v1 + 5) = SetWindowLongW(*((HWND *)v1 + 6), -4, (LONG)LoginPan.6515C8C2); //GWL_WNDPROC = -4; 为窗口设定一个新的处理函数。  LoginPan.6515C8C2 
+    v2 = GetCommandLineW();
+    if ( wcsstr(v2, L"/MLogin") )
+    {
+      IPCHandler::GetHwnd(0, (unsigned int)&hWnd);
+      PostMessageW(hWnd, 0x978u, 0, 0);
+    }
+  }
+  return 1;
+}
+
+
+---------------------------------------------------
+
+
+---------------------------------------------------
+//Winuser.h
+//WM_LBUTTONDOWN
+Util::GF *__cdecl Util::GF::DispatchFrameMsg(Util::GF *this, struct IGFFrame *a2, struct tagBaseArg *a3, int *a4, __int32 *a5)  //.faq 递归寻找鼠标事件的控件？
+	=>Util::GF::IsValidGFElement
+	=> int __thiscall GF.308409E1(_DWORD *this, int a2)   //.faq 非常多地方会调用该方法,thiscall 控件基类？
+	
+
+------------
+wMsg参数常量值：
+#DeFine WM_CREATE 0x01  
+创建一个窗口
+#DeFine WM_DESTROY 0x02
+当一个窗口被破坏时发送
+#DeFine WM_MOVE 0x03
+移动一个窗口
+#DeFine WM_SIZE 0x05
+改变一个窗口的大小
+#DeFine WM_ACTIVATE 0x06
+一个窗口被激活或失去激活状态
+#DeFine WM_SETFOCUS 0x07
+一个窗口获得焦点
+#DeFine WM_KILLFOCUS 0x08
+一个窗口失去焦点
+#DeFine WM_ENABLE 0x0A
+一个窗口改变成Enable状态
+#DeFine WM_SETREDRAW 0x0B
+设置窗口是否能重画
+#DeFine WM_SETTEXT 0x0C
+应用程序发送此消息来设置一个窗口的文本
+#DeFine WM_GETTEXT 0x0D
+应用程序发送此消息来复制对应窗口的文本到缓冲区
+#DeFine WM_GETTEXTLENGTH 0x0E
+得到与一个窗口有关的文本的长度（不包含空字符）
+#DeFine WM_PAINT 0x0F
+要求一个窗口重画自己
+#DeFine WM_CLOSE 0x10
+当一个窗口或应用程序要关闭时发送一个信号
+#DeFine WM_QUERYENDSESSION 0x11
+当用户选择结束对话框或程序自己调用ExitWindows函数
+#DeFine WM_QUIT 0x12
+用来结束程序运行
+#DeFine WM_QUERYOPEN 0x13
+当用户窗口恢复以前的大小位置时，把此消息发送给某个图标
+#DeFine WM_ERASEBKGND 0x14
+当窗口背景必须被擦除时（例在窗口改变大小时）
+#DeFine WM_SYSCOLORCHANGE 0x15
+当系统颜色改变时，发送此消息给所有顶级窗口
+#DeFine WM_ENDSESSION 0x16
+当系统进程发出WM_QUERYENDSESSION消息后，此消息发送给应用程序，通知它对话是否结束
+#DeFine WM_SHOWWINDOW 0x18
+当隐藏或显示窗口是发送此消息给这个窗口
+#DeFine WM_ACTIVATEAPP 0x1C
+发此消息给应用程序哪个窗口是激活的，哪个是非激活的
+#DeFine WM_FONTCHANGE 0x1D
+当系统的字体资源库变化时发送此消息给所有顶级窗口
+#DeFine WM_TIMECHANGE 0x1E
+当系统的时间变化时发送此消息给所有顶级窗口
+#DeFine WM_CANCELMODE 0x1F
+发送此消息来取消某种正在进行的摸态（操作）
+#DeFine WM_SETCURSOR 0x20
+如果鼠标引起光标在某个窗口中移动且鼠标输入没有被捕获时，就发消息给某个窗口
+#DeFine WM_MOUSEACTIVATE 0x21
+当光标在某个非激活的窗口中而用户正按着鼠标的某个键发送此消息给当前窗口
+#DeFine WM_CHILDACTIVATE 0x22
+发送此消息给MDI子窗口当用户点击此窗口的标题栏，或当窗口被激活，移动，改变大小
+#DeFine WM_QUEUESYNC 0x23
+此消息由基于计算机的训练程序发送，通过WH_JOURNALPALYBACK的hook程序分离出用户输入消息
+#DeFine WM_GETMINMAXINFO 0x24
+此消息发送给窗口当它将要改变大小或位置
+#DeFine WM_PAINTICON 0x26
+发送给最小化窗口当它图标将要被重画
+#DeFine WM_ICONERASEBKGND 0x27
+此消息发送给某个最小化窗口，仅当它在画图标前它的背景必须被重画
+#DeFine WM_NEXTDLGCTL 0x28
+发送此消息给一个对话框程序去更改焦点位置
+#DeFine WM_SPOOLERSTATUS 0x2A
+每当打印管理列队增加或减少一条作业时发出此消息 
+#DeFine WM_DRAWITEM 0x2B
+当button，combobox，listbox，menu的可视外观改变时发送
+#DeFine WM_MEASUREITEM 0x2C
+当button, combo box, list box, list view control, or menu item 被创建时
+#DeFine WM_VKEYTOITEM 0x2E
+此消息有一个LBS_WANTKEYBOARDINPUT风格的发出给它的所有者来响应WM_KEYDOWN消息 
+#DeFine WM_CHARTOITEM 0x2F
+此消息由一个LBS_WANTKEYBOARDINPUT风格的列表框发送给他的所有者来响应WM_CHAR消息 
+#DeFine WM_SETFONT 0x30
+当绘制文本时程序发送此消息得到控件要用的颜色
+#DeFine WM_GETFONT 0x31
+应用程序发送此消息得到当前控件绘制文本的字体
+#DeFine WM_SETHOTKEY 0x32
+应用程序发送此消息让一个窗口与一个热键相关连 
+#DeFine WM_GETHOTKEY 0x33
+应用程序发送此消息来判断热键与某个窗口是否有关联
+#DeFine WM_QUERYDRAGICON 0x37
+此消息发送给最小化窗口，当此窗口将要被拖放而它的类中没有定义图标，应用程序能返回一个图标或光标的句柄，当用户拖放图标时系统显示这个图标或光标
+#DeFine WM_COMPAREITEM 0x39
+发送此消息来判定combobox或listbox新增加的项的相对位置
+#DeFine WM_COMPACTING 0x41
+显示内存已经很少了
+#DeFine WM_WINDOWPOSCHANGING 0x46
+发送此消息给那个窗口的大小和位置将要被改变时，来调用setwindowpos函数或其它窗口管理函数
+#DeFine WM_WINDOWPOSCHANGED 0x47
+发送此消息给那个窗口的大小和位置已经被改变时，来调用setwindowpos函数或其它窗口管理函数
+#DeFine WM_POWER 0x48
+当系统将要进入暂停状态时发送此消息
+#DeFine WM_COPYDATA 0x4A
+当一个应用程序传递数据给另一个应用程序时发送此消息
+#DeFine WM_CANCELJOURNA 0x4B
+当某个用户取消程序日志激活状态，提交此消息给程序
+#DeFine WM_NOTIFY 0x4E
+当某个控件的某个事件已经发生或这个控件需要得到一些信息时，发送此消息给它的父窗口 
+#DeFine WM_INPUTLANGCHANGEREQUEST 0x50
+当用户选择某种输入语言，或输入语言的热键改变
+#DeFine WM_INPUTLANGCHANGE 0x51
+当平台现场已经被改变后发送此消息给受影响的最顶级窗口
+#DeFine WM_TCARD 0x52
+当程序已经初始化windows帮助例程时发送此消息给应用程序
+#DeFine WM_HELP 0x53
+此消息显示用户按下了F1，如果某个菜单是激活的，就发送此消息个此窗口关联的菜单，否则就发送给有焦点的窗口，如果当前都没有焦点，就把此消息发送给当前激活的窗口
+#DeFine WM_USERCHANGED 0x54
+当用户已经登入或退出后发送此消息给所有的窗口，当用户登入或退出时系统更新用户的具体设置信息，在用户更新设置时系统马上发送此消息
+#DeFine WM_NOTIFYFORMAT 0x55
+公用控件，自定义控件和他们的父窗口通过此消息来判断控件是使用ANSI还是UNICODE结构
+#DeFine WM_CONTEXTMENU ??
+当用户某个窗口中点击了一下右键就发送此消息给这个窗口
+#DeFine WM_STYLECHANGING 0x7C
+当调用SETWINDOWLONG函数将要改变一个或多个 窗口的风格时发送此消息给那个窗口
+#DeFine WM_STYLECHANGED 0x7D
+当调用SETWINDOWLONG函数一个或多个 窗口的风格后发送此消息给那个窗口
+#DeFine WM_DISPLAYCHANGE 0x7E
+当显示器的分辨率改变后发送此消息给所有的窗口
+#DeFine WM_GETICON 0x7F
+此消息发送给某个窗口来返回与某个窗口有关连的大图标或小图标的句柄
+#DeFine WM_SETICON 0x80
+程序发送此消息让一个新的大图标或小图标与某个窗口关联
+#DeFine WM_NCCREATE 0x81
+当某个窗口第一次被创建时，此消息在WM_CREATE消息发送前发送
+#DeFine WM_NCDESTROY 0x82
+此消息通知某个窗口，非客户区正在销毁 
+#DeFine WM_NCCALCSIZE 0x83
+当某个窗口的客户区域必须被核算时发送此消息
+#DeFine WM_NCHITTEST 0x84
+移动鼠标，按住或释放鼠标时发生
+#DeFine WM_NCPAINT 0x85
+程序发送此消息给某个窗口当它（窗口）的框架必须被绘制时
+#DeFine WM_NCACTIVATE 0x86
+此消息发送给某个窗口仅当它的非客户区需要被改变来显示是激活还是非激活状态
+#DeFine WM_GETDLGCODE 0x87
+发送此消息给某个与对话框程序关联的控件，widdows控制方位键和TAB键使输入进入此控件通过应
+#DeFine WM_NCMOUSEMOVE 0xA0
+当光标在一个窗口的非客户区内移动时发送此消息给这个窗口 非客户区为：窗体的标题栏及窗 的边框体
+#DeFine WM_NCLBUTTONDOWN 0xA1
+当光标在一个窗口的非客户区同时按下鼠标左键时提交此消息
+#DeFine WM_NCLBUTTONUP 0xA2
+当用户释放鼠标左键同时光标某个窗口在非客户区十发送此消息 
+#DeFine WM_NCLBUTTONDBLCLK 0xA3
+当用户双击鼠标左键同时光标某个窗口在非客户区十发送此消息
+#DeFine WM_NCRBUTTONDOWN 0xA4
+当用户按下鼠标右键同时光标又在窗口的非客户区时发送此消息
+#DeFine WM_NCRBUTTONUP 0xA5
+当用户释放鼠标右键同时光标又在窗口的非客户区时发送此消息
+#DeFine WM_NCRBUTTONDBLCLK 0xA6
+当用户双击鼠标右键同时光标某个窗口在非客户区十发送此消息
+#DeFine WM_NCMBUTTONDOWN 0xA7
+当用户按下鼠标中键同时光标又在窗口的非客户区时发送此消息
+#DeFine WM_NCMBUTTONUP 0xA8
+当用户释放鼠标中键同时光标又在窗口的非客户区时发送此消息
+#DeFine WM_NCMBUTTONDBLCLK 0xA9
+当用户双击鼠标中键同时光标又在窗口的非客户区时发送此消息
+#DeFine WM_KEYFIRST 0x100
+WM_KEYDOWN 按下一个键
+#DeFine WM_KEYUP 0x101
+释放一个键
+#DeFine WM_CHAR 0x102
+按下某键，并已发出WM_KEYDOWN， WM_KEYUP消息
+#DeFine WM_DEADCHAR 0x103
+当用translatemessage函数翻译WM_KEYUP消息时发送此消息给拥有焦点的窗口
+#DeFine WM_SYSKEYDOWN 0x104
+当用户按住ALT键同时按下其它键时提交此消息给拥有焦点的窗口 
+#DeFine WM_SYSKEYUP 0x105
+当用户释放一个键同时ALT 键还按着时提交此消息给拥有焦点的窗口
+#DeFine WM_SYSCHAR 0x106
+当WM_SYSKEYDOWN消息被TRANSLATEMESSAGE函数翻译后提交此消息给拥有焦点的窗口
+#DeFine WM_SYSDEADCHAR 0x107
+当WM_SYSKEYDOWN消息被TRANSLATEMESSAGE函数翻译后发送此消息给拥有焦点的窗口
+#DeFine WM_INITDIALOG 0x110
+在一个对话框程序被显示前发送此消息给它，通常用此消息初始化控件和执行其它任务
+#DeFine WM_COMMAND 0x111
+当用户选择一条菜单命令项或当某个控件发送一条消息给它的父窗口，一个快捷键被翻译 
+#DeFine WM_SYSCOMMAND 0x112
+当用户选择窗口菜单的一条命令或当用户选择最大化或最小化时那个窗口会收到此消息
+#DeFine WM_TIMER 0x113 
+发生了定时器事件
+#DeFine WM_HSCROLL 0x114 
+当一个窗口标准水平滚动条产生一个滚动事件时发送此消息给那个窗口，也发送给拥有它的控件
+#DeFine WM_VSCROLL 0x115 
+当一个窗口标准垂直滚动条产生一个滚动事件时发送此消息给那个窗口也，发送给拥有它的控件 
+#DeFine WM_INITMENU 0x116
+当一个菜单将要被激活时发送此消息，它发生在用户菜单条中的某项或按下某个菜单键，它允许程序在显示前更改菜单
+#DeFine WM_INITMENUPOPUP 0x117
+当一个下拉菜单或子菜单将要被激活时发送此消息，它允许程序在它显示前更改菜单，而不要改变全部 
+#DeFine WM_MENUSELECT 0x11F
+当用户选择一条菜单项时发送此消息给菜单的所有者（一般是窗口）
+#DeFine WM_MENUCHAR 0x120
+当菜单已被激活用户按下了某个键（不同于加速键），发送此消息给菜单的所有者 
+#DeFine WM_ENTERIDLE 0x121
+当一个模态对话框或菜单进入空载状态时发送此消息给它的所有者，一个模态对话框或菜单进入空载状态就是在处理完一条或几条先前的消息后没有消息它的列队中等待
+#DeFine WM_CTLCOLORMSGBOX 0x132
+在windows绘制消息框前发送此消息给消息框的所有者窗口，通过响应这条消息，所有者窗口可以通过使用给定的相关显示设备的句柄来设置消息框的文本和背景颜色
+#DeFine WM_CTLCOLOREDIT 0x133
+当一个编辑型控件将要被绘制时发送此消息给它的父窗口 通过响应这条消息，所有者窗口可以通过使用给定的相关显示设备的句柄来设置编辑框的文本和背景颜色
+#DeFine WM_CTLCOLORLISTBOX 0x134
+当一个列表框控件将要被绘制前发送此消息给它的父窗口 通过响应这条消息，所有者窗口可以通过使用给定的相关显示设备的句柄来设置列表框的文本和背景颜色 
+#DeFine WM_CTLCOLORBTN 0x135
+当一个按钮控件将要被绘制时发送此消息给它的父窗口 通过响应这条消息，所有者窗口可以通过使用给定的相关显示设备的句柄来设置按纽的文本和背景颜色
+#DeFine WM_CTLCOLORDLG 0x136
+当一个对话框控件将要被绘制前发送此消息给它的父窗口 通过响应这条消息，所有者窗口可以通过使用给定的相关显示设备的句柄来设置对话框的文本背景颜色
+#DeFine WM_CTLCOLORSCROLLBAR 0x137
+当一个滚动条控件将要被绘制时发送此消息给它的父窗口 通过响应这条消息，所有者窗口可以通过使用给定的相关显示设备的句柄来设置滚动条的背景颜色
+#DeFine WM_CTLCOLORSTATIC 0x138
+当一个静态控件将要被绘制时发送此消息给它的父窗口 通过响应这条消息，所有者窗口可以 通过使用给定的相关显示设备的句柄来设置静态控件的文本和背景颜色
+#DeFine WM_MOUSEFIRST 0x200
+移动鼠标时发生
+#DeFine WM_MOUSEMOVE 0x200
+移动鼠标时发生，同WM_MOUSEFIRST
+#DeFine WM_LBUTTONDOWN 0x201
+按下鼠标左键
+#DeFine WM_LBUTTONUP 0x202
+释放鼠标左键
+#DeFine WM_LBUTTONDBLCLK 0x203
+双击鼠标左键
+#DeFine WM_RBUTTONDOWN 0x204
+按下鼠标右键
+#DeFine WM_RBUTTONUP 0x205
+释放鼠标右键
+#DeFine WM_RBUTTONDBLCLK 0x206
+双击鼠标右键
+#DeFine WM_MBUTTONDOWN 0x207
+按下鼠标中键 
+#DeFine WM_MBUTTONUP 0x208
+释放鼠标中键
+#DeFine WM_MBUTTONDBLCLK 0x209
+双击鼠标中键
+#DeFine WM_MOUSEWHEEL 0x20A
+当鼠标轮子转动时发送此消息个当前有焦点的控件
+
+  Buttons     
+    
+  BM_CLICK   button被点击消息  
+  BM_GETCHECK   用于checkboxes或radioboxes。查看是否checked了。
+ 
+  BM_GETSTATE   发送此消息，可返回button的状态，如是否被checked；是否可用（不可用就变灰了）
+ 
+  BM_SETCHECK   如果已经checked了，发送此消息后，变为unchecked，就是那个钩钩没被选上。ok？
+ 
+  BM_SETSTATE   设置button被点击状态。   
+ 
+  ====================
+  ComboBoxes  
+ 
+  CB_ADDSTRING   添加字符串到ComboBoxes。
+  CB_DELETESTRING   删除ComboBoxes中的条目，既item
+  CB_GETCOUNT   得到ComboBoxes条目item的数目
+  CB_GETCURSEL   返回ComboBoxes中被选条目在ComboBoxes中的位置，第一条为0。   
+  如果没有条目或出错，则返回-1  
+ 
+  CB_GETDROPPEDSTATE   发送此消息，可判断ComboBoxes的listbox是否被放下，如果是，返回非零值，不是，则返回0
+    
+  CB_GETLBTEXT   得到combobox的条目的text。返回值是这个text的长度。
+  CB_GETLBTEXTLEN   返回值是条目的text的长度。
+  CB_INSERTSTRING   插入字符串条目到combobox中
+  CB_RESETCONTENT   清空combobox所有条目
+  CB_SETCURSEL   设置combobox被选条目。   
+  CB_SHOWDROPDOWN    让combobox的listbox下拉。既显出所有条目
+  ===================
+  EditControls  
+ 
+  EM_CANUNDO   决定上一次操作是否可以undo（撤消操作）。如果可以，则可发送EM_undo
+ 
+  EM_GETFIRSTVISIBLELINE   在multi-line控件中，找到最上层的可见的行号。次行号是相对于所有行的。
+ 
+  EM_GETPASSWORDCHAR   返回密码框的字符集。既是查看密码。
+  EM_GETSEL   返回在可编辑控件中，被选择（HIGHLIGHT高量选择）的字符集的起点和终点的位置。   
+  用sendmessage的wParam参数返回起点位置，lParam返回终点位置
+  EM_REPLACESEL   用不同的字符串替换可编辑控件中的字符串，如果可编辑控件中没有字符串，则此消息变为添加字符串   
+  EM_SETPASSWORDCHAR   在可编辑控件中设置密码字符集，既用*代替  
+  EM_UNDO   发送操作撤消消息。   
+  ======================   
+  IPAddressControl     
+  ===================
+ 
+  IPM_CLEARADDRESS   清除IP地址控件（IPAddresscontrol）的内容
+  IPM_GETADDRESS   从IP地址控件获得存储在它中的IP地址信息/
+  IPM_ISBLANK   决定IP地址控件是否可以为空值。既127.0.0.1之类的地址为空。   
+  IPM_SETADDRESS   在IP地址控件中设置IP地址。   
+  IPM_SETFOCUS   在IP地址控件中，当需要输入IP地址时，使之获得键盘输入焦点
+  IPM_SETRANGE   设置输入IP地址的有效范围
+  =====================   
+  MediaControlInterface(MCI)     
+  =============================   
+  MM_MCINOTIFY   告诉窗体MCI命令完成的状态.这个状态包括success,failure,或其它事件
+ 
+  Menus  
+  =============================
+  WM_COMMAND   当用户选择菜单中的项目后,将向窗体发送此消息.窗体受到此消息后,再决定下一个行为   
+    
+  WM_INITMENU   当菜单准备显示前,向窗体发送此消息,窗体将初始化菜单项.   
+    
+  WM_SYSCOMMAND   向窗体发送用户点击系统菜单消息.窗体将响应这个消息,决定下个行为.
+  ================
+  Windows  
+  =====================
+ 
+  WM_CLOSE   发送让窗体关闭的消息，有些窗体会在此时弹出个关闭对话框。
+    
+  WM_GETTEXT   返回窗体标题栏（caption属性）。需要先用WM_GETTEXTLENGTH获得字符串长度  
+ 
+  WM_GETTEXTLENGTH   见上！   
+    
+  WM_HELP   发送此消息后，将显示指定的HELP文件
+  WM_SETTEXT   设置窗体标题栏。
+  ==============================
+  ListBoxes
+  ===============
+ 
+  LB_ADDSTRING   在条目中添加字符串
+ 
+  LB_DELETESTRING   删除一个条目.条目序号是从0开始的.
+ 
+  LB_GETCOUNT   得到条目总数.
+ 
+  LB_GETCURSEL   得到单选的listbox的选项条目的序号
+    
+  LB_GETSEL   判断list的条目是否被选上,如果选上了,则返回>0的值.否则返回0,表示用户没选择条目  
+ 
+  LB_GETSELCOUNT   获得可多选的list,被用户选择的条目的个数.  
+ 
+  LB_GETSELITEMS   返回可多选的list的被选条目的序号.可返回数组.
+ 
+  LB_GETTEXT   得到list中的一个条目的text值
+  LB_GETTEXTLEN   得到list中的一个条目的text值的长度
+  LB_INSERTSTRING   在list中，插入一个条目。如果成功，将返回插入后，此条目的序号。  
+  LB_RESETCONTENT   清空所有的list中的条目。
+  LB_SETCURSEL   对单选的listbox，设定用户选择条目的具体值
+  LB_SETSEL   对多选的listbox，设定用户选择条目的具体值
+  =======================================================
+  Mouse  
+  ==================
+  WM_LBUTTONDBLCLK   当鼠标在一个窗体范围内时，告诉此窗体鼠标左键已双击。返回值0
+ 
+  WM_LBUTTONDOWN   当鼠标在一个窗体范围内时，告诉此窗体鼠标左键已点击，返回值0
+  WM_LBUTTONUP   当鼠标在一个窗体范围内时，告诉此窗体鼠标左键已释放，返回值0
+ 
+  WM_MBUTTONDBLCLK   当鼠标在一个窗体范围内时，告诉此窗体鼠标中键已双击。返回值0
+  WM_MBUTTONDOWN   当鼠标在一个窗体范围内时，告诉此窗体鼠标中键已点击，返回值0
+  WM_MBUTTONUP   当鼠标在一个窗体范围内时，告诉此窗体鼠标中键已释放，返回值0
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//界面事件？
+Util::GF *__stdcall sub_30918658(Util::GF *a1, struct IGFFrame *a2, struct tagBaseArg *a3, int *a4, __int32 *a5)
+{
+  Util::GF *result; // eax@2
+
+  if ( Util::GF::IsValidGFElement(a1) )
+  {
+    result = Util::GF::DispatchFrameMsg(a1, a2, a3, a4, a5);
+  }
+  else
+  {
+    sub_309183DA(a1);
+    result = (Util::GF *)-2147467259;
+  }
+  return result;
+}
+
+	
+// 构造类  在 GF.30801A10 使用.    => 3080184C((int)&v14, *(_DWORD *)(a1 + 4), Msg, wParam, lParam, 1); //a1 是上层传入的对象地址
+int __thiscall GF.3080184C(int this, int a2, int a3, int a4, int a5, int a6)
+{
+  int result; // eax@1
+
+  result = this;
+  *(_DWORD *)(this + 32) = a6;
+  *(_DWORD *)this = a2;
+  *(_DWORD *)(this + 4) = a3;
+  *(_DWORD *)(this + 8) = a4;
+  *(_DWORD *)(this + 12) = a5;
+  *(_DWORD *)(this + 28) = 36;
+  *(_DWORD *)(this + 16) = 0;
+  *(_DWORD *)(this + 24) = 0;
+  *(_DWORD *)(this + 20) = 0;
+  return result;
+}
+	
+BOOL __cdecl Util::GF::IsValidGFElement(Util::GF *this)
+{
+  return this && (*(int (__stdcall **)(Util::GF *, Util::GF **))(*(_DWORD *)this + 44))(this, &this) >= 0 && this;
+}
+	
+
+
+Util::GF *__cdecl Util::GF::DispatchFrameMsg(Util::GF *this, struct IGFFrame *a2, struct tagBaseArg *a3, int *a4, __int32 *a5)
+{
+  Util::GF *v5; // edi@1
+  Util::GF *result; // eax@9
+  int v7; // ecx@12
+  _DWORD *v8; // eax@21
+  int v9; // eax@23
+  _DWORD *v10; // eax@33
+  int v11; // [sp+Ch] [bp-48h]@27
+  int v12; // [sp+10h] [bp-44h]@10
+  int v13; // [sp+14h] [bp-40h]@10
+  int v14; // [sp+18h] [bp-3Ch]@10
+  char v15; // [sp+1Ch] [bp-38h]@23
+  char v16; // [sp+28h] [bp-2Ch]@20
+  char v17; // [sp+2Ch] [bp-28h]@22
+  Util::GF *v18; // [sp+34h] [bp-20h]@4
+  char v19; // [sp+38h] [bp-1Ch]@33
+  Util::GF *v20; // [sp+3Ch] [bp-18h]@4
+  int v21; // [sp+40h] [bp-14h]@7
+  Util::GF *v22; // [sp+44h] [bp-10h]@12
+  int v23; // [sp+50h] [bp-4h]@1
+
+  v5 = this;
+  sub_30825EEA(this);
+  v23 = 0;
+  if ( v5 && Util::GF::IsValidGFElement(v5) )
+  {
+    this = 0;
+    LOBYTE(v23) = 1;
+    sub_308249DE(&this);
+    if ( this
+      && (v20 = 0,
+          v18 = (Util::GF *)(*(int (__stdcall **)(Util::GF *, Util::GF *, struct IGFFrame *, struct tagBaseArg *, int *, int *))(*(_DWORD *)this + 40))(
+                              this,
+                              v5,
+                              a2,
+                              a3,
+                              a4,
+                              (int *)&v20),
+          v20) )
+    {
+      LOBYTE(v23) = 0;
+      if ( this )
+        (*(void (__stdcall **)(Util::GF *))(*(_DWORD *)this + 8))(this);
+      v23 = -1;
+      if ( v21 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)v21 + 8))(v21);
+      result = v18;
+    }
+    else
+    {
+      v12 = 0;
+      v13 = 0;
+      v14 = 0;
+      LOBYTE(v23) = 2;
+      if ( !a5 )
+      {
+        sub_309227B6(8);
+        sub_30825EEA(v5);
+        while ( v20 )
+        {
+          v22 = 0;
+          v7 = *(_DWORD *)v20;
+          LOBYTE(v23) = 4;
+          (*(void (__stdcall **)(Util::GF *, Util::GF **))(v7 + 180))(v20, &v22);
+          if ( v22 && Util::GF::IsValidGFElement(v22) )
+            sub_308409E1(&v22);
+          if ( v20 != v22 )
+            AtlComPtrAssign(&v20, v22);
+          LOBYTE(v23) = 3;
+          if ( v22 )
+            (*(void (__stdcall **)(Util::GF *))(*(_DWORD *)v22 + 8))(v22);
+        }
+        LOBYTE(v23) = 2;
+        sub_3087E330(&v16);
+        while ( 1 )
+        {
+          v9 = sub_3087E357(&v15);
+          if ( (unsigned __int8)sub_3087DFCF(v9) )
+            break;
+          v20 = (Util::GF *)1;
+          v8 = (_DWORD *)sub_308224CA(&v16);
+          v22 = (Util::GF *)sub_308292B9(*v8, v5, a2, a3, a4, &v20);
+          if ( !v20 )
+            goto LABEL_28;
+          sub_308216F6(&v17);
+        }
+      }
+      v20 = (Util::GF *)1;
+      v22 = (Util::GF *)sub_308292B9(v5, v5, a2, a3, a4, &v20);
+      if ( v20 )
+      {
+        v20 = (Util::GF *)1;
+        v22 = (Util::GF *)sub_30829384(v5, v5, a2, a3, a4, &v20);
+        if ( v20 )
+        {
+          if ( !a5 )
+          {
+            sub_3087E061(v12, &v11);
+            while ( 1 )
+            {
+              sub_3087E061(v13, &v11);
+              if ( (unsigned __int8)sub_309142AD(&v17) )
+                break;
+              v18 = (Util::GF *)1;
+              v10 = (_DWORD *)sub_3080DB78(&v19);
+              v22 = (Util::GF *)sub_30829384(*v10, v5, a2, a3, a4, &v18);
+              if ( !v18 )
+                break;
+              sub_30825EC4(&v19);
+            }
+          }
+        }
+      }
+LABEL_28:
+      sub_3080401E((int)&v11);
+      LOBYTE(v23) = 0;
+      if ( this )
+        (*(void (__stdcall **)(Util::GF *))(*(_DWORD *)this + 8))(this);
+      v23 = -1;
+      if ( v21 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)v21 + 8))(v21);
+      result = v22;
+    }
+  }
+  else
+  {
+    v23 = -1;
+    if ( v21 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)v21 + 8))(v21);
+    result = (Util::GF *)-2147467259;
+  }
+  return result;
+}
+
+
+
+
+------------------------------------------------------------------
+//在创建的进程里发送第一个消息 (udp?)
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012E9D0   340722AF   ws2_32.sendto                         SSOCommo.340722A9             0012E9EC
+0012E9D4   0000045C     Socket = 0x45C
+0012E9D8   02BD1254     Data = 02BD1254
+0012E9DC   000000A3     DataSize = A3 (163.)
+0012E9E0   00000000     Flags = 0
+0012E9E4   0012EA24     pTo = 0012EA24
+0012E9E8   00000010     ToLength = 10 (16.)
+0012E9F0   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012E9EC
+0012EA48   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012EA44
+
+	
+	
+int __stdcall sub_340783F4(int a1, wchar_t *a2, __int16 a3, int a4, int a5, int a6)
+{
+  int result; // eax@2
+
+  if ( a6 )
+  {
+    *(_DWORD *)a6 = sub_340721A6((void *)(a1 + 44), a5, a4, a3, a2, 0);  //3407841C
+    result = 0;
+  }
+  else
+  {
+    result = -2147024809;
+  }
+  return result;
+}	
+	
+	
+	
+	

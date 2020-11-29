@@ -1,0 +1,3 @@
+ OD 调试到 0018C22C 会乱码. 按 ctrl+上下箭头调整，直到不要出现 LOCK prefix  ..之类的
+ 0018C22C   \F0:7B FB        lock jpo short 0018C22A                  ; LOCK prefix is not allowed
+

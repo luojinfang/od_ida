@@ -1,0 +1,51 @@
+sub_69F062FC
+
+
+
+int __thiscall sub_69F062FC(UINT_PTR uIDEvent)
+{
+  UINT_PTR v1; // edi@1
+  char v2; // bl@2
+  int result; // eax@6
+  char v4; // bl@7
+  char v5; // bl@8
+  struct tagMSG Msg; // [sp+Ch] [bp-1Ch]@4
+
+  v1 = uIDEvent;
+  while ( 1 )
+  {
+    v2 = 0;
+    if ( (GetQueueStatus(0x40u) >> 16) & 0x40 )
+      v2 = 1;
+    if ( PeekMessageW(&Msg, 0, 0, 0, 1u) )
+      v2 = sub_69F064C3();
+    result = *(_DWORD *)(v1 + 44);
+    if ( *(_BYTE *)(result + 4) )
+      break;
+    v4 = (*(int (**)(void))(**(_DWORD **)result + 4))() | v2;  	//69F0634B      call dword ptr ds:[eax+4]; HummerEn.69F0497A
+    result = *(_DWORD *)(v1 + 44);
+    if ( *(_BYTE *)(result + 4) )
+      break;
+    v5 = (*(int (__stdcall **)(int))(**(_DWORD **)result + 8))(v1 + 32) | v4;    //69F06361  call dword ptr ds:[eax+8]; HummerEn.69F04A3F
+	
+    if ( v5 && !*(_QWORD *)(v1 + 32) )
+      KillTimer(*(HWND *)(v1 + 48), v1);
+    result = *(_DWORD *)(v1 + 44);
+    if ( *(_BYTE *)(result + 4) )
+      break;
+    if ( !v5 )
+    {
+      result = (*(int (**)(void))(**(_DWORD **)result + 12))();
+      if ( *(_BYTE *)(*(_DWORD *)(v1 + 44) + 4) )
+        return result;
+      if ( !(_BYTE)result )
+        sub_69F063DB();
+    }
+  }
+  return result;
+}
+
+
+
+
+

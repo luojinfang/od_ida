@@ -1,0 +1,53 @@
+recv()/send()是标准的socket函数，在任何操作系统下都可以用，还是用recv()/send()吧
+
+
+
+windows 实现库  C:\WINDOWS.0\system32\ws2_32.dll
+
+
+=================
+TCP/IP协议叫做传输控制/网际协议，又叫做网络通信协议。实际上，它包括上百个功能的协议。
+
+套接字（socket）：在网络中用来描述计算机中不同程序与其他计算程序的通信方式。
+
+套接字分为三类;
+
+流式socket（SOCK_STREAM）:提供可靠，面向连接的通信流；它使用TCP协议，从而保证了数据传输的正确性和顺序性。
+
+数据报socket(SOCK_DGRAM):数据报套接字定义了一种无连接的服务，数据通过相互独立的报文进行传输，无序的，并且不保证可靠，无差错的。它使用的数据报协议是UDP。
+
+原始socket:原始套接字允许对底层协议如TP或ICMP进行直接访问，它功能强大但使用复杂，主要用于一些协议的开发。
+
+udp
+https://www.cnblogs.com/leezheng/p/8030011.html
+
+===========================
+
+
+0194FED8   71A22ACA  RETURN to ws2_32.71A22ACA from ws2_32.GetAddrInfoW
+0194FEDC   001C1668  UNICODE "upload_data.qq.com"
+
+gethostbyname 和 gethostbyaddr 这两个函数仅仅支持IPv4， getaddrinfo 函数能够处理名字到地址以及服务到端口这两种转换，
+返回的是一个sockaddr结构的链表而不是一个地址清单。这些sockaddr结构随后可由套接口函数直接使用。
+如此一来，getaddrinfo函数把协议相关性安全隐藏在这个库函数内部。应用程序只要处理由getaddrinfo函数填写的套接口地址结构。该函数在 POSIX规范中定义了。
+
+int getaddrinfo( 
+	const char *hostname, 
+	const char *service, 
+	const struct addrinfo *hints, 
+	struct addrinfo **result );
+===========================
+
+===========================
+===========================
+
+===========================
+
+===========================
+
+===========================
+===========================
+===========================
+
+
+

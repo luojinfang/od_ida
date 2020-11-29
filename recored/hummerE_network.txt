@@ -1,0 +1,220 @@
+69F0164D    53              push ebx
+69F0164E    6A 2C           push 0x2C
+69F01650    50              push eax
+69F01651    FF7424 28       push dword ptr ss:[esp+0x28]
+69F01655    FF15 CC04F169   call dword ptr ds:[<&WS2_32.#20>]                   ; ws2_32.sendto
+69F0165B    833D 5CBBF169 0>cmp dword ptr ds:[0x69F1BB5C],0x2
+69F01662    8B3D BC03F169   mov edi,dword ptr ds:[<&MSVCR80.__iob_func>]        ; MSVCR80.__p__iob
+69F01668    75 19           jnz XHummerEn.69F01683
+69F0166A    50              push eax
+69F0166B    68 E42AF169     push HummerEn.69F12AE4                              ; sendto %d \n
+69F01670    FFD7            call edi
+69F01672    8B35 B003F169   mov esi,dword ptr ds:[<&MSVCR80.fprintf>]           ; MSVCR80.fprintf
+69F01678    83C0 40         add eax,0x40
+69F0167B    50              push eax
+69F0167C    FFD6            call esi
+69F0167E    83C4 0C         add esp,0xC
+69F01681    EB 06           jmp XHummerEn.69F01689
+69F01683    8B35 B003F169   mov esi,dword ptr ds:[<&MSVCR80.fprintf>]           ; MSVCR80.fprintf
+69F01689    391D 5CBBF169   cmp dword ptr ds:[0x69F1BB5C],ebx
+69F0168F    75 2A           jnz XHummerEn.69F016BB
+69F01691    837C24 10 05    cmp dword ptr ss:[esp+0x10],0x5
+69F01696    75 23           jnz XHummerEn.69F016BB
+69F01698    6A 04           push 0x4
+69F0169A    8D4424 20       lea eax,dword ptr ss:[esp+0x20]
+69F0169E    50              push eax
+69F0169F    68 06100000     push 0x1006
+69F016A4    68 FFFF0000     push 0xFFFF
+69F016A9    FF7424 24       push dword ptr ss:[esp+0x24]
+69F016AD    C74424 30 C0D40>mov dword ptr ss:[esp+0x30],0x1D4C0
+69F016B5    FF15 C804F169   call dword ptr ds:[<&WS2_32.#21>]                   ; ws2_32.setsockopt
+69F016BB    53              push ebx
+69F016BC    53              push ebx
+69F016BD    53              push ebx
+69F016BE    6A 64           push 0x64
+69F016C0    8D8424 E4090000 lea eax,dword ptr ss:[esp+0x9E4]
+69F016C7    50              push eax
+69F016C8    FF7424 28       push dword ptr ss:[esp+0x28]
+69F016CC    FF15 E804F169   call dword ptr ds:[<&WS2_32.#17>]                   ; ws2_32.recvfrom
+69F016D2    833D 5CBBF169 0>cmp dword ptr ds:[0x69F1BB5C],0x2
+69F016D9    8BD8            mov ebx,eax
+69F016DB    75 11           jnz XHummerEn.69F016EE
+69F016DD    53              push ebx
+69F016DE    68 F02AF169     push HummerEn.69F12AF0                              ; recvfrom %d \n
+69F016E3    FFD7            call edi
+69F016E5    83C0 40         add eax,0x40
+69F016E8    50              push eax
+69F016E9    FFD6            call esi
+69F016EB    83C4 0C         add esp,0xC
+69F016EE    85DB            test ebx,ebx
+69F016F0    0F84 00010000   je HummerEn.69F017F6
+69F016F6    7E 21           jle XHummerEn.69F01719
+69F016F8    83FB 04         cmp ebx,0x4
+69F016FB    74 60           je XHummerEn.69F0175D
+69F016FD    833D 5CBBF169 0>cmp dword ptr ds:[0x69F1BB5C],0x2
+69F01704    75 43           jnz XHummerEn.69F01749
+69F01706    53              push ebx
+69F01707    68 002BF169     push HummerEn.69F12B00                              ; recvfrom fail len wrong %d \n
+69F0170C    FFD7            call edi
+69F0170E    83C0 40         add eax,0x40
+69F01711    50              push eax
+69F01712    FFD6            call esi
+69F01714    83C4 0C         add esp,0xC
+69F01717    EB 18           jmp XHummerEn.69F01731
+69F01719    83FB FF         cmp ebx,-0x1
+69F0171C    75 13           jnz XHummerEn.69F01731
+69F0171E    8B1D DC04F169   mov ebx,dword ptr ds:[<&WS2_32.#111>]               ; ws2_32.WSAGetLastError
+69F01724    FFD3            call ebx
+69F01726    3D 4C270000     cmp eax,0x274C
+69F0172B    0F85 A9000000   jnz HummerEn.69F017DA
+69F01731    833D 5CBBF169 0>cmp dword ptr ds:[0x69F1BB5C],0x2
+69F01738    75 0F           jnz XHummerEn.69F01749
+69F0173A    68 442BF169     push HummerEn.69F12B44                              ; recvfrom timeout \n
+69F0173F    FFD7            call edi
+69F01741    83C0 40         add eax,0x40
+69F01744    50              push eax
+69F01745    FFD6            call esi
+69F01747    59              pop ecx
+69F01748    59              pop ecx
+69F01749    FF4424 10       inc dword ptr ss:[esp+0x10]
+69F0174D    837C24 10 0A    cmp dword ptr ss:[esp+0x10],0xA
+69F01752  ^ 0F8C E6FEFFFF   jl HummerEn.69F0163E
+69F01758    E9 99000000     jmp HummerEn.69F017F6
+69F0175D    836424 10 00    and dword ptr ss:[esp+0x10],0x0
+69F01762    6A 02           push 0x2
+69F01764    8D8424 D8090000 lea eax,dword ptr ss:[esp+0x9D8]
+69F0176B    50              push eax
+69F0176C    8D4424 18       lea eax,dword ptr ss:[esp+0x18]
+69F01770    50              push eax
+69F01771    E8 8ABA0000     call <jmp.&MSVCR80.memcpy>
+69F01776    8B1D EC04F169   mov ebx,dword ptr ds:[<&WS2_32.#15>]                ; ws2_32.ntohs
+69F0177C    83C4 0C         add esp,0xC
+69F0177F    FF7424 10       push dword ptr ss:[esp+0x10]
+69F01783    FFD3            call ebx
+69F01785    836424 18 00    and dword ptr ss:[esp+0x18],0x0
+69F0178A    0FB7C0          movzx eax,ax
+69F0178D    894424 10       mov dword ptr ss:[esp+0x10],eax
+69F01791    6A 02           push 0x2
+69F01793    8D8424 DA090000 lea eax,dword ptr ss:[esp+0x9DA]
+69F0179A    50              push eax
+69F0179B    8D4424 20       lea eax,dword ptr ss:[esp+0x20]
+69F0179F    50              push eax
+69F017A0    E8 5BBA0000     call <jmp.&MSVCR80.memcpy>
+69F017A5    83C4 0C         add esp,0xC
+69F017A8    FF7424 18       push dword ptr ss:[esp+0x18]
+69F017AC    FFD3            call ebx
+69F017AE    833D 5CBBF169 0>cmp dword ptr ds:[0x69F1BB5C],0x2
+69F017B5    0FB7C0          movzx eax,ax
+69F017B8    894424 18       mov dword ptr ss:[esp+0x18],eax
+69F017BC    75 38           jnz XHummerEn.69F017F6
+69F017BE    0FB7C0          movzx eax,ax
+69F017C1    50              push eax
+69F017C2    0FB74424 14     movzx eax,word ptr ss:[esp+0x14]
+69F017C7    50              push eax
+69F017C8    68 202BF169     push HummerEn.69F12B20                              ; recv %x %x\n
+69F017CD    FFD7            call edi
+69F017CF    83C0 40         add eax,0x40
+69F017D2    50              push eax
+69F017D3    FFD6            call esi
+69F017D5    83C4 10         add esp,0x10
+69F017D8    EB 1C           jmp XHummerEn.69F017F6
+69F017DA    833D 5CBBF169 0>cmp dword ptr ds:[0x69F1BB5C],0x2
+69F017E1    75 13           jnz XHummerEn.69F017F6
+69F017E3    FFD3            call ebx
+69F017E5    50              push eax
+69F017E6    68 2C2BF169     push HummerEn.69F12B2C                              ; recvfrom error %lu \n
+69F017EB    FFD7            call edi
+69F017ED    83C0 40         add eax,0x40
+69F017F0    50              push eax
+69F017F1    FFD6            call esi
+69F017F3    83C4 0C         add esp,0xC
+69F017F6    33F6            xor esi,esi
+69F017F8  ^ E9 F8FBFFFF     jmp HummerEn.69F013F5
+69F017FD    55              push ebp
+69F017FE    8BEC            mov ebp,esp
+69F01800    83EC 6C         sub esp,0x6C
+69F01803    A1 A0B3F169     mov eax,dword ptr ds:[0x69F1B3A0]
+69F01808    33C5            xor eax,ebp
+69F0180A    8945 FC         mov dword ptr ss:[ebp-0x4],eax
+69F0180D    8B45 08         mov eax,dword ptr ss:[ebp+0x8]
+69F01810    53              push ebx
+69F01811    33DB            xor ebx,ebx
+69F01813    381D 48BCF169   cmp byte ptr ds:[0x69F1BC48],bl
+69F01819    56              push esi
+69F0181A    0F85 C3000000   jnz HummerEn.69F018E3
+69F01820    3BC3            cmp eax,ebx
+69F01822    C605 48BCF169 0>mov byte ptr ds:[0x69F1BC48],0x1
+69F01829    0F84 B4000000   je HummerEn.69F018E3
+69F0182F    66:3918         cmp word ptr ds:[eax],bx
+69F01832    0F84 AB000000   je HummerEn.69F018E3
+69F01838    6A FF           push -0x1
+69F0183A    50              push eax
+69F0183B    6A 21           push 0x21
+69F0183D    BE 88BBF169     mov esi,HummerEn.69F1BB88
+69F01842    56              push esi
+69F01843    FF15 A403F169   call dword ptr ds:[<&MSVCR80.wcsncpy_s>]            ; MSVCR80.wcsncpy_s
+69F01849    6A 63           push 0x63
+69F0184B    8D45 99         lea eax,dword ptr ss:[ebp-0x67]
+69F0184E    53              push ebx
+69F0184F    50              push eax
+69F01850    885D 98         mov byte ptr ss:[ebp-0x68],bl
+69F01853    E8 F8B20000     call <jmp.&MSVCR80.memset>
+69F01858    83C4 1C         add esp,0x1C
+69F0185B    53              push ebx
+69F0185C    53              push ebx
+69F0185D    6A 63           push 0x63
+69F0185F    8D45 98         lea eax,dword ptr ss:[ebp-0x68]
+69F01862    50              push eax
+69F01863    6A FF           push -0x1
+69F01865    56              push esi
+69F01866    53              push ebx
+69F01867    68 E9FD0000     push 0xFDE9
+69F0186C    FF15 4C02F169   call dword ptr ds:[<&KERNEL32.WideCharToMultiByte>] ; kernel32.WideCharToMultiByte
+69F01872    6A FF           push -0x1
+69F01874    8D45 98         lea eax,dword ptr ss:[ebp-0x68]
+69F01877    50              push eax
+69F01878    6A 21           push 0x21
+69F0187A    68 60BBF169     push HummerEn.69F1BB60
+69F0187F    FF15 B403F169   call dword ptr ds:[<&MSVCR80.strncpy_s>]            ; MSVCR80.strncpy_s
+69F01885    83C4 10         add esp,0x10
+69F01888    381D 60BBF169   cmp byte ptr ds:[0x69F1BB60],bl
+69F0188E    74 53           je XHummerEn.69F018E3
+69F01890    0FB745 0C       movzx eax,word ptr ss:[ebp+0xC]
+69F01894    0FB74D 10       movzx ecx,word ptr ss:[ebp+0x10]
+69F01898    6BC0 64         imul eax,eax,0x64
+69F0189B    03C1            add eax,ecx
+69F0189D    69C0 10270000   imul eax,eax,0x2710
+69F018A3    0345 14         add eax,dword ptr ss:[ebp+0x14]
+69F018A6    895D 94         mov dword ptr ss:[ebp-0x6C],ebx
+69F018A9    A3 CCBBF169     mov dword ptr ds:[0x69F1BBCC],eax
+69F018AE    8D45 94         lea eax,dword ptr ss:[ebp-0x6C]
+69F018B1    50              push eax
+69F018B2    6A 04           push 0x4
+69F018B4    53              push ebx
+69F018B5    68 F411F069     push HummerEn.69F011F4
+69F018BA    53              push ebx
+69F018BB    53              push ebx
+69F018BC    FF15 1402F169   call dword ptr ds:[<&KERNEL32.CreateThread>]        ; kernel32.CreateThread
+69F018C2    8BF0            mov esi,eax
+69F018C4    3BF3            cmp esi,ebx
+69F018C6    74 1B           je XHummerEn.69F018E3
+69F018C8    6A FF           push -0x1
+69F018CA    56              push esi
+69F018CB    FF15 0402F169   call dword ptr ds:[<&KERNEL32.SetThreadPriority>]   ; kernel32.SetThreadPriority
+69F018D1    56              push esi
+69F018D2    FF15 4802F169   call dword ptr ds:[<&KERNEL32.ResumeThread>]        ; kernel32.ResumeThread
+69F018D8    56              push esi
+69F018D9    FF15 A402F169   call dword ptr ds:[<&KERNEL32.CloseHandle>]         ; kernel32.CloseHandle
+69F018DF    33C0            xor eax,eax
+69F018E1    EB 03           jmp XHummerEn.69F018E6
+69F018E3    33C0            xor eax,eax
+69F018E5    40              inc eax
+69F018E6    8B4D FC         mov ecx,dword ptr ss:[ebp-0x4]
+69F018E9    5E              pop esi
+69F018EA    33CD            xor ecx,ebp
+69F018EC    5B              pop ebx
+69F018ED    E8 64B20000     call HummerEn.69F0CB56
+69F018F2    C9              leave
+69F018F3    C3              retn
+
+ 

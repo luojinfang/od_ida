@@ -1,0 +1,9 @@
+Breakpoints
+Address    Module     Active                     Disassembly                           Comment
+71A22F51   ws2_32     Always                     mov edi,edi                           sendto
+7C801D53   kernel32   Disabled                   mov edi,edi
+7C801D7B   kernel32   Disabled                   mov edi,edi
+7C802336   kernel32   Always                     mov edi,edi                           CreateProcessW
+7C80236B   kernel32   Always                     mov edi,edi                           CreateProcessA
+7C80AEDB   kernel32   Disabled                   mov edi,edi
+7C813123   kernel32   Always                     mov eax,dword ptr fs:[18]             isDebuggerPresent

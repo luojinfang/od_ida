@@ -1,0 +1,269 @@
+Log data
+Address    Message
+           OllyDbg v1.10
+           +BP-OLLY - Ver 2.0 beta 4 by RedH@wK
+           http://redhawk.hispadominio.com
+           Nonameo's ApiBreak
+             Copyright (C) 2005 Nonameo
+           API断点设置工具 - Ver 1.2 by 蓝色光芒
+           CleanupEx v1.12.108  by Gigapede
+           DeJunk plugin v0.12 by flyfancy
+           异常计数器插件 [v 0.1b] 由 ZeetreX
+           IDAFicator 1.2.12.5
+               #|IDAFicator plugin for Ollydbg 1.10 By Zool@nder | AT4RE
+               #|www.AT4RE.com
+           ODbgScript v1.65.2 chinese version by hnhuqiong
+             http://bbs.pediy.com or http://www.unpack.cn
+           OllyDump v3.00.110  by Gigapede
+           OllyMachine v0.20
+             由罗聪编写
+             编译于2004年12月7日 14:32:15
+           StrongOD - v0.3.9.706
+             Coded by 海风月影[CUG][RCT]
+             Compiled on Dec 29 2010 10:12:20
+           Fix Foreground Window In 0x3A1FB
+           Fix PeBug In 0x5C671
+           Fix PeBug In 0x5D827
+           Fix PeBug In 0x5D8B7
+           Fix PeBug In 0xC870A
+           Fix FindFileOffset In 0x45DF58
+           Fix AnalyseModule In 0x45C374
+           Fix Guardmemory In 0x46207C
+           KernelMode Enable!
+           HookSSDT Successful!
+           中文搜索引擎 v2011.1.1
+             Written by Luo Cong
+             Compiled on Jan  1 2011 00:18:59
+           File 'C:\Program Files\Tencent\QQIntl\Bin\QQ.exe'
+           New process with ID 00000478 created
+           Main thread with ID 00000554 created
+7C8106E9   New thread with ID 00000C88 created
+7C8106E9   New thread with ID 00000F30 created
+7C8106E9   New thread with ID 00000E18 created
+7C8106E9   New thread with ID 00000CC0 created
+7C8106E9   New thread with ID 00000FD8 created
+7C8106E9   New thread with ID 00000530 created
+7C8106E9   New thread with ID 00000AD8 created
+7C8106E9   New thread with ID 000001F8 created
+7C8106E9   New thread with ID 000000A4 created
+7C8106E9   New thread with ID 000000FC created
+7C8106E9   New thread with ID 000003C4 created
+7C8106E9   New thread with ID 000008D0 created
+7C8106E9   New thread with ID 0000093C created
+7C8106E9   New thread with ID 00000BA4 created
+7C8106E9   New thread with ID 00000C4C created
+7C8106E9   New thread with ID 00000F20 created
+7C8106E9   New thread with ID 000004D4 created
+7C8106E9   New thread with ID 00000F4C created
+7C8106E9   New thread with ID 0000012C created
+7C8106E9   New thread with ID 000000F0 created
+7C8106E9   New thread with ID 00000950 created
+7C8106E9   New thread with ID 000001A0 created
+7C96FFE3   New thread with ID 00000924 created
+00400000   Module C:\Program Files\Tencent\QQIntl\Bin\QQ.exe
+00A20000   Module C:\Program Files\Tencent\QQIntl\Bin\lua.dll
+00A80000   Module C:\Program Files\Tencent\QQIntl\Bin\AFUtil.dll
+01640000   Module C:\Program Files\Tencent\QQIntl\Bin\IPC.dll
+01AE0000   Module C:\Program Files\Tencent\QQIntl\Bin\xplatformex.dll
+01C30000   Module C:\Program Files\Tencent\QQIntl\Bin\PreloginLogic.dll
+02260000   Module C:\WINDOWS.0\system32\xpsp2res.dll
+030E0000   Module C:\Program Files\Tencent\QQIntl\Bin\IM.dll
+063A0000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.vas\Bin\TRCloudInputLib.dll
+06580000   Module C:\Program Files\Tencent\QQIntl\Bin\CustomFace.dll
+10000000   Module C:\Program Files\Tencent\QQIntl\Bin\arkIOStub.dll
+11000000   Module C:\Program Files\Tencent\QQIntl\Bin\libexpatw.dll
+11100000   Module C:\Program Files\Tencent\QQIntl\Bin\tinyxml.dll
+11200000   Module C:\Program Files\Tencent\QQIntl\Bin\xImage.dll
+11300000   Module C:\Program Files\Tencent\QQIntl\Bin\libpng.dll
+11400000   Module C:\Program Files\Tencent\QQIntl\Bin\libjpegturbo.dll
+11500000   Module C:\Program Files\Tencent\QQIntl\Bin\jgImage.dll
+11800000   Module C:\Program Files\Tencent\QQIntl\Bin\ProcessSession.DLL
+11E00000   Module C:\Program Files\Tencent\QQIntl\Bin\UtilGif.dll
+11F00000   Module C:\Program Files\Tencent\QQIntl\Bin\zlib.dll
+12200000   Module C:\Program Files\Tencent\QQIntl\Bin\arkGraphic.dll
+17700000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.audiovideo\Bin\xplatform.dll
+20000000   Module C:\WINDOWS.0\system32\xpsp3res.dll
+30000000   Module C:\Program Files\Tencent\QQIntl\Bin\Common.dll
+30800000   Module C:\Program Files\Tencent\QQIntl\Bin\GF.dll
+31800000   Module C:\Program Files\Tencent\QQIntl\Bin\KernelUtil.dll
+32000000   Module C:\Program Files\Tencent\QQIntl\Bin\TXPFProxy.dll
+32100000   Module C:\Program Files\Tencent\QQIntl\Bin\xGraphic32.dll
+33B00000   Module C:\Program Files\Tencent\QQIntl\Bin\KernelMisc.dll
+34000000   Module C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\Bin\SSOCommon.DLL
+34300000   Module C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\Bin\SSOPlatform.dll
+36000000   Module C:\Program Files\Tencent\QQIntl\Bin\GroupApp.dll
+36300000   Module C:\Program Files\Tencent\QQIntl\Bin\PluginCommon.dll
+39700000   Module C:\Program Files\Tencent\QQIntl\Bin\RICHED20.dll
+4AE90000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22509_x-ww_c7dad023\gdiplus.dll
+5ADC0000   Module C:\WINDOWS.0\system32\UxTheme.dll
+5DD50000   Module C:\WINDOWS.0\system32\msxml3.dll
+5FDD0000   Module C:\WINDOWS.0\system32\NETAPI32.dll
+60B30000   Module C:\Program Files\Tencent\QQIntl\Bin\MSVCP60.dll
+60FD0000   Module C:\WINDOWS.0\system32\hnetcfg.dll
+61210000   Module C:\Program Files\Tencent\QQIntl\Bin\AppUtil.dll
+61700000   Module C:\Program Files\Tencent\QQIntl\Bin\ConfigCenter.dll
+61900000   Module C:\Program Files\Tencent\QQIntl\Bin\ContactInfoFrame.dll
+61C00000   Module C:\Program Files\Tencent\QQIntl\Bin\MainFrame.dll
+62000000   Module C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll
+62700000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.mail\Bin\Mail.dll
+62900000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.memo\Bin\Memo.dll
+62C20000   Module C:\WINDOWS.0\system32\LPK.DLL
+63D00000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.qzone\Bin\Qzone.dll
+63F00000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.snsapp\Bin\SNSApp.dll
+64600000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.vas\Bin\VAS.dll
+64700000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.weather\Bin\Weather.dll
+64900000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.winks\Bin\Winks.dll
+64A00000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wireless\Bin\Wireless.dll
+64C00000   Module C:\Program Files\Tencent\QQIntl\Bin\ChatFrameApp.dll
+64F00000   Module C:\Program Files\Tencent\QQIntl\Bin\InformationBox.dll
+65100000   Module C:\Program Files\Tencent\QQIntl\Bin\LoginPanel.dll
+65300000   Module C:\Program Files\Tencent\QQIntl\Bin\MsgMgr.dll
+65700000   Module C:\Program Files\Tencent\QQIntl\Bin\AFCtrl.dll
+66200000   Module C:\Program Files\Tencent\QQIntl\Bin\AppFramework.dll
+66600000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBlog.dll
+67000000   Module C:\Program Files\Tencent\QQIntl\Bin\FlashService.dll
+67200000   Module C:\Program Files\Tencent\QQIntl\Bin\SystemMsg.dll
+67400000   Module C:\Program Files\Tencent\QQIntl\Bin\AppMisc.dll
+67C00000   Module C:\Program Files\Tencent\QQIntl\Bin\QInterLive.dll
+68000000   Module C:\WINDOWS.0\system32\rsaenh.dll
+68800000   Module C:\Program Files\Tencent\QQIntl\Bin\AFBase.DLL
+68D60000   Module C:\WINDOWS.0\system32\dbghelp.dll
+69200000   Module C:\Program Files\Tencent\QQIntl\Bin\SkinMgr.dll
+69800000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.audiovideo\Bin\AudioVideo.dll
+69F00000   Module C:\Program Files\Tencent\QQIntl\Bin\HummerEngine.dll
+6A100000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.filetransfer\Bin\FileTransfer.dll
+6A700000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBKernel.dll
+6A900000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBMisc.dll
+71800000   Module C:\WINDOWS.0\system32\shdoclc.dll
+719C0000   Module C:\WINDOWS.0\System32\mswsock.dll
+71A00000   Module C:\WINDOWS.0\System32\wshtcpip.dll
+71A10000   Module C:\WINDOWS.0\system32\WS2HELP.dll
+71A20000   Module C:\WINDOWS.0\system32\WS2_32.dll
+71A40000   Module C:\WINDOWS.0\system32\wsock32.dll
+71B70000   Module C:\WINDOWS.0\system32\SAMLIB.dll
+72240000   Module C:\WINDOWS.0\system32\sensapi.dll
+73640000   Module C:\WINDOWS.0\system32\msctfime.ime
+73AF0000   Module C:\WINDOWS.0\system32\AVICAP32.dll
+73B40000   Module C:\WINDOWS.0\system32\MSVFW32.dll
+73FA0000   Module C:\WINDOWS.0\system32\USP10.dll
+74620000   Module C:\WINDOWS.0\system32\msls31.dll
+74650000   Module C:\WINDOWS.0\system32\msimtf.dll
+74680000   Module C:\WINDOWS.0\system32\MSCTF.dll
+74BE0000   Module C:\WINDOWS.0\system32\OLEACC.dll
+74CF0000   Module C:\WINDOWS.0\system32\mlang.dll
+75430000   Module C:\WINDOWS.0\system32\CRYPTUI.dll
+759D0000   Module C:\WINDOWS.0\system32\USERENV.dll
+75C60000   Module C:\WINDOWS.0\system32\urlmon.dll
+75E00000   Module C:\WINDOWS.0\system32\SXS.DLL
+76060000   Module C:\WINDOWS.0\system32\SETUPAPI.dll
+762D0000   Module C:\WINDOWS.0\system32\WINSTA.dll
+762F0000   Module C:\WINDOWS.0\system32\MSIMG32.dll
+76300000   Module C:\WINDOWS.0\system32\IMM32.DLL
+76320000   Module C:\WINDOWS.0\system32\comdlg32.dll
+765E0000   Module C:\WINDOWS.0\system32\CRYPT32.dll
+76680000   Module C:\WINDOWS.0\system32\WININET.dll
+76990000   Module C:\WINDOWS.0\system32\ole32.dll
+76AF0000   Module C:\WINDOWS.0\system32\ATL.DLL
+76B10000   Module C:\WINDOWS.0\system32\WINMM.dll
+76BC0000   Module C:\WINDOWS.0\system32\PSAPI.DLL
+76C00000   Module C:\WINDOWS.0\system32\WINTRUST.dll
+76C60000   Module C:\WINDOWS.0\system32\IMAGEHLP.dll
+76D10000   Module C:\WINDOWS.0\system32\MPRAPI.dll
+76D30000   Module C:\WINDOWS.0\system32\iphlpapi.dll
+76DB0000   Module C:\WINDOWS.0\system32\MSASN1.dll
+76DE0000   Module C:\WINDOWS.0\system32\adsldpc.dll
+76E50000   Module C:\WINDOWS.0\system32\rtutils.dll
+76E60000   Module C:\WINDOWS.0\system32\rasman.dll
+76E80000   Module C:\WINDOWS.0\system32\TAPI32.dll
+76EB0000   Module C:\WINDOWS.0\system32\RASAPI32.dll
+76EF0000   Module C:\WINDOWS.0\system32\DNSAPI.dll
+76F20000   Module C:\WINDOWS.0\system32\WTSAPI32.dll
+76F30000   Module C:\WINDOWS.0\system32\WLDAP32.dll
+76F80000   Module C:\WINDOWS.0\System32\winrnr.dll
+76F90000   Module C:\WINDOWS.0\system32\rasadhlp.dll
+76FA0000   Module C:\WINDOWS.0\system32\CLBCATQ.DLL
+77020000   Module C:\WINDOWS.0\system32\COMRes.dll
+770F0000   Module C:\WINDOWS.0\system32\OLEAUT32.dll
+77180000   Module C:\WINDOWS.0\WinSxS\X86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\COMCTL32.dll
+77BD0000   Module C:\WINDOWS.0\system32\VERSION.dll
+77BE0000   Module C:\WINDOWS.0\system32\msvcrt.dll
+77C90000   Module C:\WINDOWS.0\system32\ACTIVEDS.dll
+77D10000   Module C:\WINDOWS.0\system32\USER32.dll
+77DA0000   Module C:\WINDOWS.0\system32\ADVAPI32.dll
+77E50000   Module C:\WINDOWS.0\system32\RPCRT4.dll
+77EF0000   Module C:\WINDOWS.0\system32\GDI32.dll
+77F40000   Module C:\WINDOWS.0\system32\SHLWAPI.dll
+77FC0000   Module C:\WINDOWS.0\system32\Secur32.dll
+78130000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\MSVCR80.dll
+7C420000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\MSVCP80.dll
+7C630000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_473666fd\ATL80.DLL
+7C800000   Module C:\WINDOWS.0\system32\kernel32.dll
+7C920000   Module C:\WINDOWS.0\system32\ntdll.dll
+7D590000   Module C:\WINDOWS.0\system32\SHELL32.dll
+7E210000   Module C:\WINDOWS.0\system32\mshtml.dll
+7E550000   Module C:\WINDOWS.0\system32\shdocvw.dll
+7C92120E   Attached process paused at ntdll.DbgBreakPoint
+           Thread 00000924 terminated, exit code 0
+           Thread 0000093C terminated, exit code 0
+           Thread 000004D4 terminated, exit code 0
+75AF0000   Module C:\WINDOWS.0\system32\devenum.dll
+73620000   Module C:\WINDOWS.0\system32\msdmo.dll
+7C8106E9   New thread with ID 0000084C created
+75BC0000   Module C:\WINDOWS.0\system32\jscript.dll
+76D70000   Module C:\WINDOWS.0\system32\apphelp.dll
+           Thread 0000084C terminated, exit code 0
+7C8106E9   New thread with ID 00000958 created
+           Thread 00000958 terminated, exit code 1
+7C8106E9   New thread with ID 00000110 created
+           Thread 00000110 terminated, exit code 1
+           Thread 00000F30 terminated, exit code 1
+7C8106E9   New thread with ID 00000AA4 created
+7C8106E9   New thread with ID 00000414 created
+           Thread 00000AA4 terminated, exit code 1
+           Thread 00000414 terminated, exit code 0
+7C8106E9   New thread with ID 000005E0 created
+           Thread 000005E0 terminated, exit code 1
+7C802336   Breakpoint at kernel32.CreateProcessW
+7C8106E9   New thread with ID 00000244 created
+           Thread 00000244 terminated, exit code 1
+7C8106E9   New thread with ID 00000B00 created
+           Thread 00000B00 terminated, exit code 0
+7C8106E9   New thread with ID 0000089C created
+           Thread 0000089C terminated, exit code 1
+7C8106E9   New thread with ID 00000B10 created
+           Thread 00000B10 terminated, exit code 0
+31C00000   Module C:\Program Files\Tencent\QQIntl\Bin\LongCnn.dll
+           Thread 00000CC0 terminated, exit code 0
+7C8106E9   New thread with ID 00000BCC created
+01170000   Module C:\Documents and Settings\Administrator\Application Data\Tencent\QQ\SafeBase\tseh.dat
+73D30000   Module C:\WINDOWS.0\system32\mfc42.dll
+61BE0000   Module C:\WINDOWS.0\system32\mfc42loc.dll
+01170000   Unload C:\Documents and Settings\Administrator\Application Data\Tencent\QQ\SafeBase\tseh.dat
+           Thread 00000BCC terminated, exit code 1
+7C8106E9   New thread with ID 0000021C created
+           Thread 0000021C terminated, exit code 1
+757D0000   Module C:\WINDOWS.0\system32\cryptnet.dll
+7C8106E9   New thread with ID 00000FB8 created
+4A410000   Module C:\WINDOWS.0\system32\winhttp.dll
+7C8106E9   New thread with ID 00000D1C created
+           Thread 00000D1C terminated, exit code 0
+750B0000   Module C:\WINDOWS.0\system32\cabinet.dll
+7C8106E9   New thread with ID 00000494 created
+           Thread 00000494 terminated, exit code 0
+7C8106E9   New thread with ID 00000404 created
+           Thread 00000404 terminated, exit code 0
+7C8106E9   New thread with ID 00000CE4 created
+           Thread 00000CE4 terminated, exit code 1
+7C8106E9   New thread with ID 00000CCC created
+7C8106E9   New thread with ID 00000C6C created
+7C8106E9   New thread with ID 00000DB0 created
+           Thread 00000DB0 terminated, exit code 0
+           Thread 00000C6C terminated, exit code 0
+           Thread 00000CCC terminated, exit code 0
+7C8106E9   New thread with ID 00000DD8 created
+           Thread 00000DD8 terminated, exit code 1
+           Thread 00000FB8 terminated, exit code 0
+14000000   Module C:\Program Files\Tencent\QQIntl\Bin\AdvVideoDev.dll
+7C8106E9   New thread with ID 00000684 created
+7C8106E9   New thread with ID 00000F28 created
+           Thread 00000F28 terminated, exit code 0

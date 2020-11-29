@@ -1,0 +1,12 @@
+https://www.52pojie.cn/thread-661779-1-1.html  虚拟机
+1).虚拟机文件下载：
+						  360网盘（推荐）：https://yunpan.360.cn/surl_yrj3q8K4YCU 密码：0c3a
+							 腾讯微云：https://share.weiyun.com/d606513b540c6cf69a5ac5210af58079 密码：6g35hh
+						  百度网盘：https://pan.baidu.com/s/1o8C2MP8密码：6ig6
+(2).虚拟机主程序下载： 永久秘钥：5A02H-AU243-TZJ49-GTC7K-3C61N
+
+
+//test eax,eax 
+	基本上和 And eax,eax 是一样的，不同的是test 不改变eax的结果，只是改FLAG寄存器的状态，也就是改变进位标志，零标志，溢出标志等 等。
+	举一个例子，如果eax=01h,test eax,eax 就是两个01h 作与操作，所以结果还是01h,不是0的话，就不会跳转 je xxxx。
+	所以要跳转je xxxx,只有一种可能就是eax=0h.所以现在eax=0a 则不会跳转 je xxxx。所以要跳转je

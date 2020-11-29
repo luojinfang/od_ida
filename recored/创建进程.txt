@@ -1,0 +1,354 @@
+CreateProcess(
+	lpApplicationName,//String,要执行的应用程序的名字		
+	lpCommandLine,//String,要执行的命令行		
+	lpProcessAttributes,//SEQURITY_ATTRIBUTES,指定一个SEQURITY_ATTRIBUTES结构,或传递零值		
+	lpthreadAttributes,//SEQURITY_ATTRIBUTES,指定一个SECURITY_ATTRIBUTES结构，或传递零值		
+	bInheritHandles,//Long,TRUE表示允许当前进程中所有句柄都由新建的子进程继承		
+	dwCreationFlags,//creation flags	
+	lpEnvironment,//Any,指向一个环境块的指针(环境缓冲区的头一个字符,或者环境块地址)		
+	lpCurrentDirectory,//String,新进程的当前目录路径		
+	lpStartupInfo,//STARTUPINFO,指定一个STARTUPINFO结构，其中包含了创建进程时的附加信息		
+	lpProcessInfomation //PROCESS_INFOMATION,该结构用于容纳新进程的进程和线程标识符))
+
+返回
+	如果函数执行成功，返回非零值。
+	如果函数执行失败，返回零，可以使用GetLastError函数获得错误的附加信息。
+
+	
+OpenProcess 函数用来打开一个已存在的进程对象，并返回进程的句柄。
+HANDLE OpenProcess(
+	DWORD dwDesiredAccess, //想拥有的该进程访问权限
+	BOOL bInheritHandle, //表示所得到的进程句柄是否可以被继承
+	DWORD dwProcessId//被打开进程的PID
+);
+参数
+	a.dwDesiredAccess：想拥有的该进程访问权限
+		PROCESS_ALL_ACCESS  //所有能获得的权限
+		PROCESS_CREATE_PROCESS  //需要创建一个进程
+		PROCESS_CREATE_THREAD   //需要创建一个线程
+		PROCESS_DUP_HANDLE      //重复使用DuplicateHandle句柄
+		PROCESS_QUERY_INFORMATION   //获得进程信息的权限，如它的退出代码、优先级
+		PROCESS_QUERY_LIMITED_INFORMATION  /*获得某些信息的权限，如果获得了PROCESS_QUERY_INFORMATION，也拥有PROCESS_QUERY_LIMITED_INFORMATION权限*/
+		PROCESS_SET_INFORMATION    //设置某些信息的权限，如进程优先级
+		PROCESS_SET_QUOTA          //设置内存限制的权限，使用SetProcessWorkingSetSize
+		PROCESS_SUSPEND_RESUME     //暂停或恢复进程的权限
+		PROCESS_TERMINATE          //终止一个进程的权限，使用TerminateProcess
+		PROCESS_VM_OPERATION       //操作进程内存空间的权限(可用VirtualProtectEx和WriteProcessMemory) 
+		PROCESS_VM_READ            //读取进程内存空间的权限，可使用ReadProcessMemory
+		PROCESS_VM_WRITE           //读取进程内存空间的权限，可使用WriteProcessMemory
+		SYNCHRONIZE                //等待进程终止
+	b.bInheritHandle：表示所得到的进程句柄是否可以被继承
+	c.dwProcessId：被打开进程的PID
+返回类型 
+	如成功，返回值为指定进程的句柄。
+	如失败，返回值为NULL，可调用GetLastError()获得错误代码。
+
+
+--------------------	
+	CreateProcess启动隐藏的外部程序（其实就是CreateDesktop，然后指定STARTUPINFO.lpDesktop）
+	
+-------------
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                                                                                                                                                                  调用来自                      结构
+0012F468   651445AF   kernel32.CreateProcessW                                                                                                                                                          LoginPan.651445A9             0012F720
+0012F46C   0139902C     ModuleFileName = "C:\Program Files\Tencent\QQIntl\Bin\QQ.exe"
+0012F470   014EF928     CommandLine = "/MLogin:BB6ACB38-597E-441A-9155-2B88EB766AA7_0_0__PreProcess0000000000000000000000000000000000000000000000000 C:\Program Files\Tencent\QQIntl\Bin\QQ.exe "
+0012F474   00000000     pProcessSecurity = NULL
+0012F478   00000000     pThreadSecurity = NULL
+0012F47C   00000000     InheritHandles = FALSE
+0012F480   00000000     CreationFlags = 0
+0012F484   00000000     pEnvironment = NULL
+0012F488   00000000     CurrentDir = NULL
+0012F48C   0012F4A4     pStartupInfo = 0012F4A4
+0012F490   0012F4E8     pProcessInfo = 0012F4E8
+0012F724   651452E8   ? LoginPan.6514447D                                                                                                                                                              LoginPan.651452E3
+0012F760   6512EBB7   ? LoginPan.651451B6                                                                                                                                                              LoginPan.6512EBB2             0012F75C
+0012F79C   65139D1C   ? LoginPan.6512EABB                                                                                                                                                              LoginPan.65139D17             0012F798
+
+
+------------
+详细查看 创建进程blog
+https://www.cnblogs.com/mlgjb/p/8926802.html
+
+
+STARTUPINFO 结构 
+该结构用于指定新进程的主窗口特性,用于决定新进程的主窗体如何显示的结构体。
+定义如下:
+typedef struct _STARTUPINFO {
+DWORD cb;                                          //包含STARTUPINFO结构中的字节数.如果Microsoft将来扩展该结构,它可用作版本控制手段.应用程序必须将cb初始化为 sizeof(STARTUPINFO)
+LPTSTR lpReserved;                           //保留。必须初始化为N U L L
+LPTSTR lpDesktop;                             //用于标识启动应用程序所在的桌面的名字。如果该桌面存在，新进程便与指定的桌面相关联。如果桌面不存在，便创建一个带有默认属性的桌面，并使用为新进程指定的名字。如果lpDesktop是NULL（这是最常见的情况),那么该进程将与当前桌面相关联
+LPTSTR lpTitle;                                   //用于设定控制台窗口的名称。如果l p Ti t l e 是N U L L ，则可执行文件的名字将用作窗口名
+DWORD dwX;                                      //用于设定应用程序窗口在屏幕上应该放置的位置的x 和y 坐标以像素为单位
+DWORD dwY;                                      //只有当子进程用CW_USEDEFAULT作为CreateWindow的x参数来创建它的第一个重叠窗口是，这两个坐标。弱势创建控制台窗口的应用程序，这些成员用于指明控制台窗口的左上角
+DWORD dwXSize;                               //用于设定应用程序窗口的宽度和长度（以像素为单位）只有dwYsize
+DWORD dwYSize;                               //当子进程将C W _ U S E D E FA U LT 用作CreateWindow的nWidth参数来创建它的第一个重叠窗口时，才使用这些值。
+DWORD dwXCountChars;                   //用于设定子应用程序的控制台窗口的宽度和高度(以字符为单位)
+DWORD dwYCountChars;                   //
+DWORD dwFillAttribute;                       //用于设定子应用程序的控制台窗口使用的文本和背景颜色
+DWORD dwFlags;                                //请参见下一段和表4 - 7 的说明
+WORD wShowWindow;                        //用于设定如果子应用程序初次调用的ShowWindow将SW_SHOWD
+                                                               EFAULT作为nCmdShow参数传递时，该应用程序第一个重叠窗口
+                                                                应该如何出现。本成员可以是通常用于ShowWindow函数的任何一
+                                                                 个SW_*标识符
+WORD cbReserved2;                            //保留。必须被初始化为0
+LPBYTE lpReserved2;                           //保留。必须被初始化为NULL
+HANDLE hStdInput;                               //用于设定供控制台输入和输出用的缓存的句柄。
+HANDLE hStdOutput;                            
+HANDLE hStdError;
+} STARTUPINFO, *LPSTARTUPINFO
+当Wi n d o w s 创建新进程时，它将使用该结构的有关成员。大多数应用程序将要求生成的应用程序仅仅使用默认值。至少应该将该结构中的所有成员初始化为零，然后将c b 成员设置为该结构的大小：
+STARTUPINFO si = { sizeof(si) };
+CreateProcess(...,&si,...);
+
+
+--------
+PROCESS_INFORMATION 结构
+在创建进程时相关的数据结构之一，该结构返回有关新进程及其主线程的信息。其结构定义如下
+typedef struct_PROCESS_INFORMATION{
+HANDLE hProcess;                                        //返回新进程的句柄。
+HANDLE hThread;                                         //返回新进程的句柄。
+DWORD dwProcessId;                                  //返回一个全局进程标识符。该标识符用于标识一个进程。
+                                                                        从进程被创建到终止，该值始终有效
+DWORD dwThreadId;                                 //返回一个全局线程标识符。该标识符用于标识一个线程。
+                                                                       从线程被创建到终止，该值始终有效
+}PROCESS_INFORMATION;
+---------------
+C代码
+#include<stdio.h>
+#include<windows.h>
+intmain(intargc,char*argv[])
+{
+	charszCommandLine[]="notepad";
+	STARTUPINFOsi={sizeof(si)};
+	PROCESS_INFORMATIONpi;
+	si.dwFlags=STARTF_USESHOWWINDOW;//指定wShowWindow成员有效
+	si.wShowWindow=TRUE;//此成员设为TRUE的话则显示新建进程的主窗口
+	BOOLbRet=CreateProcess(
+		NULL,//不在此指定可执行文件的文件名
+		szCommandLine,//命令行参数
+		NULL,//默认进程安全性
+		NULL,//默认进程安全性
+		FALSE,//指定当前进程内句柄不可以被子进程继承
+		CREATE_NEW_CONSOLE,//为新进程创建一个新的控制台窗口
+		NULL,//使用本进程的环境变量
+		NULL,//使用本进程的驱动器和目录
+		&si,
+		&pi );
+	if(bRet)
+	{
+	//不使用的句柄最好关掉
+	CloseHandle(pi.hThread);
+	CloseHandle(pi.hProcess);
+	printf("新进程的ID号：%d\n",pi.dwProcessId);
+	printf("新进程的主线程ID号：%d\n",pi.dwThreadId);
+	}
+	return 0;
+}
+
+----------------------------------------------------------------
+
+//运行程序时，创建一个进程
+DWORD __thiscall sub_6514447D(void *this, char a2)
+{
+  void *v2; // edi@1
+  int v3; // eax@1
+  int v4; // eax@1
+  int v5; // eax@1
+  wchar_t *v6; // eax@1
+  const WCHAR *v7; // eax@1
+  void *v8; // ST20_4@3
+  DWORD v9; // edi@3
+  struct _PROCESS_INFORMATION *v11; // [sp+0h] [bp-288h]@0
+  WCHAR CurrentDirectory[2]; // [sp+Ch] [bp-27Ch]@1
+  struct _STARTUPINFOW StartupInfo; // [sp+50h] [bp-238h]@1
+  int v14; // [sp+284h] [bp-4h]@1
+
+  v2 = this;
+  v14 = 0;
+  memset(&StartupInfo.dwXCountChars, 0, 0x208u);
+  CTXStringW::CTXStringW(&StartupInfo.dwYSize);
+  LOBYTE(v14) = 1;
+  GetModuleFileNameW(0, (LPWSTR)&StartupInfo.dwXCountChars, 0x104u);
+  CTXStringW::operator=(&StartupInfo.dwYSize, &StartupInfo.dwXCountChars);
+  v3 = CTXStringW::ReverseFind((CTXStringW *)&StartupInfo.dwYSize, 0x5Cu);
+  v4 = CTXStringW::Left(&StartupInfo.dwYSize, &StartupInfo.dwY, v3);
+  LOBYTE(v14) = 2;
+  operator+(&StartupInfo.dwX, v4, L"\\QQ.exe");
+  LOBYTE(v14) = 3;
+  CTXStringW::operator=(&StartupInfo.dwYSize);
+  LOBYTE(v14) = 2;
+  CTXStringW::~CTXStringW((CTXStringW *)&StartupInfo.dwX);
+  LOBYTE(v14) = 1;
+  CTXStringW::~CTXStringW((CTXStringW *)&StartupInfo.dwY);
+  memset(CurrentDirectory, 0, 0x44u);
+  *(_DWORD *)CurrentDirectory = 68;
+  memset(&StartupInfo, 0, 0x10u);
+  v5 = CTXStringW::GetLength((CTXStringW *)&a2);
+  v6 = CTXStringW::GetBuffer((CTXStringW *)&a2, v5);
+  v7 = (const WCHAR *)CTXStringW::operator wchar_t const *(&StartupInfo.dwYSize, v6);
+  StartupInfo.dwXSize = CreateProcessW(v7, 0, 0, 0, 0, 0, 0, CurrentDirectory, &StartupInfo, v11);//------------------------------CreateProcessW
+  CTXStringW::ReleaseBuffer((CTXStringW *)&a2, -1);
+  if ( StartupInfo.dwXSize )
+  {
+    CloseHandle((HANDLE)StartupInfo.cb);
+    CloseHandle(StartupInfo.lpReserved);
+  }
+  v8 = (void *)*((_DWORD *)v2 + 6);
+  *((_DWORD *)v2 + 5) = StartupInfo.lpDesktop;
+  CloseHandle(v8);
+  *((_DWORD *)v2 + 6) = OpenProcess(0x1F0FFFu, 0, *((_DWORD *)v2 + 5));//CreateProcess 启动隐藏的外部程序（其实就是CreateDesktop，然后指定STARTUPINFO.lpDesktop）
+  v9 = StartupInfo.cb;
+  LOBYTE(v14) = 0;
+  CTXStringW::~CTXStringW((CTXStringW *)&StartupInfo.dwYSize);
+  CTXStringW::~CTXStringW((CTXStringW *)&a2);
+  return v9;
+}
+
+
+int __thiscall sub_651451B6(void *this, char a2)
+{
+  void *v2; // esi@1
+  HWND v3; // ecx@1
+  HWND v4; // eax@3
+  HWND v5; // ecx@3
+  wchar_t *v6; // eax@5
+  LRESULT v7; // eax@5
+  LRESULT v8; // edi@5
+  HWND v9; // ecx@6
+  HWND v11; // [sp-4h] [bp-30h]@2
+  char v12; // [sp+0h] [bp-2Ch]@2
+  LPARAM lParam; // [sp+Ch] [bp-20h]@5
+  int v14; // [sp+10h] [bp-1Ch]@5
+  int v15; // [sp+14h] [bp-18h]@5
+  HWND hWnd; // [sp+18h] [bp-14h]@2
+  HWND *v17; // [sp+1Ch] [bp-10h]@5
+  int v18; // [sp+28h] [bp-4h]@1
+
+  v2 = this;
+  v18 = 0;
+  if ( !Util::MultiLogin::GetIfLoginProcess() )
+  {
+    v11 = v3;
+    hWnd = (HWND)&v11;
+    CTXStringW::CTXStringW(&v11);
+    *(_DWORD *)&v12 = sub_65145078(&hWnd, v12);
+    LOBYTE(v18) = 1;
+    CTXStringW::operator=(&a2);
+    LOBYTE(v18) = 0;
+    CTXStringW::~CTXStringW((CTXStringW *)&hWnd);
+  }
+  v4 = (HWND)sub_65144628(v2);
+  hWnd = v4;
+  if ( v4 && IsWindow(v4) )
+  {
+    v17 = 0;
+    LOBYTE(v18) = 2;
+    v6 = (wchar_t *)CTXStringW::operator wchar_t const *(&a2, *(_DWORD *)&v12);
+    sub_651447CC(v6);
+    lParam = 1124;
+    v14 = sub_65113406(&v17);
+    v15 = sub_651133E7(&v17);
+    v7 = SendMessageW(hWnd, 0x4Au, 0, (LPARAM)&lParam);
+    ++dword_651CB2FC;
+    v8 = v7;
+    v11 = (HWND)v7;
+    sub_6512F0AC(
+      L"file",
+      223,
+      L"func",
+      2,
+      L"loginpanel",
+      (const char *)L"%s send WM_COPYDATA %d",
+      (unsigned int)L"CProcessMgr::CreateNewQQ");
+    v11 = (HWND)*((_DWORD *)v2 + 6);
+    *((_DWORD *)v2 + 5) = v8;
+    CloseHandle(v11);
+    *((_DWORD *)v2 + 6) = OpenProcess(0x1F0FFFu, 0, *((_DWORD *)v2 + 5));
+    LOBYTE(v18) = 0;
+    if ( v17 )
+    {
+      v9 = *v17;
+      v11 = (HWND)v17;
+      (*((void (__stdcall **)(HWND *))v9 + 2))(v17);
+      v17 = 0;
+    }
+  }
+  else
+  {
+    v11 = v5;
+    v17 = &v11;
+    CTXStringW::CTXStringW(&v11);
+    sub_6514447D((char)v11);
+    v11 = hWnd;
+    sub_6512F0AC(
+      L"file",
+      233,
+      L"func",
+      2,
+      L"loginpanel",
+      (const char *)L"%s CreateQQ by exe QThwnd:%u",
+      L"CProcessMgr::CreateNewQQ",
+      hWnd);
+  }
+  v18 = -1;
+  return CTXStringW::~CTXStringW((CTXStringW *)&a2);
+}
+
+
+
+int __thiscall sub_6512EABB(void *this, char a2)
+{
+  int v2; // edi@1
+  int v3; // eax@3
+  int v4; // eax@4
+  int v5; // ecx@4
+  int v7; // [sp+0h] [bp-2Ch]@4
+  int v8; // [sp+4h] [bp-28h]@4
+  char v9; // [sp+Ch] [bp-20h]@3
+  int *v10; // [sp+10h] [bp-1Ch]@2
+  int v11; // [sp+14h] [bp-18h]@3
+  char v12; // [sp+18h] [bp-14h]@4
+  char v13; // [sp+1Ch] [bp-10h]@3
+  int v14; // [sp+28h] [bp-4h]@1
+
+  v2 = (int)this;
+  v14 = 0;
+  if ( !Util::MultiLogin::GetIfLoginProcess() )
+  {
+    v10 = (int *)(v2 + 1240);
+    if ( CTXBSTR::IsEmpty((CTXBSTR *)(v2 + 1240)) )
+    {
+      v11 = 0;
+      (*(void (__stdcall **)(int, int *))(*(_DWORD *)(v2 + 1168) + 512))(v2 + 1168, &v11);
+      CTXStringW::CTXStringW(&v13);
+      LOBYTE(v14) = 1;
+      sub_651443BF(&v13, v11);
+      v3 = CTXBSTR::CTXBSTR(&v9, &v13);
+      LOBYTE(v14) = 2;
+      CTXBSTR::operator=(v10, v3);
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v9);
+      LOBYTE(v14) = 0;
+      CTXStringW::~CTXStringW((CTXStringW *)&v13);
+    }
+    *(_DWORD *)(v2 + 1340) = GetTickCount();
+    CTXStringW::CTXStringW(&v12);
+    LOBYTE(v14) = 3;
+    CTXStringW::operator wchar_t const *(&unk_651CACC8, v8);
+    v4 = CTXBSTR::operator wchar_t *(v10, 0);
+    CTXStringW::Format((CTXStringW *)&v12, L"/MLogin:%s_%d_%d_%s0000000000000000000000000000000000000000000000000", v4);
+    sub_651442B2(&unk_651CB3E4);
+    v7 = v5;
+    v10 = &v7;
+    CTXStringW::CTXStringW(&v7);
+    sub_651451B6((unsigned int)&v12);
+    LOBYTE(v14) = 0;
+    CTXStringW::~CTXStringW((CTXStringW *)&v12);
+  }
+  v14 = -1;
+  return CTXStringW::~CTXStringW((CTXStringW *)&a2);
+}
+
+
+
+

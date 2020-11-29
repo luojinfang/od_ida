@@ -1,0 +1,11 @@
+.text:30093B32
+.text:30093B32 ; int __stdcall sub_30093B32(int, struct sockaddr *addr, int *addrlen)
+.text:30093B32 sub_30093B32    proc near               ; DATA XREF: .rdata:3017242Co
+.text:30093B32                                         ; .rdata:301748F4o ...
+.text:30093B32
+.text:30093B32 var_10          = dword ptr -10h
+.text:30093B32 var_4           = dword ptr -4
+.text:30093B32 arg_0           = dword ptr  8
+.text:30093B32 addr            = dword ptr  0Ch
+.text:30093B32 addrlen         = dword ptr  10h
+.text:30093B32

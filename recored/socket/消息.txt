@@ -1,0 +1,1049 @@
+再打开一个OD，
+ATTACH新创建的进程。
+断点sendto
+点击登录
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012F150   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012F16C
+0012F154   000003F8     Socket = 3F8
+0012F158   02911354     Data = 02911354
+0012F15C   000000A3     DataSize = A3 (163.)
+0012F160   00000000     Flags = 0
+0012F164   0012F1A4     pTo = 0012F1A4
+0012F168   00000010     ToLength = 10 (16.)
+0012F170   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012F16C
+0012F1C8   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012F1C4
+
+
+
+
+
+
+
+
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012CD94   3407228D   WS2_32.recvfrom                       SSOCommo.34072287             0012CDB0
+0012CD98   000003F8     Socket = 3F8
+0012CD9C   0012CE44     Buffer = 0012CE44
+0012CDA0   00002800     BufSize = 2800 (10240.)
+0012CDA4   00000000     Flags = 0
+0012CDA8   0012CDE8     pFrom = 0012CDE8
+0012CDAC   0012CDE0     pFromLen = 0012CDE0
+0012CDB4   3407210C   包含SSOCommo.3407228D                   SSOCommo.34072109             0012CDB0
+0012CE0C   34079112   ? SSOCommo.340720DC                   SSOCommo.3407910D             0012CE08
+0012F658   34071C16   包含SSOCommo.34079112                   SSOCommo.34071C13             0012F654
+0012F674   34072F01   包含SSOCommo.34071C16                   SSOCommo.34072EFE             0012F670
+0012F68C   34072FC8   SSOCommo.34072DB3                     SSOCommo.34072FC3             0012F688
+0012F6E4   3407312A   SSOCommo.34072F42                     SSOCommo.34073125             0012F6E0
+0012F6EC   77D18734   包含SSOCommo.3407312A                   USER32.77D18731               0012F6E8
+0012F718   77D18816   ? USER32.77D1870C                     USER32.77D18811               0012F714
+0012F780   77D189CD   ? USER32.77D1875F                     USER32.77D189C8               0012F77C
+0012F7E0   77D18A10   ? USER32.77D188F1                     USER32.77D18A0B               0012F7DC
+0012F7F0   69F0652A   ? USER32.DispatchMessageW             HummerEn.69F06524             0012F7EC
+0012F7F4   0012F80C     pMsg = MSG(373) hw = 600F8 (class=
+0012F7FC   69F0633C   ? HummerEn.69F064C3                   HummerEn.69F06337
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012C350   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012C36C
+0012C354   000003F8     Socket = 3F8
+0012C358   0292C014     Data = 0292C014
+0012C35C   00000203     DataSize = 203 (515.)
+0012C360   00000000     Flags = 0
+0012C364   0012C3A4     pTo = 0012C3A4
+0012C368   00000010     ToLength = 10 (16.)
+0012C370   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012C36C
+0012C3C8   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012C3C4
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012F2D8   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012F2F4
+0012F2DC   000004A4     Socket = 4A4
+0012F2E0   02911154     Data = 02911154
+0012F2E4   000000A3     DataSize = A3 (163.)
+0012F2E8   00000000     Flags = 0
+0012F2EC   0012F32C     pTo = 0012F32C
+0012F2F0   00000010     ToLength = 10 (16.)
+0012F2F8   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012F2F4
+0012F350   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012F34C
+
+
+
+
+
+
+
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012CD94   3407228D   WS2_32.recvfrom                       SSOCommo.34072287             0012CDB0
+0012CD98   000003F8     Socket = 3F8
+0012CD9C   0012CE44     Buffer = 0012CE44
+0012CDA0   00002800     BufSize = 2800 (10240.)
+0012CDA4   00000000     Flags = 0
+0012CDA8   0012CDE8     pFrom = 0012CDE8
+0012CDAC   0012CDE0     pFromLen = 0012CDE0
+0012CDB4   3407210C   包含SSOCommo.3407228D                   SSOCommo.34072109             0012CDB0
+0012CE0C   34079112   ? SSOCommo.340720DC                   SSOCommo.3407910D             0012CE08
+0012F658   34071C16   包含SSOCommo.34079112                   SSOCommo.34071C13             0012F654
+0012F674   34072F01   包含SSOCommo.34071C16                   SSOCommo.34072EFE             0012F670
+0012F68C   34072FC8   SSOCommo.34072DB3                     SSOCommo.34072FC3             0012F688
+0012F6E4   3407312A   SSOCommo.34072F42                     SSOCommo.34073125             0012F6E0
+0012F6EC   77D18734   包含SSOCommo.3407312A                   USER32.77D18731               0012F6E8
+0012F718   77D18816   ? USER32.77D1870C                     USER32.77D18811               0012F714
+0012F780   77D189CD   ? USER32.77D1875F                     USER32.77D189C8               0012F77C
+0012F7E0   77D18A10   ? USER32.77D188F1                     USER32.77D18A0B               0012F7DC
+0012F7F0   69F0652A   ? USER32.DispatchMessageW             HummerEn.69F06524             0012F7EC
+0012F7F4   0012F80C     pMsg = MSG(373) hw = 600F8 (class=
+0012F7FC   69F0633C   ? HummerEn.69F064C3                   HummerEn.69F06337
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012C660   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012C67C
+0012C664   000003F8     Socket = 3F8
+0012C668   02910154     Data = 02910154
+0012C66C   00000053     DataSize = 53 (83.)
+0012C670   00000000     Flags = 0
+0012C674   0012C6B4     pTo = 0012C6B4
+0012C678   00000010     ToLength = 10 (16.)
+0012C680   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012C67C
+0012C6D8   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012C6D4
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012C6A0   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012C6BC
+0012C6A4   000003F8     Socket = 3F8
+0012C6A8   02910754     Data = 02910754
+0012C6AC   000000EB     DataSize = EB (235.)
+0012C6B0   00000000     Flags = 0
+0012C6B4   0012C6F4     pTo = 0012C6F4
+0012C6B8   00000010     ToLength = 10 (16.)
+0012C6C0   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012C6BC
+0012C718   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012C714
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012CD94   3407228D   WS2_32.recvfrom                       SSOCommo.34072287             0012CDB0
+0012CD98   000004A4     Socket = 4A4
+0012CD9C   0012CE44     Buffer = 0012CE44
+0012CDA0   00002800     BufSize = 2800 (10240.)
+0012CDA4   00000000     Flags = 0
+0012CDA8   0012CDE8     pFrom = 0012CDE8
+0012CDAC   0012CDE0     pFromLen = 0012CDE0
+0012CDB4   3407210C   包含SSOCommo.3407228D                   SSOCommo.34072109             0012CDB0
+0012CE0C   34079112   ? SSOCommo.340720DC                   SSOCommo.3407910D             0012CE08
+0012F658   34071C16   包含SSOCommo.34079112                   SSOCommo.34071C13             0012F654
+0012F674   34072F01   包含SSOCommo.34071C16                   SSOCommo.34072EFE             0012F670
+0012F68C   34072FC8   SSOCommo.34072DB3                     SSOCommo.34072FC3             0012F688
+0012F6E4   3407312A   SSOCommo.34072F42                     SSOCommo.34073125             0012F6E0
+0012F6EC   77D18734   包含SSOCommo.3407312A                   USER32.77D18731               0012F6E8
+0012F718   77D18816   ? USER32.77D1870C                     USER32.77D18811               0012F714
+0012F780   77D189CD   ? USER32.77D1875F                     USER32.77D189C8               0012F77C
+0012F7E0   77D18A10   ? USER32.77D188F1                     USER32.77D18A0B               0012F7DC
+0012F7F0   69F0652A   ? USER32.DispatchMessageW             HummerEn.69F06524             0012F7EC
+0012F7F4   0012F80C     pMsg = MSG(373) hw = 600F8 (class=
+0012F7FC   69F0633C   ? HummerEn.69F064C3                   HummerEn.69F06337
+
+
+
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012CD94   3407228D   WS2_32.recvfrom                       SSOCommo.34072287             0012CDB0
+0012CD98   000003F8     Socket = 3F8
+0012CD9C   0012CE44     Buffer = 0012CE44
+0012CDA0   00002800     BufSize = 2800 (10240.)
+0012CDA4   00000000     Flags = 0
+0012CDA8   0012CDE8     pFrom = 0012CDE8
+0012CDAC   0012CDE0     pFromLen = 0012CDE0
+0012CDB4   3407210C   包含SSOCommo.3407228D                   SSOCommo.34072109             0012CDB0
+0012CE0C   34079112   ? SSOCommo.340720DC                   SSOCommo.3407910D             0012CE08
+0012F658   34071C16   包含SSOCommo.34079112                   SSOCommo.34071C13             0012F654
+0012F674   34072F01   包含SSOCommo.34071C16                   SSOCommo.34072EFE             0012F670
+0012F68C   34072FC8   SSOCommo.34072DB3                     SSOCommo.34072FC3             0012F688
+0012F6E4   3407312A   SSOCommo.34072F42                     SSOCommo.34073125             0012F6E0
+0012F6EC   77D18734   包含SSOCommo.3407312A                   USER32.77D18731               0012F6E8
+0012F718   77D18816   ? USER32.77D1870C                     USER32.77D18811               0012F714
+0012F780   77D189CD   ? USER32.77D1875F                     USER32.77D189C8               0012F77C
+0012F7E0   77D18A10   ? USER32.77D188F1                     USER32.77D18A0B               0012F7DC
+0012F7F0   69F0652A   ? USER32.DispatchMessageW             HummerEn.69F06524             0012F7EC
+0012F7F4   0012F80C     pMsg = MSG(373) hw = 600F8 (class=
+0012F7FC   69F0633C   ? HummerEn.69F064C3                   HummerEn.69F06337
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012C86C   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012C888
+0012C870   000003F8     Socket = 3F8
+0012C874   02911554     Data = 02911554
+0012C878   000000EB     DataSize = EB (235.)
+0012C87C   00000000     Flags = 0
+0012C880   0012C8C0     pTo = 0012C8C0
+0012C884   00000010     ToLength = 10 (16.)
+0012C88C   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012C888
+0012C8E4   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012C8E0
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012CD94   3407228D   WS2_32.recvfrom                       SSOCommo.34072287             0012CDB0
+0012CD98   000003F8     Socket = 3F8
+0012CD9C   0012CE44     Buffer = 0012CE44
+0012CDA0   00002800     BufSize = 2800 (10240.)
+0012CDA4   00000000     Flags = 0
+0012CDA8   0012CDE8     pFrom = 0012CDE8
+0012CDAC   0012CDE0     pFromLen = 0012CDE0
+0012CDB4   3407210C   包含SSOCommo.3407228D                   SSOCommo.34072109             0012CDB0
+0012CE0C   34079112   ? SSOCommo.340720DC                   SSOCommo.3407910D             0012CE08
+0012F658   34071C16   包含SSOCommo.34079112                   SSOCommo.34071C13             0012F654
+0012F674   34072F01   包含SSOCommo.34071C16                   SSOCommo.34072EFE             0012F670
+0012F68C   34072FC8   SSOCommo.34072DB3                     SSOCommo.34072FC3             0012F688
+0012F6E4   3407312A   SSOCommo.34072F42                     SSOCommo.34073125             0012F6E0
+0012F6EC   77D18734   包含SSOCommo.3407312A                   USER32.77D18731               0012F6E8
+0012F718   77D18816   ? USER32.77D1870C                     USER32.77D18811               0012F714
+0012F780   77D189CD   ? USER32.77D1875F                     USER32.77D189C8               0012F77C
+0012F7E0   77D18A10   ? USER32.77D188F1                     USER32.77D18A0B               0012F7DC
+0012F7F0   69F0652A   ? USER32.DispatchMessageW             HummerEn.69F06524             0012F7EC
+0012F7F4   0012F80C     pMsg = MSG(373) hw = 600F8 (class=
+0012F7FC   69F0633C   ? HummerEn.69F064C3                   HummerEn.69F06337
+
+
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012E2A8   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012E2C4
+0012E2AC   00000394     Socket = 394
+0012E2B0   02911554     Data = 02911554
+0012E2B4   000000A3     DataSize = A3 (163.)
+0012E2B8   00000000     Flags = 0
+0012E2BC   0012E2FC     pTo = 0012E2FC
+0012E2C0   00000010     ToLength = 10 (16.)
+0012E2C8   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012E2C4
+0012E320   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012E31C
+
+
+
+
+
+
+
+
+
+
+
+C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\bin\SSOCommon.dll
+--------------------------------------------- start 
+// 340722AF  => WS2_32.sendto 
+int __thiscall sub_34072291(int this, char *buf, int len, struct sockaddr *to, int tolen, int flags)
+{
+  return sendto(*(_DWORD *)(this + 172), buf, len, flags, to, tolen);
+}
+
+
+
+
+int __thiscall sub_340721A6(void *this, int a2, int a3, unsigned __int16 Short, wchar_t *a5, int a6)
+{
+  const char *v6; // eax@1
+  void *v8; // [sp+Ch] [bp-2Ch]@1
+  int v9; // [sp+10h] [bp-28h]@0
+  char v10; // [sp+14h] [bp-24h]@1
+  __int16 v11; // [sp+18h] [bp-20h]@1
+  unsigned __int16 v12; // [sp+1Ah] [bp-1Eh]@3
+  unsigned __int32 v13; // [sp+1Ch] [bp-1Ch]@2
+  int v14; // [sp+34h] [bp-4h]@1
+
+  v8 = this;
+  memset(&v11, 0, 0x10u);
+  LOBYTE(v9) = 0;
+  CTXStringA::CTXStringA(v9, a5, -1);
+  v14 = 0;
+  v6 = (const char *)CTXStringA::operator char const *(&v10);
+  v11 = 2;
+  if ( v6 )
+  {
+    v13 = inet_addr(v6);
+    if ( v13 == -1 )
+      goto LABEL_5;
+  }
+  else
+  {
+    v13 = _byteswap_ulong(0xFFFFFFFF);
+  }
+  v12 = _byteswap_ushort(Short);
+  (*(void (__stdcall **)(int, int, __int16 *, signed int, int))(*(_DWORD *)v8 + 56))(a2, a3, &v11, 16, a6);  //SSOCommo.34072220  => SSOCommo.340722AF  => WS2_32.sendto
+LABEL_5:
+  v14 = -1;
+  CTXStringA::~CTXStringA((CTXStringA *)&v10);
+  return sub_340C51AA();
+}
+
+----- xrefs   sub_340721A6
+
+int __stdcall sub_340783F4(int a1, wchar_t *a2, __int16 a3, int a4, int a5, int a6)
+{
+  int result; // eax@2
+
+  if ( a6 )
+  {
+    *(_DWORD *)a6 = sub_340721A6((void *)(a1 + 44), a5, a4, a3, a2, 0);
+    result = 0;
+  }
+  else
+  {
+    result = -2147024809;
+  }
+  return result;
+}
+
+
+
+
+size_t __thiscall sub_3407B96B(char *this, int a2, size_t a3, unsigned __int16 Short, wchar_t *a5, int a6)
+{
+  char *v6; // ebx@1
+  size_t v7; // edi@1
+  size_t result; // eax@2
+  const char *v9; // eax@3
+  size_t v10; // ST2C_4@4
+  const void *v11; // eax@4
+  int v12; // esi@4
+  int v13; // esi@6
+  wchar_t *v14; // eax@6
+  int v15; // [sp+14h] [bp-2020h]@6
+  void *v16; // [sp+18h] [bp-201Ch]@1
+  unsigned __int32 v17; // [sp+1Ch] [bp-2018h]@3
+  int v18; // [sp+20h] [bp-2014h]@1
+  int v19; // [sp+24h] [bp-2010h]@3
+  char v20; // [sp+28h] [bp-200Ch]@4
+  char v21; // [sp+29h] [bp-200Bh]@4
+  int v22; // [sp+2030h] [bp-4h]@1
+
+  v6 = this;
+  v16 = (void *)a2;
+  LOBYTE(v18) = 0;
+  CTXStringA::CTXStringA(v18, a5, -1);
+  v7 = a3;
+  v22 = 0;
+  if ( (signed int)(a3 + 10) <= 0x2000 )
+  {
+    LOWORD(v19) = 0;
+    BYTE2(v19) = 0;
+    v9 = (const char *)CTXStringA::operator char const *(&v18);
+    v17 = inet_addr(v9);
+    if ( v17 == -1 )
+    {
+      BYTE3(v19) = 3;
+      v10 = CTXStringA::GetLength((CTXStringA *)&v18);
+      v20 = v10;
+      v11 = (const void *)CTXStringA::operator char const *(&v18);
+      memcpy_0(&v21, v11, v10);
+      v12 = v10 + 5;
+    }
+    else
+    {
+      BYTE3(v19) = 1;
+      memcpy_0(&v20, &v17, 4u);
+      v12 = 8;
+    }
+    v15 = _byteswap_ushort(Short);
+    memcpy_0((char *)&v19 + v12, &v15, 2u);
+    v13 = v12 + 2;
+    memcpy_0((char *)&v19 + v13, v16, a3);
+    v14 = (wchar_t *)CTXStringW::operator wchar_t const *(v6 + 240);
+    if ( sub_340721A6(v6, (int)&v19, a3 + v13, *((_DWORD *)v6 + 61), v14, a6) != a3 + v13 )   //----------------
+      v7 = 0;
+    v22 = -1;
+    CTXStringA::~CTXStringA((CTXStringA *)&v18);
+    result = v7;
+  }
+  else
+  {
+    v22 = -1;
+    CTXStringA::~CTXStringA((CTXStringA *)&v18);
+    result = 0;
+  }
+  return result;
+}
+
+
+
+
+
+
+
+----- udp
+int __thiscall CTXUDPDataSender::CTXUDPDataSender(int this)
+{
+  int v1; // esi@1
+
+  v1 = this;
+  *(_DWORD *)this = &CTXUDPDataSender::`vftable';
+  *(_DWORD *)(this + 4) = 0;
+  CTXBSTR::CTXBSTR((CTXStringW *)(this + 8));
+  *(_WORD *)(v1 + 12) = 0;
+  *(_DWORD *)(v1 + 16) = 0;
+  *(_DWORD *)(v1 + 20) = 0;
+  sub_3406F96F(v1 + 24);
+  *(_DWORD *)(v1 + 36) = 0;
+  sub_3407154B(v1);
+  *(_DWORD *)(*(_DWORD *)(v1 + 44) + 40) = CTXUDPDataSender::OnTimer;
+  return v1;
+}
+
+
+int __thiscall CTXUDPDataSender::SendData(CTXUDPDataSender *this, struct ITXData *a2, int a3, unsigned __int8 *a4, unsigned __int32 *a5)
+{
+  int v5; // esi@1
+  CTXUDPDataSender *v6; // edi@1
+  struct ITXTimerCallback **v7; // ebx@3
+  void *v8; // eax@5
+  int v9; // eax@10
+  char v10; // al@13
+  int v11; // eax@15
+  int result; // eax@18
+  unsigned int v13; // [sp+0h] [bp-1Ch]@0
+  int v14; // [sp+Ch] [bp-10h]@9
+  int v15; // [sp+14h] [bp-8h]@9
+  void *v16; // [sp+18h] [bp-4h]@10
+
+  v5 = 0;
+  v6 = this;
+  if ( a3 > 0 && a4 && (v7 = (struct ITXTimerCallback **)a5) != 0 && CTXUDPDataSender::IsReadyToSendData(this) )
+  {
+    v8 = operator new(0x1Cu);
+    if ( v8 )
+      v5 = sub_34071162(v8);
+    sub_3400DA58((Util::Data *)v5, a4, a3);
+    CTXBSTR::operator=((CTXStringW *)(v5 + 20), (CTXUDPDataSender *)((char *)v6 + 8));
+    *(_WORD *)(v5 + 24) = *((_WORD *)v6 + 6);
+    CTXUDPDataSender::ApplySettings(v6, a2, (struct tagTXUDPPacket *)v5);
+    if ( !*v7 )
+      *v7 = (struct ITXTimerCallback *)CTXUDPDataSender::GetNextCookie();
+    sub_34072A90(&v15, v7);
+    sub_340268FA(*((_DWORD *)v6 + 7), (char *)v6 + 24);
+    if ( !(unsigned __int8)sub_34014105(&v14) )
+    {
+      TXTimer::EraseTimerCallback(*((TXTimer **)v6 + 11), *v7, v13);
+      v9 = sub_3406F4C8(&v15);
+      sub_34071393(v9 + 4);
+      sub_34016A29((int)&v14, v15, v16);
+    }
+    *(_DWORD *)sub_3404BD99(v7) = v5;
+    if ( *((_DWORD *)v6 + 4) )
+    {
+      v10 = *(_BYTE *)(v5 + 16);
+      if ( v10 != -2 )
+        *(_BYTE *)(v5 + 16) = v10 + 1;
+    }
+    else
+    {
+      CTXUDPDataSender::InternalSendData(v6, (struct tagTXUDPPacket *)v5);
+    }
+    v11 = *(_DWORD *)(v5 + 8);
+    if ( v11 )
+    {
+      BYTE3(a3) = 0;
+      (*(void (__stdcall **)(int, _DWORD, char *))(*(_DWORD *)v11 + 32))(v11, 0, (char *)&a3 + 3);
+      TXTimer::SetTimeout((TXTimer *)(1000 * BYTE3(a3)), *((_DWORD *)v6 + 11), *v7, v13);
+    }
+    else
+    {
+      TXTimer::SetInterval(*(TXTimer **)(v5 + 12), *((_DWORD *)v6 + 11), *v7, v13);
+    }
+    result = 1;
+  }
+  else
+  {
+    result = 0;
+  }
+  return result;
+}
+
+
+
+void __thiscall CTXUDPDataSender::SendAllData(CTXUDPDataSender *this)
+{
+  CTXUDPDataSender *v1; // edi@1
+  char *v2; // esi@1
+  int v3; // eax@2
+  char v4; // [sp+8h] [bp-10h]@3
+  char v5; // [sp+10h] [bp-8h]@1
+
+  v1 = this;
+  v2 = (char *)this + 24;
+  sub_34026B93(&v5);
+  sub_340268FA(*((_DWORD *)v2 + 1), v2);
+  while ( !(unsigned __int8)sub_34014105(&v4) )
+  {
+    v3 = *(_DWORD *)(sub_3406F4C8(&v5) + 4);
+    ++*(_BYTE *)(v3 + 17);
+    CTXUDPDataSender::InternalSendData(v1, (struct tagTXUDPPacket *)v3);
+    sub_3403288A(&v5);
+    sub_340268FA(*((_DWORD *)v2 + 1), v2);
+  }
+}
+
+
+
+
+
+----- tcp
+int __thiscall CTXTCPDataSender::CTXTCPDataSender(int this)
+{
+  int v1; // esi@1
+
+  v1 = this;
+  *(_DWORD *)this = &CTXTCPDataSender::`vftable';
+  *(_DWORD *)(this + 4) = 0;
+  *(_DWORD *)(this + 8) = 0;
+  *(_WORD *)(this + 12) = 0;
+  *(_DWORD *)(this + 16) = 0;
+  *(_DWORD *)(this + 20) = 0;
+  sub_3406F96F(this + 24);
+  *(_DWORD *)(v1 + 36) = 0;
+  sub_3406FADF(v1);
+  *(_DWORD *)(*(_DWORD *)(v1 + 44) + 40) = CTXTCPDataSender::OnTimer;
+  return v1;
+}
+
+int __thiscall CTXTCPDataSender::SendData(CTXTCPDataSender *this, struct ITXData *a2, int a3, unsigned __int8 *a4, unsigned __int32 *a5)
+{
+  int v5; // edi@1
+  CTXTCPDataSender *v6; // esi@1
+  struct ITXTimerCallback **v7; // ebx@3
+  void *v8; // eax@5
+  int v9; // eax@10
+  int v10; // eax@13
+  int result; // eax@16
+  unsigned int v12; // [sp+0h] [bp-1Ch]@0
+  int v13; // [sp+Ch] [bp-10h]@9
+  int v14; // [sp+14h] [bp-8h]@9
+  void *v15; // [sp+18h] [bp-4h]@10
+
+  v5 = 0;
+  v6 = this;
+  if ( a3 > 0 && a4 && (v7 = (struct ITXTimerCallback **)a5) != 0 && CTXTCPDataSender::IsReadyToSendData(this) )
+  {
+    v8 = operator new(0x1Cu);
+    if ( v8 )
+      v5 = sub_3406F66F(v8);
+    sub_3400DA58((Util::Data *)v5, a4, a3);
+    unknown_libname_124((char *)v6 + 8);
+    *(_WORD *)(v5 + 24) = *((_WORD *)v6 + 6);
+    CTXTCPDataSender::ApplySettings(v6, a2, (struct tagTXTCPPacket *)v5);
+    if ( !*v7 )
+      *v7 = (struct ITXTimerCallback *)CTXTCPDataSender::GetNextCookie();
+    sub_34072A90(&v14, v7);
+    sub_340268FA(*((_DWORD *)v6 + 7), (char *)v6 + 24);
+    if ( !(unsigned __int8)sub_34014105(&v13) )
+    {
+      TXTimer::EraseTimerCallback(*((TXTimer **)v6 + 11), *v7, v12);
+      v9 = sub_3406F4C8(&v14);
+      sub_3406F922(v9 + 4);
+      sub_34016A29((int)&v13, v14, v15);
+    }
+    *(_DWORD *)sub_3404BD99(v7) = v5;
+    if ( !*((_DWORD *)v6 + 4) )
+      CTXTCPDataSender::InternalSendData(v6, (struct tagTXTCPPacket *)v5);
+    v10 = *(_DWORD *)(v5 + 8);
+    if ( v10 )
+    {
+      BYTE3(a3) = 0;
+      (*(void (__stdcall **)(int, _DWORD, char *))(*(_DWORD *)v10 + 32))(v10, 0, (char *)&a3 + 3);
+      TXTimer::SetTimeout((TXTimer *)(1000 * BYTE3(a3)), *((_DWORD *)v6 + 11), *v7, v12);
+    }
+    else
+    {
+      TXTimer::SetInterval(*(TXTimer **)(v5 + 12), *((_DWORD *)v6 + 11), *v7, v12);
+    }
+    result = 1;
+  }
+  else
+  {
+    result = 0;
+  }
+  return result;
+}
+
+
+
+void __thiscall CTXTCPDataSender::InternalSendData(CTXTCPDataSender *this, struct tagTXTCPPacket *a2)
+{
+  struct tagTXTCPPacket *v2; // ebx@2
+  _DWORD *v3; // edi@5
+  void (__stdcall **v4)(_DWORD, _DWORD, _DWORD, _DWORD); // esi@5
+  int v5; // ST08_4@5
+  int v6; // eax@5
+  CTXTCPDataSender *v7; // [sp+0h] [bp-8h]@1
+  int v8; // [sp+4h] [bp-4h]@2
+
+  v7 = this;
+  if ( *((_DWORD *)this + 1) )
+  {
+    v8 = 0;
+    v2 = a2;
+    if ( *((_BYTE *)a2 + 4) )
+    {
+      while ( 1 )
+      {
+        v3 = (_DWORD *)*((_DWORD *)this + 1);
+        a2 = 0;
+        v4 = (void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD))(*v3 + 12);
+        v5 = sub_3400DADD(v2);
+        v6 = sub_3400DAFC(v2);
+        (*v4)(v3, v6, v5, &a2);
+        if ( ++v8 >= *((_BYTE *)v2 + 4) )
+          break;
+        this = v7;
+      }
+    }
+  }
+}
+
+void __thiscall CTXTCPDataSender::SendAllData(CTXTCPDataSender *this)
+{
+  CTXTCPDataSender *v1; // edi@1
+  char *v2; // esi@1
+  int v3; // eax@2
+  char v4; // [sp+8h] [bp-10h]@3
+  char v5; // [sp+10h] [bp-8h]@1
+
+  v1 = this;
+  v2 = (char *)this + 24;
+  sub_34026B93(&v5);
+  sub_340268FA(*((_DWORD *)v2 + 1), v2);
+  while ( !(unsigned __int8)sub_34014105(&v4) )
+  {
+    v3 = sub_3406F4C8(&v5);
+    CTXTCPDataSender::InternalSendData(v1, *(struct tagTXTCPPacket **)(v3 + 4));
+    sub_3403288A(&v5);
+    sub_340268FA(*((_DWORD *)v2 + 1), v2);
+  }
+}
+
+
+
+
+
+
+---------------------------------------------         end 
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012E2A8   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012E2C4
+0012E2AC   0000040C     Socket = 40C
+0012E2B0   02910D54     Data = 02910D54
+0012E2B4   000000A3     DataSize = A3 (163.)
+0012E2B8   00000000     Flags = 0
+0012E2BC   0012E2FC     pTo = 0012E2FC
+0012E2C0   00000010     ToLength = 10 (16.)
+0012E2C8   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012E2C4
+0012E320   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012E31C
+
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012E2A8   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012E2C4
+0012E2AC   00000434     Socket = 434
+0012E2B0   02911C54     Data = 02911C54
+0012E2B4   000000A3     DataSize = A3 (163.)
+0012E2B8   00000000     Flags = 0
+0012E2BC   0012E2FC     pTo = 0012E2FC
+0012E2C0   00000010     ToLength = 10 (16.)
+0012E2C8   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012E2C4
+0012E320   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012E31C
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012E2A8   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012E2C4
+0012E2AC   00000440     Socket = 440
+0012E2B0   02912054     Data = 02912054
+0012E2B4   000000A3     DataSize = A3 (163.)
+0012E2B8   00000000     Flags = 0
+0012E2BC   0012E2FC     pTo = 0012E2FC
+0012E2C0   00000010     ToLength = 10 (16.)
+0012E2C8   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012E2C4
+0012E320   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012E31C
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012E2A8   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012E2C4
+0012E2AC   0000044C     Socket = 44C
+0012E2B0   02912454     Data = 02912454
+0012E2B4   000000A3     DataSize = A3 (163.)
+0012E2B8   00000000     Flags = 0
+0012E2BC   0012E2FC     pTo = 0012E2FC
+0012E2C0   00000010     ToLength = 10 (16.)
+0012E2C8   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012E2C4
+0012E320   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012E31C
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012E2A8   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012E2C4
+0012E2AC   00000458     Socket = 458
+0012E2B0   02912854     Data = 02912854
+0012E2B4   000000A3     DataSize = A3 (163.)
+0012E2B8   00000000     Flags = 0
+0012E2BC   0012E2FC     pTo = 0012E2FC
+0012E2C0   00000010     ToLength = 10 (16.)
+0012E2C8   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012E2C4
+0012E320   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012E31C
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012E2A8   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012E2C4
+0012E2AC   00000458     Socket = 458
+0012E2B0   02912854     Data = 02912854
+0012E2B4   000000A3     DataSize = A3 (163.)
+0012E2B8   00000000     Flags = 0
+0012E2BC   0012E2FC     pTo = 0012E2FC
+0012E2C0   00000010     ToLength = 10 (16.)
+0012E2C8   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012E2C4
+0012E320   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012E31C
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012E2A8   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012E2C4
+0012E2AC   00000464     Socket = 464
+0012E2B0   02912C54     Data = 02912C54
+0012E2B4   000000A3     DataSize = A3 (163.)
+0012E2B8   00000000     Flags = 0
+0012E2BC   0012E2FC     pTo = 0012E2FC
+0012E2C0   00000010     ToLength = 10 (16.)
+0012E2C8   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012E2C4
+0012E320   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012E31C
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012E2A8   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012E2C4
+0012E2AC   00000470     Socket = 470
+0012E2B0   02913054     Data = 02913054
+0012E2B4   000000A3     DataSize = A3 (163.)
+0012E2B8   00000000     Flags = 0
+0012E2BC   0012E2FC     pTo = 0012E2FC
+0012E2C0   00000010     ToLength = 10 (16.)
+0012E2C8   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012E2C4
+0012E320   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012E31C
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012EDD8   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012EDF4
+0012EDDC   000003F8     Socket = 3F8
+0012EDE0   02913654     Data = 02913654
+0012EDE4   000000FB     DataSize = FB (251.)
+0012EDE8   00000000     Flags = 0
+0012EDEC   0012EE2C     pTo = 0012EE2C
+0012EDF0   00000010     ToLength = 10 (16.)
+0012EDF8   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012EDF4
+0012EE50   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012EE4C
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012CD94   3407228D   WS2_32.recvfrom                       SSOCommo.34072287             0012CDB0
+0012CD98   00000394     Socket = 394
+0012CD9C   0012CE44     Buffer = 0012CE44
+0012CDA0   00002800     BufSize = 2800 (10240.)
+0012CDA4   00000000     Flags = 0
+0012CDA8   0012CDE8     pFrom = 0012CDE8
+0012CDAC   0012CDE0     pFromLen = 0012CDE0
+0012CDB4   3407210C   包含SSOCommo.3407228D                   SSOCommo.34072109             0012CDB0
+0012CE0C   34079112   ? SSOCommo.340720DC                   SSOCommo.3407910D             0012CE08
+0012F658   34071C16   包含SSOCommo.34079112                   SSOCommo.34071C13             0012F654
+0012F674   34072F01   包含SSOCommo.34071C16                   SSOCommo.34072EFE             0012F670
+0012F68C   34072FC8   SSOCommo.34072DB3                     SSOCommo.34072FC3             0012F688
+0012F6E4   3407312A   SSOCommo.34072F42                     SSOCommo.34073125             0012F6E0
+0012F6EC   77D18734   包含SSOCommo.3407312A                   USER32.77D18731               0012F6E8
+0012F718   77D18816   ? USER32.77D1870C                     USER32.77D18811               0012F714
+0012F780   77D189CD   ? USER32.77D1875F                     USER32.77D189C8               0012F77C
+0012F7E0   77D18A10   ? USER32.77D188F1                     USER32.77D18A0B               0012F7DC
+0012F7F0   69F0652A   ? USER32.DispatchMessageW             HummerEn.69F06524             0012F7EC
+0012F7F4   0012F80C     pMsg = MSG(373) hw = 600F8 (class=
+0012F7FC   69F0633C   ? HummerEn.69F064C3                   HummerEn.69F06337
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012C6D0   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012C6EC
+0012C6D4   00000394     Socket = 394
+0012C6D8   02913A54     Data = 02913A54
+0012C6DC   000000A3     DataSize = A3 (163.)
+0012C6E0   00000000     Flags = 0
+0012C6E4   0012C724     pTo = 0012C724
+0012C6E8   00000010     ToLength = 10 (16.)
+0012C6F0   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012C6EC
+0012C748   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012C744
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012CD94   3407228D   WS2_32.recvfrom                       SSOCommo.34072287             0012CDB0
+0012CD98   0000040C     Socket = 40C
+0012CD9C   0012CE44     Buffer = 0012CE44
+0012CDA0   00002800     BufSize = 2800 (10240.)
+0012CDA4   00000000     Flags = 0
+0012CDA8   0012CDE8     pFrom = 0012CDE8
+0012CDAC   0012CDE0     pFromLen = 0012CDE0
+0012CDB4   3407210C   包含SSOCommo.3407228D                   SSOCommo.34072109             0012CDB0
+0012CE0C   34079112   ? SSOCommo.340720DC                   SSOCommo.3407910D             0012CE08
+0012F658   34071C16   包含SSOCommo.34079112                   SSOCommo.34071C13             0012F654
+0012F674   34072F01   包含SSOCommo.34071C16                   SSOCommo.34072EFE             0012F670
+0012F68C   34072FC8   SSOCommo.34072DB3                     SSOCommo.34072FC3             0012F688
+0012F6E4   3407312A   SSOCommo.34072F42                     SSOCommo.34073125             0012F6E0
+0012F6EC   77D18734   包含SSOCommo.3407312A                   USER32.77D18731               0012F6E8
+0012F718   77D18816   ? USER32.77D1870C                     USER32.77D18811               0012F714
+0012F780   77D189CD   ? USER32.77D1875F                     USER32.77D189C8               0012F77C
+0012F7E0   77D18A10   ? USER32.77D188F1                     USER32.77D18A0B               0012F7DC
+0012F7F0   69F0652A   ? USER32.DispatchMessageW             HummerEn.69F06524             0012F7EC
+0012F7F4   0012F80C     pMsg = MSG(373) hw = 600F8 (class=
+0012F7FC   69F0633C   ? HummerEn.69F064C3                   HummerEn.69F06337
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012CD94   3407228D   WS2_32.recvfrom                       SSOCommo.34072287             0012CDB0
+0012CD98   00000434     Socket = 434
+0012CD9C   0012CE44     Buffer = 0012CE44
+0012CDA0   00002800     BufSize = 2800 (10240.)
+0012CDA4   00000000     Flags = 0
+0012CDA8   0012CDE8     pFrom = 0012CDE8
+0012CDAC   0012CDE0     pFromLen = 0012CDE0
+0012CDB4   3407210C   包含SSOCommo.3407228D                   SSOCommo.34072109             0012CDB0
+0012CE0C   34079112   ? SSOCommo.340720DC                   SSOCommo.3407910D             0012CE08
+0012F658   34071C16   包含SSOCommo.34079112                   SSOCommo.34071C13             0012F654
+0012F674   34072F01   包含SSOCommo.34071C16                   SSOCommo.34072EFE             0012F670
+0012F68C   34072FC8   SSOCommo.34072DB3                     SSOCommo.34072FC3             0012F688
+0012F6E4   3407312A   SSOCommo.34072F42                     SSOCommo.34073125             0012F6E0
+0012F6EC   77D18734   包含SSOCommo.3407312A                   USER32.77D18731               0012F6E8
+0012F718   77D18816   ? USER32.77D1870C                     USER32.77D18811               0012F714
+0012F780   77D189CD   ? USER32.77D1875F                     USER32.77D189C8               0012F77C
+0012F7E0   77D18A10   ? USER32.77D188F1                     USER32.77D18A0B               0012F7DC
+0012F7F0   69F0652A   ? USER32.DispatchMessageW             HummerEn.69F06524             0012F7EC
+0012F7F4   0012F80C     pMsg = MSG(373) hw = 600F8 (class=
+0012F7FC   69F0633C   ? HummerEn.69F064C3                   HummerEn.69F06337
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012C6D0   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012C6EC
+0012C6D4   00000434     Socket = 434
+0012C6D8   02910754     Data = 02910754
+0012C6DC   000000A3     DataSize = A3 (163.)
+0012C6E0   00000000     Flags = 0
+0012C6E4   0012C724     pTo = 0012C724
+0012C6E8   00000010     ToLength = 10 (16.)
+0012C6F0   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012C6EC
+0012C748   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012C744
+
+
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012CD94   3407228D   WS2_32.recvfrom                       SSOCommo.34072287             0012CDB0
+0012CD98   00000440     Socket = 440
+0012CD9C   0012CE44     Buffer = 0012CE44
+0012CDA0   00002800     BufSize = 2800 (10240.)
+0012CDA4   00000000     Flags = 0
+0012CDA8   0012CDE8     pFrom = 0012CDE8
+0012CDAC   0012CDE0     pFromLen = 0012CDE0
+0012CDB4   3407210C   包含SSOCommo.3407228D                   SSOCommo.34072109             0012CDB0
+0012CE0C   34079112   ? SSOCommo.340720DC                   SSOCommo.3407910D             0012CE08
+0012F658   34071C16   包含SSOCommo.34079112                   SSOCommo.34071C13             0012F654
+0012F674   34072F01   包含SSOCommo.34071C16                   SSOCommo.34072EFE             0012F670
+0012F68C   34072FC8   SSOCommo.34072DB3                     SSOCommo.34072FC3             0012F688
+0012F6E4   3407312A   SSOCommo.34072F42                     SSOCommo.34073125             0012F6E0
+0012F6EC   77D18734   包含SSOCommo.3407312A                   USER32.77D18731               0012F6E8
+0012F718   77D18816   ? USER32.77D1870C                     USER32.77D18811               0012F714
+0012F780   77D189CD   ? USER32.77D1875F                     USER32.77D189C8               0012F77C
+0012F7E0   77D18A10   ? USER32.77D188F1                     USER32.77D18A0B               0012F7DC
+0012F7F0   69F0652A   ? USER32.DispatchMessageW             HummerEn.69F06524             0012F7EC
+0012F7F4   0012F80C     pMsg = MSG(373) hw = 600F8 (class=
+0012F7FC   69F0633C   ? HummerEn.69F064C3                   HummerEn.69F06337
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012C6D0   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012C6EC
+0012C6D4   00000440     Socket = 440
+0012C6D8   02911554     Data = 02911554
+0012C6DC   000000A3     DataSize = A3 (163.)
+0012C6E0   00000000     Flags = 0
+0012C6E4   0012C724     pTo = 0012C724
+0012C6E8   00000010     ToLength = 10 (16.)
+0012C6F0   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012C6EC
+0012C748   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012C744
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012CD94   3407228D   WS2_32.recvfrom                       SSOCommo.34072287             0012CDB0
+0012CD98   0000044C     Socket = 44C
+0012CD9C   0012CE44     Buffer = 0012CE44
+0012CDA0   00002800     BufSize = 2800 (10240.)
+0012CDA4   00000000     Flags = 0
+0012CDA8   0012CDE8     pFrom = 0012CDE8
+0012CDAC   0012CDE0     pFromLen = 0012CDE0
+0012CDB4   3407210C   包含SSOCommo.3407228D                   SSOCommo.34072109             0012CDB0
+0012CE0C   34079112   ? SSOCommo.340720DC                   SSOCommo.3407910D             0012CE08
+0012F658   34071C16   包含SSOCommo.34079112                   SSOCommo.34071C13             0012F654
+0012F674   34072F01   包含SSOCommo.34071C16                   SSOCommo.34072EFE             0012F670
+0012F68C   34072FC8   SSOCommo.34072DB3                     SSOCommo.34072FC3             0012F688
+0012F6E4   3407312A   SSOCommo.34072F42                     SSOCommo.34073125             0012F6E0
+0012F6EC   77D18734   包含SSOCommo.3407312A                   USER32.77D18731               0012F6E8
+0012F718   77D18816   ? USER32.77D1870C                     USER32.77D18811               0012F714
+0012F780   77D189CD   ? USER32.77D1875F                     USER32.77D189C8               0012F77C
+0012F7E0   77D18A10   ? USER32.77D188F1                     USER32.77D18A0B               0012F7DC
+0012F7F0   69F0652A   ? USER32.DispatchMessageW             HummerEn.69F06524             0012F7EC
+0012F7F4   0012F80C     pMsg = MSG(373) hw = 600F8 (class=
+0012F7FC   69F0633C   ? HummerEn.69F064C3                   HummerEn.69F06337
+
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012C6D0   340722AF   WS2_32.sendto                         SSOCommo.340722A9             0012C6EC
+0012C6D4   0000044C     Socket = 44C
+0012C6D8   02911C54     Data = 02911C54
+0012C6DC   000000A3     DataSize = A3 (163.)
+0012C6E0   00000000     Flags = 0
+0012C6E4   0012C724     pTo = 0012C724
+0012C6E8   00000010     ToLength = 10 (16.)
+0012C6F0   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012C6EC
+0012C748   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012C744
+
+
+
+
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012CD94   3407228D   WS2_32.recvfrom                       SSOCommo.34072287             0012CDB0
+0012CD98   00000458     Socket = 458
+0012CD9C   0012CE44     Buffer = 0012CE44
+0012CDA0   00002800     BufSize = 2800 (10240.)
+0012CDA4   00000000     Flags = 0
+0012CDA8   0012CDE8     pFrom = 0012CDE8
+0012CDAC   0012CDE0     pFromLen = 0012CDE0
+0012CDB4   3407210C   包含SSOCommo.3407228D                   SSOCommo.34072109             0012CDB0
+0012CE0C   34079112   ? SSOCommo.340720DC                   SSOCommo.3407910D             0012CE08
+0012F658   34071C16   包含SSOCommo.34079112                   SSOCommo.34071C13             0012F654
+0012F674   34072F01   包含SSOCommo.34071C16                   SSOCommo.34072EFE             0012F670
+0012F68C   34072FC8   SSOCommo.34072DB3                     SSOCommo.34072FC3             0012F688
+0012F6E4   3407312A   SSOCommo.34072F42                     SSOCommo.34073125             0012F6E0
+0012F6EC   77D18734   包含SSOCommo.3407312A                   USER32.77D18731               0012F6E8
+0012F718   77D18816   ? USER32.77D1870C                     USER32.77D18811               0012F714
+0012F780   77D189CD   ? USER32.77D1875F                     USER32.77D189C8               0012F77C
+0012F7E0   77D18A10   ? USER32.77D188F1                     USER32.77D18A0B               0012F7DC
+0012F7F0   69F0652A   ? USER32.DispatchMessageW             HummerEn.69F06524             0012F7EC
+0012F7F4   0012F80C     pMsg = MSG(373) hw = 600F8 (class=
+0012F7FC   69F0633C   ? HummerEn.69F064C3                   HummerEn.69F06337
+
+
+
+
+

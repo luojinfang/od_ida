@@ -1,0 +1,1164 @@
+Log data
+地址       消息
+76B10000   Module C:\WINDOWS.0\system32\winmm.dll
+73AF0000   Module C:\WINDOWS.0\system32\avicap32.dll
+77BD0000   Module C:\WINDOWS.0\system32\version.dll
+73B40000   Module C:\WINDOWS.0\system32\msvfw32.dll
+7D590000   Module C:\WINDOWS.0\system32\shell32.dll
+76060000   Module C:\WINDOWS.0\system32\setupapi.dll
+76D30000   Module C:\WINDOWS.0\system32\iphlpapi.dll
+68D60000   Module C:\WINDOWS.0\system32\dbghelp.dll
+11100000   Module C:\Program Files\Tencent\QQIntl\Bin\tinyxml.dll
+7C420000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\msvcp80.dll
+76320000   Module C:\WINDOWS.0\system32\comdlg32.dll
+76C00000   Module C:\WINDOWS.0\system32\wintrust.dll
+76C60000   Module C:\WINDOWS.0\system32\imagehlp.dll
+5FDD0000   Module C:\WINDOWS.0\system32\netapi32.dll
+76EB0000   Module C:\WINDOWS.0\system32\rasapi32.dll
+76E60000   Module C:\WINDOWS.0\system32\rasman.dll
+76E80000   Module C:\WINDOWS.0\system32\tapi32.dll
+76E50000   Module C:\WINDOWS.0\system32\rtutils.dll
+31800000   Module C:\Program Files\Tencent\QQIntl\Bin\KernelUtil.dll
+11200000   Module C:\Program Files\Tencent\QQIntl\Bin\xImage.dll
+11300000   Module C:\Program Files\Tencent\QQIntl\Bin\libpng.dll
+11400000   Module C:\Program Files\Tencent\QQIntl\Bin\libjpegturbo.dll
+30800000   Module C:\Program Files\Tencent\QQIntl\Bin\GF.dll
+32100000   Module C:\Program Files\Tencent\QQIntl\Bin\xGraphic32.dll
+762F0000   Module C:\WINDOWS.0\system32\msimg32.dll
+12200000   Module C:\Program Files\Tencent\QQIntl\Bin\arkGraphic.dll
+11500000   Module C:\Program Files\Tencent\QQIntl\Bin\jgImage.dll
+10000000   Module C:\Program Files\Tencent\QQIntl\Bin\arkIOStub.dll
+00A30000   Module C:\Program Files\Tencent\QQIntl\Bin\lua.dll
+74BE0000   Module C:\WINDOWS.0\system32\oleacc.dll
+60B30000   Module C:\Program Files\Tencent\QQIntl\Bin\msvcp60.dll
+75C60000   Module C:\WINDOWS.0\system32\urlmon.dll
+68800000   Module C:\Program Files\Tencent\QQIntl\Bin\AFBase.dll
+61210000   Module C:\Program Files\Tencent\QQIntl\Bin\AppUtil.dll
+00A90000   Module C:\Program Files\Tencent\QQIntl\Bin\AFUtil.dll
+01640000   Module C:\Program Files\Tencent\QQIntl\Bin\IPC.dll
+67000000   Module C:\Program Files\Tencent\QQIntl\Bin\FlashService.dll
+4AE90000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22509_x-ww_c7dad023\GdiPlus.dll
+76BC0000   Module C:\WINDOWS.0\system32\psapi.dll
+76F20000   Module C:\WINDOWS.0\system32\wtsapi32.dll
+762D0000   Module C:\WINDOWS.0\system32\winsta.dll
+73640000   Module C:\WINDOWS.0\system32\MSCTFIME.IME
+7C8106E9   ID 000000F4 的新线程已创建
+67400000   Module C:\Program Files\Tencent\QQIntl\Bin\AppMisc.dll
+11E00000   Module C:\Program Files\Tencent\QQIntl\Bin\UtilGif.dll
+65700000   Module C:\Program Files\Tencent\QQIntl\Bin\AFCtrl.dll
+11800000   Module C:\Program Files\Tencent\QQIntl\Bin\ProcessSession.dll
+65100000   Module C:\Program Files\Tencent\QQIntl\Bin\LoginPanel.dll
+76FA0000   Module C:\WINDOWS.0\system32\clbcatq.dll
+77020000   Module C:\WINDOWS.0\system32\comres.dll
+74CF0000   Module C:\WINDOWS.0\system32\mlang.dll
+39700000   Module C:\Program Files\Tencent\QQIntl\Bin\RICHED20.DLL
+01BD0000   Module C:\Program Files\Tencent\QQIntl\Bin\PreloginLogic.dll
+65138D04   断点位于 LoginPan.65138D04
+00400000   卸载 C:\Program Files\Tencent\QQIntl\Bin\QQ.exe
+00A30000   卸载 C:\Program Files\Tencent\QQIntl\Bin\lua.dll
+00A90000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AFUtil.dll
+01640000   卸载 C:\Program Files\Tencent\QQIntl\Bin\IPC.dll
+01BD0000   卸载 C:\Program Files\Tencent\QQIntl\Bin\PreloginLogic.dll
+10000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\arkIOStub.dll
+11000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\libexpatw.dll
+11100000   卸载 C:\Program Files\Tencent\QQIntl\Bin\tinyxml.dll
+11200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\xImage.dll
+11300000   卸载 C:\Program Files\Tencent\QQIntl\Bin\libpng.dll
+11400000   卸载 C:\Program Files\Tencent\QQIntl\Bin\libjpegturbo.dll
+11500000   卸载 C:\Program Files\Tencent\QQIntl\Bin\jgImage.dll
+11800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\ProcessSession.dll
+11E00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\UtilGif.dll
+11F00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\zlib.dll
+12200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\arkGraphic.dll
+30000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\Common.dll
+30800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\GF.dll
+31800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\KernelUtil.dll
+32100000   卸载 C:\Program Files\Tencent\QQIntl\Bin\xGraphic32.dll
+39700000   卸载 C:\Program Files\Tencent\QQIntl\Bin\RICHED20.DLL
+4AE90000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22509_x-ww_c7dad023\GdiPlus.dll
+5FDD0000   卸载 C:\WINDOWS.0\system32\netapi32.dll
+60B30000   卸载 C:\Program Files\Tencent\QQIntl\Bin\msvcp60.dll
+61210000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AppUtil.dll
+62C20000   卸载 C:\WINDOWS.0\system32\lpk.dll
+65100000   卸载 C:\Program Files\Tencent\QQIntl\Bin\LoginPanel.dll
+65700000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AFCtrl.dll
+67000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\FlashService.dll
+67400000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AppMisc.dll
+68800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AFBase.dll
+68D60000   卸载 C:\WINDOWS.0\system32\dbghelp.dll
+69F00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\HummerEngine.dll
+71A10000   卸载 C:\WINDOWS.0\system32\ws2help.dll
+71A20000   卸载 C:\WINDOWS.0\system32\ws2_32.dll
+73640000   卸载 C:\WINDOWS.0\system32\MSCTFIME.IME
+73AF0000   卸载 C:\WINDOWS.0\system32\avicap32.dll
+73B40000   卸载 C:\WINDOWS.0\system32\msvfw32.dll
+73FA0000   卸载 C:\WINDOWS.0\system32\usp10.dll
+74680000   卸载 C:\WINDOWS.0\system32\MSCTF.dll
+74BE0000   卸载 C:\WINDOWS.0\system32\oleacc.dll
+74CF0000   卸载 C:\WINDOWS.0\system32\mlang.dll
+75C60000   卸载 C:\WINDOWS.0\system32\urlmon.dll
+76060000   卸载 C:\WINDOWS.0\system32\setupapi.dll
+762D0000   卸载 C:\WINDOWS.0\system32\winsta.dll
+762F0000   卸载 C:\WINDOWS.0\system32\msimg32.dll
+76300000   卸载 C:\WINDOWS.0\system32\imm32.dll
+76320000   卸载 C:\WINDOWS.0\system32\comdlg32.dll
+765E0000   卸载 C:\WINDOWS.0\system32\crypt32.dll
+76680000   卸载 C:\WINDOWS.0\system32\wininet.dll
+76990000   卸载 C:\WINDOWS.0\system32\ole32.dll
+76B10000   卸载 C:\WINDOWS.0\system32\winmm.dll
+76BC0000   卸载 C:\WINDOWS.0\system32\psapi.dll
+76C00000   卸载 C:\WINDOWS.0\system32\wintrust.dll
+76C60000   卸载 C:\WINDOWS.0\system32\imagehlp.dll
+76D30000   卸载 C:\WINDOWS.0\system32\iphlpapi.dll
+76DB0000   卸载 C:\WINDOWS.0\system32\msasn1.dll
+76E50000   卸载 C:\WINDOWS.0\system32\rtutils.dll
+76E60000   卸载 C:\WINDOWS.0\system32\rasman.dll
+76E80000   卸载 C:\WINDOWS.0\system32\tapi32.dll
+76EB0000   卸载 C:\WINDOWS.0\system32\rasapi32.dll
+76F20000   卸载 C:\WINDOWS.0\system32\wtsapi32.dll
+76FA0000   卸载 C:\WINDOWS.0\system32\clbcatq.dll
+77020000   卸载 C:\WINDOWS.0\system32\comres.dll
+770F0000   卸载 C:\WINDOWS.0\system32\oleaut32.dll
+77180000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\comctl32.dll
+77BD0000   卸载 C:\WINDOWS.0\system32\version.dll
+77BE0000   卸载 C:\WINDOWS.0\system32\msvcrt.dll
+77D10000   卸载 C:\WINDOWS.0\system32\USER32.dll
+77DA0000   卸载 C:\WINDOWS.0\system32\ADVAPI32.dll
+77E50000   卸载 C:\WINDOWS.0\system32\RPCRT4.dll
+77EF0000   卸载 C:\WINDOWS.0\system32\GDI32.dll
+77F40000   卸载 C:\WINDOWS.0\system32\shlwapi.dll
+77FC0000   卸载 C:\WINDOWS.0\system32\Secur32.dll
+78130000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\MSVCR80.dll
+7C420000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\msvcp80.dll
+7C630000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_473666fd\ATL80.DLL
+7C800000   卸载 C:\WINDOWS.0\system32\kernel32.dll
+7C920000   卸载 C:\WINDOWS.0\system32\ntdll.dll
+7D590000   卸载 C:\WINDOWS.0\system32\shell32.dll
+           进程已终止
+
+           文件 'C:\Program Files\Tencent\QQIntl\Bin\QQ.exe'
+           ID 00000EBC 的新进程已创建
+00401BFB   ID 00000E84 的主线程已创建
+00400000   Module C:\Program Files\Tencent\QQIntl\Bin\QQ.exe
+76990000   Module C:\WINDOWS.0\system32\ole32.dll
+77BE0000   Module C:\WINDOWS.0\system32\msvcrt.dll
+77D10000   Module C:\WINDOWS.0\system32\USER32.dll
+77DA0000   Module C:\WINDOWS.0\system32\ADVAPI32.dll
+77E50000   Module C:\WINDOWS.0\system32\RPCRT4.dll
+77EF0000   Module C:\WINDOWS.0\system32\GDI32.dll
+77FC0000   Module C:\WINDOWS.0\system32\Secur32.dll
+78130000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\MSVCR80.dll
+7C630000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_473666fd\ATL80.DLL
+7C800000   Module C:\WINDOWS.0\system32\kernel32.dll
+7C920000   Module C:\WINDOWS.0\system32\ntdll.dll
+76300000   Module C:\WINDOWS.0\system32\imm32.dll
+62C20000   Module C:\WINDOWS.0\system32\lpk.dll
+73FA0000   Module C:\WINDOWS.0\system32\usp10.dll
+00401BFB   程序入口点
+74680000   Module C:\WINDOWS.0\system32\MSCTF.dll
+69F00000   Module C:\Program Files\Tencent\QQIntl\Bin\HummerEngine.dll
+77180000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\comctl32.dll
+77F40000   Module C:\WINDOWS.0\system32\shlwapi.dll
+30000000   Module C:\Program Files\Tencent\QQIntl\Bin\Common.dll
+11F00000   Module C:\Program Files\Tencent\QQIntl\Bin\zlib.dll
+11000000   Module C:\Program Files\Tencent\QQIntl\Bin\libexpatw.dll
+71A20000   Module C:\WINDOWS.0\system32\ws2_32.dll
+71A10000   Module C:\WINDOWS.0\system32\ws2help.dll
+76680000   Module C:\WINDOWS.0\system32\wininet.dll
+765E0000   Module C:\WINDOWS.0\system32\crypt32.dll
+76DB0000   Module C:\WINDOWS.0\system32\msasn1.dll
+770F0000   Module C:\WINDOWS.0\system32\oleaut32.dll
+76B10000   Module C:\WINDOWS.0\system32\winmm.dll
+73AF0000   Module C:\WINDOWS.0\system32\avicap32.dll
+77BD0000   Module C:\WINDOWS.0\system32\version.dll
+73B40000   Module C:\WINDOWS.0\system32\msvfw32.dll
+7D590000   Module C:\WINDOWS.0\system32\shell32.dll
+76060000   Module C:\WINDOWS.0\system32\setupapi.dll
+76D30000   Module C:\WINDOWS.0\system32\iphlpapi.dll
+68D60000   Module C:\WINDOWS.0\system32\dbghelp.dll
+11100000   Module C:\Program Files\Tencent\QQIntl\Bin\tinyxml.dll
+7C420000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\msvcp80.dll
+76320000   Module C:\WINDOWS.0\system32\comdlg32.dll
+76C00000   Module C:\WINDOWS.0\system32\wintrust.dll
+76C60000   Module C:\WINDOWS.0\system32\imagehlp.dll
+5FDD0000   Module C:\WINDOWS.0\system32\netapi32.dll
+76EB0000   Module C:\WINDOWS.0\system32\rasapi32.dll
+76E60000   Module C:\WINDOWS.0\system32\rasman.dll
+76E80000   Module C:\WINDOWS.0\system32\tapi32.dll
+76E50000   Module C:\WINDOWS.0\system32\rtutils.dll
+31800000   Module C:\Program Files\Tencent\QQIntl\Bin\KernelUtil.dll
+11200000   Module C:\Program Files\Tencent\QQIntl\Bin\xImage.dll
+11300000   Module C:\Program Files\Tencent\QQIntl\Bin\libpng.dll
+11400000   Module C:\Program Files\Tencent\QQIntl\Bin\libjpegturbo.dll
+30800000   Module C:\Program Files\Tencent\QQIntl\Bin\GF.dll
+32100000   Module C:\Program Files\Tencent\QQIntl\Bin\xGraphic32.dll
+762F0000   Module C:\WINDOWS.0\system32\msimg32.dll
+12200000   Module C:\Program Files\Tencent\QQIntl\Bin\arkGraphic.dll
+11500000   Module C:\Program Files\Tencent\QQIntl\Bin\jgImage.dll
+10000000   Module C:\Program Files\Tencent\QQIntl\Bin\arkIOStub.dll
+00A30000   Module C:\Program Files\Tencent\QQIntl\Bin\lua.dll
+74BE0000   Module C:\WINDOWS.0\system32\oleacc.dll
+60B30000   Module C:\Program Files\Tencent\QQIntl\Bin\msvcp60.dll
+75C60000   Module C:\WINDOWS.0\system32\urlmon.dll
+68800000   Module C:\Program Files\Tencent\QQIntl\Bin\AFBase.dll
+61210000   Module C:\Program Files\Tencent\QQIntl\Bin\AppUtil.dll
+00A90000   Module C:\Program Files\Tencent\QQIntl\Bin\AFUtil.dll
+01640000   Module C:\Program Files\Tencent\QQIntl\Bin\IPC.dll
+67000000   Module C:\Program Files\Tencent\QQIntl\Bin\FlashService.dll
+4AE90000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22509_x-ww_c7dad023\GdiPlus.dll
+76BC0000   Module C:\WINDOWS.0\system32\psapi.dll
+76F20000   Module C:\WINDOWS.0\system32\wtsapi32.dll
+762D0000   Module C:\WINDOWS.0\system32\winsta.dll
+73640000   Module C:\WINDOWS.0\system32\MSCTFIME.IME
+7C8106E9   ID 00000768 的新线程已创建
+67400000   Module C:\Program Files\Tencent\QQIntl\Bin\AppMisc.dll
+11E00000   Module C:\Program Files\Tencent\QQIntl\Bin\UtilGif.dll
+65700000   Module C:\Program Files\Tencent\QQIntl\Bin\AFCtrl.dll
+11800000   Module C:\Program Files\Tencent\QQIntl\Bin\ProcessSession.dll
+65100000   Module C:\Program Files\Tencent\QQIntl\Bin\LoginPanel.dll
+76FA0000   Module C:\WINDOWS.0\system32\clbcatq.dll
+77020000   Module C:\WINDOWS.0\system32\comres.dll
+74CF0000   Module C:\WINDOWS.0\system32\mlang.dll
+39700000   Module C:\Program Files\Tencent\QQIntl\Bin\RICHED20.DLL
+01BD0000   Module C:\Program Files\Tencent\QQIntl\Bin\PreloginLogic.dll
+65138D04   断点位于 LoginPan.65138D04
+65137916   断点位于 LoginPan.65137916
+34300000   Module C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\bin\SSOPlatform.dll
+34000000   Module C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\bin\SSOCommon.dll
+62000000   Module C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll
+7C8106E9   ID 0000010C 的新线程已创建
+66200000   Module C:\Program Files\Tencent\QQIntl\Bin\AppFramework.dll
+68000000   Module C:\WINDOWS.0\system32\rsaenh.dll
+           线程 0000010C 已终止, 退出代码 0
+7C8106E9   ID 00000490 的新线程已创建
+           线程 00000490 已终止, 退出代码 0
+7C8106E9   ID 00000F4C 的新线程已创建
+7C8106E9   ID 00000F14 的新线程已创建
+02830000   Module C:\WINDOWS.0\system32\xpsp2res.dll
+7C8106E9   ID 00000EA4 的新线程已创建
+7C8106E9   ID 00000F5C 的新线程已创建
+32000000   Module C:\Program Files\Tencent\QQIntl\Bin\TXPFProxy.dll
+7C8106E9   ID 00000A90 的新线程已创建
+7C8106E9   ID 00000280 的新线程已创建
+719C0000   Module C:\WINDOWS.0\system32\mswsock.dll
+61C00000   Module C:\Program Files\Tencent\QQIntl\Bin\MainFrame.dll
+76EF0000   Module C:\WINDOWS.0\system32\dnsapi.dll
+76F90000   Module C:\WINDOWS.0\system32\rasadhlp.dll
+           线程 00000280 已终止, 退出代码 1
+02FA0000   Module C:\Program Files\Tencent\QQIntl\Bin\IM.dll
+69200000   Module C:\Program Files\Tencent\QQIntl\Bin\SkinMgr.dll
+61700000   Module C:\Program Files\Tencent\QQIntl\Bin\ConfigCenter.dll
+67200000   Module C:\Program Files\Tencent\QQIntl\Bin\SystemMsg.dll
+64C00000   Module C:\Program Files\Tencent\QQIntl\Bin\ChatFrameApp.dll
+36300000   Module C:\Program Files\Tencent\QQIntl\Bin\PluginCommon.dll
+36000000   Module C:\Program Files\Tencent\QQIntl\Bin\GroupApp.dll
+67C00000   Module C:\Program Files\Tencent\QQIntl\Bin\QInterLive.dll
+64600000   Module C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.VAS\bin\VAS.dll
+66600000   Module C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.WBlog\Bin\WBlog.dll
+63D00000   Module C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.Qzone\Bin\Qzone.dll
+64A00000   Module C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.Wireless\Bin\Wireless.dll
+01710000   Module C:\Program Files\Tencent\QQIntl\Bin\xplatformex.dll
+69800000   Module C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.AudioVideo\bin\AudioVideo.dll
+17700000   Module C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.AudioVideo\bin\xplatform.dll
+6A100000   Module C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.FileTransfer\Bin\FileTransfer.dll
+7C8106E9   ID 00000878 的新线程已创建
+60FD0000   Module C:\WINDOWS.0\system32\hnetcfg.dll
+71A00000   Module C:\WINDOWS.0\system32\wshtcpip.dll
+7C8106E9   ID 00000748 的新线程已创建
+5ADC0000   Module C:\WINDOWS.0\system32\uxtheme.dll
+           线程 00000F5C 已终止, 退出代码 0
+           线程 00000748 已终止, 退出代码 0
+00400000   卸载 C:\Program Files\Tencent\QQIntl\Bin\QQ.exe
+00A30000   卸载 C:\Program Files\Tencent\QQIntl\Bin\lua.dll
+00A90000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AFUtil.dll
+01640000   卸载 C:\Program Files\Tencent\QQIntl\Bin\IPC.dll
+01710000   卸载 C:\Program Files\Tencent\QQIntl\Bin\xplatformex.dll
+01BD0000   卸载 C:\Program Files\Tencent\QQIntl\Bin\PreloginLogic.dll
+02830000   卸载 C:\WINDOWS.0\system32\xpsp2res.dll
+02FA0000   卸载 C:\Program Files\Tencent\QQIntl\Bin\IM.dll
+10000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\arkIOStub.dll
+11000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\libexpatw.dll
+11100000   卸载 C:\Program Files\Tencent\QQIntl\Bin\tinyxml.dll
+11200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\xImage.dll
+11300000   卸载 C:\Program Files\Tencent\QQIntl\Bin\libpng.dll
+11400000   卸载 C:\Program Files\Tencent\QQIntl\Bin\libjpegturbo.dll
+11500000   卸载 C:\Program Files\Tencent\QQIntl\Bin\jgImage.dll
+11800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\ProcessSession.dll
+11E00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\UtilGif.dll
+11F00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\zlib.dll
+12200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\arkGraphic.dll
+17700000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.AudioVideo\bin\xplatform.dll
+30000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\Common.dll
+30800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\GF.dll
+31800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\KernelUtil.dll
+32000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\TXPFProxy.dll
+32100000   卸载 C:\Program Files\Tencent\QQIntl\Bin\xGraphic32.dll
+34000000   卸载 C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\bin\SSOCommon.dll
+34300000   卸载 C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\bin\SSOPlatform.dll
+36000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\GroupApp.dll
+36300000   卸载 C:\Program Files\Tencent\QQIntl\Bin\PluginCommon.dll
+39700000   卸载 C:\Program Files\Tencent\QQIntl\Bin\RICHED20.DLL
+4AE90000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22509_x-ww_c7dad023\GdiPlus.dll
+5ADC0000   卸载 C:\WINDOWS.0\system32\uxtheme.dll
+5FDD0000   卸载 C:\WINDOWS.0\system32\netapi32.dll
+60B30000   卸载 C:\Program Files\Tencent\QQIntl\Bin\msvcp60.dll
+60FD0000   卸载 C:\WINDOWS.0\system32\hnetcfg.dll
+61210000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AppUtil.dll
+61700000   卸载 C:\Program Files\Tencent\QQIntl\Bin\ConfigCenter.dll
+61C00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\MainFrame.dll
+62000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll
+62C20000   卸载 C:\WINDOWS.0\system32\lpk.dll
+63D00000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.Qzone\Bin\Qzone.dll
+64600000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.VAS\bin\VAS.dll
+64A00000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.Wireless\Bin\Wireless.dll
+64C00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\ChatFrameApp.dll
+65100000   卸载 C:\Program Files\Tencent\QQIntl\Bin\LoginPanel.dll
+65700000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AFCtrl.dll
+66200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AppFramework.dll
+66600000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.WBlog\Bin\WBlog.dll
+67000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\FlashService.dll
+67200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\SystemMsg.dll
+67400000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AppMisc.dll
+67C00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\QInterLive.dll
+68000000   卸载 C:\WINDOWS.0\system32\rsaenh.dll
+68800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AFBase.dll
+68D60000   卸载 C:\WINDOWS.0\system32\dbghelp.dll
+69200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\SkinMgr.dll
+69800000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.AudioVideo\bin\AudioVideo.dll
+69F00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\HummerEngine.dll
+6A100000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.FileTransfer\Bin\FileTransfer.dll
+719C0000   卸载 C:\WINDOWS.0\system32\mswsock.dll
+71A00000   卸载 C:\WINDOWS.0\system32\wshtcpip.dll
+71A10000   卸载 C:\WINDOWS.0\system32\ws2help.dll
+71A20000   卸载 C:\WINDOWS.0\system32\ws2_32.dll
+73640000   卸载 C:\WINDOWS.0\system32\MSCTFIME.IME
+73AF0000   卸载 C:\WINDOWS.0\system32\avicap32.dll
+73B40000   卸载 C:\WINDOWS.0\system32\msvfw32.dll
+73FA0000   卸载 C:\WINDOWS.0\system32\usp10.dll
+74680000   卸载 C:\WINDOWS.0\system32\MSCTF.dll
+74BE0000   卸载 C:\WINDOWS.0\system32\oleacc.dll
+74CF0000   卸载 C:\WINDOWS.0\system32\mlang.dll
+75C60000   卸载 C:\WINDOWS.0\system32\urlmon.dll
+76060000   卸载 C:\WINDOWS.0\system32\setupapi.dll
+762D0000   卸载 C:\WINDOWS.0\system32\winsta.dll
+762F0000   卸载 C:\WINDOWS.0\system32\msimg32.dll
+76300000   卸载 C:\WINDOWS.0\system32\imm32.dll
+76320000   卸载 C:\WINDOWS.0\system32\comdlg32.dll
+765E0000   卸载 C:\WINDOWS.0\system32\crypt32.dll
+76680000   卸载 C:\WINDOWS.0\system32\wininet.dll
+76990000   卸载 C:\WINDOWS.0\system32\ole32.dll
+76B10000   卸载 C:\WINDOWS.0\system32\winmm.dll
+76BC0000   卸载 C:\WINDOWS.0\system32\psapi.dll
+76C00000   卸载 C:\WINDOWS.0\system32\wintrust.dll
+76C60000   卸载 C:\WINDOWS.0\system32\imagehlp.dll
+76D30000   卸载 C:\WINDOWS.0\system32\iphlpapi.dll
+76DB0000   卸载 C:\WINDOWS.0\system32\msasn1.dll
+76E50000   卸载 C:\WINDOWS.0\system32\rtutils.dll
+76E60000   卸载 C:\WINDOWS.0\system32\rasman.dll
+76E80000   卸载 C:\WINDOWS.0\system32\tapi32.dll
+76EB0000   卸载 C:\WINDOWS.0\system32\rasapi32.dll
+76EF0000   卸载 C:\WINDOWS.0\system32\dnsapi.dll
+76F20000   卸载 C:\WINDOWS.0\system32\wtsapi32.dll
+76F90000   卸载 C:\WINDOWS.0\system32\rasadhlp.dll
+76FA0000   卸载 C:\WINDOWS.0\system32\clbcatq.dll
+77020000   卸载 C:\WINDOWS.0\system32\comres.dll
+770F0000   卸载 C:\WINDOWS.0\system32\oleaut32.dll
+77180000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\comctl32.dll
+77BD0000   卸载 C:\WINDOWS.0\system32\version.dll
+77BE0000   卸载 C:\WINDOWS.0\system32\msvcrt.dll
+77D10000   卸载 C:\WINDOWS.0\system32\USER32.dll
+77DA0000   卸载 C:\WINDOWS.0\system32\ADVAPI32.dll
+77E50000   卸载 C:\WINDOWS.0\system32\RPCRT4.dll
+77EF0000   卸载 C:\WINDOWS.0\system32\GDI32.dll
+77F40000   卸载 C:\WINDOWS.0\system32\shlwapi.dll
+77FC0000   卸载 C:\WINDOWS.0\system32\Secur32.dll
+78130000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\MSVCR80.dll
+7C420000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\msvcp80.dll
+7C630000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_473666fd\ATL80.DLL
+7C800000   卸载 C:\WINDOWS.0\system32\kernel32.dll
+7C920000   卸载 C:\WINDOWS.0\system32\ntdll.dll
+7D590000   卸载 C:\WINDOWS.0\system32\shell32.dll
+           进程已终止
+           文件 'C:\Program Files\Tencent\QQIntl\Bin\QQ.exe'
+           ID 000008BC 的新进程已创建
+           ID 00000A20 的主线程已创建
+7C8106E9   ID 000000B4 的新线程已创建
+7C8106E9   ID 00000A30 的新线程已创建
+7C8106E9   ID 00000994 的新线程已创建
+7C8106E9   ID 00000B40 的新线程已创建
+7C8106E9   ID 00000B44 的新线程已创建
+7C8106E9   ID 00000B60 的新线程已创建
+7C8106E9   ID 0000094C 的新线程已创建
+7C8106E9   ID 00000AF8 的新线程已创建
+7C8106E9   ID 00000C28 的新线程已创建
+7C8106E9   ID 00000B54 的新线程已创建
+7C8106E9   ID 00000BB8 的新线程已创建
+7C8106E9   ID 00000AC0 的新线程已创建
+7C8106E9   ID 00000AA8 的新线程已创建
+7C8106E9   ID 00000AA4 的新线程已创建
+7C8106E9   ID 00000B48 的新线程已创建
+7C8106E9   ID 00000BE8 的新线程已创建
+7C8106E9   ID 00000B18 的新线程已创建
+7C8106E9   ID 00000B08 的新线程已创建
+7C8106E9   ID 00000EC0 的新线程已创建
+7C8106E9   ID 00000E08 的新线程已创建
+7C96FFE3   ID 00000F40 的新线程已创建
+00400000   Module C:\Program Files\Tencent\QQIntl\Bin\QQ.exe
+00A20000   Module C:\Program Files\Tencent\QQIntl\Bin\lua.dll
+00A80000   Module C:\Program Files\Tencent\QQIntl\Bin\AFUtil.dll
+01640000   Module C:\Program Files\Tencent\QQIntl\Bin\IPC.dll
+01C30000   Module C:\Program Files\Tencent\QQIntl\Bin\PreloginLogic.dll
+022E0000   Module C:\WINDOWS.0\system32\xpsp2res.dll
+02E50000   Module C:\Program Files\Tencent\QQIntl\Bin\IM.dll
+0DA80000   Module C:\Program Files\Tencent\QQIntl\Bin\xplatformex.dll
+10000000   Module C:\Program Files\Tencent\QQIntl\Bin\arkIOStub.dll
+11000000   Module C:\Program Files\Tencent\QQIntl\Bin\libexpatw.dll
+11020000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.vas\Bin\TRCloudInputLib.dll
+11100000   Module C:\Program Files\Tencent\QQIntl\Bin\tinyxml.dll
+11200000   Module C:\Program Files\Tencent\QQIntl\Bin\xImage.dll
+11300000   Module C:\Program Files\Tencent\QQIntl\Bin\libpng.dll
+11400000   Module C:\Program Files\Tencent\QQIntl\Bin\libjpegturbo.dll
+11500000   Module C:\Program Files\Tencent\QQIntl\Bin\jgImage.dll
+11800000   Module C:\Program Files\Tencent\QQIntl\Bin\ProcessSession.DLL
+11E00000   Module C:\Program Files\Tencent\QQIntl\Bin\UtilGif.dll
+11F00000   Module C:\Program Files\Tencent\QQIntl\Bin\zlib.dll
+12200000   Module C:\Program Files\Tencent\QQIntl\Bin\arkGraphic.dll
+12660000   Module C:\Program Files\Tencent\QQIntl\Bin\CustomFace.dll
+14040000   Module C:\Program Files\Tencent\QQIntl\Bin\AdvVideoDev.dll
+15130000   Module C:\Program Files\Tencent\QQIntl\Bin\SCCore.dll
+17700000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.audiovideo\Bin\xplatform.dll
+20000000   Module C:\WINDOWS.0\system32\xpsp3res.dll
+30000000   Module C:\Program Files\Tencent\QQIntl\Bin\Common.dll
+30800000   Module C:\Program Files\Tencent\QQIntl\Bin\GF.dll
+31800000   Module C:\Program Files\Tencent\QQIntl\Bin\KernelUtil.dll
+31C00000   Module C:\Program Files\Tencent\QQIntl\Bin\LongCnn.dll
+32000000   Module C:\Program Files\Tencent\QQIntl\Bin\TXPFProxy.dll
+32100000   Module C:\Program Files\Tencent\QQIntl\Bin\xGraphic32.dll
+33B00000   Module C:\Program Files\Tencent\QQIntl\Bin\KernelMisc.dll
+34000000   Module C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\Bin\SSOCommon.DLL
+34300000   Module C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\Bin\SSOPlatform.dll
+36000000   Module C:\Program Files\Tencent\QQIntl\Bin\GroupApp.dll
+36300000   Module C:\Program Files\Tencent\QQIntl\Bin\PluginCommon.dll
+39700000   Module C:\Program Files\Tencent\QQIntl\Bin\RICHED20.dll
+4AE90000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22509_x-ww_c7dad023\gdiplus.dll
+5ADC0000   Module C:\WINDOWS.0\system32\UxTheme.dll
+5DD50000   Module C:\WINDOWS.0\system32\msxml3.dll
+5FDD0000   Module C:\WINDOWS.0\system32\NETAPI32.dll
+60B30000   Module C:\Program Files\Tencent\QQIntl\Bin\MSVCP60.dll
+60FD0000   Module C:\WINDOWS.0\system32\hnetcfg.dll
+61210000   Module C:\Program Files\Tencent\QQIntl\Bin\AppUtil.dll
+613D0000   Module C:\Program Files\Tencent\QQIntl\Bin\Camera.dll
+61700000   Module C:\Program Files\Tencent\QQIntl\Bin\ConfigCenter.dll
+61900000   Module C:\Program Files\Tencent\QQIntl\Bin\ContactInfoFrame.dll
+61BE0000   Module C:\WINDOWS.0\system32\MFC42LOC.DLL
+61C00000   Module C:\Program Files\Tencent\QQIntl\Bin\MainFrame.dll
+62000000   Module C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll
+62700000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.mail\Bin\Mail.dll
+62900000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.memo\Bin\Memo.dll
+62C20000   Module C:\WINDOWS.0\system32\LPK.DLL
+63D00000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.qzone\Bin\Qzone.dll
+63F00000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.snsapp\Bin\SNSApp.dll
+64600000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.vas\Bin\VAS.dll
+64700000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.weather\Bin\Weather.dll
+64900000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.winks\Bin\Winks.dll
+64A00000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wireless\Bin\Wireless.dll
+64C00000   Module C:\Program Files\Tencent\QQIntl\Bin\ChatFrameApp.dll
+64F00000   Module C:\Program Files\Tencent\QQIntl\Bin\InformationBox.dll
+65100000   Module C:\Program Files\Tencent\QQIntl\Bin\LoginPanel.dll
+65300000   Module C:\Program Files\Tencent\QQIntl\Bin\MsgMgr.dll
+65700000   Module C:\Program Files\Tencent\QQIntl\Bin\AFCtrl.dll
+66200000   Module C:\Program Files\Tencent\QQIntl\Bin\AppFramework.dll
+66600000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBlog.dll
+67000000   Module C:\Program Files\Tencent\QQIntl\Bin\FlashService.dll
+67200000   Module C:\Program Files\Tencent\QQIntl\Bin\SystemMsg.dll
+67400000   Module C:\Program Files\Tencent\QQIntl\Bin\AppMisc.dll
+67C00000   Module C:\Program Files\Tencent\QQIntl\Bin\QInterLive.dll
+68000000   Module C:\WINDOWS.0\system32\rsaenh.dll
+68800000   Module C:\Program Files\Tencent\QQIntl\Bin\AFBase.DLL
+68D60000   Module C:\WINDOWS.0\system32\dbghelp.dll
+69200000   Module C:\Program Files\Tencent\QQIntl\Bin\SkinMgr.dll
+69800000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.audiovideo\Bin\AudioVideo.dll
+69F00000   Module C:\Program Files\Tencent\QQIntl\Bin\HummerEngine.dll
+6A100000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.filetransfer\Bin\FileTransfer.dll
+6A700000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBKernel.dll
+6A900000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBMisc.dll
+71800000   Module C:\WINDOWS.0\system32\shdoclc.dll
+719C0000   Module C:\WINDOWS.0\System32\mswsock.dll
+71A00000   Module C:\WINDOWS.0\System32\wshtcpip.dll
+71A10000   Module C:\WINDOWS.0\system32\WS2HELP.dll
+71A20000   Module C:\WINDOWS.0\system32\WS2_32.dll
+71A40000   Module C:\WINDOWS.0\system32\wsock32.dll
+71B70000   Module C:\WINDOWS.0\system32\SAMLIB.dll
+72240000   Module C:\WINDOWS.0\system32\sensapi.dll
+73620000   Module C:\WINDOWS.0\system32\msdmo.dll
+73640000   Module C:\WINDOWS.0\system32\msctfime.ime
+73900000   Module C:\WINDOWS.0\system32\JIPIN.IME
+73AF0000   Module C:\WINDOWS.0\system32\AVICAP32.dll
+73B40000   Module C:\WINDOWS.0\system32\MSVFW32.dll
+73D30000   Module C:\WINDOWS.0\system32\MFC42.DLL
+73FA0000   Module C:\WINDOWS.0\system32\USP10.dll
+74620000   Module C:\WINDOWS.0\system32\msls31.dll
+74650000   Module C:\WINDOWS.0\system32\msimtf.dll
+74680000   Module C:\WINDOWS.0\system32\MSCTF.dll
+74BE0000   Module C:\WINDOWS.0\system32\OLEACC.dll
+74CF0000   Module C:\WINDOWS.0\system32\mlang.dll
+75430000   Module C:\WINDOWS.0\system32\CRYPTUI.dll
+759D0000   Module C:\WINDOWS.0\system32\USERENV.dll
+75AF0000   Module C:\WINDOWS.0\system32\devenum.dll
+75BC0000   Module C:\WINDOWS.0\system32\jscript.dll
+75C60000   Module C:\WINDOWS.0\system32\urlmon.dll
+75E00000   Module C:\WINDOWS.0\system32\SXS.DLL
+76060000   Module C:\WINDOWS.0\system32\SETUPAPI.dll
+762D0000   Module C:\WINDOWS.0\system32\WINSTA.dll
+762F0000   Module C:\WINDOWS.0\system32\MSIMG32.dll
+76300000   Module C:\WINDOWS.0\system32\IMM32.DLL
+76320000   Module C:\WINDOWS.0\system32\comdlg32.dll
+765E0000   Module C:\WINDOWS.0\system32\CRYPT32.dll
+76680000   Module C:\WINDOWS.0\system32\WININET.dll
+76990000   Module C:\WINDOWS.0\system32\ole32.dll
+76AF0000   Module C:\WINDOWS.0\system32\ATL.DLL
+76B10000   Module C:\WINDOWS.0\system32\WINMM.dll
+76BC0000   Module C:\WINDOWS.0\system32\PSAPI.DLL
+76C00000   Module C:\WINDOWS.0\system32\WINTRUST.dll
+76C60000   Module C:\WINDOWS.0\system32\IMAGEHLP.dll
+76D10000   Module C:\WINDOWS.0\system32\MPRAPI.dll
+76D30000   Module C:\WINDOWS.0\system32\iphlpapi.dll
+76D70000   Module C:\WINDOWS.0\system32\apphelp.dll
+76DB0000   Module C:\WINDOWS.0\system32\MSASN1.dll
+76DE0000   Module C:\WINDOWS.0\system32\adsldpc.dll
+76E50000   Module C:\WINDOWS.0\system32\rtutils.dll
+76E60000   Module C:\WINDOWS.0\system32\rasman.dll
+76E80000   Module C:\WINDOWS.0\system32\TAPI32.dll
+76EB0000   Module C:\WINDOWS.0\system32\RASAPI32.dll
+76EF0000   Module C:\WINDOWS.0\system32\DNSAPI.dll
+76F20000   Module C:\WINDOWS.0\system32\WTSAPI32.dll
+76F30000   Module C:\WINDOWS.0\system32\WLDAP32.dll
+76F80000   Module C:\WINDOWS.0\System32\winrnr.dll
+76F90000   Module C:\WINDOWS.0\system32\rasadhlp.dll
+76FA0000   Module C:\WINDOWS.0\system32\CLBCATQ.DLL
+77020000   Module C:\WINDOWS.0\system32\COMRes.dll
+770F0000   Module C:\WINDOWS.0\system32\OLEAUT32.dll
+77180000   Module C:\WINDOWS.0\WinSxS\X86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\COMCTL32.dll
+77BD0000   Module C:\WINDOWS.0\system32\VERSION.dll
+77BE0000   Module C:\WINDOWS.0\system32\msvcrt.dll
+77C90000   Module C:\WINDOWS.0\system32\ACTIVEDS.dll
+77D10000   Module C:\WINDOWS.0\system32\USER32.dll
+77DA0000   Module C:\WINDOWS.0\system32\ADVAPI32.dll
+77E50000   Module C:\WINDOWS.0\system32\RPCRT4.dll
+77EF0000   Module C:\WINDOWS.0\system32\GDI32.dll
+77F40000   Module C:\WINDOWS.0\system32\SHLWAPI.dll
+77FC0000   Module C:\WINDOWS.0\system32\Secur32.dll
+78130000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\MSVCR80.dll
+7C420000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\MSVCP80.dll
+7C630000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_473666fd\ATL80.DLL
+7C800000   Module C:\WINDOWS.0\system32\kernel32.dll
+7C920000   Module C:\WINDOWS.0\system32\ntdll.dll
+7D590000   Module C:\WINDOWS.0\system32\SHELL32.dll
+7E210000   Module C:\WINDOWS.0\system32\mshtml.dll
+7E550000   Module C:\WINDOWS.0\system32\shdocvw.dll
+7C92120E   附加的进程暂停于 ntdll.DbgBreakPoint
+           线程 00000F40 已终止, 退出代码 0
+00400000   卸载 C:\Program Files\Tencent\QQIntl\Bin\QQ.exe
+00A20000   卸载 C:\Program Files\Tencent\QQIntl\Bin\lua.dll
+00A80000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AFUtil.dll
+01640000   卸载 C:\Program Files\Tencent\QQIntl\Bin\IPC.dll
+01C30000   卸载 C:\Program Files\Tencent\QQIntl\Bin\PreloginLogic.dll
+022E0000   卸载 C:\WINDOWS.0\system32\xpsp2res.dll
+02E50000   卸载 C:\Program Files\Tencent\QQIntl\Bin\IM.dll
+0DA80000   卸载 C:\Program Files\Tencent\QQIntl\Bin\xplatformex.dll
+10000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\arkIOStub.dll
+11000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\libexpatw.dll
+11020000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.vas\Bin\TRCloudInputLib.dll
+11100000   卸载 C:\Program Files\Tencent\QQIntl\Bin\tinyxml.dll
+11200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\xImage.dll
+11300000   卸载 C:\Program Files\Tencent\QQIntl\Bin\libpng.dll
+11400000   卸载 C:\Program Files\Tencent\QQIntl\Bin\libjpegturbo.dll
+11500000   卸载 C:\Program Files\Tencent\QQIntl\Bin\jgImage.dll
+11800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\ProcessSession.DLL
+11E00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\UtilGif.dll
+11F00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\zlib.dll
+12200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\arkGraphic.dll
+12660000   卸载 C:\Program Files\Tencent\QQIntl\Bin\CustomFace.dll
+14040000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AdvVideoDev.dll
+15130000   卸载 C:\Program Files\Tencent\QQIntl\Bin\SCCore.dll
+17700000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.audiovideo\Bin\xplatform.dll
+20000000   卸载 C:\WINDOWS.0\system32\xpsp3res.dll
+30000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\Common.dll
+30800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\GF.dll
+31800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\KernelUtil.dll
+31C00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\LongCnn.dll
+32000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\TXPFProxy.dll
+32100000   卸载 C:\Program Files\Tencent\QQIntl\Bin\xGraphic32.dll
+33B00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\KernelMisc.dll
+34000000   卸载 C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\Bin\SSOCommon.DLL
+34300000   卸载 C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\Bin\SSOPlatform.dll
+36000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\GroupApp.dll
+36300000   卸载 C:\Program Files\Tencent\QQIntl\Bin\PluginCommon.dll
+39700000   卸载 C:\Program Files\Tencent\QQIntl\Bin\RICHED20.dll
+4AE90000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22509_x-ww_c7dad023\gdiplus.dll
+5ADC0000   卸载 C:\WINDOWS.0\system32\UxTheme.dll
+5DD50000   卸载 C:\WINDOWS.0\system32\msxml3.dll
+5FDD0000   卸载 C:\WINDOWS.0\system32\NETAPI32.dll
+60B30000   卸载 C:\Program Files\Tencent\QQIntl\Bin\MSVCP60.dll
+60FD0000   卸载 C:\WINDOWS.0\system32\hnetcfg.dll
+61210000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AppUtil.dll
+613D0000   卸载 C:\Program Files\Tencent\QQIntl\Bin\Camera.dll
+61700000   卸载 C:\Program Files\Tencent\QQIntl\Bin\ConfigCenter.dll
+61900000   卸载 C:\Program Files\Tencent\QQIntl\Bin\ContactInfoFrame.dll
+61BE0000   卸载 C:\WINDOWS.0\system32\MFC42LOC.DLL
+61C00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\MainFrame.dll
+62000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll
+62700000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.mail\Bin\Mail.dll
+62900000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.memo\Bin\Memo.dll
+62C20000   卸载 C:\WINDOWS.0\system32\LPK.DLL
+63D00000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.qzone\Bin\Qzone.dll
+63F00000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.snsapp\Bin\SNSApp.dll
+64600000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.vas\Bin\VAS.dll
+64700000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.weather\Bin\Weather.dll
+64900000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.winks\Bin\Winks.dll
+64A00000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wireless\Bin\Wireless.dll
+64C00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\ChatFrameApp.dll
+64F00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\InformationBox.dll
+65100000   卸载 C:\Program Files\Tencent\QQIntl\Bin\LoginPanel.dll
+65300000   卸载 C:\Program Files\Tencent\QQIntl\Bin\MsgMgr.dll
+65700000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AFCtrl.dll
+66200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AppFramework.dll
+66600000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBlog.dll
+67000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\FlashService.dll
+67200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\SystemMsg.dll
+67400000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AppMisc.dll
+67C00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\QInterLive.dll
+68000000   卸载 C:\WINDOWS.0\system32\rsaenh.dll
+68800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AFBase.DLL
+68D60000   卸载 C:\WINDOWS.0\system32\dbghelp.dll
+69200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\SkinMgr.dll
+69800000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.audiovideo\Bin\AudioVideo.dll
+69F00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\HummerEngine.dll
+6A100000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.filetransfer\Bin\FileTransfer.dll
+6A700000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBKernel.dll
+6A900000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBMisc.dll
+71800000   卸载 C:\WINDOWS.0\system32\shdoclc.dll
+719C0000   卸载 C:\WINDOWS.0\System32\mswsock.dll
+71A00000   卸载 C:\WINDOWS.0\System32\wshtcpip.dll
+71A10000   卸载 C:\WINDOWS.0\system32\WS2HELP.dll
+71A20000   卸载 C:\WINDOWS.0\system32\WS2_32.dll
+71A40000   卸载 C:\WINDOWS.0\system32\wsock32.dll
+71B70000   卸载 C:\WINDOWS.0\system32\SAMLIB.dll
+72240000   卸载 C:\WINDOWS.0\system32\sensapi.dll
+73620000   卸载 C:\WINDOWS.0\system32\msdmo.dll
+73640000   卸载 C:\WINDOWS.0\system32\msctfime.ime
+73900000   卸载 C:\WINDOWS.0\system32\JIPIN.IME
+73AF0000   卸载 C:\WINDOWS.0\system32\AVICAP32.dll
+73B40000   卸载 C:\WINDOWS.0\system32\MSVFW32.dll
+73D30000   卸载 C:\WINDOWS.0\system32\MFC42.DLL
+73FA0000   卸载 C:\WINDOWS.0\system32\USP10.dll
+74620000   卸载 C:\WINDOWS.0\system32\msls31.dll
+74650000   卸载 C:\WINDOWS.0\system32\msimtf.dll
+74680000   卸载 C:\WINDOWS.0\system32\MSCTF.dll
+74BE0000   卸载 C:\WINDOWS.0\system32\OLEACC.dll
+74CF0000   卸载 C:\WINDOWS.0\system32\mlang.dll
+75430000   卸载 C:\WINDOWS.0\system32\CRYPTUI.dll
+759D0000   卸载 C:\WINDOWS.0\system32\USERENV.dll
+75AF0000   卸载 C:\WINDOWS.0\system32\devenum.dll
+75BC0000   卸载 C:\WINDOWS.0\system32\jscript.dll
+75C60000   卸载 C:\WINDOWS.0\system32\urlmon.dll
+75E00000   卸载 C:\WINDOWS.0\system32\SXS.DLL
+76060000   卸载 C:\WINDOWS.0\system32\SETUPAPI.dll
+762D0000   卸载 C:\WINDOWS.0\system32\WINSTA.dll
+762F0000   卸载 C:\WINDOWS.0\system32\MSIMG32.dll
+76300000   卸载 C:\WINDOWS.0\system32\IMM32.DLL
+76320000   卸载 C:\WINDOWS.0\system32\comdlg32.dll
+765E0000   卸载 C:\WINDOWS.0\system32\CRYPT32.dll
+76680000   卸载 C:\WINDOWS.0\system32\WININET.dll
+76990000   卸载 C:\WINDOWS.0\system32\ole32.dll
+76AF0000   卸载 C:\WINDOWS.0\system32\ATL.DLL
+76B10000   卸载 C:\WINDOWS.0\system32\WINMM.dll
+76BC0000   卸载 C:\WINDOWS.0\system32\PSAPI.DLL
+76C00000   卸载 C:\WINDOWS.0\system32\WINTRUST.dll
+76C60000   卸载 C:\WINDOWS.0\system32\IMAGEHLP.dll
+76D10000   卸载 C:\WINDOWS.0\system32\MPRAPI.dll
+76D30000   卸载 C:\WINDOWS.0\system32\iphlpapi.dll
+76D70000   卸载 C:\WINDOWS.0\system32\apphelp.dll
+76DB0000   卸载 C:\WINDOWS.0\system32\MSASN1.dll
+76DE0000   卸载 C:\WINDOWS.0\system32\adsldpc.dll
+76E50000   卸载 C:\WINDOWS.0\system32\rtutils.dll
+76E60000   卸载 C:\WINDOWS.0\system32\rasman.dll
+76E80000   卸载 C:\WINDOWS.0\system32\TAPI32.dll
+76EB0000   卸载 C:\WINDOWS.0\system32\RASAPI32.dll
+76EF0000   卸载 C:\WINDOWS.0\system32\DNSAPI.dll
+76F20000   卸载 C:\WINDOWS.0\system32\WTSAPI32.dll
+76F30000   卸载 C:\WINDOWS.0\system32\WLDAP32.dll
+76F80000   卸载 C:\WINDOWS.0\System32\winrnr.dll
+76F90000   卸载 C:\WINDOWS.0\system32\rasadhlp.dll
+76FA0000   卸载 C:\WINDOWS.0\system32\CLBCATQ.DLL
+77020000   卸载 C:\WINDOWS.0\system32\COMRes.dll
+770F0000   卸载 C:\WINDOWS.0\system32\OLEAUT32.dll
+77180000   卸载 C:\WINDOWS.0\WinSxS\X86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\COMCTL32.dll
+77BD0000   卸载 C:\WINDOWS.0\system32\VERSION.dll
+77BE0000   卸载 C:\WINDOWS.0\system32\msvcrt.dll
+77C90000   卸载 C:\WINDOWS.0\system32\ACTIVEDS.dll
+77D10000   卸载 C:\WINDOWS.0\system32\USER32.dll
+77DA0000   卸载 C:\WINDOWS.0\system32\ADVAPI32.dll
+77E50000   卸载 C:\WINDOWS.0\system32\RPCRT4.dll
+77EF0000   卸载 C:\WINDOWS.0\system32\GDI32.dll
+77F40000   卸载 C:\WINDOWS.0\system32\SHLWAPI.dll
+77FC0000   卸载 C:\WINDOWS.0\system32\Secur32.dll
+78130000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\MSVCR80.dll
+7C420000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\MSVCP80.dll
+7C630000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_473666fd\ATL80.DLL
+7C800000   卸载 C:\WINDOWS.0\system32\kernel32.dll
+7C920000   卸载 C:\WINDOWS.0\system32\ntdll.dll
+7D590000   卸载 C:\WINDOWS.0\system32\SHELL32.dll
+7E210000   卸载 C:\WINDOWS.0\system32\mshtml.dll
+7E550000   卸载 C:\WINDOWS.0\system32\shdocvw.dll
+           进程已终止
+           文件 'C:\Program Files\Tencent\QQIntl\Bin\QQ.exe'
+           ID 00000DD4 的新进程已创建
+           ID 00000BC4 的主线程已创建
+7C8106E9   ID 00000F38 的新线程已创建
+7C8106E9   ID 00000FE4 的新线程已创建
+7C8106E9   ID 0000056C 的新线程已创建
+7C8106E9   ID 00000FDC 的新线程已创建
+7C8106E9   ID 00000910 的新线程已创建
+7C8106E9   ID 0000044C 的新线程已创建
+7C8106E9   ID 000006E8 的新线程已创建
+7C8106E9   ID 00000830 的新线程已创建
+7C8106E9   ID 00000754 的新线程已创建
+7C8106E9   ID 000000EC 的新线程已创建
+7C8106E9   ID 00000A24 的新线程已创建
+7C8106E9   ID 00000488 的新线程已创建
+7C8106E9   ID 00000DB4 的新线程已创建
+7C8106E9   ID 000007DC 的新线程已创建
+7C8106E9   ID 00000188 的新线程已创建
+7C8106E9   ID 00000F84 的新线程已创建
+7C8106E9   ID 0000084C 的新线程已创建
+7C8106E9   ID 000007C0 的新线程已创建
+7C8106E9   ID 000009E0 的新线程已创建
+7C8106E9   ID 00000944 的新线程已创建
+7C8106E9   ID 00000814 的新线程已创建
+7C8106E9   ID 00000C08 的新线程已创建
+7C8106E9   ID 000009CC 的新线程已创建
+7C96FFE3   ID 000009D8 的新线程已创建
+00400000   Module C:\Program Files\Tencent\QQIntl\Bin\QQ.exe
+00A20000   Module C:\Program Files\Tencent\QQIntl\Bin\lua.dll
+00A80000   Module C:\Program Files\Tencent\QQIntl\Bin\AFUtil.dll
+01640000   Module C:\Program Files\Tencent\QQIntl\Bin\IPC.dll
+01C30000   Module C:\Program Files\Tencent\QQIntl\Bin\PreloginLogic.dll
+022E0000   Module C:\WINDOWS.0\system32\xpsp2res.dll
+02E30000   Module C:\Program Files\Tencent\QQIntl\Bin\IM.dll
+10000000   Module C:\Program Files\Tencent\QQIntl\Bin\arkIOStub.dll
+10660000   Module C:\Program Files\Tencent\QQIntl\Bin\CustomFace.dll
+10B00000   Module C:\Program Files\Tencent\QQIntl\Bin\xplatformex.dll
+11000000   Module C:\Program Files\Tencent\QQIntl\Bin\libexpatw.dll
+11100000   Module C:\Program Files\Tencent\QQIntl\Bin\tinyxml.dll
+11200000   Module C:\Program Files\Tencent\QQIntl\Bin\xImage.dll
+11300000   Module C:\Program Files\Tencent\QQIntl\Bin\libpng.dll
+11400000   Module C:\Program Files\Tencent\QQIntl\Bin\libjpegturbo.dll
+11500000   Module C:\Program Files\Tencent\QQIntl\Bin\jgImage.dll
+11710000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.vas\Bin\TRCloudInputLib.dll
+11800000   Module C:\Program Files\Tencent\QQIntl\Bin\ProcessSession.DLL
+11E00000   Module C:\Program Files\Tencent\QQIntl\Bin\UtilGif.dll
+11F00000   Module C:\Program Files\Tencent\QQIntl\Bin\zlib.dll
+12200000   Module C:\Program Files\Tencent\QQIntl\Bin\arkGraphic.dll
+17700000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.audiovideo\Bin\xplatform.dll
+20000000   Module C:\WINDOWS.0\system32\xpsp3res.dll
+30000000   Module C:\Program Files\Tencent\QQIntl\Bin\Common.dll
+30800000   Module C:\Program Files\Tencent\QQIntl\Bin\GF.dll
+31800000   Module C:\Program Files\Tencent\QQIntl\Bin\KernelUtil.dll
+32000000   Module C:\Program Files\Tencent\QQIntl\Bin\TXPFProxy.dll
+32100000   Module C:\Program Files\Tencent\QQIntl\Bin\xGraphic32.dll
+33B00000   Module C:\Program Files\Tencent\QQIntl\Bin\KernelMisc.dll
+34000000   Module C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\Bin\SSOCommon.DLL
+34300000   Module C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\Bin\SSOPlatform.dll
+36000000   Module C:\Program Files\Tencent\QQIntl\Bin\GroupApp.dll
+36300000   Module C:\Program Files\Tencent\QQIntl\Bin\PluginCommon.dll
+39700000   Module C:\Program Files\Tencent\QQIntl\Bin\RICHED20.dll
+4AE90000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22509_x-ww_c7dad023\gdiplus.dll
+5ADC0000   Module C:\WINDOWS.0\system32\UxTheme.dll
+5DD50000   Module C:\WINDOWS.0\system32\msxml3.dll
+5FDD0000   Module C:\WINDOWS.0\system32\NETAPI32.dll
+60B30000   Module C:\Program Files\Tencent\QQIntl\Bin\MSVCP60.dll
+60FD0000   Module C:\WINDOWS.0\system32\hnetcfg.dll
+61210000   Module C:\Program Files\Tencent\QQIntl\Bin\AppUtil.dll
+61700000   Module C:\Program Files\Tencent\QQIntl\Bin\ConfigCenter.dll
+61900000   Module C:\Program Files\Tencent\QQIntl\Bin\ContactInfoFrame.dll
+61C00000   Module C:\Program Files\Tencent\QQIntl\Bin\MainFrame.dll
+62000000   Module C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll
+62900000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.memo\Bin\Memo.dll
+62C20000   Module C:\WINDOWS.0\system32\LPK.DLL
+63D00000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.qzone\Bin\Qzone.dll
+63F00000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.snsapp\Bin\SNSApp.dll
+64600000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.vas\Bin\VAS.dll
+64700000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.weather\Bin\Weather.dll
+64900000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.winks\Bin\Winks.dll
+64A00000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wireless\Bin\Wireless.dll
+64C00000   Module C:\Program Files\Tencent\QQIntl\Bin\ChatFrameApp.dll
+64F00000   Module C:\Program Files\Tencent\QQIntl\Bin\InformationBox.dll
+65100000   Module C:\Program Files\Tencent\QQIntl\Bin\LoginPanel.dll
+65300000   Module C:\Program Files\Tencent\QQIntl\Bin\MsgMgr.dll
+65700000   Module C:\Program Files\Tencent\QQIntl\Bin\AFCtrl.dll
+66200000   Module C:\Program Files\Tencent\QQIntl\Bin\AppFramework.dll
+66600000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBlog.dll
+67000000   Module C:\Program Files\Tencent\QQIntl\Bin\FlashService.dll
+67200000   Module C:\Program Files\Tencent\QQIntl\Bin\SystemMsg.dll
+67400000   Module C:\Program Files\Tencent\QQIntl\Bin\AppMisc.dll
+67C00000   Module C:\Program Files\Tencent\QQIntl\Bin\QInterLive.dll
+68000000   Module C:\WINDOWS.0\system32\rsaenh.dll
+68800000   Module C:\Program Files\Tencent\QQIntl\Bin\AFBase.DLL
+68D60000   Module C:\WINDOWS.0\system32\dbghelp.dll
+69200000   Module C:\Program Files\Tencent\QQIntl\Bin\SkinMgr.dll
+69800000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.audiovideo\Bin\AudioVideo.dll
+69F00000   Module C:\Program Files\Tencent\QQIntl\Bin\HummerEngine.dll
+6A100000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.filetransfer\Bin\FileTransfer.dll
+6A700000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBKernel.dll
+6A900000   Module C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBMisc.dll
+71800000   Module C:\WINDOWS.0\system32\shdoclc.dll
+719C0000   Module C:\WINDOWS.0\System32\mswsock.dll
+71A00000   Module C:\WINDOWS.0\System32\wshtcpip.dll
+71A10000   Module C:\WINDOWS.0\system32\WS2HELP.dll
+71A20000   Module C:\WINDOWS.0\system32\WS2_32.dll
+71A40000   Module C:\WINDOWS.0\system32\wsock32.dll
+71B70000   Module C:\WINDOWS.0\system32\SAMLIB.dll
+72240000   Module C:\WINDOWS.0\system32\sensapi.dll
+73640000   Module C:\WINDOWS.0\system32\msctfime.ime
+73AF0000   Module C:\WINDOWS.0\system32\AVICAP32.dll
+73B40000   Module C:\WINDOWS.0\system32\MSVFW32.dll
+73FA0000   Module C:\WINDOWS.0\system32\USP10.dll
+74620000   Module C:\WINDOWS.0\system32\msls31.dll
+74650000   Module C:\WINDOWS.0\system32\msimtf.dll
+74680000   Module C:\WINDOWS.0\system32\MSCTF.dll
+74BE0000   Module C:\WINDOWS.0\system32\OLEACC.dll
+74CF0000   Module C:\WINDOWS.0\system32\mlang.dll
+75430000   Module C:\WINDOWS.0\system32\CRYPTUI.dll
+759D0000   Module C:\WINDOWS.0\system32\USERENV.dll
+75C60000   Module C:\WINDOWS.0\system32\urlmon.dll
+75E00000   Module C:\WINDOWS.0\system32\SXS.DLL
+76060000   Module C:\WINDOWS.0\system32\SETUPAPI.dll
+762D0000   Module C:\WINDOWS.0\system32\WINSTA.dll
+762F0000   Module C:\WINDOWS.0\system32\MSIMG32.dll
+76300000   Module C:\WINDOWS.0\system32\IMM32.DLL
+76320000   Module C:\WINDOWS.0\system32\comdlg32.dll
+765E0000   Module C:\WINDOWS.0\system32\CRYPT32.dll
+76680000   Module C:\WINDOWS.0\system32\WININET.dll
+76990000   Module C:\WINDOWS.0\system32\ole32.dll
+76AF0000   Module C:\WINDOWS.0\system32\ATL.DLL
+76B10000   Module C:\WINDOWS.0\system32\WINMM.dll
+76BC0000   Module C:\WINDOWS.0\system32\PSAPI.DLL
+76C00000   Module C:\WINDOWS.0\system32\WINTRUST.dll
+76C60000   Module C:\WINDOWS.0\system32\IMAGEHLP.dll
+76D10000   Module C:\WINDOWS.0\system32\MPRAPI.dll
+76D30000   Module C:\WINDOWS.0\system32\iphlpapi.dll
+76DB0000   Module C:\WINDOWS.0\system32\MSASN1.dll
+76DE0000   Module C:\WINDOWS.0\system32\adsldpc.dll
+76E50000   Module C:\WINDOWS.0\system32\rtutils.dll
+76E60000   Module C:\WINDOWS.0\system32\rasman.dll
+76E80000   Module C:\WINDOWS.0\system32\TAPI32.dll
+76EB0000   Module C:\WINDOWS.0\system32\RASAPI32.dll
+76EF0000   Module C:\WINDOWS.0\system32\DNSAPI.dll
+76F20000   Module C:\WINDOWS.0\system32\WTSAPI32.dll
+76F30000   Module C:\WINDOWS.0\system32\WLDAP32.dll
+76F80000   Module C:\WINDOWS.0\System32\winrnr.dll
+76F90000   Module C:\WINDOWS.0\system32\rasadhlp.dll
+76FA0000   Module C:\WINDOWS.0\system32\CLBCATQ.DLL
+77020000   Module C:\WINDOWS.0\system32\COMRes.dll
+770F0000   Module C:\WINDOWS.0\system32\OLEAUT32.dll
+77180000   Module C:\WINDOWS.0\WinSxS\X86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\COMCTL32.dll
+77BD0000   Module C:\WINDOWS.0\system32\VERSION.dll
+77BE0000   Module C:\WINDOWS.0\system32\msvcrt.dll
+77C90000   Module C:\WINDOWS.0\system32\ACTIVEDS.dll
+77D10000   Module C:\WINDOWS.0\system32\USER32.dll
+77DA0000   Module C:\WINDOWS.0\system32\ADVAPI32.dll
+77E50000   Module C:\WINDOWS.0\system32\RPCRT4.dll
+77EF0000   Module C:\WINDOWS.0\system32\GDI32.dll
+77F40000   Module C:\WINDOWS.0\system32\SHLWAPI.dll
+77FC0000   Module C:\WINDOWS.0\system32\Secur32.dll
+78130000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\MSVCR80.dll
+7C420000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\MSVCP80.dll
+7C630000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_473666fd\ATL80.DLL
+7C800000   Module C:\WINDOWS.0\system32\kernel32.dll
+7C920000   Module C:\WINDOWS.0\system32\ntdll.dll
+7D590000   Module C:\WINDOWS.0\system32\SHELL32.dll
+7E210000   Module C:\WINDOWS.0\system32\mshtml.dll
+7E550000   Module C:\WINDOWS.0\system32\shdocvw.dll
+7C92120E   附加的进程暂停于 ntdll.DbgBreakPoint
+           线程 000009D8 已终止, 退出代码 0
+00400000   卸载 C:\Program Files\Tencent\QQIntl\Bin\QQ.exe
+00A20000   卸载 C:\Program Files\Tencent\QQIntl\Bin\lua.dll
+00A80000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AFUtil.dll
+01640000   卸载 C:\Program Files\Tencent\QQIntl\Bin\IPC.dll
+01C30000   卸载 C:\Program Files\Tencent\QQIntl\Bin\PreloginLogic.dll
+022E0000   卸载 C:\WINDOWS.0\system32\xpsp2res.dll
+02E30000   卸载 C:\Program Files\Tencent\QQIntl\Bin\IM.dll
+10000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\arkIOStub.dll
+10660000   卸载 C:\Program Files\Tencent\QQIntl\Bin\CustomFace.dll
+10B00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\xplatformex.dll
+11000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\libexpatw.dll
+11100000   卸载 C:\Program Files\Tencent\QQIntl\Bin\tinyxml.dll
+11200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\xImage.dll
+11300000   卸载 C:\Program Files\Tencent\QQIntl\Bin\libpng.dll
+11400000   卸载 C:\Program Files\Tencent\QQIntl\Bin\libjpegturbo.dll
+11500000   卸载 C:\Program Files\Tencent\QQIntl\Bin\jgImage.dll
+11710000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.vas\Bin\TRCloudInputLib.dll
+11800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\ProcessSession.DLL
+11E00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\UtilGif.dll
+11F00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\zlib.dll
+12200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\arkGraphic.dll
+17700000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.audiovideo\Bin\xplatform.dll
+20000000   卸载 C:\WINDOWS.0\system32\xpsp3res.dll
+30000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\Common.dll
+30800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\GF.dll
+31800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\KernelUtil.dll
+32000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\TXPFProxy.dll
+32100000   卸载 C:\Program Files\Tencent\QQIntl\Bin\xGraphic32.dll
+33B00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\KernelMisc.dll
+34000000   卸载 C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\Bin\SSOCommon.DLL
+34300000   卸载 C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\Bin\SSOPlatform.dll
+36000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\GroupApp.dll
+36300000   卸载 C:\Program Files\Tencent\QQIntl\Bin\PluginCommon.dll
+39700000   卸载 C:\Program Files\Tencent\QQIntl\Bin\RICHED20.dll
+4AE90000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22509_x-ww_c7dad023\gdiplus.dll
+5ADC0000   卸载 C:\WINDOWS.0\system32\UxTheme.dll
+5DD50000   卸载 C:\WINDOWS.0\system32\msxml3.dll
+5FDD0000   卸载 C:\WINDOWS.0\system32\NETAPI32.dll
+60B30000   卸载 C:\Program Files\Tencent\QQIntl\Bin\MSVCP60.dll
+60FD0000   卸载 C:\WINDOWS.0\system32\hnetcfg.dll
+61210000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AppUtil.dll
+61700000   卸载 C:\Program Files\Tencent\QQIntl\Bin\ConfigCenter.dll
+61900000   卸载 C:\Program Files\Tencent\QQIntl\Bin\ContactInfoFrame.dll
+61C00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\MainFrame.dll
+62000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll
+62900000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.memo\Bin\Memo.dll
+62C20000   卸载 C:\WINDOWS.0\system32\LPK.DLL
+63D00000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.qzone\Bin\Qzone.dll
+63F00000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.snsapp\Bin\SNSApp.dll
+64600000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.vas\Bin\VAS.dll
+64700000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.weather\Bin\Weather.dll
+64900000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.winks\Bin\Winks.dll
+64A00000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wireless\Bin\Wireless.dll
+64C00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\ChatFrameApp.dll
+64F00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\InformationBox.dll
+65100000   卸载 C:\Program Files\Tencent\QQIntl\Bin\LoginPanel.dll
+65300000   卸载 C:\Program Files\Tencent\QQIntl\Bin\MsgMgr.dll
+65700000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AFCtrl.dll
+66200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AppFramework.dll
+66600000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBlog.dll
+67000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\FlashService.dll
+67200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\SystemMsg.dll
+67400000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AppMisc.dll
+67C00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\QInterLive.dll
+68000000   卸载 C:\WINDOWS.0\system32\rsaenh.dll
+68800000   卸载 C:\Program Files\Tencent\QQIntl\Bin\AFBase.DLL
+68D60000   卸载 C:\WINDOWS.0\system32\dbghelp.dll
+69200000   卸载 C:\Program Files\Tencent\QQIntl\Bin\SkinMgr.dll
+69800000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.audiovideo\Bin\AudioVideo.dll
+69F00000   卸载 C:\Program Files\Tencent\QQIntl\Bin\HummerEngine.dll
+6A100000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.filetransfer\Bin\FileTransfer.dll
+6A700000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBKernel.dll
+6A900000   卸载 C:\Program Files\Tencent\QQIntl\Plugin\com.tencent.wblog\Bin\WBMisc.dll
+71800000   卸载 C:\WINDOWS.0\system32\shdoclc.dll
+719C0000   卸载 C:\WINDOWS.0\System32\mswsock.dll
+71A00000   卸载 C:\WINDOWS.0\System32\wshtcpip.dll
+71A10000   卸载 C:\WINDOWS.0\system32\WS2HELP.dll
+71A20000   卸载 C:\WINDOWS.0\system32\WS2_32.dll
+71A40000   卸载 C:\WINDOWS.0\system32\wsock32.dll
+71B70000   卸载 C:\WINDOWS.0\system32\SAMLIB.dll
+72240000   卸载 C:\WINDOWS.0\system32\sensapi.dll
+73640000   卸载 C:\WINDOWS.0\system32\msctfime.ime
+73AF0000   卸载 C:\WINDOWS.0\system32\AVICAP32.dll
+73B40000   卸载 C:\WINDOWS.0\system32\MSVFW32.dll
+73FA0000   卸载 C:\WINDOWS.0\system32\USP10.dll
+74620000   卸载 C:\WINDOWS.0\system32\msls31.dll
+74650000   卸载 C:\WINDOWS.0\system32\msimtf.dll
+74680000   卸载 C:\WINDOWS.0\system32\MSCTF.dll
+74BE0000   卸载 C:\WINDOWS.0\system32\OLEACC.dll
+74CF0000   卸载 C:\WINDOWS.0\system32\mlang.dll
+75430000   卸载 C:\WINDOWS.0\system32\CRYPTUI.dll
+759D0000   卸载 C:\WINDOWS.0\system32\USERENV.dll
+75C60000   卸载 C:\WINDOWS.0\system32\urlmon.dll
+75E00000   卸载 C:\WINDOWS.0\system32\SXS.DLL
+76060000   卸载 C:\WINDOWS.0\system32\SETUPAPI.dll
+762D0000   卸载 C:\WINDOWS.0\system32\WINSTA.dll
+762F0000   卸载 C:\WINDOWS.0\system32\MSIMG32.dll
+76300000   卸载 C:\WINDOWS.0\system32\IMM32.DLL
+76320000   卸载 C:\WINDOWS.0\system32\comdlg32.dll
+765E0000   卸载 C:\WINDOWS.0\system32\CRYPT32.dll
+76680000   卸载 C:\WINDOWS.0\system32\WININET.dll
+76990000   卸载 C:\WINDOWS.0\system32\ole32.dll
+76AF0000   卸载 C:\WINDOWS.0\system32\ATL.DLL
+76B10000   卸载 C:\WINDOWS.0\system32\WINMM.dll
+76BC0000   卸载 C:\WINDOWS.0\system32\PSAPI.DLL
+76C00000   卸载 C:\WINDOWS.0\system32\WINTRUST.dll
+76C60000   卸载 C:\WINDOWS.0\system32\IMAGEHLP.dll
+76D10000   卸载 C:\WINDOWS.0\system32\MPRAPI.dll
+76D30000   卸载 C:\WINDOWS.0\system32\iphlpapi.dll
+76DB0000   卸载 C:\WINDOWS.0\system32\MSASN1.dll
+76DE0000   卸载 C:\WINDOWS.0\system32\adsldpc.dll
+76E50000   卸载 C:\WINDOWS.0\system32\rtutils.dll
+76E60000   卸载 C:\WINDOWS.0\system32\rasman.dll
+76E80000   卸载 C:\WINDOWS.0\system32\TAPI32.dll
+76EB0000   卸载 C:\WINDOWS.0\system32\RASAPI32.dll
+76EF0000   卸载 C:\WINDOWS.0\system32\DNSAPI.dll
+76F20000   卸载 C:\WINDOWS.0\system32\WTSAPI32.dll
+76F30000   卸载 C:\WINDOWS.0\system32\WLDAP32.dll
+76F80000   卸载 C:\WINDOWS.0\System32\winrnr.dll
+76F90000   卸载 C:\WINDOWS.0\system32\rasadhlp.dll
+76FA0000   卸载 C:\WINDOWS.0\system32\CLBCATQ.DLL
+77020000   卸载 C:\WINDOWS.0\system32\COMRes.dll
+770F0000   卸载 C:\WINDOWS.0\system32\OLEAUT32.dll
+77180000   卸载 C:\WINDOWS.0\WinSxS\X86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\COMCTL32.dll
+77BD0000   卸载 C:\WINDOWS.0\system32\VERSION.dll
+77BE0000   卸载 C:\WINDOWS.0\system32\msvcrt.dll
+77C90000   卸载 C:\WINDOWS.0\system32\ACTIVEDS.dll
+77D10000   卸载 C:\WINDOWS.0\system32\USER32.dll
+77DA0000   卸载 C:\WINDOWS.0\system32\ADVAPI32.dll
+77E50000   卸载 C:\WINDOWS.0\system32\RPCRT4.dll
+77EF0000   卸载 C:\WINDOWS.0\system32\GDI32.dll
+77F40000   卸载 C:\WINDOWS.0\system32\SHLWAPI.dll
+77FC0000   卸载 C:\WINDOWS.0\system32\Secur32.dll
+78130000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\MSVCR80.dll
+7C420000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\MSVCP80.dll
+7C630000   卸载 C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_473666fd\ATL80.DLL
+7C800000   卸载 C:\WINDOWS.0\system32\kernel32.dll
+7C920000   卸载 C:\WINDOWS.0\system32\ntdll.dll
+7D590000   卸载 C:\WINDOWS.0\system32\SHELL32.dll
+7E210000   卸载 C:\WINDOWS.0\system32\mshtml.dll
+7E550000   卸载 C:\WINDOWS.0\system32\shdocvw.dll
+           进程已终止
+
+           文件 'C:\Program Files\Tencent\QQIntl\Bin\QQ.exe'
+           ID 00000AB0 的新进程已创建
+00401BFB   ID 0000061C 的主线程已创建
+00400000   Module C:\Program Files\Tencent\QQIntl\Bin\QQ.exe
+76990000   Module C:\WINDOWS.0\system32\ole32.dll
+77BE0000   Module C:\WINDOWS.0\system32\msvcrt.dll
+77D10000   Module C:\WINDOWS.0\system32\USER32.dll
+77DA0000   Module C:\WINDOWS.0\system32\ADVAPI32.dll
+77E50000   Module C:\WINDOWS.0\system32\RPCRT4.dll
+77EF0000   Module C:\WINDOWS.0\system32\GDI32.dll
+77FC0000   Module C:\WINDOWS.0\system32\Secur32.dll
+78130000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\MSVCR80.dll
+7C630000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_473666fd\ATL80.DLL
+7C800000   Module C:\WINDOWS.0\system32\kernel32.dll
+7C920000   Module C:\WINDOWS.0\system32\ntdll.dll
+76300000   Module C:\WINDOWS.0\system32\imm32.dll
+62C20000   Module C:\WINDOWS.0\system32\lpk.dll
+73FA0000   Module C:\WINDOWS.0\system32\usp10.dll
+00401BFB   程序入口点
+74680000   Module C:\WINDOWS.0\system32\MSCTF.dll
+69F00000   Module C:\Program Files\Tencent\QQIntl\Bin\HummerEngine.dll
+77180000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.5512_x-ww_35d4ce83\comctl32.dll
+77F40000   Module C:\WINDOWS.0\system32\shlwapi.dll
+30000000   Module C:\Program Files\Tencent\QQIntl\Bin\Common.dll
+11F00000   Module C:\Program Files\Tencent\QQIntl\Bin\zlib.dll
+11000000   Module C:\Program Files\Tencent\QQIntl\Bin\libexpatw.dll
+71A20000   Module C:\WINDOWS.0\system32\ws2_32.dll
+71A10000   Module C:\WINDOWS.0\system32\ws2help.dll
+76680000   Module C:\WINDOWS.0\system32\wininet.dll
+765E0000   Module C:\WINDOWS.0\system32\crypt32.dll
+76DB0000   Module C:\WINDOWS.0\system32\msasn1.dll
+770F0000   Module C:\WINDOWS.0\system32\oleaut32.dll
+76B10000   Module C:\WINDOWS.0\system32\winmm.dll
+73AF0000   Module C:\WINDOWS.0\system32\avicap32.dll
+77BD0000   Module C:\WINDOWS.0\system32\version.dll
+73B40000   Module C:\WINDOWS.0\system32\msvfw32.dll
+7D590000   Module C:\WINDOWS.0\system32\shell32.dll
+76060000   Module C:\WINDOWS.0\system32\setupapi.dll
+76D30000   Module C:\WINDOWS.0\system32\iphlpapi.dll
+68D60000   Module C:\WINDOWS.0\system32\dbghelp.dll
+11100000   Module C:\Program Files\Tencent\QQIntl\Bin\tinyxml.dll
+7C420000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.4053_x-ww_e6967989\msvcp80.dll
+76320000   Module C:\WINDOWS.0\system32\comdlg32.dll
+76C00000   Module C:\WINDOWS.0\system32\wintrust.dll
+76C60000   Module C:\WINDOWS.0\system32\imagehlp.dll
+5FDD0000   Module C:\WINDOWS.0\system32\netapi32.dll
+76EB0000   Module C:\WINDOWS.0\system32\rasapi32.dll
+76E60000   Module C:\WINDOWS.0\system32\rasman.dll
+76E80000   Module C:\WINDOWS.0\system32\tapi32.dll
+76E50000   Module C:\WINDOWS.0\system32\rtutils.dll
+31800000   Module C:\Program Files\Tencent\QQIntl\Bin\KernelUtil.dll
+11200000   Module C:\Program Files\Tencent\QQIntl\Bin\xImage.dll
+11300000   Module C:\Program Files\Tencent\QQIntl\Bin\libpng.dll
+11400000   Module C:\Program Files\Tencent\QQIntl\Bin\libjpegturbo.dll
+30800000   Module C:\Program Files\Tencent\QQIntl\Bin\GF.dll
+32100000   Module C:\Program Files\Tencent\QQIntl\Bin\xGraphic32.dll
+762F0000   Module C:\WINDOWS.0\system32\msimg32.dll
+12200000   Module C:\Program Files\Tencent\QQIntl\Bin\arkGraphic.dll
+11500000   Module C:\Program Files\Tencent\QQIntl\Bin\jgImage.dll
+10000000   Module C:\Program Files\Tencent\QQIntl\Bin\arkIOStub.dll
+00A30000   Module C:\Program Files\Tencent\QQIntl\Bin\lua.dll
+74BE0000   Module C:\WINDOWS.0\system32\oleacc.dll
+60B30000   Module C:\Program Files\Tencent\QQIntl\Bin\msvcp60.dll
+75C60000   Module C:\WINDOWS.0\system32\urlmon.dll
+68800000   Module C:\Program Files\Tencent\QQIntl\Bin\AFBase.dll
+61210000   Module C:\Program Files\Tencent\QQIntl\Bin\AppUtil.dll
+00A90000   Module C:\Program Files\Tencent\QQIntl\Bin\AFUtil.dll
+01640000   Module C:\Program Files\Tencent\QQIntl\Bin\IPC.dll
+67000000   Module C:\Program Files\Tencent\QQIntl\Bin\FlashService.dll
+4AE90000   Module C:\WINDOWS.0\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.6002.22509_x-ww_c7dad023\GdiPlus.dll
+76BC0000   Module C:\WINDOWS.0\system32\psapi.dll
+76F20000   Module C:\WINDOWS.0\system32\wtsapi32.dll
+762D0000   Module C:\WINDOWS.0\system32\winsta.dll
+73640000   Module C:\WINDOWS.0\system32\MSCTFIME.IME
+7C8106E9   ID 0000095C 的新线程已创建
+67400000   Module C:\Program Files\Tencent\QQIntl\Bin\AppMisc.dll
+11E00000   Module C:\Program Files\Tencent\QQIntl\Bin\UtilGif.dll
+65700000   Module C:\Program Files\Tencent\QQIntl\Bin\AFCtrl.dll
+11800000   Module C:\Program Files\Tencent\QQIntl\Bin\ProcessSession.dll
+65100000   Module C:\Program Files\Tencent\QQIntl\Bin\LoginPanel.dll
+76FA0000   Module C:\WINDOWS.0\system32\clbcatq.dll
+77020000   Module C:\WINDOWS.0\system32\comres.dll
+74CF0000   Module C:\WINDOWS.0\system32\mlang.dll
+39700000   Module C:\Program Files\Tencent\QQIntl\Bin\RICHED20.DLL
+01BD0000   Module C:\Program Files\Tencent\QQIntl\Bin\PreloginLogic.dll
+65138D04   断点位于 LoginPan.65138D04
+65137916   断点位于 LoginPan.65137916
+34300000   Module C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\bin\SSOPlatform.dll
+34000000   Module C:\Program Files\Common Files\Tencent\TXSSO\1.2.2.1\bin\SSOCommon.dll
+62000000   Module C:\Program Files\Tencent\QQIntl\Bin\TaskTray.dll
+7C8106E9   ID 00000D4C 的新线程已创建
+66200000   Module C:\Program Files\Tencent\QQIntl\Bin\AppFramework.dll
+7C8106E9   ID 00000A10 的新线程已创建
+68000000   Module C:\WINDOWS.0\system32\rsaenh.dll
+           线程 00000A10 已终止, 退出代码 0
+           线程 00000D4C 已终止, 退出代码 0
+7C8106E9   ID 00000C20 的新线程已创建
+7C8106E9   ID 00000D64 的新线程已创建
+02930000   Module C:\WINDOWS.0\system32\xpsp2res.dll
+7C8106E9   ID 000004A4 的新线程已创建
+32000000   Module C:\Program Files\Tencent\QQIntl\Bin\TXPFProxy.dll
+7C8106E9   ID 00000930 的新线程已创建
+7C8106E9   ID 00000ED4 的新线程已创建
+7C8106E9   ID 00000CB0 的新线程已创建
+719C0000   Module C:\WINDOWS.0\system32\mswsock.dll
+61C00000   Module C:\Program Files\Tencent\QQIntl\Bin\MainFrame.dll
+76EF0000   Module C:\WINDOWS.0\system32\dnsapi.dll
+76F90000   Module C:\WINDOWS.0\system32\rasadhlp.dll
+02FB0000   Module C:\Program Files\Tencent\QQIntl\Bin\IM.dll
+           线程 00000CB0 已终止, 退出代码 1
+69200000   Module C:\Program Files\Tencent\QQIntl\Bin\SkinMgr.dll
+61700000   Module C:\Program Files\Tencent\QQIntl\Bin\ConfigCenter.dll
+67200000   Module C:\Program Files\Tencent\QQIntl\Bin\SystemMsg.dll
+64C00000   Module C:\Program Files\Tencent\QQIntl\Bin\ChatFrameApp.dll
+36300000   Module C:\Program Files\Tencent\QQIntl\Bin\PluginCommon.dll
+36000000   Module C:\Program Files\Tencent\QQIntl\Bin\GroupApp.dll
+67C00000   Module C:\Program Files\Tencent\QQIntl\Bin\QInterLive.dll
+64600000   Module C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.VAS\bin\VAS.dll
+66600000   Module C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.WBlog\Bin\WBlog.dll
+63D00000   Module C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.Qzone\Bin\Qzone.dll
+64A00000   Module C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.Wireless\Bin\Wireless.dll
+01710000   Module C:\Program Files\Tencent\QQIntl\Bin\xplatformex.dll
+69800000   Module C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.AudioVideo\bin\AudioVideo.dll
+17700000   Module C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.AudioVideo\bin\xplatform.dll
+6A100000   Module C:\Program Files\Tencent\QQIntl\Plugin\Com.Tencent.FileTransfer\Bin\FileTransfer.dll
+7C8106E9   ID 00000ACC 的新线程已创建
+           线程 00000D64 已终止, 退出代码 0
+           线程 0000095C 已终止, 退出代码 0
+75E00000   Module C:\WINDOWS.0\system32\sxs.dll
+           线程 00000ACC 已终止, 退出代码 0
+32000000   卸载 C:\Program Files\Tencent\QQIntl\Bin\TXPFProxy.dll
+74CF0000   卸载 C:\WINDOWS.0\system32\mlang.dll
+           线程 00000C20 已终止, 退出代码 0
+           线程 000004A4 已终止, 退出代码 0
+           线程 0000061C 已终止, 退出代码 0
+           线程 00000930 已终止, 退出代码 0
+           进程已终止, 退出代码 0

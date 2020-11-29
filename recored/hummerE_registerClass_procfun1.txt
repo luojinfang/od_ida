@@ -1,0 +1,115 @@
+
+
+  if ( v5 )
+  {
+    v10 = *(_DWORD *)v5;
+    *(_DWORD *)(v5 + 4) = hWnd;
+    (*(void (__thiscall **)(int, int))(v10 + 8))(v5, v5);
+    sub_69F06A4B(a1);
+    v11 = *(int (__stdcall **)(HWND, int, int))(v5 + 20);
+    SetWindowLongW(hWnd, -4, (LONG)v11);
+    result = v11(hWnd, a3, a4);
+  }
+
+v11===>
+
+69F06D4D    55              push ebp
+69F06D4E    8BEC            mov ebp,esp
+69F06D50    83EC 24         sub esp,0x24
+69F06D53    8B4D 14         mov ecx,dword ptr ss:[ebp+0x14]
+69F06D56    53              push ebx
+69F06D57    8B5D 10         mov ebx,dword ptr ss:[ebp+0x10]
+69F06D5A    56              push esi
+69F06D5B    8B75 08         mov esi,dword ptr ss:[ebp+0x8]
+69F06D5E    8B56 18         mov edx,dword ptr ds:[esi+0x18]
+69F06D61    8B46 04         mov eax,dword ptr ds:[esi+0x4]
+69F06D64    57              push edi
+69F06D65    8B7D 0C         mov edi,dword ptr ss:[ebp+0xC]
+69F06D68    894D E8         mov dword ptr ss:[ebp-0x18],ecx
+69F06D6B    33C9            xor ecx,ecx
+69F06D6D    51              push ecx
+69F06D6E    894D EC         mov dword ptr ss:[ebp-0x14],ecx
+69F06D71    894D F4         mov dword ptr ss:[ebp-0xC],ecx
+69F06D74    894D F0         mov dword ptr ss:[ebp-0x10],ecx
+69F06D77    8D4D 08         lea ecx,dword ptr ss:[ebp+0x8]
+69F06D7A    51              push ecx
+69F06D7B    FF75 14         push dword ptr ss:[ebp+0x14]
+69F06D7E    8955 0C         mov dword ptr ss:[ebp+0xC],edx
+69F06D81    53              push ebx
+69F06D82    8D55 DC         lea edx,dword ptr ss:[ebp-0x24]
+69F06D85    57              push edi
+69F06D86    8956 18         mov dword ptr ds:[esi+0x18],edx
+69F06D89    8B16            mov edx,dword ptr ds:[esi]
+69F06D8B    50              push eax
+69F06D8C    8BCE            mov ecx,esi
+69F06D8E    C745 F8 2400000>mov dword ptr ss:[ebp-0x8],0x24
+69F06D95    C745 FC 0100000>mov dword ptr ss:[ebp-0x4],0x1
+69F06D9C    8945 DC         mov dword ptr ss:[ebp-0x24],eax
+69F06D9F    897D E0         mov dword ptr ss:[ebp-0x20],edi
+69F06DA2    895D E4         mov dword ptr ss:[ebp-0x1C],ebx
+69F06DA5    FF12            call dword ptr ds:[edx]
+69F06DA7    85C0            test eax,eax
+69F06DA9    75 71           jnz XHummerEn.69F06E1C
+69F06DAB    81FF 82000000   cmp edi,0x82
+69F06DB1    74 16           je XHummerEn.69F06DC9
+69F06DB3    FF75 14         push dword ptr ss:[ebp+0x14]
+69F06DB6    53              push ebx
+69F06DB7    57              push edi
+69F06DB8    FF76 04         push dword ptr ds:[esi+0x4]
+69F06DBB    FF76 20         push dword ptr ds:[esi+0x20]
+69F06DBE    FF15 6C04F169   call dword ptr ds:[<&USER32.CallWindowProcW>]  ; USER32.CallWindowProcW
+69F06DC4    8945 08         mov dword ptr ss:[ebp+0x8],eax
+69F06DC7    EB 53           jmp XHummerEn.69F06E1C
+69F06DC9    8B46 04         mov eax,dword ptr ds:[esi+0x4]
+69F06DCC    8B3D 7404F169   mov edi,dword ptr ds:[<&USER32.GetWindowLongW>>; USER32.GetWindowLongW
+69F06DD2    6A FC           push -0x4
+69F06DD4    50              push eax
+69F06DD5    FFD7            call edi
+69F06DD7    FF75 14         push dword ptr ss:[ebp+0x14]
+69F06DDA    8945 10         mov dword ptr ss:[ebp+0x10],eax
+69F06DDD    53              push ebx
+69F06DDE    68 82000000     push 0x82
+69F06DE3    FF76 04         push dword ptr ds:[esi+0x4]
+69F06DE6    FF76 20         push dword ptr ds:[esi+0x20]
+69F06DE9    FF15 6C04F169   call dword ptr ds:[<&USER32.CallWindowProcW>]  ; USER32.CallWindowProcW
+69F06DEF    8945 08         mov dword ptr ss:[ebp+0x8],eax
+69F06DF2    8B46 20         mov eax,dword ptr ds:[esi+0x20]
+69F06DF5    3B05 7804F169   cmp eax,dword ptr ds:[<&USER32.DefWindowProcW>>; USER32.DefWindowProcW
+69F06DFB    74 1B           je XHummerEn.69F06E18
+69F06DFD    8B46 04         mov eax,dword ptr ds:[esi+0x4]
+69F06E00    6A FC           push -0x4
+69F06E02    50              push eax
+69F06E03    FFD7            call edi
+69F06E05    3B45 10         cmp eax,dword ptr ss:[ebp+0x10]
+69F06E08    75 0E           jnz XHummerEn.69F06E18
+69F06E0A    FF76 20         push dword ptr ds:[esi+0x20]
+69F06E0D    6A FC           push -0x4
+69F06E0F    FF76 04         push dword ptr ds:[esi+0x4]
+69F06E12    FF15 6804F169   call dword ptr ds:[<&USER32.SetWindowLongW>]   ; USER32.SetWindowLongW
+69F06E18    834E 1C 01      or dword ptr ds:[esi+0x1C],0x1
+69F06E1C    8B46 1C         mov eax,dword ptr ds:[esi+0x1C]
+69F06E1F    A8 01           test al,0x1
+69F06E21    74 20           je XHummerEn.69F06E43
+69F06E23    33D2            xor edx,edx
+69F06E25    3955 0C         cmp dword ptr ss:[ebp+0xC],edx
+69F06E28    75 19           jnz XHummerEn.69F06E43
+69F06E2A    8B4E 04         mov ecx,dword ptr ds:[esi+0x4]
+69F06E2D    83E0 FE         and eax,0xFFFFFFFE
+69F06E30    8946 1C         mov dword ptr ds:[esi+0x1C],eax
+69F06E33    8B06            mov eax,dword ptr ds:[esi]
+69F06E35    51              push ecx
+69F06E36    8BCE            mov ecx,esi
+69F06E38    8956 04         mov dword ptr ds:[esi+0x4],edx
+69F06E3B    8956 18         mov dword ptr ds:[esi+0x18],edx
+69F06E3E    FF50 0C         call dword ptr ds:[eax+0xC]
+69F06E41    EB 06           jmp XHummerEn.69F06E49
+69F06E43    8B45 0C         mov eax,dword ptr ss:[ebp+0xC]
+69F06E46    8946 18         mov dword ptr ds:[esi+0x18],eax
+69F06E49    8B45 08         mov eax,dword ptr ss:[ebp+0x8]
+69F06E4C    5F              pop edi
+69F06E4D    5E              pop esi
+69F06E4E    5B              pop ebx
+69F06E4F    C9              leave
+69F06E50    C2 1000         retn 0x10
+
+ 

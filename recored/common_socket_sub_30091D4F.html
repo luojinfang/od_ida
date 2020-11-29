@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>IDA - C:\Program Files\Tencent\QQIntl\Bin\Common.idb (Common.dll)</title>
+</head>
+<body bgcolor="white">
+<span style="white-space: pre; font-family: FixedSys; color: blue; background: white">
+
+<span style="color:gray">int __stdcall sub_30091D4F(int a1, int a2, int a3, int a4)
+</span><span style="color:navy">{
+  </span><span style="color:gray">int (__stdcall *v4)(int, int, int, int)</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">eax@1
+  </span><span style="color:gray">int v5</span><span style="color:navy">; </span><span style="color:gray">// </span><span style="color:#8080ff">esi@3
+
+  v4 </span><span style="color:navy">= (</span><span style="color:gray">int (__stdcall *)(int, int, int, int)</span><span style="color:navy">)</span>dword_30281344<span style="color:navy">;
+  if ( !</span>dword_30281344 <span style="color:navy">)
+  {
+    </span><span style="color:#8080ff">v4 </span><span style="color:navy">= (</span><span style="color:gray">int (__stdcall *)(int, int, int, int)</span><span style="color:navy">)</span>sub_30091BB0<span style="color:navy">(</span>dword_30281344<span style="color:navy">);
+    </span>dword_30281344 <span style="color:navy">= (</span><span style="color:gray">int</span><span style="color:navy">)</span><span style="color:#8080ff">v4</span><span style="color:navy">;
+  </span><span style="background:#8080ff"></span><span style="color:navy">}
+  </span><span style="color:#8080ff">v5 </span><span style="color:navy">= </span><span style="color:#8080ff">v4</span><span style="color:navy">(</span><span style="color:#8080ff">a1</span><span style="color:navy">, </span><span style="color:#8080ff">a2</span><span style="color:navy">, </span><span style="color:#8080ff">a3</span><span style="color:navy">, </span><span style="color:#8080ff">a4</span><span style="color:navy">);
+  </span><span style="color:#ff00ff">WSASetLastError</span><span style="color:navy">(</span><span style="color:#8080ff">v5</span><span style="color:navy">);
+  return </span><span style="color:#8080ff">v5</span><span style="color:navy">;
+</span><span style="background:#8080ff"></span><span style="color:navy">}
+</span></body></html>

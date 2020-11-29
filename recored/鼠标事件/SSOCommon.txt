@@ -1,0 +1,1596 @@
+
+调用堆栈：     主线程
+地址       堆栈       函数过程 / 参数                       调用来自                      结构
+0012E9D0   340722AF   ws2_32.sendto                         SSOCommo.340722A9             0012E9EC
+0012E9D4   00000518     Socket = 0x518
+0012E9D8   02BB1254     Data = 02BB1254
+0012E9DC   000000A3     DataSize = A3 (163.)
+0012E9E0   00000000     Flags = 0
+0012E9E4   0012EA24     pTo = 0012EA24
+0012E9E8   00000010     ToLength = 10 (16.)
+0012E9F0   34072223   包含SSOCommo.340722AF                   SSOCommo.34072220             0012E9EC
+0012EA48   34078421   ? SSOCommo.340721A6                   SSOCommo.3407841C             0012EA44
+
+
+//=>sendto
+int __thiscall SSOCommo.34072291(int this, char *buf, int len, struct sockaddr *to, int tolen, int flags)
+{
+  return sendto(*(_DWORD *)(this + 172), buf, len, flags, to, tolen); //SSOCommo.340722A9 
+}
+
+
+//SSOCommo.34072220   => SSOCommo.34072291
+int __thiscall SSOCommo.340721A6(void *this, int a2, int a3, unsigned __int16 Short, wchar_t *a5, int a6)
+{
+  const char *v6; // eax@1
+  void *v8; // [sp+Ch] [bp-2Ch]@1
+  int v9; // [sp+10h] [bp-28h]@0
+  char v10; // [sp+14h] [bp-24h]@1
+  __int16 v11; // [sp+18h] [bp-20h]@1
+  unsigned __int16 v12; // [sp+1Ah] [bp-1Eh]@3
+  unsigned __int32 v13; // [sp+1Ch] [bp-1Ch]@2
+  int v14; // [sp+34h] [bp-4h]@1
+
+  v8 = this;
+  memset(&v11, 0, 0x10u);
+  LOBYTE(v9) = 0;
+  CTXStringA::CTXStringA(v9, a5, -1);
+  v14 = 0;
+  v6 = CTXStringA::GetString((CTXStringA *)&v10);
+  v11 = 2;
+  if ( v6 )
+  {
+    v13 = inet_addr(v6);
+    if ( v13 == -1 )
+      goto LABEL_5;
+  }
+  else
+  {
+    v13 = _byteswap_ulong(0xFFFFFFFF);
+  }
+  v12 = _byteswap_ushort(Short);
+  (*(void (__stdcall **)(int, int, __int16 *, signed int, int))(*(_DWORD *)v8 + 56))(a2, a3, &v11, 16, a6);
+										//当是thiscall调用 thiscall时，会省略第一个参数this; a2:buf; a3:length; v11:struct sockaddr; 16:tolen; a6:flags; 
+		//SSOCommo.34072220 [34072220 call dword ptr ds:[eax+0x38] ]  => SSOCommo.34072291 =>sendto
+LABEL_5:
+  v14 = -1;
+  CTXStringA::~CTXStringA((CTXStringA *)&v10);
+  return SSOCommo.340C51AA();
+}
+
+
+// =>SSOCommo.340721A6
+int __stdcall SSOCommo.340783F4(int a1, wchar_t *a2, __int16 a3, int a4, int a5, int a6)
+{
+  int result; // eax@2
+
+  if ( a6 )
+  {
+    *(_DWORD *)a6 = SSOCommo.340721A6((void *)(a1 + 44), a5, a4, a3, a2, 0);//a1 + 44:sendbuf;
+    result = 0;
+  }
+  else
+  {
+    result = -2147024809;
+  }
+  return result;
+}
+
+
+
+//.faq 发送网络数据？
+// => while() => SSOCommo.340783F4
+void __thiscall CTXUDPDataSender::InternalSendData(CTXUDPDataSender *this, struct tagTXUDPPacket *a2)
+{
+  CTXUDPDataSender *v2; // ebx@1
+  struct tagTXUDPPacket *v3; // edi@2
+  _DWORD *v4; // eax@5
+  _DWORD *v5; // ST24_4@5
+  void (__stdcall **v6)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD); // esi@5
+  int v7; // ST10_4@5
+  int v8; // ST0C_4@5
+  int v9; // ST08_4@5
+  int v10; // eax@5
+  int v11; // [sp+Ch] [bp-4h]@5
+  struct tagTXUDPPacket *v12; // [sp+18h] [bp+8h]@4
+
+  v2 = this;
+  if ( *((_DWORD *)this + 1) )
+  {
+    v3 = a2;
+    if ( !*((_WORD *)a2 + 12) )
+    {
+      CTXBSTR::operator=((struct tagTXUDPPacket *)((char *)a2 + 20), (CTXUDPDataSender *)((char *)this + 8));
+      *((_WORD *)a2 + 12) = *((_WORD *)v2 + 6);
+    }
+    v12 = 0;
+    if ( *((_BYTE *)v3 + 4) )
+    {
+      do
+      {
+		//*(_DWORD *)this = &CTXUDPDataSender::`vftable';  //第一个四字节为虚表;
+		//*(_DWORD *)(this + 4) = 0; 第二个四字节构造方法里初始化是0
+        v4 = (_DWORD *)*((_DWORD *)v2 + 1); //v2:CTXUDPDataSender;  //这里v4是指针,使用了 CTXUDPDataSender 的第二个四字节指针指向的地址值 
+        v11 = 0;
+        v5 = v4;
+        v6 = (void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))(*v4 + 20);
+        v7 = SSOCommo.3400DADD(v3);
+        v8 = SSOCommo.3400DAFC(v3);
+        v9 = *((_WORD *)v2 + 6);
+        v10 = CTXBSTR::operator wchar_t *((char *)v3 + 20);
+        (*v6)(v5, v10, v9, v8, v7, &v11);  //=>SSOCommo.340783F4 //v5 + 44:sendbuf;
+        v12 = (struct tagTXUDPPacket *)((char *)v12 + 1);
+      }
+      while ( (signed int)v12 < *((_BYTE *)v3 + 4) );
+    }
+  }
+}
+
+
+----------
+//.faq 组织网络数据？
+//=> CTXUDPDataSender::InternalSendData
+int __thiscall CTXUDPDataSender::SendData(CTXUDPDataSender *this, struct ITXData *a2, int a3, unsigned __int8 *a4, unsigned __int32 *a5)
+{
+  int v5; // esi@1
+  CTXUDPDataSender *v6; // edi@1
+  struct ITXTimerCallback **v7; // ebx@3
+  void *v8; // eax@5
+  int v9; // eax@10
+  char v10; // al@13
+  int v11; // eax@15
+  int result; // eax@18
+  unsigned int v13; // [sp+0h] [bp-1Ch]@0
+  int v14; // [sp+Ch] [bp-10h]@9
+  int v15; // [sp+14h] [bp-8h]@9
+  void *v16; // [sp+18h] [bp-4h]@10
+
+  v5 = 0;
+  v6 = this;
+  if ( a3 > 0 && a4 && (v7 = (struct ITXTimerCallback **)a5) != 0 && CTXUDPDataSender::IsReadyToSendData(this) )
+  {
+    v8 = operator new(0x1Cu);
+    if ( v8 )
+      v5 = SSOCommo.34071162(v8);
+    SSOCommo.3400DA58((Util::Data *)v5, a4, a3);
+    CTXBSTR::operator=((CTXStringW *)(v5 + 20), (CTXUDPDataSender *)((char *)v6 + 8));
+    *(_WORD *)(v5 + 24) = *((_WORD *)v6 + 6);
+    CTXUDPDataSender::ApplySettings(v6, a2, (struct tagTXUDPPacket *)v5);// 如果a2(struct ITXData )有数据,也会处理到 v5(struct tagTXUDPPacket)中去
+    if ( !*v7 )
+      *v7 = (struct ITXTimerCallback *)CTXUDPDataSender::GetNextCookie();
+    SSOCommo.34072A90(&v15, v7);
+    SSOCommo.340268FA(*((_DWORD *)v6 + 7), (char *)v6 + 24);
+    if ( !(unsigned __int8)SSOCommo.34014105(&v14) )
+    {
+      TXTimer::EraseTimerCallback(*((TXTimer **)v6 + 11), *v7, v13);
+      v9 = SSOCommo.3406F4C8(&v15);
+      SSOCommo.34071393(v9 + 4);
+      SSOCommo.34016A29((int)&v14, v15, v16);
+    }
+    *(_DWORD *)SSOCommo.3404BD99(v7) = v5;
+    if ( *((_DWORD *)v6 + 4) )
+    {
+      v10 = *(_BYTE *)(v5 + 16);
+      if ( v10 != -2 )
+        *(_BYTE *)(v5 + 16) = v10 + 1;
+    }
+    else
+    {
+      CTXUDPDataSender::InternalSendData(v6, (struct tagTXUDPPacket *)v5);
+    }
+    v11 = *(_DWORD *)(v5 + 8);
+    if ( v11 )
+    {
+      BYTE3(a3) = 0;
+      (*(void (__stdcall **)(int, _DWORD, char *))(*(_DWORD *)v11 + 32))(v11, 0, (char *)&a3 + 3);
+      TXTimer::SetTimeout((TXTimer *)(1000 * BYTE3(a3)), *((_DWORD *)v6 + 11), *v7, v13);
+    }
+    else
+    {
+      TXTimer::SetInterval(*(TXTimer **)(v5 + 12), *((_DWORD *)v6 + 11), *v7, v13);
+    }
+    result = 1;
+  }
+  else
+  {
+    result = 0;
+  }
+  return result;
+}
+
+//struct ITXUDP
+//struct tagTXUDPPacket *
+//CTXUDPDataSender
+//.text:34071A03 ; void __thiscall CTXUDPDataSender::SetSocket(CTXUDPDataSender *this, struct ITXUDP *)
+//.text:340719A4 ; public: __thiscall CTXUDPDataSender::CTXUDPDataSender(void)
+
+
+
+//struct tagTXUDPPacket *
+int __thiscall sub_34071162(int this)
+{
+  int v1; // esi@1  //struct tagTXUDPPacket *
+
+  v1 = this;
+  *(_DWORD *)this = 0;
+  *(_DWORD *)(this + 8) = 0;
+  CTXBSTR::CTXBSTR((CTXStringW *)(this + 20));//CTXBSTR::operator=((CTXStringW *)(v5 + 20), (CTXUDPDataSender *)((char *)v6 + 8));
+  *(_WORD *)(v1 + 24) = 0;
+  *(_BYTE *)(v1 + 4) = 1;
+  *(_DWORD *)(v1 + 12) = 5000;
+  *(_BYTE *)(v1 + 16) = 3;
+  *(_BYTE *)(v1 + 17) = 0;
+  return v1;
+}
+
+
+//CTXUDPDataSender 340719A4 
+int __thiscall CTXUDPDataSender::CTXUDPDataSender(int this)
+{
+  int v1; // esi@1
+
+  v1 = this;  //CTXUDPDataSender
+  *(_DWORD *)this = &CTXUDPDataSender::`vftable';  
+  *(_DWORD *)(this + 4) = 0  //发送buf
+  CTXBSTR::CTXBSTR((CTXStringW *)(this + 8));
+  *(_WORD *)(v1 + 12) = 0;
+  *(_DWORD *)(v1 + 16) = 0;
+  *(_DWORD *)(v1 + 20) = 0;
+  sub_3406F96F(v1 + 24);
+  *(_DWORD *)(v1 + 36) = 0;
+  sub_3407154B(v1);  //这里会处理  *(_DWORD *)(this + 4) 
+  *(_DWORD *)(*(_DWORD *)(v1 + 44) + 40) = CTXUDPDataSender::OnTimer;
+  return v1;
+}
+
+---
+
+CTXUDPDataSender 实例在 SSOPlatform.344274DC??
+动态变化的数据实例在 SSOPlatform.344274E0??  //比如当前指向的是 SSOPlatf.3430EC64,也是一个运行时才赋值的全局地址
+
+3430EC64  378B56C3
+
+
+---
+SSOPlatform.3434D676(int a1,
+	  v27 = *(_DWORD **)(a1 + 560);  v27 is CTXUDPDataSender
+      v28 = (int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD))(*v27 + 40);
+      v29 = SSOPlatform.343052F2(a3);
+      v30 = SSOPlatform.343182C0();
+      v26 = (*v28)(v27, v30, v29, v31);// =>SSOCommo.340702FD  //(CTXUDPDataSender *)(v27 + 24) 
+											=>CTXUDPDataSender::SendData((CTXUDPDataSender *)(a1 + 24), a5, a2, a3, a4
+												=>CTXUDPDataSender::InternalSendData
+---
+signed int __stdcall SSOPlatform.3434D8E5(int a1, int a2, int a3, int a4) //a1 + 560  is CTXUDPDataSender
+
+signed int __usercall SSOPlatform.343394A6@<eax>(int a1@<ebx>)
+  if ( (*(int (__stdcall **)(_DWORD, int, int, _DWORD))(**(_DWORD **)(a1 + 84) + 68))(   //  if (SSOPlatform.3434D8E5())
+         *(_DWORD *)(a1 + 84),//a1+ 84 + 560  is CTXUDPDataSender  
+         (int)v17,
+         v19,
+         *(_DWORD *)(a1 + 92)) < 0 ) 
+signed int __userpurge SSOPlatform.343392AA@<eax>(int a1@<eax>, int a2@<edx>, int a3@<ecx>, int a4) =>343394A6
+---
+int __stdcall SSOPlatform.3433DB96(int a1, int a2, void *a3, int a4)
+	v12 = operator new(0xFCu);//new (252)       
+	v30 = (void *)SSOPlatform.34339099((int)v12);      //v30 + 84 + 560  is CTXUDPDataSender 
+	if ( SSOPlatform.343392AA(*(_DWORD *)(v4 + 88), (int)v30, (int)&v19, v4) )
+			
+			
+
+---
+
+//=>SSOPlatform.3433DB96
+//=> while(1)
+signed int __stdcall SSOPlatform.3432B788(void *a1, _DWORD *a2)
+
+---
+//帐号出现在栈01
+//=>SSOPlatform.3432B788
+signed int __thiscall SSOPlatform.3432A4D8(char *this, char a2, int a3)
+	int v8; // edi@6
+	char *v9; // [sp+14h] [bp-58h]@1
+	char *v10; // [sp+18h] [bp-54h]@1
+	int v11; // [sp+20h] [bp-4Ch]@6
+
+	v10 = this;
+	v9 = this - 4;
+
+	v8 = *((_DWORD *)v10 + 47);
+	v11 = v8;
+
+	result = SSOPlatform.3432B788(v9, &v11);  
+
+----------------
+//.text:3406FF22 ; public: __thiscall CTXTCPDataSender::CTXTCPDataSender(void)
+----------
+
+// => CTXUDPDataSender::SendData
+signed int __stdcall SSOCommo.340702FD(int a1, int a2, unsigned __int8 *a3, unsigned __int32 *a4, struct ITXData *a5)
+{
+  signed int result; // eax@2
+
+  if ( *(_DWORD *)(a1 + 20) )
+  {
+    if ( a2 > 0 && a3 && a4 )
+    {
+      CTXUDPDataSender::SendData((CTXUDPDataSender *)(a1 + 24), a5, a2, a3, a4);
+      result = 0;
+    }
+    else
+    {
+      SSOCommo.3401DD12(
+        L"file",
+        249,
+        L"func",
+        3,
+        L"UDPChannel",
+        (const char *)L"nBufSize[%d] pcBuf[%u] pdwCookie[%u]",
+        a2,
+        a3,
+        a4);
+      result = -2147024809;
+    }
+  }
+  else
+  {
+    SSOCommo.3401DD12(L"file", 242, L"func", 3, L"UDPChannel", (const char *)L"%s", L"NULL == m_pUDP");
+    result = -2147467260;
+  }
+  return result;
+}
+
+
+
+//SSOPlatform
+//=> SSOCommo.340702FD
+signed int __stdcall SSOPlatform.3434D676(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
+{
+  signed int result; // eax@2
+  int *v8; // edi@3
+  int v9; // eax@3
+  int v10; // eax@3
+  int v11; // eax@3
+  int v12; // eax@3
+  int v13; // eax@3
+  int v14; // eax@3
+  int v15; // eax@4
+  int v16; // eax@4
+  int v17; // edi@7
+  int v18; // esi@7
+  const void *v19; // eax@7
+  size_t v20; // ST1C_4@7
+  _DWORD *v21; // edi@7
+  int (__stdcall **v22)(_DWORD, _DWORD, _DWORD, _DWORD); // esi@7
+  int v23; // ST14_4@7
+  int v24; // eax@7
+  int v25; // ST18_4@7
+  int v26; // esi@7
+  _DWORD *v27; // edi@9
+  int (__stdcall **v28)(_DWORD, _DWORD, _DWORD, _DWORD); // esi@9
+  int v29; // ST14_4@9
+  int v30; // eax@9
+  int v31; // ST18_4@9
+  int v32; // [sp+8h] [bp-28h]@0
+  int v33; // [sp+18h] [bp-18h]@3
+  int v34; // [sp+1Ch] [bp-14h]@3
+  int *v35; // [sp+20h] [bp-10h]@3
+  int v36; // [sp+2Ch] [bp-4h]@3
+  int *v37; // [sp+44h] [bp+14h]@3
+  int *v38; // [sp+44h] [bp+14h]@3
+  int *v39; // [sp+44h] [bp+14h]@4
+  int v40; // [sp+44h] [bp+14h]@7
+  int v41; // [sp+48h] [bp+18h]@3
+  int v42; // [sp+48h] [bp+18h]@4
+
+  if ( *(_DWORD *)(a1 + 560) )
+  {
+    v35 = 0;
+    v36 = 0;
+    Util::Data::CreateTXData((Util::Data *)&v35);
+    v8 = v35;
+    v9 = SSOPlatform.343051DB(&v33, L"cPacketPerTime");
+    LOBYTE(v36) = 1;
+    v34 = *v8;
+    v10 = CTXBSTR::operator wchar_t *(v9);
+    (*(void (__stdcall **)(int *, int))(v34 + 208))(v8, v10);
+    LOBYTE(v36) = 0;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v33);
+    v37 = v35;
+    v11 = SSOPlatform.343051DB(&v34, L"cRetryLimit");
+    LOBYTE(v36) = 2;
+    v33 = *v37;
+    v12 = CTXBSTR::operator wchar_t *(v11);
+    (*(void (__stdcall **)(int *, int))(v33 + 208))(v37, v12);
+    LOBYTE(v36) = 0;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v34);
+    v38 = v35;
+    v13 = SSOPlatform.343051DB(&v33, L"dwRetryInterval");
+    LOBYTE(v36) = 3;
+    v41 = *v38;
+    v14 = CTXBSTR::operator wchar_t *(v13);
+    (*(void (__stdcall **)(int *, int))(v41 + 224))(v38, v14);
+    LOBYTE(v36) = 0;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v33);
+    if ( a7 )
+    {
+      v39 = v35;
+      v15 = SSOPlatform.343051DB(&a6, L"RetryStrategyInfo");
+      LOBYTE(v36) = 4;
+      v42 = *v39;
+      v16 = CTXBSTR::operator wchar_t *(v15);
+      (*(void (__stdcall **)(int *, int))(v42 + 256))(v39, v16);
+      LOBYTE(v36) = 0;
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&a6);
+    }
+    if ( *(_DWORD *)(a1 + 584) && *(_DWORD *)(a1 + 548) == 1 )
+    {
+      v17 = SSOPlatform.343182C0();
+      a7 = 0;
+      SSOPlatform.34328E6B(v17 + 2);
+      LOBYTE(v36) = 5;
+      v40 = _byteswap_ushort(v17 + 2);
+      v18 = SSOPlatform.343052F2(v32);
+      *(_WORD *)v18 = v40;
+      v19 = (const void *)SSOPlatform.343052F2(v17);
+      memcpy((void *)(v18 + 2), v19, v20);
+      v21 = *(_DWORD **)(a1 + 560);
+      v22 = (int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD))(*v21 + 40);
+      v23 = SSOPlatform.343052F2(a3);
+      v24 = SSOPlatform.343182C0();
+      v26 = (*v22)(v21, v24, v23, v25);
+      LOBYTE(v36) = 0;
+      if ( a7 )
+      {
+        (*(void (__stdcall **)(int))(*(_DWORD *)a7 + 8))(a7);
+        a7 = 0;
+      }
+    }
+    else
+    {
+      v27 = *(_DWORD **)(a1 + 560);// v27 is CTXUDPDataSender
+      v28 = (int (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD))(*v27 + 40);
+      v29 = SSOPlatform.343052F2(a3);
+      v30 = SSOPlatform.343182C0();
+      v26 = (*v28)(v27, v30, v29, v31);// =>SSOCommo.340702FD  //(CTXUDPDataSender *)(v27 + 24)
+    }
+    v36 = -1;
+    if ( v35 )
+      (*(void (__stdcall **)(int))(*v35 + 8))((int)v35);
+    result = v26;
+  }
+  else
+  {
+    SSOPlatform.3430F9BA(L"file", 386, L"func", L"TXSSO", (const char *)L"%s", L"err CTXCSProcessor::SendData !m_pChannel");
+    result = -2147467259;
+  }
+  return result;
+}
+
+
+
+
+//SSOPlatform
+//=> SSOPlatform.3434D676
+signed int __stdcall SSOPlatform.3434D8E5(int a1, int a2, int a3, int a4)
+{
+  int *v5; // edi@4
+  int v6; // eax@6
+  int v7; // esi@6
+  int v8; // eax@6
+  bool v9; // bl@6
+  Util::Misc *v10; // edi@10
+  int v11; // eax@12
+  int (__thiscall *v12)(int); // ebx@12
+  int v13; // esi@12
+  int v14; // eax@12
+  int v15; // eax@13
+  int v16; // eax@13
+  int v17; // eax@14
+  int v18; // eax@14
+  int v19; // eax@15
+  int v20; // eax@15
+  char v21; // cl@16
+  int v22; // eax@16
+  int v23; // eax@16
+  int v24; // eax@16
+  int v25; // eax@16
+  int v26; // eax@16
+  int v27; // eax@16
+  int v28; // eax@16
+  int v29; // eax@16
+  int v30; // eax@16
+  unsigned __int16 v31; // ax@16
+  int v32; // esi@27
+  int v33; // eax@27
+  void (__thiscall *v34)(CTXBSTR *); // esi@27
+  int v35; // eax@27
+  int v36; // eax@27
+  int v37; // eax@27
+  int v38; // esi@29
+  int v39; // eax@32
+  int v40; // eax@32
+  int v41; // eax@33
+  int v42; // eax@33
+  int v43; // eax@34
+  int v44; // eax@34
+  int v45; // ebx@34
+  signed int v46; // [sp-18h] [bp-84h]@17
+  const wchar_t *v47; // [sp-14h] [bp-80h]@17
+  const wchar_t *v48; // [sp-10h] [bp-7Ch]@17
+  const char *v49; // [sp-Ch] [bp-78h]@17
+  const wchar_t *v50; // [sp-8h] [bp-74h]@17
+  int v51; // [sp+Ch] [bp-60h]@8
+  int v52; // [sp+10h] [bp-5Ch]@8
+  int v53; // [sp+18h] [bp-54h]@25
+  void *v54; // [sp+1Ch] [bp-50h]@6
+  int v55; // [sp+20h] [bp-4Ch]@27
+  int v56; // [sp+24h] [bp-48h]@16
+  int v57; // [sp+28h] [bp-44h]@16
+  int v58; // [sp+2Ch] [bp-40h]@16
+  int v59; // [sp+30h] [bp-3Ch]@27
+  int v60; // [sp+34h] [bp-38h]@25
+  int v61; // [sp+38h] [bp-34h]@25
+  int v62; // [sp+3Ch] [bp-30h]@25
+  int v63; // [sp+40h] [bp-2Ch]@25
+  int v64; // [sp+44h] [bp-28h]@35
+  int v65; // [sp+48h] [bp-24h]@14
+  int v66; // [sp+4Ch] [bp-20h]@16
+  int v67; // [sp+50h] [bp-1Ch]@12
+  int v68; // [sp+54h] [bp-18h]@25
+  int v69; // [sp+58h] [bp-14h]@6
+  unsigned __int8 v70; // [sp+5Eh] [bp-Eh]@32
+  char v71; // [sp+5Fh] [bp-Dh]@12
+  int v72; // [sp+68h] [bp-4h]@6
+  int v73; // [sp+74h] [bp+8h]@32
+  int v74; // [sp+74h] [bp+8h]@32
+  int v75; // [sp+74h] [bp+8h]@33
+  int v76; // [sp+74h] [bp+8h]@33
+  int v77; // [sp+74h] [bp+8h]@34
+
+  if ( !*(_DWORD *)(a1 + 544) )
+  {
+    SSOPlatform.3430F9BA(L"file", 451, L"func", L"TXSSO", (const char *)L"%s", L"err CTXCSProcessor::SendData m_bRunning=FALSE");
+    return -2147467259;
+  }
+  v5 = (int *)a2;
+  if ( !a2 || !a3 )
+  {
+    SSOPlatform.3430F9BA(
+      L"file",
+      457,
+      L"func",
+      L"TXSSO",
+      (const char *)L"%s",
+      L"err CTXCSProcessor::SendData !pCmdData || !pCmdCodec");
+    return -2147024809;
+  }
+  v69 = 0xFFFF;
+  v6 = SSOPlatform.343051DB(&v54, L"wCsCmdNo:");
+  v72 = 0;
+  v7 = *v5;
+  v8 = CTXBSTR::operator wchar_t *(v6);
+  v9 = (*(int (__stdcall **)(int *, int))(v7 + 40))(v5, v8) < 0;
+  v72 = -1;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v54);
+  if ( v9 )
+    return -2147024809;
+  v52 = *(_DWORD *)(a1 + 596);
+  v51 = a1 + 592;
+  SSOPlatform.3434F19E();
+  if ( !(unsigned __int8)SSOPlatform.3431684A() )
+  {
+    SSOPlatform.3430F9BA(
+      L"file",
+      468,
+      L"func",
+      L"TXSSO",
+      (const char *)L"err: CTXCSProcessor::SendData shield by server wCmd[%u]",
+      (unsigned __int16)v69);
+    return -2147467259;
+  }
+  v10 = (Util::Misc *)a2;
+  if ( SSOPlatform.3434CE76(a2) )
+    return 1;
+  v67 = 1;
+  v71 = 0;
+  v11 = SSOPlatform.343051DB(&a2, L"bCsCmdNoCyrpt");
+  v72 = 1;
+  v12 = CTXBSTR::operator wchar_t *;
+  v13 = *(_DWORD *)v10;
+  v14 = CTXBSTR::operator wchar_t *(v11);
+  (*(void (__stdcall **)(Util::Misc *, int))(v13 + 112))(v10, v14);
+  v72 = -1;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&a2);
+  if ( v71 == 1 )
+  {
+    v15 = SSOPlatform.343051DB(&v54, L"bCsCmdNoCyrpt");
+    v72 = 2;
+    a2 = *(_DWORD *)v10;
+    v16 = CTXBSTR::operator wchar_t *(v15);
+    (*(void (__stdcall **)(Util::Misc *, int))(a2 + 28))(v10, v16);
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v54);
+    v67 = v67 == 0;
+  }
+  v65 = 0;
+  v72 = 3;
+  v17 = SSOPlatform.343051DB(&v54, L"CsCmdDecryptKeyArray");
+  LOBYTE(v72) = 4;
+  a2 = *(_DWORD *)v10;
+  v18 = CTXBSTR::operator wchar_t *(v17);
+  (*(void (__stdcall **)(Util::Misc *, int))(a2 + 112))(v10, v18);
+  LOBYTE(v72) = 3;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v54);
+  if ( v71 == 12 )
+  {
+    v19 = SSOPlatform.343051DB(&v54, L"CsCmdDecryptKeyArray");
+    LOBYTE(v72) = 5;
+    a2 = *(_DWORD *)v10;
+    v20 = CTXBSTR::operator wchar_t *(v19);
+    (*(void (__stdcall **)(Util::Misc *, int))(a2 + 288))(v10, v20);
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v54);
+  }
+  v21 = *(_BYTE *)(a1 + 576);
+  v66 = 0;
+  LOBYTE(v56) = v21;
+  v22 = *(_DWORD *)(a1 + 580);
+  LOBYTE(v57) = *(_BYTE *)(a1 + 577);
+  v58 = v22;
+  LOBYTE(v72) = 6;
+  v23 = SSOPlatform.343051DB(&v54, L"cPacketPerTime");
+  LOBYTE(v72) = 7;
+  a2 = *(_DWORD *)v10;
+  v24 = CTXBSTR::operator wchar_t *(v23);
+  (*(void (__stdcall **)(Util::Misc *, int))(a2 + 32))(v10, v24);
+  LOBYTE(v72) = 6;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v54);
+  v25 = SSOPlatform.343051DB(&v54, L"cRetryLimit");
+  LOBYTE(v72) = 8;
+  a2 = *(_DWORD *)v10;
+  v26 = CTXBSTR::operator wchar_t *(v25);
+  (*(void (__stdcall **)(Util::Misc *, int))(a2 + 32))(v10, v26);
+  LOBYTE(v72) = 6;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v54);
+  v27 = SSOPlatform.343051DB(&v54, L"dwRetryInterval");
+  LOBYTE(v72) = 9;
+  a2 = *(_DWORD *)v10;
+  v28 = CTXBSTR::operator wchar_t *(v27);
+  (*(void (__stdcall **)(Util::Misc *, int))(a2 + 48))(v10, v28);
+  LOBYTE(v72) = 6;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v54);
+  v29 = SSOPlatform.343051DB(&v54, L"arrRetryStrategyInfo");
+  LOBYTE(v72) = 10;
+  a2 = *(_DWORD *)v10;
+  v30 = CTXBSTR::operator wchar_t *(v29);
+  (*(void (__stdcall **)(Util::Misc *, int))(a2 + 288))(v10, v30);
+  LOBYTE(v72) = 6;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v54);
+  v31 = SSOPlatform.3434FE00(v69);
+  v52 = 0;
+  a2 = v31;
+  LOBYTE(v72) = 11;
+  if ( (*(int (__stdcall **)(_DWORD, int, Util::Misc *, int))(**(_DWORD **)(a1 + 8) + 12))(
+         *(_DWORD *)(a1 + 8),
+         v67,
+         v10,
+         a3) < 0 )
+  {
+    v50 = L"err CTXCSProcessor::SendData EncodeBody";
+    v49 = (const char *)L"%s";
+    v48 = L"TXSSO";
+    v47 = L"func";
+    v46 = 526;
+LABEL_18:
+    SSOPlatform.3430F9BA(L"file", v46, v47, v48, v49, v50);
+    LOBYTE(v72) = 3;
+    if ( v66 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)v66 + 8))(v66);
+    v72 = -1;
+    if ( v65 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)v65 + 8))(v65);
+    return -2147467259;
+  }
+  if ( (*(int (__stdcall **)(_DWORD, int, int))(**(_DWORD **)(a1 + 8) + 16))(*(_DWORD *)(a1 + 8), v69, a2) < 0 )
+  {
+    v50 = L"err CTXCSProcessor::SendData EncodePacket";
+    v49 = (const char *)L"%s";
+    v48 = L"TXSSO";
+    v47 = L"func";
+    v46 = 533;
+    goto LABEL_18;
+  }
+  v62 = 0;
+  LOBYTE(v72) = 12;
+  (*(void (__stdcall **)(_DWORD, int *, int *))(**(_DWORD **)(a1 + 8) + 20))(*(_DWORD *)(a1 + 8), &v62, &v56);
+  v61 = 0;
+  v60 = 0;
+  (*(void (__stdcall **)(int, int *))(*(_DWORD *)v62 + 52))(v62, &v60);
+  (*(void (__stdcall **)(int, int *))(*(_DWORD *)v62 + 68))(v62, &v61);
+  v63 = 0;
+  LOBYTE(v72) = 13;
+  SSOPlatform.3434CACD(v61, v60);
+  v68 = 0;
+  LOBYTE(v72) = 14;
+  SSOPlatform.3431829E(v61, 11);
+  v54 = (void *)SSOPlatform.343051DB(&v53, L"bufPacketHeader");
+  LOBYTE(v72) = 15;
+  if ( !v68 )
+    Util::Data::CreateTXBuffer((Util::Data *)&v68);
+  v32 = *(_DWORD *)v10;
+  v33 = CTXBSTR::operator wchar_t *(v54);
+  (*(void (__stdcall **)(Util::Misc *, int))(v32 + 236))(v10, v33);
+  LOBYTE(v72) = 14;
+  v34 = (void (__thiscall *)(CTXBSTR *))CTXBSTR::~CTXBSTR;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v53);
+  v35 = *(_DWORD *)(a1 + 8);
+  v59 = 0;
+  (*(void (__stdcall **)(int, int *))(*(_DWORD *)v35 + 44))(v35, &v59);
+  v36 = SSOPlatform.343051DB(&v54, L"dwPubno");
+  LOBYTE(v72) = 16;
+  v53 = *(_DWORD *)v10;
+  v37 = CTXBSTR::operator wchar_t *(v36);
+  (*(void (__stdcall **)(Util::Misc *, int))(v53 + 224))(v10, v37);
+  LOBYTE(v72) = 14;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v54);
+  v55 = 0;
+  v53 = SSOPlatform.3434D676(a1, (int)&v63, (int)&v55, v56, v57, v58, v66);   //=>SSOPlatform.3434D676
+  if ( v53 >= 0 )
+  {
+    v54 = operator new(0x1Cu);
+    LOBYTE(v72) = 17;
+    if ( v54 )
+      v38 = SSOPlatform.3434CB16(v69, a2, v55, a4, v65, v10);
+    else
+      v38 = 0;
+    LOBYTE(v72) = 14;
+    v12 = CTXBSTR::operator wchar_t *;
+    *(_DWORD *)SSOPlatform.3434EF3B(v38) = v38;
+    v34 = (void (__thiscall *)(CTXBSTR *))CTXBSTR::~CTXBSTR;
+  }
+  v70 = -1;
+  v39 = SSOPlatform.343051DB(&a3, L"cSubCmd");
+  LOBYTE(v72) = 18;
+  v73 = *(_DWORD *)v10;
+  v40 = v12(v39);
+  v74 = (*(int (__stdcall **)(Util::Misc *, int))(v73 + 32))(v10, v40);
+  LOBYTE(v72) = 14;
+  v34((CTXBSTR *)&a3);
+  if ( v74 >= 0 )
+  {
+    v64 = v70;
+  }
+  else
+  {
+    v41 = SSOPlatform.343051DB(&a3, L"cSubCmd");
+    LOBYTE(v72) = 19;
+    v75 = *(_DWORD *)v10;
+    v42 = v12(v41);
+    v76 = (*(int (__stdcall **)(Util::Misc *, int))(v75 + 40))(v10, v42);
+    LOBYTE(v72) = 14;
+    v34((CTXBSTR *)&a3);
+    if ( v76 < 0 )
+    {
+      v43 = SSOPlatform.343051DB(&a3, L"wSubCmd");
+      LOBYTE(v72) = 20;
+      v77 = *(_DWORD *)v10;
+      v44 = v12(v43);
+      v45 = (*(int (__stdcall **)(Util::Misc *, int))(v77 + 40))(v10, v44);
+      LOBYTE(v72) = 14;
+      v34((CTXBSTR *)&a3);
+      if ( v45 < 0 )
+        v64 = 255;
+    }
+  }
+  if ( !Util::Misc::IsCSSubSendData(v10, (struct ITXData *)&v70) )
+    SSOPlatform.3430F9BA(
+      L"file",
+      602,
+      L"func",
+      L"NetWork.CSComm.Pck",
+      (const char *)L"%s,%d,%d,%d",
+      L"CSComm",
+      (unsigned __int16)v69,
+      (unsigned __int16)v64,
+      0);
+  LOBYTE(v72) = 13;
+  if ( v68 )
+  {
+    (*(void (__stdcall **)(int))(*(_DWORD *)v68 + 8))(v68);
+    v68 = 0;
+  }
+  LOBYTE(v72) = 12;
+  if ( v63 )
+  {
+    (*(void (__stdcall **)(int))(*(_DWORD *)v63 + 8))(v63);
+    v63 = 0;
+  }
+  LOBYTE(v72) = 11;
+  if ( v62 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v62 + 8))(v62);
+  LOBYTE(v72) = 3;
+  if ( v66 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v66 + 8))(v66);
+  v72 = -1;
+  if ( v65 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v65 + 8))(v65);
+  return v53;
+}
+
+
+
+//SSOPlatform
+//  SSOPlatform.3434D8E5 
+signed int __usercall SSOPlatform.343394A6@<eax>(int a1@<ebx>)
+
+{
+  __int16 v2; // si@14
+  CTXStringW *v3; // esi@20
+  int v4; // ST28_4@20
+  int v5; // ST20_4@20
+  int v6; // ST1C_4@20
+  const wchar_t *v7; // eax@20
+  _DWORD *v8; // esi@20
+  void (__stdcall **v9)(_DWORD, _DWORD); // edi@22
+  int v10; // eax@22
+  int v11; // edi@24
+  DWORD v12; // eax@33
+  int v13; // ecx@33
+  Util::Network *v14; // eax@33
+  unsigned __int32 v15; // eax@33
+  int v16; // [sp+38h] [bp-54h]@4
+  _DWORD *v17; // [sp+3Ch] [bp-50h]@20
+  int v18; // [sp+40h] [bp-4Ch]@12
+  int v19; // [sp+44h] [bp-48h]@12
+  int v20; // [sp+48h] [bp-44h]@4
+  int v21; // [sp+4Ch] [bp-40h]@12
+  char v22; // [sp+50h] [bp-3Ch]@20
+  int v23; // [sp+54h] [bp-38h]@20
+  int (__stdcall **v24)(int); // [sp+58h] [bp-34h]@4
+  int v25; // [sp+5Ch] [bp-30h]@4
+  int v26; // [sp+60h] [bp-2Ch]@4
+  unsigned __int32 v27; // [sp+64h] [bp-28h]@4
+  int v28; // [sp+68h] [bp-24h]@4
+  int v29; // [sp+6Ch] [bp-20h]@4
+  int v30; // [sp+70h] [bp-1Ch]@4
+  __int16 v31; // [sp+74h] [bp-18h]@4
+  int v32; // [sp+78h] [bp-14h]@4
+  int v33; // [sp+88h] [bp-4h]@4
+
+  if ( !*(_DWORD *)(a1 + 84) )
+  {
+    SSOPlatform.3430511B(2, 138, L"TXSSO", (unsigned int)L"## PingServer: SendPingData, CsProcessor is NULL.");
+    return 0;
+  }
+  v16 = 0;
+  v33 = 0;
+  v25 = 0;
+  v24 = &off_34418040;
+  v32 = 0;
+  LOBYTE(v33) = 1;
+  v28 = *(_DWORD *)(a1 + 8);
+  v29 = *(_DWORD *)(a1 + 12);
+  v30 = *(_DWORD *)a1;
+  LOWORD(v26) = 1;
+  v27 = 1073;
+  v20 = a1 + 236;
+  v31 = SSOPlatform.34328691();
+  SSOPlatform.34325BB0(&v24);
+  LOBYTE(v33) = 0;
+  if ( v32 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v32 + 8))(v32);
+  if ( SSOPlatform.3435FC5E() )
+  {
+    v25 = 0;
+    v24 = &off_34418020;
+    v27 = 0;
+    LOWORD(v28) = 0;
+    LOWORD(v26) = 1;
+    v27 = NLS::GetLCID();
+    LOWORD(v28) = NLS::GetTimeOffsetUTC();
+    SSOPlatform.34325BB0(&v24);
+  }
+  if ( !*(_DWORD *)a1 )
+  {
+    SSOPlatform.3431E6FF();
+    LOBYTE(v33) = 2;
+    LOWORD(v26) = 0;
+    CTXStringW::operator=(&v27, a1 + 4);
+    SSOPlatform.34325BB0(&v24);
+    LOBYTE(v33) = 0;
+    CTXStringW::~CTXStringW((CTXStringW *)&v27);
+  }
+  v25 = 0;
+  v24 = &off_3441E77C;
+  v29 = 0;
+  v30 = 0;
+  *(_DWORD *)&v31 = 0;
+  LOWORD(v26) = 1;
+  LOBYTE(v33) = 3;
+  v27 = *(_DWORD *)(a1 + 16);
+  v32 = *(_DWORD *)(a1 + 20);
+  SSOPlatform.343285A9(&v28);
+  SSOPlatform.34325BB0(&v24);
+  LOBYTE(v33) = 0;
+  v24 = &off_3441E77C;
+  LOWORD(v26) = 1;
+  v27 = 0;
+  v32 = 0;
+  SSOPlatform.3432858A(&v28);
+  if ( *(_WORD *)(a1 + 34) )
+    SSOPlatform.34325BB0(a1 + 24);
+  v18 = 0;
+  v21 = 0;
+  v19 = 0;
+  LOBYTE(v33) = 5;
+  if ( !SSOPlatform.343621B5(&v21) )
+    SSOPlatform.343625E2();
+  v2 = v21;
+  if ( !(_WORD)v21 || SSOPlatform.343176C8(&v19) || SSOPlatform.343176C8(&v18) )
+    SSOPlatform.3430511B(2, 210, L"TXSSO_Assert", (unsigned int)L"## PingServer: SendPingData, DHKey is Invalid.");
+  SSOPlatform.3431FDD2(&v24);
+  LOBYTE(v33) = 6;
+  LOWORD(v26) = v2;
+  SSOPlatform.3431E6A8(v19);
+  SSOPlatform.34325BB0(&v24);
+  LOBYTE(v33) = 5;
+  SSOPlatform.3431FE08(&v24);
+  LOBYTE(v33) = 4;
+  if ( v19 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v19 + 8))(v19);
+  v23 = a1 + 104;
+  v3 = (CTXStringW *)CTXStringW::CTXStringW(&v21, a1 + 104);
+  LOBYTE(v33) = 7;
+  v4 = SSOPlatform.34328691();
+  v5 = *(_DWORD *)(a1 + 112);
+  v6 = *(_WORD *)(a1 + 108);
+  v7 = CTXStringW::GetString(v3);
+  SSOPlatform.3430F9BA(
+    L"file",
+    218,
+    L"func",
+    L"TXSSO",
+    (const char *)L"PingServer: Send Ping Data, Address=%s:%d:%d, PingServer=0x%08x, RedirectCount=%u",
+    v7,
+    v6,
+    v5,
+    a1,
+    v4);
+  LOBYTE(v33) = 4;
+  CTXStringW::~CTXStringW((CTXStringW *)&v21);
+  v17 = 0;
+  LOBYTE(v33) = 8;
+  Util::Data::CreateTXData((Util::Data *)&v17);
+  v8 = v17;
+  v21 = SSOPlatform.343051DB(&v22, L"GeneralCodec_Request");
+  LOBYTE(v33) = 9;
+  if ( !v16 )
+    Util::Data::CreateTXBuffer((Util::Data *)&v16);
+  v9 = (void (__stdcall **)(_DWORD, _DWORD))(*v8 + 236);
+  v10 = CTXBSTR::operator wchar_t *(v21);
+  (*v9)(v8, v10);
+  LOBYTE(v33) = 8;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v22);
+  SSOPlatform.3435FABD(2085);
+  SSOPlatform.3435F52A(3);
+  SSOPlatform.3435FB0C(v17);
+  if ( !SSOPlatform.343176C8(&v18) )
+    SSOPlatform.3435F9A9(&v18);
+  v19 = 0;
+  LOBYTE(v33) = 10;
+  SSOPlatform.3431FFB0(&v19);
+  v11 = v19;
+  if ( (*(int (__stdcall **)(_DWORD, int, int, _DWORD))(**(_DWORD **)(a1 + 84) + 68))(   //  if (SSOPlatform.3434D8E5())
+         *(_DWORD *)(a1 + 84),
+         (int)v17,
+         v19,
+         *(_DWORD *)(a1 + 92)) < 0 ) 
+  {
+    SSOPlatform.3430511B(2, 246, L"TXSSO", (unsigned int)L"## PingServer: SendPingData, Failed Send Ping Data");
+    LOBYTE(v33) = 8;
+    if ( v19 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)v19 + 8))(v19);
+    LOBYTE(v33) = 4;
+    if ( v17 )
+      (*(void (__stdcall **)(int))(*v17 + 8))((int)v17);
+    LOBYTE(v33) = 0;
+    if ( v18 )
+    {
+      (*(void (__stdcall **)(int))(*(_DWORD *)v18 + 8))(v18);
+      v18 = 0;
+    }
+    v33 = -1;
+    if ( v16 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)v16 + 8))(v16);
+    return 0;
+  }
+  SSOPlatform.3436206A(2085);
+  v12 = GetTickCount();
+  v13 = v23;
+  *(_DWORD *)(a1 + 192) = v12;
+  v14 = (Util::Network *)CTXBSTR::operator wchar_t *(v13);
+  v15 = Util::Network::StringToIP(v14);
+  v23 = v15;
+  if ( v15 && v15 != -1 )
+    SSOPlatform.3433B2CB(&v23);
+  LOBYTE(v33) = 8;
+  if ( v11 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v11 + 8))(v11);
+  LOBYTE(v33) = 4;
+  if ( v17 )
+    (*(void (__stdcall **)(_DWORD *))(*v17 + 8))(v17);
+  LOBYTE(v33) = 0;
+  if ( v18 )
+  {
+    (*(void (__stdcall **)(int))(*(_DWORD *)v18 + 8))(v18);
+    v18 = 0;
+  }
+  v33 = -1;
+  if ( v16 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v16 + 8))(v16);
+  return 1;
+}
+
+// => SSOPlatform.343394A6
+signed int __userpurge SSOPlatform.343392AA@<eax>(int a1@<eax>, int a2@<edx>, int a3@<ecx>, int a4)
+{
+  int v4; // edi@1
+  int v5; // ebx@1
+  bool v6; // zf@3
+  int v7; // eax@3
+  unsigned __int16 v8; // ax@7
+  DWORD v9; // eax@10
+
+  v4 = a1;
+  v5 = a2;
+  if ( a1 && a4 )
+  {
+    SSOPlatform.34339447(a3);
+    v6 = *(_DWORD *)v5 == 0;
+    v7 = a4;
+    *(_DWORD *)(v5 + 80) = v4;
+    *(_DWORD *)(v5 + 96) = v7;
+    if ( v6 && CTXBSTR::IsEmpty((CTXBSTR *)(v5 + 4))
+      || !*(_DWORD *)(v5 + 8)
+      || CTXBSTR::IsEmpty((CTXBSTR *)(v5 + 52))
+      || (v8 = *(_WORD *)(v5 + 56)) == 0 )
+    {
+      SSOPlatform.3430511B(2, 82, L"TXSSO", (unsigned int)L"### PingServer: Fail to Check Init Data, Return Fail.");
+    }
+    else
+    {
+      SSOPlatform.3430F9BA(
+        L"file",
+        87,
+        L"func",
+        L"TXSSO",
+        (const char *)L"PingServer: Start Ping Uin=%lu Account=%s ServiceId=%lu, ClientVer=%lu, Type=%u Address=%s:%d:%d",
+        *(_DWORD *)v5,
+        *(_DWORD *)(v5 + 4),
+        *(_DWORD *)(v5 + 8),
+        *(_DWORD *)(v5 + 12),
+        *(_DWORD *)(v5 + 20),
+        *(_DWORD *)(v5 + 52),
+        v8,
+        *(_DWORD *)(v5 + 60));
+      SSOPlatform.343285A9(v5 + 236);
+      SSOPlatform.34320F55();
+      v9 = GetTickCount();
+      a4 = 0;
+      *(_DWORD *)(v5 + 200) = v9;
+      if ( SSOPlatform.34339B17(&a4) )
+      {
+        if ( !a4 )
+        {
+          SSOPlatform.3430511B(2, 124, L"TXSSO", (unsigned int)L"PingServer: Start Async DNS");
+          return 1;
+        }
+        SSOPlatform.3430511B(2, 100, L"TXSSO", (unsigned int)L"PingServer: DNS Finish Sync");
+        *(_DWORD *)(v5 + 204) = GetTickCount();
+        CTXBSTR::operator=(v5 + 104, v5 + 100);
+        (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(v5 + 80) + 8))(*(_DWORD *)(v5 + 84));
+        if ( *(_DWORD *)(v5 + 84) )
+          SSOPlatform.3430FB53();
+        if ( (*(int (__stdcall **)(int, int))(**(_DWORD **)(v5 + 80) + 4))(v5 + 104, v5 + 84) >= 0   
+          && *(_DWORD *)(v5 + 84) )
+        {
+          return SSOPlatform.343394A6(v5) != 0;// => SSOPlatform.343394A6
+        }
+        SSOPlatform.3430511B(2, 110, L"TXSSO", (unsigned int)L"## PingServer: Fail to Create CSProcessor");
+      }
+      else
+      {
+        *(_DWORD *)(v5 + 204) = GetTickCount();
+      }
+    }
+  }
+  return 0;
+}
+
+-----
+// =>SSOPlatform.343392AA
+int __stdcall SSOPlatform.3433DB96(int a1, int a2, void *a3, int a4)
+{
+  int v4; // ebx@3
+  bool v5; // zf@3
+  int v6; // esi@5
+  int v7; // ecx@7
+  int v8; // edi@7
+  int v9; // eax@7
+  unsigned int v10; // esi@7
+  unsigned int v11; // esi@10
+  void *v12; // eax@16
+  int result; // eax@25
+  int v14; // [sp-14h] [bp-98h]@7
+  int v15; // [sp-10h] [bp-94h]@7
+  int v16; // [sp-Ch] [bp-90h]@7
+  int v17; // [sp-8h] [bp-8Ch]@22
+  int v18; // [sp-4h] [bp-88h]@6
+  int v19; // [sp+Ch] [bp-78h]@20
+  char v20; // [sp+10h] [bp-74h]@20
+  int v21; // [sp+14h] [bp-70h]@20
+  int v22; // [sp+18h] [bp-6Ch]@20
+  int v23; // [sp+1Ch] [bp-68h]@20
+  int v24; // [sp+20h] [bp-64h]@20
+  char v25; // [sp+4Ch] [bp-38h]@20
+  int v26; // [sp+6Ch] [bp-18h]@9
+  unsigned int v27; // [sp+70h] [bp-14h]@9
+  void *v28; // [sp+74h] [bp-10h]@19
+  int v29; // [sp+80h] [bp-4h]@16
+  void *v30; // [sp+94h] [bp+10h]@17
+
+  if ( a3
+    && a4
+    && ((v4 = a1,
+         SSOPlatform.3433DDAD(),
+         v5 = *(_DWORD *)(a1 + 4) == 0,
+         *(_DWORD *)(a1 + 88) = a3,
+         *(_DWORD *)(a1 + 92) = a4,
+         !v5)
+     || !CTXBSTR::IsEmpty((CTXBSTR *)(a1 + 8)))
+    && (v6 = *(_DWORD *)(a1 + 12)) != 0
+    && SSOPlatform.34351320(v18) )
+  {
+    v16 = SSOPlatform.34351320(*(_DWORD *)(a1 + 20));
+    v15 = v6;
+    v14 = v7;
+    CTXBSTR::CTXBSTR(&v14, a1 + 8);
+    SSOPlatform.3431DFF8(
+      L"file",
+      45,
+      L"func",
+      L"TXSSO",
+      L"SelectServer: Start Select Server Account=%s, AppId=%lu, ServerCount=%lu, Type=%u",
+      v14);
+    v8 = a2;
+    v9 = a2 + 52;
+    v10 = *(_DWORD *)(a2 + 56);
+    if ( v10 > *(_DWORD *)(a2 + 60) )
+    {
+      _invalid_parameter_noinfo();
+      v9 = a2 + 52;
+    }
+    v26 = v9;
+    v27 = v10;
+    while ( 1 )
+    {
+      v11 = *(_DWORD *)(v9 + 8);
+      if ( *(_DWORD *)(v9 + 4) > v11 )
+      {
+        _invalid_parameter_noinfo();
+        v9 = a2 + 52;
+      }
+      if ( !v26 || v26 != v9 )
+        _invalid_parameter_noinfo();
+      if ( v27 == v11 )
+        break;
+      v12 = operator new(0xFCu);
+      v29 = 0;
+      if ( v12 )
+        v30 = (void *)SSOPlatform.34339099(v12); //获得数据
+      else
+        v30 = 0;
+      v29 = -1;
+      v28 = v30;
+      if ( v30 )
+      {
+        SSOPlatform.34339035(&v19);
+        v29 = 1;
+        v19 = *(_DWORD *)v8;
+        CTXBSTR::operator=(&v20, v8 + 4);
+        v22 = *(_DWORD *)(v8 + 12);
+        v21 = *(_DWORD *)(v8 + 8);
+        v23 = *(_DWORD *)(v8 + 20);
+        v24 = *(_DWORD *)(v8 + 16);
+        SSOPlatform.34329A94(v8 + 24);
+        SSOPlatform.3433D630();
+        SSOPlatform.34320F55();
+        SSOPlatform.343285A9(&v25);
+        if ( SSOPlatform.343392AA(*(_DWORD *)(v4 + 88), (int)v30, (int)&v19, v4) ) // =>SSOPlatform.343392AA
+        {
+          SSOPlatform.3430E92B(&v28);
+          v4 = a1;
+        }
+        else
+        {
+          v17 = *(_DWORD *)(v4 + 104);
+          v16 = (int)v30;
+          SSOPlatform.3430F9BA(
+            L"file",
+            73,
+            L"func",
+            L"TXSSO",
+            (const char *)L"## SelectServer: Fail to Ping Server, PingServer=0x%x, PingServerCount=%u");
+          SSOPlatform.3433DDFC(v30);
+        }
+        v29 = -1;
+        SSOPlatform.34339190();
+        v8 = a2;
+      }
+      SSOPlatform.3432CC12();
+      v9 = a2 + 52;
+    }
+    result = *(_DWORD *)(v4 + 104) != 0;
+  }
+  else
+  {
+    result = 0;
+  }
+  return result;
+}
+
+int __stdcall SSOPlatform.34339099(int a1)
+{
+  int v1; // edi@1
+  int v2; // esi@1
+  int v3; // eax@1
+  int v4; // eax@1
+
+  v1 = a1;
+  SSOPlatform.34339035(a1);
+  *(_DWORD *)(a1 + 80) = 0;
+  *(_DWORD *)(a1 + 84) = 0;
+  SSOPlatform.3433B485(v1 + 88, v1);
+  *(_DWORD *)(a1 + 96) = 0;
+  CTXBSTR::CTXBSTR(a1 + 100);
+  SSOPlatform.34320007(a1 + 104);
+  v2 = a1 + 116;
+  SSOPlatform.3431E92E();
+  SSOPlatform.3431E92E();
+  *(_WORD *)(a1 + 124) = 0;
+  *(_WORD *)(a1 + 126) = 0;
+  *(_DWORD *)(a1 + 128) = 0;
+  *(_DWORD *)(a1 + 132) = 0;
+  *(_DWORD *)(a1 + 136) = 0;
+  *(_WORD *)(a1 + 140) = 0;
+  *(_DWORD *)(a1 + 144) = 0;
+  *(_WORD *)(v2 + 40) = 0;
+  *(_WORD *)(v2 + 42) = 0;
+  *(_DWORD *)(v2 + 44) = 0;
+  *(_DWORD *)(v2 + 48) = 0;
+  *(_DWORD *)(v2 + 52) = 0;
+  *(_WORD *)(v2 + 56) = 0;
+  *(_DWORD *)(v2 + 60) = 0;
+  SSOPlatform.3433B4FA(v1 + 180, v1);
+  *(_DWORD *)(a1 + 188) = 0;
+  SSOPlatform.34320109();
+  v3 = a1 + 236;
+  *(_DWORD *)(v3 + 4) = 0;
+  *(_DWORD *)(v3 + 8) = 0;
+  *(_DWORD *)(v3 + 12) = 0;
+  CTXBSTR::Empty((CTXBSTR *)(a1 + 104));
+  v4 = *(_DWORD *)(a1 + 92);
+  *(_WORD *)(a1 + 108) = 0;
+  *(_DWORD *)(a1 + 112) = 0;
+  *(_DWORD *)(v4 + 40) = SSOPlatform.34339CF7;
+  *(_DWORD *)(*(_DWORD *)(a1 + 92) + 44) = SSOPlatform.3433A9E1;
+  *(_DWORD *)(*(_DWORD *)(a1 + 184) + 40) = SSOPlatform.3433AA88;
+  return a1;
+}
+-----
+
+//=>SSOPlatform.3433DB96
+//=> while(1)
+signed int __stdcall SSOPlatform.3432B788(void *a1, _DWORD *a2)
+{
+  unsigned int v2; // esi@5
+  int v3; // esi@7
+  _DWORD *v4; // esi@11
+  void *v5; // ebx@22
+  Util::Network *v6; // eax@24
+  int v7; // esi@25
+  int v8; // eax@25
+  signed int v9; // esi@29
+  int *v11; // eax@31
+  int v12; // ST24_4@31
+  int v13; // eax@31
+  int v14; // eax@32
+  int v15; // eax@35
+  int v16; // [sp-10h] [bp-E4h]@14
+  const wchar_t *v17; // [sp-Ch] [bp-E0h]@14
+  const wchar_t *v18; // [sp-8h] [bp-DCh]@14
+  int v19; // [sp-4h] [bp-D8h]@0
+  int v20; // [sp-4h] [bp-D8h]@31
+  char v21; // [sp+Ch] [bp-C8h]@20
+  int (__thiscall **v22)(void *, char); // [sp+28h] [bp-ACh]@21
+  char v23; // [sp+50h] [bp-84h]@7
+  int v24; // [sp+60h] [bp-74h]@22
+  char v25; // [sp+64h] [bp-70h]@22
+  int v26; // [sp+68h] [bp-6Ch]@22
+  int v27; // [sp+6Ch] [bp-68h]@22
+  int v28; // [sp+70h] [bp-64h]@25
+  unsigned __int32 v29; // [sp+74h] [bp-60h]@23
+  char v30; // [sp+A4h] [bp-30h]@22
+  _DWORD *v31; // [sp+BCh] [bp-18h]@11
+  unsigned int v32; // [sp+C0h] [bp-14h]@5
+  int v33; // [sp+D0h] [bp-4h]@20
+  void *v34; // [sp+DCh] [bp+8h]@28
+
+  while ( 1 )
+  {
+    while ( 1 )
+    {
+      if ( *((_DWORD *)a1 + 71) >= (unsigned int)SSOPlatform.3432C57C() )
+      {
+        if ( !*((_DWORD *)a1 + 103) )
+        {
+          *a2 = 1;
+          return 0;
+        }
+        SSOPlatform.3430511B(2, 1012, L"TXSSO", (unsigned int)L">>> CSEnvInit: Switch To No Proxy");
+        *((_DWORD *)a1 + 71) = 0;
+        *((_DWORD *)a1 + 103) = 0;
+        if ( *((_DWORD *)a1 + 31) )
+          SSOPlatform.3430FB53();
+      }
+      v32 = *((_DWORD *)a1 + 71);
+      v2 = v32;
+      if ( v2 < SSOPlatform.3432C57C() )
+      {
+        *((_DWORD *)a1 + 71) = v2 + 1;
+        if ( SSOPlatform.3432C57C() <= v2 )
+        {
+          SSOPlatform.343035EC("invalid vector<T> subscript");
+          v33 = 0;
+          SSOPlatform.343034C4(&v21);
+          v22 = &off_343DD704;
+          _CxxThrowException(&v22, &unk_34436A04);
+        }
+        SSOPlatform.3433D5C1();
+        v3 = SSOPlatform.3432D189(&v23);
+        if ( !*(_DWORD *)v3 )
+          _invalid_parameter_noinfo();
+        if ( *(_DWORD *)(v3 + 4) >= *(_DWORD *)(*(_DWORD *)v3 + 8) )
+          _invalid_parameter_noinfo();
+        v4 = *(_DWORD **)(v3 + 4);
+        v31 = v4;
+        if ( SSOPlatform.34351320(v19) )
+          break;
+      }
+    }
+    if ( *v4 == 40 && *((_DWORD *)a1 + 10) )
+    {
+      v18 = L"# CsEnvInit: Start Ping Task, Skip Last Login IP.";
+      v17 = L"TXSSO";
+      v16 = 1038;
+      goto LABEL_18;
+    }
+    if ( *v4 != 30 || !*((_DWORD *)a1 + 11) )
+      break;
+    v18 = L"# CsEnvInit: Start Ping Task, Skip Last Spare IP.";
+    v17 = L"TXSSO";
+    v16 = 1043;
+LABEL_18:
+    SSOPlatform.3430511B(2, v16, v17, (char)v18);
+  }
+  SSOPlatform.34329152(&v24);
+  v33 = 1;
+  v24 = *((_DWORD *)a1 + 3);
+  CTXBSTR::operator=(&v25, (char *)a1 + 16);
+  v26 = *((_DWORD *)a1 + 5);
+  v27 = *((_DWORD *)a1 + 6);
+  SSOPlatform.3432C22D();
+  v5 = a1;
+  SSOPlatform.343285A9(&v30);
+  SSOPlatform.34329A94((char *)a1 + 148);
+  if ( CTXBSTR::IsEmpty((CTXBSTR *)((char *)a1 + 212)) )
+  {
+    v29 = 0;
+  }
+  else
+  {
+    v6 = (Util::Network *)CTXBSTR::operator wchar_t *((char *)a1 + 212);
+    v29 = Util::Network::StringToIP(v6);
+  }
+  v7 = *v4;
+  v8 = *((_DWORD *)a1 + 36) != -1;
+  v28 = 0;
+  if ( v8 )
+    v28 = 5;
+  else
+    SSOPlatform.343646F3(&v28, v7);
+  v34 = (void *)SSOPlatform.3432BC4C(a1, v32);
+  if ( !v34 )
+  {
+    v9 = 0;
+LABEL_30:
+    SSOPlatform.3432BAD8();
+    return v9;
+  }
+  v11 = (int *)Util::Network::IPToString(&a2, v29);
+  LOBYTE(v33) = 2;
+  v12 = *v11;
+  v13 = SSOPlatform.34351320(v28);
+  SSOPlatform.3430F9BA(
+    L"file",
+    1070,
+    L"func",
+    L"TXSSO",
+    (const char *)L"CSEnvInit: Start Next Ping Task, Index=%d, ServerListCount=%d, Type=%u, LastLoginIP=%s",
+    v32,
+    v13);
+  LOBYTE(v33) = 1;
+  CTXStringW::~CTXStringW((CTXStringW *)&a2);
+  if ( SSOPlatform.34351320(v19) )
+  {
+    v14 = SSOPlatform.3432C329();
+    SSOPlatform.3432B620(*v31, *(_DWORD *)(v14 + 8));
+  }
+  if ( SSOPlatform.3433DB96((int)v34, (int)&v24, v5, (int)v5 + 4) )
+  {
+    v9 = 1;
+    goto LABEL_30;
+  }
+  SSOPlatform.3432BCAA(v5);
+  SSOPlatform.3430511B(2, 1085, L"TXSSO", (unsigned int)L"## CSEnvInit: Fail to Start Select Server, Cancel Ping Flow Timer");
+  TXTimer::EraseTimerCallback(*((TXTimer **)v5 + 74), 0);
+  v15 = SSOPlatform.34351320(v20);
+  SSOPlatform.3430F9BA(
+    L"file",
+    1088,
+    L"func",
+    L"TXSSO",
+    (const char *)L"## CSEnvInit: Fail to Start Next Ping Task, Index=%d, ServerListCount=%d",
+    v32,
+    v15);
+  SSOPlatform.3432BAD8();
+  return 0;
+}
+
+
+
+//帐号出现在栈01
+//=>SSOPlatform.3432B788
+signed int __thiscall SSOPlatform.3432A4D8(char *this, char a2, int a3)
+{
+  char *v3; // esi@1
+  int v4; // esi@1
+  unsigned int v5; // edi@2
+  signed int result; // eax@4
+  _DWORD *v7; // eax@6
+  int v8; // edi@6
+  char *v9; // [sp+14h] [bp-58h]@1
+  char *v10; // [sp+18h] [bp-54h]@1
+  int v11; // [sp+20h] [bp-4Ch]@6
+  int (__stdcall **v12)(int); // [sp+24h] [bp-48h]@11
+  int v13; // [sp+28h] [bp-44h]@11
+  int v14; // [sp+2Ch] [bp-40h]@11
+  int v15; // [sp+30h] [bp-3Ch]@11
+  char v16; // [sp+34h] [bp-38h]@11
+  char v17; // [sp+44h] [bp-28h]@20
+  int v18; // [sp+68h] [bp-4h]@8
+
+  v3 = this;
+  v10 = this;
+  v9 = this - 4;
+  SSOPlatform.3432BCAA(this - 4);
+  SSOPlatform.3430511B(346, L"TXSSO", (unsigned int)L"## CSEnvInit: Select Server Return Fail, Cancel Ping Flow Timer");
+  TXTimer::EraseTimerCallback(*((TXTimer **)v3 + 73), 0);
+  v4 = a3;
+  if ( !*(_DWORD *)(a3 + 28) )
+  {
+    if ( *(_DWORD *)(a3 + 48) != -1 )
+    {
+      SSOPlatform.3430F9BA(
+        L"file",
+        374,
+        L"func",
+        L"TXSSO",
+        L"CsEnvInit: Server Request Ping Domain, Type=%u",
+        *(_DWORD *)(a3 + 48));
+      SSOPlatform.3432BD0D();
+      v7 = v10 + 188;
+      v8 = *((_DWORD *)v10 + 47);
+      v11 = v8;
+      if ( v8 )
+      {
+        (*(void (__stdcall **)(int))(*(_DWORD *)v8 + 4))(v8);
+        v7 = v10 + 188;
+      }
+      v18 = 0;
+      if ( *v7 )
+      {
+        SSOPlatform.3430FB53();
+        v8 = v11;
+        v4 = a3;
+      }
+      if ( v8 )
+      {
+        SSOPlatform.3432A7D9(&v12);
+        LOBYTE(v18) = 1;
+        v13 = *(_DWORD *)(v4 + 40);
+        LOWORD(v14) = *(_WORD *)(v4 + 44);
+        v15 = *(_DWORD *)(v4 + 48);
+        SSOPlatform.343285A9(&v16);
+        (*(void (__stdcall **)(int, void *, int *))(*(_DWORD *)v8 + 16))(v8, v9, (int *)&v12);
+        SSOPlatform.3432858A(&v16);
+        v15 = -1;
+        v18 = -1;
+        v12 = &off_34419CC0;
+        LOWORD(v14) = 1;
+        return (*(int (__stdcall **)(int))(*(_DWORD *)v8 + 8))(v8);
+      }
+      v18 = -1;
+    }
+    if ( *(_DWORD *)(v4 + 24)
+      && (SSOPlatform.3430511B(
+            394,
+            L"TXSSO",
+            (unsigned int)L"## CSEnvInit: Force All Stop, Stop All Select Operation, Notify Fail."),
+          SSOPlatform.3432BD0D(),
+          *((_DWORD *)v10 + 47)) )
+    {
+      SSOPlatform.34310E84();
+      SSOPlatform.34310E9B();
+      v18 = 2;
+      SSOPlatform.3431B21A();
+      SSOPlatform.3432BBF2(v9, &v12);
+    }
+    else
+    {
+      if ( !*((_DWORD *)v10 + 47) )
+        return SSOPlatform.3430511B(
+                 435,
+                 L"TXSSO",
+                 (unsigned int)L"## CSEnvInit: Select Server return fail, and pCsEnvInitSink is NULL, Do Nothing.");
+      result = SSOPlatform.3432B788(v9, &v11);  //=>SSOPlatform.3432B788
+      if ( result )
+        return result;
+      if ( *((_DWORD *)v10 + 76) )
+        return SSOPlatform.3430F9BA(
+                 L"file",
+                 427,
+                 L"func",
+                 L"TXSSO",
+                 L"## CSEnvInit: Fail to Start Next Ping Task, Still there are unfinished Tasks, Wait result, UnfinishedTaskCount=%d",
+                 *((_DWORD *)v10 + 76));
+      SSOPlatform.3430511B(
+        418,
+        L"TXSSO",
+        (unsigned int)L"## CSEnvInit: Fail to Start Next Ping Task, And All Task failed, Notify Fail.");
+      SSOPlatform.34310E84();
+      SSOPlatform.34310E9B();
+      v18 = 3;
+      SSOPlatform.3431B21A();
+      SSOPlatform.3432BBF2(v9, &v17);
+    }
+    v18 = -1;
+    return SSOPlatform.34310ECC();
+  }
+  SSOPlatform.3430F9BA(
+    L"file",
+    352,
+    L"func",
+    L"TXSSO",
+    L"CSEnvInit: Overload Protect Start. DelaySecond=%d",
+    *(_DWORD *)(a3 + 32));
+  SSOPlatform.3432BD0D();
+  v5 = *(_DWORD *)(a3 + 32);
+  if ( v5 > 0x3C )
+    v5 = 60;
+  *((_DWORD *)v10 + 82) = 1;
+  SSOPlatform.3432A82C();
+  return TXTimer::SetTimeout((TXTimer *)(1000 * v5), *((_DWORD *)v10 + 101), 0);
+}
+
+
+
