@@ -1,0 +1,167 @@
+graph: {
+title: "Xrefs to "
+// IDA palette
+colorentry 32: 0 0 0
+colorentry 33: 0 0 255
+colorentry 34: 0 0 255
+colorentry 35: 128 128 128
+colorentry 36: 128 128 128
+colorentry 37: 0 0 128
+colorentry 38: 0 0 128
+colorentry 39: 0 0 255
+colorentry 40: 0 0 255
+colorentry 41: 0 0 128
+colorentry 42: 0 128 0
+colorentry 43: 0 255 0
+colorentry 44: 0 128 0
+colorentry 45: 255 128 0
+colorentry 46: 0 128 0
+colorentry 47: 128 128 255
+colorentry 48: 255 0 0
+colorentry 49: 128 128 0
+colorentry 50: 1 1 1
+colorentry 51: 192 192 192
+colorentry 52: 0 0 255
+colorentry 53: 0 0 255
+colorentry 54: 0 0 255
+colorentry 55: 128 128 128
+colorentry 56: 128 128 255
+colorentry 57: 0 128 0
+colorentry 58: 0 0 128
+colorentry 59: 0 0 255
+colorentry 60: 128 0 128
+colorentry 61: 0 128 0
+colorentry 62: 0 128 0
+colorentry 63: 0 128 64
+colorentry 64: 0 0 128
+colorentry 65: 0 0 128
+colorentry 66: 255 0 255
+colorentry 67: 128 128 0
+colorentry 68: 0 0 128
+colorentry 69: 0 0 255
+colorentry 70: 0 0 128
+colorentry 71: 0 0 255
+colorentry 72: 0 0 0
+colorentry 73: 255 255 255
+colorentry 74: 192 187 175
+colorentry 75: 0 255 255
+colorentry 76: 0 0 0
+colorentry 77: 128 0 0
+colorentry 78: 128 128 128
+colorentry 79: 128 128 0
+colorentry 80: 255 0 255
+colorentry 81: 0 0 0
+colorentry 82: 0 0 255
+colorentry 83: 0 0 0
+node: { title: "0" label: "sub_61C51FC9" color: 76 textcolor: 73 borderwidth: 10 bordercolor: 82  }
+node: { title: "1" label: "sub_61C4BFE8" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "2" label: "sub_61C5213F" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "3" label: "sub_61C5218C" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "4" label: "sub_61C53142" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "5" label: "sub_61C53354" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "6" label: "sub_61C536F2" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "7" label: "sub_61C53CBD" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "8" label: "sub_61C54030" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "9" label: "sub_61C543BA" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "10" label: "sub_61C54677" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "11" label: "sub_61C54A98" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "12" label: "sub_61C54FF9" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "13" label: "sub_61C55B98" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "14" label: "sub_61C4E27F" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "15" label: "sub_61C4F5E4" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "16" label: "sub_61C5519C" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "17" label: "sub_61C53E63" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "18" label: "sub_61C4F483" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "19" label: "sub_61C4BEB6" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "20" label: "sub_61C4C557" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "21" label: "??0?$target_block@V?$multi_link_registry@V?$ISource@I@Concurrency@@@Concurrency@@V?$ordered_message_processor@I@2@@Concurrency@@QAE@XZ" color: 75 textcolor: 73 bordercolor: black }
+node: { title: "22" label: "sub_61C46373" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "23" label: "sub_61C46417" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "24" label: ".rdata:61DDFC00: dd offset sub_61C4F483" textcolor: 78 bordercolor: black }
+node: { title: "25" label: ".rdata:61DDFD08: dd offset sub_61C4F483" textcolor: 78 bordercolor: black }
+node: { title: "26" label: ".rdata:61DDFC18: dd offset sub_61C4BEB6" textcolor: 78 bordercolor: black }
+node: { title: "27" label: ".rdata:61DDFD20: dd offset sub_61C4BEB6" textcolor: 78 bordercolor: black }
+node: { title: "28" label: "sub_61C46544" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "29" label: "sub_61C46608" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "30" label: "sub_61C46952" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "31" label: "sub_61C4671A" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "32" label: ".data:61E98C04: dd offset sub_61C46952" textcolor: 78 bordercolor: black }
+// node 0
+// node 1
+edge: { sourcename: "1" targetname: "0" }
+// node 2
+edge: { sourcename: "2" targetname: "0" }
+// node 3
+edge: { sourcename: "3" targetname: "0" }
+// node 4
+edge: { sourcename: "4" targetname: "0" }
+// node 5
+edge: { sourcename: "5" targetname: "0" }
+edge: { sourcename: "5" targetname: "4" }
+// node 6
+edge: { sourcename: "6" targetname: "0" }
+// node 7
+edge: { sourcename: "7" targetname: "0" }
+// node 8
+edge: { sourcename: "8" targetname: "0" }
+// node 9
+edge: { sourcename: "9" targetname: "0" }
+// node 10
+edge: { sourcename: "10" targetname: "0" }
+// node 11
+edge: { sourcename: "11" targetname: "0" }
+// node 12
+edge: { sourcename: "12" targetname: "0" }
+edge: { sourcename: "12" targetname: "11" }
+// node 13
+edge: { sourcename: "13" targetname: "0" }
+// node 14
+edge: { sourcename: "14" targetname: "1" }
+// node 15
+edge: { sourcename: "15" targetname: "1" }
+edge: { sourcename: "15" targetname: "14" }
+edge: { sourcename: "15" targetname: "16" }
+edge: { sourcename: "15" targetname: "20" }
+// node 16
+edge: { sourcename: "16" targetname: "3" }
+edge: { sourcename: "16" targetname: "4" }
+edge: { sourcename: "16" targetname: "5" }
+edge: { sourcename: "16" targetname: "6" }
+edge: { sourcename: "16" targetname: "7" }
+edge: { sourcename: "16" targetname: "10" }
+edge: { sourcename: "16" targetname: "12" }
+edge: { sourcename: "16" targetname: "17" }
+edge: { sourcename: "16" targetname: "21" }
+// node 17
+edge: { sourcename: "17" targetname: "7" }
+// node 18
+edge: { sourcename: "18" targetname: "8" }
+// node 19
+edge: { sourcename: "19" targetname: "9" }
+// node 20
+edge: { sourcename: "20" targetname: "11" }
+// node 21
+edge: { sourcename: "21" targetname: "13" }
+// node 22
+edge: { sourcename: "22" targetname: "15" }
+// node 23
+edge: { sourcename: "23" targetname: "15" }
+// node 24
+edge: { sourcename: "24" targetname: "18" }
+// node 25
+edge: { sourcename: "25" targetname: "18" }
+// node 26
+edge: { sourcename: "26" targetname: "19" }
+// node 27
+edge: { sourcename: "27" targetname: "19" }
+// node 28
+edge: { sourcename: "28" targetname: "22" }
+// node 29
+edge: { sourcename: "29" targetname: "23" }
+// node 30
+edge: { sourcename: "30" targetname: "28" }
+// node 31
+edge: { sourcename: "31" targetname: "29" }
+// node 32
+edge: { sourcename: "32" targetname: "30" }
+}

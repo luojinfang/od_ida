@@ -1,0 +1,33 @@
+ 2047274708   1066031207
+ 
+ 029E21AC   2047274708 //7A06 EED4
+ 029E21EC   1066031207 
+
+  
+ 
+好友 id
+ 
+ 
+	Line 7:       <LastState Value="2047274708" RealAddress="013F612C"/>
+	308D7E6D    8A47 08         mov al,byte ptr ds:[edi+8]   //打开查找好友界面时重置
+
+	<LastState Value="2047274708" RealAddress="04B3AD84"/>
+	61C7961F    895D 08         mov dword ptr ss:[ebp+8],ebx   //鼠标移动到好友头像时访问
+
+      <LastState Value="2047274708" RealAddress="0012C710"/>
+	61C7961F    895D 08         mov dword ptr ss:[ebp+8],ebx   //鼠标移动到好友头像时访问
+
+ 
+ 
+       <LastState Value="1066031207" RealAddress="029E21EC"/>
+ 
+
+	
+========================
+//"gofor  nickname"
+
+0526705C
+05267074 
+
+
+

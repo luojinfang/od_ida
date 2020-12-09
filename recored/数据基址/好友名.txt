@@ -1,0 +1,1870 @@
+01A4FAA0
+
+//nickname	
+	0155D280
+	01A4FAA0----
+	05362BDC
+
+//QQ帐号
+
+===============================================================================================
+
+
+7D5FA541    8B75 0C         mov esi,dword ptr ss:[ebp+C]     //ESI = 02C7EC54
+7D5FA544    33DB            xor ebx,ebx //EBX = 0
+7D5FA546    53              push ebx
+7D5FA547    8945 FC         mov dword ptr ss:[ebp-4],eax
+7D5FA54A    89B5 2CFCFFFF   mov dword ptr ss:[ebp-3D4],esi
+7D5FA550    FF15 DC15597D   call dword ptr ds:[<&KERNEL32.SetLastErr>; ntdll.RtlSetLastWin32Error
+7D5FA556    53              push ebx
+7D5FA557    68 CC365A7D     push SHELL32.7D5A36CC                    ; UNICODE "Shell_TrayWnd"
+7D5FA55C    FF15 B01E597D   call dword ptr ds:[<&USER32.FindWindowW>>; USER32.FindWindowW
+7D5FA562    3BC3            cmp eax,ebx
+7D5FA564    8985 30FCFFFF   mov dword ptr ss:[ebp-3D0],eax
+7D5FA56A    0F84 3F060000   je SHELL32.7D5FABAF
+7D5FA570    8B16            mov edx,dword ptr ds:[esi]
+7D5FA572    57              push edi
+7D5FA573    33C0            xor eax,eax
+7D5FA575    B9 EF000000     mov ecx,0EF  //从 02C7EC54 拷 0EF 个字符到 EDI
+7D5FA57A    8DBD 40FCFFFF   lea edi,dword ptr ss:[ebp-3C0]    //EDI = 1A4FA9A? 
+7D5FA580    899D 3CFCFFFF   mov dword ptr ss:[ebp-3C4],ebx	  //EBX = 0
+7D5FA586    F3:AB           rep stos dword ptr es:[edi]		 //01A4FAA0 为 nickname的值( utf16 )
+
+ 
+===============================================================================================
+ //ss:[ebp+C], ESI = 02C7EC54  怎么来的?  ctrl + f9 运行结束当前帧,到上一帧查看
+ //可用条件断点 esi==02C7EC50 或 ss:[ebp+8] == 02C7EC50
+ 
+
+ss:[ebp-30] =02C7EC50 //子程序修改.重新调试
+
+//AFUtil.dll   断点 ss:[ebp+8] == 02C7EC50
+...
+00AA3B97    8B75 08         mov esi,dword ptr ss:[ebp+8] //ESI=02C7EC50  
+
+...
+
+00AA3C39    FF15 D064AD00   call dword ptr ds:[<&KERNEL32.GetVersion>; kernel32.GetVersionExW
+00AA3C3F    83BD E4FEFFFF 0>cmp dword ptr ss:[ebp-11C],6
+00AA3C46    72 31           jb short AFUtil.00AA3C79
+00AA3C48    8D85 DCFEFFFF   lea eax,dword ptr ss:[ebp-124]
+00AA3C4E    50              push eax
+00AA3C4F    68 9880AD00     push AFUtil.00AD8098                     ; UNICODE "%s"
+00AA3C54    68 1806AE00     push AFUtil.00AE0618                     ; UNICODE "TaskTray"
+00AA3C59    6A 02           push 2
+00AA3C5B    53              push ebx
+00AA3C5C    68 0B020000     push 20B
+00AA3C61    57              push edi
+00AA3C62    C785 DCFEFFFF 0>mov dword ptr ss:[ebp-124],AFUtil.00AE06>; UNICODE "OutTrayIcon"
+00AA3C6C    E8 7785FEFF     call AFUtil.00A8C1E8
+00AA3C71    83C4 1C         add esp,1C
+00AA3C74    E8 DFFAFFFF     call AFUtil.00AA3758
+00AA3C79    56              push esi    //ESI=02C7EC50  
+
+
+
+===============================================================================================
+//看 ss:[ebp+8] 02C7EC50
+
+00A96850    8B40 08         mov eax,dword ptr ds:[eax+8]    // ds:[eax+8] =02C7EC50
+00A96853    FF75 F8         push dword ptr ss:[ebp-8]
+00A96856    8945 F4         mov dword ptr ss:[ebp-C],eax 
+
+00A96870    FF75 F4         push dword ptr ss:[ebp-C]   //ss:[ebp-C] = 02C7EC50
+00A96873    FF55 F0         call dword ptr ss:[ebp-10]
+
+
+===============================================================================================
+
+
+
+===============================================================================================
+===============================================================================================
+//修改备注名. 
+//先选一个修改，再切换，切换时会有两个不变的地址，重点分析
+
+
+//MMX指令有8个64位寄存器(MM0~MM7) ,可以同时进行8对字节或4对字或2对双字同时相同操作,还可以进行饱和运算,也就是运算结果有个顶点,
+781472D7    66:0F7F07       movq qword ptr ds:[edi],mm0
+781472DB    66:0F7F47 10    movq qword ptr ds:[edi+10],mm0
+781472E0    66:0F7F47 20    movq qword ptr ds:[edi+20],mm0
+781472E5    66:0F7F47 30    movq qword ptr ds:[edi+30],mm0
+781472EA    66:0F7F47 40    movq qword ptr ds:[edi+40],mm0
+781472EF    66:0F7F47 50    movq qword ptr ds:[edi+50],mm0
+781472F4    66:0F7F47 60    movq qword ptr ds:[edi+60],mm0
+781472F9    66:0F7F47 70    movq qword ptr ds:[edi+70],mm0
+781472FE    8DBF 80000000   lea edi,dword ptr ds:[edi+80]
+
+
+===============================================================================================
+7814500A    F3:A5           rep movs dword ptr es:[edi],dword ptr ds:[esi]  //ds:[esi]  
+ 
+
+===============================================================================================
+备注名 nickname
+===============================================================================================
+//"gofor  nickname"
+029E21AC   2047274708 //7A06 EED4
+029E21EC   1066031207 
+--------
+//一个带 nickname 打印日志的字符串? 
+0526705C
+05267074   下写断点
+    Save additional information about eeeee here . eeeee can not see your notes..
+
+0012D6FC  |05267018  UNICODE "Save additional information about $neee here. eeeee can not see your notes."
+
+
+===============================================================================================
+//LV001
+308029F9    55              push ebp
+308029FA    8BEC            mov ebp,esp
+308029FC    8B45 14         mov eax,dword ptr ss:[ebp+14]
+308029FF    03C0            add eax,eax
+30802A01    50              push eax
+30802A02    FF75 10         push dword ptr ss:[ebp+10]
+30802A05    8B45 0C         mov eax,dword ptr ss:[ebp+C]
+30802A08    03C0            add eax,eax
+30802A0A    50              push eax
+30802A0B    FF75 08         push dword ptr ss:[ebp+8]
+30802A0E    FF15 C4359630   call dword ptr ds:[<&MSVCR80.memcpy_s>]  ; MSVCR80.memcpy_s //打开发消息界面时触发,nickname 重置回 $name$
+
+
+$ ==>    >/0012D754
+$+4      >|30802A70  RETURN to GF.30802A70 from GF.308029F9
+$+8      >|05267018  UNICODE "Save additional information about $name$ here. $name$ can not see your notes."
+$+C      >|0000004E
+$+10     >|05201B60  UNICODE "Save additional information about $name$ here. $name$ can not see your notes."
+
+UNICODE [ebp+8]=="Save additional information about $name$ here. $name$ can not see your notes."
+===============================================================================================
+//LV002
+
+//好友移到黑名单
+
+3003118E    55              push ebp
+3003118F    8BEC            mov ebp,esp
+30031191    837D 0C 00      cmp dword ptr ss:[ebp+C],0
+30031195    53              push ebx
+30031196    56              push esi
+30031197    57              push edi
+30031198    74 73           je short Common.3003120D
+3003119A    8B45 10         mov eax,dword ptr ss:[ebp+10]
+3003119D    85C0            test eax,eax
+3003119F    76 6C           jbe short Common.3003120D
+300311A1    8B75 08         mov esi,dword ptr ss:[ebp+8]   //--------------数据?
+300311A4    8B7E 2C         mov edi,dword ptr ds:[esi+2C]
+300311A7    8B5E 28         mov ebx,dword ptr ds:[esi+28]
+300311AA    03C7            add eax,edi
+300311AC    50              push eax
+300311AD    8BCE            mov ecx,esi
+300311AF    E8 84FDFFFF     call Common.30030F38
+300311B4    8B46 28         mov eax,dword ptr ds:[esi+28]
+300311B7    3BD8            cmp ebx,eax
+300311B9    75 13           jnz short Common.300311CE
+300311BB    FF75 10         push dword ptr ss:[ebp+10]
+300311BE    03C7            add eax,edi
+300311C0    FF75 0C         push dword ptr ss:[ebp+C]
+300311C3    50              push eax
+300311C4    E8 3B061000     call <jmp.&MSVCR80.memcpy>
+300311C9    83C4 0C         add esp,0C
+300311CC    EB 33           jmp short Common.30031201
+300311CE    85C0            test eax,eax
+300311D0    75 0D           jnz short Common.300311DF
+300311D2    895E 28         mov dword ptr ds:[esi+28],ebx
+300311D5    897E 2C         mov dword ptr ds:[esi+2C],edi
+300311D8    B8 05400080     mov eax,80004005
+300311DD    EB 30           jmp short Common.3003120F
+300311DF    57              push edi
+300311E0    53              push ebx
+300311E1    50              push eax
+300311E2    E8 1D061000     call <jmp.&MSVCR80.memcpy>
+300311E7    FF75 10         push dword ptr ss:[ebp+10]
+300311EA    8B46 28         mov eax,dword ptr ds:[esi+28]
+300311ED    FF75 0C         push dword ptr ss:[ebp+C]
+300311F0    03C7            add eax,edi
+300311F2    50              push eax
+300311F3    E8 0C061000     call <jmp.&MSVCR80.memcpy>
+300311F8    53              push ebx
+300311F9    E8 4A7E0A00     call Common.300D9048
+300311FE    83C4 1C         add esp,1C
+30031201    8B45 14         mov eax,dword ptr ss:[ebp+14]
+30031204    85C0            test eax,eax
+30031206    74 05           je short Common.3003120D
+30031208    8B4E 28         mov ecx,dword ptr ds:[esi+28]
+3003120B    8908            mov dword ptr ds:[eax],ecx
+3003120D    33C0            xor eax,eax
+3003120F    5F              pop edi
+30031210    5E              pop esi
+30031211    5B              pop ebx
+30031212    5D              pop ebp
+30031213    C2 1000         retn 10
+
+
+//清除之前的残留数据？
+$ ==>    > 031106EF  RETURN to IM.031106EF
+$+4      > 04B404C0
+$+8      > 04BB7AB0  UNICODE "Gofor(2047274708) accepted your request and added you as a contact"  
+$+C      > 00000084
+
+
+
+
+
+
+===============================================================================================
+//LV003
+0311066D    6A 14           push 14
+0311066F    B8 8A223603     mov eax,IM.0336228A
+03110674    E8 1ECB2400     call IM.0335D197
+03110679    894D EC         mov dword ptr ss:[ebp-14],ecx
+0311067C    8B75 08         mov esi,dword ptr ss:[ebp+8] //--------------数据?
+0311067F    33FF            xor edi,edi
+03110681    3BF7            cmp esi,edi
+03110683    75 0A           jnz short IM.0311068F
+03110685    B8 05400080     mov eax,80004005
+0311068A    E9 4A020000     jmp IM.031108D9
+0311068F    83C1 28         add ecx,28
+03110692    FF15 50A13A03   call dword ptr ds:[<&Common.CTXStringW::>; Common.CTXStringW::IsEmpty
+03110698    84C0            test al,al
+0311069A    8B1D 64A23A03   mov ebx,dword ptr ds:[<&Common.CTXString>; Common.CTXStringW::GetLength
+031106A0    75 4D           jnz short IM.031106EF
+031106A2    8B4D EC         mov ecx,dword ptr ss:[ebp-14]
+031106A5    83C1 28         add ecx,28
+031106A8    C645 0B 01      mov byte ptr ss:[ebp+B],1
+031106AC    FFD3            call ebx
+031106AE    03C0            add eax,eax
+031106B0    57              push edi
+031106B1    0FB7C0          movzx eax,ax
+031106B4    6A 01           push 1
+031106B6    8D4D 0B         lea ecx,dword ptr ss:[ebp+B]
+031106B9    51              push ecx
+031106BA    8945 E8         mov dword ptr ss:[ebp-18],eax
+031106BD    8B06            mov eax,dword ptr ds:[esi]
+031106BF    56              push esi
+031106C0    FF50 50         call dword ptr ds:[eax+50]
+031106C3    8B06            mov eax,dword ptr ds:[esi]
+031106C5    57              push edi
+031106C6    6A 02           push 2
+031106C8    8D4D E8         lea ecx,dword ptr ss:[ebp-18]
+031106CB    51              push ecx
+031106CC    56              push esi
+031106CD    FF50 50         call dword ptr ds:[eax+50]
+031106D0    8B06            mov eax,dword ptr ds:[esi]
+031106D2    8B4D EC         mov ecx,dword ptr ss:[ebp-14]
+031106D5    8945 E4         mov dword ptr ss:[ebp-1C],eax
+031106D8    0FB745 E8       movzx eax,word ptr ss:[ebp-18]
+031106DC    57              push edi
+031106DD    50              push eax
+031106DE    83C1 28         add ecx,28
+031106E1    FF15 ECA03A03   call dword ptr ds:[<&Common.CTXStringW::>; Common.CTXStringW::operator wchar_t const *
+031106E7    50              push eax
+031106E8    8B45 E4         mov eax,dword ptr ss:[ebp-1C]
+031106EB    56              push esi //--------------数据?
+031106EC    FF50 50         call dword ptr ds:[eax+50]
+
+
+
+
+===============================================================================================
+//LV004
+0310DE96    6A 08           push 8
+0310DE98    B8 F11C3603     mov eax,IM.03361CF1
+0310DE9D    E8 F5F22400     call IM.0335D197
+0310DEA2    8B4D 08         mov ecx,dword ptr ss:[ebp+8]
+0310DEA5    8B79 04         mov edi,dword ptr ds:[ecx+4]
+0310DEA8    8B75 0C         mov esi,dword ptr ss:[ebp+C] //--------------数据?
+0310DEAB    33DB            xor ebx,ebx
+0310DEAD    3BFB            cmp edi,ebx
+0310DEAF    74 71           je short IM.0310DF22
+0310DEB1    895D F0         mov dword ptr ss:[ebp-10],ebx
+0310DEB4    8D4D F0         lea ecx,dword ptr ss:[ebp-10]
+0310DEB7    895D FC         mov dword ptr ss:[ebp-4],ebx
+0310DEBA    E8 BB60FDFF     call IM.030E3F7A
+0310DEBF    8B0F            mov ecx,dword ptr ds:[edi]
+0310DEC1    50              push eax
+0310DEC2    57              push edi
+0310DEC3    FF51 5C         call dword ptr ds:[ecx+5C]
+0310DEC6    8B06            mov eax,dword ptr ds:[esi]
+0310DEC8    53              push ebx
+0310DEC9    6A 01           push 1
+0310DECB    8D4D 0F         lea ecx,dword ptr ss:[ebp+F]
+0310DECE    51              push ecx
+0310DECF    56              push esi
+0310DED0    885D 0F         mov byte ptr ss:[ebp+F],bl
+0310DED3    FF50 50         call dword ptr ds:[eax+50]
+0310DED6    8D4D F0         lea ecx,dword ptr ss:[ebp-10]
+0310DED9    E8 B260FDFF     call IM.030E3F90
+0310DEDE    53              push ebx
+0310DEDF    0FB7C0          movzx eax,ax
+0310DEE2    6A 02           push 2
+0310DEE4    8D4D EC         lea ecx,dword ptr ss:[ebp-14]
+0310DEE7    51              push ecx
+0310DEE8    8945 EC         mov dword ptr ss:[ebp-14],eax
+0310DEEB    8B06            mov eax,dword ptr ds:[esi]
+0310DEED    56              push esi
+0310DEEE    FF50 50         call dword ptr ds:[eax+50]
+0310DEF1    395D F0         cmp dword ptr ss:[ebp-10],ebx
+0310DEF4    75 0B           jnz short IM.0310DF01
+0310DEF6    8D45 F0         lea eax,dword ptr ss:[ebp-10]
+0310DEF9    50              push eax
+0310DEFA    FF15 DCA03A03   call dword ptr ds:[<&Common.Util::Data::>; Common.Util::Data::CreateTXBuffer
+0310DF00    59              pop ecx
+0310DF01    8B06            mov eax,dword ptr ds:[esi]
+0310DF03    53              push ebx
+0310DF04    FF75 F0         push dword ptr ss:[ebp-10]
+0310DF07    56              push esi
+0310DF08    FF50 54         call dword ptr ds:[eax+54]
+0310DF0B    8B45 F0         mov eax,dword ptr ss:[ebp-10]
+0310DF0E    834D FC FF      or dword ptr ss:[ebp-4],FFFFFFFF
+0310DF12    3BC3            cmp eax,ebx
+0310DF14    74 09           je short IM.0310DF1F
+0310DF16    8B08            mov ecx,dword ptr ds:[eax]
+0310DF18    50              push eax
+0310DF19    FF51 08         call dword ptr ds:[ecx+8]
+0310DF1C    895D F0         mov dword ptr ss:[ebp-10],ebx
+0310DF1F    8B4D 08         mov ecx,dword ptr ss:[ebp+8]
+0310DF22    8B01            mov eax,dword ptr ds:[ecx]
+0310DF24    56              push esi //--------------数据?
+0310DF25    FF50 54         call dword ptr ds:[eax+54]
+0310DF28    E8 42F32400     call IM.0335D26F
+
+
+
+===============================================================================================
+//LV005
+
+0310F49C    90              nop
+0310F49D    F6F3            div bl
+0310F49F    1003            adc byte ptr ds:[ebx],al
+0310F4A1    03F4            add esi,esp
+0310F4A3    1003            adc byte ptr ds:[ebx],al
+0310F4A5    10F4            adc ah,dh
+0310F4A7    1003            adc byte ptr ds:[ebx],al
+0310F4A9    59              pop ecx
+0310F4AA    F4              hlt
+0310F4AB    1003            adc byte ptr ds:[ebx],al
+0310F4AD    94              xchg eax,esp
+0310F4AE    F4              hlt
+0310F4AF    1003            adc byte ptr ds:[ebx],al
+0310F4B1    10F4            adc ah,dh
+0310F4B3    1003            adc byte ptr ds:[ebx],al
+0310F4B5    63F4            arpl sp,si
+0310F4B7    1003            adc byte ptr ds:[ebx],al
+0310F4B9    6D              ins dword ptr es:[edi],dx
+0310F4BA    F4              hlt
+0310F4BB    1003            adc byte ptr ds:[ebx],al
+0310F4BD  ^ 77 F4           ja short IM.0310F4B3
+0310F4BF    1003            adc byte ptr ds:[ebx],al
+0310F4C1    94              xchg eax,esp
+0310F4C2    F4              hlt
+0310F4C3    1003            adc byte ptr ds:[ebx],al
+0310F4C5    94              xchg eax,esp
+0310F4C6    F4              hlt
+0310F4C7    1003            adc byte ptr ds:[ebx],al
+0310F4C9    81F4 10038BF4   xor esp,F48B0310
+0310F4CF    1003            adc byte ptr ds:[ebx],al
+0310F4D1    55              push ebp
+0310F4D2    8BEC            mov ebp,esp
+0310F4D4    83EC 18         sub esp,18
+0310F4D7    8365 F8 00      and dword ptr ss:[ebp-8],0
+0310F4DB    57              push edi
+0310F4DC    8D79 34         lea edi,dword ptr ds:[ecx+34]
+0310F4DF    57              push edi
+0310F4E0    FF77 04         push dword ptr ds:[edi+4]
+0310F4E3    8D4D E8         lea ecx,dword ptr ss:[ebp-18]
+0310F4E6    C645 FF 00      mov byte ptr ss:[ebp-1],0
+0310F4EA    E8 36820100     call IM.03127725
+0310F4EF    8B45 E8         mov eax,dword ptr ss:[ebp-18]
+0310F4F2    57              push edi
+0310F4F3    FF77 08         push dword ptr ds:[edi+8]
+0310F4F6    8945 F0         mov dword ptr ss:[ebp-10],eax
+0310F4F9    8B45 EC         mov eax,dword ptr ss:[ebp-14]
+0310F4FC    8D4D E8         lea ecx,dword ptr ss:[ebp-18]
+0310F4FF    8945 F4         mov dword ptr ss:[ebp-C],eax
+0310F502    E8 1E820100     call IM.03127725
+0310F507    8D45 E8         lea eax,dword ptr ss:[ebp-18]
+0310F50A    50              push eax
+0310F50B    8D4D F0         lea ecx,dword ptr ss:[ebp-10]
+0310F50E    E8 007A1600     call IM.03276F13
+0310F513    84C0            test al,al
+0310F515    75 6F           jnz short IM.0310F586
+0310F517    56              push esi
+0310F518    8D4D F0         lea ecx,dword ptr ss:[ebp-10]
+0310F51B    E8 E3E00500     call IM.0316D603
+0310F520    8B30            mov esi,dword ptr ds:[eax]
+0310F522    8B06            mov eax,dword ptr ds:[esi]
+0310F524    8D4D FF         lea ecx,dword ptr ss:[ebp-1]
+0310F527    51              push ecx
+0310F528    56              push esi
+0310F529    FF50 0C         call dword ptr ds:[eax+C]
+0310F52C    8B4D 08         mov ecx,dword ptr ss:[ebp+8]
+0310F52F    6A 01           push 1
+0310F531    8D45 FF         lea eax,dword ptr ss:[ebp-1]
+0310F534    50              push eax
+0310F535    E8 2FEDFDFF     call IM.030EE269
+0310F53A    8B06            mov eax,dword ptr ds:[esi]
+0310F53C    8D4D F8         lea ecx,dword ptr ss:[ebp-8]
+0310F53F    51              push ecx
+0310F540    56              push esi
+0310F541    FF50 14         call dword ptr ds:[eax+14]
+0310F544    8B4D 08         mov ecx,dword ptr ss:[ebp+8]
+0310F547    6A 02           push 2
+0310F549    8D45 F8         lea eax,dword ptr ss:[ebp-8]
+0310F54C    50              push eax
+0310F54D    E8 17EDFDFF     call IM.030EE269   //--------------数据?
+0310F552    8B4D 08         mov ecx,dword ptr ss:[ebp+8]
+0310F555    E8 0C4AFDFF     call IM.030E3F66
+0310F55A    8B0E            mov ecx,dword ptr ds:[esi]
+0310F55C    50              push eax  //--------------数据?
+0310F55D    56              push esi 
+0310F55E    FF51 18         call dword ptr ds:[ecx+18]
+
+
+==============================================================================================
+//移动 黑名单到好友, 好像收到消息都会断？
+
+0310ED75    8D45 CC         lea eax,dword ptr ss:[ebp-34]            ; 移动 黑名单到好友 断点
+0310ED78    68 002B3B03     push IM.033B2B00                         ; UNICODE "strFontName"
+0310ED7D    50              push eax
+0310ED7E    C745 FC 0700000>mov dword ptr ss:[ebp-4],7
+0310ED85    E8 A4B91000     call IM.0321A72E                         ; 改变 ebp-34 为 unicode 字符串 UNICODE "strFontName"
+
+
+
+
+
+===============================================================================================
+//LV007
+
+
+===============================================================================================
+//LV008
+
+
+===============================================================================================
+//LV009
+
+
+===============================================================================================
+//LV010
+
+
+===============================================================================================
+//LV011
+
+
+===============================================================================================
+//LV012
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===============================================================================================
+QQ帐号
+===============================================================================================
+//字符串查找QQ号, 记录下地址.
+//关闭QQ，再次查找这个QQ号，只有一个地址是不变的
+029B7890
+ 
+
+2047274708   1066031207
+
+
+02BFE41C      7667779 //  0x75 0043
+
+02BFE41C  43 00 75 00     //od是 32位.在dump窗口里看是左低右高,每个数据4字节  
+
+OD 断点   
+eax==0x02BFE41C   //取ax 的值等于0x02BFE41C
+[eax]==0x750043   //取ax地址指向的值等于0x750043
+([eax]&0xff)==0x43  //取ax地址指向的值的第一个字节 等于0x43  //"C"
+
+([eax]&0xff)==0x32   //0x32 为ASKII字符的 "2"
+
+
+STRING [123456] - 以地址123456作为开始，以零作为结尾的ASCII字符串。中括号是必须的，因为您要显示内存的内容
+[STRING 123456]=="Brown fox" - 如果从地址0x00123456开始的内存为ASCII字符串"Brown fox"、"BROWN FOX JUMPS"、 "brown fox???"，或类似的串，那么其值为1。比较不区分大小写和文本长度
+
+EAX=="CustomHeadImage" - 同上，EAX按指针对待。
+
+UNICODE [EAX]=="CustomHeadImage" - OllyDbg认为EAX是一个指向UNICODE串的指针，并将其转换为ASCII，然后与文本常量进行比较
+
+0012CD58  |06783194  UNICODE "CustomHeadImage"
+
+
+===============================================================================================
+2047274708/0x7A06EED4
+
+----------start 
+//02A30F6C 
+
+//LV001
+031B1213    55              push ebp
+031B1214    8BEC            mov ebp,esp
+031B1216    8B41 04         mov eax,dword ptr ds:[ecx+4]
+031B1219    8B48 04         mov ecx,dword ptr ds:[eax+4]
+031B121C    8079 6D 00      cmp byte ptr ds:[ecx+6D],0
+031B1220    75 19           jnz short IM.031B123B
+031B1222    8B55 08         mov edx,dword ptr ss:[ebp+8]	//ss:[ebp+8] =2047274708
+031B1225    8B12            mov edx,dword ptr ds:[edx]
+031B1227    3951 0C         cmp dword ptr ds:[ecx+C],edx   // ds:[ecx+C] =2047274708 , edx =2047274708
+
+
+===============================================================================================
+//LV002
+031B152E    55              push ebp
+031B152F    8BEC            mov ebp,esp
+031B1531    51              push ecx		//ecx没变
+031B1532    FF75 0C         push dword ptr ss:[ebp+C] //最后一个压入栈的 ss:[ebp+C], 对应上一层 ss:[ebp+8]
+031B1535    E8 D9FCFFFF     call IM.031B1213  //call 会把 cs，ip 压栈,大部分是只压ip.进入方法在切换ebp之前,还会把之前的ebp压栈. 所以上面入栈的参数ss:[ebp+C],在下一帧使用时用 ss:[ebp+8]
+ 
+
+
+===============================================================================================
+//LV003
+
+031B15CD    55              push ebp
+031B15CE    8BEC            mov ebp,esp
+031B15D0    83EC 10         sub esp,10
+031B15D3    56              push esi
+031B15D4    57              push edi
+031B15D5    8B7D 0C         mov edi,dword ptr ss:[ebp+C]  //edi = ss:[ebp+C]
+031B15D8    57              push edi  //edi = 2047274708,对应上一层 ss:[ebp+C]
+031B15D9    8D45 F8         lea eax,dword ptr ss:[ebp-8]
+031B15DC    50              push eax
+031B15DD    8BF1            mov esi,ecx //ecx 没变
+031B15DF    E8 4AFFFFFF     call IM.031B152E
+
+
+
+
+===============================================================================================
+//LV004
+
+031B36DA    6A 20           push 20
+031B36DC    B8 E84F3703     mov eax,IM.03374FE8
+031B36E1    E8 B19A1A00     call IM.0335D197
+031B36E6    8BF1            mov esi,ecx  //ecx 没变
+031B36E8    8975 EC         mov dword ptr ss:[ebp-14],esi
+031B36EB    8D45 08         lea eax,dword ptr ss:[ebp+8]  //ss:[ebp+8] = 2047274708, 对应上一层  ss:[ebp+C]
+031B36EE    50              push eax
+031B36EF    8D45 D4         lea eax,dword ptr ss:[ebp-2C]
+031B36F2    50              push eax
+031B36F3    E8 D5DEFFFF     call IM.031B15CD
+
+
+
+===============================================================================================
+//LV005
+
+031A7C8C    55              push ebp
+031A7C8D    8BEC            mov ebp,esp
+031A7C8F    837D 08 00      cmp dword ptr ss:[ebp+8],0
+031A7C93    56              push esi
+031A7C94    74 1B           je short IM.031A7CB1
+031A7C96    8B75 10         mov esi,dword ptr ss:[ebp+10]
+031A7C99    85F6            test esi,esi
+031A7C9B    74 14           je short IM.031A7CB1
+031A7C9D    FF75 0C         push dword ptr ss:[ebp+C]
+031A7CA0    83C1 20         add ecx,20  //ecx  变化
+031A7CA3    FF75 08         push dword ptr ss:[ebp+8]    //ss:[ebp+8]  = 2047274708, 对应上一层  ss:[ebp+8]
+031A7CA6    E8 2FBA0000     call IM.031B36DA
+
+
+
+
+
+===============================================================================================
+//LV006
+031B5F79    55              push ebp
+031B5F7A    8BEC            mov ebp,esp
+031B5F7C    FF75 0C         push dword ptr ss:[ebp+C]
+031B5F7F    FF15 08AA3A03   call dword ptr ds:[<&KernelUtil.Util::Co>; KernelUt.Util::Contact::GetRTypeByUin
+031B5F85    59              pop ecx		//ecx  变化
+031B5F86    FF75 14         push dword ptr ss:[ebp+14]
+031B5F89    8B4D 08         mov ecx,dword ptr ss:[ebp+8] //ecx  变化
+031B5F8C    FF75 10         push dword ptr ss:[ebp+10]
+031B5F8F    83C1 2C         add ecx,2C  //ecx  变化
+031B5F92    FF75 0C         push dword ptr ss:[ebp+C] //ss:[ebp+c]  = 2047274708, 对应上一层  ss:[ebp+8]
+031B5F95    E8 F21CFFFF     call IM.031A7C8C
+031B5F9A    5D              pop ebp
+031B5F9B    C2 1000         retn 10 //当前方法,压栈了4次 dword ,最后弹出 0x10 个字节
+
+
+
+
+===============================================================================================
+//LV007
+
+031CC8E7    55              push ebp
+031CC8E8    8BEC            mov ebp,esp
+031CC8EA    FF75 14         push dword ptr ss:[ebp+14]
+031CC8ED    8B45 08         mov eax,dword ptr ss:[ebp+8]
+031CC8F0    FF75 10         push dword ptr ss:[ebp+10]
+031CC8F3    8B40 44         mov eax,dword ptr ds:[eax+44]
+031CC8F6    FF75 0C         push dword ptr ss:[ebp+C]  //ss:[ebp+c]  = 2047274708, 对应上一层  ss:[ebp+c]
+031CC8F9    8B08            mov ecx,dword ptr ds:[eax]
+031CC8FB    50              push eax
+031CC8FC    FF51 20         call dword ptr ds:[ecx+20]  //动态调用方法..
+031CC8FF    5D              pop ebp                                  ; 0012ED4C
+031CC900    C2 1000         retn 10
+ 
+
+===============================================================================================
+//LV008  切换了模块 mainframe
+
+61C70ACF    8B08            mov ecx,dword ptr ds:[eax]   //ecx  赋值
+61C70AD1    8D55 08         lea edx,dword ptr ss:[ebp+8]
+61C70AD4    52              push edx
+61C70AD5    6A 05           push 5
+61C70AD7    FF75 0C         push dword ptr ss:[ebp+C] //ss:[ebp+c]  = 2047274708, 对应上一层  ss:[ebp+c]
+61C70ADA    50              push eax
+61C70ADB    FF51 5C         call dword ptr ds:[ecx+5C] //动态调用方法..
+
+
+
+
+===============================================================================================
+//LV009 //鼠标移动到玩家头像上可触发断点
+
+
+61C795B4    6A 10           push 10
+61C795B6    B8 570FDA61     mov eax,MainFram.61DA0F57
+61C795BB    E8 ADA51100     call MainFram.61D93B6D
+61C795C0    894D E4         mov dword ptr ss:[ebp-1C],ecx
+61C795C3    FF75 08         push dword ptr ss:[ebp+8]
+61C795C6    8D4D EC         lea ecx,dword ptr ss:[ebp-14]
+61C795C9    E8 C245FCFF     call MainFram.61C3DB90
+61C795CE    8B45 EC         mov eax,dword ptr ss:[ebp-14]
+61C795D1    33DB            xor ebx,ebx
+61C795D3    3BC3            cmp eax,ebx
+61C795D5    895D FC         mov dword ptr ss:[ebp-4],ebx
+61C795D8    75 0A           jnz short MainFram.61C795E4
+61C795DA    B8 57000780     mov eax,80070057
+61C795DF    E9 BE000000     jmp MainFram.61C796A2
+61C795E4    33F6            xor esi,esi
+61C795E6    895D F0         mov dword ptr ss:[ebp-10],ebx
+61C795E9    8B08            mov ecx,dword ptr ds:[eax]
+61C795EB    8D55 F0         lea edx,dword ptr ss:[ebp-10]
+61C795EE    52              push edx
+61C795EF    50              push eax
+61C795F0    C645 FC 01      mov byte ptr ss:[ebp-4],1
+61C795F4    FF91 8C000000   call dword ptr ds:[ecx+8C]
+61C795FA    8B45 F0         mov eax,dword ptr ss:[ebp-10]
+61C795FD    3BC3            cmp eax,ebx
+61C795FF    74 15           je short MainFram.61C79616
+61C79601    8D55 E8         lea edx,dword ptr ss:[ebp-18]  //引用局部变量 ss:[ebp-18]
+
+//鼠标移动到玩家头像上可触发断点
+61C79604    52              push edx
+61C79605    68 9CA2DE61     push MainFram.61DEA29C                   ; UNICODE "pItemData"
+61C7960A    895D E8         mov dword ptr ss:[ebp-18],ebx		 //ss:[ebp-18]局部变量赋值为 ebx=0x0
+61C7960D    8B08            mov ecx,dword ptr ds:[eax]
+61C7960F    50              push eax
+61C79610    FF51 30         call dword ptr ds:[ecx+30]   //------ 修改 edx 引用的 ss:[ebp-18]的值
+61C79613    8B75 E8         mov esi,dword ptr ss:[ebp-18]		//esi 定位数据段的偏移量	
+61C79616    33FF            xor edi,edi
+61C79618    3BF3            cmp esi,ebx
+61C7961A    74 03           je short MainFram.61C7961F
+61C7961C    8B7E 44         mov edi,dword ptr ds:[esi+44]
+61C7961F    895D 08         mov dword ptr ss:[ebp+8],ebx
+61C79622    8B4D E4         mov ecx,dword ptr ss:[ebp-1C]
+61C79625    8D45 08         lea eax,dword ptr ss:[ebp+8]
+61C79628    50              push eax
+61C79629    FF75 EC         push dword ptr ss:[ebp-14]
+61C7962C    C645 FC 02      mov byte ptr ss:[ebp-4],2
+61C79630    E8 62EDFFFF     call MainFram.61C78397
+61C79635    395D 08         cmp dword ptr ss:[ebp+8],ebx
+61C79638    75 26           jnz short MainFram.61C79660
+61C7963A    8B45 F0         mov eax,dword ptr ss:[ebp-10]
+61C7963D    3BC3            cmp eax,ebx
+61C7963F    885D FC         mov byte ptr ss:[ebp-4],bl
+61C79642    74 06           je short MainFram.61C7964A
+61C79644    8B08            mov ecx,dword ptr ds:[eax]
+61C79646    50              push eax
+61C79647    FF51 08         call dword ptr ds:[ecx+8]
+61C7964A    8B45 EC         mov eax,dword ptr ss:[ebp-14]
+61C7964D    834D FC FF      or dword ptr ss:[ebp-4],FFFFFFFF
+61C79651    3BC3            cmp eax,ebx
+61C79653  ^ 74 85           je short MainFram.61C795DA
+61C79655    8B08            mov ecx,dword ptr ds:[eax]
+61C79657    50              push eax
+61C79658    FF51 08         call dword ptr ds:[ecx+8]
+61C7965B  ^ E9 7AFFFFFF     jmp MainFram.61C795DA
+61C79660    FF75 08         push dword ptr ss:[ebp+8]
+61C79663    8B4D E4         mov ecx,dword ptr ss:[ebp-1C]
+61C79666    57              push edi					//edi = 2047274708, 对应上一层  ss:[ebp+c]
+61C79667    6A 01           push 1
+61C79669    E8 0474FFFF     call MainFram.61C70A72
+
+
+
+===============================================================================================
+分析调用
+//call dword ptr ds:[ecx+30]   //修改 edx 引用的 ss:[ebp-18]的值
+
+30031B97    55              push ebp
+30031B98    8BEC            mov ebp,esp
+30031B9A    51              push ecx                                 ; Common.30169160
+30031B9B    51              push ecx
+30031B9C    8B4D 08         mov ecx,dword ptr ss:[ebp+8]   
+30031B9F    8365 F8 00      and dword ptr ss:[ebp-8],0   //返回值相关.局部变量[ebp-8]重置. 
+30031BA3    8D45 F8         lea eax,dword ptr ss:[ebp-8] //引用局部变量[ebp-8]
+30031BA6    50              push eax	//局部变量[ebp-8]地址压栈
+30031BA7    8D45 FF         lea eax,dword ptr ss:[ebp-1]
+30031BAA    50              push eax
+30031BAB    FF75 0C         push dword ptr ss:[ebp+C]   //传入上层参数 MainFram.61DEA29C   ; UNICODE "pItemData"
+30031BAE    C645 FF 06      mov byte ptr ss:[ebp-1],6
+30031BB2    E8 6CFEFFFF     call Common.30031A23 --------获得数据
+30031BB7    85C0            test eax,eax
+30031BB9    7C 08           jl short Common.30031BC3
+30031BBB    8B4D 10         mov ecx,dword ptr ss:[ebp+10]  //对应 传入的 edx
+30031BBE    8B55 F8         mov edx,dword ptr ss:[ebp-8]
+30031BC1    8911            mov dword ptr ds:[ecx],edx  //把 ss:[ebp-8] 赋值到 ss:[ebp+10]
+30031BC3    C9              leave
+30031BC4    C2 0C00         retn 0C
+
+
+
+
+===============================================================================================
+//LV011
+
+
+30031A23    55              push ebp
+30031A24    8BEC            mov ebp,esp
+30031A26    837D 08 00      cmp dword ptr ss:[ebp+8],0
+30031A2A    56              push esi
+30031A2B    8BF1            mov esi,ecx
+30031A2D    75 07           jnz short Common.30031A36
+30031A2F    B8 57000780     mov eax,80070057
+30031A34    EB 63           jmp short Common.30031A99
+30031A36    57              push edi
+30031A37    FF75 08         push dword ptr ss:[ebp+8]  //ss:[ebp+8],传入上层参数 MainFram.61DEA29C ; UNICODE "pItemData"
+30031A3A    E8 605D0000     call Common.3003779F
+30031A3F    85C0            test eax,eax
+30031A41    59              pop ecx
+30031A42    74 20           je short Common.30031A64
+30031A44    0FB77E 38       movzx edi,word ptr ds:[esi+38]
+30031A48    33C9            xor ecx,ecx
+30031A4A    85FF            test edi,edi
+30031A4C    7E 16           jle short Common.30031A64
+30031A4E    8B56 3C         mov edx,dword ptr ds:[esi+3C] //传入上层参数 ss:[ebp-1] 地址, lea eax,dword ptr ss:[ebp-1]
+30031A51    3902            cmp dword ptr ds:[edx],eax
+30031A53    74 0A           je short Common.30031A5F
+30031A55    41              inc ecx
+30031A56    83C2 04         add edx,4
+30031A59    3BCF            cmp ecx,edi
+30031A5B  ^ 7C F4           jl short Common.30031A51
+30031A5D    EB 05           jmp short Common.30031A64
+30031A5F    83F9 FF         cmp ecx,-1
+30031A62    75 07           jnz short Common.30031A6B
+30031A64    B8 010063E0     mov eax,E0630001
+30031A69    EB 2D           jmp short Common.30031A98
+30031A6B    8B55 0C         mov edx,dword ptr ss:[ebp+C]  
+30031A6E    8A02            mov al,byte ptr ds:[edx]
+30031A70    84C0            test al,al
+30031A72    74 0F           je short Common.30031A83
+30031A74    8B7E 44         mov edi,dword ptr ds:[esi+44]
+30031A77    380439          cmp byte ptr ds:[ecx+edi],al
+30031A7A    74 07           je short Common.30031A83
+30031A7C    B8 020063E0     mov eax,E0630002
+30031A81    EB 15           jmp short Common.30031A98
+30031A83    8B46 44         mov eax,dword ptr ds:[esi+44]
+30031A86    8A0401          mov al,byte ptr ds:[ecx+eax]
+30031A89    8802            mov byte ptr ds:[edx],al
+30031A8B    8B46 40         mov eax,dword ptr ds:[esi+40]
+30031A8E    8B0488          mov eax,dword ptr ds:[eax+ecx*4]
+30031A91    8B4D 10         mov ecx,dword ptr ss:[ebp+10]  //ss:[ebp+10], 对应上层 [ebp-8] 地址
+30031A94    8901            mov dword ptr ds:[ecx],eax
+30031A96    33C0            xor eax,eax
+30031A98    5F              pop edi
+30031A99    5E              pop esi
+30031A9A    5D              pop ebp                                  ; 0012ED4C
+30031A9B    C2 0C00         retn 0C
+
+
+
+
+===============================================================================================
+//LV012
+
+===============================================================================================
+//LV013
+
+===============================================================================================
+//LV014
+
+===============================================================================================
+//LV015
+
+===============================================================================================
+//LV016
+
+===============================================================================================
+//LV017
+
+===============================================================================================
+//LV018
+
+===============================================================================================
+//LV019
+
+===============================================================================================
+//LV020
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+===============================================================================================
+===============================================================================================
+//0484ECF4
+//LV001
+//发送好友消息会触发
+
+300052AD    8327 00         and dword ptr ds:[edi],0   //edi=0x0484ECF4, ds:[edi] = 2047274708 重置为0
+
+
+
+//设置 2047274708
+...
+300052A6    8B75 08         mov esi,dword ptr ss:[ebp+8]
+...
+30005365    66:3D 3900      cmp ax,39
+30005369    77 29           ja short Common.30005394
+3000536B    8B0F            mov ecx,dword ptr ds:[edi]
+3000536D    8BD1            mov edx,ecx
+3000536F    6BD2 0A         imul edx,edx,0A
+30005372    0FB7C0          movzx eax,ax
+30005375    46              inc esi
+30005376    8D4402 D0       lea eax,dword ptr ds:[edx+eax-30]
+3000537A    46              inc esi
+3000537B    3BC1            cmp eax,ecx
+3000537D    72 08           jb short Common.30005387
+3000537F    81F9 99999919   cmp ecx,19999999
+30005385    76 02           jbe short Common.30005389
+30005387    32DB            xor bl,bl
+30005389    8907            mov dword ptr ds:[edi],eax  //edi=0x0484ECF4,循环设置为 2047274708
+3000538B    0FB706          movzx eax,word ptr ds:[esi]  
+3000538E    66:3D 3000      cmp ax,30
+30005392  ^ 73 D1           jnb short Common.30005365
+30005394    33FF            xor edi,edi
+30005396    EB 11           jmp short Common.300053A9
+
+
+
+===============================================================================================
+//LV002   AFCtrl.dll
+
+6582FBB6    8B45 08         mov eax,dword ptr ss:[ebp+8]  //eax 对应上层  esi;
+6582FBB9    05 24010000     add eax,124
+6582FBBE    50              push eax
+6582FBBF    8D4D E4         lea ecx,dword ptr ss:[ebp-1C]
+6582FBC2    FFD6            call esi
+6582FBC4    50              push eax
+6582FBC5    FF15 5CB58565   call dword ptr ds:[<&Common.#34>]        ; Common.#34
+
+
+
+===============================================================================================
+//LV003  mainframe.dll
+
+61CD1054    FF75 08         push dword ptr ss:[ebp+8]
+61CD1057    8B7D D0         mov edi,dword ptr ss:[ebp-30]
+61CD105A    8B07            mov eax,dword ptr ds:[edi]
+61CD105C    57              push edi  //eax 对应上层  ss:[ebp+8];
+61CD105D    C645 FC 0A      mov byte ptr ss:[ebp-4],0A
+61CD1061    FF90 38040000   call dword ptr ds:[eax+438]
+
+
+
+===============================================================================================
+//切换位置
+
+
+03232140    FF73 0C         push dword ptr ds:[ebx+C]   //ds:[ebx+C] 为 好友ID unicode 
+03232143    FF15 74A93A03   call dword ptr ds:[<&KernelUtil.Util::Mi>; KernelUt.Util::Misc::AddContactToSessionList
+
+
+
+//获得好友ID unicode
+3181400A    FF75 08         push dword ptr ss:[ebp+8]
+3181400D    8D45 D8         lea eax,dword ptr ss:[ebp-28]
+31814010    50              push eax		//eax 引用局部变量传入下面的方法, 获取好友ID unicode 
+31814011    C645 FC 01      mov byte ptr ss:[ebp-4],1
+31814015    FF15 7C518631   call dword ptr ds:[<&Common.#26>]        ; Common.#26 
+
+
+
+0012E55C  7A06EED4
+
+
+===============================================================================================
+//循环调用？
+
+300DBC37 >  6A 04           push 4
+300DBC39    B8 BD6E1430     mov eax,Common.30146EBD
+300DBC3E    E8 A45A0500     call Common.301316E7
+300DBC43    8BF1            mov esi,ecx
+300DBC45    8975 F0         mov dword ptr ss:[ebp-10],esi
+300DBC48    8365 FC 00      and dword ptr ss:[ebp-4],0
+300DBC4C    E8 3BFFFFFF     call Common.CTXStringW::Refresh
+300DBC51    8B0E            mov ecx,dword ptr ds:[esi]
+300DBC53    83E9 10         sub ecx,10
+300DBC56    E8 59F5FFFF     call Common.300DB1B4
+300DBC5B    E8 5F5B0500     call Common.301317BF
+300DBC60    C3              retn
+
+
+
+
+===============================================================================================
+//向好友id发送消息?
+03231D27    8BD9            mov ebx,ecx   //ecx 为调用方法时传参
+03232140    FF73 0C         push dword ptr ds:[ebx+C]   //ds:[ebx+C] = ds:[ecx+c]  为好友id值
+//03232143    FF15 74A93A03   call dword ptr ds:[<&KernelUtil.Util::Mi>; KernelUt.Util::Misc::AddContactToSessionList
+
+
+
+
+03231D1B    6A 64           push 64
+03231D1D    B8 C03C3803     mov eax,IM.03383CC0
+03231D22    E8 70B41200     call IM.0335D197
+03231D27    8BD9            mov ebx,ecx
+03231D29    33F6            xor esi,esi
+03231D2B    8975 EC         mov dword ptr ss:[ebp-14],esi
+03231D2E    68 00020000     push 200
+03231D33    8D4D EC         lea ecx,dword ptr ss:[ebp-14]
+03231D36    8975 FC         mov dword ptr ss:[ebp-4],esi
+03231D39    E8 9EBEEDFF     call IM.0310DBDC
+03231D3E    FF73 0C         push dword ptr ds:[ebx+C]
+03231D41    8975 D8         mov dword ptr ss:[ebp-28],esi
+03231D44    C645 F3 00      mov byte ptr ss:[ebp-D],0
+03231D48    FF15 5CA93A03   call dword ptr ds:[<&KernelUtil.Util::Co>; KernelUt.Util::Contact::IsMobileClient
+03231D4E    85C0            test eax,eax
+03231D50    8B35 8CA03A03   mov esi,dword ptr ds:[<&Common.CTXBSTR::>; Common.CTXBSTR::operator wchar_t *
+03231D56    8B3D 88A03A03   mov edi,dword ptr ds:[<&Common.CTXBSTR::>; Common.CTXBSTR::~CTXBSTR
+03231D5C    59              pop ecx
+03231D5D    75 70           jnz short IM.03231DCF
+03231D5F    6A 3A           push 3A
+03231D61    FF73 0C         push dword ptr ds:[ebx+C]
+03231D64    FF15 68A93A03   call dword ptr ds:[<&KernelUtil.Util::Co>; KernelUt.Util::Contact::IsVASFlagValid
+03231D6A    85C0            test eax,eax
+03231D6C    59              pop ecx
+03231D6D    59              pop ecx
+03231D6E    75 5F           jnz short IM.03231DCF
+03231D70    8D45 EC         lea eax,dword ptr ss:[ebp-14]
+03231D73    50              push eax
+03231D74    FF75 08         push dword ptr ss:[ebp+8]
+03231D77    FF15 60A93A03   call dword ptr ds:[<&KernelUtil.Util::Ms>; KernelUt.Util::Msg::TranslateMsgPackToBuddyMsg
+03231D7D    85C0            test eax,eax
+03231D7F    59              pop ecx
+03231D80    59              pop ecx
+03231D81    75 1B           jnz short IM.03231D9E
+03231D83    8B45 EC         mov eax,dword ptr ss:[ebp-14]
+03231D86    834D FC FF      or dword ptr ss:[ebp-4],FFFFFFFF
+03231D8A    85C0            test eax,eax
+03231D8C    74 06           je short IM.03231D94
+03231D8E    8B08            mov ecx,dword ptr ds:[eax]
+03231D90    50              push eax
+03231D91    FF51 08         call dword ptr ds:[ecx+8]
+03231D94    B8 57000780     mov eax,80070057
+03231D99    E9 29040000     jmp IM.032321C7
+03231D9E    8365 E8 00      and dword ptr ss:[ebp-18],0
+03231DA2    8D45 E8         lea eax,dword ptr ss:[ebp-18]
+03231DA5    50              push eax
+03231DA6    C645 FC 04      mov byte ptr ss:[ebp-4],4
+03231DAA    E8 20BCFFFF     call IM.0322D9CF
+03231DAF    8B45 E8         mov eax,dword ptr ss:[ebp-18]
+03231DB2    85C0            test eax,eax
+03231DB4    59              pop ecx
+03231DB5    0F84 CF000000   je IM.03231E8A
+03231DBB    FF75 08         push dword ptr ss:[ebp+8]
+03231DBE    8B08            mov ecx,dword ptr ds:[eax]
+03231DC0    FF73 0C         push dword ptr ds:[ebx+C]
+03231DC3    50              push eax
+03231DC4    FF51 10         call dword ptr ds:[ecx+10]
+03231DC7    8B45 E8         mov eax,dword ptr ss:[ebp-18]
+03231DCA    E9 B9000000     jmp IM.03231E88
+03231DCF    8D45 F3         lea eax,dword ptr ss:[ebp-D]
+03231DD2    50              push eax
+03231DD3    8D45 EC         lea eax,dword ptr ss:[ebp-14]
+03231DD6    50              push eax
+03231DD7    FF75 08         push dword ptr ss:[ebp+8]
+03231DDA    FF15 64A93A03   call dword ptr ds:[<&KernelUtil.Util::Ms>; KernelUt.Util::Msg::TranslateMsgPackToMobileMsg
+03231DE0    83C4 0C         add esp,0C
+03231DE3    85C0            test eax,eax
+03231DE5    0F84 C6030000   je IM.032321B1
+03231DEB    8365 E0 00      and dword ptr ss:[ebp-20],0
+03231DEF    C745 D8 0100000>mov dword ptr ss:[ebp-28],1
+03231DF6    8B45 08         mov eax,dword ptr ss:[ebp+8]
+03231DF9    8B08            mov ecx,dword ptr ds:[eax]
+03231DFB    8D55 E0         lea edx,dword ptr ss:[ebp-20]
+03231DFE    52              push edx
+03231DFF    50              push eax
+03231E00    C645 FC 01      mov byte ptr ss:[ebp-4],1
+03231E04    FF51 24         call dword ptr ds:[ecx+24]
+03231E07    8365 E8 00      and dword ptr ss:[ebp-18],0
+03231E0B    8D45 E8         lea eax,dword ptr ss:[ebp-18]
+03231E0E    50              push eax
+03231E0F    C645 FC 02      mov byte ptr ss:[ebp-4],2
+03231E13    FF15 84A03A03   call dword ptr ds:[<&Common.Util::Data::>; Common.Util::Data::CreateTXData
+03231E19    8B45 E0         mov eax,dword ptr ss:[ebp-20]
+03231E1C    85C0            test eax,eax
+03231E1E    59              pop ecx
+03231E1F    74 09           je short IM.03231E2A
+03231E21    FF75 E8         push dword ptr ss:[ebp-18]
+03231E24    8B08            mov ecx,dword ptr ds:[eax]
+03231E26    50              push eax
+03231E27    FF51 60         call dword ptr ds:[ecx+60]
+03231E2A    8B45 E8         mov eax,dword ptr ss:[ebp-18]
+03231E2D    8945 DC         mov dword ptr ss:[ebp-24],eax
+03231E30    8D45 C8         lea eax,dword ptr ss:[ebp-38]
+03231E33    68 387A3F03     push IM.033F7A38                         ; UNICODE "bIsTmpUsePicLogic"
+03231E38    50              push eax
+03231E39    E8 F088FEFF     call IM.0321A72E
+03231E3E    59              pop ecx
+03231E3F    59              pop ecx
+03231E40    8B4D DC         mov ecx,dword ptr ss:[ebp-24]
+03231E43    8B09            mov ecx,dword ptr ds:[ecx]
+03231E45    894D CC         mov dword ptr ss:[ebp-34],ecx
+03231E48    6A 01           push 1
+03231E4A    8BC8            mov ecx,eax
+03231E4C    C645 FC 03      mov byte ptr ss:[ebp-4],3
+03231E50    FFD6            call esi
+03231E52    50              push eax
+03231E53    FF75 DC         push dword ptr ss:[ebp-24]
+03231E56    8B45 CC         mov eax,dword ptr ss:[ebp-34]
+03231E59    FF90 CC000000   call dword ptr ds:[eax+CC]
+03231E5F    8D4D C8         lea ecx,dword ptr ss:[ebp-38]
+03231E62    C645 FC 02      mov byte ptr ss:[ebp-4],2
+03231E66    FFD7            call edi
+03231E68    8B45 08         mov eax,dword ptr ss:[ebp+8]
+03231E6B    FF75 E8         push dword ptr ss:[ebp-18]
+03231E6E    8B08            mov ecx,dword ptr ds:[eax]
+03231E70    50              push eax
+03231E71    FF51 20         call dword ptr ds:[ecx+20]
+03231E74    8B45 E8         mov eax,dword ptr ss:[ebp-18]
+03231E77    85C0            test eax,eax
+03231E79    C645 FC 01      mov byte ptr ss:[ebp-4],1
+03231E7D    74 06           je short IM.03231E85
+03231E7F    8B08            mov ecx,dword ptr ds:[eax]
+03231E81    50              push eax
+03231E82    FF51 08         call dword ptr ds:[ecx+8]
+03231E85    8B45 E0         mov eax,dword ptr ss:[ebp-20]
+03231E88    85C0            test eax,eax
+03231E8A    C645 FC 00      mov byte ptr ss:[ebp-4],0
+03231E8E    74 06           je short IM.03231E96
+03231E90    8B08            mov ecx,dword ptr ds:[eax]
+03231E92    50              push eax
+03231E93    FF51 08         call dword ptr ds:[ecx+8]
+03231E96    6A 00           push 0
+03231E98    FF75 08         push dword ptr ss:[ebp+8]
+03231E9B    8BCB            mov ecx,ebx
+03231E9D    FF73 0C         push dword ptr ds:[ebx+C]
+03231EA0    E8 9BC8FFFF     call IM.0322E740
+03231EA5    33C0            xor eax,eax
+03231EA7    8945 BC         mov dword ptr ss:[ebp-44],eax
+03231EAA    8945 C0         mov dword ptr ss:[ebp-40],eax
+03231EAD    8945 C4         mov dword ptr ss:[ebp-3C],eax
+03231EB0    8D45 B8         lea eax,dword ptr ss:[ebp-48]
+03231EB3    50              push eax
+03231EB4    8D45 EC         lea eax,dword ptr ss:[ebp-14]
+03231EB7    50              push eax
+03231EB8    C645 FC 05      mov byte ptr ss:[ebp-4],5
+03231EBC    FF15 2CAA3A03   call dword ptr ds:[<&KernelUtil.Util::Ms>; KernelUt.Util::Msg::SplitTLVMsg
+03231EC2    837D BC 00      cmp dword ptr ss:[ebp-44],0
+03231EC6    59              pop ecx
+03231EC7    59              pop ecx
+03231EC8    0F84 D7020000   je IM.032321A5
+03231ECE    8B45 C0         mov eax,dword ptr ss:[ebp-40]
+03231ED1    2B45 BC         sub eax,dword ptr ss:[ebp-44]
+03231ED4    C1F8 02         sar eax,2
+03231ED7    8945 C8         mov dword ptr ss:[ebp-38],eax
+03231EDA    0F84 C5020000   je IM.032321A5
+03231EE0    83F8 14         cmp eax,14
+03231EE3    0F87 BC020000   ja IM.032321A5
+03231EE9    8D4D 90         lea ecx,dword ptr ss:[ebp-70]
+03231EEC    E8 32A90000     call IM.0323C823
+03231EF1    FF75 08         push dword ptr ss:[ebp+8]
+03231EF4    8D4D 90         lea ecx,dword ptr ss:[ebp-70]
+03231EF7    C645 FC 06      mov byte ptr ss:[ebp-4],6
+03231EFB    E8 8BF4ECFF     call IM.0310138B
+03231F00    FF75 14         push dword ptr ss:[ebp+14]
+03231F03    8D4D 94         lea ecx,dword ptr ss:[ebp-6C]
+03231F06    E8 80F4ECFF     call IM.0310138B
+03231F0B    FF75 10         push dword ptr ss:[ebp+10]
+03231F0E    8D4D 98         lea ecx,dword ptr ss:[ebp-68]
+03231F11    E8 75F4ECFF     call IM.0310138B
+03231F16    8D45 B8         lea eax,dword ptr ss:[ebp-48]
+03231F19    50              push eax
+03231F1A    8D4D 9C         lea ecx,dword ptr ss:[ebp-64]
+03231F1D    E8 53DAFFFF     call IM.0322F975
+03231F22    837D C8 01      cmp dword ptr ss:[ebp-38],1
+03231F26    C645 B0 00      mov byte ptr ss:[ebp-50],0
+03231F2A    75 06           jnz short IM.03231F32
+03231F2C    C645 B1 00      mov byte ptr ss:[ebp-4F],0
+03231F30    EB 09           jmp short IM.03231F3B
+03231F32    FE43 50         inc byte ptr ds:[ebx+50]
+03231F35    8A43 50         mov al,byte ptr ds:[ebx+50]
+03231F38    8845 B1         mov byte ptr ss:[ebp-4F],al
+03231F3B    FF43 4C         inc dword ptr ds:[ebx+4C]
+03231F3E    8B43 4C         mov eax,dword ptr ds:[ebx+4C]
+03231F41    8945 AC         mov dword ptr ss:[ebp-54],eax
+03231F44    33C0            xor eax,eax
+03231F46    3945 D8         cmp dword ptr ss:[ebp-28],eax
+03231F49    8945 D4         mov dword ptr ss:[ebp-2C],eax
+03231F4C    0F95C1          setne cl
+03231F4F    884D B2         mov byte ptr ss:[ebp-4E],cl
+03231F52    8945 D0         mov dword ptr ss:[ebp-30],eax
+03231F55    8945 E4         mov dword ptr ss:[ebp-1C],eax
+03231F58    8B45 08         mov eax,dword ptr ss:[ebp+8]
+03231F5B    8B08            mov ecx,dword ptr ds:[eax]
+03231F5D    8D55 E4         lea edx,dword ptr ss:[ebp-1C]
+03231F60    52              push edx
+03231F61    50              push eax
+03231F62    C645 FC 07      mov byte ptr ss:[ebp-4],7
+03231F66    FF51 24         call dword ptr ds:[ecx+24]
+03231F69    8B45 E4         mov eax,dword ptr ss:[ebp-1C]
+03231F6C    85C0            test eax,eax
+03231F6E    0F84 CD000000   je IM.03232041
+03231F74    8365 10 00      and dword ptr ss:[ebp+10],0
+03231F78    8945 D8         mov dword ptr ss:[ebp-28],eax
+03231F7B    8D45 CC         lea eax,dword ptr ss:[ebp-34]
+03231F7E    68 886C3F03     push IM.033F6C88                         ; UNICODE "pCustomData"
+03231F83    50              push eax
+03231F84    C645 FC 08      mov byte ptr ss:[ebp-4],8
+03231F88    E8 A187FEFF     call IM.0321A72E
+03231F8D    59              pop ecx
+03231F8E    59              pop ecx
+03231F8F    8B4D D8         mov ecx,dword ptr ss:[ebp-28]
+03231F92    8B09            mov ecx,dword ptr ds:[ecx]
+03231F94    894D C8         mov dword ptr ss:[ebp-38],ecx
+03231F97    8D4D 10         lea ecx,dword ptr ss:[ebp+10]
+03231F9A    51              push ecx
+03231F9B    8BC8            mov ecx,eax
+03231F9D    C645 FC 09      mov byte ptr ss:[ebp-4],9
+03231FA1    FFD6            call esi
+03231FA3    50              push eax
+03231FA4    FF75 D8         push dword ptr ss:[ebp-28]
+03231FA7    8B45 C8         mov eax,dword ptr ss:[ebp-38]
+03231FAA    FF50 4C         call dword ptr ds:[eax+4C]
+03231FAD    8D4D CC         lea ecx,dword ptr ss:[ebp-34]
+03231FB0    C645 FC 08      mov byte ptr ss:[ebp-4],8
+03231FB4    FFD7            call edi
+03231FB6    8B45 10         mov eax,dword ptr ss:[ebp+10]
+03231FB9    85C0            test eax,eax
+03231FBB    74 76           je short IM.03232033
+03231FBD    8945 D8         mov dword ptr ss:[ebp-28],eax
+03231FC0    8D45 CC         lea eax,dword ptr ss:[ebp-34]
+03231FC3    68 E86F3F03     push IM.033F6FE8                         ; UNICODE "bAutoReply"
+03231FC8    50              push eax
+03231FC9    E8 6087FEFF     call IM.0321A72E
+03231FCE    59              pop ecx
+03231FCF    59              pop ecx
+03231FD0    8B4D D8         mov ecx,dword ptr ss:[ebp-28]
+03231FD3    8B09            mov ecx,dword ptr ds:[ecx]
+03231FD5    894D C8         mov dword ptr ss:[ebp-38],ecx
+03231FD8    8D4D D4         lea ecx,dword ptr ss:[ebp-2C]
+03231FDB    51              push ecx
+03231FDC    8BC8            mov ecx,eax
+03231FDE    C645 FC 0A      mov byte ptr ss:[ebp-4],0A
+03231FE2    FFD6            call esi
+03231FE4    50              push eax
+03231FE5    FF75 D8         push dword ptr ss:[ebp-28]
+03231FE8    8B45 C8         mov eax,dword ptr ss:[ebp-38]
+03231FEB    FF50 1C         call dword ptr ds:[eax+1C]
+03231FEE    8D4D CC         lea ecx,dword ptr ss:[ebp-34]
+03231FF1    C645 FC 08      mov byte ptr ss:[ebp-4],8
+03231FF5    FFD7            call edi
+03231FF7    8B45 10         mov eax,dword ptr ss:[ebp+10]
+03231FFA    8945 D8         mov dword ptr ss:[ebp-28],eax
+03231FFD    8D45 CC         lea eax,dword ptr ss:[ebp-34]
+03232000    68 28703F03     push IM.033F7028                         ; UNICODE "bCRMDefault"
+03232005    50              push eax
+03232006    E8 2387FEFF     call IM.0321A72E
+0323200B    59              pop ecx
+0323200C    59              pop ecx
+0323200D    8B4D D8         mov ecx,dword ptr ss:[ebp-28]
+03232010    8B09            mov ecx,dword ptr ds:[ecx]
+03232012    894D C8         mov dword ptr ss:[ebp-38],ecx
+03232015    8D4D D0         lea ecx,dword ptr ss:[ebp-30]
+03232018    51              push ecx
+03232019    8BC8            mov ecx,eax
+0323201B    C645 FC 0B      mov byte ptr ss:[ebp-4],0B
+0323201F    FFD6            call esi
+03232021    50              push eax
+03232022    FF75 D8         push dword ptr ss:[ebp-28]
+03232025    8B45 C8         mov eax,dword ptr ss:[ebp-38]
+03232028    FF50 1C         call dword ptr ds:[eax+1C]
+0323202B    8D4D CC         lea ecx,dword ptr ss:[ebp-34]
+0323202E    FFD7            call edi
+03232030    8B45 10         mov eax,dword ptr ss:[ebp+10]
+03232033    85C0            test eax,eax
+03232035    C645 FC 07      mov byte ptr ss:[ebp-4],7
+03232039    74 06           je short IM.03232041
+0323203B    8B08            mov ecx,dword ptr ds:[eax]
+0323203D    50              push eax
+0323203E    FF51 08         call dword ptr ds:[ecx+8]
+03232041    837D D4 00      cmp dword ptr ss:[ebp-2C],0
+03232045    C645 10 01      mov byte ptr ss:[ebp+10],1
+03232049    74 06           je short IM.03232051
+0323204B    C645 10 02      mov byte ptr ss:[ebp+10],2
+0323204F    EB 16           jmp short IM.03232067
+03232051    807D F3 00      cmp byte ptr ss:[ebp-D],0
+03232055    74 06           je short IM.0323205D
+03232057    C645 10 05      mov byte ptr ss:[ebp+10],5
+0323205B    EB 0A           jmp short IM.03232067
+0323205D    837D D0 00      cmp dword ptr ss:[ebp-30],0
+03232061    74 04           je short IM.03232067
+03232063    C645 10 0B      mov byte ptr ss:[ebp+10],0B
+03232067    FF75 14         push dword ptr ss:[ebp+14]
+0323206A    8D45 9C         lea eax,dword ptr ss:[ebp-64]
+0323206D    FF75 10         push dword ptr ss:[ebp+10]
+03232070    8BCB            mov ecx,ebx
+03232072    FF75 AC         push dword ptr ss:[ebp-54]
+03232075    FF75 B1         push dword ptr ss:[ebp-4F]
+03232078    FF75 B0         push dword ptr ss:[ebp-50]
+0323207B    50              push eax
+0323207C    E8 60BAFFFF     call IM.0322DAE1
+03232081    84C0            test al,al
+03232083    0F84 FF000000   je IM.03232188
+03232089    8D45 90         lea eax,dword ptr ss:[ebp-70]
+0323208C    50              push eax
+0323208D    8D4B 54         lea ecx,dword ptr ds:[ebx+54]
+03232090    E8 FBAB0000     call IM.0323CC90
+03232095    8365 D8 00      and dword ptr ss:[ebp-28],0
+03232099    837D 14 00      cmp dword ptr ss:[ebp+14],0
+0323209D    C745 10 0100000>mov dword ptr ss:[ebp+10],1
+032320A4    74 74           je short IM.0323211A
+032320A6    8D45 CC         lea eax,dword ptr ss:[ebp-34]
+032320A9    68 1C6F3F03     push IM.033F6F1C                         ; UNICODE "bSaveMsg"
+032320AE    50              push eax
+032320AF    E8 7A86FEFF     call IM.0321A72E
+032320B4    59              pop ecx
+032320B5    59              pop ecx
+032320B6    8B4D 14         mov ecx,dword ptr ss:[ebp+14]
+032320B9    8B09            mov ecx,dword ptr ds:[ecx]
+032320BB    894D C8         mov dword ptr ss:[ebp-38],ecx
+032320BE    8D4D 10         lea ecx,dword ptr ss:[ebp+10]
+032320C1    51              push ecx
+032320C2    8BC8            mov ecx,eax
+032320C4    C645 FC 0C      mov byte ptr ss:[ebp-4],0C
+032320C8    FFD6            call esi
+032320CA    50              push eax
+032320CB    FF75 14         push dword ptr ss:[ebp+14]
+032320CE    8B45 C8         mov eax,dword ptr ss:[ebp-38]
+032320D1    FF50 1C         call dword ptr ds:[eax+1C]
+032320D4    8D4D CC         lea ecx,dword ptr ss:[ebp-34]
+032320D7    C645 FC 07      mov byte ptr ss:[ebp-4],7
+032320DB    FFD7            call edi
+032320DD    8D45 CC         lea eax,dword ptr ss:[ebp-34]
+032320E0    68 306F3F03     push IM.033F6F30                         ; UNICODE "bNotAddToRecentCommList"
+032320E5    50              push eax
+032320E6    E8 4386FEFF     call IM.0321A72E
+032320EB    59              pop ecx
+032320EC    59              pop ecx
+032320ED    8B4D 14         mov ecx,dword ptr ss:[ebp+14]
+032320F0    8B09            mov ecx,dword ptr ds:[ecx]
+032320F2    894D C8         mov dword ptr ss:[ebp-38],ecx
+032320F5    8D4D D8         lea ecx,dword ptr ss:[ebp-28]
+032320F8    51              push ecx
+032320F9    8BC8            mov ecx,eax
+032320FB    C645 FC 0D      mov byte ptr ss:[ebp-4],0D
+032320FF    FFD6            call esi
+03232101    50              push eax
+03232102    FF75 14         push dword ptr ss:[ebp+14]
+03232105    8B45 C8         mov eax,dword ptr ss:[ebp-38]
+03232108    FF50 1C         call dword ptr ds:[eax+1C]
+0323210B    8D4D CC         lea ecx,dword ptr ss:[ebp-34]
+0323210E    C645 FC 07      mov byte ptr ss:[ebp-4],7
+03232112    FFD7            call edi
+03232114    837D 10 00      cmp dword ptr ss:[ebp+10],0
+03232118    74 12           je short IM.0323212C
+0323211A    6A 00           push 0
+0323211C    FF75 08         push dword ptr ss:[ebp+8]
+0323211F    8D4B 04         lea ecx,dword ptr ds:[ebx+4]
+03232122    68 E46E3F03     push IM.033F6EE4                         ; UNICODE "buddy"
+03232127    E8 79E70200     call IM.032608A5
+0323212C    837D D8 00      cmp dword ptr ss:[ebp-28],0
+03232130    75 18           jnz short IM.0323214A
+03232132    FF73 0C         push dword ptr ds:[ebx+C]
+03232135    FF15 70A93A03   call dword ptr ds:[<&KernelUtil.Util::Co>; KernelUt.Util::Contact::IsPrevented
+0323213B    85C0            test eax,eax
+0323213D    59              pop ecx
+0323213E    75 0A           jnz short IM.0323214A
+03232140    FF73 0C         push dword ptr ds:[ebx+C]
+03232143    FF15 74A93A03   call dword ptr ds:[<&KernelUtil.Util::Mi>; KernelUt.Util::Misc::AddContactToSessionList
+03232149    59              pop ecx
+0323214A    8B45 E4         mov eax,dword ptr ss:[ebp-1C]
+0323214D    85C0            test eax,eax
+0323214F    C645 FC 06      mov byte ptr ss:[ebp-4],6
+03232153    74 06           je short IM.0323215B
+03232155    8B08            mov ecx,dword ptr ds:[eax]
+03232157    50              push eax
+03232158    FF51 08         call dword ptr ds:[ecx+8]
+0323215B    8D4D 90         lea ecx,dword ptr ss:[ebp-70]
+0323215E    C645 FC 05      mov byte ptr ss:[ebp-4],5
+03232162    E8 EFA60000     call IM.0323C856
+03232167    8D4D B8         lea ecx,dword ptr ss:[ebp-48]
+0323216A    C645 FC 00      mov byte ptr ss:[ebp-4],0
+0323216E    E8 A91AECFF     call IM.030F3C1C
+03232173    8B45 EC         mov eax,dword ptr ss:[ebp-14]
+03232176    834D FC FF      or dword ptr ss:[ebp-4],FFFFFFFF
+0323217A    85C0            test eax,eax
+0323217C    74 06           je short IM.03232184
+0323217E    8B08            mov ecx,dword ptr ds:[eax]
+03232180    50              push eax
+03232181    FF51 08         call dword ptr ds:[ecx+8]
+03232184    33C0            xor eax,eax
+03232186    EB 3F           jmp short IM.032321C7
+03232188    8B45 E4         mov eax,dword ptr ss:[ebp-1C]
+0323218B    85C0            test eax,eax
+0323218D    C645 FC 06      mov byte ptr ss:[ebp-4],6
+03232191    74 06           je short IM.03232199
+03232193    8B08            mov ecx,dword ptr ds:[eax]
+03232195    50              push eax
+03232196    FF51 08         call dword ptr ds:[ecx+8]
+03232199    8D4D 90         lea ecx,dword ptr ss:[ebp-70]
+0323219C    C645 FC 05      mov byte ptr ss:[ebp-4],5
+032321A0    E8 B1A60000     call IM.0323C856
+032321A5    8D4D B8         lea ecx,dword ptr ss:[ebp-48]
+032321A8    C645 FC 00      mov byte ptr ss:[ebp-4],0
+032321AC    E8 6B1AECFF     call IM.030F3C1C
+032321B1    8B45 EC         mov eax,dword ptr ss:[ebp-14]
+032321B4    834D FC FF      or dword ptr ss:[ebp-4],FFFFFFFF
+032321B8    85C0            test eax,eax
+032321BA    74 06           je short IM.032321C2
+032321BC    8B08            mov ecx,dword ptr ds:[eax]
+032321BE    50              push eax
+032321BF    FF51 08         call dword ptr ds:[ecx+8]
+032321C2    B8 05400080     mov eax,80004005
+032321C7    E8 A3B01200     call IM.0335D26F
+032321CC    C2 1000         retn 10
+
+
+
+
+
+
+ds:[ecx+C]  为好友id值
+===============================================================================================
+// ctrl+f9  走到 retn 
+032343B6    8B75 08         mov esi,dword ptr ss:[ebp+8]
+
+032343FE    8D7E FC         lea edi,dword ptr ds:[esi-4]   //esi = ss:[ebp+8],   ecx = ss:[ebp+8], 为好友id值 = ds:[ecx+C] =  ds:[[ebp+8]+C]
+
+0323448B    FF75 18         push dword ptr ss:[ebp+18]
+0323448E    8BCF            mov ecx,edi    //ecx  = edi 对应上层 ecx 
+03234490    FF75 14         push dword ptr ss:[ebp+14]
+03234493    FF75 10         push dword ptr ss:[ebp+10]
+03234496    53              push ebx
+03234497    E8 ACFDFFFF     call IM.03234248
+ 
+
+-----
+
+03234399    6A 00           push 0
+0323439B    B8 527E3703     mov eax,IM.03377E52
+032343A0    E8 F28D1200     call IM.0335D197
+032343A5    8B5D 0C         mov ebx,dword ptr ss:[ebp+C]
+032343A8    85DB            test ebx,ebx
+032343AA    75 0A           jnz short IM.032343B6
+032343AC    B8 57000780     mov eax,80070057
+032343B1    E9 E8000000     jmp IM.0323449E
+032343B6    8B75 08         mov esi,dword ptr ss:[ebp+8]
+032343B9    837E 08 00      cmp dword ptr ds:[esi+8],0
+032343BD    75 0A           jnz short IM.032343C9
+032343BF    B8 05400080     mov eax,80004005
+032343C4    E9 D5000000     jmp IM.0323449E
+032343C9    8BCE            mov ecx,esi
+032343CB    E8 BCC00200     call IM.0326048C
+032343D0    85C0            test eax,eax
+032343D2    75 2A           jnz short IM.032343FE
+032343D4    68 0C7E3F03     push IM.033F7E0C
+032343D9    68 24CD3A03     push IM.033ACD24                         ; UNICODE "%s"
+032343DE    68 0C743F03     push IM.033F740C                         ; UNICODE "BuddySession"
+032343E3    6A 02           push 2
+032343E5    68 58CD3A03     push IM.033ACD58                         ; UNICODE "func"
+032343EA    68 32010000     push 132
+032343EF    68 2CCD3A03     push IM.033ACD2C                         ; UNICODE "file"
+032343F4    E8 E961F0FF     call IM.0313A5E2
+032343F9    83C4 1C         add esp,1C
+032343FC  ^ EB C1           jmp short IM.032343BF
+032343FE    8D7E FC         lea edi,dword ptr ds:[esi-4]
+03234401    53              push ebx
+03234402    8BCF            mov ecx,edi
+03234404    E8 AA92FFFF     call IM.0322D6B3
+03234409    FF76 08         push dword ptr ds:[esi+8]
+0323440C    FF15 88AA3A03   call dword ptr ds:[<&KernelUtil.Util::Co>; KernelUt.Util::Contact::GetStatus
+03234412    0FB7C0          movzx eax,ax
+03234415    66:3D 1400      cmp ax,14
+03234419    59              pop ecx
+0323441A    74 06           je short IM.03234422
+0323441C    66:3D C900      cmp ax,0C9
+03234420    75 69           jnz short IM.0323448B
+03234422    8365 0C 00      and dword ptr ss:[ebp+C],0
+03234426    8365 FC 00      and dword ptr ss:[ebp-4],0
+0323442A    8D45 0C         lea eax,dword ptr ss:[ebp+C]
+0323442D    50              push eax
+0323442E    E8 7195FFFF     call IM.0322D9A4
+03234433    85C0            test eax,eax
+03234435    59              pop ecx
+03234436    74 42           je short IM.0323447A
+03234438    8B45 0C         mov eax,dword ptr ss:[ebp+C]
+0323443B    85C0            test eax,eax
+0323443D    74 3E           je short IM.0323447D
+0323443F    8B4E 74         mov ecx,dword ptr ds:[esi+74]
+03234442    8B10            mov edx,dword ptr ds:[eax]
+03234444    51              push ecx
+03234445    FF75 18         push dword ptr ss:[ebp+18]
+03234448    FF75 14         push dword ptr ss:[ebp+14]
+0323444B    FF75 10         push dword ptr ss:[ebp+10]
+0323444E    53              push ebx
+0323444F    FF76 08         push dword ptr ds:[esi+8]
+03234452    50              push eax
+03234453    FF52 24         call dword ptr ds:[edx+24]
+03234456    85C0            test eax,eax
+03234458    7C 20           jl short IM.0323447A
+0323445A    6A 00           push 0
+0323445C    53              push ebx
+0323445D    FF76 08         push dword ptr ds:[esi+8]
+03234460    8BCF            mov ecx,edi
+03234462    E8 D9A2FFFF     call IM.0322E740
+03234467    8B45 0C         mov eax,dword ptr ss:[ebp+C]
+0323446A    834D FC FF      or dword ptr ss:[ebp-4],FFFFFFFF
+0323446E    85C0            test eax,eax
+03234470    74 2A           je short IM.0323449C
+03234472    8B08            mov ecx,dword ptr ds:[eax]
+03234474    50              push eax
+03234475    FF51 08         call dword ptr ds:[ecx+8]
+03234478    EB 22           jmp short IM.0323449C
+0323447A    8B45 0C         mov eax,dword ptr ss:[ebp+C]
+0323447D    834D FC FF      or dword ptr ss:[ebp-4],FFFFFFFF
+03234481    85C0            test eax,eax
+03234483    74 06           je short IM.0323448B
+03234485    8B08            mov ecx,dword ptr ds:[eax]
+03234487    50              push eax
+03234488    FF51 08         call dword ptr ds:[ecx+8]
+0323448B    FF75 18         push dword ptr ss:[ebp+18]
+0323448E    8BCF            mov ecx,edi
+03234490    FF75 14         push dword ptr ss:[ebp+14]
+03234493    FF75 10         push dword ptr ss:[ebp+10]
+03234496    53              push ebx
+03234497    E8 ACFDFFFF     call IM.03234248
+0323449C    33C0            xor eax,eax
+0323449E    E8 CC8D1200     call IM.0335D26F
+032344A3    C2 1400         retn 14
+
+
+
+
+
+好友id值 = ds:[ecx+C] =  ds:[[ebp+8]+C]
+===============================================================================================
+
+...
+6629BD8C    895D E8         mov dword ptr ss:[ebp-18],ebx  //置0?
+...
+6629BD9A    8D45 E8         lea eax,dword ptr ss:[ebp-18]  //引用局部变量[ebp-18]
+6629BD9D    50              push eax
+6629BD9E    8BCF            mov ecx,edi
+6629BDA0    C645 FC 0A      mov byte ptr ss:[ebp-4],0A
+6629BDA4    83C6 0C         add esi,0C
+6629BDA7    E8 F4230400     call AppFrame.662DE1A0  //获得 好友ID 到 eax
+6629BDAC    50              push eax
+6629BDAD    FF75 D4         push dword ptr ss:[ebp-2C]
+6629BDB0    FF16            call dword ptr ds:[esi]
+6629BDB2    85C0            test eax,eax
+6629BDB4    7D 4C           jge short AppFrame.6629BE02  
+...
+6629BE05    8B4D E8         mov ecx,dword ptr ss:[ebp-18] //ecx 赋值
+...
+
+6629BE0A    53              push ebx
+6629BE0B    50              push eax
+6629BE0C    53              push ebx
+6629BE0D    FF75 0C         push dword ptr ss:[ebp+C]
+6629BE10    51              push ecx  //传递id相关数据,    好友id值 =  ds:[ecx+C]
+6629BE11    FF52 18         call dword ptr ds:[edx+18]               ; IM.03234399  
+
+
+-------
+6629BBB8    8D4D F0         lea ecx,dword ptr ss:[ebp-10]
+6629BBBB    FF15 28453366   call dword ptr ds:[<&Common.CTXStringW::>; Common.CTXStringW::CTXStringW
+6629BBC1    8365 FC 00      and dword ptr ss:[ebp-4],0
+6629BBC5    FF15 84473366   call dword ptr ds:[<&KernelUtil.Util::Co>; KernelUt.Util::Contact::GetSelfUin
+6629BBCB    50              push eax
+6629BBCC    8D45 F0         lea eax,dword ptr ss:[ebp-10]
+6629BBCF    68 40583566     push AppFrame.66355840                   ; UNICODE "%lu"
+6629BBD4    50              push eax
+6629BBD5    FF15 2C453366   call dword ptr ds:[<&Common.CTXStringW::>; Common.CTXStringW::Format
+6629BBDB    83C4 0C         add esp,0C
+6629BBDE    68 18283766     push AppFrame.66372818                   ; UNICODE "buddy"
+6629BBE3    8D4D DC         lea ecx,dword ptr ss:[ebp-24]
+6629BBE6    FF15 20453366   call dword ptr ds:[<&Common.CTXBSTR::CTX>; Common.CTXBSTR::CTXBSTR
+6629BBEC    8BF0            mov esi,eax
+6629BBEE    8D45 E0         lea eax,dword ptr ss:[ebp-20]
+6629BBF1    68 C4273766     push AppFrame.663727C4                   ; UNICODE "maintype"
+6629BBF6    50              push eax
+6629BBF7    C645 FC 01      mov byte ptr ss:[ebp-4],1
+6629BBFB    E8 6BBDF6FF     call AppFrame.6620796B
+6629BC00    59              pop ecx
+6629BC01    59              pop ecx
+6629BC02    8945 E4         mov dword ptr ss:[ebp-1C],eax
+6629BC05    8B3B            mov edi,dword ptr ds:[ebx]
+6629BC07    8BCE            mov ecx,esi
+6629BC09    8B35 04453366   mov esi,dword ptr ds:[<&Common.CTXBSTR::>; Common.CTXBSTR::operator wchar_t *
+6629BC0F    C645 FC 02      mov byte ptr ss:[ebp-4],2
+6629BC13    FFD6            call esi
+6629BC15    8B4D E4         mov ecx,dword ptr ss:[ebp-1C]
+6629BC18    50              push eax
+6629BC19    FFD6            call esi
+6629BC1B    50              push eax
+6629BC1C    53              push ebx
+6629BC1D    FF97 E8000000   call dword ptr ds:[edi+E8]
+6629BC23    8B3D 00453366   mov edi,dword ptr ds:[<&Common.CTXBSTR::>; Common.CTXBSTR::~CTXBSTR
+6629BC29    8D4D E0         lea ecx,dword ptr ss:[ebp-20]
+6629BC2C    FFD7            call edi
+6629BC2E    8D4D DC         lea ecx,dword ptr ss:[ebp-24]
+6629BC31    C645 FC 00      mov byte ptr ss:[ebp-4],0
+6629BC35    FFD7            call edi
+6629BC37    68 24283766     push AppFrame.66372824                   ; UNICODE "ccmsg"
+6629BC3C    8D4D D4         lea ecx,dword ptr ss:[ebp-2C]
+6629BC3F    FF15 20453366   call dword ptr ds:[<&Common.CTXBSTR::CTX>; Common.CTXBSTR::CTXBSTR
+6629BC45    8945 DC         mov dword ptr ss:[ebp-24],eax
+6629BC48    8D45 D8         lea eax,dword ptr ss:[ebp-28]
+6629BC4B    68 D8273766     push AppFrame.663727D8                   ; UNICODE "subtype"
+6629BC50    50              push eax
+6629BC51    C645 FC 03      mov byte ptr ss:[ebp-4],3
+6629BC55    E8 11BDF6FF     call AppFrame.6620796B
+6629BC5A    59              pop ecx
+6629BC5B    59              pop ecx
+6629BC5C    8945 E0         mov dword ptr ss:[ebp-20],eax
+6629BC5F    8B03            mov eax,dword ptr ds:[ebx]
+6629BC61    8B4D DC         mov ecx,dword ptr ss:[ebp-24]
+6629BC64    C645 FC 04      mov byte ptr ss:[ebp-4],4
+6629BC68    8945 E4         mov dword ptr ss:[ebp-1C],eax
+6629BC6B    FFD6            call esi
+6629BC6D    8B4D E0         mov ecx,dword ptr ss:[ebp-20]
+6629BC70    50              push eax
+6629BC71    FFD6            call esi
+6629BC73    50              push eax
+6629BC74    8B45 E4         mov eax,dword ptr ss:[ebp-1C]
+6629BC77    53              push ebx
+6629BC78    FF90 E8000000   call dword ptr ds:[eax+E8]
+6629BC7E    8D4D D8         lea ecx,dword ptr ss:[ebp-28]
+6629BC81    FFD7            call edi
+6629BC83    8D4D D4         lea ecx,dword ptr ss:[ebp-2C]
+6629BC86    C645 FC 00      mov byte ptr ss:[ebp-4],0
+6629BC8A    FFD7            call edi
+6629BC8C    8D45 F0         lea eax,dword ptr ss:[ebp-10]
+6629BC8F    50              push eax
+6629BC90    8D4D E4         lea ecx,dword ptr ss:[ebp-1C]
+6629BC93    FF15 C4443366   call dword ptr ds:[<&Common.CTXBSTR::CTX>; Common.CTXBSTR::CTXBSTR
+6629BC99    8945 D4         mov dword ptr ss:[ebp-2C],eax
+6629BC9C    C645 FC 05      mov byte ptr ss:[ebp-4],5
+6629BCA0    68 E8273766     push AppFrame.663727E8                   ; UNICODE "key"
+6629BCA5    8D45 E0         lea eax,dword ptr ss:[ebp-20]
+6629BCA8    50              push eax
+6629BCA9    E8 BDBCF6FF     call AppFrame.6620796B
+6629BCAE    59              pop ecx
+6629BCAF    59              pop ecx
+6629BCB0    8945 D8         mov dword ptr ss:[ebp-28],eax
+6629BCB3    8B03            mov eax,dword ptr ds:[ebx]
+6629BCB5    8B4D D4         mov ecx,dword ptr ss:[ebp-2C]
+6629BCB8    C645 FC 06      mov byte ptr ss:[ebp-4],6
+6629BCBC    8945 DC         mov dword ptr ss:[ebp-24],eax
+6629BCBF    FFD6            call esi
+6629BCC1    8B4D D8         mov ecx,dword ptr ss:[ebp-28]
+6629BCC4    50              push eax
+6629BCC5    FFD6            call esi
+6629BCC7    50              push eax
+6629BCC8    8B45 DC         mov eax,dword ptr ss:[ebp-24]
+6629BCCB    53              push ebx
+6629BCCC    FF90 E8000000   call dword ptr ds:[eax+E8]
+6629BCD2    8D4D E0         lea ecx,dword ptr ss:[ebp-20]
+6629BCD5    FFD7            call edi
+6629BCD7    8D4D E4         lea ecx,dword ptr ss:[ebp-1C]
+6629BCDA    FFD7            call edi
+6629BCDC    8365 10 00      and dword ptr ss:[ebp+10],0
+6629BCE0    8D45 10         lea eax,dword ptr ss:[ebp+10]
+6629BCE3    50              push eax
+6629BCE4    C645 FC 07      mov byte ptr ss:[ebp-4],7
+6629BCE8    FF15 A8443366   call dword ptr ds:[<&Common.Util::Data::>; Common.Util::Data::CreateTXData
+6629BCEE    8B45 10         mov eax,dword ptr ss:[ebp+10]
+6629BCF1    59              pop ecx
+6629BCF2    8B08            mov ecx,dword ptr ds:[eax]
+6629BCF4    6A 01           push 1
+6629BCF6    68 64CD3666     push AppFrame.6636CD64                   ; UNICODE "bSelfMsg"
+6629BCFB    50              push eax
+6629BCFC    FF91 CC000000   call dword ptr ds:[ecx+CC]
+6629BD02    8D45 D8         lea eax,dword ptr ss:[ebp-28]
+6629BD05    68 04283766     push AppFrame.66372804                   ; UNICODE "iMsgData"
+6629BD0A    50              push eax
+6629BD0B    E8 5BBCF6FF     call AppFrame.6620796B
+6629BD10    59              pop ecx
+6629BD11    59              pop ecx
+6629BD12    8B0B            mov ecx,dword ptr ds:[ebx]
+6629BD14    FF75 10         push dword ptr ss:[ebp+10]
+6629BD17    894D D4         mov dword ptr ss:[ebp-2C],ecx
+6629BD1A    8BC8            mov ecx,eax
+6629BD1C    C645 FC 08      mov byte ptr ss:[ebp-4],8
+6629BD20    FFD6            call esi
+6629BD22    50              push eax
+6629BD23    8B45 D4         mov eax,dword ptr ss:[ebp-2C]
+6629BD26    53              push ebx
+6629BD27    FF90 F8000000   call dword ptr ds:[eax+F8]
+6629BD2D    8D4D D8         lea ecx,dword ptr ss:[ebp-28]
+6629BD30    FFD7            call edi
+6629BD32    33DB            xor ebx,ebx
+6629BD34    395D 0C         cmp dword ptr ss:[ebp+C],ebx
+6629BD37    75 27           jnz short AppFrame.6629BD60
+6629BD39    885D FC         mov byte ptr ss:[ebp-4],bl
+6629BD3C    8B45 10         mov eax,dword ptr ss:[ebp+10]
+6629BD3F    3BC3            cmp eax,ebx
+6629BD41    74 06           je short AppFrame.6629BD49
+6629BD43    8B08            mov ecx,dword ptr ds:[eax]
+6629BD45    50              push eax
+6629BD46    FF51 08         call dword ptr ds:[ecx+8]
+6629BD49    834D FC FF      or dword ptr ss:[ebp-4],FFFFFFFF
+6629BD4D    8D4D F0         lea ecx,dword ptr ss:[ebp-10]
+6629BD50    FF15 B4433366   call dword ptr ds:[<&Common.CTXStringW::>; Common.CTXStringW::~CTXStringW
+6629BD56    B8 05400080     mov eax,80004005
+6629BD5B  ^ E9 50FEFFFF     jmp AppFrame.6629BBB0
+6629BD60    895D EC         mov dword ptr ss:[ebp-14],ebx
+6629BD63    8D45 EC         lea eax,dword ptr ss:[ebp-14]
+6629BD66    50              push eax
+6629BD67    C645 FC 09      mov byte ptr ss:[ebp-4],9
+6629BD6B    E8 F2DCFFFF     call AppFrame.66299A62
+6629BD70    85C0            test eax,eax
+6629BD72    59              pop ecx
+6629BD73    75 17           jnz short AppFrame.6629BD8C
+6629BD75    8B45 EC         mov eax,dword ptr ss:[ebp-14]
+6629BD78    3BC3            cmp eax,ebx
+6629BD7A    C645 FC 07      mov byte ptr ss:[ebp-4],7
+6629BD7E    74 06           je short AppFrame.6629BD86
+6629BD80    8B08            mov ecx,dword ptr ds:[eax]
+6629BD82    50              push eax
+6629BD83    FF51 08         call dword ptr ds:[ecx+8]
+6629BD86    C645 FC 00      mov byte ptr ss:[ebp-4],0
+6629BD8A  ^ EB B0           jmp short AppFrame.6629BD3C
+6629BD8C    895D E8         mov dword ptr ss:[ebp-18],ebx
+6629BD8F    8B45 EC         mov eax,dword ptr ss:[ebp-14]
+6629BD92    8B30            mov esi,dword ptr ds:[eax]
+6629BD94    8B7D 08         mov edi,dword ptr ss:[ebp+8]
+6629BD97    8945 D4         mov dword ptr ss:[ebp-2C],eax
+6629BD9A    8D45 E8         lea eax,dword ptr ss:[ebp-18]
+6629BD9D    50              push eax
+6629BD9E    8BCF            mov ecx,edi
+6629BDA0    C645 FC 0A      mov byte ptr ss:[ebp-4],0A
+6629BDA4    83C6 0C         add esi,0C
+6629BDA7    E8 F4230400     call AppFrame.662DE1A0
+6629BDAC    50              push eax
+6629BDAD    FF75 D4         push dword ptr ss:[ebp-2C]
+6629BDB0    FF16            call dword ptr ds:[esi]
+6629BDB2    85C0            test eax,eax
+6629BDB4    7D 4C           jge short AppFrame.6629BE02
+6629BDB6    8B45 E8         mov eax,dword ptr ss:[ebp-18]
+6629BDB9    3BC3            cmp eax,ebx
+6629BDBB    C645 FC 09      mov byte ptr ss:[ebp-4],9
+6629BDBF    74 06           je short AppFrame.6629BDC7
+6629BDC1    8B08            mov ecx,dword ptr ds:[eax]
+6629BDC3    50              push eax
+6629BDC4    FF51 08         call dword ptr ds:[ecx+8]
+6629BDC7    8B45 EC         mov eax,dword ptr ss:[ebp-14]
+6629BDCA    3BC3            cmp eax,ebx
+6629BDCC    C645 FC 07      mov byte ptr ss:[ebp-4],7
+6629BDD0    74 06           je short AppFrame.6629BDD8
+6629BDD2    8B08            mov ecx,dword ptr ds:[eax]
+6629BDD4    50              push eax
+6629BDD5    FF51 08         call dword ptr ds:[ecx+8]
+6629BDD8    8B45 10         mov eax,dword ptr ss:[ebp+10]
+6629BDDB    3BC3            cmp eax,ebx
+6629BDDD    C645 FC 00      mov byte ptr ss:[ebp-4],0
+6629BDE1    74 06           je short AppFrame.6629BDE9
+6629BDE3    8B08            mov ecx,dword ptr ds:[eax]
+6629BDE5    50              push eax
+6629BDE6    FF51 08         call dword ptr ds:[ecx+8]
+6629BDE9    BB 05400080     mov ebx,80004005
+6629BDEE    834D FC FF      or dword ptr ss:[ebp-4],FFFFFFFF
+6629BDF2    8D4D F0         lea ecx,dword ptr ss:[ebp-10]
+6629BDF5    FF15 B4433366   call dword ptr ds:[<&Common.CTXStringW::>; Common.CTXStringW::~CTXStringW
+6629BDFB    8BC3            mov eax,ebx
+6629BDFD  ^ E9 AEFDFFFF     jmp AppFrame.6629BBB0
+6629BE02    8B47 44         mov eax,dword ptr ds:[edi+44]
+6629BE05    8B4D E8         mov ecx,dword ptr ss:[ebp-18]
+6629BE08    8B11            mov edx,dword ptr ds:[ecx]
+6629BE0A    53              push ebx
+6629BE0B    50              push eax
+6629BE0C    53              push ebx
+6629BE0D    FF75 0C         push dword ptr ss:[ebp+C]
+6629BE10    51              push ecx
+6629BE11    FF52 18         call dword ptr ds:[edx+18]               ; IM.03234399
+
+
+
+
+
+===============================================================================================
+6629BDA7    E8 F4230400     call AppFrame.662DE1A0  //获得 好友ID 到 eax
+
+
+
+662DE1A0    6A 0C           push 0C
+662DE1A2    B8 CD773266     mov eax,AppFrame.663277CD
+662DE1A7    E8 93300300     call AppFrame.6631123F
+662DE1AC    8365 E8 00      and dword ptr ss:[ebp-18],0
+662DE1B0    8365 F0 00      and dword ptr ss:[ebp-10],0
+662DE1B4    8B01            mov eax,dword ptr ds:[ecx]
+662DE1B6    8365 FC 00      and dword ptr ss:[ebp-4],0
+662DE1BA    8D55 F0         lea edx,dword ptr ss:[ebp-10]
+662DE1BD    52              push edx
+662DE1BE    51              push ecx
+662DE1BF    FF50 18         call dword ptr ds:[eax+18]  // 获得好友数据到 [ebp-10] ?
+662DE1C2    FF75 F0         push dword ptr ss:[ebp-10] 
+662DE1C5    8D4D EC         lea ecx,dword ptr ss:[ebp-14]
+662DE1C8    E8 4C1CFAFF     call AppFrame.6627FE19   // 处理好友数据到 [ebp-14] ?
+662DE1CD    8B45 EC         mov eax,dword ptr ss:[ebp-14]
+662DE1D0    85C0            test eax,eax
+662DE1D2    C645 FC 01      mov byte ptr ss:[ebp-4],1
+662DE1D6    74 0D           je short AppFrame.662DE1E5
+662DE1D8    8B08            mov ecx,dword ptr ds:[eax]
+662DE1DA    8D55 E8         lea edx,dword ptr ss:[ebp-18]  //引用局部变量 [ebp-18] 
+662DE1DD    52              push edx
+662DE1DE    50              push eax  // eax = ss:[ebp-14] 好友ID数据在 eax，需要处理
+662DE1DF    FF51 28         call dword ptr ds:[ecx+28]   //获得 好友ID到[ebp-18]    //call  appframe.662E786C  
+662DE1E2    8B45 EC         mov eax,dword ptr ss:[ebp-14]
+662DE1E5    85C0            test eax,eax
+662DE1E7    8B75 E8         mov esi,dword ptr ss:[ebp-18]  //好友ID esi = ss:[ebp-18] 
+662DE1EA    C645 FC 00      mov byte ptr ss:[ebp-4],0
+662DE1EE    74 06           je short AppFrame.662DE1F6
+662DE1F0    8B08            mov ecx,dword ptr ds:[eax]
+662DE1F2    50              push eax
+662DE1F3    FF51 08         call dword ptr ds:[ecx+8]
+662DE1F6    8B45 F0         mov eax,dword ptr ss:[ebp-10]
+662DE1F9    834D FC FF      or dword ptr ss:[ebp-4],FFFFFFFF
+662DE1FD    85C0            test eax,eax
+662DE1FF    74 06           je short AppFrame.662DE207
+662DE201    8B08            mov ecx,dword ptr ds:[eax]
+662DE203    50              push eax
+662DE204    FF51 08         call dword ptr ds:[ecx+8]
+662DE207    8BC6            mov eax,esi   //好友ID  eax = esi = ss:[ebp-18] 
+662DE209    E8 09310300     call AppFrame.66311317
+662DE20E    C3              retn
+
+
+
+mov eax,dword ptr ss:[ebp-14] //ss:[ebp+8] = eax
+
+//下一层   dd [ss:[ebp+8]+4] + 2c 
+
+//这一层 好友id    dd [ss:[ebp-14]+4] + 2c  
+===============================================================================================
+//获得 好友ID到[ebp-18]    //call  appframe.662E786C  
+
+
+
+662E786C    55              push ebp
+662E786D    8BEC            mov ebp,esp
+662E786F    8B45 08         mov eax,dword ptr ss:[ebp+8]  
+662E7872    8B40 04         mov eax,dword ptr ds:[eax+4]   //好友ID    ds:[ss:[ebp+8]+4]
+662E7875    85C0            test eax,eax
+662E7877    75 07           jnz short AppFrame.662E7880
+662E7879    B8 05400080     	mov eax,80004005  //上面test 会跳过这段   
+662E787E    EB 09           jmp short AppFrame.662E7889
+662E7880    FF75 0C         push dword ptr ss:[ebp+C]		//ss:[ebp+C] 为 传入的上层参数 [ebp-18]地址,好友ID 
+662E7883    8B08            mov ecx,dword ptr ds:[eax]
+662E7885    50              push eax   //ds:[ss:[eax]+2C]  为好友id  ??       ds:[ss:[ ds:[[ss:[eax+8]+4]+2C] ]]
+662E7886    FF51 28         call dword ptr ds:[ecx+28]  //call AppFrame.6621EEC4
+662E7889    5D              pop ebp
+662E788A    C2 0800         retn 8
+
+
+
+ds:[eax+2C]  //为好友id   dd eax+2C  //  dd [ss:[ebp+8]+4] + 2c
+
+/////
+ds:[ss:[ebp+8]+2C]   
+
+ds:[eax+2C]     
+===============================================================================================
+//call AppFrame.6621EEC4
+
+
+6621EEC4    55              push ebp
+6621EEC5    8BEC            mov ebp,esp
+6621EEC7    8B45 08         mov eax,dword ptr ss:[ebp+8]
+6621EECA    8B40 2C         mov eax,dword ptr ds:[eax+2C] //eax = ds:[eax+2C] = ds:[ss:[ebp+8]+2C] 为好友id
+6621EECD    8B4D 0C         mov ecx,dword ptr ss:[ebp+C]  //ss:[ebp+C] 为 传入的上层参数 ss:[ebp+C] 地址,好友ID  
+6621EED0    8901            mov dword ptr ds:[ecx],eax
+6621EED2    33C0            xor eax,eax
+6621EED4    5D              pop ebp
+6621EED5    C2 0800         retn 8
+
+
+
+
+===============================================================================================
+662DE1C8    E8 4C1CFAFF     call AppFrame.6627FE19   // 获得好友数据到 [ebp-14]  // ecx  
+
+
+
+6627FE19    55              push ebp
+6627FE1A    8BEC            mov ebp,esp
+6627FE1C    8B45 08         mov eax,dword ptr ss:[ebp+8]
+6627FE1F    56              push esi
+6627FE20    8BF1            mov esi,ecx
+6627FE22    8326 00         and dword ptr ds:[esi],0
+6627FE25    85C0            test eax,eax
+6627FE27    74 0B           je short AppFrame.6627FE34
+6627FE29    8B08            mov ecx,dword ptr ds:[eax]
+6627FE2B    56              push esi
+6627FE2C    68 B8733666     push AppFrame.663673B8
+6627FE31    50              push eax
+6627FE32    FF11            call dword ptr ds:[ecx]
+6627FE34    8BC6            mov eax,esi
+6627FE36    5E              pop esi
+6627FE37    5D              pop ebp
+6627FE38    C2 0400         retn 4
+
+
+
+
+
+
+
+
+
+ 
+

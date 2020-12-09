@@ -1,0 +1,362 @@
+GF.dll
+
+int __userpurge sub_3082FBA5@<eax>(int a1@<ebp>, int a2, int a3, int a4, int a5, int a6)
+{
+  int v6; // esi@1
+  int v7; // ST10_4@1
+  int v8; // eax@1
+
+  sub_3094965F();
+  *(_DWORD *)(a1 - 16) = 0;
+  *(_DWORD *)(a1 - 4) = 0;
+  Util::Data::CreateTXData((Util::Data *)(a1 - 16), (struct ITXData **)4);
+  v6 = *(_DWORD *)(a1 + 12);
+  (*(void (__stdcall **)(_DWORD, const wchar_t *, _DWORD, int))(**(_DWORD **)(a1 - 16) + 228))(
+    *(_DWORD *)(a1 - 16),
+    L"nX",
+    *(_DWORD *)(v6 + 16),
+    v7);
+  (*(void (__stdcall **)(_DWORD, const wchar_t *, _DWORD))(**(_DWORD **)(a1 - 16) + 228))(
+    *(_DWORD *)(a1 - 16),
+    L"nY",
+    *(_DWORD *)(v6 + 20));
+  sub_30915507(4106, *(_DWORD *)(a1 - 16));
+  sub_3082F67D("onLButtonUp", *(_DWORD *)(a1 - 16));
+  sub_3083A83B(*(_DWORD *)(a1 + 8), v6, *(_DWORD *)(a1 + 16), *(_DWORD *)(a1 + 20), *(_DWORD *)(a1 + 24));
+  *(_DWORD *)(a1 - 4) = -1;
+  v8 = *(_DWORD *)(a1 - 16);
+  if ( v8 )
+    (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v8 + 8))(*(_DWORD *)(a1 - 16));
+  return sub_30949737();
+}
+
+
+
+
+3082F932    6A 04           push 0x4
+3082F934    B8 D43B9530     mov eax,GF.30953BD4
+3082F939    E8 219D1100     call GF.3094965F
+3082F93E    8BF9            mov edi,ecx
+3082F940    8365 F0 00      and dword ptr ss:[ebp-0x10],0x0
+3082F944    8365 FC 00      and dword ptr ss:[ebp-0x4],0x0
+3082F948    8D45 F0         lea eax,dword ptr ss:[ebp-0x10]
+3082F94B    50              push eax
+3082F94C    FF15 9C319630   call dword ptr ds:[<&Common.Util::Data::>; Common.Util::Data::CreateTXData
+3082F952    8B75 0C         mov esi,dword ptr ss:[ebp+0xC]
+3082F955    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082F958    59              pop ecx
+3082F959    FF76 10         push dword ptr ds:[esi+0x10]
+3082F95C    8B08            mov ecx,dword ptr ds:[eax]
+3082F95E    68 3CAB9630     push GF.3096AB3C                         ; nX
+3082F963    50              push eax
+3082F964    FF91 E4000000   call dword ptr ds:[ecx+0xE4]
+3082F96A    FF76 14         push dword ptr ds:[esi+0x14]
+3082F96D    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082F970    8B08            mov ecx,dword ptr ds:[eax]
+3082F972    68 34AB9630     push GF.3096AB34                         ; nY
+3082F977    50              push eax
+3082F978    FF91 E4000000   call dword ptr ds:[ecx+0xE4]
+3082F97E    FF75 F0         push dword ptr ss:[ebp-0x10]
+3082F981    8D8F 78010000   lea ecx,dword ptr ds:[edi+0x178]
+3082F987    68 07100000     push 0x1007
+3082F98C    E8 765B0E00     call GF.30915507
+3082F991    FF75 F0         push dword ptr ss:[ebp-0x10]
+3082F994    8BCF            mov ecx,edi
+3082F996    68 C8AB9630     push GF.3096ABC8                         ; onMouseEnter
+3082F99B    E8 DDFCFFFF     call GF.3082F67D
+3082F9A0    FF75 18         push dword ptr ss:[ebp+0x18]
+3082F9A3    8BCF            mov ecx,edi
+3082F9A5    FF75 14         push dword ptr ss:[ebp+0x14]
+3082F9A8    FF75 10         push dword ptr ss:[ebp+0x10]
+3082F9AB    56              push esi
+3082F9AC    FF75 08         push dword ptr ss:[ebp+0x8]
+3082F9AF    E8 87AE0000     call GF.3083A83B
+3082F9B4    834D FC FF      or dword ptr ss:[ebp-0x4],0xFFFFFFFF
+3082F9B8    8BF0            mov esi,eax
+3082F9BA    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082F9BD    85C0            test eax,eax
+3082F9BF    74 06           je XGF.3082F9C7
+3082F9C1    8B08            mov ecx,dword ptr ds:[eax]
+3082F9C3    50              push eax
+3082F9C4    FF51 08         call dword ptr ds:[ecx+0x8]
+3082F9C7    8BC6            mov eax,esi
+3082F9C9    E8 699D1100     call GF.30949737
+3082F9CE    C2 1400         retn 0x14
+3082F9D1    6A 04           push 0x4
+3082F9D3    B8 D43B9530     mov eax,GF.30953BD4
+3082F9D8    E8 829C1100     call GF.3094965F
+3082F9DD    8BF1            mov esi,ecx
+3082F9DF    8365 F0 00      and dword ptr ss:[ebp-0x10],0x0
+3082F9E3    8365 FC 00      and dword ptr ss:[ebp-0x4],0x0
+3082F9E7    8D45 F0         lea eax,dword ptr ss:[ebp-0x10]
+3082F9EA    50              push eax
+3082F9EB    FF15 9C319630   call dword ptr ds:[<&Common.Util::Data::>; Common.Util::Data::CreateTXData
+3082F9F1    59              pop ecx
+3082F9F2    FF75 F0         push dword ptr ss:[ebp-0x10]
+3082F9F5    8D8E 78010000   lea ecx,dword ptr ds:[esi+0x178]
+3082F9FB    68 08100000     push 0x1008
+3082FA00    E8 025B0E00     call GF.30915507
+3082FA05    FF75 F0         push dword ptr ss:[ebp-0x10]
+3082FA08    8BCE            mov ecx,esi
+3082FA0A    68 D8AB9630     push GF.3096ABD8                         ; onMouseLeave
+3082FA0F    E8 69FCFFFF     call GF.3082F67D
+3082FA14    FF75 18         push dword ptr ss:[ebp+0x18]
+3082FA17    8BCE            mov ecx,esi
+3082FA19    FF75 14         push dword ptr ss:[ebp+0x14]
+3082FA1C    FF75 10         push dword ptr ss:[ebp+0x10]
+3082FA1F    FF75 0C         push dword ptr ss:[ebp+0xC]
+3082FA22    FF75 08         push dword ptr ss:[ebp+0x8]
+3082FA25    E8 11AE0000     call GF.3083A83B
+3082FA2A    834D FC FF      or dword ptr ss:[ebp-0x4],0xFFFFFFFF
+3082FA2E    8BF0            mov esi,eax
+3082FA30    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082FA33    85C0            test eax,eax
+3082FA35    74 06           je XGF.3082FA3D
+3082FA37    8B08            mov ecx,dword ptr ds:[eax]
+3082FA39    50              push eax
+3082FA3A    FF51 08         call dword ptr ds:[ecx+0x8]
+3082FA3D    8BC6            mov eax,esi
+3082FA3F    E8 F39C1100     call GF.30949737
+3082FA44    C2 1400         retn 0x14
+3082FA47    6A 04           push 0x4
+3082FA49    B8 D43B9530     mov eax,GF.30953BD4
+3082FA4E    E8 0C9C1100     call GF.3094965F
+3082FA53    8BF1            mov esi,ecx
+3082FA55    8365 F0 00      and dword ptr ss:[ebp-0x10],0x0
+3082FA59    8365 FC 00      and dword ptr ss:[ebp-0x4],0x0
+3082FA5D    8D45 F0         lea eax,dword ptr ss:[ebp-0x10]
+3082FA60    50              push eax
+3082FA61    FF15 9C319630   call dword ptr ds:[<&Common.Util::Data::>; Common.Util::Data::CreateTXData
+3082FA67    8B7D 0C         mov edi,dword ptr ss:[ebp+0xC]
+3082FA6A    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082FA6D    59              pop ecx
+3082FA6E    FF77 10         push dword ptr ds:[edi+0x10]
+3082FA71    8B08            mov ecx,dword ptr ds:[eax]
+3082FA73    68 3CAB9630     push GF.3096AB3C                         ; nX
+3082FA78    50              push eax
+3082FA79    FF91 E4000000   call dword ptr ds:[ecx+0xE4]
+3082FA7F    FF77 14         push dword ptr ds:[edi+0x14]
+3082FA82    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082FA85    8B08            mov ecx,dword ptr ds:[eax]
+3082FA87    68 34AB9630     push GF.3096AB34                         ; nY
+3082FA8C    50              push eax
+3082FA8D    FF91 E4000000   call dword ptr ds:[ecx+0xE4]
+3082FA93    FF75 F0         push dword ptr ss:[ebp-0x10]
+3082FA96    8D9E 78010000   lea ebx,dword ptr ds:[esi+0x178]
+3082FA9C    68 04100000     push 0x1004
+3082FAA1    8BCB            mov ecx,ebx
+3082FAA3    E8 5F5A0E00     call GF.30915507
+3082FAA8    FF75 F0         push dword ptr ss:[ebp-0x10]
+3082FAAB    8BCE            mov ecx,esi
+3082FAAD    68 F0AB9630     push GF.3096ABF0                         ; onLButtonClick
+3082FAB2    E8 C6FBFFFF     call GF.3082F67D
+3082FAB7    FF75 F0         push dword ptr ss:[ebp-0x10]
+3082FABA    8BCB            mov ecx,ebx
+3082FABC    68 03100000     push 0x1003
+3082FAC1    E8 415A0E00     call GF.30915507
+3082FAC6    FF75 F0         push dword ptr ss:[ebp-0x10]
+3082FAC9    8BCE            mov ecx,esi
+3082FACB    68 E8AB9630     push GF.3096ABE8                         ; onClick
+3082FAD0    E8 A8FBFFFF     call GF.3082F67D
+3082FAD5    FF75 18         push dword ptr ss:[ebp+0x18]
+3082FAD8    8BCE            mov ecx,esi
+3082FADA    FF75 14         push dword ptr ss:[ebp+0x14]
+3082FADD    FF75 10         push dword ptr ss:[ebp+0x10]
+3082FAE0    57              push edi
+3082FAE1    FF75 08         push dword ptr ss:[ebp+0x8]
+3082FAE4    E8 52AD0000     call GF.3083A83B
+3082FAE9    834D FC FF      or dword ptr ss:[ebp-0x4],0xFFFFFFFF
+3082FAED    8BF0            mov esi,eax
+3082FAEF    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082FAF2    85C0            test eax,eax
+3082FAF4    74 06           je XGF.3082FAFC
+3082FAF6    8B08            mov ecx,dword ptr ds:[eax]
+3082FAF8    50              push eax
+3082FAF9    FF51 08         call dword ptr ds:[ecx+0x8]
+3082FAFC    8BC6            mov eax,esi
+3082FAFE    E8 349C1100     call GF.30949737
+3082FB03    C2 1400         retn 0x14
+3082FB06    6A 04           push 0x4
+3082FB08    B8 D43B9530     mov eax,GF.30953BD4
+3082FB0D    E8 4D9B1100     call GF.3094965F
+3082FB12    8BF9            mov edi,ecx
+3082FB14    8365 F0 00      and dword ptr ss:[ebp-0x10],0x0
+3082FB18    8365 FC 00      and dword ptr ss:[ebp-0x4],0x0
+3082FB1C    8D45 F0         lea eax,dword ptr ss:[ebp-0x10]
+3082FB1F    50              push eax
+3082FB20    FF15 9C319630   call dword ptr ds:[<&Common.Util::Data::>; Common.Util::Data::CreateTXData
+3082FB26    8B75 0C         mov esi,dword ptr ss:[ebp+0xC]
+3082FB29    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082FB2C    59              pop ecx
+3082FB2D    FF76 10         push dword ptr ds:[esi+0x10]
+3082FB30    8B08            mov ecx,dword ptr ds:[eax]
+3082FB32    68 3CAB9630     push GF.3096AB3C                         ; nX
+3082FB37    50              push eax
+3082FB38    FF91 E4000000   call dword ptr ds:[ecx+0xE4]
+3082FB3E    FF76 14         push dword ptr ds:[esi+0x14]
+3082FB41    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082FB44    8B08            mov ecx,dword ptr ds:[eax]
+3082FB46    68 34AB9630     push GF.3096AB34                         ; nY
+3082FB4B    50              push eax
+3082FB4C    FF91 E4000000   call dword ptr ds:[ecx+0xE4]
+3082FB52    FF75 F0         push dword ptr ss:[ebp-0x10]
+3082FB55    8D8F 78010000   lea ecx,dword ptr ds:[edi+0x178]
+3082FB5B    68 09100000     push 0x1009
+3082FB60    E8 A2590E00     call GF.30915507
+3082FB65    FF75 F0         push dword ptr ss:[ebp-0x10]
+3082FB68    8BCF            mov ecx,edi
+3082FB6A    68 00AC9630     push GF.3096AC00                         ; onLButtonDown
+3082FB6F    E8 09FBFFFF     call GF.3082F67D
+3082FB74    FF75 18         push dword ptr ss:[ebp+0x18]
+3082FB77    8BCF            mov ecx,edi
+3082FB79    FF75 14         push dword ptr ss:[ebp+0x14]
+3082FB7C    FF75 10         push dword ptr ss:[ebp+0x10]
+3082FB7F    56              push esi
+3082FB80    FF75 08         push dword ptr ss:[ebp+0x8]
+3082FB83    E8 B3AC0000     call GF.3083A83B
+3082FB88    834D FC FF      or dword ptr ss:[ebp-0x4],0xFFFFFFFF
+3082FB8C    8BF0            mov esi,eax
+3082FB8E    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082FB91    85C0            test eax,eax
+3082FB93    74 06           je XGF.3082FB9B
+3082FB95    8B08            mov ecx,dword ptr ds:[eax]
+3082FB97    50              push eax
+3082FB98    FF51 08         call dword ptr ds:[ecx+0x8]
+3082FB9B    8BC6            mov eax,esi
+3082FB9D    E8 959B1100     call GF.30949737
+3082FBA2    C2 1400         retn 0x14
+3082FBA5    6A 04           push 0x4
+3082FBA7    B8 D43B9530     mov eax,GF.30953BD4
+3082FBAC    E8 AE9A1100     call GF.3094965F
+3082FBB1    8BF9            mov edi,ecx
+3082FBB3    8365 F0 00      and dword ptr ss:[ebp-0x10],0x0
+3082FBB7    8365 FC 00      and dword ptr ss:[ebp-0x4],0x0
+3082FBBB    8D45 F0         lea eax,dword ptr ss:[ebp-0x10]
+3082FBBE    50              push eax
+3082FBBF    FF15 9C319630   call dword ptr ds:[<&Common.Util::Data::>; Common.Util::Data::CreateTXData
+3082FBC5    8B75 0C         mov esi,dword ptr ss:[ebp+0xC]
+3082FBC8    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082FBCB    59              pop ecx
+3082FBCC    FF76 10         push dword ptr ds:[esi+0x10]
+3082FBCF    8B08            mov ecx,dword ptr ds:[eax]
+3082FBD1    68 3CAB9630     push GF.3096AB3C                         ; nX
+3082FBD6    50              push eax
+3082FBD7    FF91 E4000000   call dword ptr ds:[ecx+0xE4]
+3082FBDD    FF76 14         push dword ptr ds:[esi+0x14]
+3082FBE0    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082FBE3    8B08            mov ecx,dword ptr ds:[eax]
+3082FBE5    68 34AB9630     push GF.3096AB34                         ; nY
+3082FBEA    50              push eax
+3082FBEB    FF91 E4000000   call dword ptr ds:[ecx+0xE4]
+3082FBF1    FF75 F0         push dword ptr ss:[ebp-0x10]
+3082FBF4    8D8F 78010000   lea ecx,dword ptr ds:[edi+0x178]
+3082FBFA    68 0A100000     push 0x100A
+3082FBFF    E8 03590E00     call GF.30915507
+3082FC04    FF75 F0         push dword ptr ss:[ebp-0x10]
+3082FC07    8BCF            mov ecx,edi
+3082FC09    68 10AC9630     push GF.3096AC10                         ; onLButtonUp
+3082FC0E    E8 6AFAFFFF     call GF.3082F67D
+3082FC13    FF75 18         push dword ptr ss:[ebp+0x18]
+3082FC16    8BCF            mov ecx,edi
+3082FC18    FF75 14         push dword ptr ss:[ebp+0x14]
+3082FC1B    FF75 10         push dword ptr ss:[ebp+0x10]
+3082FC1E    56              push esi
+3082FC1F    FF75 08         push dword ptr ss:[ebp+0x8]
+3082FC22    E8 14AC0000     call GF.3083A83B
+3082FC27    834D FC FF      or dword ptr ss:[ebp-0x4],0xFFFFFFFF
+3082FC2B    8BF0            mov esi,eax
+3082FC2D    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082FC30    85C0            test eax,eax
+3082FC32    74 06           je XGF.3082FC3A
+3082FC34    8B08            mov ecx,dword ptr ds:[eax]
+3082FC36    50              push eax
+3082FC37    FF51 08         call dword ptr ds:[ecx+0x8]
+3082FC3A    8BC6            mov eax,esi
+3082FC3C    E8 F69A1100     call GF.30949737
+3082FC41    C2 1400         retn 0x14
+3082FC44    6A 04           push 0x4
+3082FC46    B8 D43B9530     mov eax,GF.30953BD4
+3082FC4B    E8 0F9A1100     call GF.3094965F
+3082FC50    8BF9            mov edi,ecx
+3082FC52    8365 F0 00      and dword ptr ss:[ebp-0x10],0x0
+3082FC56    8365 FC 00      and dword ptr ss:[ebp-0x4],0x0
+3082FC5A    8D45 F0         lea eax,dword ptr ss:[ebp-0x10]
+3082FC5D    50              push eax
+3082FC5E    FF15 9C319630   call dword ptr ds:[<&Common.Util::Data::>; Common.Util::Data::CreateTXData
+3082FC64    8B75 0C         mov esi,dword ptr ss:[ebp+0xC]
+3082FC67    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082FC6A    59              pop ecx
+3082FC6B    FF76 10         push dword ptr ds:[esi+0x10]
+3082FC6E    8B08            mov ecx,dword ptr ds:[eax]
+3082FC70    68 3CAB9630     push GF.3096AB3C                         ; nX
+3082FC75    50              push eax
+3082FC76    FF91 E4000000   call dword ptr ds:[ecx+0xE4]
+3082FC7C    FF76 14         push dword ptr ds:[esi+0x14]
+3082FC7F    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082FC82    8B08            mov ecx,dword ptr ds:[eax]
+3082FC84    68 34AB9630     push GF.3096AB34                         ; nY
+3082FC89    50              push eax
+3082FC8A    FF91 E4000000   call dword ptr ds:[ecx+0xE4]
+3082FC90    FF75 F0         push dword ptr ss:[ebp-0x10]
+3082FC93    8D8F 78010000   lea ecx,dword ptr ds:[edi+0x178]
+3082FC99    68 0B100000     push 0x100B
+3082FC9E    E8 64580E00     call GF.30915507
+3082FCA3    FF75 F0         push dword ptr ss:[ebp-0x10]
+3082FCA6    8BCF            mov ecx,edi
+3082FCA8    68 1CAC9630     push GF.3096AC1C                         ; onRButtonDown
+3082FCAD    E8 CBF9FFFF     call GF.3082F67D
+3082FCB2    FF75 18         push dword ptr ss:[ebp+0x18]
+3082FCB5    8BCF            mov ecx,edi
+3082FCB7    FF75 14         push dword ptr ss:[ebp+0x14]
+3082FCBA    FF75 10         push dword ptr ss:[ebp+0x10]
+3082FCBD    56              push esi
+3082FCBE    FF75 08         push dword ptr ss:[ebp+0x8]
+3082FCC1    E8 75AB0000     call GF.3083A83B
+3082FCC6    834D FC FF      or dword ptr ss:[ebp-0x4],0xFFFFFFFF
+3082FCCA    8BF0            mov esi,eax
+3082FCCC    8B45 F0         mov eax,dword ptr ss:[ebp-0x10]
+3082FCCF    85C0            test eax,eax
+3082FCD1    74 06           je XGF.3082FCD9
+3082FCD3    8B08            mov ecx,dword ptr ds:[eax]
+3082FCD5    50              push eax
+3082FCD6    FF51 08         call dword ptr ds:[ecx+0x8]
+3082FCD9    8BC6            mov eax,esi
+3082FCDB    E8 579A1100     call GF.30949737
+3082FCE0    C2 1400         retn 0x14
+3082FCE3    56              push esi
+3082FCE4    8BF1            mov esi,ecx
+3082FCE6    837E 10 00      cmp dword ptr ds:[esi+0x10],0x0
+3082FCEA    74 38           je XGF.3082FD24
+3082FCEC    8B46 0C         mov eax,dword ptr ds:[esi+0xC]
+3082FCEF    8B56 04         mov edx,dword ptr ds:[esi+0x4]
+3082FCF2    8BC8            mov ecx,eax
+3082FCF4    C1E9 02         shr ecx,0x2
+3082FCF7    8B0C8A          mov ecx,dword ptr ds:[edx+ecx*4]
+3082FCFA    83E0 03         and eax,0x3
+3082FCFD    6A 00           push 0x0
+3082FCFF    8D0C81          lea ecx,dword ptr ds:[ecx+eax*4]
+3082FD02    E8 8491FDFF     call GF.30808E8B
+3082FD07    FF46 0C         inc dword ptr ds:[esi+0xC]
+3082FD0A    8B4E 08         mov ecx,dword ptr ds:[esi+0x8]
+3082FD0D    8B46 0C         mov eax,dword ptr ds:[esi+0xC]
+3082FD10    C1E1 02         shl ecx,0x2
+3082FD13    3BC8            cmp ecx,eax
+3082FD15    77 04           ja XGF.3082FD1B
+3082FD17    8366 0C 00      and dword ptr ds:[esi+0xC],0x0
+3082FD1B    FF4E 10         dec dword ptr ds:[esi+0x10]
+3082FD1E    75 04           jnz XGF.3082FD24
+3082FD20    8366 0C 00      and dword ptr ds:[esi+0xC],0x0
+3082FD24    5E              pop esi
+3082FD25    C3              retn
+3082FD26    55              push ebp
+3082FD27    8BEC            mov ebp,esp
+3082FD29    51              push ecx
+3082FD2A    FF75 0C         push dword ptr ss:[ebp+0xC]
+3082FD2D    E8 B14FFEFF     call GF.30814CE3
+3082FD32    8B4D 08         mov ecx,dword ptr ss:[ebp+0x8]
+3082FD35    50              push eax
+3082FD36    E8 0CAF0100     call GF.3084AC47
+3082FD3B    8B45 08         mov eax,dword ptr ss:[ebp+0x8]
+3082FD3E    5D              pop ebp
+3082FD3F    C2 0800         retn 0x8
+

@@ -1,0 +1,38 @@
+graph: {
+
+//右键菜单,xrefs graph to ...
+//导出xml文件,拉到最下面可看层级 
+ 
+node: { title: "0" label: "sub_61C54677" color: 76 textcolor: 73 borderwidth: 10 bordercolor: 82  }
+node: { title: "1" label: "sub_61C5519C" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "2" label: "sub_61C4F5E4" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "3" label: "sub_61C46373" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "4" label: "sub_61C46417" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "5" label: "sub_61C46544" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "6" label: "sub_61C46608" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "7" label: "sub_61C46952" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "8" label: "sub_61C4671A" color: 76 textcolor: 73 bordercolor: black }
+node: { title: "9" label: ".data:61E98C04: dd offset sub_61C46952" textcolor: 78 bordercolor: black }
+
+// node 0  最低层没有更低层的数据 edge 
+
+// node 1  倒数一层; edge.targetname指向他的更低层 node0; edge.sourcename指向自己的信息 node1
+edge: { sourcename: "1" targetname: "0" }
+
+// node 2
+edge: { sourcename: "2" targetname: "1" }
+// node 3
+edge: { sourcename: "3" targetname: "2" }
+// node 4
+edge: { sourcename: "4" targetname: "2" }
+// node 5
+edge: { sourcename: "5" targetname: "3" }
+// node 6
+edge: { sourcename: "6" targetname: "4" }
+// node 7
+edge: { sourcename: "7" targetname: "5" }
+// node 8
+edge: { sourcename: "8" targetname: "6" }
+// node 9
+edge: { sourcename: "9" targetname: "7" }
+}

@@ -1,0 +1,673 @@
+//friends 好友数量
+搜数值
+      <LastState Value="1" RealAddress="0487A234"/>
+      <LastState Value="1" RealAddress="0487A238"/>
+
+	  
+	  
+
+===============================================================================================
+//LV001
+61C51820 <=  61C51FC9 <= 61C54677  <= 61D05E81 [动态call]
+	<= 308322E3 call dword ptr ds:[edi]
+		<=  3082E8B9    call GF.3083220C
+
+ <=   308BDD51    FF50 10         call dword ptr ds:[eax+10]
+
+
+ <=   6580934C    FF51 24         call dword ptr ds:[ecx+24]
+
+
+	<=  61C3E559    FF51 24         call dword ptr ds:[ecx+24]
+
+ 
+	<=   61C3B7A0    FF52 24         call dword ptr ds:[edx+24]
+
+
+	<= 61CF702A    FF51 24         call dword ptr ds:[ecx+24]
+
+  
+	<=  61C3B7B8    E8 56B80B00     call MainFram.61CF7013
+
+ <= 61C3C4B5    FF51 24         call dword ptr ds:[ecx+24]
+
+  <=  61C3CE10    E8 97F6FFFF     call MainFram.61C3C4AC
+
+ <= 61C3D745    FF50 30         call dword ptr ds:[eax+30]
+
+  <=  61C3FCA8    FF90 40030000   call dword ptr ds:[eax+340]
+
+ <=  61C6D218    FF50 78         call dword ptr ds:[eax+78]
+
+
+  <=  61C6C15F    FFD2            call edx
+
+ <=  61C4F181    FF51 34         call dword ptr ds:[ecx+34]
+
+ <=  61C5491E    E8 B8A7FFFF     call MainFram.61C4F0DB
+
+
+   <=  61C54F73    E8 9EF8FFFF     call MainFram.61C54816
+
+
+    <=  61C4DC9F    E8 6F720000     call MainFram.61C54F13
+
+ <=  61C54B4A    E8 1C91FFFF     call MainFram.61C4DC6B
+
+
+ <=  61C5516C    E8 27F9FFFF     call MainFram.61C54A98
+
+
+ <=  61C4FD1A    FFD0            call eax
+
+
+ <=  031D8D8C    FF51 0C         call dword ptr ds:[ecx+C]
+
+
+ <=  031D98DB    E8 4BF3FFFF     call IM.031D8C2B
+
+031D9A82    E8 98FCFFFF     call IM.031D971F
+
+032BEAF2    FFD2            call edx
+
+01C4C2A9    FF51 0C         call dword ptr ds:[ecx+C]
+
+01C4CA38    E8 66F3FFFF     call Prelogin.01C4BDA3
+
+01C4CE24    E8 3EF7FFFF     call Prelogin.01C4C567
+
+01C4A403    FFD2            call edx
+
+300A5BF9    FF51 0C         call dword ptr ds:[ecx+C]
+
+300A526F    FFD2            call edx
+300996BD    FF51 10         call dword ptr ds:[ecx+10]
+
+30099916    E8 F2FCFFFF     call Common.3009960D
+
+30099B1B    E8 63FDFFFF     call Common.30099883
+
+30091107    FF50 04         call dword ptr ds:[eax+4]
+
+300935C3    FF50 04         call dword ptr ds:[eax+4]
+
+30093673    E8 CBFDFFFF     call Common.30093443
+
+3009379C()//300937D5    E8 18FEFFFF     call Common.300935F2  //在这方法前面有 defwindowproc
+
+77D18731    FF55 08         call dword ptr ss:[ebp+8]   
+						//循环切换调用？？ Common.300C7CAC[main,thread1]  ;Common.300D078F[main,thread1];USER32.DefWindowProcW[main];SSOCommo.34029DED; HummerEn.69F06BCB [thread1]
+ 
+ 
+
+ 
+ 
+ 
+==============
+//获得一个基址 unk_302813C8
+
+void *sub_3009D9AB()
+{
+  if ( !(dword_30281400 & 1) )
+  {
+    dword_30281400 |= 1u;
+    sub_3009D93D(&unk_302813C8);
+    atexit(sub_3014CD39);
+  }
+  return &unk_302813C8;
+}
+-------------
+//设置 winproc, 在设置winproc之前的系统代码处断点调试，就可知道大概几个窗口,设置了多少个winproc.
+int __thiscall sub_300937E1(HWND *this)
+{
+  HWND *v1; // edi@1
+  int result; // eax@2
+  HWND v3; // eax@3
+  struct tagWNDCLASSEXW v4; // [sp+8h] [bp-60h]@1
+  WNDCLASSEXW v5; // [sp+38h] [bp-30h]@1
+
+  v1 = this;
+  v5.cbSize = 48;
+  memset(&v5.style, 0, 0x2Cu);
+  v5.hInstance = GetModuleHandleW(0);
+  v5.lpszClassName = L"CTXSocketWnd";
+  v5.lpfnWndProc = sub_ 3009379C;
+  v5.hbrBackground = (HBRUSH)GetStockObject(0);
+  v5.cbWndExtra = 4;
+  if ( GetClassInfoExW(v5.hInstance, v5.lpszClassName, &v4) )
+  {
+    result = 0;
+  }
+  else
+  {
+    RegisterClassExW(&v5);
+    v3 = CreateWindowExW(0, v5.lpszClassName, &szReferrer, 0x80000000, 0, 0, 0, 0, HWND_MESSAGE, 0, v5.hInstance, 0);
+    *v1 = v3;
+    result = v3 != 0;
+  }
+  return result;
+}
+
+-----------------------------------------------------------------
+LV0001
+
+LRESULT __stdcall sub_3009379C(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+  LRESULT result; // eax@4
+
+  if ( Msg == 883 || Msg == 884 || Msg == 1024 )
+  {
+    sub_30092DC1(Msg, wParam, lParam);
+    sub_300935F2();
+    result = 1;
+  }
+  else
+  {
+    result = DefWindowProcW(hWnd, Msg, wParam, lParam);
+  }
+  return result;
+}
+
+
+
+-----------------------------------------------------------------
+LV0002
+
+
+int *__stdcall sub_30092DC1(int a1, int a2, int a3)
+{
+  void *v3; // esi@1
+  _DWORD *v4; // eax@1
+  _DWORD *v6; // [sp+4h] [bp-4h]@1
+
+  v3 = sub_3009D9AB(); //获得一个基址 unk_302813C8
+  v4 = operator new(0x1Cu);
+  v4[1] = a1; 
+  v4[2] = a2;
+  v4[3] = a3;
+  v6 = v4; //v4=[Msg, wParam, lParam]
+  return sub_300CFC7C((int)v3 + 4, (int)&v6);
+}
+
+
+
+
+-----------------------------------------------------------------
+LV0003
+
+
+
+// this=[unk_302813C8+4]是个类实例指针
+// a2 为参数 [Msg, wParam, lParam]
+int *__thiscall sub_300CFC7C(int this, int a2) 
+{
+  int v3; // [sp+4h] [bp-8h]@0
+  int v4; // [sp+8h] [bp-4h]@0
+
+  sub_300A3A68(*(_DWORD *)(this + 4), this); //参数从右到左顺序入栈. 
+  return sub_30061025(v3, v4, a2);
+}
+
+
+
+-----------------------------------------------------------------
+LV0004
+
+
+// a3 为参数 [Msg, wParam, lParam]
+int *__stdcall sub_30061025(int a1, int a2, int a3)
+{
+  int v3; // esi@1
+  int *result; // eax@1
+
+  v3 = sub_3008DA0A(a2, *(_DWORD *)(a2 + 4), (_DWORD *)a3);
+  sub_30060E9B(1);
+  *(_DWORD *)(a2 + 4) = v3;
+  result = *(int **)(v3 + 4);
+  *result = v3;
+  return result;
+}
+
+
+// a2= [unk_302813C8 + 4 + 4] 
+// this = [unk_302813C8+4]  
+// a3 = this
+//返回 this
+_DWORD *__thiscall sub_300A3A68(int this, int a2, int a3)
+{
+  _DWORD *v3; // esi@1
+
+  v3 = (_DWORD *)this;
+  *(_DWORD *)this = 0;
+  *(_DWORD *)(this + 4) = a2;
+  if ( !a3 )
+    invalid_parameter_noinfo();
+  *v3 = a3;
+  return v3;
+}
+
+
+-----------------------------------------------------------------
+LV0005
+
+
+// a3 为参数 [Msg, wParam, lParam]
+int __stdcall sub_3008DA0A(int a1, int a2, _DWORD *a3)
+{
+  int result; // eax@1
+
+  result = sub_300C5ECC(1); //新建类  [12*4Byte]
+  if ( result )
+    *(_DWORD *)result = a1;
+  if ( result != -4 )
+    *(_DWORD *)(result + 4) = a2;
+  if ( result != -8 )
+    *(_DWORD *)(result + 8) = *a3;
+  return result;// [类12*4Byte].8 为 参数 [Msg, wParam, lParam]
+}
+
+int __thiscall sub_30060E9B(int this, unsigned int a2)
+{
+  int v2; // eax@1
+  int result; // eax@4
+  char v4; // [sp+Ch] [bp-50h]@3
+  char v5; // [sp+34h] [bp-28h]@2
+  int v6; // [sp+58h] [bp-4h]@2
+
+  v2 = *(_DWORD *)(this + 8);
+  if ( 0x3FFFFFFF - v2 < a2 )
+  {
+    std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<char,std::char_traits<char>,std::allocator<char>>(
+      &v5,
+      "list<T> too long");
+    v6 = 0;
+    sub_3000246E(&v5);
+    CxxThrowException(&v4, &unk_301A4908);
+  }
+  result = a2 + v2;
+  *(_DWORD *)(this + 8) = result;
+  return result;
+}
+-----------------------------------------------------------------
+LV0006
+//新建类  [12*4Byte] , sub_3008DA0A 赋值
+void *__cdecl sub_300C5ECC(unsigned int a1)
+{
+  unsigned int v1; // ecx@1
+  char v3; // [sp+0h] [bp-Ch]@6
+
+  v1 = a1;
+  if ( a1 )
+  {
+    if ( 0xFFFFFFFF / a1 < 0xC )
+    {
+      sub_300023A0(0); //异常处理？
+      CxxThrowException(&v3, &unk_301A4940);
+    }
+  }
+  else
+  {
+    v1 = 0;
+  }
+  return operator new(12 * v1);
+}
+
+-----------------------------------------------------------------
+LV0007
+//异常处理？
+std::exception *__thiscall sub_300023A0(std::exception *this, char a2)
+{
+  std::exception *v2; // esi@1
+
+  v2 = this;
+  std::exception::exception(this, (const char *const *)&a2);
+  *(_DWORD *)v2 = &off_3017B9B0;
+  return v2;
+}
+
+
+-----------------------------------------------------------------
+LV0008
+
+
+
+-----------------------------------------------------------------
+LV0009
+
+
+
+-----------------------------------------------------------------
+LV0010
+
+
+
+-----------------------------------------------------------------
+LV000
+
+
+
+-----------------------------------------------------------------
+LV000
+
+
+
+-----------------------------------------------------------------
+LV000
+
+
+
+-----------------------------------------------------------------
+LV000
+
+
+
+-----------------------------------------------------------------
+LV000
+
+
+
+-----------------------------------------------------------------
+LV000
+
+
+
+-----------------------------------------------------------------
+LV000
+
+
+
+-----------------------------------------------------------------
+LV000
+
+
+
+-----------------------------------------------------------------
+LV000
+
+
+
+-----------------------------------------------------------------
+LV000
+
+
+
+
+
+============== 
+
+
+
+
+
+
+61C51820    6A 0C           push 0C
+61C51822    B8 92C5D961     mov eax,MainFram.61D9C592
+61C51827    E8 41231400     call MainFram.61D93B6D
+61C5182C    894D EC         mov dword ptr ss:[ebp-14],ecx
+61C5182F    8365 FC 00      and dword ptr ss:[ebp-4],0
+61C51833    8D45 F0         lea eax,dword ptr ss:[ebp-10]
+61C51836    50              push eax
+61C51837    FF75 08         push dword ptr ss:[ebp+8]
+61C5183A    C645 F0 00      mov byte ptr ss:[ebp-10],0
+61C5183E    E8 22F4FFFF     call MainFram.61C50C65
+61C51843    85C0            test eax,eax
+61C51845    0F8C 94000000   jl MainFram.61C518DF
+61C5184B    8B4D EC         mov ecx,dword ptr ss:[ebp-14]
+61C5184E    8365 E8 00      and dword ptr ss:[ebp-18],0d
+61C51852    8D45 E8         lea eax,dword ptr ss:[ebp-18]
+61C51855    50              push eax
+61C51856    FF75 08         push dword ptr ss:[ebp+8]
+61C51859    E8 82F4FFFF     call MainFram.61C50CE0
+61C5185E    8B75 E8         mov esi,dword ptr ss:[ebp-18]
+61C51861    85F6            test esi,esi
+61C51863    74 7A           je short MainFram.61C518DF
+61C51865    8D45 0C         lea eax,dword ptr ss:[ebp+C]
+61C51868    50              push eax
+61C51869    8D4E 0C         lea ecx,dword ptr ds:[esi+C]
+61C5186C    FF15 2456DC61   call dword ptr ds:[<&Common.CTXBSTR::ope>; Common.CTXBSTR::operator=
+61C51872    8D4D 08         lea ecx,dword ptr ss:[ebp+8]
+61C51875    FF15 2856DC61   call dword ptr ds:[<&Common.CTXStringW::>; Common.CTXStringW::CTXStringW
+61C5187B    8B7D 10         mov edi,dword ptr ss:[ebp+10]
+61C5187E    8B5D 14         mov ebx,dword ptr ss:[ebp+14]
+61C51881    57              push edi
+61C51882    53              push ebx
+61C51883    8D45 08         lea eax,dword ptr ss:[ebp+8]
+61C51886    68 A80FDE61     push MainFram.61DE0FA8                   ; UNICODE "[%d/%d]"
+61C5188B    50              push eax
+61C5188C    C645 FC 01      mov byte ptr ss:[ebp-4],1
+61C51890    FF15 2C56DC61   call dword ptr ds:[<&Common.CTXStringW::>; Common.CTXStringW::Format
+61C51896    83C4 10         add esp,10
+61C51899    8D45 08         lea eax,dword ptr ss:[ebp+8]
+61C5189C    50              push eax
+61C5189D    8D4E 18         lea ecx,dword ptr ds:[esi+18]
+61C518A0    FF15 0856DC61   call dword ptr ds:[<&Common.CTXBSTR::ope>; Common.CTXBSTR::operator=
+61C518A6    FF75 F0         push dword ptr ss:[ebp-10]
+61C518A9    8B4D EC         mov ecx,dword ptr ss:[ebp-14]
+61C518AC    897E 34         mov dword ptr ds:[esi+34],edi
+61C518AF    895E 38         mov dword ptr ds:[esi+38],ebx     //[esi+38] 为原值 1, ebx为新值 2
+
+
+
+$ ==>    >/0012F1DC
+$+4      >|61C5210D  RETURN to MainFram.61C5210D from MainFram.61C51820
+$+8      >|06FADA9C  UNICODE "[2/2]"
+$+C      >|03F9910C  UNICODE "Friends"
+$+10     >|00000002
+$+14     >|00000002
+$+18     >|08692518
+$+1C     >|048822F0
+$+20     >|04882238
+$+24     >|00000000
+$+28     >|00F90F88
+$+2C     >|04CCBE00
+$+30     >|04CCBE08
+$+34     >|04CCBE08
+$+38     >|00000001
+$+3C     >|04C6F8A0
+$+40     >|04C6F8A8
+$+44     >|04C6F8A8
+$+48     >|003E659C
+$+4C     >|30085590  RETURN to Common.30085590 from Common.30002362
+$+50     >|00000D40
+
+
+===============================================================================================
+//LV002
+
+
+
+61C51FC9    6A 48           push 48
+61C51FCB    B8 48C6D961     mov eax,MainFram.61D9C648
+61C51FD0    E8 981B1400     call MainFram.61D93B6D
+61C51FD5    8BF1            mov esi,ecx
+61C51FD7    33DB            xor ebx,ebx
+61C51FD9    395D 10         cmp dword ptr ss:[ebp+10],ebx
+61C51FDC    0F84 88000000   je MainFram.61C5206A
+61C51FE2    8B45 08         mov eax,dword ptr ss:[ebp+8]
+61C51FE5    8945 E4         mov dword ptr ss:[ebp-1C],eax
+61C51FE8    8B45 0C         mov eax,dword ptr ss:[ebp+C]
+61C51FEB    8945 E8         mov dword ptr ss:[ebp-18],eax
+61C51FEE    8D45 E4         lea eax,dword ptr ss:[ebp-1C]
+61C51FF1    50              push eax
+61C51FF2    83EC 0C         sub esp,0C
+61C51FF5    8BC4            mov eax,esp
+61C51FF7    8DBE B8000000   lea edi,dword ptr ds:[esi+B8]
+61C51FFD    8965 08         mov dword ptr ss:[ebp+8],esp
+61C52000    50              push eax
+61C52001    8BCF            mov ecx,edi
+61C52003    E8 86900D00     call MainFram.61D2B08E
+61C52008    83EC 0C         sub esp,0C
+61C5200B    8BC4            mov eax,esp
+61C5200D    8965 08         mov dword ptr ss:[ebp+8],esp
+61C52010    50              push eax
+61C52011    8BCF            mov ecx,edi
+61C52013    E8 8B950D00     call MainFram.61D2B5A3
+61C52018    8D45 D8         lea eax,dword ptr ss:[ebp-28]
+61C5201B    50              push eax
+61C5201C    E8 57FFFFFF     call MainFram.61C51F78
+61C52021    83C4 20         add esp,20
+61C52024    8D45 CC         lea eax,dword ptr ss:[ebp-34]
+61C52027    50              push eax
+61C52028    8BCF            mov ecx,edi
+61C5202A    E8 5F900D00     call MainFram.61D2B08E
+61C5202F    50              push eax
+61C52030    8D4D D8         lea ecx,dword ptr ss:[ebp-28]
+61C52033    E8 C4D7FFFF     call MainFram.61C4F7FC
+61C52038    84C0            test al,al
+61C5203A    74 0B           je short MainFram.61C52047
+61C5203C    8D45 E4         lea eax,dword ptr ss:[ebp-1C]
+61C5203F    50              push eax
+61C52040    8BCF            mov ecx,edi
+61C52042    E8 68FDFFFF     call MainFram.61C51DAF
+61C52047    6A 04           push 4
+61C52049    FF76 20         push dword ptr ds:[esi+20]
+61C5204C    FF15 3456DC61   call dword ptr ds:[<&Common.TXTimer::Era>; Common.TXTimer::EraseTimerCallback
+61C52052    6A 04           push 4
+61C52054    FF76 20         push dword ptr ds:[esi+20]
+61C52057    68 2C010000     push 12C
+61C5205C    FF15 3856DC61   call dword ptr ds:[<&Common.TXTimer::Set>; Common.TXTimer::SetInterval
+61C52062    83C4 14         add esp,14
+61C52065    E9 CB000000     jmp MainFram.61C52135
+61C5206A    FF15 8058DC61   call dword ptr ds:[<&KernelUtil.Util::Co>; KernelUt.Util::Contact::GetSelfUin
+61C52070    50              push eax
+61C52071    FF15 9459DC61   call dword ptr ds:[<&KernelUtil.Util::Co>; KernelUt.Util::Contact::IsOnline
+61C52077    59              pop ecx
+61C52078    8D45 10         lea eax,dword ptr ss:[ebp+10]
+61C5207B    50              push eax
+61C5207C    FF75 08         push dword ptr ss:[ebp+8]
+61C5207F    8BCE            mov ecx,esi
+61C52081    885D 10         mov byte ptr ss:[ebp+10],bl
+61C52084    E8 DCEBFFFF     call MainFram.61C50C65
+61C52089    8D4D 0C         lea ecx,dword ptr ss:[ebp+C]
+61C5208C    FF15 6856DC61   call dword ptr ds:[<&Common.CTXBSTR::CTX>; Common.CTXBSTR::CTXBSTR
+61C52092    895D FC         mov dword ptr ss:[ebp-4],ebx
+61C52095    895D B0         mov dword ptr ss:[ebp-50],ebx
+61C52098    895D B4         mov dword ptr ss:[ebp-4C],ebx
+61C5209B    895D B8         mov dword ptr ss:[ebp-48],ebx
+61C5209E    895D C0         mov dword ptr ss:[ebp-40],ebx
+61C520A1    895D C4         mov dword ptr ss:[ebp-3C],ebx
+61C520A4    895D C8         mov dword ptr ss:[ebp-38],ebx
+61C520A7    8B8E B4000000   mov ecx,dword ptr ds:[esi+B4]
+61C520AD    8D55 F0         lea edx,dword ptr ss:[ebp-10]
+61C520B0    52              push edx
+61C520B1    8D55 EC         lea edx,dword ptr ss:[ebp-14]
+61C520B4    52              push edx
+61C520B5    8D55 BC         lea edx,dword ptr ss:[ebp-44]
+61C520B8    52              push edx
+61C520B9    8D55 AC         lea edx,dword ptr ss:[ebp-54]
+61C520BC    52              push edx
+61C520BD    FF75 10         push dword ptr ss:[ebp+10]
+61C520C0    895D EC         mov dword ptr ss:[ebp-14],ebx
+61C520C3    895D F0         mov dword ptr ss:[ebp-10],ebx
+61C520C6    8B01            mov eax,dword ptr ds:[ecx]
+61C520C8    C645 FC 02      mov byte ptr ss:[ebp-4],2
+61C520CC    FF50 08         call dword ptr ds:[eax+8]
+61C520CF    8B86 B4000000   mov eax,dword ptr ds:[esi+B4]
+61C520D5    8B38            mov edi,dword ptr ds:[eax]
+61C520D7    8D4D 0C         lea ecx,dword ptr ss:[ebp+C]
+61C520DA    FF15 6C56DC61   call dword ptr ds:[<&Common.CTXBSTR::ope>; Common.CTXBSTR::operator&
+61C520E0    8B8E B4000000   mov ecx,dword ptr ds:[esi+B4]
+61C520E6    50              push eax
+61C520E7    FF75 10         push dword ptr ss:[ebp+10]
+61C520EA    FF57 0C         call dword ptr ds:[edi+C]
+61C520ED    FF75 F0         push dword ptr ss:[ebp-10]
+61C520F0    8D45 0C         lea eax,dword ptr ss:[ebp+C]
+61C520F3    FF75 EC         push dword ptr ss:[ebp-14]
+61C520F6    51              push ecx
+61C520F7    8BCC            mov ecx,esp
+61C520F9    8965 E8         mov dword ptr ss:[ebp-18],esp
+61C520FC    50              push eax
+61C520FD    FF15 6456DC61   call dword ptr ds:[<&Common.CTXBSTR::CTX>; Common.CTXBSTR::CTXBSTR
+61C52103    FF75 08         push dword ptr ss:[ebp+8]
+61C52106    8BCE            mov ecx,esi
+61C52108    E8 13F7FFFF     call MainFram.61C51820   //更新 friends[%d/%d]?
+
+
+ 
+ 
+===============================================================================================
+//LV003 
+
+
+
+
+ 
+ 
+===============================================================================================
+//LV004 
+
+
+
+
+ 
+ 
+===============================================================================================
+//LV005 
+
+
+
+
+ 
+ 
+===============================================================================================
+//LV006
+
+
+
+
+ 
+ 
+===============================================================================================
+//LV007
+
+
+
+
+ 
+ 
+===============================================================================================
+//LV008 
+
+
+
+
+ 
+ 
+===============================================================================================
+//LV009 
+
+
+
+
+ 
+ 
+===============================================================================================
+//LV010 
+
+
+
+
+ 
+ 
+===============================================================================================
+//LV011 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

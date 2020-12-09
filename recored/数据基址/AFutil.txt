@@ -1,0 +1,722 @@
+
+//线程回调
+//改变自己呢称会调用,可能是返回消息数据处理
+DWORD __stdcall StartAddress(LPVOID lpThreadParameter)
+{
+  int v1; // eax@5
+  void (__cdecl *v2)(int); // ecx@5
+  int v4; // [sp+4h] [bp-20h]@5
+  char v5; // [sp+Ch] [bp-18h]@4
+  void (__cdecl *v6)(int); // [sp+14h] [bp-10h]@5
+  int v7; // [sp+18h] [bp-Ch]@5
+  int v8; // [sp+1Ch] [bp-8h]@5
+  void *v9; // [sp+20h] [bp-4h]@5
+
+  while ( !dword_B0917C )
+  {
+    if ( !WaitForSingleObject(hEvent, 0xFFFFFFFF) )
+    {
+      if ( dword_B0917C )
+        break;
+      while ( 1 )
+      {
+        EnterCriticalSection(&stru_B09160);
+        sub_AC859F(*(_DWORD *)dword_B091CC, &unk_B091C8);
+        sub_AC859F(dword_B091CC, &unk_B091C8);
+        if ( (unsigned __int8)sub_ABFA52(&v5) )
+          break;
+        v1 = sub_AAE8CE(&v8); //返回的数据实例 v1 ,  sub_AAE8CE 为 v8 的 this_call
+        v2 = *(void (__cdecl **)(int))(v1 + 4);
+        v7 = *(_DWORD *)(v1 + 8);
+        v6 = v2;
+        sub_AACF34((int)&v4, v8, v9);
+        LeaveCriticalSection(&stru_B09160);
+        if ( v6 )
+          v6(v7);
+        if ( dword_B0917C )
+          goto LABEL_10;
+      }
+      ResetEvent(hEvent);
+      LeaveCriticalSection(&stru_B09160);
+    }
+LABEL_10:
+    ;
+  }
+  DeleteCriticalSection(&stru_B09160);
+  return 0;
+}
+
+int __thiscall sub_AAE8CE(_DWORD *this)
+{
+  _DWORD *v1; // esi@1
+
+  v1 = this;
+  if ( !*this )
+    invalid_parameter_noinfo();
+  if ( v1[1] == *(_DWORD *)(*v1 + 4) )
+    invalid_parameter_noinfo();
+  return v1[1] + 12;
+}
+
+
+================
+
+.text:00A967C4
+.text:00A967C4 ; =============== S U B R O U T I N E =======================================
+.text:00A967C4
+.text:00A967C4 ; Attributes: bp-based frame
+.text:00A967C4
+.text:00A967C4 ; DWORD __stdcall StartAddress(LPVOID lpThreadParameter)
+.text:00A967C4 StartAddress    proc near               ; DATA XREF: sub_A986CB+2Eo
+.text:00A967C4
+.text:00A967C4 var_20          = dword ptr -20h
+.text:00A967C4 var_18          = byte ptr -18h
+.text:00A967C4 var_10          = dword ptr -10h
+.text:00A967C4 var_C           = dword ptr -0Ch
+.text:00A967C4 var_8           = dword ptr -8
+.text:00A967C4 var_4           = dword ptr -4
+.text:00A967C4 lpThreadParameter= dword ptr  8
+.text:00A967C4
+.text:00A967C4                 push    ebp
+.text:00A967C5                 mov     ebp, esp
+.text:00A967C7                 sub     esp, 20h
+.text:00A967CA                 cmp     dword_B0917C, 0
+.text:00A967D1                 push    esi
+.text:00A967D2                 mov     esi, offset stru_B09160
+.text:00A967D7                 jnz     loc_A968A0
+.text:00A967DD                 push    ebx
+.text:00A967DE                 mov     ebx, ds:LeaveCriticalSection
+.text:00A967E4                 push    edi
+.text:00A967E5                 mov     edi, offset unk_B091C8
+.text:00A967EA
+.text:00A967EA loc_A967EA:                             ; CODE XREF: StartAddress+D4j
+.text:00A967EA                 push    0FFFFFFFFh      ; dwMilliseconds
+.text:00A967EC                 push    hEvent          ; hHandle
+.text:00A967F2                 call    ds:WaitForSingleObject
+.text:00A967F8                 test    eax, eax
+.text:00A967FA                 jnz     loc_A96891
+.text:00A96800                 cmp     dword_B0917C, eax
+.text:00A96806                 jnz     loc_A9689E
+.text:00A9680C
+.text:00A9680C loc_A9680C:                             ; CODE XREF: StartAddress+BAj
+.text:00A9680C                 push    esi             ; lpCriticalSection
+.text:00A9680D                 call    ds:EnterCriticalSection
+.text:00A96813                 mov     eax, dword_B091CC
+.text:00A96818                 push    edi
+.text:00A96819                 push    dword ptr [eax]
+.text:00A9681B                 lea     ecx, [ebp+var_8]
+.text:00A9681E                 call    sub_AC859F
+.text:00A96823                 push    edi
+.text:00A96824                 push    dword_B091CC
+.text:00A9682A                 lea     ecx, [ebp+var_18]
+.text:00A9682D                 call    sub_AC859F
+.text:00A96832                 lea     eax, [ebp+var_18]
+.text:00A96835                 push    eax
+.text:00A96836                 lea     ecx, [ebp+var_8]
+.text:00A96839                 call    sub_ABFA52
+.text:00A9683E                 test    al, al
+.text:00A96840                 jnz     short loc_A96882
+.text:00A96842                 lea     ecx, [ebp+var_8]
+.text:00A96845                 call    sub_AAE8CE
+.text:00A9684A                 mov     ecx, [eax+4]
+.text:00A9684D                 push    [ebp+var_4]     ; void *
+.text:00A96850                 mov     eax, [eax+8]  //-------关键数据
+.text:00A96853                 push    [ebp+var_8]     ; int
+.text:00A96856                 mov     [ebp+var_C], eax //-------关键数据
+.text:00A96859                 lea     eax, [ebp+var_20]
+.text:00A9685C                 mov     [ebp+var_10], ecx
+.text:00A9685F                 push    eax             ; int
+.text:00A96860                 mov     ecx, edi
+.text:00A96862                 call    sub_AACF34
+.text:00A96867                 push    esi             ; lpCriticalSection
+.text:00A96868                 call    ebx ; LeaveCriticalSection
+.text:00A9686A                 cmp     [ebp+var_10], 0
+.text:00A9686E                 jz      short loc_A96877
+.text:00A96870                 push    [ebp+var_C]	//-------关键数据
+.text:00A96873                 call    [ebp+var_10]   
+.text:00A96876                 pop     ecx
+.text:00A96877
+.text:00A96877 loc_A96877:                             ; CODE XREF: StartAddress+AAj
+.text:00A96877                 cmp     dword_B0917C, 0
+.text:00A9687E                 jz      short loc_A9680C
+.text:00A96880                 jmp     short loc_A96891
+.text:00A96882 ; ---------------------------------------------------------------------------
+.text:00A96882
+.text:00A96882 loc_A96882:                             ; CODE XREF: StartAddress+7Cj
+
+
+
+
+ 
+
+
+//修改自己帐号的呢称(unicode字符串,CE要勾选utf16),用CE锁定只有一个内存地址在改
+//04DE2AA0, 内存写断点
+1.打开修改界面时也会断点
+2.点击修改后会断点
+断点的调用栈往下搜 //callstack
+
+
+gogo22 ->gogo11
+===============================================================================================
+//LV001
+
+7D5FA541    8B75 0C         mov esi,dword ptr ss:[ebp+C] 
+
+
+7D5FA556    53              push ebx
+7D5FA557    68 CC365A7D     push SHELL32.7D5A36CC                                   ; UNICODE "Shell_TrayWnd"
+7D5FA55C    FF15 B01E597D   call dword ptr ds:[<&USER32.FindWindowW>]               ; USER32.FindWindowW
+7D5FA562    3BC3            cmp eax,ebx
+7D5FA564    8985 30FCFFFF   mov dword ptr ss:[ebp-3D0],eax
+7D5FA56A    0F84 3F060000   je SHELL32.7D5FABAF
+7D5FA570    8B16            mov edx,dword ptr ds:[esi] // ds:[esi] 带有要修改的数据  gogo11
+7D5FA572    57              push edi
+7D5FA573    33C0            xor eax,eax
+7D5FA575    B9 EF000000     mov ecx,0EF
+7D5FA57A    8DBD 40FCFFFF   lea edi,dword ptr ss:[ebp-3C0] //edi 为老数据 gogo22
+7D5FA580    899D 3CFCFFFF   mov dword ptr ss:[ebp-3C4],ebx
+7D5FA586    F3:AB           rep stos dword ptr es:[edi]  //edi 赋值 
+
+------
+7D5FA52A    90              nop
+7D5FA52B    90              nop
+7D5FA52C    90              nop
+7D5FA52D    90              nop
+7D5FA52E    90              nop
+7D5FA52F >  8BFF            mov edi,edi
+7D5FA531    55              push ebp
+7D5FA532    8BEC            mov ebp,esp
+7D5FA534    81EC E0030000   sub esp,3E0
+7D5FA53A    A1 48F5797D     mov eax,dword ptr ds:[7D79F548]  
+7D5FA53F    53              push ebx
+7D5FA540    56              push esi
+7D5FA541    8B75 0C         mov esi,dword ptr ss:[ebp+C]
+7D5FA544    33DB            xor ebx,ebx
+7D5FA546    53              push ebx
+7D5FA547    8945 FC         mov dword ptr ss:[ebp-4],eax
+7D5FA54A    89B5 2CFCFFFF   mov dword ptr ss:[ebp-3D4],esi
+7D5FA550    FF15 DC15597D   call dword ptr ds:[<&KERNEL32.SetLastError>]            ; ntdll.RtlSetLastWin32Error
+7D5FA556    53              push ebx
+7D5FA557    68 CC365A7D     push SHELL32.7D5A36CC                                   ; UNICODE "Shell_TrayWnd"
+7D5FA55C    FF15 B01E597D   call dword ptr ds:[<&USER32.FindWindowW>]               ; USER32.FindWindowW
+7D5FA562    3BC3            cmp eax,ebx
+7D5FA564    8985 30FCFFFF   mov dword ptr ss:[ebp-3D0],eax
+7D5FA56A    0F84 3F060000   je SHELL32.7D5FABAF
+7D5FA570    8B16            mov edx,dword ptr ds:[esi] 
+7D5FA572    57              push edi
+7D5FA573    33C0            xor eax,eax
+7D5FA575    B9 EF000000     mov ecx,0EF
+7D5FA57A    8DBD 40FCFFFF   lea edi,dword ptr ss:[ebp-3C0]
+7D5FA580    899D 3CFCFFFF   mov dword ptr ss:[ebp-3C4],ebx
+7D5FA586    F3:AB           rep stos dword ptr es:[edi]
+7D5FA588    B8 B8030000     mov eax,3B8
+7D5FA58D    3BD0            cmp edx,eax
+7D5FA58F    899D 34FCFFFF   mov dword ptr ss:[ebp-3CC],ebx
+7D5FA595  ^ 0F85 1A7DFFFF   jnz SHELL32.7D5F22B5
+7D5FA59B    C785 38FCFFFF 3>mov dword ptr ss:[ebp-3C8],3F
+7D5FA5A5    8BCA            mov ecx,edx
+7D5FA5A7    8BD9            mov ebx,ecx
+7D5FA5A9    C1E9 02         shr ecx,2
+7D5FA5AC    8DBD 44FCFFFF   lea edi,dword ptr ss:[ebp-3BC]
+7D5FA5B2    F3:A5           rep movs dword ptr es:[edi],dword ptr ds:[esi]
+7D5FA5B4    8BCB            mov ecx,ebx
+7D5FA5B6    83E1 03         and ecx,3
+7D5FA5B9    F3:A4           rep movs byte ptr es:[edi],byte ptr ds:[esi]
+7D5FA5BB    8B8D 38FCFFFF   mov ecx,dword ptr ss:[ebp-3C8]
+7D5FA5C1    218D 50FCFFFF   and dword ptr ss:[ebp-3B0],ecx
+7D5FA5C7    F685 50FCFFFF 0>test byte ptr ss:[ebp-3B0],4
+7D5FA5CE    8985 44FCFFFF   mov dword ptr ss:[ebp-3BC],eax
+7D5FA5D4    5F              pop edi
+7D5FA5D5    74 08           je short SHELL32.7D5FA5DF
+7D5FA5D7    66:83A5 5AFDFFF>and word ptr ss:[ebp-2A6],0
+7D5FA5DF    3BD0            cmp edx,eax
+7D5FA5E1  ^ 0F85 EE7CFFFF   jnz SHELL32.7D5F22D5
+7D5FA5E7    F685 50FCFFFF 1>test byte ptr ss:[ebp-3B0],10
+7D5FA5EE  ^ 0F85 3A60FDFF   jnz SHELL32.7D5D062E
+7D5FA5F4    8B75 08         mov esi,dword ptr ss:[ebp+8]
+7D5FA5F7    83FE 03         cmp esi,3
+7D5FA5FA    0F84 04240200   je SHELL32.7D61CA04
+7D5FA600    8D85 3CFCFFFF   lea eax,dword ptr ss:[ebp-3C4]
+7D5FA606    8985 28FCFFFF   mov dword ptr ss:[ebp-3D8],eax
+7D5FA60C    8D85 34FCFFFF   lea eax,dword ptr ss:[ebp-3CC]
+7D5FA612    50              push eax
+7D5FA613    68 A00F0000     push 0FA0
+7D5FA618    6A 03           push 3
+7D5FA61A    8D85 20FCFFFF   lea eax,dword ptr ss:[ebp-3E0]
+7D5FA620    50              push eax
+7D5FA621    8B85 2CFCFFFF   mov eax,dword ptr ss:[ebp-3D4]
+7D5FA627    FF70 04         push dword ptr ds:[eax+4]
+7D5FA62A    C785 3CFCFFFF 2>mov dword ptr ss:[ebp-3C4],34753423
+7D5FA634    6A 4A           push 4A
+7D5FA636    FFB5 30FCFFFF   push dword ptr ss:[ebp-3D0]
+7D5FA63C    89B5 40FCFFFF   mov dword ptr ss:[ebp-3C0],esi
+7D5FA642    C785 20FCFFFF 0>mov dword ptr ss:[ebp-3E0],1
+7D5FA64C    C785 24FCFFFF C>mov dword ptr ss:[ebp-3DC],3C0
+7D5FA656    FF15 A01E597D   call dword ptr ds:[<&USER32.SendMessageTimeoutW>]       ; USER32.SendMessageTimeoutW
+7D5FA65C    85C0            test eax,eax
+7D5FA65E    0F84 4B050000   je SHELL32.7D5FABAF
+7D5FA664    8B85 34FCFFFF   mov eax,dword ptr ss:[ebp-3CC]
+7D5FA66A    8B4D FC         mov ecx,dword ptr ss:[ebp-4]
+7D5FA66D    5E              pop esi
+7D5FA66E    5B              pop ebx
+7D5FA66F    E8 7CCDFBFF     call SHELL32.7D5B73F0
+7D5FA674    C9              leave
+7D5FA675    C2 0800         retn 8
+
+
+
+
+//////////////拷贝结构？高频调用..
+////////////300DB2A7    55              push ebp
+////////////300DB2A8    8BEC            mov ebp,esp
+////////////300DB2AA    8B45 10         mov eax,dword ptr ss:[ebp+10]
+////////////300DB2AD    03C0            add eax,eax
+////////////300DB2AF    50              push eax
+////////////300DB2B0    FF75 0C         push dword ptr ss:[ebp+C]   //0012BC64
+////////////300DB2B3    FF75 08         push dword ptr ss:[ebp+8]	//0012BC60
+////////////300DB2B6    E8 49650500     call <jmp.&MSVCR80.memcpy>
+////////////
+////////////
+////////////0012BC60  04DE2A98  
+////////////	UNICODE "QQ: gogo11(1677588503)Sounds: On
+////////////	Pop-up Alerts: Off
+////////////	Messages Alerts: Flash Icon"
+////////////0012BC64  04B69310  
+////////////	UNICODE "QQ: gogo11(1677588503)
+////////////	Sounds: On
+////////////	Pop-up Alerts: Off
+////////////	Messages Alerts: Flash Icon"
+
+
+===============================================================================================
+//LV002
+
+//00AA3BB0    FFD7            call edi                                                ; SHELL32.Shell_NotifyIconW  // call SHELL32.7D5FA52F
+
+
+
+00AA3B83    55              push ebp
+00AA3B84    8BEC            mov ebp,esp
+00AA3B86    81EC 24010000   sub esp,124
+00AA3B8C    A1 5090B000     mov eax,dword ptr ds:[B09050]      //--------这是什么基址, 越界检测?
+00AA3B91    33C5            xor eax,ebp
+00AA3B93    8945 FC         mov dword ptr ss:[ebp-4],eax
+00AA3B96    56              push esi
+00AA3B97    8B75 08         mov esi,dword ptr ss:[ebp+8]
+00AA3B9A    85F6            test esi,esi
+00AA3B9C    0F84 E0000000   je AFUtil.00AA3C82
+00AA3BA2    53              push ebx
+00AA3BA3    57              push edi
+00AA3BA4    8B3D 8467AD00   mov edi,dword ptr ds:[<&SHELL32.Shell_NotifyIconW>]     ; SHELL32.Shell_NotifyIconW
+00AA3BAA    8D5E 04         lea ebx,dword ptr ds:[esi+4]
+00AA3BAD    53              push ebx
+00AA3BAE    FF36            push dword ptr ds:[esi]
+00AA3BB0    FFD7            call edi                                                ; SHELL32.Shell_NotifyIconW
+
+00AA3BB2    833E 00         cmp dword ptr ds:[esi],0
+00AA3BB5    0F85 BE000000   jnz AFUtil.00AA3C79
+00AA3BBB    83A5 DCFEFFFF 0>and dword ptr ss:[ebp-124],0
+00AA3BC2    EB 21           jmp short AFUtil.00AA3BE5
+00AA3BC4    8B8D DCFEFFFF   mov ecx,dword ptr ss:[ebp-124]
+00AA3BCA    FF85 DCFEFFFF   inc dword ptr ss:[ebp-124]
+00AA3BD0    83F9 0F         cmp ecx,0F
+00AA3BD3    7D 14           jge short AFUtil.00AA3BE9
+00AA3BD5    68 20030000     push 320
+00AA3BDA    FF15 A064AD00   call dword ptr ds:[<&KERNEL32.Sleep>]                   ; kernel32.Sleep
+00AA3BE0    53              push ebx
+00AA3BE1    FF36            push dword ptr ds:[esi]
+00AA3BE3    FFD7            call edi
+00AA3BE5    85C0            test eax,eax
+00AA3BE7  ^ 74 DB           je short AFUtil.00AA3BC4
+00AA3BE9    50              push eax
+00AA3BEA    FFB5 DCFEFFFF   push dword ptr ss:[ebp-124]
+00AA3BF0    BB 7880AD00     mov ebx,AFUtil.00AD8078                                 ; UNICODE "func"
+00AA3BF5    68 3006AE00     push AFUtil.00AE0630                                    ; UNICODE "Recreate TaskTray %d Times And Final Result is %d."
+00AA3BFA    68 1806AE00     push AFUtil.00AE0618                                    ; UNICODE "TaskTray"
+00AA3BFF    6A 02           push 2
+00AA3C01    53              push ebx
+00AA3C02    68 04020000     push 204
+00AA3C07    BF 6C80AD00     mov edi,AFUtil.00AD806C                                 ; UNICODE "file"
+00AA3C0C    57              push edi
+00AA3C0D    E8 5E86FEFF     call AFUtil.00A8C270
+00AA3C12    68 18010000     push 118
+00AA3C17    8D85 E4FEFFFF   lea eax,dword ptr ss:[ebp-11C]
+00AA3C1D    6A 00           push 0
+00AA3C1F    50              push eax
+00AA3C20    E8 C5900200     call <jmp.&MSVCR80.memset>
+00AA3C25    83C4 2C         add esp,2C
+00AA3C28    8D85 E0FEFFFF   lea eax,dword ptr ss:[ebp-120]
+00AA3C2E    50              push eax
+00AA3C2F    C785 E0FEFFFF 1>mov dword ptr ss:[ebp-120],11C
+00AA3C39    FF15 D064AD00   call dword ptr ds:[<&KERNEL32.GetVersionExW>]           ; kernel32.GetVersionExW
+00AA3C3F    83BD E4FEFFFF 0>cmp dword ptr ss:[ebp-11C],6
+00AA3C46    72 31           jb short AFUtil.00AA3C79
+00AA3C48    8D85 DCFEFFFF   lea eax,dword ptr ss:[ebp-124]
+00AA3C4E    50              push eax
+00AA3C4F    68 9880AD00     push AFUtil.00AD8098                                    ; UNICODE "%s"
+00AA3C54    68 1806AE00     push AFUtil.00AE0618                                    ; UNICODE "TaskTray"
+00AA3C59    6A 02           push 2
+00AA3C5B    53              push ebx
+00AA3C5C    68 0B020000     push 20B
+00AA3C61    57              push edi
+00AA3C62    C785 DCFEFFFF 0>mov dword ptr ss:[ebp-124],AFUtil.00AE0600              ; UNICODE "OutTrayIcon"
+00AA3C6C    E8 7785FEFF     call AFUtil.00A8C1E8
+00AA3C71    83C4 1C         add esp,1C
+00AA3C74    E8 DFFAFFFF     call AFUtil.00AA3758
+00AA3C79    56              push esi
+00AA3C7A    E8 F58E0200     call <jmp.&MSVCR80.operator delete>
+00AA3C7F    59              pop ecx
+00AA3C80    5F              pop edi
+00AA3C81    5B              pop ebx
+00AA3C82    8B4D FC         mov ecx,dword ptr ss:[ebp-4]
+00AA3C85    33CD            xor ecx,ebp
+00AA3C87    5E              pop esi
+00AA3C88    E8 438F0200     call AFUtil.00ACCBD0
+00AA3C8D    C9              leave
+00AA3C8E    C3              retn
+
+
+
+
+===============================================================================================
+//029786B8 
+gogo77->gogo99
+
+ 
+00AA3D69    55              push ebp
+00AA3D6A    8BEC            mov ebp,esp
+00AA3D6C    53              push ebx
+00AA3D6D    56              push esi
+00AA3D6E    8B75 08         mov esi,dword ptr ss:[ebp+8]
+00AA3D71    FF75 0C         push dword ptr ss:[ebp+C]
+00AA3D74    8D9E E0010000   lea ebx,dword ptr ds:[esi+1E0]
+00AA3D7A    8BCB            mov ecx,ebx
+00AA3D7C    FF15 6462AD00   call dword ptr ds:[<&Common.CTXStringW::operator=>]     ; Common.CTXStringW::operator=
+00AA3D82    8B86 C8010000   mov eax,dword ptr ds:[esi+1C8]
+00AA3D88    85C0            test eax,eax
+00AA3D8A    0F84 9B000000   je AFUtil.00AA3E2B
+00AA3D90    83BE F8010000 0>cmp dword ptr ds:[esi+1F8],0
+00AA3D97    74 63           je short AFUtil.00AA3DFC
+00AA3D99    57              push edi
+00AA3D9A    8B3D 7860AD00   mov edi,dword ptr ds:[<&Common.CTXStringW::GetLength>]  ; Common.CTXStringW::GetLength
+00AA3DA0    8BCB            mov ecx,ebx
+00AA3DA2    FFD7            call edi
+00AA3DA4    83F8 7F         cmp eax,7F
+00AA3DA7    7D 08           jge short AFUtil.00AA3DB1
+00AA3DA9    8BCB            mov ecx,ebx
+00AA3DAB    FFD7            call edi
+00AA3DAD    8BF8            mov edi,eax
+00AA3DAF    EB 03           jmp short AFUtil.00AA3DB4
+00AA3DB1    6A 7F           push 7F
+00AA3DB3    5F              pop edi
+00AA3DB4    57              push edi
+00AA3DB5    8BCB            mov ecx,ebx
+00AA3DB7    FF15 9460AD00   call dword ptr ds:[<&Common.CTXStringW::operator wchar_>; Common.CTXStringW::operator wchar_t const *
+00AA3DBD    50              push eax
+00AA3DBE    8B86 C8010000   mov eax,dword ptr ds:[esi+1C8]
+00AA3DC4    83C0 18         add eax,18
+00AA3DC7    50              push eax    //eax = "QQ:gogo99...." 老数据;   edx = "QQ:gogo88 ...." 新数据, 执行完 wcsncpy, eax就变了新数据
+00AA3DC8    FF15 AC66AD00   call dword ptr ds:[<&MSVCR80.wcsncpy>]                  ; MSVCR80.wcsncpy
+
+
+
+esi=ss:[ebp+8]
+eax = ds:[esi+1C8]
+--
+eax = ds:[ss:[ebp+8]+1C8]
+===============================================================================================
+//tasktray
+
+62007807    6A 28           push 28
+62007809    B8 7F420362     mov eax,TaskTray.6203427F
+6200780E    E8 9CB80200     call TaskTray.620330AF
+62007813    894D DC         mov dword ptr ss:[ebp-24],ecx
+62007816    8B3D 1CA30362   mov edi,dword ptr ds:[<&Common.CTXStringW::CTXStringW>] ; Common.CTXStringW::CTXStringW
+6200781C    8D4D E0         lea ecx,dword ptr ss:[ebp-20]
+6200781F    FFD7            call edi
+62007821    8365 FC 00      and dword ptr ss:[ebp-4],0
+62007825    FF15 40A00362   call dword ptr ds:[<&AFUtil.Util::Misc::IsAllowPlaySoun>; AFUtil.Util::Misc::IsAllowPlaySound
+6200782B    85C0            test eax,eax
+6200782D    74 07           je short TaskTray.62007836
+6200782F    68 D0C30362     push TaskTray.6203C3D0                                  ; UNICODE "BeOpen"
+62007834    EB 05           jmp short TaskTray.6200783B
+62007836    68 C0C30362     push TaskTray.6203C3C0                                  ; UNICODE "BeClose"
+6200783B    E8 0EBAFFFF     call TaskTray.6200324E
+62007840    8B1D E8A20362   mov ebx,dword ptr ds:[<&Common.CTXStringW::operator=>]  ; Common.CTXStringW::operator=
+62007846    59              pop ecx
+62007847    50              push eax
+62007848    8D4D E0         lea ecx,dword ptr ss:[ebp-20]
+6200784B    FFD3            call ebx
+6200784D    8B35 C0A40362   mov esi,dword ptr ds:[<&KernelUtil.Util::Contact::GetSe>; KernelUt.Util::Contact::GetSelfUin
+62007853    FFD6            call esi
+62007855    50              push eax
+62007856    FF15 BCA40362   call dword ptr ds:[<&KernelUtil.Util::Contact::GetStatu>; KernelUt.Util::Contact::GetStatus
+6200785C    0FB7C0          movzx eax,ax
+6200785F    59              pop ecx
+62007860    8D4D D8         lea ecx,dword ptr ss:[ebp-28]
+62007863    8945 E8         mov dword ptr ss:[ebp-18],eax
+62007866    FFD7            call edi
+62007868    8D4D F0         lea ecx,dword ptr ss:[ebp-10]
+6200786B    C645 FC 01      mov byte ptr ss:[ebp-4],1
+6200786F    FFD7            call edi
+62007871    8365 EC 00      and dword ptr ss:[ebp-14],0
+62007875    8D45 EC         lea eax,dword ptr ss:[ebp-14]
+62007878    50              push eax
+62007879    C645 FC 03      mov byte ptr ss:[ebp-4],3
+6200787D    E8 65F3FFFF     call TaskTray.62006BE7
+62007882    8B45 EC         mov eax,dword ptr ss:[ebp-14]
+62007885    85C0            test eax,eax
+62007887    59              pop ecx
+62007888    0F84 B2000000   je TaskTray.62007940
+6200788E    8D55 D4         lea edx,dword ptr ss:[ebp-2C]
+62007891    52              push edx
+62007892    FF75 E8         push dword ptr ss:[ebp-18]
+62007895    C745 D4 0100000>mov dword ptr ss:[ebp-2C],1
+6200789C    8B08            mov ecx,dword ptr ds:[eax]
+6200789E    50              push eax
+6200789F    FF51 2C         call dword ptr ds:[ecx+2C]
+620078A2    8B45 EC         mov eax,dword ptr ss:[ebp-14]
+620078A5    8D55 D0         lea edx,dword ptr ss:[ebp-30]
+620078A8    52              push edx
+620078A9    FF75 E8         push dword ptr ss:[ebp-18]
+620078AC    C745 D0 0100000>mov dword ptr ss:[ebp-30],1
+620078B3    8B08            mov ecx,dword ptr ds:[eax]
+620078B5    50              push eax
+620078B6    FF51 1C         call dword ptr ds:[ecx+1C]
+620078B9    837D D4 00      cmp dword ptr ss:[ebp-2C],0
+620078BD    74 0D           je short TaskTray.620078CC
+620078BF    837D D0 00      cmp dword ptr ss:[ebp-30],0
+620078C3    74 07           je short TaskTray.620078CC
+620078C5    68 D0C30362     push TaskTray.6203C3D0                                  ; UNICODE "BeOpen"
+620078CA    EB 05           jmp short TaskTray.620078D1
+620078CC    68 C0C30362     push TaskTray.6203C3C0                                  ; UNICODE "BeClose"
+620078D1    E8 78B9FFFF     call TaskTray.6200324E
+620078D6    59              pop ecx
+620078D7    50              push eax
+620078D8    8D4D D8         lea ecx,dword ptr ss:[ebp-28]
+620078DB    FFD3            call ebx
+620078DD    8B45 EC         mov eax,dword ptr ss:[ebp-14]
+620078E0    8D55 CC         lea edx,dword ptr ss:[ebp-34]
+620078E3    52              push edx
+620078E4    FF75 E8         push dword ptr ss:[ebp-18]
+620078E7    C745 CC 0100000>mov dword ptr ss:[ebp-34],1
+620078EE    8B08            mov ecx,dword ptr ds:[eax]
+620078F0    50              push eax
+620078F1    FF51 28         call dword ptr ds:[ecx+28]
+620078F4    8B45 CC         mov eax,dword ptr ss:[ebp-34]
+620078F7    83E8 00         sub eax,0
+620078FA    74 33           je short TaskTray.6200792F
+620078FC    48              dec eax
+620078FD    74 1D           je short TaskTray.6200791C
+620078FF    48              dec eax
+62007900    75 3E           jnz short TaskTray.62007940
+62007902    8B45 DC         mov eax,dword ptr ss:[ebp-24]
+62007905    83B8 D8010000 0>cmp dword ptr ds:[eax+1D8],0
+6200790C    74 07           je short TaskTray.62007915
+6200790E    68 A0C30362     push TaskTray.6203C3A0                                  ; UNICODE "BubbleTrayIcon"
+62007913    EB 1F           jmp short TaskTray.62007934
+62007915    68 80C30362     push TaskTray.6203C380                                  ; UNICODE "NoFlashTrayIcon"
+6200791A    EB 18           jmp short TaskTray.62007934
+6200791C    8B45 DC         mov eax,dword ptr ss:[ebp-24]
+6200791F    83B8 D8010000 0>cmp dword ptr ds:[eax+1D8],0
+62007926  ^ 74 ED           je short TaskTray.62007915
+62007928    68 64C30362     push TaskTray.6203C364                                  ; UNICODE "FlashTrayIcon"
+6200792D    EB 05           jmp short TaskTray.62007934
+6200792F    68 40C30362     push TaskTray.6203C340                                  ; UNICODE "AutoPopChatFrame"
+62007934    E8 15B9FFFF     call TaskTray.6200324E
+62007939    59              pop ecx
+6200793A    50              push eax
+6200793B    8D4D F0         lea ecx,dword ptr ss:[ebp-10]
+6200793E    FFD3            call ebx
+62007940    8D4D E4         lea ecx,dword ptr ss:[ebp-1C]
+62007943    FFD7            call edi
+62007945    C645 FC 04      mov byte ptr ss:[ebp-4],4
+62007949    FFD6            call esi
+6200794B    50              push eax
+6200794C    8D45 D0         lea eax,dword ptr ss:[ebp-30]
+6200794F    50              push eax
+62007950    FF15 B8A40362   call dword ptr ds:[<&KernelUtil.Util::Account::GetAccou>; KernelUt.Util::Account::GetAccountName
+62007956    66:837D E8 14   cmp word ptr ss:[ebp-18],14
+6200795B    8BF8            mov edi,eax
+6200795D    75 51           jnz short TaskTray.620079B0
+6200795F    C645 FC 05      mov byte ptr ss:[ebp-4],5
+62007963    FFD6            call esi
+62007965    50              push eax
+62007966    8D45 CC         lea eax,dword ptr ss:[ebp-34]
+62007969    50              push eax
+6200796A    FF15 B4A40362   call dword ptr ds:[<&KernelUtil.Util::Contact::GetPubli>; KernelUt.Util::Contact::GetPublicName
+62007970    83C4 10         add esp,10
+62007973    8BD8            mov ebx,eax
+62007975    8B35 2CA30362   mov esi,dword ptr ds:[<&Common.CTXStringW::operator wch>; Common.CTXStringW::operator wchar_t const *
+6200797B    8BCF            mov ecx,edi
+6200797D    C645 FC 06      mov byte ptr ss:[ebp-4],6
+62007981    FFD6            call esi
+62007983    50              push eax
+62007984    8BCB            mov ecx,ebx
+62007986    FFD6            call esi
+62007988    50              push eax
+62007989    68 84B90362     push TaskTray.6203B984                                  ; UNICODE "PROD_NAME"
+6200798E    E8 BBB8FFFF     call TaskTray.6200324E
+62007993    59              pop ecx
+62007994    50              push eax
+62007995    8D45 E4         lea eax,dword ptr ss:[ebp-1C]
+62007998    68 6CB90362     push TaskTray.6203B96C                                  ; UNICODE "%s: %s(%s)"
+6200799D    50              push eax
+6200799E    FF15 20A30362   call dword ptr ds:[<&Common.CTXStringW::Format>]        ; Common.CTXStringW::Format
+620079A4    83C4 14         add esp,14
+620079A7    C645 FC 05      mov byte ptr ss:[ebp-4],5
+620079AB    E9 82000000     jmp TaskTray.62007A32
+620079B0    C645 FC 07      mov byte ptr ss:[ebp-4],7
+620079B4    FFD6            call esi
+620079B6    50              push eax
+620079B7    8D45 CC         lea eax,dword ptr ss:[ebp-34]
+620079BA    50              push eax
+620079BB    FF15 B4A40362   call dword ptr ds:[<&KernelUtil.Util::Contact::GetPubli>; KernelUt.Util::Contact::GetPublicName
+620079C1    83C4 10         add esp,10
+620079C4    8BD8            mov ebx,eax
+620079C6    8B35 2CA30362   mov esi,dword ptr ds:[<&Common.CTXStringW::operator wch>; Common.CTXStringW::operator wchar_t const *
+620079CC    8D4D F0         lea ecx,dword ptr ss:[ebp-10]
+620079CF    C645 FC 08      mov byte ptr ss:[ebp-4],8
+620079D3    FFD6            call esi
+620079D5    50              push eax
+620079D6    68 30C30362     push TaskTray.6203C330                                  ; UNICODE "MsgTip"
+620079DB    E8 6EB8FFFF     call TaskTray.6200324E
+620079E0    59              pop ecx
+620079E1    50              push eax
+620079E2    8D4D D8         lea ecx,dword ptr ss:[ebp-28]
+620079E5    FFD6            call esi
+620079E7    50              push eax
+620079E8    68 20C30362     push TaskTray.6203C320                                  ; UNICODE "Notify"
+620079ED    E8 5CB8FFFF     call TaskTray.6200324E
+620079F2    59              pop ecx
+620079F3    50              push eax
+620079F4    8D4D E0         lea ecx,dword ptr ss:[ebp-20]
+620079F7    FFD6            call esi
+620079F9    50              push eax
+620079FA    68 20AA0362     push TaskTray.6203AA20                                  ; UNICODE "Sound"
+620079FF    E8 4AB8FFFF     call TaskTray.6200324E
+62007A04    59              pop ecx
+62007A05    50              push eax
+62007A06    8BCF            mov ecx,edi
+62007A08    FFD6            call esi
+62007A0A    50              push eax
+62007A0B    8BCB            mov ecx,ebx
+62007A0D    FFD6            call esi
+62007A0F    50              push eax
+62007A10    68 84B90362     push TaskTray.6203B984                                  ; UNICODE "PROD_NAME"
+62007A15    E8 34B8FFFF     call TaskTray.6200324E
+62007A1A    59              pop ecx
+62007A1B    50              push eax
+62007A1C    8D45 E4         lea eax,dword ptr ss:[ebp-1C]
+62007A1F    68 D8C20362     push TaskTray.6203C2D8                                  ; UNICODE "%s: %s(%s)
+%s: %s
+%s: %s
+%s: %s"
+62007A24    50              push eax
+62007A25    FF15 20A30362   call dword ptr ds:[<&Common.CTXStringW::Format>]        ; Common.CTXStringW::Format
+62007A2B    83C4 2C         add esp,2C
+62007A2E    C645 FC 07      mov byte ptr ss:[ebp-4],7
+62007A32    8B35 28A30362   mov esi,dword ptr ds:[<&Common.CTXStringW::~CTXStringW>>; Common.CTXStringW::~CTXStringW
+62007A38    8D4D CC         lea ecx,dword ptr ss:[ebp-34]
+62007A3B    FFD6            call esi
+62007A3D    8D4D D0         lea ecx,dword ptr ss:[ebp-30]
+62007A40    C645 FC 04      mov byte ptr ss:[ebp-4],4
+62007A44    FFD6            call esi
+62007A46    8B45 DC         mov eax,dword ptr ss:[ebp-24]
+62007A49    8BB8 80000000   mov edi,dword ptr ds:[eax+80]
+62007A4F    85FF            test edi,edi
+62007A51    74 29           je short TaskTray.62007A7C
+62007A53    8D45 E4         lea eax,dword ptr ss:[ebp-1C]
+62007A56    50              push eax
+62007A57    8D4D CC         lea ecx,dword ptr ss:[ebp-34]
+62007A5A    FF15 00A30362   call dword ptr ds:[<&Common.CTXBSTR::CTXBSTR>]          ; Common.CTXBSTR::CTXBSTR
+62007A60    8B1F            mov ebx,dword ptr ds:[edi]
+62007A62    8BC8            mov ecx,eax
+62007A64    C645 FC 09      mov byte ptr ss:[ebp-4],9
+62007A68    FF15 04A30362   call dword ptr ds:[<&Common.CTXBSTR::operator wchar_t *>; Common.CTXBSTR::operator wchar_t *
+62007A6E    50              push eax
+62007A6F    57              push edi
+62007A70    FF53 14         call dword ptr ds:[ebx+14]  // call 00AA3D69
+
+
+
+
+===============================================================================================
+//LV005
+
+
+===============================================================================================
+//LV006
+
+
+===============================================================================================
+//LV007
+
+
+===============================================================================================
+//LV008
+
+
+===============================================================================================
+//LV009
+
+
+===============================================================================================
+//LV010
+
+
+===============================================================================================
+//LV00
+
+
+===============================================================================================
+//LV00
+
+
+
+//callstack
+
+
+ 
+
+
+
+
+//callstack
+ 01A4FF7C  /01A4FFB4
+01A4FF80  |00A96876  RETURN to AFUtil.00A96876
+01A4FF84  |04E27BC0
+01A4FF88  |00000009
+01A4FF8C  |00000000
+01A4FF90  |00000002
+01A4FF94  |00B091C8  AFUtil.00B091C8
+01A4FF98  |00F90530
+01A4FF9C  |00B091C8  AFUtil.00B091C8
+01A4FFA0  |00F90530
+01A4FFA4  |00AA3B83  AFUtil.00AA3B83
+01A4FFA8  |04E27BC0
+01A4FFAC  |00B091C8  AFUtil.00B091C8
+01A4FFB0  |04E4B368
+01A4FFB4  \01A4FFEC
+01A4FFB8   7C80B713  RETURN to kernel32.7C80B713
+01A4FFBC   00000000
+01A4FFC0   00000009
+01A4FFC4   00000002
+01A4FFC8   00000000
+01A4FFCC   7FFDA000
+01A4FFD0   8A0DF600
+01A4FFD4   01A4FFC0
+01A4FFD8   89C9CF40
+01A4FFDC   FFFFFFFF  End of SEH chain
+01A4FFE0   7C839AC0  SE handler
+01A4FFE4   7C80B720  kernel32.7C80B720
+01A4FFE8   00000000
+01A4FFEC   00000000
+01A4FFF0   00000000
+01A4FFF4   00A967C4  AFUtil.00A967C4
+01A4FFF8   00000000
+
+
+
+

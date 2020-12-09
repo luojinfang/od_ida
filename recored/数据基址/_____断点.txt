@@ -1,0 +1,46 @@
+UNICODE [EAX]=="Brown fox"
+
+
+Breakpoints
+Address    Module     Active                     Disassembly                           Comment
+00A22020   lua        Always                     mov eax,dword ptr ss:[esp+10]         int __cdecl lua_pcall(struct lua_State *a1, int a2, int a3, int a4)
+00A967C4   AFUtil     Always                     push ebp                              AFUtil::StartAddress
+3005A1E3   Common     Disabled, inactive condit  movzx edx,word ptr ds:[eax]           发好友消息时,访问过好友id?
+30090AA9   Common     Disabled                   retn 8                                http 下载?
+300DBACB   Common     Disabled                   mov dword ptr ds:[edi],ebx            更新 family [2/2]  label 控件？
+30825474   GF         Disabled                   push 3C                               Util::GF::DispatchFrameMsg
+3082E726   GF         Always                     push ebp                              call lua
+30836263   GF         Disabled                   push 6C                               GF.派发事件？
+3090E4A6   GF         Disabled                   push ebp                              3090E4A6 nop
+3407035C   SSOCommo   Disabled                   xor eax,eax                           SSOCommo.CTXUDPDataSender::SendData
+6510223C   LoginPan   Disabled                   push ebp                              dllgetClassObject
+65140CD2   LoginPan   When edi==0x201            mov dword ptr ss:[ebp-814],eax
+65141C27   LoginPan   Disabled                   call eax                              ((int (__thiscall *)(HWND *, HWND, UINT, signed int, char *))dwNewLong)(this, hWnd, Msg, v94, v95);
+651451B6   LoginPan   Disabled                   push 14
+6515C47E   LoginPan   Disabled                   push 48                               loginPanl   响应事件300
+6515C4DF   LoginPan   Disabled                   call dword ptr ds:[ecx+330]
+6515C4F5   LoginPan   Always                     and dword ptr ss:[ebp-10],0            if ( *(_DWORD *)(this + 8) )
+6515C847   LoginPan   Disabled                   call dword ptr ds:[esi+14]            return (*(int (__stdcall **)(int, int, int *, int))(v5 + 20))(a2, a3, a4, a5);
+6515C8C2   LoginPan   Disabled                   push ebp                              loginPanl 响应事件 WndProc
+6515C8C3   LoginPan   Disabled                   mov ebp,esp
+6515C8D1   LoginPan   When ss:[ebp+0xc]==0x0201  call LoginPan.6510AF2E
+6515C8D8   LoginPan   Disabled                   call LoginPan.6515C47E
+6629BDA7   AppFrame   Disabled                   call AppFrame.662DE1A0                获得好友id  0000
+662DE1DE   AppFrame   Disabled                   push eax                              获得好友id  0001
+662E786C   AppFrame   Disabled                   push ebp                              获得好友id  0002
+69F060DC   HummerEn   Disabled                   call HummerEn.69F0CC44
+71A22F51   WS2_32     Disabled                   mov edi,edi                           sendto
+77D2AF56   USER32     Disabled                   jmp GF.308F737C                       ShowWindow
+77D3A082   USER32     Disabled                   mov edi,edi
+77D3B144   USER32     Disabled                   mov edi,edi
+77D507EA   USER32     Disabled                   mov edi,edi
+77D50838   USER32     Disabled                   mov edi,edi
+77D5085C   USER32     Disabled                   mov edi,edi
+77D664D5   USER32     Disabled                   mov edi,edi
+77D66534   USER32     Disabled                   mov edi,edi
+7C801D53   kernel32   Disabled                   mov edi,edi
+7C801D7B   kernel32   Disabled                   mov edi,edi
+7C802336   kernel32   Disabled                   mov edi,edi                           CreateProcessW
+7C80236B   kernel32   Disabled                   mov edi,edi                           CreateProcessA
+7C80AEDB   kernel32   Disabled                   mov edi,edi
+7C813123   kernel32   Always                     mov eax,dword ptr fs:[18]             isDebuggerPresent
