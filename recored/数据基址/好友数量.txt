@@ -99,10 +99,44 @@
 						//循环切换调用？？ Common.300C7CAC[main,thread1]  ;Common.300D078F[main,thread1];USER32.DefWindowProcW[main];SSOCommo.34029DED; HummerEn.69F06BCB [thread1]
  
  
+==============
+//锁？
+ 
+300A5D88 >  68 3C142830     push Common.3028143C
+300A5D8D    FF15 3CD21430   call dword ptr ds:[<&KERNEL32.InterlockedIncrement>]                 ; kernel32.InterlockedIncrement
+300A5D93    85C0            test eax,eax
+300A5D95  ^ 74 F1           je short Common.CTXUDPDataSender::GetNextCookie
+300A5D97    A1 3C142830     mov eax,dword ptr ds:[3028143C]
+300A5D9C    C3              retn
 
- 
- 
- 
+-------
+300A5190    E8 9F1E0000     call Common.CTXUDPDataSender::SendData
+
+01C4A355    FF16            call dword ptr ds:[esi]
+
+01C4D2F0    E8 A9CDFFFF     call Prelogin.01C4A09E
+
+01C82853    FF51 40         call dword ptr ds:[ecx+40]
+
+03208679    FF52 0C         call dword ptr ds:[edx+C]  //在 call之前会调用 Common.Util::Data::CreateTXData 等等
+
+0320899F    E8 70FAFFFF     call IM.03208414
+
+61C503A0    FF52 24         call dword ptr ds:[edx+24]
+61C4C256    E8 1F400000     call MainFram.61C5027A
+61C6B2D5    FF91 9C000000   call dword ptr ds:[ecx+9C]
+61C7AA2B    E8 1108FFFF     call MainFram.61C6B241
+61C89FF5    E8 E209FFFF     call MainFram.61C7A9DC
+61C8D625    FFD2            call edx
+
+
+
+
+
+
+
+
+
 ==============
 //获得一个基址 unk_302813C8
 
@@ -131,7 +165,7 @@ int __thiscall sub_300937E1(HWND *this)
   memset(&v5.style, 0, 0x2Cu);
   v5.hInstance = GetModuleHandleW(0);
   v5.lpszClassName = L"CTXSocketWnd";
-  v5.lpfnWndProc = sub_ 3009379C;
+  v5.lpfnWndProc = sub_3009379C;
   v5.hbrBackground = (HBRUSH)GetStockObject(0);
   v5.cbWndExtra = 4;
   if ( GetClassInfoExW(v5.hInstance, v5.lpszClassName, &v4) )
@@ -173,7 +207,6 @@ LRESULT __stdcall sub_3009379C(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
 -----------------------------------------------------------------
 LV0002
 
-
 int *__stdcall sub_30092DC1(int a1, int a2, int a3)
 {
   void *v3; // esi@1
@@ -192,47 +225,178 @@ int *__stdcall sub_30092DC1(int a1, int a2, int a3)
 
 
 
+
+int sub_300935F2()
+{
+  void *v0; // edi@1
+  bool v1; // zf@1
+  int result; // eax@2
+  int v3; // ebx@3
+  int v4; // eax@3
+  int v5; // ecx@3
+  int v6; // eax@3
+  int v7; // ST1C_4@3
+  int v8; // esi@4
+  int v9; // eax@4
+  int v10; // ebx@7
+  int v11; // edi@7
+  _DWORD *v12; // eax@8
+  int v13; // eax@15
+  int v14; // ecx@15
+  int v15; // eax@15
+  int v16; // ST18_4@15
+  char v17; // [sp+4h] [bp-3Ch]@15
+  int v18; // [sp+Ch] [bp-34h]@13
+  char v19; // [sp+14h] [bp-2Ch]@3
+  char v20; // [sp+1Ch] [bp-24h]@7
+  int v21; // [sp+24h] [bp-1Ch]@3
+  int v22; // [sp+28h] [bp-18h]@3
+  int v23; // [sp+2Ch] [bp-14h]@7
+  void *v24; // [sp+30h] [bp-10h]@13
+  _DWORD *v25; // [sp+34h] [bp-Ch]@8
+  void *v26; // [sp+38h] [bp-8h]@1
+  int v27; // [sp+3Ch] [bp-4h]@3
+
+  v0 = sub_3009D9AB();
+  v1 = *((_DWORD *)v0 + 3) == 0;
+  v26 = v0;
+  if ( v1 )
+  {
+    result = 0;
+  }
+  else
+  {
+    v27 = 0;
+    v3 = (int)v0 + 4;
+    v4 = sub_300929C0((int)v0 + 4, (int)&v19);
+    v5 = *(_DWORD *)v4;
+    v6 = *(_DWORD *)(v4 + 4);
+    v7 = *((_DWORD *)v0 + 2);
+    v21 = v5;
+    v22 = v6;
+    sub_300A3A68((int)&v19, v7, (int)v0 + 4);
+    while ( !(unsigned __int8)sub_3007DFEB(&v21, (int)&v19) )
+    {
+      ++v27;
+      v8 = *(_DWORD *)sub_30092480(&v21);
+      sub_3009299B(v3);
+      v9 = *(_DWORD *)(v8 + 4);
+      if ( v9 == 883 )
+      {
+        sub_30093443(*(_DWORD *)(v8 + 8), *(_DWORD *)(v8 + 12));
+      }
+      else if ( v9 == 1024 )
+      {
+        v10 = *(_DWORD *)(v8 + 8);
+        sub_300A772D(
+          L"file",
+          702,
+          L"func",
+          2,
+          L"CTXAsyncSocket",
+          L"Main Thread Recv RecvThread Confirm Socket Deleted hSocket[%lu] pAsynSocket[%lu]",
+          *(_DWORD *)(v8 + 12));
+        v11 = (int)v0 + 44;
+        sub_300929C0(v11, (int)&v23);
+        sub_300A3A68((int)&v20, *(_DWORD *)(v11 + 4), v11);
+        while ( 1 )
+        {
+          if ( (unsigned __int8)sub_3007DFEB(&v23, (int)&v20) )
+          {
+            sub_300A772D(
+              L"file",
+              725,
+              L"func",
+              2,
+              L"CTXAsyncSocket",
+              L"ERROR: Main Thread Recv RecvThread Confirm Socket Deleted[%u],but not find!!",
+              *(_DWORD *)(v8 + 8));
+            goto LABEL_12;
+          }
+          v12 = *(_DWORD **)sub_30092480(&v23);
+          v1 = *v12 == v10;
+          v25 = v12;
+          if ( v1 )
+            break;
+          sub_3008A961(&v23);
+          sub_300A3A68((int)&v20, *(_DWORD *)(v11 + 4), v11);
+        }
+        sub_300924D2(&v25);
+        sub_30060E4F((int)&v18, v23, v24);
+LABEL_12:
+        v0 = v26;
+      }
+      else
+      {
+        sub_30093390(*(_DWORD *)(v8 + 8), 1);
+      }
+      operator delete((void *)v8);
+      v3 = (int)v0 + 4;
+      v13 = sub_300929C0((int)v0 + 4, (int)&v17);
+      v14 = *(_DWORD *)v13;
+      v15 = *(_DWORD *)(v13 + 4);
+      v16 = *((_DWORD *)v0 + 2);
+      v21 = v14;
+      v22 = v15;
+      sub_300A3A68((int)&v19, v16, (int)v0 + 4);
+    }
+    sub_30096480(v3);
+    result = v27;
+  }
+  return result;
+}
 -----------------------------------------------------------------
 LV0003
 
 
 
 // this=[unk_302813C8+4]是个类实例指针
-// a2 为参数 [Msg, wParam, lParam]
+// a2 为参数数组 [Msg, wParam, lParam]
+//返回  ?
 int *__thiscall sub_300CFC7C(int this, int a2) 
 {
   int v3; // [sp+4h] [bp-8h]@0
   int v4; // [sp+8h] [bp-4h]@0
 
   sub_300A3A68(*(_DWORD *)(this + 4), this); //参数从右到左顺序入栈. 
-  return sub_30061025(v3, v4, a2);
+  return sub_30061025(v3, v4, a2); //传入的 this=[unk_302813C8+4]
 }
 
 
 
 -----------------------------------------------------------------
-LV0004
+LV0004 
 
-
+// this=[unk_302813C8+4]
 // a3 为参数 [Msg, wParam, lParam]
-int *__stdcall sub_30061025(int a1, int a2, int a3)
+//返回  ?
+int *__thiscall sub_30061025(void *this, int a1, int a2, int a3)
 {
-  int v3; // esi@1
+  void *v4; // ebx@1
+  int v5; // esi@1
   int *result; // eax@1
 
-  v3 = sub_3008DA0A(a2, *(_DWORD *)(a2 + 4), (_DWORD *)a3);
-  sub_30060E9B(1);
-  *(_DWORD *)(a2 + 4) = v3;
-  result = *(int **)(v3 + 4);
-  *result = v3;
+  v4 = this;
+  
+  //v5=新建 类0001[12*4Byte]
+  //v5.8 为 参数 [Msg, wParam, lParam]
+  v5 = sub_3008DA0A(a2, *(_DWORD *)(a2 + 4), (_DWORD *)a3);
+  
+  sub_30060E9B((int)v4, 1u); //让 [unk_302813C8+4].8 = 1,初始化标识？
+  
+  *(_DWORD *)(a2 + 4) = v5;  //a2.4 = 类0001
+  result = *(int **)(v5 + 4);
+  *result = v5;
   return result;
 }
+
+
 
 
 // a2= [unk_302813C8 + 4 + 4] 
 // this = [unk_302813C8+4]  
 // a3 = this
-//返回 this
+// 回 this
 _DWORD *__thiscall sub_300A3A68(int this, int a2, int a3)
 {
   _DWORD *v3; // esi@1
@@ -252,20 +416,24 @@ LV0005
 
 
 // a3 为参数 [Msg, wParam, lParam]
+//返回 类0001[12*4Byte].8 为 参数 [Msg, wParam, lParam]
 int __stdcall sub_3008DA0A(int a1, int a2, _DWORD *a3)
 {
   int result; // eax@1
 
-  result = sub_300C5ECC(1); //新建类  [12*4Byte]
+  result = sub_300C5ECC(1); //类0001  [12*4Byte]
   if ( result )
     *(_DWORD *)result = a1;
   if ( result != -4 )
     *(_DWORD *)(result + 4) = a2;
   if ( result != -8 )
     *(_DWORD *)(result + 8) = *a3;
-  return result;// [类12*4Byte].8 为 参数 [Msg, wParam, lParam]
+  return result;// 类0001[12*4Byte].8 为 参数 [Msg, wParam, lParam]
 }
 
+//this =sub_300CFC7C 方法的 this,   this.8  =  Msg+1
+// a2=1 (a2参数固定值)
+//修改 this.8=this.8+1, 并返回修改后的this.8. 是不是初始化标识？ 
 int __thiscall sub_30060E9B(int this, unsigned int a2)
 {
   int v2; // eax@1
@@ -274,9 +442,9 @@ int __thiscall sub_30060E9B(int this, unsigned int a2)
   char v5; // [sp+34h] [bp-28h]@2
   int v6; // [sp+58h] [bp-4h]@2
 
-  v2 = *(_DWORD *)(this + 8);
+  v2 = *(_DWORD *)(this + 8);  
   if ( 0x3FFFFFFF - v2 < a2 )
-  {
+  {//Msg太大
     std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<char,std::char_traits<char>,std::allocator<char>>(
       &v5,
       "list<T> too long");
@@ -285,12 +453,14 @@ int __thiscall sub_30060E9B(int this, unsigned int a2)
     CxxThrowException(&v4, &unk_301A4908);
   }
   result = a2 + v2;
-  *(_DWORD *)(this + 8) = result;
+  *(_DWORD *)(this + 8) = result; // Msg+1
   return result;
 }
 -----------------------------------------------------------------
 LV0006
-//新建类  [12*4Byte] , sub_3008DA0A 赋值
+// 新建类0001  [12*4Byte] , sub_3008DA0A 赋值
+//a1默认1
+//返回 new 出来的类指针
 void *__cdecl sub_300C5ECC(unsigned int a1)
 {
   unsigned int v1; // ecx@1
