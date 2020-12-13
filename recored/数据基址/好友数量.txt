@@ -3,19 +3,32 @@
       <LastState Value="1" RealAddress="0487A234"/>
       <LastState Value="1" RealAddress="0487A238"/>
 
+//获得一个基址 unk_302813C8
 	  
 	  
-
+//300A4E01
+int __thiscall CTXTCPDataSender::SendData(CTXTCPDataSender *this, struct ITXData *a2, int a3, unsigned __int8 *a4, unsigned __int32 *a5)
+ 
+//300A7034
+int __thiscall CTXUDPDataSender::SendData(CTXUDPDataSender *this, struct ITXData *a2, int a3, unsigned __int8 *a4, unsigned __int32 *a5)
+ 
+ 
+ 
+//30036762
+Util::Data::CreateTXData(ITXData * *)   
 ===============================================================================================
 //LV001
-61C51820 <=  61C51FC9 <= 61C54677  <= 61D05E81 [动态call]
+61C51820 
+<=  61C51FC9 
+<= 61C54677  
+<= 61D05E81 [动态call]
 	<= 308322E3 call dword ptr ds:[edi]
 		<=  3082E8B9    call GF.3083220C
 
  <=   308BDD51    FF50 10         call dword ptr ds:[eax+10]
 
 
- <=   6580934C    FF51 24         call dword ptr ds:[ecx+24]
+ <=   6580934C  //AFCtrl.dll  FF51 24         call dword ptr ds:[ecx+24]  
 
 
 	<=  61C3E559    FF51 24         call dword ptr ds:[ecx+24]
@@ -96,10 +109,241 @@
 3009379C()//300937D5    E8 18FEFFFF     call Common.300935F2  //在这方法前面有 defwindowproc
 
 77D18731    FF55 08         call dword ptr ss:[ebp+8]   
-						//循环切换调用？？ Common.300C7CAC[main,thread1]  ;Common.300D078F[main,thread1];USER32.DefWindowProcW[main];SSOCommo.34029DED; HummerEn.69F06BCB [thread1]
+						//循环切换调用？？ 
+						Common.300C7CAC[main,thread1]  ;
+						Common.300D078F[main,thread1];
+						USER32.DefWindowProcW[main];
+						SSOCommo.34029DED; 
+						HummerEn.69F06BCB [thread1]
+
+
+==================================================================================================
+LV0001
+
+//61C51820  
+//格式化字符串 [%d/%d]
+@a5 左边数
+@a4 右边数
+int __thiscall sub_61C51820(void *this, int a2, char a3, int a4, int a5)
+{
+  int v5; // esi@2
+  int v6; // edi@3
+  int v7; // ebx@3
+  int v8; // ST0C_4@3
+  int v9; // eax@3
+  int v10; // ST0C_4@3
+  int v12; // [sp+Ch] [bp-18h]@2
+  void *v13; // [sp+10h] [bp-14h]@1
+  int v14; // [sp+14h] [bp-10h]@1
+  int v15; // [sp+20h] [bp-4h]@1
+
+  v13 = this;
+  v15 = 0;
+  LOBYTE(v14) = 0;
+  if ( sub_61C50C65(a2, &v14) >= 0 )
+  {
+    v12 = 0;
+    sub_61C50CE0((int)v13, a2, &v12);
+    v5 = v12;
+    if ( v12 )
+    {
+      CTXBSTR::operator=(v12 + 12, &a3);
+      ((void (__thiscall *)(int *))CTXStringW::CTXStringW)(&a2);
+      v6 = a4;
+      v7 = a5;
+      LOBYTE(v15) = 1;
+      CTXStringW::Format((CTXStringW *)&a2, L"[%d/%d]", a5, a4);
+      CTXBSTR::operator=(v5 + 24, &a2);
+      v8 = v14;
+      *(_DWORD *)(v5 + 52) = v6;
+      *(_DWORD *)(v5 + 56) = v7;
+      v9 = sub_61C500EA(v8);
+      v10 = v14;
+      *(_DWORD *)(v5 + 88) = v9 == 0;
+      *(_DWORD *)(v5 + 92) = sub_61C501B2(v10) == 0;
+      LOBYTE(v15) = 0;
+      CTXStringW::~CTXStringW(&a2);
+    }
+  }
+  return CTXBSTR::~CTXBSTR((CTXBSTR *)&a3);
+}
+
+
+==================================================================================================
+LV0002
+//61C51FC9
+
+int __thiscall sub_61C51FC9(void *this, int a2, int *a3, signed int a4)
+{
+  int v4; // esi@1
+  int v5; // eax@2
+  int v6; // eax@5
+  int *v7; // ecx@5
+  int v8; // eax@5
+  int v9; // edi@5
+  int v10; // eax@5
+  int v11; // ecx@5
+  int v13; // [sp-20h] [bp-80h]@2
+  int v14; // [sp-1Ch] [bp-7Ch]@2
+  int v15; // [sp-18h] [bp-78h]@2
+  int v16; // [sp-14h] [bp-74h]@2
+  int v17; // [sp-10h] [bp-70h]@2
+  signed int v18; // [sp-Ch] [bp-6Ch]@2
+  int *v19; // [sp-8h] [bp-68h]@2
+  char *v20; // [sp-4h] [bp-64h]@5
+  int *v21; // [sp+0h] [bp-60h]@5
+  int *v22; // [sp+4h] [bp-5Ch]@5
+  char v23; // [sp+Ch] [bp-54h]@5
+  int v24; // [sp+10h] [bp-50h]@5
+  int v25; // [sp+14h] [bp-4Ch]@5
+  int v26; // [sp+18h] [bp-48h]@5
+  char v27; // [sp+1Ch] [bp-44h]@5
+  int v28; // [sp+20h] [bp-40h]@5
+  int v29; // [sp+24h] [bp-3Ch]@5
+  int v30; // [sp+28h] [bp-38h]@5
+  char v31; // [sp+2Ch] [bp-34h]@2
+  char v32; // [sp+38h] [bp-28h]@2
+  int v33; // [sp+44h] [bp-1Ch]@2
+  int *v34; // [sp+48h] [bp-18h]@2
+  int v35; // [sp+4Ch] [bp-14h]@5
+  int v36; // [sp+50h] [bp-10h]@5
+  int v37; // [sp+5Ch] [bp-4h]@5
+
+  v4 = (int)this;
+  if ( a4 )
+  {
+    v33 = a2;
+    v34 = a3;
+    v19 = &v33;
+    sub_61D2B08E(&v16);
+    sub_61D2B5A3(&v13);
+    sub_61C51F78(&v32, v13, v14, v15, v16, v17, v18, v19);
+    v5 = sub_61D2B08E(&v31);
+    if ( (unsigned __int8)sub_61C4F7FC(v5) )
+      sub_61C51DAF(v4 + 184, (int)&v33);
+    v19 = (int *)4;
+    TXTimer::EraseTimerCallback(*(TXTimer **)(v4 + 32), (struct ITXTimerCallback *)4);
+    v18 = 4;
+    TXTimer::SetInterval((TXTimer *)0x12C, *(_DWORD *)(v4 + 32), (struct ITXTimerCallback *)4);
+  }
+  else
+  {
+    v6 = Util::Contact::GetSelfUin(v20, v21, v22);
+    Util::Contact::IsOnline(v6);
+    LOBYTE(a4) = 0;
+    sub_61C50C65(a2, &a4);
+    CTXBSTR::CTXBSTR(&a3);
+    v37 = 0;
+    v24 = 0;
+    v25 = 0;
+    v26 = 0;
+    v28 = 0;
+    v29 = 0;
+    v30 = 0;
+    v7 = *(int **)(v4 + 180);
+    v22 = &v36;
+    v21 = &v35;
+    v20 = &v27;
+    v19 = (int *)&v23;
+    v18 = a4;
+    v35 = 0;
+    v36 = 0;
+    v8 = *v7;
+    LOBYTE(v37) = 2;
+    (*(void (**)(void))(v8 + 8))();    //61C520CC    FF50 08         call dword ptr ds:[eax+0x8]              ; MainFram.61C56520
+	v9 = **(_DWORD **)(v4 + 180);
+    v10 = CTXBSTR::operator&(&a3);
+    (*(void (__thiscall **)(_DWORD, signed int, int))(v9 + 12))(*(_DWORD *)(v4 + 180), a4, v10);
+    v34 = &v15;
+    CTXBSTR::CTXBSTR(&v15, &a3, v11, v35, v36);
+    sub_61C51820((void *)v4, a2, v18, (int)v19, (int)v20); //格式化字符串 [%d/%d]
+    if ( *(_DWORD *)(v4 + 24) )
+      sub_61C4EA10(a4);
+    sub_61C4CE4C(&v27);
+    sub_61C4CE4C(&v23);
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&a3);
+  }
+  return 0;
+}
+
+==================================================================================================
+LV0003
+
+==================================================================================================
+LV0004
+
+==================================================================================================
+LV0005
+
+==================================================================================================
+LV0006
+
+==================================================================================================
+LV0007
+
+==================================================================================================
+LV0008
+
+==================================================================================================
+LV0009
+
+==================================================================================================
+LV0010
+
+==================================================================================================
+LV0011
+
+==================================================================================================
+LV0012
+
+==================================================================================================
+LV0013
+
+
+==================================================================================================
+LV0014
+
+
+
+
+==================================================================================================
+LV0015
+
+
+
+
+==================================================================================================
+LV0016
+
+
+
+
+==================================================================================================
+LV0017
+
+
+
+
+==================================================================================================
+LV0018
+
+
+
+
+==================================================================================================
+LV0019
+
+
  
  
-==============
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+==================================================================================================
 //锁？
  
 300A5D88 >  68 3C142830     push Common.3028143C
@@ -129,11 +373,7 @@
 61C89FF5    E8 E209FFFF     call MainFram.61C7A9DC
 61C8D625    FFD2            call edx
 
-
-
-
-
-
+ 
 
 
 
@@ -257,7 +497,7 @@ int sub_300935F2()
   void *v26; // [sp+38h] [bp-8h]@1
   int v27; // [sp+3Ch] [bp-4h]@3
 
-  v0 = sub_3009D9AB();
+  v0 = sub_3009D9AB();  //获得一个基址 unk_302813C8
   v1 = *((_DWORD *)v0 + 3) == 0;
   v26 = v0;
   if ( v1 )
@@ -281,11 +521,11 @@ int sub_300935F2()
       v8 = *(_DWORD *)sub_30092480(&v21);
       sub_3009299B(v3);
       v9 = *(_DWORD *)(v8 + 4);
-      if ( v9 == 883 )
-      {
+      if ( v9 == 883 )  //0x373
+      {//改变好友数量
         sub_30093443(*(_DWORD *)(v8 + 8), *(_DWORD *)(v8 + 12));
       }
-      else if ( v9 == 1024 )
+      else if ( v9 == 1024 )  //0x400
       {
         v10 = *(_DWORD *)(v8 + 8);
         sub_300A772D(
@@ -327,7 +567,8 @@ LABEL_12:
         v0 = v26;
       }
       else
-      {
+      { //返回查找数据?
+		//0x374 指定id查找好友,条件范围找好友.
         sub_30093390(*(_DWORD *)(v8 + 8), 1);
       }
       operator delete((void *)v8);
@@ -359,10 +600,17 @@ int *__thiscall sub_300CFC7C(int this, int a2)
   int v4; // [sp+8h] [bp-4h]@0
 
   sub_300A3A68(*(_DWORD *)(this + 4), this); //参数从右到左顺序入栈. 
-  return sub_30061025(v3, v4, a2); //传入的 this=[unk_302813C8+4]
+  return sub_30061025(v3, v4, a2); //传入的 this=[unk_302813C8+4], v4.4=类0001,带参数信息
 }
 
 
+//this =unk_302813C8+4
+//基类接口方法,this会变?
+int __thiscall sub_300929C0(int this, int a2)
+{
+  sub_3009285A(**(_DWORD **)(this + 4), this);
+  return a2;
+}
 
 -----------------------------------------------------------------
 LV0004 
@@ -410,7 +658,14 @@ _DWORD *__thiscall sub_300A3A68(int this, int a2, int a3)
   return v3;
 }
 
+void *__thiscall sub_3009285A(void *this, int a2, int a3)
+{
+  void *v3; // esi@1
 
+  v3 = this;
+  sub_300A3A68((int)this, a2, a3);
+  return v3;
+}
 -----------------------------------------------------------------
 LV0005
 

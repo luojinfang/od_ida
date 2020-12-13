@@ -44,3 +44,45 @@ Address    Module     Active                     Disassembly                    
 7C80236B   kernel32   Disabled                   mov edi,edi                           CreateProcessA
 7C80AEDB   kernel32   Disabled                   mov edi,edi
 7C813123   kernel32   Always                     mov eax,dword ptr fs:[18]             isDebuggerPresent
+
+
+
+
+
+
+
+
+
+
+================================
+
+
+ 
+ 
+ 
+================================
+
+
+//下载报错??
+30090AA9    C2 0800         retn 8                                   ; http 下载?
+30090AAC    83EC 0C         sub esp,0C
+30090AAF    53              push ebx
+30090AB0    56              push esi
+30090AB1    57              push edi
+30090AB2    8D45 F8         lea eax,dword ptr ss:[ebp-8]
+30090AB5    50              push eax
+30090AB6    68 E46E1630     push Common.30166EE4                     ; %s
+30090ABB    BB 2CF71630     mov ebx,Common.3016F72C                  ; Http
+30090AC0    53              push ebx
+30090AC1    6A 02           push 2
+30090AC3    BF 3CDC1430     mov edi,Common.3014DC3C                  ; func
+30090AC8    57              push edi
+30090AC9    68 E3000000     push 0E3
+30090ACE    BE 30DC1430     mov esi,Common.3014DC30                  ; file
+30090AD3    56              push esi
+30090AD4    894D FC         mov dword ptr ss:[ebp-4],ecx
+30090AD7    C745 F8 001E173>mov dword ptr ss:[ebp-8],Common.30171E00 ; OnDownloadComplete
+30090ADE    E8 3A2AF7FF     call Common.3000351D
+
+
+

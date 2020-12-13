@@ -1,10 +1,160 @@
-01A4FAA0
+ 
 
 //nickname	
-	0155D280
-	01A4FAA0----
-	05362BDC
+ 
+//01D55138
+//01D55238
 
+
+//39000000 riched20.dll
+//65000000 AFCtrl.dll
+//30000000 GF.dll
+//030A0000 IM.dll   //IDA指定加载
+//01C30000  PreloginLogic.dll 
+ 
+
+3970127E    8B448E FC       mov eax,dword ptr ds:[esi+ecx*4-0x4]
+39702603    E8 1CECFFFF     call RICHED20.39701224
+3970E19C    E8 5644FFFF     call RICHED20.397025F7
+3970E0F3    E8 716DFFFF     call RICHED20.39704E69
+3970E089    E8 29000000     call RICHED20.3970E0B7
+39704455    E8 1B050000     call RICHED20.39704975
+3970A7FA    E8 669AFFFF     call RICHED20.39704265
+3972A038    E8 EE06FEFF     call RICHED20.3970A72B
+3970649E    FF90 1C010000   call dword ptr ds:[eax+0x11C]
+397062D4    E8 24010000     call RICHED20.397063FD
+
+39704BF2    E8 470D0000     call RICHED20.3970593E
+397098DA    E8 A4B1FFFF     call RICHED20.39704A83
+3086E3AA    FF50 0C         call dword ptr ds:[eax+0xC]
+3086F995    FF50 20         call dword ptr ds:[eax+0x20]
+3086FDAE    E8 90FBFFFF     call GF.3086F943
+
+30875CBD    E8 A9A0FFFF     call GF.3086FD6B
+6576A670    FF91 B0030000   call dword ptr ds:[ecx+0x3B0]
+
+657677D7    FF90 B0030000   call dword ptr ds:[eax+0x3B0]
+6576CC4E    E8 70ABFFFF     call AFCtrl.657677C3
+6576D0D1    E8 42FBFFFF     call AFCtrl.6576CC18
+657D21C0    FFD2            call edx
+657EE047    FFD0            call eax
+
+3091559C    FF51 1C         call dword ptr ds:[ecx+0x1C]
+
+30874C23    E8 DF080A00     call GF.30915507
+
+3086C26C    FF52 04         call dword ptr ds:[edx+0x4]
+39713FA7    FF90 98000000   call dword ptr ds:[eax+0x98]
+3970F49C    E8 05000000     call RICHED20.3970F4A6
+39706034    E8 FEE4FFFF     call RICHED20.39704537
+
+3086E3AA    FF50 0C         call dword ptr ds:[eax+0xC]
+
+3086F995    FF50 20         call dword ptr ds:[eax+0x20]
+
+30874C8F    E8 AFACFFFF     call GF.3086F943  //栈里出现 nickname
+30874CDB    E8 64FFFFFF     call GF.30874C44  //edi = nickname
+30876232    E8 8DEAFFFF     call GF.30874CC4  //栈里出现 nickname
+657A75B6    FF91 28040000   call dword ptr ds:[ecx+0x428] //栈里出现 nickname  ,会调用多次？
+65768ABF    E8 D8EA0300     call AFCtrl.657A759C //栈里出现 nickname
+6576A138    FF90 28040000   call dword ptr ds:[eax+0x428] //栈里出现 nickname
+6576C971    E8 7DD7FFFF     call AFCtrl.6576A0F3 
+657BFFCF    FFD2            call edx
+03163FC1    FF51 0C         call dword ptr ds:[ecx+0xC]
+
+031664DB    E8 21DAFFFF     call IM.03163F01  //栈里出现 nickname , unicode ID, 出现 基地址 unk_33936B8,WindowName , 格式化字符串？
+031675A0    E8 4AECFFFF     call IM.031661EF
+
+03167933    E8 F8FBFFFF     call IM.03167530  //unicode ID?
+01C4C2A9    FF51 0C         call dword ptr ds:[ecx+0xC]
+
+01C4CA38    E8 66F3FFFF     call Prelogin.01C4BDA3 
+01C4CE24    E8 3EF7FFFF     call Prelogin.01C4C567 //ip
+01C4A403    FFD2            call edx		//ip
+300A5BF9    FF51 0C         call dword ptr ds:[ecx+0xC]
+300A526F    FFD2            call edx //ip
+
+300996BD    FF51 10         call dword ptr ds:[ecx+0x10]
+300996BC    50              push eax
+30099916    E8 F2FCFFFF     call Common.3009960D //ip
+30099B1B    E8 63FDFFFF     call Common.30099883
+30091107    FF50 04         call dword ptr ds:[eax+0x4]
+300935C3    FF50 04         call dword ptr ds:[eax+0x4]
+30093673    E8 CBFDFFFF     call Common.30093443
+300937D5    E8 18FEFFFF     call Common.300935F2
+77D18731    FF55 08         call dword ptr ss:[ebp+0x8]
+
+77D18811    E8 F6FEFFFF     call USER32.77D1870C
+77D189C8    E8 92FDFFFF     call USER32.77D1875F
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//winproc 好友数量也会走这个 
+LRESULT __stdcall sub_3009379C(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+  LRESULT result; // eax@4
+
+  if ( Msg == 883 || Msg == 884 || Msg == 1024 )
+  {
+    sub_30092DC1(Msg, wParam, lParam);
+    sub_300935F2();
+    result = 1;
+  }
+  else
+  {
+    result = DefWindowProcW(hWnd, Msg, wParam, lParam);
+  }
+  return result;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
 //QQ帐号
 
 ===============================================================================================
