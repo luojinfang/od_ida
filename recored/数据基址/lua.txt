@@ -1,0 +1,23 @@
+0012F65C   309456E5  返回到 GF.309456E5 来自 <jmp.&lua.luaopen_string>
+
+
+
+//GF.dll
+struct lua_State **__thiscall sub_309456C8(struct lua_State **this)
+{
+  struct lua_State **v1; // edi@1
+  struct lua_State *v2; // esi@1
+
+  v1 = this;
+  v2 = luaL_newstate();
+  luaopen_base(v2);
+  luaopen_table(v2);
+  luaopen_string(v2);
+  luaopen_math(v2);
+  luaopen_debug(v2);
+  luaopen_os(v2);
+  lua_settop(v2, 0);
+  sub_30945654(v2);
+  *v1 = v2;
+  return v1;
+}

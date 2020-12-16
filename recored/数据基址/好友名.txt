@@ -62,7 +62,7 @@
 657BFFCF    FFD2            call edx
 03163FC1    FF51 0C         call dword ptr ds:[ecx+0xC]
 
-031664DB    E8 21DAFFFF     call IM.03163F01  //栈里出现 nickname , unicode ID, 出现 基地址 unk_33936B8,WindowName , 格式化字符串？
+31661EF()/031664DB    E8 21DAFFFF     call IM.03163F01  //栈里出现 nickname , unicode ID, 出现 基地址 unk_33936B8,WindowName , 格式化字符串？
 031675A0    E8 4AECFFFF     call IM.031661EF
 
 03167933    E8 F8FBFFFF     call IM.03167530  //unicode ID?
@@ -92,18 +92,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+============================
 
 
 //winproc 好友数量也会走这个 
@@ -125,10 +114,320 @@ LRESULT __stdcall sub_3009379C(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
 }
 
 
+============================
 
 
 
+============================
+//修改自己的动态信息? status message
+int __thiscall sub_31661EF(char *this, int *a2, int a3, int *a4)
+{
+  char *v4; // esi@1
+  const char *v5; // eax@1
+  int v6; // eax@4
+  struct ITXDataRead *v7; // eax@4
+  int v8; // eax@4
+  int v9; // eax@4
+  int v10; // eax@4
+  int v11; // eax@4
+  int *v12; // eax@4
+  int v13; // ecx@4
+  int v14; // eax@7
+  int v15; // eax@7
+  int v16; // eax@7
+  int v17; // eax@7
+  int v18; // eax@8
+  int v19; // eax@8
+  int v20; // eax@8
+  int v21; // ecx@8
+  int v22; // eax@8
+  int v23; // ecx@9
+  int v24; // eax@9
+  int v25; // ecx@9
+  int v26; // eax@9
+  int v27; // ecx@9
+  int v28; // ecx@10
+  int v29; // ecx@12
+  int v30; // ecx@14
+  int v31; // ecx@16
+  int v32; // esi@17
+  int v34; // [sp-Ch] [bp-54h]@9
+  int *v35; // [sp-8h] [bp-50h]@4
+  struct CTXStringW *v36; // [sp-4h] [bp-4Ch]@4
+  struct CTXStringW *v37; // [sp+0h] [bp-48h]@7
+  int v38; // [sp+Ch] [bp-3Ch]@7
+  char *v39; // [sp+10h] [bp-38h]@7
+  int v40; // [sp+14h] [bp-34h]@7
+  int v41; // [sp+18h] [bp-30h]@4
+  int v42; // [sp+1Ch] [bp-2Ch]@4
+  struct CTXStringW *v43; // [sp+20h] [bp-28h]@4
+  int *v44; // [sp+24h] [bp-24h]@9
+  int *v45; // [sp+28h] [bp-20h]@9
+  int *v46; // [sp+2Ch] [bp-1Ch]@4
+  int *v47; // [sp+30h] [bp-18h]@4
+  wchar_t v48[2]; // [sp+34h] [bp-14h]@4
+  char *v49; // [sp+38h] [bp-10h]@1
+  int v50; // [sp+44h] [bp-4h]@4
 
+  v4 = this;
+  v49 = this;
+  v5 = (const char *)&unk_3391538;
+  if ( a2 != (int *)-2 )
+    v5 = "1Y%;
+  sub_30FA5E2((int)L"file", 1478, (int)L"func", 2, (int)"(u7bD崣e", (int)&unk_33936B8, (char)v5);
+  if ( a2 != (int *)-2 )
+  {
+    v32 = (int)(v4 + 160);
+    sub_30D10AB(a2, a4);
+    return sub_30D0FD6(v32);
+  }
+  v47 = (int *)Util::Contact::GetSelfUin();
+  CTXStringW::CTXStringW(v48);
+  v50 = 0;
+  v6 = sub_31DA72E((int)&v42, (int)L"strNickName");
+  LOBYTE(v50) = 1;
+  v7 = (struct ITXDataRead *)CTXBSTR::operator wchar_t *(v6);
+  Util::Data::GetTXDataStr((Util::Data *)a3, v7, v48, v36);    //获得 status message
+  LOBYTE(v50) = 0;
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v42);
+  v43 = 0;
+  v8 = sub_31DA72E((int)&v42, (int)L"dwSeq");
+  a3 = *a4;
+  v35 = (int *)&v43;
+  LOBYTE(v50) = 2;
+  v9 = CTXBSTR::operator wchar_t *(v8);
+  (*(void (__stdcall **)(int *, int))(a3 + 48))(a4, v9);
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v42);
+  a2 = 0;
+  LOBYTE(v50) = 3;
+  sub_31625A7((_DWORD **)v49, v47, (int *)&a2);
+  a4 = a2;
+  v41 = 0;
+  v10 = sub_31DA72E((int)&v42, (int)L"dwLongNicknameSeq");
+  a3 = *a4;
+  v35 = &v41;
+  LOBYTE(v50) = 4;
+  v11 = CTXBSTR::operator wchar_t *(v10);
+  (*(void (__stdcall **)(int *, int))(a3 + 48))(a4, v11);
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v42);
+  v46 = 0;
+  v12 = (int *)*((_DWORD *)v49 + 46);
+  v13 = *v12;
+  LOBYTE(v50) = 5;
+  if ( (*(int (__stdcall **)(int *, void *, int *))(v13 + 24))(v12, &unk_3391378, (int *)&v46) >= 0 && v46 )
+  {
+    if ( CTXStringW::GetLength((CTXStringW *)v48) )
+    {
+      Util::Misc::FixStr((Util::Misc *)v48, v37);
+      a4 = a2;
+      a3 = CTXBSTR::CTXBSTR(&v42, v48, v37);
+      LOBYTE(v50) = 9;
+      v38 = sub_31DA72E((int)&v40, (int)L"strLongNickname");
+      v18 = *a4;
+      LOBYTE(v50) = 10;
+      v39 = (char *)v18;
+      v37 = (struct CTXStringW *)CTXBSTR::operator wchar_t *(a3);
+      v19 = CTXBSTR::operator wchar_t *(v38);
+      (*((void (__stdcall **)(int *, int))v39 + 58))(a4, v19);
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v40);
+      LOBYTE(v50) = 5;
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v42);
+      a4 = a2;
+      v20 = sub_31DA72E((int)&v38, (int)L"dwLongNicknameSeq");
+      v21 = *a4;
+      v37 = v43;
+      a3 = v21;
+      LOBYTE(v50) = 11;
+      v22 = CTXBSTR::operator wchar_t *(v20);
+      (*(void (__stdcall **)(int *, int))(a3 + 224))(a4, v22);
+      LOBYTE(v50) = 5;
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v38);
+      v37 = (struct CTXStringW *)1;
+    }
+    else
+    {
+      a4 = a2;
+      a3 = CTXBSTR::CTXBSTR(&v38, &WindowName);
+      LOBYTE(v50) = 6;
+      v42 = sub_31DA72E((int)&v39, (int)L"strLongNickname");
+      v14 = *a4;
+      LOBYTE(v50) = 7;
+      v40 = v14;
+      v37 = (struct CTXStringW *)CTXBSTR::operator wchar_t *(a3);
+      v15 = CTXBSTR::operator wchar_t *(v42);
+      (*(void (__stdcall **)(int *, int))(v40 + 232))(a4, v15);
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v39);
+      LOBYTE(v50) = 5;
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v38);
+      a4 = a2;
+      v16 = sub_31DA72E((int)&v38, (int)L"dwLongNicknameSeq");
+      a3 = *a4;
+      v37 = 0;
+      LOBYTE(v50) = 8;
+      v17 = CTXBSTR::operator wchar_t *(v16);
+      (*(void (__stdcall **)(int *, int))(a3 + 224))(a4, v17);
+      LOBYTE(v50) = 5;
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v38);
+      v37 = 0;
+    }
+    v23 = *v46;
+    v36 = (struct CTXStringW *)6;
+    (*(void (__stdcall **)(int, int *))(v23 + 32))((int)v46, v47);
+    sub_31623AE(v49);
+    v39 = v49 + 160;
+    sub_30D10AB(-2, 0);  
+    sub_3163F01(v47);//ID 
+    v44 = 0;
+    LOBYTE(v50) = 12;
+    Util::Data::CreateTXArray((Util::Data *)&v44, (struct ITXArray **)6);
+    v45 = 0;
+    LOBYTE(v50) = 13;
+    Util::Data::CreateTXData((Util::Data *)&v45, (struct ITXData **)v35);
+    a4 = v45;
+    v24 = sub_31DA72E((int)&v38, (int)L"dwUin");
+    v25 = *a4;
+    v35 = v47;
+    a3 = v25;
+    LOBYTE(v50) = 14;
+    v26 = CTXBSTR::operator wchar_t *(v24);
+    (*(void (__stdcall **)(int *, int))(a3 + 224))(a4, v26);
+    LOBYTE(v50) = 13;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v38);
+    (*(void (__stdcall **)(int, int *))(*v44 + 240))((int)v44, v45);
+    v35 = 0;
+    v34 = v27;
+    a4 = &v34;
+    sub_3145F40(v44);
+    sub_3164024(v34, v35);
+    LOBYTE(v50) = 12;
+    if ( v45 )
+    {
+      v28 = *v45;
+      v35 = v45;
+      (*(void (__stdcall **)(int *))(v28 + 8))(v45);
+    }
+    LOBYTE(v50) = 5;
+    if ( v44 )
+    {
+      v29 = *v44;
+      v35 = v44;
+      (*(void (__stdcall **)(int))(v29 + 8))((int)v44);
+    }
+    LOBYTE(v50) = 3;
+    if ( v46 )
+    {
+      v30 = *v46;
+      v35 = v46;
+      (*(void (__stdcall **)(int))(v30 + 8))((int)v46);
+    }
+    LOBYTE(v50) = 0;
+    if ( a2 )
+    {
+      v31 = *a2;
+      v35 = a2;
+      (*(void (__stdcall **)(int *))(v31 + 8))(a2);
+    }
+    v50 = -1;
+    CTXStringW::~CTXStringW((CTXStringW *)v48);
+    v32 = (int)v39;
+    return sub_30D0FD6(v32);
+  }
+  LOBYTE(v50) = 3;
+  if ( v46 )
+    (*(void (__stdcall **)(int))(*v46 + 8))((int)v46);
+  LOBYTE(v50) = 0;
+  if ( a2 )
+    (*(void (__stdcall **)(int *))(*a2 + 8))(a2);
+  v50 = -1;
+  return CTXStringW::~CTXStringW((CTXStringW *)v48);
+}
+============================
+//common.dll
+
+.idata:0336A3A8 ; int __cdecl Util::Data::GetTXDataStr(struct ITXDataRead *, wchar_t const *, class CTXStringW &)
+.idata:0336A3A8                 extrn ?GetTXDataStr@Data@Util@@YAHPAUITXDataRead@@PB_WAAVCTXStringW@@@Z:dword
+.idata:0336A3A8                                         ; CODE XREF: sub_30EC9DE+3CCp
+.idata:0336A3A8                                         ; sub_30EC9DE+415p ...
+
+//获得数据？Util::Data 在哪里创建?
+int __cdecl Util::Data::GetTXDataStr(Util::Data *this, struct ITXDataRead *a2)
+{
+  Util::Data *v2; // edi@1
+  signed int v3; // ebx@1
+  int result; // eax@2
+  int v5; // esi@3
+  int v6; // ST08_4@3
+  int v7; // eax@3
+  CTXStringW *v8; // eax@4
+  char v9; // [sp+Ch] [bp-14h]@3
+  char v10; // [sp+10h] [bp-10h]@3
+  int v11; // [sp+1Ch] [bp-4h]@3
+
+  v2 = this;
+  v3 = 0;
+  if ( this )
+  {
+    CTXBSTR::CTXBSTR((CTXStringW *)&v10);
+    v11 = 0;
+    this = (Util::Data *)Concurrency::cancellation_token::_FromImpl(&v9, a2);
+    v5 = *(_DWORD *)v2;
+    LOBYTE(v11) = 1;
+    v6 = CTXBSTR::operator&(&v10);
+    v7 = CTXBSTR::operator wchar_t *(this);
+    BYTE3(this) = (*(int (__stdcall **)(Util::Data *, int, int))(v5 + 64))(v2, v7, v6) >= 0;
+    LOBYTE(v11) = 0;
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v9);
+    if ( BYTE3(this) )
+    {
+      v8 = (CTXStringW *)CTXStringW::CTXStringW((CTXStringW *)&v10);
+      LOBYTE(v11) = 2;
+      CTXStringW::operator=(v8);
+      LOBYTE(v11) = 0;
+      CTXStringW::~CTXStringW((CTXStringW *)&this);
+      v3 = 1;
+    }
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v10);
+    result = v3;
+  }
+  else
+  {
+    result = 0;
+  }
+  return result;
+}
+
+
+
+int __cdecl sub_300DB3F2(int a1)
+{
+  void *v1; // eax@1
+  int v2; // edi@2
+  void *v3; // eax@3
+  int v4; // eax@3
+
+  v1 = sub_300DB193();
+  (*(void (__thiscall **)(void *))(*(_DWORD *)v1 + 16))(v1);
+  if ( *(_DWORD *)(a1 + 4) < 0 )
+  {
+    v3 = sub_300DB193();
+    v4 = (**(int (__thiscall ***)(void *, _DWORD, signed int))v3)(v3, *(_DWORD *)(a1 + 12) >> 1, 2);
+    v2 = v4;
+    if ( !v4 )
+      sub_30002AF7(-2147024882);
+    *(_DWORD *)(v4 + 12) = *(_DWORD *)(a1 + 12);
+    sub_300DB2A7((void *)(v4 + 16), (void *)(a1 + 16), *(_DWORD *)(a1 + 12) + 1);
+  }
+  else
+  {
+    v2 = a1;
+    InterlockedIncrement((LPLONG)(a1 + 4));
+  }
+  return v2;
+}
+
+
+============================
+============================
 
 
 
