@@ -1,0 +1,2476 @@
+
+300A7034   //CTXUDPDataSender::SendData
+300A5190    E8 9F1E0000     call Common.CTXUDPDataSender::SendData
+01C4A355    FF16            call dword ptr ds:[esi]
+
+01C4D2F0    E8 A9CDFFFF     call Prelogin.01C4A09E
+01C82853    FF51 40         call dword ptr ds:[ecx+0x40]
+03163910    FF51 0C         call dword ptr ds:[ecx+0xC]   //新，旧签名都压栈了
+0318E3A2    FF52 1C         call dword ptr ds:[edx+0x1C]
+
+61C1DBC8    FF16            call dword ptr ds:[esi]
+ 
+61C28CE0    E8 2B4EFFFF     call MainFram.61C1DB10  //新签名压栈了
+
+ 61C6C335    FFD0            call eax
+3091559C    FF51 1C         call dword ptr ds:[ecx+0x1C]
+30830B1D    E8 E5490E00     call GF.30915507
+
+65818D73    FF51 3C         call dword ptr ds:[ecx+0x3C]
+
+6576F845()/6576FDE0    FF50 3C         call dword ptr ds:[eax+0x3C] //新签名压栈了
+6576F780    FF90 64030000   call dword ptr ds:[eax+0x364]
+
+6576FFF4    E8 49F7FFFF     call AFCtrl.6576F742
+
+(GF.dll)3082940E    FF51 1C         call dword ptr ds:[ecx+0x1C]
+
+30825697    E8 E83C0000     call GF.30829384
+
+3091868B    E8 E4CDF0FF     call GF.Util::GF::DispatchFrameMsg /30825474()
+
+sub_3091A3AF()/3091A42E    E8 25E2FFFF     call GF.30918658
+sub_3092187E()/3092189A    FF91 98000000   call dword ptr ds:[ecx+0x98]
+
+sub_3092072C()/30920C7B    FF52 58         call dword ptr ds:[edx+0x58]   //winproc??
+
+sub_30922146()/3092216E    FF50 10         call dword ptr ds:[eax+0x10]
+
+sub_30801A10()/30801A52    FF10            call dword ptr ds:[eax]
+
+77D18731    FF55 08         call dword ptr ss:[ebp+0x8]
+
+77D18811    E8 F6FEFFFF     call USER32.77D1870C
+
+77D2A00E    E8 4CE7FEFF     call USER32.77D1875F
+
+77D2A034    E8 89FFFFFF     call USER32.77D29FC2
+
+6620254A    FF15 B8493366   call dword ptr ds:[<&USER32.CallWindowProcW>]                       ; USER32.CallWindowProcW
+
+66202617    E8 1CFFFFFF     call AppFrame.66202538
+
+77D18731    FF55 08         call dword ptr ss:[ebp+0x8]
+
+77D18811    E8 F6FEFFFF     call USER32.77D1870C
+
+77D189C8    E8 92FDFFFF     call USER32.77D1875F
+
+77D18A0B    E8 E1FEFFFF     call USER32.77D188F1
+
+69F06524    FF15 B004F169   call dword ptr ds:[<&USER32.DispatchMessageW>]                      ; USER32.DispatchMessageW
+
+69F06337    E8 87010000     call HummerEn.69F064C3
+
+
+
+
+================================================================================================================================================================================
+//获得基址 unk_3096A65C,界面控件管理器? 30825474()/GF.Util::GF::DispatchFrameMsg() =>sub_30829384()事件触发
+
+@a1 控件事件回调方法
+int __cdecl sub_30829384(int a1, int a2, int a3, int a4, int a5, _DWORD *a6)
+	=>sub_308290FD()
+void *__thiscall sub_308290FD(void *this, void (__stdcall ***a2)(_DWORD, _DWORD, _DWORD))
+{
+  void *v2; // esi@1
+
+  v2 = this;
+  *(_DWORD *)this = 0;
+  if ( a2 )
+    (**a2)(a2, &unk_3096A65C, this);   //a2 为 sub_30829384 的参数 a1,  控件事件回调方法
+  return v2;
+}
+
+
+
+//返回 控件事件回调方法 v2, 在 sub_30829384,作参数 a1 使用
+void *__thiscall sub_30825EEA(void *this, int a2)
+{
+  void *v2; // esi@1
+
+  v2 = this;
+  *(_DWORD *)this = a2;
+  if ( a2 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)a2 + 4))(a2);
+  return v2;
+}
+================================================================================================================================================================================
+
+Util::GF *__stdcall sub_30918658(Util::GF *a1, struct IGFFrame *a2, struct tagBaseArg *a3, int *a4, __int32 *a5)
+{
+  Util::GF *result; // eax@2
+  struct IGFElement *v6; // [sp+0h] [bp-4h]@0
+
+  if ( Util::GF::IsValidGFElement(a1, v6) )
+  {
+    result = Util::GF::DispatchFrameMsg(a1, a2, a3, a4, a5);
+  }
+  else
+  {
+    sub_309183DA(a1);
+    result = (Util::GF *)-2147467259;
+  }
+  return result;
+}
+
+
+================================================================================================================================================================================
+
+signed int __stdcall sub_3091A3AF(int a1, int a2, int a3, int a4, unsigned int a5, struct tagBaseArg *a6)
+{
+  struct tagBaseArg *v6; // esi@1
+  int v7; // edi@3
+  unsigned int v8; // edx@11
+  int v9; // edi@22
+  int (__stdcall **v10)(_DWORD, _DWORD); // esi@24
+  SHORT v11; // ax@24
+  int v12; // eax@24
+  struct tagBaseArg *v13; // eax@50
+  int v14; // ecx@51
+  int v15; // eax@51
+  int v17; // [sp-4h] [bp-48h]@0
+  int v18; // [sp+Ch] [bp-38h]@3
+  char v19; // [sp+14h] [bp-30h]@3
+  int v20; // [sp+1Ch] [bp-28h]@3
+  int v21; // [sp+20h] [bp-24h]@3
+  int v22; // [sp+24h] [bp-20h]@3
+  unsigned int v23; // [sp+28h] [bp-1Ch]@3
+  int v24; // [sp+2Ch] [bp-18h]@3
+  int v25; // [sp+30h] [bp-14h]@4
+  Util::GF *v26; // [sp+34h] [bp-10h]@3
+  int v27; // [sp+40h] [bp-4h]@3
+
+  v6 = a6;
+  if ( !a6 || !*(_DWORD *)(a1 + 40) )
+    return -2147467259;
+  v24 = 0;
+  v26 = 0;
+  v27 = 0;
+  sub_30918439(&v26);
+  v18 = 0;
+  memset(&v19, 0, 0x18u);
+  sub_309178DA(&v18);
+  v7 = a1;
+  v20 = a2;
+  v21 = a3;
+  v22 = a4;
+  v23 = a5;
+  v18 = 203;
+  sub_30918658(v26, (struct IGFFrame *)&v18, v6, &v24, 0);  //-----
+  if ( !*(_DWORD *)v6 )
+  {
+    sub_308AB77D(*(_DWORD *)(v7 + 40));
+    a4 = 0;
+    LOBYTE(v27) = 2;
+    if ( v25
+      && (*(int (__stdcall **)(int, int *))(*(_DWORD *)v25 + 32))(v25, &a4) >= 0
+      && a4
+      && a2 == 9
+      && GetAsyncKeyState(17) < 0 )
+    {
+      (*(void (__stdcall **)(int, unsigned int *))(*(_DWORD *)a4 + 824))(a4, &a5);
+      if ( a5 > 1 )
+      {
+        a3 = 0;
+        (*(void (__stdcall **)(int, int *, int))(*(_DWORD *)a4 + 960))(a4, &a3, v17);
+        if ( GetAsyncKeyState(16) >= 0 )
+          v8 = (a3 + 1) % a5;
+        else
+          v8 = (a3 + a5 - 1) % a5;
+        a3 = v8;
+        (*(void (__stdcall **)(int))(*(_DWORD *)a4 + 964))(a4);
+      }
+      *(_DWORD *)a6 = 1;
+    }
+    LOBYTE(v27) = 1;
+    if ( a4 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)a4 + 8))(a4);
+    LOBYTE(v27) = 0;
+    if ( v25 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)v25 + 8))(v25);
+    v6 = a6;
+    if ( !*(_DWORD *)a6 )
+    {
+      a3 = 0;
+      LOBYTE(v27) = 3;
+      if ( v26 )
+      {
+        if ( (*(int (__stdcall **)(Util::GF *, int *))(*(_DWORD *)v26 + 692))(v26, &a3) >= 0 )
+        {
+          v9 = a3;
+          if ( a3 )
+          {
+            if ( a2 == 9 )
+            {
+              v10 = (int (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)a3 + 28);
+              v11 = GetKeyState(16);
+              v12 = (*v10)(v9, v11 >= 0);
+              goto LABEL_27;
+            }
+            if ( (unsigned int)(a2 - 37) <= 3 )
+            {
+              v12 = (*(int (__stdcall **)(int, int))(*(_DWORD *)a3 + 32))(a3, a2);
+LABEL_27:
+              if ( v12 >= 0 )
+              {
+                if ( v26 )
+                  AtlComPtrAssign(&v26, 0);
+                sub_30918439(&v26);
+                if ( v26 )
+                  (*(void (__stdcall **)(Util::GF *))(*(_DWORD *)v26 + 728))(v26);
+              }
+              goto LABEL_32;
+            }
+          }
+        }
+      }
+LABEL_32:
+      LOBYTE(v27) = 0;
+      if ( a3 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)a3 + 8))(a3);
+      v6 = a6;
+      if ( !*(_DWORD *)a6 )
+      {
+        a6 = 0;
+        sub_3082E000(*(_DWORD *)(a1 + 40));
+        LOBYTE(v27) = 5;
+        if ( a3 && (*(int (__stdcall **)(int, int, struct tagBaseArg **))(*(_DWORD *)a3 + 928))(a3, a2, &a6) >= 0 && a6 )
+        {
+          (*(void (__stdcall **)(struct tagBaseArg *, _DWORD))(*(_DWORD *)a6 + 712))(a6, 0);
+          *(_DWORD *)v6 = 1;
+        }
+        LOBYTE(v27) = 4;
+        if ( a3 )
+          (*(void (__stdcall **)(int))(*(_DWORD *)a3 + 8))(a3);
+        LOBYTE(v27) = 0;
+        if ( a6 )
+          (*(void (__stdcall **)(struct tagBaseArg *))(*(_DWORD *)a6 + 8))(a6);
+      }
+      goto LABEL_43;
+    }
+  }
+LABEL_43:
+  if ( a2 == 13 && !*(_DWORD *)v6 )
+  {
+    a2 = 0;
+    a3 = 0;
+    a4 = 0;
+    if ( v26
+      && ((*(void (__stdcall **)(Util::GF *, int *))(*(_DWORD *)v26 + 800))(v26, &a2),
+          (*(void (__stdcall **)(Util::GF *, int *))(*(_DWORD *)v26 + 264))(v26, &a3),
+          (*(void (__stdcall **)(Util::GF *, int *))(*(_DWORD *)v26 + 272))(v26, &a4),
+          a2)
+      && a3
+      && a4 )
+    {
+      (*(void (__stdcall **)(Util::GF *, _DWORD))(*(_DWORD *)v26 + 712))(v26, 0);
+    }
+    else
+    {
+      sub_30829141(*(_DWORD *)(a1 + 40));
+      v13 = a6;
+      if ( a6 )
+      {
+        a1 = 0;
+        v14 = *(_DWORD *)a6;
+        LOBYTE(v27) = 7;
+        (*(void (__stdcall **)(struct tagBaseArg *, int *))(v14 + 40))(a6, &a1);
+        v15 = a1;
+        if ( a1 )
+        {
+          (*(void (__stdcall **)(int, int *))(*(_DWORD *)a1 + 800))(a1, &a2);
+          v15 = a1;
+          if ( a2 )
+          {
+            (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)a1 + 712))(a1, 0);
+            v15 = a1;
+          }
+        }
+        LOBYTE(v27) = 6;
+        if ( v15 )
+          (*(void (__stdcall **)(int))(*(_DWORD *)v15 + 8))(v15);
+        v13 = a6;
+      }
+      LOBYTE(v27) = 0;
+      if ( v13 )
+        (*(void (__stdcall **)(struct tagBaseArg *))(*(_DWORD *)v13 + 8))(v13);
+    }
+  }
+  v27 = -1;
+  if ( v26 )
+    (*(void (__stdcall **)(Util::GF *))(*(_DWORD *)v26 + 8))(v26);
+  return 0;
+}
+
+================================================================================================================================================================================
+int __thiscall sub_3092187E(int this, int a2, int a3, int a4, int a5, int a6, int a7)
+{
+  int result; // eax@1
+
+  result = *(_DWORD *)(this + 36);
+  if ( result )
+    result = (*(int (__stdcall **)(int, int, int, int, int, int))(*(_DWORD *)result + 152))(result, a3, a4, a5, a6, a7);
+  return result;
+}
+================================================================================================================================================================================
+
+//控件事件处理？
+LRESULT __thiscall sub_3092072C(void *this, UINT Msg, WPARAM wParam, LPARAM lParam, int a5)
+{
+  int v5; // eax@1
+  LRESULT result; // eax@9
+
+  v5 = a5;
+  *(_DWORD *)a5 = 0;
+  if ( Msg == 80 || Msg == 81 )
+  {
+    *(_DWORD *)a5 = 1;
+    result = DefWindowProcW(*((HWND *)this + 1), Msg, wParam, lParam);
+  }
+  else
+  {
+    if ( !*((_DWORD *)this + 6) && Msg != 256 && Msg != 260 && Msg != 261 && Msg != 257 && Msg != 522 )
+      return 0;
+    if ( Msg > 0x1C )
+    {
+      if ( Msg > 0x125 )
+      {
+        if ( Msg > 0x231 )
+        {
+          if ( Msg > 0x291 )
+          {
+            if ( Msg > 0x303 )
+            {
+              if ( Msg == 772 )
+              {
+                (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 304))(*((_DWORD *)this + 1), a5);
+                return 0;
+              }
+              if ( Msg == 786 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, unsigned int, int))(*(_DWORD *)this + 80))(
+                  *((_DWORD *)this + 1),
+                  wParam,
+                  (unsigned __int16)lParam,
+                  (unsigned int)lParam >> 16,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 798 )
+                return (*(int (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 280))(
+                         *((_DWORD *)this + 1),
+                         wParam,
+                         lParam,
+                         a5);
+            }
+            else
+            {
+              if ( Msg == 771 )
+              {
+                (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 300))(*((_DWORD *)this + 1), a5);
+                return 0;
+              }
+              if ( Msg == 675 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 128))(
+                  *((_DWORD *)this + 1),
+                  wParam,
+                  lParam,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 768 )
+              {
+                (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 296))(*((_DWORD *)this + 1), a5);
+                return 0;
+              }
+              if ( Msg == 769 )
+              {
+                (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 288))(*((_DWORD *)this + 1), a5);
+                return 0;
+              }
+              if ( Msg == 770 )
+              {
+                (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 292))(*((_DWORD *)this + 1), a5);
+                return 0;
+              }
+            }
+          }
+          else
+          {
+            if ( Msg == 657 )
+              return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 340))(
+                       *((_DWORD *)this + 1),
+                       657,
+                       wParam,
+                       lParam,
+                       a5);
+            if ( Msg > 0x284 )
+            {
+              if ( Msg == 645 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 324))(
+                         *((_DWORD *)this + 1),
+                         645,
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 646 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 328))(
+                         *((_DWORD *)this + 1),
+                         646,
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 648 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 332))(
+                         *((_DWORD *)this + 1),
+                         648,
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 656 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 336))(
+                         *((_DWORD *)this + 1),
+                         656,
+                         wParam,
+                         lParam,
+                         a5);
+            }
+            else
+            {
+              if ( Msg == 644 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 320))(
+                         *((_DWORD *)this + 1),
+                         644,
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 562 )
+                return (*(int (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 72))(*((_DWORD *)this + 1), a5);
+              if ( Msg == 641 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 308))(
+                         *((_DWORD *)this + 1),
+                         641,
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 642 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 312))(
+                         *((_DWORD *)this + 1),
+                         642,
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 643 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 316))(
+                         *((_DWORD *)this + 1),
+                         643,
+                         wParam,
+                         lParam,
+                         a5);
+            }
+          }
+        }
+        else
+        {
+          if ( Msg == 561 )
+            return (*(int (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 52))(*((_DWORD *)this + 1), a5);
+          switch ( Msg )
+          {
+            case 0x216u:
+              (*(void (__stdcall **)(_DWORD, LPARAM, int))(*(_DWORD *)this + 144))(*((_DWORD *)this + 1), lParam, a5);
+              return 0;
+            case 0x214u:
+              (*(void (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 236))(
+                *((_DWORD *)this + 1),
+                wParam,
+                lParam,
+                a5);
+              return 0;
+            case 0x211u:
+              LOBYTE(v5) = wParam != 0;
+              return (*(int (__stdcall **)(_DWORD, int, int))(*(_DWORD *)this + 48))(*((_DWORD *)this + 1), v5, a5);
+            case 0x212u:
+              LOBYTE(v5) = wParam != 0;
+              return (*(int (__stdcall **)(_DWORD, int, int))(*(_DWORD *)this + 68))(*((_DWORD *)this + 1), v5, a5);
+            case 0x201u:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 100))(
+                *((_DWORD *)this + 1),
+                0,
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x202u:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 104))(
+                *((_DWORD *)this + 1),
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x203u:
+              (*(void (__stdcall **)(_DWORD, signed int, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 100))(
+                *((_DWORD *)this + 1),
+                1,
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x204u:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 108))(
+                *((_DWORD *)this + 1),
+                0,
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x205u:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 112))(
+                *((_DWORD *)this + 1),
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x206u:
+              (*(void (__stdcall **)(_DWORD, signed int, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 108))(
+                *((_DWORD *)this + 1),
+                1,
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x207u:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 116))(
+                *((_DWORD *)this + 1),
+                0,
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x208u:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 120))(
+                *((_DWORD *)this + 1),
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x209u:
+              (*(void (__stdcall **)(_DWORD, signed int, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 116))(
+                *((_DWORD *)this + 1),
+                1,
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x200u:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 132))(
+                *((_DWORD *)this + 1),
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x20Au:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, int))(*(_DWORD *)this + 136))(
+                *((_DWORD *)this + 1),
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                SHIWORD(wParam),
+                (signed __int16)wParam,
+                a5);
+              return 0;
+            default:
+              break;
+          }
+        }
+      }
+      else
+      {
+        if ( Msg == 293 )
+          return (*(int (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 272))(
+                   *((_DWORD *)this + 1),
+                   wParam,
+                   lParam,
+                   a5);
+        if ( Msg > 0xA3 )
+        {
+          if ( Msg > 0x105 )
+          {
+            if ( Msg == 262 )
+            {
+              (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, int))(*(_DWORD *)this + 256))(
+                *((_DWORD *)this + 1),
+                wParam,
+                (signed __int16)lParam,
+                a5);
+              return 0;
+            }
+            if ( Msg == 269 )
+              return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 344))(
+                       *((_DWORD *)this + 1),
+                       269,
+                       wParam,
+                       lParam,
+                       a5);
+            if ( Msg == 270 )
+              return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 348))(
+                       *((_DWORD *)this + 1),
+                       270,
+                       wParam,
+                       lParam,
+                       a5);
+            if ( Msg == 271 )
+              return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 352))(
+                       *((_DWORD *)this + 1),
+                       271,
+                       wParam,
+                       lParam,
+                       a5);
+            if ( Msg == 272 )
+              return (*(int (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 84))(
+                       *((_DWORD *)this + 1),
+                       wParam,
+                       lParam,
+                       a5);
+            if ( Msg == 274 )
+            {
+              (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, _DWORD, int))(*(_DWORD *)this + 240))(
+                *((_DWORD *)this + 1),
+                wParam,
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                a5);
+              return 0;
+            }
+            if ( Msg == 279 )
+            {
+              (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, unsigned int, int))(*(_DWORD *)this + 276))(
+                *((_DWORD *)this + 1),
+                wParam,
+                (unsigned __int16)lParam,
+                (unsigned int)lParam >> 16,
+                a5);
+              return 0;
+            }
+          }
+          else
+          {
+            if ( Msg == 261 )
+            {
+              (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, _DWORD, unsigned int, int))(*(_DWORD *)this + 252))(
+                *((_DWORD *)this + 1),
+                wParam,
+                0,
+                (signed __int16)lParam,
+                (unsigned int)lParam >> 16,
+                a5);
+              return 0;
+            }
+            if ( Msg > 0x100 )
+            {
+              if ( Msg == 257 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, _DWORD, unsigned int, int))(*(_DWORD *)this + 92))(
+                  *((_DWORD *)this + 1),
+                  wParam,
+                  0,
+                  (signed __int16)lParam,
+                  (unsigned int)lParam >> 16,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 258 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, int))(*(_DWORD *)this + 28))(
+                  *((_DWORD *)this + 1),
+                  wParam,
+                  (signed __int16)lParam,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 260 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, signed int, _DWORD, unsigned int, int))(*(_DWORD *)this + 248))(
+                  *((_DWORD *)this + 1),
+                  wParam,
+                  1,
+                  (signed __int16)lParam,
+                  (unsigned int)lParam >> 16,
+                  a5);
+                return 0;
+              }
+            }
+            else
+            {
+              if ( Msg == 256 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, signed int, _DWORD, unsigned int, int))(*(_DWORD *)this + 88))(
+                  *((_DWORD *)this + 1),
+                  wParam,
+                  1,
+                  (signed __int16)lParam,
+                  (unsigned int)lParam >> 16,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 164 )
+              {
+                (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 180))(
+                  *((_DWORD *)this + 1),
+                  0,
+                  (signed __int16)lParam,
+                  SHIWORD(lParam),
+                  wParam,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 165 )
+              {
+                (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 184))(
+                  *((_DWORD *)this + 1),
+                  (signed __int16)lParam,
+                  SHIWORD(lParam),
+                  wParam,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 167 )
+              {
+                (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 188))(
+                  *((_DWORD *)this + 1),
+                  0,
+                  (signed __int16)lParam,
+                  SHIWORD(lParam),
+                  wParam,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 168 )
+              {
+                (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 192))(
+                  *((_DWORD *)this + 1),
+                  (signed __int16)lParam,
+                  SHIWORD(lParam),
+                  wParam,
+                  a5);
+                return 0;
+              }
+            }
+          }
+        }
+        else
+        {
+          if ( Msg == 163 )
+          {
+            (*(void (__stdcall **)(_DWORD, signed int, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 176))(
+              *((_DWORD *)this + 1),
+              1,
+              (signed __int16)lParam,
+              SHIWORD(lParam),
+              wParam,
+              a5);
+            return 0;
+          }
+          if ( Msg > 0x81 )
+          {
+            if ( Msg > 0x86 )
+            {
+              if ( Msg == 160 )
+              {
+                (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 196))(
+                  *((_DWORD *)this + 1),
+                  (signed __int16)lParam,
+                  SHIWORD(lParam),
+                  wParam,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 161 )
+              {
+                (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 168))(
+                  *((_DWORD *)this + 1),
+                  0,
+                  (signed __int16)lParam,
+                  SHIWORD(lParam),
+                  wParam,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 162 )
+              {
+                (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 172))(
+                  *((_DWORD *)this + 1),
+                  (signed __int16)lParam,
+                  SHIWORD(lParam),
+                  wParam,
+                  a5);
+                return 0;
+              }
+            }
+            else
+            {
+              if ( Msg == 134 )
+                return (*(int (__stdcall **)(_DWORD, WPARAM, _DWORD, _DWORD, int))(*(_DWORD *)this + 148))(
+                         *((_DWORD *)this + 1),
+                         wParam,
+                         0,
+                         0,
+                         a5);
+              if ( Msg == 130 )
+              {
+                (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 160))(*((_DWORD *)this + 1), a5);
+                return 0;
+              }
+              if ( Msg == 131 )
+                return (*(int (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 152))(
+                         *((_DWORD *)this + 1),
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 132 )
+                return (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, int))(*(_DWORD *)this + 200))(
+                         *((_DWORD *)this + 1),
+                         (signed __int16)lParam,
+                         SHIWORD(lParam),
+                         a5);
+              if ( Msg == 133 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, int))(*(_DWORD *)this + 164))(*((_DWORD *)this + 1), wParam, a5);
+                return 0;
+              }
+            }
+          }
+          else
+          {
+            if ( Msg == 129 )
+              return (*(int (__stdcall **)(_DWORD, LPARAM, int))(*(_DWORD *)this + 156))(
+                       *((_DWORD *)this + 1),
+                       lParam,
+                       a5);
+            if ( Msg > 0x46 )
+            {
+              if ( Msg == 71 )
+              {
+                (*(void (__stdcall **)(_DWORD, LPARAM, int))(*(_DWORD *)this + 216))(*((_DWORD *)this + 1), lParam, a5);
+                return 0;
+              }
+              if ( Msg == 78 )
+                return (*(int (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 204))(
+                         *((_DWORD *)this + 1),
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 126 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, WPARAM, int))(*(_DWORD *)this + 44))(
+                  *((_DWORD *)this + 1),
+                  wParam,
+                  (unsigned __int16)lParam,
+                  wParam >> 16,
+                  a5);
+                return 0;
+              }
+            }
+            else
+            {
+              if ( Msg == 70 )
+                return (*(int (__stdcall **)(_DWORD, LPARAM, int))(*(_DWORD *)this + 212))(
+                         *((_DWORD *)this + 1),
+                         lParam,
+                         a5);
+              if ( Msg == 32 )
+                return (*(int (__stdcall **)(_DWORD, WPARAM, _DWORD, unsigned int, int))(*(_DWORD *)this + 224))(
+                         *((_DWORD *)this + 1),
+                         wParam,
+                         (unsigned __int16)lParam,
+                         (unsigned int)lParam >> 16,
+                         a5);
+              if ( Msg == 33 )
+                return (*(int (__stdcall **)(_DWORD, WPARAM, _DWORD, unsigned int, int))(*(_DWORD *)this + 124))(
+                         *((_DWORD *)this + 1),
+                         wParam,
+                         (unsigned __int16)lParam,
+                         (unsigned int)lParam >> 16,
+                         a5);
+              if ( Msg == 36 )
+              {
+                (*(void (__stdcall **)(_DWORD, LPARAM, int))(*(_DWORD *)this + 76))(*((_DWORD *)this + 1), lParam, a5);
+                return 0;
+              }
+              if ( Msg == 61 )
+                return (*(int (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 284))(
+                         *((_DWORD *)this + 1),
+                         wParam,
+                         lParam,
+                         a5);
+            }
+          }
+        }
+      }
+    }
+    else
+    {
+      if ( Msg == 28 )
+      {
+        (*(void (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 24))(
+          *((_DWORD *)this + 1),
+          wParam,
+          lParam,
+          a5);
+        return 0;
+      }
+      if ( Msg > 0xA )
+      {
+        if ( Msg == 15 )
+        {
+          (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 208))(*((_DWORD *)this + 1), a5);
+          return 0;
+        }
+        if ( Msg == 16 )
+        {
+          (*(void (__stdcall **)(_DWORD, WPARAM, int))(*(_DWORD *)this + 32))(*((_DWORD *)this + 1), wParam, a5);
+          return 0;
+        }
+        if ( Msg == 17 )
+          return (unsigned __int16)(*(int (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 220))(
+                                     *((_DWORD *)this + 1),
+                                     a5);
+        if ( Msg == 20 )
+          return (*(int (__stdcall **)(_DWORD, WPARAM, int))(*(_DWORD *)this + 64))(*((_DWORD *)this + 1), wParam, a5);
+        if ( Msg == 22 )
+        {
+          (*(void (__stdcall **)(_DWORD, WPARAM, int))(*(_DWORD *)this + 60))(*((_DWORD *)this + 1), wParam, a5);
+          return 0;
+        }
+        if ( Msg == 24 )
+        {
+          (*(void (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 244))(
+            *((_DWORD *)this + 1),
+            wParam,
+            lParam,
+            a5);
+          return 0;
+        }
+      }
+      else
+      {
+        if ( Msg == 10 )
+        {
+          LOBYTE(v5) = wParam == 1;
+          (*(void (__stdcall **)(_DWORD, int, int))(*(_DWORD *)this + 56))(*((_DWORD *)this + 1), v5, a5);
+          return 0;
+        }
+        if ( Msg == 1 )
+          return ((*(int (__stdcall **)(_DWORD, LPARAM, int))(*(_DWORD *)this + 36))(*((_DWORD *)this + 1), lParam, a5) != 0)
+               - 1;
+        if ( Msg == 2 )
+        {
+          (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 40))(*((_DWORD *)this + 1), a5);
+          return 0;
+        }
+        if ( Msg == 3 )
+        {
+          (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, int))(*(_DWORD *)this + 140))(
+            *((_DWORD *)this + 1),
+            (signed __int16)lParam,
+            SHIWORD(lParam),
+            a5);
+          return 0;
+        }
+        if ( Msg == 5 )
+        {
+          (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, _DWORD, int))(*(_DWORD *)this + 232))(
+            *((_DWORD *)this + 1),
+            wParam,
+            (signed __int16)lParam,
+            SHIWORD(lParam),
+            a5);
+          return 0;
+        }
+        if ( Msg == 6 )
+        {
+          (*(void (__stdcall **)(_DWORD, _DWORD, LPARAM, WPARAM, int))(*(_DWORD *)this + 20))(
+            *((_DWORD *)this + 1),
+            (unsigned __int16)wParam,
+            lParam,
+            wParam >> 16,
+            a5);
+          return 0;
+        }
+        if ( Msg == 7 )
+        {
+          (*(void (__stdcall **)(_DWORD, WPARAM, int))(*(_DWORD *)this + 228))(*((_DWORD *)this + 1), wParam, a5);
+          return 0;
+        }
+        if ( Msg == 8 )
+        {
+          (*(void (__stdcall **)(_DWORD, WPARAM, int))(*(_DWORD *)this + 96))(*((_DWORD *)this + 1), wParam, a5);
+          return 0;
+        }
+      }
+    }
+    if ( Msg - 1024 > 0x7BFF )
+    {
+      if ( Msg - 0x8000 > 0x3FFF )
+      {
+        if ( Msg - 49152 > 0x3FFF )
+          return 0;
+        result = (*(int (__stdcall **)(_DWORD, UINT, WPARAM, LPARAM, int))(*(_DWORD *)this + 268))(
+                   *((_DWORD *)this + 1),
+                   Msg,
+                   wParam,
+                   lParam,
+                   a5);
+      }
+      else
+      {
+        result = (*(int (__stdcall **)(_DWORD, UINT, WPARAM, LPARAM, int))(*(_DWORD *)this + 264))(
+                   *((_DWORD *)this + 1),
+                   Msg,
+                   wParam,
+                   lParam,
+                   a5);
+      }
+    }
+    else
+    {
+      result = (*(int (__stdcall **)(_DWORD, UINT, WPARAM, LPARAM, int))(*(_DWORD *)this + 260))(
+                 *((_DWORD *)this + 1),
+                 Msg,
+                 wParam,
+                 lParam,
+                 a5);
+    }
+  }
+  return result;
+}
+
+================================================================================================================================================================================
+int __thiscall sub_30922146(void *this, int a2, unsigned int a3, int a4, int a5, int *a6, signed int a7)
+{
+  int v7; // eax@3
+  int v8; // eax@3
+  bool v9; // zf@3
+  int result; // eax@4
+
+  result = 0;
+  if ( !a7 && a3 <= 0xFFFF )
+  {
+    v7 = *(_DWORD *)this;
+    a7 = 1;
+    v8 = (*(int (__stdcall **)(unsigned int, int, int, signed int *))(v7 + 16))(a3, a4, a5, &a7); //sub_3092072C,  [this 控件].16 为事件回调方法
+    v9 = a7 == 0;//==0为正常
+    *a6 = v8;
+    if ( !v9 )
+      result = 1;
+  }
+  return result;
+}
+================================================================================================================================================================================
+int __stdcall sub_30801A10(int a1, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+  int v4; // esi@1
+  UINT v5; // edi@1
+  LPARAM v6; // ST0C_4@1
+  WPARAM v7; // ST08_4@1
+  int v8; // ST00_4@1
+  LONG v9; // eax@5
+  int v10; // eax@8
+  int v11; // ecx@10
+  int (__thiscall **v12)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD); // eax@10
+  char v14; // [sp+8h] [bp-28h]@1
+  LONG v15; // [sp+2Ch] [bp-4h]@4
+
+  v4 = a1;
+  v5 = Msg;
+  sub_3080184C(*(_DWORD *)(a1 + 4), Msg, wParam, lParam, 1);
+  v6 = lParam;
+  Msg = *(_DWORD *)(v4 + 24);
+  v7 = wParam;
+  v8 = *(_DWORD *)(v4 + 4);
+  *(_DWORD *)(v4 + 24) = &v14;
+  if ( !(**(int (__thiscall ***)(int, int, UINT, WPARAM, LPARAM, int *, _DWORD))v4)(v4, v8, v5, v7, v6, &a1, 0) )  //sub_30922146
+  {
+    if ( v5 == 130 )
+    {
+      v15 = GetWindowLongW(*(HWND *)(v4 + 4), -4);
+      a1 = sub_30801970(0x82u, wParam, lParam);
+      if ( *(LRESULT (__stdcall **)(HWND, UINT, WPARAM, LPARAM))(v4 + 32) != DefWindowProcW )
+      {
+        v9 = GetWindowLongW(*(HWND *)(v4 + 4), -4);
+        if ( v9 == v15 )
+          SetWindowLongW(*(HWND *)(v4 + 4), -4, *(_DWORD *)(v4 + 32));
+      }
+      *(_DWORD *)(v4 + 28) |= 1u;
+    }
+    else
+    {
+      a1 = sub_30801970(v5, wParam, lParam);
+    }
+  }
+  v10 = *(_DWORD *)(v4 + 28);
+  if ( !(v10 & 1) || Msg )
+  {
+    *(_DWORD *)(v4 + 24) = Msg;
+  }
+  else
+  {
+    v11 = *(_DWORD *)(v4 + 4);
+    *(_DWORD *)(v4 + 28) = v10 & 0xFFFFFFFE;
+    v12 = *(int (__thiscall ***)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))v4;
+    *(_DWORD *)(v4 + 4) = 0;
+    *(_DWORD *)(v4 + 24) = 0;
+    ((void (__thiscall *)(int, int))v12[3])(v4, v11);
+  }
+  return a1;
+}
+================================================================================================================================================================================
+
+//获得控件的 winproc??
+int (__stdcall *sub_3080196A())(int, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+  return sub_30801A10;
+}
+
+
+================================================================================================================================================================================
+
+================================================================================================================================================================================
+
+
+================================================================================================================================================================================
+
+================================================================================================================================================================================
+
+================================================================================================================================================================================
+
+================================================================================================================================================================================
+
+================================================================================================================================================================================
+
+================================================================================================================================================================================
+
+================================================================================================================================================================================
+
+================================================================================================================================================================================
+
+================================================================================================================================================================================
+
+
+
+
+//栈
+012EBA4  /0012EBBC
+0012EBA8  |300A5195  返回到 Common.300A5195 来自 Common.CTXUDPDataSender::SendData
+0012EBAC  |04D57FD0
+0012EBB0  |0000002F
+0012EBB4  |041EF17C
+0012EBB8  |0012EC68
+0012EBBC  ]0012EC04
+0012EBC0  |01C4A357  返回到 Prelogin.01C4A357
+0012EBC4  |0158C5A8
+0012EBC8  |0000002F
+0012EBCC  |041EF17C
+0012EBD0  |0012EC68
+0012EBD4  |04D57FD0
+0012EBD8  |32301897
+0012EBDC  |3007EE3E  Common.CTXBSTR::~CTXBSTR
+0012EBE0  |300D9102  Common.CTXBSTR::operator wchar_t *
+0012EBE4  |02AD7260
+0012EBE8  |0155F184
+0012EBEC  |06C4F7DC  UNICODE "dwRetryInterval"
+0012EBF0  |0155F0A8
+0012EBF4  |04D57FD0
+0012EBF8  |0012EC8C  指向下一个 SEH 记录的指针
+0012EBFC  |01CCFA2A  SE处理程序
+0012EC00  |00000002
+0012EC04  ]0012EC98
+0012EC08  |01C4D2F5  返回到 Prelogin.01C4D2F5 来自 Prelogin.01C4A09E
+0012EC0C  |0012EC80
+0012EC10  |0012EC68
+0012EC14  |30169160  Common.30169160
+0012EC18  |06C4F7DC  UNICODE "dwRetryInterval"
+0012EC1C  |00001388
+0012EC20  |00000000
+0012EC24  |3230180B
+0012EC28  |02AD7260
+0012EC2C  |30169160  Common.30169160
+0012EC30  |01505A9C
+0012EC34  |0155F11C
+0012EC38  |00000000
+0012EC3C  |30281701  Common.30281701
+0012EC40  |00001388
+0012EC44  |0155F11C
+0012EC48  |041EF17C
+0012EC4C  |0000002F
+0012EC50  |300DE679  返回到 Common.300DE679
+0012EC54  |041EF17C
+0012EC58  |0000493E
+0012EC5C  |00000003
+0012EC60  |300D9003  Common.300D9003
+0012EC64  |0155F128
+0012EC68  |00000000
+0012EC6C  |04C95FE0
+0012EC70  |00000000
+0012EC74  |02AD7260
+0012EC78  |00000001
+0012EC7C  |00000000
+0012EC80  |00FE73E8
+0012EC84  |00000067
+0012EC88  |02007260
+0012EC8C  |0012ECD8  指向下一个 SEH 记录的指针
+0012EC90  |01CCFE92  SE处理程序
+0012EC94  |0000000C
+0012EC98  ]0012ECE4
+0012EC9C  |01C82856  返回到 Prelogin.01C82856
+0012ECA0  |0155F0A8
+0012ECA4  |00AD7260  UNICODE "erSysIM:"
+0012ECA8  |04CD4DC0
+0012ECAC  |01569B48
+0012ECB0  |32301877
+0012ECB4  |04CD4DC0
+0012ECB8  |01569B44
+0012ECBC  |01569B48
+0012ECC0  |3007EE3E  Common.CTXBSTR::~CTXBSTR
+0012ECC4  |300D9102  Common.CTXBSTR::operator wchar_t *
+0012ECC8  |041EF18C
+0012ECCC  |00FA09B0
+0012ECD0  |00000000
+0012ECD4  |00000067
+0012ECD8  |0012ED38  指向下一个 SEH 记录的指针
+0012ECDC  |01CD6111  SE处理程序
+0012ECE0  |FFFFFFFF
+0012ECE4  ]0012ED44
+0012ECE8  |03163913  返回到 IM.03163913
+0012ECEC  |01505A9C
+0012ECF0  |02AD7260
+0012ECF4  |04CD4DC0
+0012ECF8  |01569B48
+0012ECFC  |31113962
+0012ED00  |300D9102  Common.CTXBSTR::operator wchar_t *
+0012ED04  |0295448C
+0012ED08  |3007EE3E  Common.CTXBSTR::~CTXBSTR
+0012ED0C  |03EDE004  UNICODE "aa11971"
+0012ED10  |0012ED18
+0012ED14  |30169160  Common.30169160
+0012ED18  |041EF18C
+0012ED1C  |00000001
+0012ED20  |01505A9C
+0012ED24  |0297B118
+0012ED28  |06D2D704  UNICODE "aa1197"
+0012ED2C  |0290CE3C
+0012ED30  |03EDE004  UNICODE "aa11971"
+0012ED34  |02AD7260
+0012ED38  |0012EDA0  指向下一个 SEH 记录的指针
+0012ED3C  |0333319F  SE处理程序
+0012ED40  |0000000E
+0012ED44  ]0012EDAC
+0012ED48  |0318E3A5  返回到 IM.0318E3A5
+0012ED4C  |01569B44
+0012ED50  |04CD4DC0
+0012ED54  |02954898
+0012ED58  |3111398A
+0012ED5C  |300D9102  Common.CTXBSTR::operator wchar_t *
+0012ED60  |033A0120  IM.033A0120
+0012ED64  |3007EE3E  Common.CTXBSTR::~CTXBSTR
+0012ED68  |02954580
+0012ED6C  |02951EC8
+0012ED70  |02954580
+0012ED74  |02951EC8
+0012ED78  |04D60000
+0012ED7C  |00000000
+0012ED80  |63FDF817
+0012ED84  |0012EDB4
+0012ED88  |3180AFC9  返回到 KernelUt.3180AFC9
+0012ED8C  |3180AFD0  返回到 KernelUt.3180AFD0 来自 KernelUt.31859DF7
+0012ED90  |01569B50
+0012ED94  |300D9102  Common.CTXBSTR::operator wchar_t *
+0012ED98  |00000001
+0012ED9C  |04D60000
+0012EDA0  |0012EDE8  指向下一个 SEH 记录的指针
+0012EDA4  |03338291  SE处理程序
+0012EDA8  |00000004
+0012EDAC  ]0012EDF4
+0012EDB0  |61C1DBCA  返回到 MainFram.61C1DBCA
+0012EDB4  |04D60000
+0012EDB8  |63FDF817
+0012EDBC  |04D58070
+0012EDC0  |01504930
+0012EDC4  |3231E82C
+0012EDC8  |65895498  AFCtrl.65895498
+0012EDCC  |0158E928
+0012EDD0  |02B68A01
+0012EDD4  |06D2D704  UNICODE "aa1197"
+0012EDD8  |041EF18C
+0012EDDC  |0158E928
+0012EDE0  |0295448C
+0012EDE4  |04D58070
+0012EDE8  |0012F244  指向下一个 SEH 记录的指针
+0012EDEC  |61D96F96  SE处理程序
+0012EDF0  |00000001
+0012EDF4  ]0012F250
+0012EDF8  |61C28CE5  返回到 MainFram.61C28CE5 来自 MainFram.61C1DB10
+0012EDFC  |0295448C
+0012EE00  |3231F788
+0012EE04  |0012F2B8
+0012EE08  |0012F2C8
+0012EE0C  |02B68D70
+0012EE10  |00000001
+0012EE14  |00000000
+0012EE18  |00F29774  UNICODE "aa11971"
+0012EE1C  |04C90894
+0012EE20  |00000000
+0012EE24  |7C939D8A  返回到 ntdll.7C939D8A 来自 ntdll.7C92E8E6
+0012EE28  |04CF82F8
+0012EE2C  |00F29774  UNICODE "aa11971"
+0012EE30  |00000200
+0012EE34  |04C87740
+0012EE38  |0012EE28
+0012EE3C  |06D2D704  UNICODE "aa1197"
+0012EE40  |0012F06C
+0012EE44  |7C92E900  ntdll.7C92E900
+0012EE48  |7C930208  ntdll.7C930208
+0012EE4C  |04CD4BB0
+0012EE50  |7C930202  返回到 ntdll.7C930202 来自 ntdll.7C92E8E6
+0012EE54  |04CD4BB8
+0012EE58  |7C9301BB  返回到 ntdll.7C9301BB 来自 ntdll.7C92E8E6
+0012EE5C  |00000040
+0012EE60  |00000000
+0012EE64  |0012EE98
+0012EE68  |003E0000
+0012EE6C  |7C930202  返回到 ntdll.7C930202 来自 ntdll.7C92E8E6
+0012EE70  |00000002
+0012EE74  |003E06E8
+0012EE78  |003E0000
+0012EE7C  |04D5D488
+0012EE80  |0012EE70
+0012EE84  |003E0000
+0012EE88  |0012F0B4
+0012EE8C  |7C92E900  ntdll.7C92E900
+0012EE90  |7C930208  ntdll.7C930208
+0012EE94  |FFFFFFFF
+0012EE98  |7C930202  返回到 ntdll.7C930202 来自 ntdll.7C92E8E6
+0012EE9C  |7C93017B  返回到 ntdll.7C93017B 来自 ntdll.7C9301D1
+0012EEA0  |7C9301BB  返回到 ntdll.7C9301BB 来自 ntdll.7C92E8E6
+0012EEA4  |00000004
+0012EEA8  |00000000
+0012EEAC  |00000004
+0012EEB0  |0000002C
+0012EEB4  |00000000
+0012EEB8  |0000002C
+0012EEBC  |003E0000
+0012EEC0  |0012ECB8
+0012EEC4  |6577131B  返回到 AFCtrl.6577131B 来自 AFCtrl.657027E9
+0012EEC8  |300DB417  返回到 Common.300DB417 来自 kernel32.InterlockedIncrement
+0012EECC  |06D2E2D8
+0012EED0  |04D5FE54
+0012EED4  |04D6005C
+0012EED8  |0012EEE8
+0012EEDC  |657788D3  返回到 AFCtrl.657788D3
+0012EEE0  |02B8BF00
+0012EEE4  |04D60060
+0012EEE8  |0012EEF8
+0012EEEC  |657027F9  返回到 AFCtrl.657027F9 来自 AFCtrl.657788BE
+0012EEF0  |02B8BF00
+0012EEF4  |04D6005C
+0012EEF8  |0012EF0C
+0012EEFC  |6577131B  返回到 AFCtrl.6577131B 来自 AFCtrl.657027E9
+0012EF00  |04D5FE58
+0012EF04  |02B6B790
+0012EF08  |04D60050
+0012EF0C  |0012EF1C
+0012EF10  |65771366  返回到 AFCtrl.65771366 来自 AFCtrl.657712FE
+0012EF14  |04D5FE54
+0012EF18  |04D60050
+0012EF1C  |0012EF60
+0012EF20  |65771438  返回到 AFCtrl.65771438 来自 AFCtrl.65771344
+0012EF24  |02B6B550
+0012EF28  |04D592A8
+0012EF2C  |0012EF60
+0012EF30  |003E0000
+0012EF34  |7C930202  返回到 ntdll.7C930202 来自 ntdll.7C92E8E6
+0012EF38  |00000004
+0012EF3C  |003E0748
+0012EF40  |003E0000
+0012EF44  |04D5F308
+0012EF48  |0012EF38
+0012EF4C  |04D5FE48
+0012EF50  |0012F17C
+0012EF54  |7C92E900  ntdll.7C92E900
+0012EF58  |7C930208  ntdll.7C930208
+0012EF5C  |FFFFFFFF
+0012EF60  |7C930202  返回到 ntdll.7C930202 来自 ntdll.7C92E8E6
+0012EF64  |7C93017B  返回到 ntdll.7C93017B 来自 ntdll.7C9301D1
+0012EF68  |7C9301BB  返回到 ntdll.7C9301BB 来自 ntdll.7C92E8E6
+0012EF6C  |00000018
+0012EF70  |00000000
+0012EF74  |00000018
+0012EF78  |04D529A8
+0012EF7C  |0012EF6C
+0012EF80  |0012EF90
+0012EF84  |0012F1B0
+0012EF88  |7C92E900  ntdll.7C92E900
+0012EF8C  |7C930208  ntdll.7C930208
+0012EF90  |FFFFFFFF
+0012EF94  |7C930202  返回到 ntdll.7C930202 来自 ntdll.7C92E8E6
+0012EF98  |7C93017B  返回到 ntdll.7C93017B 来自 ntdll.7C9301D1
+0012EF9C  |7C9301BB  返回到 ntdll.7C9301BB 来自 ntdll.7C92E8E6
+0012EFA0  |00000004
+0012EFA4  |00000000
+0012EFA8  |00000004
+0012EFAC  |0012EFE0
+0012EFB0  |003E0000
+0012EFB4  |7C930202  返回到 ntdll.7C930202 来自 ntdll.7C92E8E6
+0012EFB8  |00000004
+0012EFBC  |003E0748
+0012EFC0  |003E0000
+0012EFC4  |04D5F2E8
+0012EFC8  |0012EFB8
+0012EFCC  |0012F07C
+0012EFD0  |0012F1FC
+0012EFD4  |7C92E900  ntdll.7C92E900
+0012EFD8  |7C930208  ntdll.7C930208
+0012EFDC  |FFFFFFFF
+0012EFE0  |7C930202  返回到 ntdll.7C930202 来自 ntdll.7C92E8E6
+0012EFE4  |7C93017B  返回到 ntdll.7C93017B 来自 ntdll.7C9301D1
+0012EFE8  |7C9301BB  返回到 ntdll.7C9301BB 来自 ntdll.7C92E8E6
+0012EFEC  |00000018
+0012EFF0  |00000000
+0012EFF4  |00000018
+0012EFF8  |309EE6B0  GF.309EE6B0
+0012EFFC  |0012F020
+0012F000  |308F7EA8  返回到 GF.308F7EA8 来自 GF.309142AD
+0012F004  |0012F010
+0012F008  |77D29CBA  返回到 USER32.SetRectEmpty
+0012F00C  |014E67D8
+0012F010  |309EE6B0  GF.309EE6B0
+0012F014  |014E67D8
+0012F018  |77D29CBA  返回到 USER32.SetRectEmpty
+0012F01C  |0012F074
+0012F020  |308F8438  返回到 GF.308F8438 来自 USER32.UnionRect
+0012F024  |00000000
+0012F028  |308F84E9  返回到 GF.308F84E9 来自 ntdll.RtlLeaveCriticalSection
+0012F02C  |309EE6BC  GF.309EE6BC
+0012F030  |00000000
+0012F034  |00000001
+0012F038  |00000000
+0012F03C  |003E0000
+0012F040  |00000004
+0012F044  |00000020
+0012F048  |7C9314CA  返回到 ntdll.7C9314CA 来自 ntdll.7C92E8E6
+0012F04C  |0012F098
+0012F050  |00000000
+0012F054  |00000000
+0012F058  |0000012C
+0012F05C  |00000280
+0012F060  |0000004F
+0012F064  |00000032
+0012F068  |000000FC
+0012F06C  |00000049
+0012F070  |309EE6BC  GF.309EE6BC
+0012F074  |0012F088
+0012F078  |308F8518  返回到 GF.308F8518 来自 GF.308F8370
+0012F07C  |0087019C
+0012F080  |0012F124
+0012F084  |02B5F8B0
+0012F088  |0012F0C0
+0012F08C  |308F4692  返回到 GF.308F4692 来自 USER32.InvalidateRect
+0012F090  |0087019C
+0012F094  |0012F124
+0012F098  |00000000
+0012F09C  |02B51150
+0012F0A0  |00000000
+0012F0A4  |02B5F8A8
+0012F0A8  |00000000
+0012F0AC  |7C930098  返回到 ntdll.7C930098 来自 ntdll.7C922AB0
+0012F0B0  |001CE538
+0012F0B4  |0012F180
+0012F0B8  |00000001
+0012F0BC  |0087019C
+0012F0C0  |0012F0CC
+0012F0C4  |3090E4BA  返回到 GF.3090E4BA
+0012F0C8  |0012F124
+0012F0CC  |02B5F8A8
+0012F0D0  |0012F0FC
+0012F0D4  |30835C01  返回到 GF.30835C01
+0012F0D8  |30835C08  返回到 GF.30835C08 来自 GF.30949737
+0012F0DC  |320B9B85
+0012F0E0  |00000000
+0012F0E4  |0012F1B4
+0012F0E8  |02B51150
+0012F0EC  |02B5F8A8
+0012F0F0  |0012F180
+0012F0F4  |30953BD4  GF.30953BD4
+0012F0F8  |FFFFFFFF
+0012F0FC  |30835C08  返回到 GF.30835C08 来自 GF.30949737
+0012F100  |308365B7  返回到 GF.308365B7 来自 GF.30835BB9
+0012F104  |0012F124
+0012F108  |00000000
+0012F10C  |02B51148
+0012F110  |02B079A0
+0012F114  |0012F120
+0012F118  |30902438  返回到 GF.30902438
+0012F11C  |0012F1DC  返回到 0012F1DC
+0012F120  |30837653  返回到 GF.30837653 来自 GF.30949737
+0012F124  |0000004F
+0012F128  |00000004
+0012F12C  |000000FC
+0012F130  |00000049
+0012F134  |00000006
+0012F138  |0000001B
+0012F13C  |00000126
+0012F140  |0000027B
+0012F144  |00000000
+0012F148  |00000001
+0012F14C  |0087019C
+0012F150  |3083BA8B  返回到 GF.3083BA8B 来自 kernel32.InterlockedDecrement
+0012F154  |02B512D8
+0012F158  |00000000
+0012F15C  |04D5F308
+0012F160  |0012F18C
+0012F164  |30835C01  返回到 GF.30835C01
+0012F168  |00000020
+0012F16C  |32009AF5  TXPFProx.32009AF5
+0012F170  |003E0000
+0012F174  |0012EF6C
+0012F178  |02B079A0
+0012F17C  |0012F228
+0012F180  |7C92E900  ntdll.7C92E900
+0012F184  |7C9301C0  ntdll.7C9301C0
+0012F188  |61D8F731  返回到 MainFram.61D8F731 来自 kernel32.InterlockedIncrement
+0012F18C  |0158EF64
+0012F190  |0012F1A0
+0012F194  |30825EFF  返回到 GF.30825EFF
+0012F198  |0158EF60
+0012F19C  |04D5F318
+0012F1A0  |0012F1B0
+0012F1A4  |308B70B7  返回到 GF.308B70B7 来自 GF.30825EEA
+0012F1A8  |0158EF60
+0012F1AC  |04D5F314
+0012F1B0  |0012F1C0
+0012F1B4  |308AB1E8  返回到 GF.308AB1E8 来自 GF.308B70A7
+0012F1B8  |02B57580
+0012F1BC  |04D5F308
+0012F1C0  |0012F1D0
+0012F1C4  |308AB7C1  返回到 GF.308AB7C1 来自 GF.308AB1CF
+0012F1C8  |02B5757C
+0012F1CC  |04D5F308
+0012F1D0  |308E220E  返回到 GF.308E220E 来自 GF.30949737
+0012F1D4  |320B9A85
+0012F1D8  |0012F29C
+0012F1DC  |02B57570
+0012F1E0  |04D5F308
+0012F1E4  |0012F29C
+0012F1E8  |04D5F2E8
+0012F1EC  |0012F1D4
+0012F1F0  |0012F228
+0012F1F4  |30959B86  GF.30959B86
+0012F1F8  |FFFFFFFF
+0012F1FC  |308E220E  返回到 GF.308E220E 来自 GF.30949737
+0012F200  |308E2203  返回到 GF.308E2203 来自 GF.308E21A5
+0012F204  |02B68978
+0012F208  |308E220E  返回到 GF.308E220E 来自 GF.30949737
+0012F20C  |320B994D
+0012F210  |04D5F2E8
+0012F214  |0012F29C
+0012F218  |3007EE3E  Common.CTXBSTR::~CTXBSTR
+0012F21C  |0012F25C
+0012F220  |0012F234
+0012F224  |3084AC58  返回到 GF.3084AC58 来自 GF.3084AB6C
+0012F228  |04D5F308
+0012F22C  |0012F29C
+0012F230  |0012F29C
+0012F234  |0012F244
+0012F238  |3092AFEB  返回到 GF.3092AFEB 来自 GF.3084AC47
+0012F23C  |04D5F308
+0012F240  |3231F788
+0012F244  |0012F2CC  指向下一个 SEH 记录的指针
+0012F248  |61D986A1  SE处理程序
+0012F24C  |00000001
+0012F250  ]0012F264
+0012F254  |61C6C337  返回到 MainFram.61C6C337
+0012F258  |00000065
+0012F25C  |02B68AA4
+0012F260  |04D580C0
+0012F264  ]0012F2D8
+0012F268  |3091559F  返回到 GF.3091559F
+0012F26C  |0158EF60
+0012F270  |00000065
+0012F274  |02B68AA4
+0012F278  |04D580C0
+0012F27C  |320B99A1
+0012F280  |3007EE3E  Common.CTXBSTR::~CTXBSTR
+0012F284  |00000000
+0012F288  |02B68AA4
+0012F28C  |320B99D5
+0012F290  |00000000
+0012F294  |00000000
+0012F298  |00000000
+0012F29C  |7C63115F  返回到 ATL80.7C63115F
+0012F2A0  |04D5F2E8
+0012F2A4  |00000001
+0012F2A8  |0012F29C
+0012F2AC  |04D5F308
+0012F2B0  |0012F29C
+0012F2B4  |04D5F2E8
+0012F2B8  |0012F29C
+0012F2BC  |04D5F308
+0012F2C0  |0012F29C
+0012F2C4  |04D5F308
+0012F2C8  |02B68AA4
+0012F2CC  |0012F30C  指向下一个 SEH 记录的指针
+0012F2D0  |3095CF25  SE处理程序
+0012F2D4  |00000002
+0012F2D8  ]0012F2E8
+0012F2DC  |30830B22  返回到 GF.30830B22 来自 GF.30915507
+0012F2E0  |00000065
+0012F2E4  |04D580C0
+0012F2E8  ]0012F318
+0012F2EC  |65818D76  返回到 AFCtrl.65818D76
+0012F2F0  |02B68DD8
+0012F2F4  |00000065
+0012F2F8  |04D580C0
+0012F2FC  |322EC5A4
+0012F300  |3007EE3E  Common.CTXBSTR::~CTXBSTR
+0012F304  |00000000
+0012F308  |02B68AA4
+0012F30C  |0012F368  指向下一个 SEH 记录的指针
+0012F310  |6583FCE7  SE处理程序
+0012F314  |00000000
+0012F318  ]0012F374
+0012F31C  |6576FDE3  返回到 AFCtrl.6576FDE3
+0012F320  |02B68DD8
+0012F324  |00000065
+0012F328  |04D580C0
+0012F32C  |322EC5C8
+0012F330  |0012F4B4
+0012F334  |02B68A90
+0012F338  |00000000
+0012F33C  |3095D0EE  GF.3095D0EE
+0012F340  |00000000
+0012F344  |000000AD
+0012F348  |00000017
+0012F34C  |00000000
+0012F350  |00000049
+0012F354  |06D2D704  UNICODE "aa1197"
+0012F358  |00000000
+0012F35C  |01D5499C
+0012F360  |04D580C0
+0012F364  |00F29774  UNICODE "aa11971"
+0012F368  |0012F3E4  指向下一个 SEH 记录的指针
+0012F36C  |65843431  SE处理程序
+0012F370  |00000002
+0012F374  ]0012F38C
+0012F378  |6576F786  返回到 AFCtrl.6576F786
+0012F37C  |0295C3C8
+0012F380  |00000000
+0012F384  |00000000
+0012F388  |0012F448
+0012F38C  ]0012F3A8
+0012F390  |6576FFF9  返回到 AFCtrl.6576FFF9 来自 AFCtrl.6576F742
+0012F394  |0295C3C8
+0012F398  |0012F4B4
+0012F39C  |0012F56C
+0012F3A0  |0012F4D4
+0012F3A4  |0012F448
+0012F3A8  ]0012F3F0
+0012F3AC  |30829411  返回到 GF.30829411
+0012F3B0  |02B68AA0
+0012F3B4  |0295C3C8
+0012F3B8  |0012F4B4
+0012F3BC  |0012F56C
+0012F3C0  |0012F4D4
+0012F3C4  |0012F448
+0012F3C8  |320B9889
+0012F3CC  |0295C3C8
+0012F3D0  |00000000
+0012F3D4  |00000001
+0012F3D8  |00000001
+0012F3DC  |02B68AA0
+0012F3E0  |02B68A9C
+0012F3E4  |0012F45C  指向下一个 SEH 记录的指针
+0012F3E8  |3094D379  SE处理程序
+0012F3EC  |00000001
+0012F3F0  ]0012F468
+0012F3F4  |3082569C  返回到 GF.3082569C 来自 GF.30829384
+0012F3F8  |02B68A90
+0012F3FC  |0295C3C8
+0012F400  |0012F4B4
+0012F404  |0012F56C
+0012F408  |0012F4D4
+0012F40C  |0012F448
+0012F410  |320B9F11
+0012F414  |02B51720
+0012F418  |02B51720
+0012F41C  |00000000
+0012F420  |02AD8F88
+0012F424  |014E37F0
+0012F428  |014E380C
+0012F42C  |014E3810
+0012F430  |00000000
+0012F434  |0012F420
+0012F438  |014E37F0
+0012F43C  |00000000
+0012F440  |0012F420
+0012F444  |014E380C
+0012F448  |00000001
+0012F44C  |0012F420
+0012F450  |014E37F8
+0012F454  |0295C3C8
+0012F458  |00000000
+0012F45C  |0012F4E0  指向下一个 SEH 记录的指针
+0012F460  |3094CEAB  SE处理程序
+0012F464  |00000002
+0012F468  ]0012F488
+0012F46C  |30918690  返回到 GF.30918690 来自 GF.Util::GF::DispatchFrameMsg
+0012F470  |00FA5FB8
+0012F474  |0012F4B4
+0012F478  |0012F56C
+0012F47C  |0012F4D4
+0012F480  |00000000
+0012F484  |0012F56C
+0012F488  ]0012F4EC
+0012F48C  |3091A433  返回到 GF.3091A433 来自 GF.30918658
+0012F490  |0295C3C8
+0012F494  |0012F4B4
+0012F498  |0012F56C
+0012F49C  |0012F4D4
+0012F4A0  |00000000
+0012F4A4  |320B9F95
+0012F4A8  |00000105
+0012F4AC  |000000A3
+0012F4B0  |00000100
+0012F4B4  |000000CB
+0012F4B8  |00000000
+0012F4BC  |00000020
+0012F4C0  |00000000
+0012F4C4  |0000000D
+0012F4C8  |00000001
+0012F4CC  |00000001
+0012F4D0  |0000001C
+0012F4D4  |00000001
+0012F4D8  |300DB898  返回到 Common.300DB898 来自 Common.300DB2F9
+0012F4DC  |0295C3C8
+0012F4E0  |0012F624  指向下一个 SEH 记录的指针
+0012F4E4  |3095D2ED  SE处理程序
+0012F4E8  |00000000
+0012F4EC  ]0012F50C
+0012F4F0  |309218A0  返回到 GF.309218A0
+0012F4F4  |02B51720
+0012F4F8  |0000000D
+0012F4FC  |00000001
+0012F500  |00000001
+0012F504  |0000001C
+0012F508  |0012F56C
+0012F50C  ]0012F538
+0012F510  |30920C7E  返回到 GF.30920C7E
+0012F514  |0087019C
+0012F518  |0000000D
+0012F51C  |00000001
+0012F520  |00000001
+0012F524  |0000001C
+0012F528  |0012F56C
+0012F52C  |00000100
+0012F530  |02B514D0
+0012F534  |00000000
+0012F538  ]0012F550
+0012F53C  |30922171  返回到 GF.30922171
+0012F540  |00000100
+0012F544  |0000000D
+0012F548  |001C0001
+0012F54C  |0012F56C
+0012F550  ]0012F5A0
+0012F554  |30801A54  返回到 GF.30801A54
+0012F558  |0087019C
+0012F55C  |00000100
+0012F560  |0000000D
+0012F564  |001C0001
+0012F568  |0012F5A8
+0012F56C  |00000001
+0012F570  |0012F608
+0012F574  |001CEFF0
+0012F578  |0087019C
+0012F57C  |00000100
+0012F580  |0000000D
+0012F584  |001C0001
+0012F588  |00000000
+0012F58C  |00000000
+0012F590  |00000000
+0012F594  |00000024
+0012F598  |00000001
+0012F59C  |00000000
+0012F5A0  ]0012F5CC
+0012F5A4  |77D18734  返回到 USER32.77D18734
+0012F5A8  |02B514D0
+0012F5AC  |00000000
+0012F5B0  |0000000D
+0012F5B4  |001C0001
+0012F5B8  |001CEFF0
+0012F5BC  |DCBAABCD
+0012F5C0  |00000000
+0012F5C4  |0012F608
+0012F5C8  |001CEFF0
+0012F5CC  ]0012F634
+0012F5D0  |77D18816  返回到 USER32.77D18816 来自 USER32.77D1870C
+0012F5D4  |001CEFF0
+0012F5D8  |0087019C
+0012F5DC  |00000100
+0012F5E0  |0000000D
+0012F5E4  |001C0001
+0012F5E8  |00000100
+0012F5EC  |001CEFF0
+0012F5F0  |00000082
+0012F5F4  |00000014
+0012F5F8  |00000001
+0012F5FC  |00000000
+0012F600  |00000000
+0012F604  |00000010
+0012F608  |00000000
+0012F60C  |00000000
+0012F610  |00000000
+0012F614  |00000000
+0012F618  |00000000
+0012F61C  |0012F5E8
+0012F620  |00000000
+0012F624  |0012F76C  指向下一个 SEH 记录的指针
+0012F628  |77D4048F  SE处理程序
+0012F62C  |77D18830  USER32.77D18830
+0012F630  |00000000
+0012F634  ]0012F664
+0012F638  |77D2A013  返回到 USER32.77D2A013 来自 USER32.77D1875F
+0012F63C  |00000000
+0012F640  |001CEFF0
+0012F644  |0087019C
+0012F648  |00000100
+0012F64C  |0000000D
+0012F650  |001C0001
+0012F654  |00000000
+0012F658  |00000000
+0012F65C  |00000100
+0012F660  |04975C10
+0012F664  ]0012F684
+0012F668  |77D2A039  返回到 USER32.77D2A039 来自 USER32.77D29FC2
+0012F66C  |001CEFF0
+0012F670  |0087019C
+0012F674  |00000100
+0012F678  |0000000D
+0012F67C  |001C0001
+0012F680  |00000000
+0012F684  ]0012F6A0
+0012F688  |66202550  返回到 AppFrame.66202550 来自 USER32.CallWindowProcW
+0012F68C  |001CEFF0
+0012F690  |0087019C
+0012F694  |00000100
+0012F698  |0000000D
+0012F69C  |001C0001
+0012F6A0  ]0012F6E8
+0012F6A4  |6620261C  返回到 AppFrame.6620261C 来自 AppFrame.66202538
+0012F6A8  |00000100
+0012F6AC  |0000000D
+0012F6B0  |001C0001
+0012F6B4  |00000000
+0012F6B8  |0012F750
+0012F6BC  |0022F888
+0012F6C0  |0087019C
+0012F6C4  |00000100
+0012F6C8  |0000000D
+0012F6CC  |001C0001
+0012F6D0  |00000000
+0012F6D4  |00000000
+0012F6D8  |00000000
+0012F6DC  |00000024
+0012F6E0  |00000001
+0012F6E4  |00000000
+0012F6E8  ]0012F714
+0012F6EC  |77D18734  返回到 USER32.77D18734
+0012F6F0  |00000000
+0012F6F4  |00000000
+0012F6F8  |0000000D
+0012F6FC  |001C0001
+0012F700  |0022F888
+0012F704  |DCBAABCD
+0012F708  |00000000
+0012F70C  |0012F750
+0012F710  |0022F888
+0012F714  ]0012F77C
+0012F718  |77D18816  返回到 USER32.77D18816 来自 USER32.77D1870C
+0012F71C  |0022F888
+0012F720  |0087019C
+0012F724  |00000100
+0012F728  |0000000D
+0012F72C  |001C0001
+0012F730  |0012F814
+0012F734  |0012F80C
+0012F738  |00617F68
+0012F73C  |00000014
+0012F740  |00000001
+0012F744  |00000000
+0012F748  |00000000
+0012F74C  |00000010
+0012F750  |00000000
+0012F754  |0012F784
+0012F758  |00000000
+0012F75C  |00000000
+0012F760  |00000000
+0012F764  |0012F730
+0012F768  |0012F914
+0012F76C  |0012F7CC  指向下一个 SEH 记录的指针
+0012F770  |77D4048F  SE处理程序
+0012F774  |77D18830  USER32.77D18830
+0012F778  |00000000
+0012F77C  ]0012F7DC
+0012F780  |77D189CD  返回到 USER32.77D189CD 来自 USER32.77D1875F
+0012F784  |00000000
+0012F788  |0022F888
+0012F78C  |0087019C
+0012F790  |00000100
+0012F794  |0000000D
+0012F798  |001C0001
+0012F79C  |00617F7C
+0012F7A0  |00000001
+0012F7A4  |00F48320
+0012F7A8  |0012F80C
+0012F7AC  |00008FFF
+0012F7B0  |00000001
+0012F7B4  |0012F7EC
+0012F7B8  |69F060DC  返回到 HummerEn.69F060DC 来自 HummerEn.69F04FFB
+0012F7BC  |0000000D
+0012F7C0  |00000000
+0012F7C4  |0012F7A4
+0012F7C8  |77D29FB2  返回到 USER32.77D29FB2
+0012F7CC  |0012F874  指向下一个 SEH 记录的指针
+0012F7D0  |77D4048F  SE处理程序
+0012F7D4  |77D189F0  USER32.77D189F0
+0012F7D8  |FFFFFFFF
+0012F7DC  ]0012F7EC
+0012F7E0  |77D18A10  返回到 USER32.77D18A10 来自 USER32.77D188F1
+0012F7E4  |0012F80C
+0012F7E8  |00000000
+0012F7EC  ]0012F828
+0012F7F0  |69F0652A  返回到 HummerEn.69F0652A 来自 USER32.DispatchMessageW
+0012F7F4  |0012F80C
+0012F7F8  |69F10C00  HummerEn.69F10C00
+0012F7FC  |69F0633C  返回到 HummerEn.69F0633C 来自 HummerEn.69F064C3
+0012F800  |00000000
+0012F804  |00F48320
+0012F808  |69F10C10  UNICODE "func"
+0012F80C  |0087019C
+0012F810  |00000100
+0012F814  |0000000D
+0012F818  |001C0001
+0012F81C  |011533D6
+0012F820  |000006C1
+0012F824  |000000D1
+0012F828  ]0012F844
+0012F82C  |69F06059  返回到 HummerEn.69F06059
+0012F830  |69F109E8  UNICODE "/MLogin"
+0012F834  |69F10C04  UNICODE "file"
+0012F838  |0012FA64
+0012F83C  |0012FD00
+0012F840  |00000001
+0012F844  ]0012F880
+0012F848  |69F04529  返回到 HummerEn.69F04529
+0012F84C  |0012FA64
+0012F850  |69F04BFA  返回到 HummerEn.69F04BFA 来自 HummerEn.69F04513
+0012F854  |320BA5DD
+0012F858  |69F109E8  UNICODE "/MLogin"
+0012F85C  |69F10C04  UNICODE "file"
+0012F860  |69F10C10  UNICODE "func"
+0012F864  |00000001
+0012F868  |01024700
+0012F86C  |0012FA64
+0012F870  |00000000
+0012F874  |0012FD84  指向下一个 SEH 记录的指针
+0012F878  |69F0E9D9  SE处理程序
+0012F87C  |00000000
+0012F880  ]0012FD90
+0012F884  |69F0AF44  返回到 HummerEn.69F0AF44 来自 HummerEn.69F04BD9
+0012F888  |320BA0CD
+0012F88C  |7C92FE01  ntdll.RtlGetLastWin32Error
+0012F890  |69F00000  HummerEn.69F00000
+0012F894  |00000000
+0012F898  |00000000
+0012F89C  |00001000
+0012F8A0  |00010000  UNICODE "ALLUSERSPROFILE=C:\Documents and Settings\All Users"
+0012F8A4  |7FFEFFFF
+0012F8A8  |00000001
+0012F8AC  |00000001
+0012F8B0  |0000024A
+0012F8B4  |00010000  UNICODE "ALLUSERSPROFILE=C:\Documents and Settings\All Users"
+0012F8B8  |18010017
+0012F8BC  |00000020
+0012F8C0  |00000009
+0012F8C4  |7FFFFFFF
+0012F8C8  |7FFFFFFF
+0012F8CC  |FFFFFFFF
+0012F8D0  |FFFFFFFF
+0012F8D4  |7FFE0000
+0012F8D8  |7CD1E000
+0012F8DC  |00000000
+0012F8E0  |00000000
+0012F8E4  |00000003
+0012F8E8  |00000000
+0012F8EC  |00000000
+0012F8F0  |00000000
+0012F8F4  |302817A4  Common.302817A4
+0012F8F8  |302817A4  Common.302817A4
+0012F8FC  |00000000
+0012F900  |00000000
+0012F904  |302817A4  Common.302817A4
+0012F908  |00369E99
+0012F90C  |00000000
+0012F910  |69F110B4  HummerEn.69F110B4
+0012F914  |00000000
+0012F918  |00000000
+0012F91C  |00000000
+0012F920  |00000000
+0012F924  |00000000
+0012F928  |0012F93C
+0012F92C  |00000002
+0012F930  |00000002
+0012F934  |01035318
+0012F938  |00FBC578
+0012F93C  |00F47838
+0012F940  |0000FA95
+0012F944  |0012FD98
+0012F948  |69F11240  UNICODE "InitAutoUpdate"
+0012F94C  |01035318
+0012F950  |7C935BD8  返回到 ntdll.7C935BD8 来自 ntdll.RtlFreeUnicodeString
+0012F954  |0012F998
+0012F958  |0012FB38
+0012F95C  |00000001
+0012F960  |7C935C3D  返回到 ntdll.7C935C3D 来自 ntdll.7C92FE57
+0012F964  |76990000  ole32.76990000
+0012F968  |7C99B214  ntdll.7C99B214
+0012F96C  |FFFFFFFD
+0012F970  |00000000
+0012F974  |0012FD8C
+0012F978  |0012FB30
+0012F97C  |00000000
+0012F980  |0012FB38
+0012F984  |00000000
+0012F988  |0012FB28
+0012F98C  |00000000
+0012F990  |0012F9B0
+0012F994  |78147344  返回到 MSVCR80.78147344 来自 MSVCR80.781472B7
+0012F998  |0012F9F0
+0012F99C  |7FFDF000
+0012F9A0  |0012F9E8
+0012F9A4  |0012F9C8
+0012F9A8  |7C9396BF  返回到 ntdll.7C9396BF 来自 ntdll.wcsncpy
+0012F9AC  |0012F9FC  UNICODE "Service Pack 3"
+0012F9B0  |7F6F06C2  UNICODE "Service Pack 3"
+0012F9B4  |0000000E
+0012F9B8  |00000000
+0012F9BC  |0000011C
+0012F9C0  |0012F9E8
+0012F9C4  |00000000
+0012F9C8  |0012F9DC
+0012F9CC  |7C80AF15  返回到 kernel32.7C80AF15 来自 ntdll.RtlGetVersion
+0012F9D0  |0012F9E8
+0012F9D4  |7C92FE01  ntdll.RtlGetLastWin32Error
+0012F9D8  |69F00000  HummerEn.69F00000
+0012F9DC  |0012FB00
+0012F9E0  |300E7FCD  返回到 Common.300E7FCD 来自 kernel32.GetVersionExW
+0012F9E4  |300E7FE1  返回到 Common.300E7FE1 来自 Common.301316D8
+0012F9E8  |00000114
+0012F9EC  |00000005
+0012F9F0  |00000001
+0012F9F4  |00000A28
+0012F9F8  |00000002
+0012F9FC  |00650053
+0012FA00  |00760072
+0012FA04  |00630069
+0012FA08  |00200065
+0012FA0C  |00610050
+0012FA10  |006B0063
+0012FA14  |00330020
+0012FA18  |00000000
+0012FA1C  |00000000
+0012FA20  |00000000
+0012FA24  |00000000
+0012FA28  |00000000
+0012FA2C  |00000000
+0012FA30  |00000000
+0012FA34  |00000000
+0012FA38  |00000000
+0012FA3C  |00000000
+0012FA40  |0012FA74
+0012FA44  |00150000
+0012FA48  |7C930202  返回到 ntdll.7C930202 来自 ntdll.7C92E8E6
+0012FA4C  |00000005
+0012FA50  |00150778
+0012FA54  |00150000
+0012FA58  |00000000
+0012FA5C  |0012FA4C
+0012FA60  |00000000
+0012FA64  |69F10C44  HummerEn.69F10C44
+0012FA68  |00000000
+0012FA6C  |000000C0
+0012FA70  |02B41AB0
+0012FA74  |00000018
+0012FA78  |00000000
+0012FA7C  |00000000
+0012FA80  |0012FDBC
+0012FA84  |02C5D288
+0012FA88  |02C5D2D0
+0012FA8C  |02C5D450
+0012FA90  |0012FAC4
+0012FA94  |003E0000
+0012FA98  |00000000
+0012FA9C  |00000000
+0012FAA0  |00000000
+0012FAA4  |00000000
+0012FAA8  |00F48320
+0012FAAC  |0012FA9C
+0012FAB0  |00000000
+0012FAB4  |00000000
+0012FAB8  |00000000
+0012FABC  |00000000
+0012FAC0  |00000000
+0012FAC4  |7C930001  ntdll.7C930001
+0012FAC8  |7C931066  返回到 ntdll.7C931066 来自 ntdll.RtlLeaveCriticalSection
+0012FACC  |7C930100  ntdll.7C930100
+0012FAD0  |0000002C
+0012FAD4  |00000000
+0012FAD8  |0000002C
+0012FADC  |00000000
+0012FAE0  |0000000F
+0012FAE4  |00000000
+0012FAE8  |029698C0
+0012FAEC  |00000008
+0012FAF0  |00000000
+0012FAF4  |00000000
+0012FAF8  |00167A08
+0012FAFC  |FFFFFFFF
+0012FB00  |00000000
+0012FB04  |00000000
+0012FB08  |00000000
+0012FB0C  |00000000
+0012FB10  |0012F864
+0012FB14  |00000000
+0012FB18  |00000000
+0012FB1C  |00000010
+0012FB20  |0F78007D
+0012FB24  |00000000
+0012FB28  |00000000
+0012FB2C  |00000000
+0012FB30  |00000000
+0012FB34  |00000000
+0012FB38  |00251E9C
+0012FB3C  |69F10A40  HummerEn.69F10A40
+0012FB40  |00250001
+0012FB44  |00000000
+0012FB48  |000001B0
+0012FB4C  |0114FEB8
+0012FB50  |00F90C40
+0012FB54  |000001EC
+0012FB58  |000001FA
+0012FB5C  |69676F4C
+0012FB60  |006C6163
+0012FB64  |7C80B4C0  kernel32.7C80B4C0
+0012FB68  |00F40000
+0012FB6C  |00000007
+0012FB70  |0000000F
+0012FB74  |003A0043
+0012FB78  |0050005C
+0012FB7C  |006F0072
+0012FB80  |00720067
+0012FB84  |006D0061
+0012FB88  |00460020
+0012FB8C  |006C0069
+0012FB90  |00730065
+0012FB94  |0054005C
+0012FB98  |006E0065
+0012FB9C  |00650063
+0012FBA0  |0074006E
+0012FBA4  |0051005C
+0012FBA8  |00490051
+0012FBAC  |0074006E
+0012FBB0  |0031006C
+0012FBB4  |0042005C
+0012FBB8  |006E0069
+0012FBBC  |0051005C
+0012FBC0  |002E0051
+0012FBC4  |00780065
+0012FBC8  |00000065
+0012FBCC  |00000000
+0012FBD0  |00000000
+0012FBD4  |00000000
+0012FBD8  |00000000
+0012FBDC  |00000000
+0012FBE0  |00000000
+0012FBE4  |00000000
+0012FBE8  |00000000
+0012FBEC  |00000000
+0012FBF0  |00000000
+0012FBF4  |00000000
+0012FBF8  |00000000
+0012FBFC  |00000000
+0012FC00  |00000000
+0012FC04  |00000000
+0012FC08  |00000000
+0012FC0C  |00000000
+0012FC10  |00000000
+0012FC14  |00000000
+0012FC18  |00000000
+0012FC1C  |00000000
+0012FC20  |00000000
+0012FC24  |00000000
+0012FC28  |00000000
+0012FC2C  |00000000
+0012FC30  |00000000
+0012FC34  |00000000
+0012FC38  |00000000
+0012FC3C  |00000000
+0012FC40  |00000000
+0012FC44  |00000000
+0012FC48  |00000000
+0012FC4C  |00000000
+0012FC50  |00000000
+0012FC54  |00000000
+0012FC58  |00000000
+0012FC5C  |00000000
+0012FC60  |00000000
+0012FC64  |00000000
+0012FC68  |00000000
+0012FC6C  |00000000
+0012FC70  |00000000
+0012FC74  |00000000
+0012FC78  |00000000
+0012FC7C  |00000000
+0012FC80  |00000000
+0012FC84  |00000000
+0012FC88  |00000000
+0012FC8C  |00000000
+0012FC90  |00000000
+0012FC94  |00000000
+0012FC98  |00000000
+0012FC9C  |00000000
+0012FCA0  |00000000
+0012FCA4  |00000000
+0012FCA8  |00000000
+0012FCAC  |00000000
+0012FCB0  |00000000
+0012FCB4  |00000000
+0012FCB8  |00000000
+0012FCBC  |00000000
+0012FCC0  |00000000
+0012FCC4  |00000000
+0012FCC8  |00000000
+0012FCCC  |00000000
+0012FCD0  |00000000
+0012FCD4  |00000000
+0012FCD8  |00000000
+0012FCDC  |00000000
+0012FCE0  |00000000
+0012FCE4  |00000000
+0012FCE8  |00000000
+0012FCEC  |00000000
+0012FCF0  |00000000
+0012FCF4  |00000000
+0012FCF8  |00000000
+0012FCFC  |00000000
+0012FD00  |00000000
+0012FD04  |00000000
+0012FD08  |00000000
+0012FD0C  |00000000
+0012FD10  |00000000
+0012FD14  |00000000
+0012FD18  |00000000
+0012FD1C  |00000000
+0012FD20  |00000000
+0012FD24  |00000000
+0012FD28  |00000000
+0012FD2C  |00000000
+0012FD30  |00000000
+0012FD34  |00000000
+0012FD38  |00000000
+0012FD3C  |00000000
+0012FD40  |00000000
+0012FD44  |00000000
+0012FD48  |00000000
+0012FD4C  |00000000
+0012FD50  |00000000
+0012FD54  |00000000
+0012FD58  |00000000
+0012FD5C  |00000000
+0012FD60  |00000000
+0012FD64  |00000000
+0012FD68  |00000000
+0012FD6C  |00000000
+0012FD70  |00000000
+0012FD74  |00000000
+0012FD78  |00000000
+0012FD7C  |00000000
+0012FD80  |320BA0CD
+0012FD84  |0012FFB0  指向下一个 SEH 记录的指针
+0012FD88  |69F0E30C  SE处理程序
+0012FD8C  |00000007
+0012FD90  ]0012FDDC
+0012FD94  |69F0B146  返回到 HummerEn.69F0B146 来自 HummerEn.69F0A4A4
+0012FD98  |69F10EF4  HummerEn.69F10EF4
+0012FD9C  |000001F8
+0012FDA0  |00000000
+0012FDA4  |00001101
+0012FDA8  |00000318
+0012FDAC  |69F1229C  HummerEn.69F1229C
+0012FDB0  |00F907E0
+0012FDB4  |69F1229C  HummerEn.69F1229C
+0012FDB8  |00F90818
+0012FDBC  |001679E0
+0012FDC0  |FFFFFFFF
+0012FDC4  |00000000
+0012FDC8  |00000000
+0012FDCC  |00000000
+0012FDD0  |00000000
+0012FDD4  |00FA8AE0
+0012FDD8  |0012FD98
+0012FDDC  ]0012FF20
+0012FDE0  |004014D9  返回到 QQ.004014D9
+0012FDE4  |0000000A
+0012FDE8  |00404458  QQ.00404458
+0012FDEC  |00000001
+0012FDF0  |00000000
+0012FDF4  |BAD8C75F
+0012FDF8  |C97C574C
+0012FDFC  |B3C13F78
+0012FE00  |00000114
+0012FE04  |00000005
+0012FE08  |00000001
+0012FE0C  |00000A28
+0012FE10  |00000002
+0012FE14  |00650053
+0012FE18  |00760072
+0012FE1C  |00630069
+0012FE20  |00200065
+0012FE24  |00610050
+0012FE28  |006B0063
+0012FE2C  |00330020
+0012FE30  |00000000
+0012FE34  |00000000
+0012FE38  |00000000
+0012FE3C  |00000000
+0012FE40  |00000000
+0012FE44  |00000000
+0012FE48  |00000000
+0012FE4C  |00000000
+0012FE50  |00000000
+0012FE54  |00000000
+0012FE58  |00000000
+0012FE5C  |00000000
+0012FE60  |00000000
+0012FE64  |00000000
+0012FE68  |00000000
+0012FE6C  |00000000
+0012FE70  |00000000
+0012FE74  |00000000
+0012FE78  |00000000
+0012FE7C  |00000000
+0012FE80  |00000000
+0012FE84  |00000000
+0012FE88  |00000000
+0012FE8C  |00000000
+0012FE90  |00000000
+0012FE94  |00000000
+0012FE98  |00000000
+0012FE9C  |00000000
+0012FEA0  |00000000
+0012FEA4  |00000000
+0012FEA8  |00000000
+0012FEAC  |00000000
+0012FEB0  |00000000
+0012FEB4  |00000000
+0012FEB8  |00000000
+0012FEBC  |00000000
+0012FEC0  |00000000
+0012FEC4  |00000000
+0012FEC8  |00000000
+0012FECC  |00000000
+0012FED0  |00000000
+0012FED4  |00000000
+0012FED8  |00000000
+0012FEDC  |00000000
+0012FEE0  |00000000
+0012FEE4  |00000000
+0012FEE8  |00000000
+0012FEEC  |00000000
+0012FEF0  |00000000
+0012FEF4  |00000000
+0012FEF8  |00000000
+0012FEFC  |00000000
+0012FF00  |00000000
+0012FF04  |00000000
+0012FF08  |00000000
+0012FF0C  |00000000
+0012FF10  |00000000
+0012FF14  |32B82FF8
+0012FF18  |FFFFFFFE
+0012FF1C  |32EAE154
+0012FF20  ]0012FF2C
+0012FF24  |0040128B  返回到 QQ.0040128B 来自 QQ.0040128F
+0012FF28  |0000000A
+0012FF2C  ]0012FFC0
+0012FF30  |00401A8F  返回到 QQ.00401A8F 来自 QQ.00401280
+0012FF34  |00400000  QQ.00400000
+0012FF38  |00000000
+0012FF3C  |000207BC  UNICODE "C:\Program Files\Tencent\QQIntl1\Bin\QQ.exe "
+0012FF40  |0000000A
+0012FF44  |32EAE360
+0012FF48  |0012EF30
+0012FF4C  |7C930021  返回到 ntdll.7C930021 来自 ntdll.7C930072
+0012FF50  |7FFDF000
+0012FF54  |00000044
+0012FF58  |00020890
+0012FF5C  |00020870  UNICODE "WinSta0\Default"
+0012FF60  |00020818  UNICODE "C:\Program Files\Tencent\QQIntl1\Bin\QQ.exe"
+0012FF64  |00000000
+0012FF68  |00000000
+0012FF6C  |00000000
+0012FF70  |00000000
+0012FF74  |00000000
+0012FF78  |00000000
+0012FF7C  |00000000
+0012FF80  |00000000
+0012FF84  |00000000
+0012FF88  |00000000
+0012FF8C  |00369E99
+0012FF90  |00000000
+0012FF94  |0012FFBC
+0012FF98  |00402017  返回到 QQ.00402017 来自 kernel32.QueryPerformanceCounter
+0012FF9C  |000207BC  UNICODE "C:\Program Files\Tencent\QQIntl1\Bin\QQ.exe "
+0012FFA0  |00000000
+0012FFA4  |00000000
+0012FFA8  |0012FF44
+0012FFAC  |0B413665
+0012FFB0  |0012FFE0  指向下一个 SEH 记录的指针
+0012FFB4  |00401C61  SE处理程序
+0012FFB8  |32B82FD8
+0012FFBC  |00000001
+0012FFC0  \0012FFF0
+0012FFC4   7C817067  返回到 kernel32.7C817067
+0012FFC8   0012EF30
+0012FFCC   7C930021  返回到 ntdll.7C930021 来自 ntdll.7C930072
+0012FFD0   7FFDF000
+0012FFD4   8054C6B8
+0012FFD8   0012FFC8
+0012FFDC   89E34780
+0012FFE0   FFFFFFFF  SEH 链尾部
+0012FFE4   7C839AC0  SE处理程序
+0012FFE8   7C817070  kernel32.7C817070
+0012FFEC   00000000
+0012FFF0   00000000
+0012FFF4   00000000
+0012FFF8   00401BFB  QQ.<ModuleEntryPoint>
+0012FFFC   00000000
+
