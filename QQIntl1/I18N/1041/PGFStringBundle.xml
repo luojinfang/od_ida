@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StringBundle ver="100">
+	<String id="Title_Common_WndTitle">QQ セキュリティ センター</String>
+	<String id="Title_Common_PromptTitle">統合的セキュリティ検証</String>
+	<String id="Option_Common_OtherType">その他</String>
+	<String id="Button_Common_OK">OK</String>
+	<String id="Button_Common_Cancel">取消</String>
+	<String id="Button_Common_ReInput">再入力</String>
+	<String id="Button_Common_NextStep">次へ</String>
+	<String id="Button_Common_PreStep">前へ</String>
+	<String id="Common_SelectTypePrompt">検証者</String>
+	<String id="Common_Include">追加</String>
+	<String id="Link_Common_RequestPGSetting">&lt;Title=&quot;今すぐ設定&quot;,Url=&quot;http://ptlogin2.qq.com/unisecverify?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$&quot;&gt;</String>
+	
+	<String id="PwdGuardCard_Name">パスワード保護カード</String>
+	<String id="PwdGuardCard_Title">パスワード保護カード検証</String>
+	<String id="PwdGuardCard_ClickToSetting">&lt;Title=&quot;ここをクリックして設定します&quot;,Url=&quot;http://ptlogin2.qq.com/im_mibaoka_shezhi?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$&quot;&gt;</String>
+	<String id="PwdGuardCard_StateText">マトリックス数値が記載されたカード、&lt;Title=&quot;詳細の表示&quot;,Url=&quot;http://ptlogin2.qq.com/im_mb_help?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$&quot;&gt;</String>
+	<String id="PwdGuardCard_LocPrompt">座標: </String>
+	<String id="PwdGuardCard_NumPrompt">数値: </String>
+	<String id="Link_PwdGuardCard_Setting">&lt;Title=&quot;パスワード保護カードの設定&quot;,Url=&quot;http://ptlogin2.qq.com/immibaoka?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$&quot;&gt;</String>
+	<String id="PwdGuardCard_FocusPrompt">パスワード保護カードを参照して対応する座標の数値を入力してください。</String>
+	<String id="PwdGuardCard_NotRemind">今後通知しないでください。</String>
+	<String id="PwdGuardCard_RemindText">您的密保卡使用次数已经超过安全次数上限，请您及时更换密保卡。</String>
+	<String id="Tip_PwdGuardCard_InputInvalid">请输入坐标对应的2位数字</String>
+	<String id="PwdGuardCard_VerifyFail">无法通过密保卡验证</String>
+	<String id="PwdGuardCard_VerifySuccess">密保卡验证成功</String>
+	<String id="PwdGuardCard_Loading">下载中...</String>
+	<String id="PwdGuardCard_CardNumPrompt">密保卡序列号:</String>
+	
+	<String id="SMS_Name">密保手机</String>
+	<String id="SMS_Title">密保手机验证</String>
+	<String id="SMS_ClickToSetting">&lt;Title=&quot;ここをクリックして設定します&quot;,Url=&quot;http://ptlogin2.qq.com/im_phone_shezhi?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$&quot;&gt;</String>
+	<String id="SMS_StateText"></String>
+	<String id="SMS_MobileNumPrompt">パスワード保護のためのモバイル番号は: $MOBILE_NUM$</String>
+	<String id="SMS_MobileNumPrompt_1">密保手机号码:</String>
+	<String id="SMS_InputPrompt">受信した検証コードを入力してください。</String>
+	<String id="SMS_InputEditDefaultText">8 桁の検証コードを入力してください。</String>
+	<String id="SMS_MarkupText">検証コードは受信した 8 桁の数値です。</String>
+	<String id="SMS_OperatePrompt">「SS#QQ 数値」を $ACCESS_NUM$ に送信してください。</String>
+	<String id="SMS_OperatePrompt_1">「SS#$UIN$」を $ACCESS_NUM$ に送信してください。</String>
+	<String id="SMS_OperatePrompt_2">请用该手机编辑短信&quot;$SMS$&quot;发送到$ACCESS_NUM$，将收到的8位验证码填入下框中:</String>
+	<String id="Tip_SMS_InputInvalid">8 桁の検証コードを入力してください。</String>
+	<String id="Link_SMS_Setting"></String>
+	<String id="SMS_VerifyFail">无法通过密保手机验证</String>
+	
+	<String id="MobileToken_Name">密保令牌</String>
+	<String id="MobileToken_Title">密保令牌验证</String>
+	<String id="MobileToken_ClickToSetting"></String>
+	<String id="MobileToken_StateText"></String>
+	<String id="MobileToken_InputPrompt">モバイルのトークン カード ソフトウェアを参照して、表示された番号を入力してください。</String>
+	<String id="MobileToken_InputPrompt1">请您运行您手机上的密保令牌软件，将手机屏幕上显示的6位动态密码填入下框中:</String>
+	<String id="MobileToken_InputEditDefaultText">6 桁の動的パスワードを入力してください。</String>
+	<String id="Tip_MobileToken_InputInvalid">6 桁の動的パスワードを入力してください。</String>
+	<String id="Link_MobileToken_Setting"></String>
+	<String id="MobileToken_ServerTimePrompt">当前服务器时间:</String>
+	<String id="MobileToken_ServerTime">$YEAR$年$MONTH$月$DAY$日 $HOUR$:$MINUTE$:$SECOND$</String>
+	<String id="MobileToken_VerifyFail">无法通过密保令牌验证</String>
+<String id="Link_Common_IngredientSetting">&lt;Title="認証を中止する",Url="http://ptlogin2.qq.com/unisecverify_qq_set?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+<String id="Link_Common_Help">&lt;Title="ヘルプ",Url="http://ptlogin2.qq.com/unisecverify_qq_help?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+<String id="Link_PwdGuardCard_ViewFailDetail">&lt;Title="詳細を見る",Url="http://ptlogin2.qq.com/unisecverify_qq_help_mbk?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+<String id="PwdGuardCard_PicFail">パスガードカードの座標画像をダウンロードできませんでした。再試行してください。</String>
+<String id="Link_SMS_ViewFailDetail">&lt;Title="詳細を見る",Url="http://ptlogin2.qq.com/unisecverify_qq_help_phoe?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+<String id="Link_MobileToken_ViewFailDetail">&lt;Title="詳細を見る",Url="http://ptlogin2.qq.com/Unisecverify_qq_help_token?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+<String id="QQToken_Name">QQトークン</String>
+<String id="QQToken_InputEditDefaultText">$COUNT$文字のアラビア数字で形成された動態パスワードを入力してください</String>
+<String id="Link_QQToken_Setting">&lt;Title="QQトークンの設置",Url="http://ptlogin2.qq.com/unisecverify_qq_set_qqlp?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+<String id="Tip_QQToken_InputInvalid">$COUNT$文字のアラビア数字で形成された動態パスワードを入力してください</String>
+<String id="QQToken_VerifyFail">QQトークンの認証に失敗しました</String>
+<String id="Link_QQToken_ViewFailDetail">&lt;Title="詳細を見る",Url="http://ptlogin2.qq.com/Unisecverify_qq_help_qqlp?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+<String id="Link_Common_RequestPGSetting">&lt;Title="Setup",Url="http://ptlogin2.qq.com/unisecverify?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+<String id="Link_Common_IngredientSetting">&lt;Title="Cancel",Url="http://ptlogin2.qq.com/unisecverify_qq_set?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+<String id="Link_Common_Help">&lt;Title="Help",Url="http://ptlogin2.qq.com/unisecverify_qq_help?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+<String id="PwdGuardCard_VerifyFail">確認失敗</String>
+<String id="PwdGuardCard_VerifySuccess">確認成功</String>
+<String id="PwdGuardCard_Loading">ダウンロード中</String>
+<String id="PwdGuardCard_CardNumPrompt">パスワードカードコードを入力:</String><!-- what is this "password card"? -->
+<String id="Link_PwdGuardCard_ViewFailDetail">&lt;Title="View details",Url="http://ptlogin2.qq.com/unisecverify_qq_help_mbk?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+<String id="PwdGuardCard_PicFail">エラー。やり直してください</String>
+<String id="SMS_MobileNumPrompt_1">携帯:</String>
+<String id="SMS_OperatePrompt_2">8桁の確認コード"$SMS$"は$ACCESS_NUM$に送信されます。以下に入力してください。</String><!-- unclear logic here? what is the $SMS$ variable? -->
+<String id="SMS_VerifyFail">SMS確認失敗</String>
+<String id="Link_SMS_ViewFailDetail">&lt;Title="View details",Url="http://ptlogin2.qq.com/unisecverify_qq_help_phoe?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+<String id="MobileToken_InputPrompt1">電話で携帯トークンアプリを実行し、以下に表示される6桁のコードを入力します。</String>
+<String id="MobileToken_ServerTimePrompt">サーバー時刻:</String>
+<String id="MobileToken_ServerTime">$YEAR$/$MONTH$/$DAY$ $HOUR$:$MINUTE$:$SECOND$</String>
+<String id="MobileToken_VerifyFail">携帯トークンで確認できません</String>
+<String id="Link_MobileToken_ViewFailDetail">&lt;Title="View details",Url="http://ptlogin2.qq.com/Unisecverify_qq_help_token?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+<String id="QQToken_Name">QQトークン</String>
+<String id="QQToken_InputEditDefaultText">$COUNT$桁のコードを入力してください</String>
+<String id="Link_QQToken_Setting">&lt;Title="Setup QQ Token",Url="http://ptlogin2.qq.com/unisecverify_qq_set_qqlp?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+<String id="Tip_QQToken_InputInvalid">$COUNT$桁のコードを入力してください</String>
+<String id="QQToken_VerifyFail">トークンの確認失敗</String>
+<String id="Link_QQToken_ViewFailDetail">&lt;Title="View details",Url="http://ptlogin2.qq.com/Unisecverify_qq_help_qqlp?ptlang=$LANG$&amp;clientuin=$UIN$&amp;clientkey=$KEY$"&gt;</String>
+</StringBundle>

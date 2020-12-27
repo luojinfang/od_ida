@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="IE_Refresh">
+Recargar
+</String>
+<String id="IE_RetryText">
+Has click en $REFRESH$ para intentar nuevamente
+</String>
+<String id="Empty_Menu">
+(N/A)
+</String>
+<String id="SYS_MESSAGEBOX_OK">
+OK
+</String>
+<String id="SYS_MESSAGEBOX_CANCEL">
+Cancelar
+</String>
+<String id="SYS_MESSAGEBOX_RETRY">
+Reintentar
+</String>
+<String id="SYS_MESSAGEBOX_YES">
+Si
+</String>
+<String id="SYS_MESSAGEBOX_NO">
+No
+</String>
+<String id="SYS_MESSAGEBOX_ABORT">
+Abortar
+</String>
+<String id="SYS_MESSAGEBOX_IGNORE">
+Ignorar
+</String>
+<String id="SYS_MESSAGEBOX_CONTINUE">
+Continuar
+</String>
+<String id="SYS_MESSAGEBOX_HELP">
+Ayuda
+</String>
+<String id="Sunday_Simple">
+D
+</String>
+<String id="Monday_Simple">
+L
+</String>
+<String id="Tuesday_Simple">
+M
+</String>
+<String id="Wednesday_Simple">
+Mi
+</String>
+<String id="Thursday_Simple">
+J
+</String>
+<String id="Friday_Simple">
+V
+</String>
+<String id="Saturday_Simple">
+S
+</String>
+<String id="Sunday">
+Domingo
+</String>
+<String id="Monday">
+Lunes
+</String>
+<String id="Tuesday">
+Martes
+</String>
+<String id="Wednesday">
+Miercoles
+</String>
+<String id="Thursday">
+Jueves
+</String>
+<String id="Friday">
+Viernes
+</String>
+<String id="Saturday">
+Sabado
+</String>
+<String id="PreYear">
+Año anterior
+</String>
+<String id="NextYear">
+Año siguiente
+</String>
+<String id="PreMonth">
+Mes anterior
+</String>
+<String id="NextMonth">
+Mes siguiente
+</String>
+<String id="MonthCalCtrl_Help">
+Ayuda
+</String>
+<String id="MonthCalCtrl_Close">
+Cerrar
+</String>
+<String id="LoginPanel_CapslockOpen">
+Por favor, verifica que no estes usando CAPS Lock.
+</String>
+<String id="UtilInfo_ElmCount">
+Total: $COUNT$
+</String>
+<String id="CloseWindow">
+Cerrar
+</String>
+<String id="MaxisizeWindow">
+Maximizar
+</String>
+<String id="RestoreWindow">
+Restaurar
+</String>
+<String id="MinimizeWindow">
+Minimizar
+</String>
+<String id="LoginPanel_DelAccount_Tips">
+Eliminar informacion de cuenta
+</String>
+<String id="Flash_ErrorText">
+Tu version de Flash es muy antigua para utilizar QQ Show normalmente. Por favor, Has click aqui para descargar la ultima version.
+</String>
+<String id="Flash_DownloadUrl">
+http://ptlogin2.qq.com/flash_plugin
+</String>
+<String id="IE_LoadingText">
+Cargando, Por favor espere...
+</String>
+<String id="IE_ErrText">
+Error de red. No se ha podido cargar la pagina.
+</String>
+<String id="Tips_Backward">
+Atras
+</String>
+<String id="Tips_Forward">
+Adelante
+</String>
+<String id="IE_ScriptErrText">
+Error de Script en la pagina actual.
+</String>
+<String id="Edit_NumberOnlyTips">
+You can only type numbers here.
+</String>
+<String id="Edit_FontSongTi">
+宋体
+</String>
+<String id="Edit_RButtonMenu_Cancel">
+Cancel(&amp;U)
+</String>
+<String id="Edit_RButtonMenu_Cut">
+Cut(&amp;T)
+</String>
+<String id="Edit_RButtonMenu_Copy">
+Copy(&amp;C)
+</String>
+<String id="Edit_RButtonMenu_Paste">
+Paste(&amp;P)
+</String>
+<String id="Edit_RButtonMenu_Delete">
+Delete(&amp;D)
+</String>
+<String id="Edit_RButtonMenu_SelectAll">
+Select All(&amp;A)
+</String>
+<String id="AppName">Nomb. servicio</String>
+<String id="HotKey_DoubleCtrl">Doble puls. tecla Ctrl</String>
+<String id="HotKey_NoSet">Ninguno</String>
+<String id="Error">Error</String>
+<String id="Version">Versión</String>
+<String id="HotKey_DoubleShift">Doble puls. tecla Mayús</String>
+<String id="Close">Cerrar</String>
+<String id="HotKey_DoubleAlt">Doble puls. tecla Alt</String>
+</StringBundle>

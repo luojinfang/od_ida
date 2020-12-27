@@ -1,0 +1,830 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="Group_File_MoveFail">
+폴더를 $PATH$(으)로 이동하지 못함
+</String>
+<String id="CF_OUT_Discuss">
+일반 토론
+</String>
+<String id="CF_PLEASE_ADDMEM_TIPS">
+대화 상대 필드를 비워둘 수 없습니다. 대화 상태를 선택하십시오.
+</String>
+<String id="ContactFolderSys">
+친구
+</String>
+<String id="ContactFolderUnknown">
+제목 없는 그룹
+</String>
+<String id="GroupFolderSys">
+내 QQ그룹
+</String>
+<String id="CUSTOMFACE_GOURPNAME">
+기본
+</String>
+<String id="CustomFavoriteFaceGroup">
+즐겨 찾기
+</String>
+<String id="CUSTOMFACE_WARN_SAMESHORTCUT">
+"$SHORTCUT$" 바로 가기가 이미 사용되었습니다. 교체하시겠습니까?
+</String>
+<String id="Rich_DEF_FONT">
+Tahoma
+</String>
+<String id="Rich_DEF_FONTSIZE">
+10
+</String>
+<String id="GenderMale">
+남성
+</String>
+<String id="GenderFemale">
+여성
+</String>
+<String id="GenderUnknown">
+-
+</String>
+<String id="Group_Connect_Server_Error">
+그룹 파일 서버에 연결하지 못함
+</String>
+<String id="Group_Connected_Server_Error">
+그룹 파일 서버 연결 중단됨
+</String>
+<String id="Group_OldVersion_Tip">
+</String>
+<String id="Group_RequestSend_Error">
+서버에서 이미지 파일 전송 요청 거절
+</String>
+<String id="PROD_NAME_VER" fmt="true">
+$__PNAME_V$
+</String>
+<String id="SERVICENAME_PAIPAI">
+Paipai
+</String>
+<String id="SERVICENAME_QZONE">
+Qzone
+</String>
+  <String id="MSGBOX_EMOJIFACE">
+    [Emoji]
+  </String>
+  <String id="SYSMSG_EMOJIFACE">
+    [Emoji]
+  </String>
+  <String id="SYSMSG_EMOJI">
+    [Emoji]
+  </String>
+<String id="SYSMSG_SYSFACE">
+[이모티콘]
+</String>
+<String id="SYSMSG_IMAGE">
+[이미지]
+</String>
+<String id="TIP_VIEW">
+보기
+</String>
+<String id="TIP_TITLE">
+시스템 메시지
+</String>
+<String id="TIP_BUTTON_TIP">
+클릭하여 자세한 내용 확인
+</String>
+<String id="Group_Group">
+그룹
+</String>
+<String id="Group_Discuss">
+토론
+</String>
+<String id="Group_Org">
+그룹 조직
+</String>
+<String id="Group_RC">
+네트워크 오류 또는 대화 상대가 파일 전송 취소, 전송 취소됨
+</String>
+<String id="Group_FileSend_NetError">
+네트워크 오류가 발생하여 파일 전송이 취소되었습니다. 다시 전송하도록 요청할 수 있음
+</String>
+<String id="Group_FileSend_OpenError">
+파일을 여는 동안 오류가 발생하여 전송이 중단되었습니다. 파일을 다시 보내십시오.
+</String>
+<String id="Group_FileRecv_RemoteStop">
+대화 상대가 파일 전송을 중단함
+</String>
+<String id="Group_FileRecv_NetError">
+파일 전송 취소됨: 전송하는 동안 네트워크 오류가 발생했습니다. 대화 상대에게 다시 보내달라고 요청하십시오.
+</String>
+<String id="Group_FileRecv_WriteError">
+파일을 디스크에 쓰는 동안 오류가 발생하여 전송이 중단되었습니다. 보내는 사람에게 파일을 다시 보내달라고 요청할 수 있습니다.
+</String>
+<String id="Group_FileRecv_Error">
+파일을 받을 수 없음: 파일 전송이 취소되었습니다. 대화 상대에게 다시 보내달라고 요청하십시오.
+</String>
+<String id="Group_FileRecv_OpenError">
+파일 전송 취소됨: 파일을 여는 동안 오류가 발생했습니다. 대화 상대에게 다시 보내달라고 요청하십시오.
+</String>
+<String id="GrayURL_Tips" fmt="true">
+$__PNAME$을(를) 안전하게 보호하려면 신뢰할 수 있는 URL만 여십시오.
+</String>
+<String id="BlackURL_Tips">
+QQ에서 이 URL이 악의적인 것을 확인하고 차단했습니다.
+</String>
+<String id="TencentWhiteURL_Tips">
+Tencent의 공식 웹사이트입니다. 환영합니다!
+</String>
+<String id="NonTencentWhiteURL_Tips">
+이 사이트는 QQ에 의해 안전한 것으로 확인되었으며 컴퓨터에 문제가 발생하지 않습니다.
+</String>
+<String id="GrayURL_WarningMsgOfReceiver">
+경고: 메시지에 사용자가 보고했으며 컴퓨터에 피해를 줄 수 있는 URL이 포함되어 있습니다. QQ 보안 센터에서 이를 차단했습니다.
+</String>
+<String id="GrayURL_WarningMsgOfSender">
+경고: 메시지에 사용자가 보고했으며 컴퓨터에 피해를 줄 수 있는 URL이 포함되어 있습니다. QQ 보안 센터에서 이를 차단했습니다.
+</String>
+<String id="UserDataDefaultSavePath_Vista">
+내 문서
+</String>
+<String id="UserDataDefaultSavePath_XP">
+설치 프로그램 팩 디렉터리
+</String>
+<String id="CF_Group_Image_TooLarge">
+이미지 크기가 제한을 초과하여 전송할 수 없습니다.
+</String>
+<String id="CF_Group_Image_TooBig">
+파일 크기가 제한을 초과하여 전송할 수 없습니다.
+</String>
+<String id="CF_Group_Image_TooManyCustomFace">
+전송할 사용자 정의 이모티콘이 너무 많습니다.
+</String>
+<String id="CF_Group_Image_TooManyImage">
+전송할 이미지가 너무 많습니다.
+</String>
+<String id="MSGFILE_IN_SHARE">
+로그인할 수 없습니다. 나중에 다시 시도해 보십시오.
+</String>
+<String id="USERDATAFILE_IS_USED">
+로그인 실패. 나중에 다시 시도하세요. 문제가 지속되면 컴퓨터를 다시 시작하세요.
+</String>
+<String id="DISK_FULL">
+로그인하지 못함: 디스크 공간이 부족합니다. 일부 공간을 비우고 다시 시도해 보십시오. 문제가 계속되면 컴퓨터를 다시 시작하고 다시 시도해 보십시오.
+</String>
+<String id="LOGINFAIL_1">
+서버 시간이 초과되었습니다. 다시 시도해 보십시오.
+</String>
+<String id="LOGINFAIL_2">
+서버에서 거절됨
+</String>
+<String id="LOGINFAIL_2_1">
+암호를 다시 입력하십시오.
+</String>
+<String id="LOGINFAIL_3">
+버전이 만료되었습니다.
+</String>
+<String id="LOGINFAIL_4">
+서버 유지 관리 중
+</String>
+<String id="LOGINFAIL_5">
+서버 작업 중
+</String>
+<String id="LOGINFAIL_6">
+알 수 없는 오류 발생
+</String>
+<String id="LOGINFAIL_7">
+알 수 없는 오류 발생
+</String>
+<String id="LOGINFAIL_8">
+알 수 없는 오류 발생
+</String>
+<String id="LOGINFAIL_14">
+확인 시간이 초과되었습니다. 다시 시도해 보십시오.
+</String>
+<String id="AUTOREPLYMSG">
+[자동 회신]
+</String>
+<String id="FACE_TOOL_TIP0">
+미소
+</String>
+<String id="FACE_TOOL_TIP1">
+찌푸림
+</String>
+<String id="FACE_TOOL_TIP2">
+침흘림
+</String>
+<String id="FACE_TOOL_TIP3">
+노려봄
+</String>
+<String id="FACE_TOOL_TIP4">
+쌀쌀함
+</String>
+<String id="FACE_TOOL_TIP5">
+흐느낌
+</String>
+<String id="FACE_TOOL_TIP6">
+부끄러움
+</String>
+<String id="FACE_TOOL_TIP7">
+침묵
+</String>
+<String id="FACE_TOOL_TIP8">
+취침
+</String>
+<String id="FACE_TOOL_TIP9">
+울음
+</String>
+<String id="FACE_TOOL_TIP10">
+당황
+</String>
+<String id="FACE_TOOL_TIP11">
+흥분
+</String>
+<String id="FACE_TOOL_TIP12">
+윙크
+</String>
+<String id="FACE_TOOL_TIP13">
+싱긋 웃음
+</String>
+<String id="FACE_TOOL_TIP14">
+놀람
+</String>
+<String id="FACE_TOOL_TIP15">
+찡그림
+</String>
+<String id="FACE_TOOL_TIP16">
+멋짐
+</String>
+<String id="FACE_TOOL_TIP17">
+부끄러움
+</String>
+<String id="FACE_TOOL_TIP18">
+비명
+</String>
+<String id="FACE_TOOL_TIP19">
+구토
+</String>
+<String id="FACE_TOOL_TIP20">
+킬킬 웃음
+</String>
+<String id="FACE_TOOL_TIP21">
+만족
+</String>
+<String id="FACE_TOOL_TIP22">
+의심
+</String>
+<String id="FACE_TOOL_TIP23">
+세침
+</String>
+<String id="FACE_TOOL_TIP24">
+비웃음
+</String>
+<String id="FACE_TOOL_TIP25">
+졸림
+</String>
+<String id="FACE_TOOL_TIP26">
+공황
+</String>
+<String id="FACE_TOOL_TIP27">
+땀흘림
+</String>
+<String id="FACE_TOOL_TIP28">
+웃음
+</String>
+<String id="FACE_TOOL_TIP29">
+군인
+</String>
+<String id="FACE_TOOL_TIP30">
+분투
+</String>
+<String id="FACE_TOOL_TIP31">
+꾸지람
+</String>
+<String id="FACE_TOOL_TIP32">
+혼란
+</String>
+<String id="FACE_TOOL_TIP33">
+쉬
+</String>
+<String id="FACE_TOOL_TIP34">
+최면
+</String>
+<String id="FACE_TOOL_TIP35">
+좌절
+</String>
+<String id="FACE_TOOL_TIP36">
+비밀로
+</String>
+<String id="FACE_TOOL_TIP37">
+해골
+</String>
+<String id="FACE_TOOL_TIP38">
+해머
+</String>
+<String id="FACE_TOOL_TIP39">
+파장
+</String>
+<String id="FACE_TOOL_TIP40">
+안심
+</String>
+<String id="FACE_TOOL_TIP41">
+무례함
+</String>
+<String id="FACE_TOOL_TIP42">
+박수
+</String>
+<String id="FACE_TOOL_TIP43">
+불그스레한
+</String>
+<String id="FACE_TOOL_TIP44">
+안녕
+</String>
+<String id="FACE_TOOL_TIP45">
+냉대 1
+</String>
+<String id="FACE_TOOL_TIP46">
+냉대 2
+</String>
+<String id="FACE_TOOL_TIP47">
+하품
+</String>
+<String id="FACE_TOOL_TIP48">
+부부
+</String>
+<String id="FACE_TOOL_TIP49">
+고민
+</String>
+<String id="FACE_TOOL_TIP50">
+훌쩍
+</String>
+<String id="FACE_TOOL_TIP51">
+교활
+</String>
+<String id="FACE_TOOL_TIP52">
+당혹
+</String>
+<String id="FACE_TOOL_TIP53">
+이런
+</String>
+<String id="FACE_TOOL_TIP54">
+흐느낌
+</String>
+<String id="FACE_TOOL_TIP55">
+명석함
+</String>
+<String id="FACE_TOOL_TIP56">
+수박
+</String>
+<String id="FACE_TOOL_TIP57">
+맥주
+</String>
+<String id="FACE_TOOL_TIP58">
+농구
+</String>
+<String id="FACE_TOOL_TIP59">
+탁구
+</String>
+<String id="FACE_TOOL_TIP60">
+커피
+</String>
+<String id="FACE_TOOL_TIP61">
+쌀
+</String>
+<String id="FACE_TOOL_TIP62">
+돼지
+</String>
+<String id="FACE_TOOL_TIP63">
+장미
+</String>
+<String id="FACE_TOOL_TIP64">
+무기력
+</String>
+<String id="FACE_TOOL_TIP65">
+키스
+</String>
+<String id="FACE_TOOL_TIP66">
+애정
+</String>
+<String id="FACE_TOOL_TIP67">
+실연
+</String>
+<String id="FACE_TOOL_TIP68">
+케이크
+</String>
+<String id="FACE_TOOL_TIP69">
+번개
+</String>
+<String id="FACE_TOOL_TIP70">
+폭탄
+</String>
+<String id="FACE_TOOL_TIP71">
+단도
+</String>
+<String id="FACE_TOOL_TIP72">
+축구
+</String>
+<String id="FACE_TOOL_TIP73">
+레이디버그
+</String>
+<String id="FACE_TOOL_TIP74">
+정보
+</String>
+<String id="FACE_TOOL_TIP75">
+달
+</String>
+<String id="FACE_TOOL_TIP76">
+태양
+</String>
+<String id="FACE_TOOL_TIP77">
+선물
+</String>
+<String id="FACE_TOOL_TIP78">
+포옹
+</String>
+<String id="FACE_TOOL_TIP79">
+승인
+</String>
+<String id="FACE_TOOL_TIP80">
+거절
+</String>
+<String id="FACE_TOOL_TIP81">
+악수
+</String>
+<String id="FACE_TOOL_TIP82">
+승리
+</String>
+<String id="FACE_TOOL_TIP83">
+존경
+</String>
+<String id="FACE_TOOL_TIP84">
+손짓
+</String>
+<String id="FACE_TOOL_TIP85">
+주먹
+</String>
+<String id="FACE_TOOL_TIP86">
+새끼 손가락
+</String>
+<String id="FACE_TOOL_TIP87">
+사랑
+</String>
+<String id="FACE_TOOL_TIP88">
+아니 아니
+</String>
+<String id="FACE_TOOL_TIP89">
+좋음
+</String>
+<String id="FACE_TOOL_TIP90">
+열애 중
+</String>
+<String id="FACE_TOOL_TIP91">
+사랑
+</String>
+<String id="FACE_TOOL_TIP92">
+아장아장
+</String>
+<String id="FACE_TOOL_TIP93">
+앉기
+</String>
+<String id="FACE_TOOL_TIP94">
+아아!
+</String>
+<String id="FACE_TOOL_TIP95">
+회전
+</String>
+<String id="FACE_TOOL_TIP96">
+인사
+</String>
+<String id="FACE_TOOL_TIP97">
+외면
+</String>
+<String id="FACE_TOOL_TIP98">
+점프
+</String>
+<String id="FACE_TOOL_TIP99">
+항복
+</String>
+<String id="FACE_TOOL_TIP100">
+만세
+</String>
+<String id="FACE_TOOL_TIP101">
+헤이 헤이
+</String>
+<String id="FACE_TOOL_TIP102">
+키스
+</String>
+<String id="FACE_TOOL_TIP103">
+싸우는 소녀
+</String>
+<String id="FACE_TOOL_TIP104">
+싸우는 소년
+</String>
+<String id="FACE_TOOL_TIP105">
+감기
+</String>
+<String id="FACE_TOOL_TIP106">
+의욕
+</String>
+<String id="FACE_TOOL_TIP107">
+탐색
+</String>
+<String id="FACE_TOOL_TIP108">
+예쁜 소녀
+</String>
+<String id="FACE_TOOL_TIP109">
+고양이
+</String>
+<String id="FACE_TOOL_TIP110">
+개
+</String>
+<String id="FACE_TOOL_TIP111">
+돈
+</String>
+<String id="FACE_TOOL_TIP112">
+전구
+</String>
+<String id="FACE_TOOL_TIP113">
+술잔
+</String>
+<String id="FACE_TOOL_TIP114">
+음악
+</String>
+<String id="FACE_TOOL_TIP115">
+알약
+</String>
+<String id="FACE_TOOL_TIP116">
+키스
+</String>
+<String id="FACE_TOOL_TIP117">
+미팅
+</String>
+<String id="FACE_TOOL_TIP118">
+전화
+</String>
+<String id="FACE_TOOL_TIP119">
+시계
+</String>
+<String id="FACE_TOOL_TIP120">
+메일
+</String>
+<String id="FACE_TOOL_TIP121">
+TV
+</String>
+<String id="FACE_TOOL_TIP122">
+듀오듀오
+</String>
+<String id="FACE_TOOL_TIP123">
+아름다움
+</String>
+<String id="FACE_TOOL_TIP124">
+좋은 사람
+</String>
+<String id="FACE_TOOL_TIP125">
+모모
+</String>
+<String id="FACE_TOOL_TIP126">
+Q 소년
+</String>
+<String id="FACE_TOOL_TIP127">
+와인
+</String>
+<String id="FACE_TOOL_TIP128">
+콜라
+</String>
+<String id="FACE_TOOL_TIP129">
+비
+</String>
+<String id="FACE_TOOL_TIP130">
+흐림
+</String>
+<String id="FACE_TOOL_TIP131">
+눈사람
+</String>
+<String id="FACE_TOOL_TIP132">
+별
+</String>
+<String id="FACE_TOOL_TIP133">
+여성
+</String>
+<String id="FACE_TOOL_TIP134">
+남성
+</String>
+<String id="OP_V5">
+V5
+</String>
+<String id="OP_GL">
+给力
+</String>
+<String id="OP_QIN">
+亲
+</String>
+<String id="OP_HZ">
+Hold住
+</String>
+<String id="OP_SBQ">
+伤不起
+</String>
+<String id="OP_YMY">
+有木有
+</String>
+<String id="OP_KD">
+坑爹
+</String>
+<String id="OP_DJY">
+打酱油
+</String>
+<String id="OP_NDD">
+你懂得
+</String>
+<String id="OP_MS">
+秒杀
+</String>
+<String id="OP_WG">
+围观
+</String>
+<String id="OP_BJ">
+杯具
+</String>
+<String id="OP_DZ">
+顶住
+</String>
+<String id="OP_GUN">
+滚
+</String>
+<String id="BR_APP_TITLE">
+버그 보고
+</String>
+<String id="BR_INVALIDCMDLINE">
+구성 오류
+</String>
+<String id="BR_DETAIL_SHOW">
+&lt;&lt;추가 정보(&amp;D)
+</String>
+<String id="BR_DETAIL_HIDE">
+&gt;&gt;추가 정보(&amp;D)
+</String>
+<String id="BR_FAIL_EXIT">
+버그 보고-실패
+</String>
+<String id="BR_SEND_FAIL">
+오류 보고를 전송하지 못했습니다.
+</String>
+<String id="BR_TIP">
+죄송합니다. 알 수 없는 오류로 $AppCallName$이(가) 닫합니다.  $AppCallName$의 품질을 향상할 수 있도록 오류 보고를 전송하시겠습니까?
+</String>
+<String id="BR_HELP">
+$AppCallName$에서 문제를 해결하도록 도와주겠습니다(&amp;A)
+</String>
+<String id="BR_CONTACT1">
+전화 번호/이메일 주소를 입력하십시오.
+</String>
+<String id="BR_SEND">
+오류 보고 전송(&amp;S)
+</String>
+<String id="BR_RESTART">
+프로그램 다시 시작(&amp;R)
+</String>
+<String id="BR_ASSIST">
+$AppCallName$에서 문제를 해결하도록 도와주겠습니다(&amp;A)
+</String>
+<String id="BR_QQACOUNT">
+QQ ID:
+</String>
+<String id="BR_CONTACT2">
+주소:
+</String>
+<String id="BR_REASON">
+다음 문제에 대한 추가 정보 제공
+</String>
+<String id="BR_OK">
+확인(&amp;O)
+</String>
+<String id="BR_ERRINFO">
+오류 메시지:
+</String>
+<String id="BR_CRASH_SIGNATURE">
+오류 코드: $CrashSignature$
+</String>
+<String id="BR_UPDATE_FOR_BUG">
+检测到当前问题已经在最新版$AppCallName$中修复，是否立刻升级到最版本？
+</String>
+<String id="BR_CTDOWNLOAD_FOR_BUG">
+为更好的为您提供服务，建议您下载安装$AppCallName$错误检测工具，帮助您修复$AppCallName$功能。
+
+是否现在下载$AppCallName$错误检测工具？
+</String>
+<String id="BR_INPUTACCOUNT">
+Please input your QQ number
+</String>
+<String id="BR_YES">
+是(&amp;Y)
+</String>
+<String id="BR_NO">
+否(&amp;N)
+</String>
+<String id="BR_DMPING">
+$AppCallName$遇到问题退出，正在为您生成错误报告，请稍候...
+</String>
+<String id="BR_UPDATE_TITLE">
+立即修复
+</String>
+<String id="IDS_QQSKIN">
+QQ Skins
+</String>
+<String id="IDS_UNINSTALL_SKIN">
+QQ Skins를 QQ의 설치 디렉터리에 설치하는 중입니다. 계속하시겠습니까?
+</String>
+<String id="IDS_UNDLANDINSTALL_SCENE">
+QQ Scenes를 QQ의 설치 디렉터리에 다운로드하고 설치하는 중입니다. 계속하시겠습니까?
+</String>
+<String id="IDS_UNDLANDINSTALL_FACE">
+사용자 정의 이모티콘을 QQ의 설치 디렉터리에 다운로드하고 설치하는 중입니다.. 계속하시겠습니까?
+</String>
+<String id="IDS_ForHummerTip">
+이 QQ 버전에서는 자동 로그인 기능을 지원하지 않습니다. 일반 로그인 모드로 전환하십시오.
+</String>
+<String id="IDS_NORMALERROR_TIP">
+통화 관련 기능에 오류가 발생했습니다.
+</String>
+<String id="IDS_UIPGETHASHERROR">
+테마 패키지 ID를 가져올 때 오류가 발생했습니다.
+</String>
+<String id="IDS_UIPHASHERROR">
+테마 패키지 ID를 확인하지 못했습니다. Tencent에서 제공한 테마 패키지를 사용하십시오.
+</String>
+<String id="IDS_UIPVERERROR">
+이 버전은 QQ 테마 패키지를 사용하지 않습니다.
+</String>
+<String id="IDS_LFUINUSE_QQTIP">
+이 기능은 QQ ID %d에 대해 사용할 수 있습니다. 이 ID로 QQ에 로그인하시겠습니까?
+</String>
+<String id="IDS_LFUINUSE_TMTIP">
+이 기능은 TM ID %d에 대해 사용할 수 있습니다. 이 ID로 QQ에 로그인하시겠습니까?
+</String>
+<String id="IDS_IMAGE_NOTFOUND">
+이미지를 찾을 수 없습니다. F5를 눌러서 새로 고치십시오.
+</String>
+<String id="IDS_EXCEPTION">
+아직 QQ를 시작하지 않았거나 이전 버전을 사용하고 있습니다.
+</String>
+<String id="IDS_PUBLICKEY">
+000000016322D2BAE69F339AABB9DB1621DCDB3B5E10E3A8
+</String>
+<String id="IDS_SEND_CUSTOM_EMOTION_NONE_SOURCE">
+이모티콘이 복사되었습니다. 복사/붙여넣기하여 대화 상대에게 보낼 수 있습니다.
+</String>
+<String id="IDS_CUSTOM_EMOTION_SOURCE_SOSO">
+---
+</String>
+<String id="IDS_ADDRB00K_ERR">
+설정 오류입니다. 나중에 시도해 보십시오.
+</String>
+<String id="CF_UNNAME_Discuss">이름 없는 토론</String>
+<String id="ContactFolderUnName">이름 없음</String>
+<String id="CUSTOMFACE_RECOMMENDED_FACE_GOURPNAME">추천 이모티콘</String>
+<String id="CUSTOMFACE_SYSFACE_2">라이프</String>
+  <String id="CUSTOMFACE_EMOJI">
+    Emoji
+  </String>
+<String id="CUSTOMFACE_RECOMMENDED_FACE_FIX">_new</String>
+<String id="CUSTOMFACE_RECOMMENDED_FACE_DOWNLOAD_TITLE">이모티콘 다운로드</String>
+<String id="CUSTOMFACE_RECOMMENDED_FACE_DOWNLOAD_SUCC">$Count$개의 이모티콘을 다운로드했습니다.</String>
+<String id="CUSTOMFACE_RECOMMENDED_FACE_DOWNLOAD_FAILED">죄송합니다. "$PackageName$" 이모티콘 팩을 다운로드할 수 없습니다. 다시 시도하세요.</String>
+<String id="CUSTOMFACE_RECOMMENDED_FACE_DOWNLOAD_SUCC_PART">$Count$개의 이모티콘 다운로드를 다운로드했습니다. $ExistCount$개가 저장된 상태입니다.</String>
+<String id="CUSTOMFACE_RECOMMENDED_FACE_DOWNLOAD_NOTHING">이미 보유한 이모티콘입니다.</String>
+<String id="FOLDER_ACCESSDENIED">개인 폴더에 대한 읽기/쓰기 시스템 권한을 수정한 후 다시 시도하세요.</String>
+<String id="FACE_TOOL_TIP135">다이아몬드 반지</String>
+<String id="FACE_TOOL_TIP136">소파</String>
+<String id="FACE_TOOL_TIP137">티슈</String>
+<String id="FACE_TOOL_TIP138">약</String>
+<String id="FACE_TOOL_TIP139">권총</String>
+<String id="FACE_TOOL_TIP140">개구리</String>
+<String id="FACE_TOOL_TIP141">사스</String>
+<String id="FACE_TOOL_TIP142">불빛</String>
+<String id="FACE_TOOL_TIP143">찾기</String>
+<String id="FACE_TOOL_TIP144">충돌</String>
+<String id="FACE_TOOL_TIP145">고양이</String>
+<String id="FACE_TOOL_TIP146">개</String>
+<String id="FACE_TOOL_TIP147">돈</String>
+<String id="FACE_TOOL_TIP148">전구</String>
+<String id="FACE_TOOL_TIP149">컵</String>
+<String id="FACE_TOOL_TIP150">음악</String>
+<String id="FACE_TOOL_TIP151">알약</String>
+<String id="FACE_TOOL_TIP152">키스</String>
+<String id="FACE_TOOL_TIP153">만남</String>
+<String id="FACE_TOOL_TIP154">컴퓨터</String>
+<String id="FACE_TOOL_TIP155">시간</String>
+<String id="FACE_TOOL_TIP156">우편</String>
+<String id="FACE_TOOL_TIP157">TV</String>
+<String id="FACE_TOOL_TIP158">더미</String>
+<String id="FACE_TOOL_TIP159">숙녀</String>
+<String id="FACE_TOOL_TIP160">Hanliang</String>
+<String id="FACE_TOOL_TIP161">털</String>
+<String id="FACE_TOOL_TIP162">Qzai</String>
+<String id="FACE_TOOL_TIP163">술</String>
+<String id="FACE_TOOL_TIP164">탄산음료</String>
+<String id="FACE_TOOL_TIP165">비</String>
+<String id="FACE_TOOL_TIP166">구름</String>
+<String id="FACE_TOOL_TIP167">눈사람</String>
+<String id="FACE_TOOL_TIP168">별</String>
+<String id="FACE_TOOL_TIP169">소녀</String>
+<String id="FACE_TOOL_TIP170">소년</String>
+<String id="GROUP_INVITE_SET_ERROR">비공개 그룹이며 초대받은 대화 상대만 참여할 수 있습니다.</String>
+<String id="CustomFaceMgr_Group">범주</String>
+<String id="UtilGroup_Today">오늘</String>
+<String id="UtilGroup_Yesterday">어제</String>
+<String id="UtilGroup_ThisDayBefore">이전</String>
+</StringBundle>

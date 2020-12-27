@@ -1,0 +1,46 @@
+// local types 窗口，也有类型定义 // shift +f1
+
+//shift + f9 打开结构体窗口
+
+//ctrl + w 为保存修改, 记得要保存。如果要回退操作，只能是退出ida时，勾选 最下面那个复选框  DON'T SAVE The database
+
+//在 edit 菜单栏可看到对应的操作快捷键
+
+==========================
+//ins  创建一个新结构体, CRITICAL_SECTION_ptr
+
+00000000
+00000000 CRITICAL_SECTION_ptr         struc ; (sizeof=0x0)
+00000000 CRITICAL_SECTION_ptr         ends
+==========================
+//右键菜单-> hide 变成一行
+00000000 ; [0000000E BYTES. COLLAPSED STRUCT CRITICAL_SECTION_ptr. PRESS CTRL-NUMPAD+ TO EXPAND]
+//双击结构体名字,可正常显示
+00000000
+00000000 CRITICAL_SECTION_ptr struc ; (sizeof=0xE, mappedto_207)
+0000000E CRITICAL_SECTION_ptr ends
+
+==========================
+DAUN
+d, 新建一个字节数据,如果当前有了数据，则改变当前数据长度.  db(1Byte),dw(2Byte),dd(4Byte)
+a, 字符
+u, 取消该字段
+n, 定议该字段名
+
+创建数组. 		右键-> array...
+插入追加数据  	右键->Expand struct type...
+删除数据		先u，取消定义的字段名, 再 右键-> Shink struct type...
+
+指定为已定义的数据类型   右键 -> set type
+==========================
+
+
+==========================
+==========================
+==========================
+==========================
+==========================
+==========================
+
+
+==========================

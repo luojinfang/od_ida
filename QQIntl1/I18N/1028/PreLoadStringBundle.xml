@@ -1,0 +1,785 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="LoginPanel_Online_S">
+線上
+</String>
+<String id="LoginPanel_Offline_S">
+離線
+</String>
+<String id="LoginPanel_Latent_S">
+隱身
+</String>
+<String id="LoginPanel_Busy_S">
+忙碌
+</String>
+<String id="LoginPanel_Away_S">
+離開
+</String>
+<String id="LoginPanel_Login">
+登錄
+</String>
+<String id="LoginPanel_RememberPsw">
+記住密碼
+</String>
+<String id="LoginPanel_Sel_Account">
+選擇本次登錄帳號：
+</String>
+<String id="LoginPanel_Other_Account">
+使用其他帳號登錄
+</String>
+<String id="LoginPanel_AutoLogin">
+自動登錄
+</String>
+<String id="LoginPanel_FirstStartBanner_Tips">
+進來看看我們想對您說什麼？
+</String>
+<String id="SCANVIRUS_BTN_SETTING">
+查殺設置
+</String>
+<String id="MainPanel_AdjustColor">
+更改外觀
+</String>
+<String id="LoginPanel_Logining">
+$ACCOUNT$&#10;正在登錄
+</String>
+<String id="NewThreadLoginPanel_Logining">
+正在登錄
+</String>
+<String id="NewThreadLoginPanel_ConvertingSS2CD">
+正在升級消息記錄，已完成$PROGRESS$%
+</String>
+<String id="NewThreadLoginPanel_Logining_Vip">
+尊敬的QQ會員$VIPLEVEL$，歡迎您
+</String>
+<String id="LoginPanel_Online">
+線上
+</String>
+<String id="LoginPanel_DelAccount">
+刪除帳號
+</String>
+<String id="LoginPanel_QQDoctor">
+查殺木馬
+</String>
+<String id="LoginPanel_More">
+更多
+</String>
+<String id="LoginPanel_Account">
+帳號:
+</String>
+<String id="LoginPanel_Password">
+密碼:
+</String>
+<String id="Product_Name" fmt="true">
+$__PNAME_V_SV$
+</String>
+<String id="MainFrame_Title" fmt="true">
+$__PNAME_V$
+</String>
+<String id="LoginPanel_SoftKeyboard">
+打開軟鍵盤
+</String>
+<String id="SCANVIRUS_PROMPT_LINK_REINSTALL">
+重裝QQ
+		<!-- 這一串必須是SCANVIRUS_PROMPT_FAIL的子串，意思是將上面字串中的這個子串變為可點擊的鏈接 -->
+</String>
+<String id="SCANVIRUS_PROMPT_LINK_CHECK_ONLINE">
+線上安全檢查
+		<!-- 這一串必須是SCANVIRUS_PROMPT_FAIL的子串，意思是將上面字串中的這個子串變為可點擊的鏈接 -->
+</String>
+<String id="LoginPanel_Logo" fmt="true">
+$__PNAME_V_SV$
+</String>
+<String id="LoginPanel_Cancel">
+取消
+</String>
+<String id="ContactStatus_Online">
+我在線上
+</String>
+<String id="ContactStatus_Offline">
+離線
+</String>
+<String id="ContactStatus_Busy">
+忙碌
+</String>
+<String id="ContactStatus_Away">
+離開
+</String>
+<String id="ContactStatus_Invisible">
+隱身
+</String>
+<String id="ContactStatus_Quiet">
+請勿打擾
+</String>
+<String id="ContactStatus_QMe">
+Q我吧
+</String>
+<String id="LoginPanel_Failed">
+登錄失敗
+</String>
+<String id="STATUS_AVAILABLE">
+線上
+</String>
+<String id="LoginPanel_StatePrompt">
+狀態:
+</String>
+<String id="LoginPanel_InputQQNumHere">
+QQ號碼/手機/郵箱
+</String>
+<String id="LoginPanel_InputPwdHere">
+密碼
+</String>
+<String id="LoginFail_ViewDetail">
+查看詳細登錄失敗原因，請點擊詳細資訊
+</String>
+<String id="LoginFail_Detail">
+詳細資訊
+</String>
+<String id="LoginFail_DetailInfo">
+您使用的$CON$由於版本太舊或者其他原因已經無法繼續使用，請訪問&lt;TITLE="IM官網", URL="http://im.qq.com"&gt;重新下載並安裝最新版本。
+</String>
+<String id="LoginPanel_Setting">
+設置
+</String>
+<String id="LoginPanel_SwitchToSingleAccountLogin">
+單帳號登錄
+</String>
+<String id="LoginPanel_SwitchToMultiAccountLogin">
+多帳號登錄
+</String>
+<String id="LoginPanel_Note">
+您可以在登錄前設置網路連接。
+</String>
+<String id="LoginPanel_NetSetting">
+網路設置
+</String>
+<String id="LoginPanel_LoginSetting">
+登錄設置
+</String>
+<String id="SAFEEDIT_LOAD_FAIL">
+加載失敗
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE">
+QQ安全登錄控件被破壞導致密碼框加載失敗。請立即掃描病毒，確認安全後請重新安裝QQ軟體。
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE_STDPANEL">
+登錄所需的安全組件可能被破壞，請查殺木馬後重裝QQ。
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE_1">
+登錄所需的安全組件已被破壞，可能被木馬遮罩。請查殺木馬後重新安裝QQ，
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE_2">
+點這裏
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE_3">
+查看解決辦法。
+</String>
+<String id="SCANVIRUS_QQPCMGR">
+QQ電腦管家
+</String>
+<String id="SCANVIRUS_PROMPT_FAIL">
+掃描失敗，可能被木馬遮罩，建議使用軟鍵盤輸入密碼。
+</String>
+<String id="SCANVIRUS_PROMPT_FAIL_2">
+QQ安全組件可能被木馬遮罩，建議下載
+</String>
+<String id="SCANVIRUS_PROMPT_FAIL_3">
+或殺毒軟體全面查殺木馬。
+</String>
+<String id="SCANVIRUS_PROMPT_FAIL_3_STDPANEL">
+查殺木馬。
+</String>
+<String id="SCANVIRUS_PROMPT_FIRSTOPEN_LOGINPANEL">
+您知道嗎？QQ特有安全組件可防止木馬竊取密碼，有效保護QQ帳號安全。
+</String>
+<String id="SCANVIRUS_PROMPT_FIRSTOPEN_LOGINPANEL_STD_PANEL">
+您知道嗎？QQ特有安全組件可有效保護QQ帳號安全。
+</String>
+<String id="SCANVIRUS_PROMPT_CHECKING">
+正在掃描盜號木馬，請稍候...
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRING">
+正在修復，請稍候...
+</String>
+<String id="SCANVIRUS_PROMPT_VIRUS">
+危險：發現盜號木馬！請清除木馬後再登錄。
+</String>
+<String id="SCANVIRUS_PROMPT_VIRUS_VIEW">
+查看木馬詳情
+</String>
+<String id="SCANVIRUS_BTN_OK">
+確定
+</String>
+<String id="SCANVIRUS_BTN_CANCEL">
+取消
+</String>
+<String id="SCANVIRUS_BTN_KISSVIRUS">
+立即清除
+</String>
+<String id="SCANVIRUS_BTN_REINSTALL">
+立即修復
+</String>
+<String id="SCANVIRUS_BTN_QUERY">
+查看詳情
+</String>
+<String id="SCANVIRUS_BTN_IGNORE">
+忽略
+</String>
+<String id="SCANVIRUS_VIRUSTYPE_DEFAULT">
+盜號木馬
+</String>
+<String id="SCANVIRUS_TITLE">
+安全檢查
+</String>
+<String id="SCANVIRUS_BLUEBAR_CANCEL" fmt="true">
+未完成掃描，在沒有確認安全前請勿登錄$__PNAME$。
+</String>
+<String id="SCANVIRUS_BLUEBAR_RESCAN">
+重新掃描
+</String>
+<String id="SCANVIRUS_BLUEBAR_FINISHSAFE">
+未發現能夠盜取號碼的木馬病毒。
+</String>
+<String id="SCANVIRUS_PROMPT_SCANNING">
+正在清除盜號木馬，請稍候...
+</String>
+<String id="SCANVIRUS_GIVEUP_PROMPT">
+您確定要放棄清除盜號木馬嗎？&#10;警告：盜號木馬能夠竊取您的QQ密碼！
+</String>
+<String id="SCANVIRUS_TITLE_GIVEUP">
+放棄清除提示
+</String>
+<String id="SCANVIRUS_GIVEUP_OK">
+確定
+</String>
+<String id="SCANVIRUS_GIVEUP_CANCEL">
+取消
+</String>
+<String id="SCANVIRUS_KILLVIRUS_PROMPT">
+您需要重啟電腦後才能徹底清除盜號木馬，請立即重啟。
+</String>
+<String id="SCANVIRUS_TITLE_REBOOT">
+重啟提示
+</String>
+<String id="SCANVIRUS_KILLVIRUS_RESTARTNOW">
+立即重啟
+</String>
+<String id="SCANVIRUS_KILLVIRUS_RESTARTLATER">
+稍後重啟
+</String>
+<String id="SCANVIRUS_SETTING_WEEK">
+每週查殺一次
+</String>
+<String id="SCANVIRUS_SETTING_DAY">
+每天查殺一次
+</String>
+<String id="SCANVIRUS_SETTING_TIME">
+每次登錄前都查殺
+</String>
+<String id="SCANVIRUS_SETTING_NONE">
+登錄前不查殺
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_TITLE">
+QQ安全中心
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_TITLE2">
+發現嚴重威脅QQ的安全風險，請立即清除！
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_PROMPT">
+發現$NUM$個嚴重威脅QQ的安全風險，請立即清除，並儘快修改QQ密碼。
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_HELP">
+幫助：發現盜號木馬後應該如何處理？
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_RETURN">
+返回
+</String>
+<String id="SCANVIRUS_VIEWDETAILLIST_NAME">
+名稱
+</String>
+<String id="SCANVIRUS_VIEWDETAILLIST_TYPE">
+類型
+</String>
+<String id="SCANVIRUS_VIEWDETAILLIST_PATH">
+文件路徑
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRFAIL_1">
+修復失敗！請重試或
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRFAIL_2">
+點擊這裏
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRFAIL_3">
+查看幫助資訊。
+</String>
+<String id="SCANVIRUS_BTN_RETRY">
+重試
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRSUCCESS">
+修復成功！請立即掃描盜號木馬。
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRSUCCESS_2">
+修復成功，現在您可以安全的登錄QQ。
+</String>
+<String id="SCANVIRUS_BTN_SCANNOW">
+立即掃描
+</String>
+<String id="SCANVIRUS_SETTING_TITLE">
+查殺木馬設置
+</String>
+<String id="MINILOGINPANEL_TITLE" fmt="true">
+$__PNAME_V$
+</String>
+<String id="UserDataDefaultSavePath_Vista">
+我的文檔
+</String>
+<String id="UserDataDefaultSavePath_XP">
+安裝包目錄
+</String>
+<String id="PROD_NAME" fmt="true">
+$__PNAME$
+</String>
+<String id="ToolTip_MenuOnline">
+表示希望好友看到您線上。&#x0d;&#x0a;聲音：開啟&#x0d;&#x0a;消息提醒框：開啟&#x0d;&#x0a;會話消息：任務欄頭像閃動
+</String>
+<String id="ToolTip_MenuQMe">
+表示希望好友主動聯繫您。&#x0d;&#x0a;聲音：開啟&#x0d;&#x0a;消息提醒框：開啟&#x0d;&#x0a;會話消息：自動彈出會話窗口
+</String>
+<String id="ToolTip_MenuAway">
+表示離開，暫無法處理消息。&#x0d;&#x0a;聲音：開啟&#x0d;&#x0a;消息提醒框：開啟&#x0d;&#x0a;會話消息：任務欄頭像閃動
+</String>
+<String id="ToolTip_MenuBusy">
+表示忙碌，不會及時處理消息。&#x0d;&#x0a;聲音：開啟&#x0d;&#x0a;消息提醒框：開啟&#x0d;&#x0a;會話消息：任務欄顯示氣泡
+</String>
+<String id="ToolTip_MenuQuiet">
+表示不想被打擾。&#x0d;&#x0a;聲音：關閉&#x0d;&#x0a;消息提醒框：關閉&#x0d;&#x0a;會話消息：任務欄顯示氣泡
+</String>
+<String id="ToolTip_MenuInvisible">
+表示好友看到您是離線的。&#x0d;&#x0a;聲音：開啟&#x0d;&#x0a;消息提醒框：開啟&#x0d;&#x0a;會話消息：任務欄頭像閃動
+</String>
+<String id="ToolTip_MenuOffline">
+斷開與伺服器的連接。
+</String>
+<String id="ScanResultTips_SafeCenter">
+QQ安全中心
+</String>
+<String id="ScanResultTips_WarningVirus">
+警告：發現盜號木馬，請立即清除！
+</String>
+<String id="ScanResultTips_WarningVirusDetails">
+特別提示：您的QQ密碼可能已經被竊取，請清除後儘快
+</String>
+<String id="ScanResultTips_ChangePass">
+修改密碼。
+</String>
+<String id="ScanResultTips_VirusHelp">
+幫助：發現盜號木馬後應該如何處理？
+</String>
+<String id="ScanResultTips_Clean">
+立即清除
+</String>
+<String id="ScanResultTips_Hints">
+提示
+</String>
+<String id="ScanResultTips_VirusCleanHints">
+您確定要放棄清除盜號木馬嗎？&#x0d;&#x0a;警告：盜號木馬能夠竊取您的QQ密碼！
+</String>
+<String id="ScanResultTips_AbandonClean">
+放棄清除
+</String>
+<String id="ScanResultTips_Cancel">
+取消
+</String>
+<String id="ScanResultTips_WarningTips">
+警告：發現虛假Tips木馬，請立即清除！
+</String>
+<String id="ScanResultTips_WarningTipsDetails">
+特別提示：任何形式的“QQ中獎”通知消息都是詐騙行為。
+</String>
+<String id="ScanResultTips_ViewDetails">
+查看詳情
+</String>
+<String id="ScanResultTips_TipsCleanHints">
+您確定要放棄清除虛假TIPS木馬？&#x0d;&#x0a;警告：虛假TIPS木馬是一種網路詐騙，請警惕！
+</String>
+<String id="ScanResultTips_WarningHosts">
+警告：系統Hosts文件可能被病毒惡意篡改！
+</String>
+<String id="ScanResultTips_WarningHostsDetails">
+這可導致您訪問到惡意網站、丟失QQ帳號，請點擊右下角按鈕立即修復。
+</String>
+<String id="ScanResultTips_HostsHelp">
+幫助：什麼是系統Hosts文件？
+</String>
+<String id="ScanResultTips_Repair">
+立即修復
+</String>
+<String id="ScanResultTips_HostsCleanHints">
+您確定要放棄修復系統Hosts文件嗎？&#x0d;&#x0a;警告：Hosts文件被篡改後，訪問網站可能會出錯！
+</String>
+<String id="ScanResultTips_AbandonRepair">
+放棄修復
+</String>
+<String id="ScanResultTips_WarningMultiThreat">
+警告：您的系統存在威脅QQ使用的安全隱患！
+</String>
+<String id="ScanResultTips_WarningMultiThreatDetails">
+請儘快一鍵清理這些安全隱患，並立即
+</String>
+<String id="ScanResultTips_OnButtonClean">
+一鍵清理
+</String>
+<String id="ScanResultTips_MultiThreatCleanHints">
+您確定要放棄清理這些安全隱患嗎？&#x0d;&#x0a;警告：這些安全隱患會危害您的QQ帳號安全！
+</String>
+<String id="ScanResultTips_AbandonClear">
+放棄清理
+</String>
+<String id="ScanResultTips_WarningNewThreat">
+警告：發現威脅QQ的安全隱患！
+</String>
+<String id="ScanResultTips_WarningNewThreatDetails">
+這種安全隱患可能威脅到您使用QQ的安全，請立即清除！
+</String>
+<String id="ScanResultTips_NewThreatCleanHints">
+您確定要放棄清理這些安全隱患嗎？&#x0d;&#x0a;警告：這些安全隱患會危害您的QQ帳號安全！
+</String>
+<String id="ScanResultTips_WarningNonOffical">
+警告：發現洩漏用戶個人資訊的QQ外掛軟體！
+</String>
+<String id="ScanResultTips_PaneHints">
+系統存在洩漏用戶個人資訊的QQ外掛，此類外掛容易洩漏用戶個人資訊。為了避免安全風險，建議您立即卸載！
+</String>
+<String id="ScanResultTips_NonOfficalHelp">
+關於QQ外掛軟體嚴重影響用戶正常使用的聲明
+</String>
+<String id="ScanResultTips_UnInstall">
+立即卸載
+</String>
+<String id="ScanResultTips_NonOfficalCleanHints">
+系統仍然存在洩漏用戶個人資訊的QQ外掛，為避免安全風險，QQ將立即退出。
+</String>
+<String id="ScanResultTips_Exit">
+退出
+</String>
+<String id="ScanResultTips_RebootTitle">
+重啟提示
+</String>
+<String id="ScanResultTips_RebootNow">
+立即重啟
+</String>
+<String id="ScanResultTips_RebootLater">
+稍後重啟
+</String>
+<String id="ScanResultTips_VirusRebootHints">
+您需要重啟電腦後才能徹底清除盜號木馬，請立即重啟。
+</String>
+<String id="ScanResultTips_TipsRebootHints">
+您需要重啟電腦後才能徹底清除虛假tips木馬，請立即重啟。
+</String>
+<String id="ScanResultTips_MultiRebootHints">
+您需要重啟電腦才能清除全部安全隱患，請立即重啟。
+</String>
+<String id="ScanResultTips_NewRebootHints">
+您需要重啟電腦才能清除安全隱患，請立即重啟。
+</String>
+<String id="SAFE_PROMPT_FIRSTOPEN_LOGINPANEL_1" fmt="true">
+$__PNAME_V$內置QQ安全組件，可有效防護盜號木馬侵擾。您還可以
+</String>
+<String id="SAFE_PROMPT_FIRSTOPEN_LOGINPANEL_2">
+啟動電腦管家
+</String>
+<String id="SAFE_PROMPT_FIRSTOPEN_LOGINPANEL_3">
+升級到更全面的防護。
+</String>
+<String id="SCANVUL_VIEWDETAIL_TITLE">
+發現高危系統漏洞，請立即修復！
+</String>
+<String id="SCANVUL_VIEWDETAIL_PROMPT">
+發現$NUM$個高危系統漏洞，建議您立即使用QQ電腦管家修復漏洞。
+</String>
+<String id="SCANVUL_VIEWDETAIL_HELP">
+幫助：發現高危漏洞後應該如何處理？
+</String>
+<String id="SCANVUL_VIEWDETAIL_FIXVUL">
+立即修復
+</String>
+<String id="SCANVUL_VIEWDETAILLIST_VULNAME">
+漏洞描述
+</String>
+<String id="SCANVUL_VIEWDETAILLIST_VULKB">
+知識庫編號
+</String>
+<String id="SCANVUL_VIEWDETAILLIST_RELEASEDATE">
+發佈日期
+</String>
+<String id="SCANVUL_GIVEUP_PROMPT">
+您確定要放棄修復高危系統漏洞嗎？&#10;警告：高危系統漏洞會導致系統存在安全風險！
+</String>
+<String id="IDS_SafeLogin">
+安全登錄
+</String>
+<String id="SCANVIRUS_QQDOCTOR">
+QQ醫生
+</String>
+<String id="LoginPanel_ChangeLang">
+語言
+</String>
+<String id="ChangeLang_English">
+English
+</String>
+<String id="ChangeLang_TraditionalCH">
+繁體中文
+</String>
+<String id="ChangeLang_French">
+Français
+</String>
+<String id="LoginPanel_Japanese">
+日本語
+</String>
+<String id="LoginPanel_German">
+Deutsch
+</String>
+<String id="LoginPanel_Korean">
+한국어
+</String>
+<String id="LoginPanel_Spanish">
+Español
+</String>
+<String id="IDS_MultipleLanguageText">
+本應用支持多語言，請選擇一種語言。
+</String>
+<String id="LoginPanel_LoginSpace">
+登           錄
+</String>
+<String id="LoginPanel_LoginCancel">
+取           消
+</String>
+<String id="LoginPanel_Agree">
+同意綁定規則
+</String>
+<String id="QRLogin_SSOFailed">
+此版本不支持二維碼掃描，請訪問&lt;TITLE="im官網", URL="http://im.qq.com"&gt;下載最新版
+</String>
+<String id="QRLogin_Normal">
+正在加載二維碼...
+</String>
+<String id="QRLogin_Failed">
+二維碼加載失敗，請點擊&lt;TITLE="刷新", URL="OnQRRefresh"&gt;
+</String>
+<String id="QR_CancelBtn">
+取           消
+</String>
+<String id="QR_LinkString">
+，請點擊&lt;TITLE="刷新", URL="OnQRRefresh"&gt;
+</String>
+<String id="FaceLogin_Tip">
+二維碼登錄
+</String>
+<String id="FaceLogin_Detecting">
+正在進行識別
+</String>
+<String id="FaceLogin_Add">
+綁定帳號
+</String>
+<String id="FaceLogin_introduce">
+功能簡介:
+       QQ閃登登錄驗證是一種輔助登錄，通過視頻掃描來確認用戶的身份。採用此登錄方式可以免去繁瑣的密碼輸入。只需在本機用攝像頭將人臉掃描成像，並將成像與帳號綁定，今後使用本機登錄QQ只需進行人臉驗證掃描即可。
+			注意事項：
+        1、儘量使用高解析度的攝像頭。
+        2、識別過程中儘量保持面部正對攝像頭且無遮擋。
+        3、儘量避免在光線太暗或者太強的地方進行識別。
+</String>
+<String id="FaceLogin_NoDev">
+未檢測到攝像頭
+</String>
+<String id="FaceLogin_StartBind">
+開始使用
+</String>
+<String id="FaceLogin_StartDelete">
+正在解除綁定
+</String>
+<String id="FaceLogin_InPutCorrectPwd">
+請輸入正確的帳號和密碼
+</String>
+<String id="FaceLogin_Capturing">
+正在採集人像資訊
+</String>
+<String id="FaceLogin_StartDetect">
+開始識別
+</String>
+<String id="FaceLogin_CancelDetect">
+取消識別
+</String>
+<String id="FaceLogin_ReDetect">
+重新識別
+</String>
+<String id="FaceLogin_OK">
+確定
+</String>
+<String id="FaceLogin_Cancel">
+取消
+</String>
+<String id="FaceLogin_Delete">
+解除綁定
+</String>
+<String id="FaceLogin_DeleteTip">
+解除綁定
+</String>
+<String id="FaceLogin_AddTip">
+添加綁定
+</String>
+<String id="FaceLogin_CannotDelete">
+您的帳號正在使用，需要退出後才能刪除
+</String>
+<String id="FaceLogin_CannotBindUser">
+您的帳號正在使用，需要退出後才能綁定
+</String>
+<String id="FaceLogin_DeleteSucceed">
+解除帳號成功
+</String>
+<String id="FaceLogin_DeleteFail">
+解除帳號失敗
+</String>
+<String id="FaceLogin_BindSucceed">
+綁定帳號成功
+</String>
+<String id="FaceLogin_BindFailed">
+綁定帳號失敗
+</String>
+<String id="FaceLogin_VedioInvalid">
+您的攝像頭被別的程式佔用
+</String>
+<String id="FaceLogin_RebindInfo">
+未檢測到人像，請確保臉部正對攝像頭且無遮蓋
+</String>
+<String id="FaceLogin_RebindInfo2">
+識別失敗，請確保面部正對攝像頭且無遮蓋，外部光照均勻後重新識別；如未綁定帳號請在取消識別後添加綁定
+</String>
+<String id="FaceLogin_StartCheckAccount">
+正在驗證帳號和密碼
+</String>
+<String id="FaceLogin_StartBindCall">
+正在綁定帳號
+</String>
+<String id="FaceLogin_StartDeleteCall">
+正在解除綁定
+</String>
+<String id="FaceLogin_InvalidPwd">
+密碼不能為空
+</String>
+<String id="FaceLogin_PasswordTitle">
+密碼：
+</String>
+<String id="FaceLogin_AccountTitle">
+帳號：
+</String>
+<String id="FaceLogin_ToDeleteError">
+未綁定帳號
+</String>
+<String id="FaceLogin_TipTimeOUt">
+綁定帳號超時，請重新綁定帳號
+</String>
+<String id="FaceLogin_TipNoPassWord">
+請重新記住密碼登錄帳號
+</String>
+<String id="FaceLogin_AgreeProtocol">
+感謝您選擇QQ閃登功能，請您仔細閱讀以下規則並選擇是否同意確定接受。除非您同意接受本綁定規則，否則，您不應使用QQ閃登功能。您任何使用本功能的行為，將視為對本規則的接受。
+1、QQ閃登是基於人臉識別技術的一種輔助登錄，只有在記住密碼的情況下才能使用本功能，並且使用本功能須事先採集用戶人像資訊並遵循相應的綁定帳號流程。
+2、QQ閃登的帳號綁定只在本機有效，若使用其他機器登錄需要重新綁定帳號。
+3、通過本項功能收集的您的人像資訊僅用於QQ客戶端進行QQ閃登驗證，未經您允許不會以任何方式公開或提供給第三方。
+4、如需解除綁定請在取消識別後點擊“解除綁定”或者在“系統設置-基本設置-登錄”中解除QQ閃登綁定，刪除帳號資訊也將解除QQ閃登綁定。
+5、為保障您的帳號安全，請勿在公共電腦上使用QQ閃登功能，並請確保您登錄時網路環境的安全。您應謹慎保護您的帳號密碼等資訊的安全，並自行承擔帳號密碼被盜等產生的風險。
+6、您理解並同意，儘管目前人臉檢測的準確率較高，同時，騰訊將盡力不斷提升其準確率，但仍然可能存在出錯的風險，您願意自行承擔相應風險。
+7、本綁定規則是基於《騰訊網站服務條款》、《QQ軟體許可及服務協議》等制定的，與其是不可分割的，本規則未明確的事項，按照其相關約定執行。（完）
+</String>
+<String id="FaceLogin_AgreeWarn">
+QQ閃登綁定規則
+</String>
+<String id="FaceLogin_DetectOk">
+識別成功
+</String>
+<String id="FaceLogin_PWDTip">
+記住密碼才能綁定
+</String>
+<String id="FaceLogin_AddError">
+每臺機器最多只能綁定3個帳號，如需繼續綁定請先解除其他帳號的綁定
+</String>
+<String id="FaceLogin_Resume">
+返回
+</String>
+<String id="FaceLogin_DetectOk2">
+識別成功！
+</String>
+<String id="FaceLogin_ToLogin">
+即將登錄帳號
+</String>
+<String id="FaceLogin_DeleteFaceUin">
+解除此帳號綁定
+</String>
+<String id="FaceLogin_CheckOverTime">
+網路超時，請檢查您的網路環境是否正常
+</String>
+<String id="FaceLogin_CheckCaptureFace">
+採集失敗，請確保周圍光照均勻，面部正對攝像頭且無遮擋
+</String>
+<String id="FaceLogin_Initing">
+正在啟動攝像頭
+</String>
+<String id="FaceLogin_AutoUnbind">
+您取消勾選了記住密碼，出於帳號安全考慮QQ閃登帳號綁定將自動解除。
+</String>
+<String id="FaceLogin_AutoUnbind3">
+記住密碼失敗，QQ閃登帳號綁定將自動解除。
+</String>
+<String id="FaceLogin_AutoUnbind2">
+取消記住密碼後，QQ閃登帳號綁定也將自動解除。
+</String>
+<String id="FaceLogin_BindTip">
+輸入需要綁定人像資訊的帳號及密碼
+</String>
+<String id="FaceLogin_DeleteTip2">
+點擊刪除按鈕解除此帳號的QQ閃登綁定
+</String>
+<String id="FaceLogin_Next">
+下一步
+</String>
+<String id="FaceLogin_CaptureSucceess">
+採集成功，點擊“下一步”綁定帳號
+</String>
+<String id="FaceLogin_postUrl">
+http://df3.pr.qq.com/pcqq/dev_face_login
+</String>
+<String id="Login_beLogining">
+正在登錄
+</String>
+<String id="Login_FontType">
+宋體
+</String>
+<String id="LoginMainFrame_Sign1">
+（
+</String>
+<String id="LoginMainFrame_Sign2">
+）
+</String>
+<String id="LoginPanel_ForgetPwd_MSAA">
+找回密碼
+</String>
+<String id="LoginPanel_NewAccount_MSAA">
+註冊帳號
+</String>
+<String id="LoginSettingTitle">
+登錄設置
+</String>
+<String id="SSO_QR_strUserInputTextQQI">
+使用&lt;TITLE="QQ Mobile", URL="http://www.imqq.com"&gt;掃描下面的二維碼進行登錄
+</String>
+<String id="SSO_QR_strUserConfirmTextQQI">
+二維碼掃描完成，請在手機上點擊確認。
+</String>
+<String id="SSO_QR_strQRTimeoutTextQQI">
+二維碼已超時
+</String>
+<String id="SSO_QR_strTitleTextQQI">
+二維碼登錄
+</String>
+</StringBundle>

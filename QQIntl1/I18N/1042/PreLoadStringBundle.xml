@@ -1,0 +1,691 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="LoginPanel_Online_S">
+온라인
+</String>
+<String id="LoginPanel_Offline_S">
+오프라인
+</String>
+<String id="LoginPanel_Latent_S">
+숨김
+</String>
+<String id="LoginPanel_Busy_S">
+바쁨
+</String>
+<String id="LoginPanel_Away_S">
+자리 비움
+</String>
+<String id="LoginPanel_Login">
+로그인
+</String>
+<String id="LoginPanel_RememberPsw">
+내 암호 기억
+</String>
+<String id="LoginPanel_Sel_Account">
+이 ID로 로그인
+</String>
+<String id="LoginPanel_Other_Account">
+다른 ID로 로그인
+</String>
+<String id="LoginPanel_AutoLogin">
+자동 로그인
+</String>
+<String id="LoginPanel_FirstStartBanner_Tips">
+进来看看我们想对您说什么？
+</String>
+<String id="SCANVIRUS_BTN_SETTING">
+맬웨어 스캔 설정
+</String>
+<String id="MainPanel_AdjustColor">
+모양 설정
+</String>
+<String id="LoginPanel_Logining">
+"ACCOUNT$ 로그인하는 중
+</String>
+<String id="NewThreadLoginPanel_Logining">
+로그인하는 중
+</String>
+<String id="NewThreadLoginPanel_ConvertingSS2CD">
+채팅 기록을 업로드하는 중입니다. $PROGRESS$이(가) 완료되었습니다.
+</String>
+<String id="NewThreadLoginPanel_Logining_Vip">
+尊敬的QQ会员，欢迎您
+</String>
+<String id="LoginPanel_Online">
+온라인
+</String>
+<String id="LoginPanel_DelAccount">
+계정 삭제
+</String>
+<String id="LoginPanel_QQDoctor">
+바이러스 스캔
+</String>
+<String id="LoginPanel_More">
+추가
+</String>
+<String id="LoginPanel_Account">
+계정
+</String>
+<String id="LoginPanel_Password">
+암호
+</String>
+<String id="Product_Name" fmt="true">
+QQ International
+</String>
+<String id="MainFrame_Title" fmt="true">
+QQ International
+</String>
+<String id="LoginPanel_SoftKeyboard">
+온스크린 키보드 열기
+</String>
+<String id="SCANVIRUS_PROMPT_LINK_REINSTALL">
+QQ 다시 설치
+</String>
+<String id="SCANVIRUS_PROMPT_LINK_CHECK_ONLINE">
+온라인 바이러스 스캔
+</String>
+<String id="LoginPanel_Logo" fmt="true">
+QQ International
+</String>
+<String id="LoginPanel_Cancel">
+취소
+</String>
+<String id="ContactStatus_Online">
+온라인
+</String>
+<String id="ContactStatus_Offline">
+오프라인
+</String>
+<String id="ContactStatus_Busy">
+바쁨
+</String>
+<String id="ContactStatus_Away">
+자리 비움
+</String>
+<String id="ContactStatus_Invisible">
+숨김
+</String>
+<String id="ContactStatus_Quiet">
+방해 금지
+</String>
+<String id="ContactStatus_QMe">
+나에게 Q 전달
+</String>
+<String id="LoginPanel_Failed">
+로그인하지 못함
+</String>
+<String id="STATUS_AVAILABLE">
+온라인
+</String>
+<String id="LoginPanel_StatePrompt">
+상태
+</String>
+<String id="LoginPanel_InputQQNumHere">
+계정 ID 입력
+</String>
+<String id="LoginPanel_InputPwdHere">
+암호 입력
+</String>
+<String id="LoginFail_ViewDetail">
+로그인하지 못했습니다. 클릭하여 자세한 내용을 확인하십시오.
+</String>
+<String id="LoginFail_Detail">
+세부 정보
+</String>
+<String id="LoginFail_DetailInfo">
+사용자 여러분, 귀하의 QQi 버전 $CON$이(가) 오래되었습니다. 최신 $CON$ 버전을 다운로드하여 설치하십시오.
+</String>
+<String id="LoginPanel_Setting">
+설정
+</String>
+<String id="LoginPanel_SwitchToSingleAccountLogin">
+단일 계정 모드로 전환
+</String>
+<String id="LoginPanel_SwitchToMultiAccountLogin">
+다중 계정 모드로 전환
+</String>
+<String id="LoginPanel_Note">
+로그인하기 전에 연결을 설정할 수 있습니다.
+</String>
+<String id="LoginPanel_NetSetting">
+네트워크 설정
+</String>
+<String id="LoginPanel_LoginSetting">
+로그인 설정
+</String>
+<String id="SAFEEDIT_LOAD_FAIL">
+로드하지 못함
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE">
+QQ 보안 구성 요소가 손상되어 암호 상자를 로드하지 못했습니다. 지금 바이러스를 스캔하고 QQ를 다시 설치하십시오.
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE_STDPANEL">
+보안 구성 요소가 손상되었을 수 있습니다. 멜웨어를 스캔하고 QQ를 다시 설치하십시오.
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE_1">
+보안 구성 요소가 손상되었습니다. 바이러스를 스캔하고 QQi를 다시 설치하십시오.
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE_2">
+여기를 클릭
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE_3">
+솔루션 확인
+</String>
+<String id="SCANVIRUS_QQPCMGR">
+QQ电脑管家
+</String>
+<String id="SCANVIRUS_PROMPT_FAIL">
+프로그램이 멜웨어에 의해 차단되어 바이러스를 스캔하지 못한 것일 수 있습니다. 온스크린 키보드 사용을 권장합니다.
+</String>
+<String id="SCANVIRUS_PROMPT_FAIL_2">
+QQ 보안 구성 요소가 멜웨어에 의해 차단되었을 수 있습니다.
+</String>
+<String id="SCANVIRUS_PROMPT_FAIL_3">
+안티바이러스 소프트웨어를 사용하여 멜웨어를 스캔하고 제거하십시오.
+</String>
+<String id="SCANVIRUS_PROMPT_FAIL_3_STDPANEL">
+맬웨어를 스캔하고 제거하십시오.
+</String>
+<String id="SCANVIRUS_PROMPT_FIRSTOPEN_LOGINPANEL">
+QQ 안티멜웨어 소프트웨어가 ID 절도 맬웨어를 방지하여 QQ 계정을 보호할 수 있다는 것을 아십니까?
+</String>
+<String id="SCANVIRUS_PROMPT_FIRSTOPEN_LOGINPANEL_STD_PANEL">
+QQ 안티멜웨어 소프트웨어가 QQ 계정을 보호할 수 있다는 것을 아십니까?
+</String>
+<String id="SCANVIRUS_PROMPT_CHECKING">
+ID 절도 맬웨어를 스캔하는 중입니다. 잠시 기다려 주십시오.
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRING">
+복구하는 중입니다. 잠시 기다려 주십시오.
+</String>
+<String id="SCANVIRUS_PROMPT_VIRUS">
+ID 절도 맬웨어를 발견했습니다. 로그인하기 전에 맬웨어를 제거합니다.
+</String>
+<String id="SCANVIRUS_PROMPT_VIRUS_VIEW">
+클릭하여 맬웨어 세부 사항을 확인합니다.
+</String>
+<String id="SCANVIRUS_BTN_OK">
+확인
+</String>
+<String id="SCANVIRUS_BTN_CANCEL">
+취소
+</String>
+<String id="SCANVIRUS_BTN_KISSVIRUS">
+지금 제거
+</String>
+<String id="SCANVIRUS_BTN_REINSTALL">
+지금 복구
+</String>
+<String id="SCANVIRUS_BTN_QUERY">
+클릭하여 자세한 내용 확인
+</String>
+<String id="SCANVIRUS_BTN_IGNORE">
+무시
+</String>
+<String id="SCANVIRUS_VIRUSTYPE_DEFAULT">
+ID 절도 맬웨어
+</String>
+<String id="SCANVIRUS_TITLE">
+안전 점검
+</String>
+<String id="SCANVIRUS_BLUEBAR_CANCEL" fmt="true">
+맬웨어 스캔이 완료되지 않았습니다. 완료되기 전에 로그인하지 마십시오.
+</String>
+<String id="SCANVIRUS_BLUEBAR_RESCAN">
+다시 스캔
+</String>
+<String id="SCANVIRUS_BLUEBAR_FINISHSAFE">
+ID 절도 맬웨어가 발견되지 않았습니다.
+</String>
+<String id="SCANVIRUS_PROMPT_SCANNING">
+ID 절도 맬웨어를 제거하는 중입니다. 잠시 기다려 주십시오.
+</String>
+<String id="SCANVIRUS_GIVEUP_PROMPT">
+ID 절도 맬웨어 제거를 취소하시겠습니까? 경고: ID 절도 맬웨어가 QQ 암호를 훔쳐갈 수 있습니다.
+</String>
+<String id="SCANVIRUS_TITLE_GIVEUP">
+맬웨어 제거 취소
+</String>
+<String id="SCANVIRUS_GIVEUP_OK">
+확인
+</String>
+<String id="SCANVIRUS_GIVEUP_CANCEL">
+취소
+</String>
+<String id="SCANVIRUS_KILLVIRUS_PROMPT">
+ID 절도 맬웨어를 완전히 제거하려면 컴퓨터를 다시 시작해야 합니다. 지금 다시 시작하십시오.
+</String>
+<String id="SCANVIRUS_TITLE_REBOOT">
+다시 시작 통지
+</String>
+<String id="SCANVIRUS_KILLVIRUS_RESTARTNOW">
+지금 다시 시작
+</String>
+<String id="SCANVIRUS_KILLVIRUS_RESTARTLATER">
+나중에 다시 시작
+</String>
+<String id="SCANVIRUS_SETTING_WEEK">
+일주일에 한 번 스캔 및 복구
+</String>
+<String id="SCANVIRUS_SETTING_DAY">
+하루에 한 번 스캔 및 복구
+</String>
+<String id="SCANVIRUS_SETTING_TIME">
+매번 로그인하기 전에 스캔 및 복구
+</String>
+<String id="SCANVIRUS_SETTING_NONE">
+로그인하기 전에 스캔하고 복구하지 않음
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_TITLE">
+QQ 보안 센터
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_TITLE2">
+알림: ID 절도 맬웨어를 발견했습니다. QQ 암호가 도난될 수 있습니다.
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_PROMPT">
+QQ 보안 센터에서 $NUM$개의 ID 절도 맬웨어를 발견했습니다. 지금 맬웨어를 제거하고 QQ 암호를 변경하십시오.
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_HELP">
+도움말: ID 절도 맬웨어가 발견된 후에 무엇을 해야 합니까?
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_RETURN">
+돌아가기
+</String>
+<String id="SCANVIRUS_VIEWDETAILLIST_NAME">
+이름
+</String>
+<String id="SCANVIRUS_VIEWDETAILLIST_TYPE">
+유형
+</String>
+<String id="SCANVIRUS_VIEWDETAILLIST_PATH">
+맬웨어 위치
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRFAIL_1">
+복구하지 못했습니다. 다시 시도해 보십시오.
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRFAIL_2">
+여기를 클릭
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRFAIL_3">
+클릭하여 도움말 보기
+</String>
+<String id="SCANVIRUS_BTN_RETRY">
+다시 시도해 보십시오.
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRSUCCESS">
+복구했습니다. 지금 ID 절도 맬웨어를 스캔합니다.
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRSUCCESS_2">
+복구했습니다. 이제 안전하게 QQ에 로그인할 수 있습니다.
+</String>
+<String id="SCANVIRUS_BTN_SCANNOW">
+지금 스캔
+</String>
+<String id="SCANVIRUS_SETTING_TITLE">
+안티맬웨어 설정
+</String>
+<String id="MINILOGINPANEL_TITLE" fmt="true">
+QQ International
+</String>
+<String id="UserDataDefaultSavePath_Vista">
+내 문서
+</String>
+<String id="UserDataDefaultSavePath_XP">
+설치 프로그램 팩 디렉터리
+</String>
+<String id="PROD_NAME" fmt="true">
+QQ International
+</String>
+<String id="ToolTip_MenuOnline">
+대화 상대에게 귀하가 온라인으로 보이도록 표시합니다.
+사운드: 켜기
+메시지 알림: 켜기
+채팅 알림: 작업 표시줄에서 아이콘 깜박임
+</String>
+<String id="ToolTip_MenuQMe">
+채팅을 환영하다는 것을 표시합니다.
+사운드: 켜기
+메시지 알림: 켜기
+채팅 알림: 채팅 창이 자동으로 팝업됩니다
+</String>
+<String id="ToolTip_MenuAway">
+외출 중이어서 지금 회신할 수 없다는 것을 표시합니다.
+사운드: 켜기
+메시지 알림: 켜기
+채팅 알림: 작업 표시줄에서 아이콘 깜박임
+</String>
+<String id="ToolTip_MenuBusy">
+바쁜 상태라서 회신할 수 없다는 것을 표시합니다.
+사운드: 켜기
+메시지 알림: 켜기
+채팅 알림: 작업 표시줄에서 대화 상자 표시
+</String>
+<String id="ToolTip_MenuQuiet">
+방해받고 싶지 않다는 것을 표시합니다.
+사운드: 끄기
+메시지 알림: 끄기
+채팅 알림: 작업 표시줄에서 대화 상자 표시
+</String>
+<String id="ToolTip_MenuInvisible">
+대화 상대에게 귀하가 오프라인 상태로 보이도록 표시합니다.
+사운드: 켜기
+메시지 알림: 켜기
+채팅 알림: 작업 표시줄에서 아이콘 깜박임
+</String>
+<String id="ToolTip_MenuOffline">
+서버와의 연결을 끊습니다.
+</String>
+<String id="ScanResultTips_SafeCenter">
+QQ 보안 센터
+</String>
+<String id="ScanResultTips_WarningVirus">
+경고: ID 절도 맬웨어가 검색되었습니다. 즉시 제거하십시오.
+</String>
+<String id="ScanResultTips_WarningVirusDetails">
+경고: ID 절도 맬웨어가 검색되었습니다. 즉시 제거하십시오.
+</String>
+<String id="ScanResultTips_ChangePass">
+암호 변경
+</String>
+<String id="ScanResultTips_VirusHelp">
+도움말: ID 절도 맬웨어가 검색된 후 무엇을 해야 합니까?
+</String>
+<String id="ScanResultTips_Clean">
+즉시 제거
+</String>
+<String id="ScanResultTips_Hints">
+팁
+</String>
+<String id="ScanResultTips_VirusCleanHints">
+ID 절도 맬웨어 제거 프로세서를 취소하시겠습니까? 경고: ID 절도 맬웨어가 QQ 암호를 훔쳐갈 수 있습니다.
+</String>
+<String id="ScanResultTips_AbandonClean">
+맬웨어 제거 취소
+</String>
+<String id="ScanResultTips_Cancel">
+취소
+</String>
+<String id="ScanResultTips_WarningTips">
+경고: 사기성 팁 맬웨어가 검색되었습니다. 즉시 제거하십시오.
+</String>
+<String id="ScanResultTips_WarningTipsDetails">
+특별 경고: 모든 유형의 "QQ 로또 당첨자" 통지는 사기입니다.
+</String>
+<String id="ScanResultTips_ViewDetails">
+클릭하여 자세한 내용 확인
+</String>
+<String id="ScanResultTips_TipsCleanHints">
+사기성 팁 맬웨어 제거 프로세서를 취소하시겠습니까? 경고: 사기성 팁 맬웨로는 인터넷 범죄입니다.
+</String>
+<String id="ScanResultTips_WarningHosts">
+경고: 맬웨어가 시스템 호스트 파일을 편집했을 수 있습니다.
+</String>
+<String id="ScanResultTips_WarningHostsDetails">
+안전하지 않은 웹사이트를 방문하여 QQ ID가 도난되었을 수 있습니다. 오른쪽 아래 모서리를 클릭하여 복구하십시오.
+</String>
+<String id="ScanResultTips_HostsHelp">
+도움말: 시스템 호스트 파일은 무엇입니까?
+</String>
+<String id="ScanResultTips_Repair">
+즉시 복구
+</String>
+<String id="ScanResultTips_HostsCleanHints">
+시스템 호스트 파일 복구 프로세서를 취소하시겠습니까? 경고: 시스템 호스트가 편집된 경우 일부 웹사이트를 방문할 때 오류 메시지가 생길 수 있습니다.
+</String>
+<String id="ScanResultTips_AbandonRepair">
+복구 취소
+</String>
+<String id="ScanResultTips_WarningMultiThreat">
+경고: 시스템에 보안 허점이 있어서 QQ의 정상 동작을 손상시킬 수 있습니다.
+</String>
+<String id="ScanResultTips_WarningMultiThreatDetails">
+원클릭 정리 프로그램을 통해 보안 허점을 즉시 수정하십시오.
+</String>
+<String id="ScanResultTips_OnButtonClean">
+원클릭 정리
+</String>
+<String id="ScanResultTips_MultiThreatCleanHints">
+보안 허점 복구 프로세서를 취소하시겠습니까? 경고: 이 보안 허점은 QQ 계정 안전을 손상시킵니다.
+</String>
+<String id="ScanResultTips_AbandonClear">
+수정 취소
+</String>
+<String id="ScanResultTips_WarningNewThreat">
+경고: QQ 계정 안전에 대한 위협이 검색되었습니다.
+</String>
+<String id="ScanResultTips_WarningNewThreatDetails">
+이 보안 허점으로 QQ의 정상 동작을 손상시킬 수 있습니다.
+</String>
+<String id="ScanResultTips_NewThreatCleanHints">
+이 보안 허점 수정을 취소하시겠습니까? 경고: 아 보안 허점은 QQi 계정의 안전을 손상시킵니다.
+</String>
+<String id="ScanResultTips_WarningNonOffical">
+경고: 스파이웨어가 검색되었습니다. 이 컴퓨터의 개인 정보가 손상되었을 수 있습니다.
+</String>
+<String id="ScanResultTips_PaneHints">
+시스템에 개인 정보를 손상시킬 수 있는 스파이웨어가 있습니다. QQ 계정의 안전을 위해 다시 설치하십시오.
+</String>
+<String id="ScanResultTips_NonOfficalHelp">
+특히 QQ를 대상으로 하는 스파이웨어와 관련된 설명
+</String>
+<String id="ScanResultTips_UnInstall">
+즉시 설치 제거
+</String>
+<String id="ScanResultTips_NonOfficalCleanHints">
+시스템에 아직도 개인 정보를 손상시킬 수 있는 스파이웨어가 있습니다. QQ 계정 정보가 손상되지 않도록 방지하기 위해 QQ가 즉시 취소됩니다.
+</String>
+<String id="ScanResultTips_Exit">
+종료
+</String>
+<String id="ScanResultTips_RebootTitle">
+다시 시작 알림
+</String>
+<String id="ScanResultTips_RebootNow">
+지금 다시 시작
+</String>
+<String id="ScanResultTips_RebootLater">
+나중에 다시 시작
+</String>
+<String id="ScanResultTips_VirusRebootHints">
+ID 절도 맬웨어를 완전히 제거하려면 컴퓨터를 다시 시작해야 합니다. 지금 다시 시작합니다.
+</String>
+<String id="ScanResultTips_TipsRebootHints">
+사기성 팁 맬웨머를 완전히 제거하려면 컴퓨터를 다시 시작해야 합니다. 지금 다시 시작합니다.
+</String>
+<String id="ScanResultTips_MultiRebootHints">
+모든 보안 허점 수정을 마치려면 컴퓨터를 다시 시작해야 합니다. 지금 다시 시작했습니다.
+</String>
+<String id="ScanResultTips_NewRebootHints">
+보안 허점을 수정하려면 컴퓨터를 다시 시작해야 합니다. 지금 다시 시작합니다.
+</String>
+<String id="SAFE_PROMPT_FIRSTOPEN_LOGINPANEL_1" fmt="true">
+$__PNAME_V$内置QQ安全组件，可有效防护盗号木马侵扰。您还可以
+</String>
+<String id="SAFE_PROMPT_FIRSTOPEN_LOGINPANEL_2">
+启动电脑管家
+</String>
+<String id="SAFE_PROMPT_FIRSTOPEN_LOGINPANEL_3">
+升级到更全面的防护。
+</String>
+<String id="SCANVUL_VIEWDETAIL_TITLE">
+发现高危系统漏洞，请立即修复！
+</String>
+<String id="SCANVUL_VIEWDETAIL_PROMPT">
+发现$NUM$个高危系统漏洞，建议您立即使用QQ电脑管家修复漏洞。
+</String>
+<String id="SCANVUL_VIEWDETAIL_HELP">
+帮助：发现高危漏洞后应该如何处理？
+</String>
+<String id="SCANVUL_VIEWDETAIL_FIXVUL">
+立即修复
+</String>
+<String id="SCANVUL_VIEWDETAILLIST_VULNAME">
+漏洞描述
+</String>
+<String id="SCANVUL_VIEWDETAILLIST_VULKB">
+知识库编号
+</String>
+<String id="SCANVUL_VIEWDETAILLIST_RELEASEDATE">
+发布日期
+</String>
+<String id="SCANVUL_GIVEUP_PROMPT">
+您确定要放弃修复高危系统漏洞吗？&#10;警告：高危系统漏洞会导致系统存在安全风险！
+</String>
+<String id="IDS_SafeLogin">
+安全登录
+</String>
+<String id="SCANVIRUS_QQDOCTOR">
+QQ Doctor
+</String>
+<String id="LoginPanel_ChangeLang">
+언어
+</String>
+<String id="ChangeLang_English">
+English
+</String>
+<String id="ChangeLang_TraditionalCH">
+繁體中文
+</String>
+<String id="ChangeLang_French">
+Français
+</String>
+<String id="LoginPanel_Japanese">
+日本語
+</String>
+<String id="LoginPanel_German">
+Deutsch
+</String>
+<String id="LoginPanel_Korean">
+한국어
+</String>
+<String id="LoginPanel_Spanish">
+Español
+</String>
+<String id="IDS_MultipleLanguageText">
+이 프로그램에는 다국어 지원이 포함되어 있습니다. 언어를 선택하고 확인을 클릭하여 계속하십시오.
+</String>
+<String id="LoginPanel_LoginSpace">
+로그인
+</String>
+<String id="LoginPanel_LoginCancel">
+취소
+</String>
+<String id="LoginPanel_Agree">
+약관에 동의
+</String>
+<String id="QRLogin_SSOFailed">
+이 버전은 QR 코드 스캔을 지원하지 않습니다. &lt;TITLE="QQ International 웹 사이트", URL="http://www.imqq.com"&gt;를 방문하여 최신 버전을 다운로드하세요.
+</String>
+<String id="QRLogin_Normal">
+처리 중...
+</String>
+<String id="QRLogin_Failed">
+스캔 실패. &lt;TITLE="새로 고침", URL="OnQRRefresh"&gt;을 클릭하세요.
+</String>
+<String id="QR_CancelBtn">
+취소
+</String>
+<String id="QR_LinkString">
+. &lt;TITLE="새로 고침", URL="OnQRRefresh"&gt;을 클릭하세요.
+</String>
+<String id="FaceLogin_Tip">차원코드를 사용하여 로그인</String>
+<String id="FaceLogin_Detecting">正在进行识别</String>
+<String id="FaceLogin_Add">绑定帐号</String>
+<String id="FaceLogin_introduce">功能简介:
+       QQ闪登登录验证是一种辅助登录，通过视频扫描来确认用户的身份。采用此登录方式可以免去繁琐的密码输入。只需在本机用摄像头将人脸扫描成像，并将成像与帐号绑定，今后使用本机登录QQ只需进行人脸验证扫描即可。
+			注意事项：
+        1、尽量使用高分辨率的摄像头。
+        2、识别过程中尽量保持面部正对摄像头且无遮挡。
+        3、尽量避免在光线太暗或者太强的地方进行识别。</String>
+<String id="FaceLogin_NoDev">未检测到摄像头</String>
+<String id="FaceLogin_StartBind">开始使用</String>
+<String id="FaceLogin_StartDelete">正在解除绑定</String>
+<String id="FaceLogin_InPutCorrectPwd">请输入正确的帐号和密码</String>
+<String id="FaceLogin_Capturing">正在采集人像信息</String>
+<String id="FaceLogin_StartDetect">开始识别</String>
+<String id="FaceLogin_CancelDetect">取消识别</String>
+<String id="FaceLogin_ReDetect">重新识别</String>
+<String id="FaceLogin_OK">确定</String>
+<String id="FaceLogin_Cancel">取消</String>
+<String id="FaceLogin_Delete">解除绑定</String>
+<String id="FaceLogin_DeleteTip">解除绑定</String>
+<String id="FaceLogin_AddTip">添加绑定</String>
+<String id="FaceLogin_CannotDelete">您的帐号正在使用，需要退出后才能删除</String>
+<String id="FaceLogin_CannotBindUser">您的帐号正在使用，需要退出后才能绑定</String>
+<String id="FaceLogin_DeleteSucceed">解除帐号成功</String>
+<String id="FaceLogin_DeleteFail">解除帐号失败</String>
+<String id="FaceLogin_BindSucceed">绑定帐号成功</String>
+<String id="FaceLogin_BindFailed">绑定帐号失败</String>
+<String id="FaceLogin_VedioInvalid">您的摄像头被别的程序占用</String>
+<String id="FaceLogin_RebindInfo">未检测到人像，请确保脸部正对摄像头且无遮盖</String>
+<String id="FaceLogin_RebindInfo2">识别失败，请确保面部正对摄像头且无遮盖，外部光照均匀后重新识别；如未绑定帐号请在取消识别后添加绑定</String>
+<String id="FaceLogin_StartCheckAccount">正在验证帐号和密码</String>
+<String id="FaceLogin_StartBindCall">正在绑定帐号</String>
+<String id="FaceLogin_StartDeleteCall">正在解除绑定</String>
+<String id="FaceLogin_InvalidPwd">密码不能为空</String>
+<String id="FaceLogin_PasswordTitle">密码：</String>
+<String id="FaceLogin_AccountTitle">帐号：</String>
+<String id="FaceLogin_ToDeleteError">未绑定帐号</String>
+<String id="FaceLogin_TipTimeOUt">绑定帐号超时，请重新绑定帐号</String>
+<String id="FaceLogin_TipNoPassWord">请重新记住密码登录帐号</String>
+<String id="FaceLogin_AgreeProtocol">感谢您选择QQ闪登功能，请您仔细阅读以下规则并选择是否同意确定接受。除非您同意接受本绑定规则，否则，您不应使用QQ闪登功能。您任何使用本功能的行为，将视为对本规则的接受。
+1、QQ闪登是基于人脸识别技术的一种辅助登录，只有在记住密码的情况下才能使用本功能，并且使用本功能须事先采集用户人像信息并遵循相应的绑定帐号流程。
+2、QQ闪登的帐号绑定只在本机有效，若使用其他机器登录需要重新绑定帐号。
+3、通过本项功能收集的您的人像信息仅用于QQ客户端进行QQ闪登验证，未经您允许不会以任何方式公开或提供给第三方。
+4、如需解除绑定请在取消识别后点击“解除绑定”或者在“系统设置-基本设置-登录”中解除QQ闪登绑定，删除帐号信息也将解除QQ闪登绑定。
+5、为保障您的帐号安全，请勿在公共电脑上使用QQ闪登功能，并请确保您登录时网络环境的安全。您应谨慎保护您的帐号密码等信息的安全，并自行承担帐号密码被盗等产生的风险。
+6、您理解并同意，尽管目前人脸检测的准确率较高，同时，腾讯将尽力不断提升其准确率，但仍然可能存在出错的风险，您愿意自行承担相应风险。
+7、本绑定规则是基于《腾讯网站服务条款》、《QQ软件许可及服务协议》等制定的，与其是不可分割的，本规则未明确的事项，按照其相关约定执行。（完）</String>
+<String id="FaceLogin_AgreeWarn">QQ闪登绑定规则</String>
+<String id="FaceLogin_DetectOk">识别成功</String>
+<String id="FaceLogin_PWDTip">记住密码才能绑定</String>
+<String id="FaceLogin_AddError">每台机器最多只能绑定3个帐号，如需继续绑定请先解除其他帐号的绑定</String>
+<String id="FaceLogin_Resume">返回</String>
+<String id="FaceLogin_DetectOk2">识别成功！</String>
+<String id="FaceLogin_ToLogin">即将登录帐号</String>
+<String id="FaceLogin_DeleteFaceUin">解除此帐号绑定</String>
+<String id="FaceLogin_CheckOverTime">网络超时，请检查您的网络环境是否正常</String>
+<String id="FaceLogin_CheckCaptureFace">采集失败，请确保周围光照均匀，面部正对摄像头且无遮挡</String>
+<String id="FaceLogin_Initing">正在启动摄像头</String>
+<String id="FaceLogin_AutoUnbind">您取消勾选了记住密码，出于帐号安全考虑QQ闪登帐号绑定将自动解除。</String>
+<String id="FaceLogin_AutoUnbind3">记住密码失败，QQ闪登帐号绑定将自动解除。</String>
+<String id="FaceLogin_AutoUnbind2">取消记住密码后，QQ闪登帐号绑定也将自动解除。</String>
+<String id="FaceLogin_BindTip">输入需要绑定人像信息的帐号及密码</String>
+<String id="FaceLogin_DeleteTip2">点击删除按钮解除此帐号的QQ闪登绑定</String>
+<String id="FaceLogin_Next">下一步</String>
+<String id="FaceLogin_CaptureSucceess">采集成功，点击“下一步”绑定帐号</String>
+<String id="FaceLogin_postUrl">http://df3.pr.qq.com/pcqq/dev_face_login</String>
+<String id="Login_beLogining">
+로그인 중...
+</String>
+<String id="Login_FontType">
+Tahoma
+</String>
+<String id="LoginMainFrame_Sign1">
+(
+</String>
+<String id="LoginMainFrame_Sign2">
+)
+</String>
+<String id="LoginPanel_ForgetPwd_MSAA">
+잊으셨나요?
+</String>
+<String id="LoginPanel_NewAccount_MSAA">
+등록
+</String>
+<String id="LoginSettingTitle">
+로그인 설정
+</String>
+<String id="SSO_QR_strUserInputTextQQI">
+로그인하려면 &lt;TITLE="QQ Mobile", URL="http://www.imqq.com"&gt; 로 아래 QR 코드를 스캔하세요.
+</String>
+<String id="SSO_QR_strUserConfirmTextQQI">
+QR 코드 스캔에 문제가 없으면 전화기에서 확인을 클릭하세요.
+</String>
+<String id="SSO_QR_strQRTimeoutTextQQI">
+QR 코드가 만료되었습니다.
+</String>
+<String id="SSO_QR_strTitleTextQQI">
+QR 코드 로그인
+</String>
+</StringBundle>

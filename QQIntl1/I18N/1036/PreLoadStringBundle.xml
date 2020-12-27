@@ -1,0 +1,696 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="LoginPanel_Online_S">
+En ligne
+</String>
+<String id="LoginPanel_Offline_S">
+Hors ligne
+</String>
+<String id="LoginPanel_Latent_S">
+Invisible
+</String>
+<String id="LoginPanel_Busy_S">
+Occupé
+</String>
+<String id="LoginPanel_Away_S">
+Absent
+</String>
+<String id="LoginPanel_Login">
+Se connecter
+</String>
+<String id="LoginPanel_RememberPsw">
+Retenir mot de passe
+</String>
+<String id="LoginPanel_Sel_Account">
+Se connecter avec cet identifiant
+</String>
+<String id="LoginPanel_Other_Account">
+Se connecter avec un autre identifiant
+</String>
+<String id="LoginPanel_AutoLogin">
+Autoconnecter
+</String>
+<String id="LoginPanel_FirstStartBanner_Tips">
+进来看看我们想对您说什么？
+</String>
+<String id="SCANVIRUS_BTN_SETTING">
+Paramètres
+</String>
+<String id="MainPanel_AdjustColor">
+Paramètres d&apos;apparence
+</String>
+<String id="LoginPanel_Logining">
+$ACCOUNT" connexion
+</String>
+<String id="NewThreadLoginPanel_Logining">
+Connexion
+</String>
+<String id="NewThreadLoginPanel_ConvertingSS2CD">
+Mise à jours de l'historique des messages. $PROGRESS$ terminé.
+</String>
+<String id="NewThreadLoginPanel_Logining_Vip">
+尊敬的QQ会员，欢迎您
+</String>
+<String id="LoginPanel_Online">
+En ligne
+</String>
+<String id="LoginPanel_DelAccount">
+Supprimer compte
+</String>
+<String id="LoginPanel_QQDoctor">
+Scan de virus
+</String>
+<String id="LoginPanel_More">
+Plus
+</String>
+<String id="LoginPanel_Account">
+Compte
+</String>
+<String id="LoginPanel_Password">
+Mot de passe
+</String>
+<String id="Product_Name" fmt="true">
+QQ International
+</String>
+<String id="MainFrame_Title" fmt="true">
+QQ International
+</String>
+<String id="LoginPanel_SoftKeyboard">
+Clavier sur écran
+</String>
+<String id="SCANVIRUS_PROMPT_LINK_REINSTALL">
+Réinstaller QQ
+</String>
+<String id="SCANVIRUS_PROMPT_LINK_CHECK_ONLINE">
+Scan en ligne de virus
+</String>
+<String id="LoginPanel_Logo" fmt="true">
+QQ International
+</String>
+<String id="LoginPanel_Cancel">
+Annuler
+</String>
+<String id="ContactStatus_Online">
+En ligne
+</String>
+<String id="ContactStatus_Offline">
+Hors ligne
+</String>
+<String id="ContactStatus_Busy">
+Occupé
+</String>
+<String id="ContactStatus_Away">
+Absent
+</String>
+<String id="ContactStatus_Invisible">
+Invisible
+</String>
+<String id="ContactStatus_Quiet">
+Ne pas déranger
+</String>
+<String id="ContactStatus_QMe">
+Parle moi
+</String>
+<String id="LoginPanel_Failed">
+Echec de la connexion
+</String>
+<String id="STATUS_AVAILABLE">
+En ligne
+</String>
+<String id="LoginPanel_StatePrompt">
+Statut
+</String>
+<String id="LoginPanel_InputQQNumHere">
+Entrer identifiant
+</String>
+<String id="LoginPanel_InputPwdHere">
+Saisissez le mot de passe
+</String>
+<String id="LoginFail_ViewDetail">
+Echec de la connexion. Cliquer pour plus de détails.
+</String>
+<String id="LoginFail_Detail">
+Détails
+</String>
+<String id="LoginFail_DetailInfo">
+Cher utilisateur, votre version de QQi $CON$ est obsolète. Veuillez télécharger et installer la dernière version $CON$.
+</String>
+<String id="LoginPanel_Setting">
+Paramètres
+</String>
+<String id="LoginPanel_SwitchToSingleAccountLogin">
+Passer en mode de compte unique
+</String>
+<String id="LoginPanel_SwitchToMultiAccountLogin">
+Passer en mode de comptes multiples
+</String>
+<String id="LoginPanel_Note">
+Vous pouvez paramétrer la connexion avant de vous connecter.
+</String>
+<String id="LoginPanel_NetSetting">
+Paramètres réseau
+</String>
+<String id="LoginPanel_LoginSetting">
+Paramètres de connexion
+</String>
+<String id="SAFEEDIT_LOAD_FAIL">
+Echec du chargement
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE">
+L&apos;espace mot de passe n&apos;a pu charger car le composant de sécurité QQ a été compromis. Vérifiez la présence de virus et réinstaller QQ.
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE_STDPANEL">
+Le composant de sécurité a pu être compromis. Vérifiez la présence de virus et réinstaller QQ.
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE_1">
+Le composant de sécurité a été compromis. Vérifiez la présence de virus et réinstaller QQ.
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE_2">
+Cliquez ici
+</String>
+<String id="SAFEEDIT_LOAD_FAIL_PROMOTE_3">
+Consulter les solutions
+</String>
+<String id="SCANVIRUS_QQPCMGR">
+QQ电脑管家
+</String>
+<String id="SCANVIRUS_PROMPT_FAIL">
+Le scan virus a échoué car le programme est bloqué par un malware. Nous conseillons l&apos;utilisation du clavier écran.
+</String>
+<String id="SCANVIRUS_PROMPT_FAIL_2">
+Le composant de sécurité QQ a pu être bloqué par un virus.
+</String>
+<String id="SCANVIRUS_PROMPT_FAIL_3">
+Utilisez un antivirus pour scanner et supprimer le malware.
+</String>
+<String id="SCANVIRUS_PROMPT_FAIL_3_STDPANEL">
+Scanner et supprimer le malware.
+</String>
+<String id="SCANVIRUS_PROMPT_FIRSTOPEN_LOGINPANEL">
+Saviez vous que le software anti-virus de QQ peut prévenir le vol de votre identifiant et ainsi protéger votre compte QQ?
+</String>
+<String id="SCANVIRUS_PROMPT_FIRSTOPEN_LOGINPANEL_STD_PANEL">
+Saviez vous que le software anti-virus de QQ peut protéger votre compte QQ?
+</String>
+<String id="SCANVIRUS_PROMPT_CHECKING">
+En cours de scan de virus pour vol d&apos;identifiant. Veuillez patienter.
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRING">
+En cours de réparation. Veuillez patienter.
+</String>
+<String id="SCANVIRUS_PROMPT_VIRUS">
+Virus pour vol d&apos;identifiant trouvé. Supprimer le malware avant de vous connecter.
+</String>
+<String id="SCANVIRUS_PROMPT_VIRUS_VIEW">
+Examiner les détails du malware.
+</String>
+<String id="SCANVIRUS_BTN_OK">
+Confirmer
+</String>
+<String id="SCANVIRUS_BTN_CANCEL">
+Annuler
+</String>
+<String id="SCANVIRUS_BTN_KISSVIRUS">
+Supprimer maintenant
+</String>
+<String id="SCANVIRUS_BTN_REINSTALL">
+Réparer maintenant
+</String>
+<String id="SCANVIRUS_BTN_QUERY">
+Cliquer pour plus de détails
+</String>
+<String id="SCANVIRUS_BTN_IGNORE">
+Ignorer
+</String>
+<String id="SCANVIRUS_VIRUSTYPE_DEFAULT">
+Virus pour vol d&apos;identifiant
+</String>
+<String id="SCANVIRUS_TITLE">
+Contr?le de sécurité
+</String>
+<String id="SCANVIRUS_BLUEBAR_CANCEL" fmt="true">
+Le scan de malware est en cours. Ne pas se connecter avant qu&apos;il soit terminé.
+</String>
+<String id="SCANVIRUS_BLUEBAR_RESCAN">
+Scanner à nouveau
+</String>
+<String id="SCANVIRUS_BLUEBAR_FINISHSAFE">
+Virus pour vol d&apos;identifiant non-trouvé.
+</String>
+<String id="SCANVIRUS_PROMPT_SCANNING">
+Suppression du virus pour vol d&apos;identifiant. Veuillez patienter.
+</String>
+<String id="SCANVIRUS_GIVEUP_PROMPT">
+Voulez-vous réellement annuler la suppression  du virus pour vol d&apos;identifiant? Attention: Ce virus peut voler votre identifiant QQ
+</String>
+<String id="SCANVIRUS_TITLE_GIVEUP">
+Abandonner la suppression de virus
+</String>
+<String id="SCANVIRUS_GIVEUP_OK">
+Confirmer
+</String>
+<String id="SCANVIRUS_GIVEUP_CANCEL">
+Annuler
+</String>
+<String id="SCANVIRUS_KILLVIRUS_PROMPT">
+Veuillez redémarrer votre ordinateur maintenant  pour supprimer définitivement le virus.
+</String>
+<String id="SCANVIRUS_TITLE_REBOOT">
+Relancer l&apos;application
+</String>
+<String id="SCANVIRUS_KILLVIRUS_RESTARTNOW">
+Relancer maintenant
+</String>
+<String id="SCANVIRUS_KILLVIRUS_RESTARTLATER">
+Relancer plus tard
+</String>
+<String id="SCANVIRUS_SETTING_WEEK">
+Scanner et réparer hebdomadairement
+</String>
+<String id="SCANVIRUS_SETTING_DAY">
+Scanner et réparer quotidiennement
+</String>
+<String id="SCANVIRUS_SETTING_TIME">
+Scanner et réparer avant chaque connexion
+</String>
+<String id="SCANVIRUS_SETTING_NONE">
+Ne pas scanner et réparer avant chaque connexion
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_TITLE">
+Centre de sécurité QQ
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_TITLE2">
+Alerte: Virus de vol d&apos;identifiant trouvé. Votre identifiant QQ a pu être usurpé.
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_PROMPT">
+Le centre de sécurité QQ a trouvé le virus de vol d&apos;identifiant suivant $NUM$. Supprimez le virus maintenant et changez de mot de passe.
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_HELP">
+Aide: Que faire lors de la détection d&apos;un virus de vol d&apos;identifiant?
+</String>
+<String id="SCANVIRUS_VIEWDETAIL_RETURN">
+Retour
+</String>
+<String id="SCANVIRUS_VIEWDETAILLIST_NAME">
+Nom
+</String>
+<String id="SCANVIRUS_VIEWDETAILLIST_TYPE">
+Type
+</String>
+<String id="SCANVIRUS_VIEWDETAILLIST_PATH">
+Source du virus
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRFAIL_1">
+Echec de la réparation. Veuillez réessayer.
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRFAIL_2">
+Cliquez ici
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRFAIL_3">
+Lire l&apos;aide
+</String>
+<String id="SCANVIRUS_BTN_RETRY">
+Réessayer
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRSUCCESS">
+Succès de la réparation. Scanner le virus de vol d&apos;identifiant maintenant.
+</String>
+<String id="SCANVIRUS_PROMPT_REPAIRSUCCESS_2">
+Succès de la réparation. Vous pouvez maintenant vous connecter à QQ en toute sécurité.
+</String>
+<String id="SCANVIRUS_BTN_SCANNOW">
+Scanner maintenant
+</String>
+<String id="SCANVIRUS_SETTING_TITLE">
+Paramètres anti-virus
+</String>
+<String id="MINILOGINPANEL_TITLE" fmt="true">
+QQ International
+</String>
+<String id="UserDataDefaultSavePath_Vista">
+Mes Documents
+</String>
+<String id="UserDataDefaultSavePath_XP">
+Dossier d&apos;installation
+</String>
+<String id="PROD_NAME" fmt="true">
+QQ International
+</String>
+<String id="ToolTip_MenuOnline">
+Vous souhaitez que vos contacts vous
+ voient en ligne.
+Son: Activé
+Alerte message: Activé
+Alerte chat: Clignotement de l&apos;icone dans la barre de démarrage
+</String>
+<String id="ToolTip_MenuQMe">
+Vous souhaitez que vos contacts vous 
+parlent.
+Son: Activé
+Alerte message: Activé
+Alerte chat: La fenêtre de discussion 
+appara?t automatiquement
+</String>
+<String id="ToolTip_MenuAway">
+Vous souhaitez indiquer a vos contacts que vous êtes absent.
+Son: Activé
+Alerte message: Activé Alerte
+chat: Clignotement de l&apos;icone dans la barre 
+de démarrage
+</String>
+<String id="ToolTip_MenuBusy">
+Vous souhaitez indiquer a vos contacts que vous êtes occupé.
+Son: Activé
+Alerte message: Activé
+Alerte chat: Affichage de la boite de dialogue dans la barre de démarrage
+</String>
+<String id="ToolTip_MenuQuiet">
+Vous souhaitez indiquer a vos contacts que vous ne voulez pas être dérangé.
+Son: Désactivé
+Alerte message: Désactivé
+Alerte chat: Affichage de la boite de dialogue dans la barre de démarrage
+</String>
+<String id="ToolTip_MenuInvisible">
+Vous souhaitez que vos contacts vous 
+voient hors ligne.
+Son: Activé
+Alerte message: Activé
+Alerte chat: Clignotement de l&apos;icone dans la barre de démarrage
+</String>
+<String id="ToolTip_MenuOffline">
+Déconnexion du serveur.
+</String>
+<String id="ScanResultTips_SafeCenter">
+Centre de sécurité QQ
+</String>
+<String id="ScanResultTips_WarningVirus">
+Attention: Virus de vol d'identifiant détecté. Supprimer immédiatement.
+</String>
+<String id="ScanResultTips_WarningVirusDetails">
+Attention: Virus de vol d'identifiant détecté. Veuillez le supprimer.
+</String>
+<String id="ScanResultTips_ChangePass">
+Changer de mot de passe
+</String>
+<String id="ScanResultTips_VirusHelp">
+Aide: Que faire lors de la détection d'un virus de vol d'identifiant?
+</String>
+<String id="ScanResultTips_Clean">
+Supprimer immédiatement
+</String>
+<String id="ScanResultTips_Hints">
+Rappel
+</String>
+<String id="ScanResultTips_VirusCleanHints">
+Voulez-vous réellement annuler la suppression  du virus pour vol d'identifiant? Attention: Ce virus peut voler votre identifiant QQ.
+</String>
+<String id="ScanResultTips_AbandonClean">
+Abandonner la suppression du virus
+</String>
+<String id="ScanResultTips_Cancel">
+Abandon
+</String>
+<String id="ScanResultTips_WarningTips">
+Attention: virus de conseil frauduleux détecté. Veuillez le supprimer.
+</String>
+<String id="ScanResultTips_WarningTipsDetails">
+Attention: Toute annonce de "Gagnant de jeux d'argent" est suspecte.
+</String>
+<String id="ScanResultTips_ViewDetails">
+Cliquez pour les détails
+</String>
+<String id="ScanResultTips_TipsCleanHints">
+Voulez-vous réellement abandonner la suppression  du virus de conseil frauduleux? Attention: Ce virus est considéré comme un cyber-crime.
+</String>
+<String id="ScanResultTips_WarningHosts">
+Attention: Les virus peuvent éditer vos fichiers h?tes système.
+</String>
+<String id="ScanResultTips_WarningHostsDetails">
+La perte de l'identifiant QQ peut venir de la visite de sites suspects. Cliquez dans le coin en bas à gauche pour réparer.
+</String>
+<String id="ScanResultTips_HostsHelp">
+Aide: Qu'est ce qu'un fichier h?te système?
+</String>
+<String id="ScanResultTips_Repair">
+Réparer immédiatement
+</String>
+<String id="ScanResultTips_HostsCleanHints">
+Voulez-vous réellement abandonner la réparation  des fichiers h?tes système? Attention: Si ils sont édités, les fichiers h?tes système peuvent être source de messages d'erreur lors de la visite de certain sites.
+</String>
+<String id="ScanResultTips_AbandonRepair">
+Abandon de la réparation
+</String>
+<String id="ScanResultTips_WarningMultiThreat">
+Attention: Il peut y avoir des trous de sécurité dans votre système qui peuvent compromettre le bon fonctionnement de QQ.
+</String>
+<String id="ScanResultTips_WarningMultiThreatDetails">
+Réparer immédiatement les trous de sécurité avec "One-click Clean up".
+</String>
+<String id="ScanResultTips_OnButtonClean">
+One-click Clean up
+</String>
+<String id="ScanResultTips_MultiThreatCleanHints">
+Voulez-vous réellement abandonner la réparation des trous de sécurité? Attention: Ces trous de sécurité peuvent compromettre votre compte QQ.
+</String>
+<String id="ScanResultTips_AbandonClear">
+Annuler la réparation
+</String>
+<String id="ScanResultTips_WarningNewThreat">
+Attention: La sécurité de votre compte QQ est menacée
+</String>
+<String id="ScanResultTips_WarningNewThreatDetails">
+Les trous de sécurité peuvent compromettre le bon fonctionnement de QQ.
+</String>
+<String id="ScanResultTips_NewThreatCleanHints">
+Voulez-vous réellement abandonner la réparation des trous de sécurité? Attention: Ces trous de sécurité peuvent compromettre votre compte QQ.
+</String>
+<String id="ScanResultTips_WarningNonOffical">
+Attention: Virus espion détecté. Les données personnelles de cet ordinateur peuvent être compromise.
+</String>
+<String id="ScanResultTips_PaneHints">
+Le systeme possède un virus espion qui peut compromettre vos données personnelles. Pour garantir la sécurité de votre compte QQ, veuillez réinstaller.
+</String>
+<String id="ScanResultTips_NonOfficalHelp">
+Notification de virus espion
+</String>
+<String id="ScanResultTips_UnInstall">
+Désinstaller immédiatement
+</String>
+<String id="ScanResultTips_NonOfficalCleanHints">
+Le systeme possède un virus espion qui peut compromettre vos données personnelles. Pour garantir la sécurité de vos données de compte, QQ va immédiatement s'arrêter.
+</String>
+<String id="ScanResultTips_Exit">
+Sortie
+</String>
+<String id="ScanResultTips_RebootTitle">
+Rappel de redémarrage
+</String>
+<String id="ScanResultTips_RebootNow">
+Redémarrer maintenant
+</String>
+<String id="ScanResultTips_RebootLater">
+Redémarrer plus tard
+</String>
+<String id="ScanResultTips_VirusRebootHints">
+Vous devez redémarrer votre ordinateur pour supprimer définitivement le virus de vol d'identifiant. Veuillez redémarrer maintenant.
+</String>
+<String id="ScanResultTips_TipsRebootHints">
+Vous devez redémarrer votre ordinateur pour supprimer définitivement le virus de conseil frauduleux. Veuillez redémarrer maintenant.
+</String>
+<String id="ScanResultTips_MultiRebootHints">
+Vous devez redémarrer votre ordinateur pour finir la réparation de tout les trous de sécurité. Veuillez redémarrer maintenant.
+</String>
+<String id="ScanResultTips_NewRebootHints">
+Vous devez redémarrer votre ordinateur pour réparer les trous de sécurité. Veuillez redémarrer maintenant.
+</String>
+<String id="SAFE_PROMPT_FIRSTOPEN_LOGINPANEL_1" fmt="true">
+$__PNAME_V$内置QQ安全组件，可有效防护盗号木马侵扰。您还可以
+</String>
+<String id="SAFE_PROMPT_FIRSTOPEN_LOGINPANEL_2">
+启动电脑管家
+</String>
+<String id="SAFE_PROMPT_FIRSTOPEN_LOGINPANEL_3">
+升级到更全面的防护。
+</String>
+<String id="SCANVUL_VIEWDETAIL_TITLE">
+发现高危系统漏洞，请立即修复！
+</String>
+<String id="SCANVUL_VIEWDETAIL_PROMPT">
+发现$NUM$个高危系统漏洞，建议您立即使用QQ电脑管家修复漏洞。
+</String>
+<String id="SCANVUL_VIEWDETAIL_HELP">
+帮助：发现高危漏洞后应该如何处理？
+</String>
+<String id="SCANVUL_VIEWDETAIL_FIXVUL">
+立即修复
+</String>
+<String id="SCANVUL_VIEWDETAILLIST_VULNAME">
+漏洞描述
+</String>
+<String id="SCANVUL_VIEWDETAILLIST_VULKB">
+知识库编号
+</String>
+<String id="SCANVUL_VIEWDETAILLIST_RELEASEDATE">
+发布日期
+</String>
+<String id="SCANVUL_GIVEUP_PROMPT">
+您确定要放弃修复高危系统漏洞吗？&#10;警告：高危系统漏洞会导致系统存在安全风险！
+</String>
+<String id="IDS_SafeLogin">
+安全登录
+</String>
+<String id="SCANVIRUS_QQDOCTOR">
+QQ Doctor
+</String>
+<String id="LoginPanel_ChangeLang">
+Langue
+</String>
+<String id="ChangeLang_English">
+English
+</String>
+<String id="ChangeLang_TraditionalCH">
+繁體中文
+</String>
+<String id="ChangeLang_French">
+Français
+</String>
+<String id="LoginPanel_Japanese">
+日本語
+</String>
+<String id="LoginPanel_German">
+Deutsch
+</String>
+<String id="LoginPanel_Korean">
+한국어
+</String>
+<String id="LoginPanel_Spanish">
+Español
+</String>
+<String id="IDS_MultipleLanguageText">
+Ce programme prend en charge plusieurs langues. Veuillez sélectionner votre langue, puis cliquer sur OK pour continuer.
+</String>
+<String id="LoginPanel_LoginSpace">
+Connexion
+</String>
+<String id="LoginPanel_LoginCancel">
+Annuler
+</String>
+<String id="LoginPanel_Agree">
+J'accepte les conditions
+</String>
+<String id="QRLogin_SSOFailed">
+Cette version ne prend pas en charge la numérisation des codes QR, visitez &lt;TITLE="Site Web international QQ", URL="http://www.imqq.com"&gt; et téléchargez la version la plus récente
+</String>
+<String id="QRLogin_Normal">
+Traitement en cours...
+</String>
+<String id="QRLogin_Failed">
+Échec de la numérisation, utilisez &lt;TITLE="Obtenir un nouveau", URL="OnQRRefresh"&gt;
+</String>
+<String id="QR_CancelBtn">
+Annuler
+</String>
+<String id="QR_LinkString">
+, utilisez &lt;TITLE="Obtenir un nouveau", URL="OnQRRefresh"&gt;
+</String>
+<String id="FaceLogin_Tip">Connecter dans code QR</String>
+<String id="FaceLogin_Detecting">正在进行识别</String>
+<String id="FaceLogin_Add">绑定帐号</String>
+<String id="FaceLogin_introduce">功能简介:
+       QQ闪登登录验证是一种辅助登录，通过视频扫描来确认用户的身份。采用此登录方式可以免去繁琐的密码输入。只需在本机用摄像头将人脸扫描成像，并将成像与帐号绑定，今后使用本机登录QQ只需进行人脸验证扫描即可。
+			注意事项：
+        1、尽量使用高分辨率的摄像头。
+        2、识别过程中尽量保持面部正对摄像头且无遮挡。
+        3、尽量避免在光线太暗或者太强的地方进行识别。</String>
+<String id="FaceLogin_NoDev">未检测到摄像头</String>
+<String id="FaceLogin_StartBind">开始使用</String>
+<String id="FaceLogin_StartDelete">正在解除绑定</String>
+<String id="FaceLogin_InPutCorrectPwd">请输入正确的帐号和密码</String>
+<String id="FaceLogin_Capturing">正在采集人像信息</String>
+<String id="FaceLogin_StartDetect">开始识别</String>
+<String id="FaceLogin_CancelDetect">取消识别</String>
+<String id="FaceLogin_ReDetect">重新识别</String>
+<String id="FaceLogin_OK">确定</String>
+<String id="FaceLogin_Cancel">取消</String>
+<String id="FaceLogin_Delete">解除绑定</String>
+<String id="FaceLogin_DeleteTip">解除绑定</String>
+<String id="FaceLogin_AddTip">添加绑定</String>
+<String id="FaceLogin_CannotDelete">您的帐号正在使用，需要退出后才能删除</String>
+<String id="FaceLogin_CannotBindUser">您的帐号正在使用，需要退出后才能绑定</String>
+<String id="FaceLogin_DeleteSucceed">解除帐号成功</String>
+<String id="FaceLogin_DeleteFail">解除帐号失败</String>
+<String id="FaceLogin_BindSucceed">绑定帐号成功</String>
+<String id="FaceLogin_BindFailed">绑定帐号失败</String>
+<String id="FaceLogin_VedioInvalid">您的摄像头被别的程序占用</String>
+<String id="FaceLogin_RebindInfo">未检测到人像，请确保脸部正对摄像头且无遮盖</String>
+<String id="FaceLogin_RebindInfo2">识别失败，请确保面部正对摄像头且无遮盖，外部光照均匀后重新识别；如未绑定帐号请在取消识别后添加绑定</String>
+<String id="FaceLogin_StartCheckAccount">正在验证帐号和密码</String>
+<String id="FaceLogin_StartBindCall">正在绑定帐号</String>
+<String id="FaceLogin_StartDeleteCall">正在解除绑定</String>
+<String id="FaceLogin_InvalidPwd">密码不能为空</String>
+<String id="FaceLogin_PasswordTitle">密码：</String>
+<String id="FaceLogin_AccountTitle">帐号：</String>
+<String id="FaceLogin_ToDeleteError">未绑定帐号</String>
+<String id="FaceLogin_TipTimeOUt">绑定帐号超时，请重新绑定帐号</String>
+<String id="FaceLogin_TipNoPassWord">请重新记住密码登录帐号</String>
+<String id="FaceLogin_AgreeProtocol">感谢您选择QQ闪登功能，请您仔细阅读以下规则并选择是否同意确定接受。除非您同意接受本绑定规则，否则，您不应使用QQ闪登功能。您任何使用本功能的行为，将视为对本规则的接受。
+1、QQ闪登是基于人脸识别技术的一种辅助登录，只有在记住密码的情况下才能使用本功能，并且使用本功能须事先采集用户人像信息并遵循相应的绑定帐号流程。
+2、QQ闪登的帐号绑定只在本机有效，若使用其他机器登录需要重新绑定帐号。
+3、通过本项功能收集的您的人像信息仅用于QQ客户端进行QQ闪登验证，未经您允许不会以任何方式公开或提供给第三方。
+4、如需解除绑定请在取消识别后点击“解除绑定”或者在“系统设置-基本设置-登录”中解除QQ闪登绑定，删除帐号信息也将解除QQ闪登绑定。
+5、为保障您的帐号安全，请勿在公共电脑上使用QQ闪登功能，并请确保您登录时网络环境的安全。您应谨慎保护您的帐号密码等信息的安全，并自行承担帐号密码被盗等产生的风险。
+6、您理解并同意，尽管目前人脸检测的准确率较高，同时，腾讯将尽力不断提升其准确率，但仍然可能存在出错的风险，您愿意自行承担相应风险。
+7、本绑定规则是基于《腾讯网站服务条款》、《QQ软件许可及服务协议》等制定的，与其是不可分割的，本规则未明确的事项，按照其相关约定执行。（完）</String>
+<String id="FaceLogin_AgreeWarn">QQ闪登绑定规则</String>
+<String id="FaceLogin_DetectOk">识别成功</String>
+<String id="FaceLogin_PWDTip">记住密码才能绑定</String>
+<String id="FaceLogin_AddError">每台机器最多只能绑定3个帐号，如需继续绑定请先解除其他帐号的绑定</String>
+<String id="FaceLogin_Resume">返回</String>
+<String id="FaceLogin_DetectOk2">识别成功！</String>
+<String id="FaceLogin_ToLogin">即将登录帐号</String>
+<String id="FaceLogin_DeleteFaceUin">解除此帐号绑定</String>
+<String id="FaceLogin_CheckOverTime">网络超时，请检查您的网络环境是否正常</String>
+<String id="FaceLogin_CheckCaptureFace">采集失败，请确保周围光照均匀，面部正对摄像头且无遮挡</String>
+<String id="FaceLogin_Initing">正在启动摄像头</String>
+<String id="FaceLogin_AutoUnbind">您取消勾选了记住密码，出于帐号安全考虑QQ闪登帐号绑定将自动解除。</String>
+<String id="FaceLogin_AutoUnbind3">记住密码失败，QQ闪登帐号绑定将自动解除。</String>
+<String id="FaceLogin_AutoUnbind2">取消记住密码后，QQ闪登帐号绑定也将自动解除。</String>
+<String id="FaceLogin_BindTip">输入需要绑定人像信息的帐号及密码</String>
+<String id="FaceLogin_DeleteTip2">点击删除按钮解除此帐号的QQ闪登绑定</String>
+<String id="FaceLogin_Next">下一步</String>
+<String id="FaceLogin_CaptureSucceess">采集成功，点击“下一步”绑定帐号</String>
+<String id="FaceLogin_postUrl">http://df3.pr.qq.com/pcqq/dev_face_login</String>
+<String id="Login_beLogining">
+Connexion en cours...
+</String>
+<String id="Login_FontType">
+Tahoma
+</String>
+<String id="LoginMainFrame_Sign1">
+(
+</String>
+<String id="LoginMainFrame_Sign2">
+)
+</String>
+<String id="LoginPanel_ForgetPwd_MSAA">
+Oublié?
+</String>
+<String id="LoginPanel_NewAccount_MSAA">
+Inscription
+</String>
+<String id="LoginSettingTitle">
+Paramètres de connexion
+</String>
+<String id="SSO_QR_strUserInputTextQQI">
+Numériser le code ci-dessous avec &lt;TITLE="QQ Mobile", URL="http://www.imqq.com"&gt; et se connecter
+</String>
+<String id="SSO_QR_strUserConfirmTextQQI">
+Numérisation du code QR OK, cliquez sur ok sur votre téléphone.
+</String>
+<String id="SSO_QR_strQRTimeoutTextQQI">
+Le code QR a expiré
+</String>
+<String id="SSO_QR_strTitleTextQQI">
+Connexion par code QR
+</String>
+</StringBundle>

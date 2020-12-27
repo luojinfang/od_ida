@@ -46,6 +46,7 @@ sub_30801A10()/30801A52    FF10            call dword ptr ds:[eax]
 
 77D2A034    E8 89FFFFFF     call USER32.77D29FC2
 
+//AppFramework.dll
 6620254A    FF15 B8493366   call dword ptr ds:[<&USER32.CallWindowProcW>]                       ; USER32.CallWindowProcW
 
 66202617    E8 1CFFFFFF     call AppFrame.66202538
@@ -310,7 +311,7 @@ int __thiscall sub_3092187E(int this, int a2, int a3, int a4, int a5, int a6, in
 
   result = *(_DWORD *)(this + 36);
   if ( result )
-    result = (*(int (__stdcall **)(int, int, int, int, int, int))(*(_DWORD *)result + 152))(result, a3, a4, a5, a6, a7);
+    result = (*(int (__stdcall **)(int, int, int, int, int, int))(*(_DWORD *)result + 152))(result, a3, a4, a5, a6, a7); // [this类].(36+152) 为事件回调方法
   return result;
 }
 ================================================================================================================================================================================
@@ -1076,6 +1077,23 @@ int __thiscall sub_30922146(void *this, int a2, unsigned int a3, int a4, int a5,
   }
   return result;
 }
+
+int __thiscall sub_3080184C(int this, int a2, int a3, int a4, int a5, int a6)
+{
+  int result; // eax@1
+
+  result = this;
+  *(_DWORD *)(this + 32) = a6;
+  *(_DWORD *)this = a2;
+  *(_DWORD *)(this + 4) = a3;
+  *(_DWORD *)(this + 8) = a4;
+  *(_DWORD *)(this + 12) = a5;
+  *(_DWORD *)(this + 28) = 36;
+  *(_DWORD *)(this + 16) = 0;
+  *(_DWORD *)(this + 24) = 0;
+  *(_DWORD *)(this + 20) = 0;
+  return result;
+}
 ================================================================================================================================================================================
 int __stdcall sub_30801A10(int a1, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
@@ -1093,7 +1111,7 @@ int __stdcall sub_30801A10(int a1, UINT Msg, WPARAM wParam, LPARAM lParam)
 
   v4 = a1;
   v5 = Msg;
-  sub_3080184C(*(_DWORD *)(a1 + 4), Msg, wParam, lParam, 1);
+  sub_3080184C(*(_DWORD *)(a1 + 4), Msg, wParam, lParam, 1);//初始化
   v6 = lParam;
   Msg = *(_DWORD *)(v4 + 24);
   v7 = wParam;
@@ -1136,6 +1154,7 @@ int __stdcall sub_30801A10(int a1, UINT Msg, WPARAM wParam, LPARAM lParam)
 }
 ================================================================================================================================================================================
 
+
 //获得控件的 winproc??
 int (__stdcall *sub_3080196A())(int, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
@@ -1165,9 +1184,14 @@ int (__stdcall *sub_3080196A())(int, UINT Msg, WPARAM wParam, LPARAM lParam)
 ================================================================================================================================================================================
 
 ================================================================================================================================================================================
+//打开发送消息对话框
+3080196A    B8 101A8030     mov eax,GF.30801A10                                        ; 获得控件winproc?
+308019E2    FF50 08         call dword ptr ds:[eax+0x8]
 
 
 
+
+================================================================================================================================================================================
 
 //栈
 012EBA4  /0012EBBC

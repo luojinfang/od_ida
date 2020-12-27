@@ -1,0 +1,1260 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="STRING_GOTO_IMQQROUP">
+Vous pouvez aussi accéder à IMQQ Groups
+</String>
+<String id="IDS_GetMoreFaces">
+Plus d'emoticones
+</String>
+<String id="IDS_Translator">
+Traducteur
+</String>
+<String id="IDS_Translator_Tags">
+Show;translate;Show translate button in chat window#attach;original;Attach original text#send;automatically;Send automatically#
+</String>
+<String id="IDS_Translator_Lang">
+Paramètres de langage
+</String>
+<String id="IDS_Translator_Attach">
+Joindre un texte original
+</String>
+<String id="IDS_Translator_AutoSend">
+Envoyer automatiquement
+</String>
+<String id="IDS_Translator_ShowButton">
+Afficher le bouton de traduction dans la fenêtre de conversation
+</String>
+<String id="IDS_Translate">
+Traduir&amp;e
+</String>
+<String id="IDS_AddLang">
+Ajouter l'option de traduction
+</String>
+<String id="IDS_QQIInvite">
+Invitez vos amis à vous rejoindre sur QQ International
+</String>
+<String id="IDS_QQICannotfind">
+Vous ne trouvez pas vos amis?
+</String>
+<String id="CF_DRAW_Graffiti">
+Dessiner un Graffiti
+</String>
+<String id="CF_TranslatePoweredBy">
+Optimisé par Google™ et Youdao Translate 
+</String>
+<String id="CF_HowToUseTranslator">
+Comment utiliser le Traducteur?
+</String>
+<String id="CF_TranslatorHotkeyTips">
+Conseil: utiliser le raccourci Alt+E pour traduire et envoyer vos messages automatiquement.
+</String>
+<String id="CF_TranslateBtnTip">
+Traduire Alt + E
+</String>
+<String id="CF_TranslateMenuItem_Help">
+Comment utiliser le Traducteur?
+</String>
+<String id="IDS_TranslatorTips">
+Cliquer ici ou appuyer sur Alt+E pour traduire vos messages en temps-réel.
+</String>
+<String id="IDS_TranslatorMenuAttach">
+Joindre un texte original
+</String>
+<String id="IDS_TranslatorMenuAuto">
+Envoyer automatiquement
+</String>
+<String id="IDS_UploadPicLimit">
+Vous pourrez charger des images personnalisées sans limites lorsque vous atteindrez le niveau 4 QQ.
+</String>
+<String id="IDS_BindEmailTips">
+Pas facile de se souvenir de son ID QQ? Utilisez votre adresse mail.
+</String>
+<String id="HelpTipSystem_Tips1Title">
+Personnalisez votre profil
+</String>
+<String id="HelpTipSystem_Tips1">
+Editer votre profil en cliquant sur votre photo pour que vos amis vous trouvent.
+</String>
+<String id="HelpTipSystem_Tips2Title">
+Inviter vos amis
+</String>
+<String id="HelpTipSystem_Tips2">
+Cliquer ici pour inviter vos amis à vous rejoindre sur QQ International.
+</String>
+<String id="HelpTipSystem_Tips3Title">
+Rechercher groupes et amis
+</String>
+<String id="HelpTipSystem_Tips3">
+Rechercher amis et groupes ici, en utilisant email ou numéro QQ.
+</String>
+<String id="HelpTipSystem_Tips4Title">
+QQi Mini-apps
+</String>
+<String id="HelpTipSystem_Tips4">
+Utiliser les dernières applications QQ gratuitement: outils, jeux, actus et bien plus encore!
+</String>
+<String id="HelpTipSystem_Tips5Title">
+Personnalisez votre look
+</String>
+<String id="HelpTipSystem_Tips5">
+Customiser le look de votre QQ International en cliquant ici.
+</String>
+<String id="HelpTipSystem_Tips6Title">
+Vérifiez vos paramètres
+</String>
+<String id="HelpTipSystem_Tips6">
+Personnaliser les réglages de QQ International ici pour une utilisation qui vous convient.
+</String>
+<String id="HelpTipSystem_Tips15">
+Tous les messages et autres notifications QQ International clignoteront ici. Double-cliquez ou appuyez sur Ctrl+Alt+Z pour afficher la notification.
+</String>
+<String id="Tips_CloseTip_Tips">
+Vous avez lu les 6 conseils d’utilisation existant. Voulez vous les voir à nouveau ?
+</String>
+<String id="Tips_CloseTip_Tips1">
+Oui, je souhaite voir les conseils d’utilisation à nouveau
+</String>
+<String id="Tips_CloseTip_Tips2">
+Non, je ne souhaite plus voir les conseils d’utilisation
+</String>
+<String id="IDS_RestartLater">
+Redémarrer plus tard
+</String>
+<String id="IDS_RestartNow">
+Redémarrer maintenant
+</String>
+<String id="IDS_NEEDRESTART">
+Vous venez de modifier la langue du logiciel. Veuillez redémarrer QQ pour prendre en compte la modification.
+</String>
+<String id="IDS_Tips">
+Conseils
+</String>
+<String id="IDS_QQLevelLocalTips">
+Niveau QQ: $LEVEL$
+</String>
+<String id="IDS_QQLevelActiveDaysTips">
+Jours Actifs: $NUM$
+</String>
+<String id="IDS_QQLevelLocalRemainTips">
+Nombre de jours actifs avant le prochain niveau: $NUM$
+</String>
+<String id="IDS_QQTranslatorSettings">
+Paramètres de Traduction
+</String>
+<String id="IDS_QQTranslatorOnly7">
+Le nombre de combinaison de langues est limité à 7.
+</String>
+<String id="IDS_Translate2">
+Traduire
+</String>
+<String id="IDS_ShareTo">
+Partager
+</String>
+<String id="FriendFinder">
+Trouver amis
+</String>
+<String id="Navigator">
+Répertoire Web
+</String>
+<String id="AllFeeds">
+Feeds Box
+</String>
+<String id="ShareTo">
+Share
+</String>
+<String id="QQI_QuickLink">
+Web Directory
+</String>
+<String id="AppBox_StoreTips">
+Ouvrir boutique apps
+</String>
+<String id="AppBox_ManageTips">
+Gérer vos apps
+</String>
+<String id="AppBox_Manage">
+Gérer
+</String>
+<String id="AppBox_Done">
+Terminé
+</String>
+<String id="MainPanel_Menus">
+Menu principal
+</String>
+<String id="QQI_AppBox">
+Ouvrir boutique apps
+</String>
+<String id="QQI_FeedsBox">
+QQi Feeds Box
+</String>
+<String id="CF_MERGEWINDOW">
+Merge Chat Windows
+</String>
+<String id="FeedsBox_All">
+All Feeds
+</String>
+<String id="FeedsBox_Facebook">
+Facebook
+</String>
+<String id="FeedsBox_Weibo">
+Sina Weibo
+</String>
+<String id="FeedsBox_Instagram">
+Instagram
+</String>
+<String id="FeedsBox_ConnectFacebook">
+Connect to Facebook
+</String>
+<String id="FeedsBox_ConnectFacebookText">
+You have not connect to Facebook through QQi, Click the Connect Button.
+</String>
+<String id="FeedsBox_ConnectSinaWeibo">
+Connect to Sina Weibo
+</String>
+<String id="FeedsBox_ConnectSinaWeiboText">
+You have not connect to Sina Weibo through QQi, Click the Connect Button.
+</String>
+<String id="FeedsBox_ConnectInstagram">
+Bind to Instagram
+</String>
+<String id="FeedsBox_ConnectInstagramText">
+You have not connect to Instagram through QQi, Click the Connect Button.
+</String>
+<String id="FeedsBox_FinishConnect">
+Finish
+</String>
+<String id="Finger_Stranger">
+Destin
+</String>
+<String id="Finger_StrangerTip">
+Add new friend
+</String>
+<String id="Old_Finger_Stranger">
+Avoir nouveaux amis
+</String>
+<String id="IDS_IMPORTEMOTION_FAILED">
+L&amp;amp;amp;amp;apos;importation des émoticônes personnalisées a échoué. Vérifiez si vous démarrez QQ.
+</String>
+<String id="SCANVIRUS_QQDOCTOR">
+QQ Doctor
+</String>
+<String id="Finger_MayInterestText">
+Qui peuvent vous intéresser
+</String>
+<String id="CF_FIRFACE_TIP">
+Sélectionner une taquinerie
+</String>
+<String id="CF_DRAWPIC_TIP">
+Dessiner une image
+</String>
+<String id="QQI_WeixinApp">
+WeChat
+</String>
+<String id="IntroWeixin">
+WeChat est une application mobile qui peut échanger des messages avec QQi sur iOS, Android, Windows Phone et Symbian
+</String>
+<String id="DownloadWeixin">
+Cliquez ici pour télécharger la version WeChat International
+</String>
+<String id="Weixin_UserOnline">
+Vous avez $NUM$ amis actuellement sur WeChat:
+</String>
+<String id="Weixin_UserOffline">
+Vous avez $NUM$ amis qui peuvent recevoir des messages sur WeChat:
+</String>
+<String id="Weixin_User">
+Ces $NUM$ personnes sont également sur WeChat. Vous pouvez les ajouter à WeChat:
+</String>
+<String id="IDS_WeiYun_Text">Tencent Cloud</String>
+<String id="IDS_FeedBack_EntryTips">
+Commentaire
+</String>
+<String id="IDS_SUBMIT">
+Envoyer
+</String>
+<String id="IDS_FEEDBACK">
+Commentaire
+</String>
+<String id="IDS_FEEDBACK_CLOSE">
+Fermer
+</String>
+<String id="IDS_THANKS">
+Merci pour votre retour d'informations !
+</String>
+<String id="IDS_THANKSAGAIN">
+Your feedback has been sent to our Product Team and Business Team. We are constantly integrating your comments to fit to your needs.
+</String>
+<String id="TencentWeibo">
+Tencent Weibo
+</String>
+<String id="strMiniPortal_TitleBar">
+QQ International aujourd'hui
+</String>
+<String id="Plugin_Tooltip">
+Boîte d'applications
+</String>
+<String id="AppBox_NotInstall">
+L'application n'est pas installée sur votre ordinateur,
+Voulez-vous la télécharger et l'installer maintenant ?
+</String>
+<String id="ShareToWinTitle">
+Partager
+</String>
+<String id="ShareToWinSend">
+Envoyer
+</String>
+<String id="ShareToWinFacebook">
+Synchroniser avec Facebook
+</String>
+<String id="ShareToWinSina">
+Synchroniser avec SinaWeibo
+</String>
+<String id="ShareToWinQQ">
+Synchroniser avec QQi Personal Message
+</String>
+<String id="ViewPhoto">
+Visionneuse d'images
+</String>
+<String id="IDS_Finger_QQiUser">
+Ne chercher que dans le répertoire QQi
+</String>
+<String id="UserWizard">
+User Guide
+</String>
+<String id="PostWall">
+Mur de messages
+</String>
+<String id="QQI_InstagramBox">
+InstaViewer
+</String>
+<String id="InstagramBox_Popular">
+Popular
+</String>
+<String id="InstagramBox_Search">
+Search
+</String>
+<String id="InstagramBox_Clear">
+Clear
+</String>
+<String id="InstagramBox_Feed">
+Feeds
+</String>
+<String id="InstagramBox_MyPhoto">
+My Photos
+</String>
+<String id="InstagramBox_Login">
+Login
+</String>
+<String id="InstagramBox_Logout">
+Logout
+</String>
+<String id="InstagramBox_Finish">
+Finish
+</String>
+<String id="InstagramFeeds_NoResult">
+You don't have any photo feed.
+</String>
+<String id="InstagramMyPhotos_NoResult">
+You haven't posted any photos on Instagram.
+</String>
+<String id="InstagramSearch_NoResult">
+We couldn't find anything mathing your search.
+Try more general words.
+</String>
+<String id="InstagramLogin_DesriptiveText">
+Please log in your Instagram acount first.
+</String>
+<String id="InstagramFinish_DesriptiveText">
+Please wait until you've logged in Instagram 
+before clicking the Finish button.
+</String>
+<String id="InstagramFirstPage_Timeout">
+Network connection problem. 
+Try refresh the page.
+</String>
+<String id="QQLevel_VipIconTip">
+L'étape  de la croissance de qq: vip
+</String>
+<String id="QQLevel_NotVipIconTip">
+Pas encore ouvrir le service vip, cliquer ici pour comprendre les vip privilèges
+</String>
+<String id="QQLevel_LevelTip">
+Niveau:
+</String>
+<String id="QQLevel_LevelAccelerateTip">
+Qq vip accélère maintenant la vitesse de la croissance de niveau de qq
+</String>
+<String id="QQLevel_ActiveDayTip">
+Les journées actives de qq:
+</String>
+<String id="QQLevel_RemainDayTip">
+Les journées actives restantes à monter un niveau:
+</String>
+<String id="Mutual_Friends">
+amis communs
+</String>
+<String id="Mutual_Groups">
+groupes communs
+</String>
+<String id="Mutual_MayHave">
+amis communs possibles
+</String>
+<String id="URLTip_Official">
+C'est le site officiel de tencent
+</String>
+<String id="URLTip_Safe">
+Ce site est testé et jugé sans risque
+</String>
+<String id="URLTip_Unsure">
+La sécurité de ce site ne peut pas être déterminée
+</String>
+<String id="URLTip_Unsafe">
+Un grand nombre d'utilisateur signalent que ce web site est malveillant
+</String>
+<String id="Similar_Age">
+Âge similaire
+</String>
+<String id="Similar_Hometown">
+Même ville natale
+</String>
+<String id="Similar_Chance">
+Chance
+</String>
+<String id="Similar_Suit">
+Correspond à votre horoscope
+</String>
+<String id="Similar_City">
+Vivre dans même ville
+</String>
+<String id="Similar_Horoscope">
+Même horoscope
+</String>
+<String id="MainMenu_Settings">
+Réglages
+</String>
+<String id="MainMenu_Guide">
+Manuel
+</String>
+<String id="MainMenu_Find">
+Trouver amis
+</String>
+<String id="MainMenu_Invite">
+Inviter amis
+</String>
+<String id="MainMenu_Follow">
+Nous suivre
+</String>
+<String id="MainMenu_QQiBlog">
+Blog QQi
+</String>
+<String id="MainMenu_Facebook">
+Facebook
+</String>
+<String id="MainMenu_Twitter">
+Twitter
+</String>
+<String id="MainMenu_Google">
+Google+
+</String>
+<String id="MainMenu_TWeibo">
+Tencent Weibo
+</String>
+<String id="MainMenu_Help">
+Aide
+</String>
+<String id="MainMenu_Password">
+Récupération MdP
+</String>
+<String id="MainMenu_Feedback">
+Commentaire
+</String>
+<String id="MainMenu_About">
+Présentation
+</String>
+<String id="MainMenu_WhatNew">
+Nouveautés
+</String>
+<String id="MainMenu_Update">
+MàJ temps réel
+</String>
+<String id="MainMenu_QQiWebsite">
+Site Web QQi
+</String>
+<String id="MainMenu_Logout">
+Déconnexion
+</String>
+<String id="MainMenu_AboutQQi">
+Présentation de QQ International
+</String>
+<String id="Finder_BubbleTips">
+Trouvez des amis ici.
+</String>
+<String id="Profile_BubbleTips">
+Complétez votre profil ici.
+</String>
+<String id="Title_CreateGroup">
+Créer un groupe
+</String>
+<String id="AuthMenu_MyWorkPlace">
+Mon lieu de travail ?
+</String>
+<String id="AuthMenu_MyBirthday">
+Date de mon anniversaire ?
+</String>
+<String id="AuthMenu_MyPhone">
+Mon numéro de téléphone ?
+</String>
+<String id="AuthMenu_MyName">
+Mon nom réel ?
+</String>
+<String id="AuthMenu_MyFavoriteFood">
+Mon plat favori ?
+</String>
+<String id="GroupToolBarTips_CreateDiscussion">
+Créer une discussion
+</String>
+<String id="GroupToolBarTips_GroupAlbum">
+Album photo de groupe
+</String>
+<String id="UserWizard_ProductBlog">
+Product Blog
+</String>
+<String id="UserWizard_FacebookPage">
+Facebook Page
+</String>
+<String id="BtnTip_NoneYouMayKnow">
+You can find people to chat with based
+on your search criteria. Let's go!
+</String>
+<String id="UIMgr_WinTitle">
+Gestionnaire d’IU
+</String>
+<String id="UIMgr_ThemeTag">
+Thème
+</String>
+<String id="UIMgr_ThemeTagTip">
+Donnez un nouvel aspect à votre fenêtre QQ
+</String>
+<String id="UIMgr_MainPanelTag">
+Menu Principal
+</String>
+<String id="UIMgr_MainPanelTagTip">
+Personnaliser les raccourcis du panneau principal
+</String>
+<String id="UIMgr_QuickList">
+Raccourcis de pied de page
+</String>
+<String id="UIMgr_PersonalInfo">
+Raccourcis d’en-tête
+</String>
+<String id="UIMgr_MoveBtnText">
+Déplacer
+</String>
+<String id="UIMgr_WeatherCheckText">
+Météo
+</String>
+<String id="ErrorWords_FloatTranslate">
+(N'est pas possible de traduire: message trop long (max. 200 caractères) ou est un problème de connexion.)
+</String>
+<String id="FaceMgr_FacePack">
+Tous les fichiers (*.eip;*.eif)|*.eip;*.eif| Modules d&amp;amp;amp;amp;apos;émoticônes (*.eip)|*.eip| Fichiers d&amp;amp;amp;amp;apos;exportation d&amp;amp;amp;amp;apos;émoticônes (*.eif)|*.eif||
+</String>
+<String id="Error">
+Erreur
+</String>
+<String id="ContactFolderUnknown">
+Groupe sans titre
+</String>
+<String id="GenderUnknown">
+-
+</String>
+<String id="UtilInfo_ElmCount">
+Total : $COUNT$
+</String>
+<String id="Group_Group">
+Groupes
+</String>
+<String id="Group_Discuss">
+Discussions
+</String>
+<String id="Group_Org">
+Organisation du groupe
+</String>
+<String id="Group_File_MoveFail">
+Impossible de déplacer le dossier vers $PATH$
+</String>
+<String id="Group_Connected_Server_Error">
+La connexion au serveur de fichiers de groupe a été interrompue
+</String>
+<String id="Group_Connect_Server_Error">
+Impossible de se connecter au serveur de fichiers de groupe
+</String>
+<String id="Group_RequestSend_Error">
+Le serveur refuse la demande d&amp;amp;amp;amp;apos;envoi du fichier image
+</String>
+<String id="FACE_TOOL_TIP0">
+Sourire
+</String>
+<String id="FACE_TOOL_TIP1">
+Grimace
+</String>
+<String id="FACE_TOOL_TIP2">
+Extasié
+</String>
+<String id="FACE_TOOL_TIP3">
+Menaçant
+</String>
+<String id="FACE_TOOL_TIP4">
+Froid
+</String>
+<String id="FACE_TOOL_TIP5">
+Sanglot
+</String>
+<String id="FACE_TOOL_TIP6">
+Timide
+</String>
+<String id="FACE_TOOL_TIP7">
+Silence
+</String>
+<String id="FACE_TOOL_TIP8">
+Ensommeillé
+</String>
+<String id="FACE_TOOL_TIP9">
+Pleurs
+</String>
+<String id="FACE_TOOL_TIP10">
+Embarrassé
+</String>
+<String id="FACE_TOOL_TIP11">
+Faché
+</String>
+<String id="FACE_TOOL_TIP12">
+Clin d&amp;amp;amp;amp;apos;oeil
+</String>
+<String id="FACE_TOOL_TIP13">
+Grand sourire
+</String>
+<String id="FACE_TOOL_TIP14">
+Surpris
+</String>
+<String id="FACE_TOOL_TIP15">
+Mécontent
+</String>
+<String id="FACE_TOOL_TIP16">
+Cool
+</String>
+<String id="FACE_TOOL_TIP17">
+Rougit
+</String>
+<String id="FACE_TOOL_TIP18">
+Cri
+</String>
+<String id="FACE_TOOL_TIP19">
+Dégoûté
+</String>
+<String id="FACE_TOOL_TIP20">
+Gloussement
+</String>
+<String id="FACE_TOOL_TIP21">
+Content
+</String>
+<String id="FACE_TOOL_TIP22">
+Indécis
+</String>
+<String id="FACE_TOOL_TIP23">
+Content de soi
+</String>
+<String id="FACE_TOOL_TIP24">
+Sarcastique
+</String>
+<String id="FACE_TOOL_TIP25">
+Somnolent
+</String>
+<String id="FACE_TOOL_TIP26">
+Paniqué
+</String>
+<String id="FACE_TOOL_TIP27">
+Transpire
+</String>
+<String id="FACE_TOOL_TIP28">
+Rigole
+</String>
+<String id="FACE_TOOL_TIP29">
+Soldat
+</String>
+<String id="FACE_TOOL_TIP30">
+Acharné
+</String>
+<String id="FACE_TOOL_TIP31">
+Gronder
+</String>
+<String id="FACE_TOOL_TIP32">
+Confus
+</String>
+<String id="FACE_TOOL_TIP33">
+Chut
+</String>
+<String id="FACE_TOOL_TIP34">
+Hypnotisé
+</String>
+<String id="FACE_TOOL_TIP35">
+Frustré
+</String>
+<String id="FACE_TOOL_TIP36">
+Raté
+</String>
+<String id="FACE_TOOL_TIP37">
+Tête de mort
+</String>
+<String id="FACE_TOOL_TIP38">
+Marteau
+</String>
+<String id="FACE_TOOL_TIP39">
+Au revoir
+</String>
+<String id="FACE_TOOL_TIP40">
+Soulagé
+</String>
+<String id="FACE_TOOL_TIP41">
+Doigts dans le nez
+</String>
+<String id="FACE_TOOL_TIP42">
+Applaudissement
+</String>
+<String id="FACE_TOOL_TIP43">
+Honteux
+</String>
+<String id="FACE_TOOL_TIP44">
+Bonjour
+</String>
+<String id="FACE_TOOL_TIP45">
+Snob 1
+</String>
+<String id="FACE_TOOL_TIP46">
+Snob 2
+</String>
+<String id="FACE_TOOL_TIP47">
+Bâillement
+</String>
+<String id="FACE_TOOL_TIP48">
+Huer
+</String>
+<String id="FACE_TOOL_TIP49">
+Tourmenté
+</String>
+<String id="FACE_TOOL_TIP50">
+Reniflement
+</String>
+<String id="FACE_TOOL_TIP51">
+Sournois
+</String>
+<String id="FACE_TOOL_TIP52">
+Front plissé
+</String>
+<String id="FACE_TOOL_TIP53">
+Oh la
+</String>
+<String id="FACE_TOOL_TIP54">
+Gémissement
+</String>
+<String id="FACE_TOOL_TIP55">
+Couperet
+</String>
+<String id="FACE_TOOL_TIP56">
+Pastèque
+</String>
+<String id="FACE_TOOL_TIP57">
+Bière
+</String>
+<String id="FACE_TOOL_TIP58">
+Basket-ball
+</String>
+<String id="FACE_TOOL_TIP59">
+Ping-pong
+</String>
+<String id="FACE_TOOL_TIP60">
+Café
+</String>
+<String id="FACE_TOOL_TIP61">
+Riz
+</String>
+<String id="FACE_TOOL_TIP62">
+Cochon
+</String>
+<String id="FACE_TOOL_TIP63">
+Rose
+</String>
+<String id="FACE_TOOL_TIP64">
+Fané
+</String>
+<String id="FACE_TOOL_TIP65">
+Bises
+</String>
+<String id="FACE_TOOL_TIP66">
+Coeur
+</String>
+<String id="FACE_TOOL_TIP67">
+Coeur brisé
+</String>
+<String id="FACE_TOOL_TIP68">
+Gâteau
+</String>
+<String id="FACE_TOOL_TIP69">
+Éclairs
+</String>
+<String id="FACE_TOOL_TIP70">
+Bombe
+</String>
+<String id="FACE_TOOL_TIP71">
+Poignard
+</String>
+<String id="FACE_TOOL_TIP72">
+Football
+</String>
+<String id="FACE_TOOL_TIP73">
+Coccinelle
+</String>
+<String id="FACE_TOOL_TIP74">
+Caca
+</String>
+<String id="FACE_TOOL_TIP75">
+Lune
+</String>
+<String id="FACE_TOOL_TIP76">
+Soleil
+</String>
+<String id="FACE_TOOL_TIP77">
+Cadeau
+</String>
+<String id="FACE_TOOL_TIP78">
+Accolade
+</String>
+<String id="FACE_TOOL_TIP79">
+Pouces levés
+</String>
+<String id="FACE_TOOL_TIP80">
+Pouces baissés
+</String>
+<String id="FACE_TOOL_TIP81">
+Tremblement
+</String>
+<String id="FACE_TOOL_TIP82">
+Victoire
+</String>
+<String id="FACE_TOOL_TIP83">
+Admiration
+</String>
+<String id="FACE_TOOL_TIP84">
+Faire signe
+</String>
+<String id="FACE_TOOL_TIP85">
+Poings serrés
+</String>
+<String id="FACE_TOOL_TIP86">
+Petit doigt
+</String>
+<String id="FACE_TOOL_TIP87">
+Amour
+</String>
+<String id="FACE_TOOL_TIP88">
+Non Non
+</String>
+<String id="FACE_TOOL_TIP89">
+OK
+</String>
+<String id="FACE_TOOL_TIP90">
+Perruches
+</String>
+<String id="FACE_TOOL_TIP91">
+Amoureux
+</String>
+<String id="FACE_TOOL_TIP92">
+Dandinement
+</String>
+<String id="FACE_TOOL_TIP93">
+Assis
+</String>
+<String id="FACE_TOOL_TIP94">
+Aaagh !
+</String>
+<String id="FACE_TOOL_TIP95">
+Pirouette
+</String>
+<String id="FACE_TOOL_TIP96">
+S&amp;amp;amp;amp;apos;incliner
+</String>
+<String id="FACE_TOOL_TIP97">
+Se détourner
+</String>
+<String id="FACE_TOOL_TIP98">
+Saut
+</String>
+<String id="FACE_TOOL_TIP99">
+Capituler
+</String>
+<String id="FACE_TOOL_TIP100">
+Hourra
+</String>
+<String id="FACE_TOOL_TIP101">
+Hé hé
+</String>
+<String id="FACE_TOOL_TIP102">
+Joue contre joue
+</String>
+<String id="FACE_TOOL_TIP103">
+Fille combattante
+</String>
+<String id="FACE_TOOL_TIP104">
+Garçon combattant
+</String>
+<String id="FACE_TOOL_TIP105">
+Grippe
+</String>
+<String id="FACE_TOOL_TIP106">
+Partir
+</String>
+<String id="FACE_TOOL_TIP107">
+Chercher
+</String>
+<String id="FACE_TOOL_TIP108">
+Jolie fille
+</String>
+<String id="FACE_TOOL_TIP109">
+Chat
+</String>
+<String id="FACE_TOOL_TIP110">
+Chien
+</String>
+<String id="FACE_TOOL_TIP111">
+Argent
+</String>
+<String id="FACE_TOOL_TIP112">
+Ampoule
+</String>
+<String id="FACE_TOOL_TIP113">
+Coupe
+</String>
+<String id="FACE_TOOL_TIP114">
+Musique
+</String>
+<String id="FACE_TOOL_TIP115">
+Comprimé
+</String>
+<String id="FACE_TOOL_TIP116">
+Baiser
+</String>
+<String id="FACE_TOOL_TIP117">
+Réunion
+</String>
+<String id="FACE_TOOL_TIP118">
+Téléphone
+</String>
+<String id="FACE_TOOL_TIP119">
+Horloge
+</String>
+<String id="FACE_TOOL_TIP120">
+Courrier
+</String>
+<String id="FACE_TOOL_TIP121">
+TV
+</String>
+<String id="FACE_TOOL_TIP122">
+DuoDuo
+</String>
+<String id="FACE_TOOL_TIP123">
+Beauté
+</String>
+<String id="FACE_TOOL_TIP124">
+Hunlan
+</String>
+<String id="FACE_TOOL_TIP125">
+MoMo
+</String>
+<String id="FACE_TOOL_TIP126">
+Q boy
+</String>
+<String id="FACE_TOOL_TIP127">
+Vin
+</String>
+<String id="FACE_TOOL_TIP128">
+Cola
+</String>
+<String id="FACE_TOOL_TIP129">
+Pluie
+</String>
+<String id="FACE_TOOL_TIP130">
+Nuageux
+</String>
+<String id="FACE_TOOL_TIP131">
+Bonhomme de neige
+</String>
+<String id="FACE_TOOL_TIP132">
+Étoile
+</String>
+<String id="FACE_TOOL_TIP133">
+Femme
+</String>
+<String id="FACE_TOOL_TIP134">
+Homme
+</String>
+<String id="TencentWhiteURL_Tips">
+Ceci est un site Web officiel de Tencent. Bienvenue !
+</String>
+<String id="SYS_MESSAGEBOX_CANCEL">
+Annuler
+</String>
+<String id="SYS_MESSAGEBOX_RETRY">
+Réessayer
+</String>
+<String id="SYS_MESSAGEBOX_ABORT">
+Abandonner
+</String>
+<String id="SYS_MESSAGEBOX_IGNORE">
+Ignorer
+</String>
+<String id="SYS_MESSAGEBOX_CONTINUE">
+Continuer
+</String>
+<String id="SYS_MESSAGEBOX_HELP">
+Aide
+</String>
+<String id="CF_Group_Image_TooLarge">
+La taille de l&amp;amp;amp;amp;apos;image est supérieure à la limite. Envoi impossible.
+</String>
+<String id="CF_Group_Image_TooBig">
+La taille du fichier est supérieure à la limite. Envoi impossible.
+</String>
+<String id="CF_Group_Image_TooManyCustomFace">
+Les émoticônes personnalisées sont trop nombreuses pour être envoyées.
+</String>
+<String id="CF_Group_Image_TooManyImage">
+Il y a trop d&amp;amp;amp;amp;apos;images à envoyer.
+</String>
+<String id="CF_OUT_Discuss">
+Discussions normales
+</String>
+<String id="CF_PLEASE_ADDMEM_TIPS">
+Le champ des contacts ne doit pas être vierge. Sélectionnez des contacts.
+</String>
+<String id="SERVICENAME_PAIPAI">
+Paipai
+</String>
+<String id="SERVICENAME_QZONE">
+QZone
+</String>
+<String id="Rich_DEF_FONT">
+Tahoma
+</String>
+<String id="MainPanel_AdjustColor">
+Paramètres d&amp;amp;amp;amp;apos;apparence
+</String>
+<String id="TIP_VIEW">
+Afficher
+</String>
+<String id="TIP_BUTTON_TIP">
+Cliquez pour en savoir plus
+</String>
+<String id="ContactInfoTab_BasicInfo">
+Infos de base
+</String>
+<String id="ContactInfoTab_MoreInfo">
+Détails
+</String>
+<String id="AddBuddy_Accept">
+$CON$ a accepté votre demande.
+</String>
+<String id="HotKey_NoSet">
+Aucun
+</String>
+<String id="HotKey_DoubleCtrl">
+双击 Ctrl 键
+</String>
+<String id="HotKey_DoubleAlt">
+双击 Alt 键
+</String>
+<String id="HotKey_DoubleShift">
+双击 Shift 键
+</String>
+<String id="MSGFILE_IN_SHARE">
+Connexion impossible, réessayez ultérieurement.
+</String>
+<String id="Version">
+Version
+</String>
+<String id="AppName">
+Nom du service
+</String>
+<String id="Close">
+Fermer
+</String>
+<String id="SideBar_Wording">
+Liste des applications:
+</String>
+<String id="SideBar_ColumnName_1">
+Afficher
+</String>
+<String id="SideBar_ColumnName_2">
+applications
+</String>
+<String id="QuickStart_Wording">
+Icônes de démarrage rapide :
+</String>
+<String id="QuickStart_ColumnName_1">
+Afficher
+</String>
+<String id="QuickStart_ColumnName_2">
+Icônes
+</String>
+<String id="IDS_GROUP_0_LEVEL_TIPS">
+Allumer l'icône de la couronne
+</String>
+<String id="IDS_GROUP_LEVEL_TIPS">
+QQ groupe avec la couronne à $LVL$ niveau
+</String>
+<String id="QQ_Kickout_Text">
+Vous êtes déconnecté car ce compte a été connecté ailleurs. 
+
+Votre mot de passe peut être connu si vous ne vous êtes pas connecté personnellement.
+</String>
+<String id="NewCustomHead_Tab_SystemHead">
+Photos de profil par default
+</String>
+<String id="NewCustomHead_Tab_VipHead">
+会员头像
+</String>
+<String id="NewCustomHead_40_40">
+40x40
+</String>
+<String id="Text_LatestWeek">
+La semaine dernière
+</String>
+<String id="Graffiti_Editor_Title">
+Éditeur de graffiti
+</String>
+<String id="Graffiti_Editor_Confirm">
+Accomplir
+</String>
+<String id="Graffiti_Editor_Cancel">
+Supprimer
+</String>
+<String id="Graffiti_Editor_Vip_Illustration_1">
+Cher utilisateur，
+</String>
+<String id="Graffiti_Editor_Vip_Illustration_2">
+Profitez des outils de graffiti supérieurs et du noble expérience.
+</String>
+<String id="Graffiti_Editor_Vip_Illustration_3">
+Cher vip, vous pouvez utiliser les outils de graffiti supérieurs et profiter du noble expérience.
+</String>
+<String id="Graffiti_Editor_Open_Vip">
+Ouvrir le service de qq vip
+</String>
+<String id="Graffiti_Editor_Learn_More">
+Comprendre les détails fonctionnels
+</String>
+<String id="Graffiti_Editor_Add_To_Group">
+Ajouter au groupe:
+</String>
+<String id="Graffiti_Editor_Default_FontName">
+Nsimsun
+</String>
+<String id="Graffiti_Editor_DFC_FontName">
+Microsoft yahei
+</String>
+<String id="Graffiti_Editor_Input_Prompt">
+Entrer le texte:
+</String>
+<String id="Graffiti_Editor_MakeDFC">
+Terminer
+Former un flash mot
+</String>
+<String id="Graffiti_Editor_Limit_Text">
+Le nombre de zone de texte atteint le maximum.
+</String>
+<String id="Graffiti_Editor_Limit_Bubble">
+彩色对话框数量已达上限。
+</String>
+<String id="Graffiti_Editor_Limit_DFC">
+Le nombre de flash mot atteint le maximum.
+</String>
+<String id="Graffiti_Editor_ToolTip_OpenFile">
+Télécharger des images locales
+</String>
+<String id="Graffiti_Editor_ToolTip_ZoomIn">
+Agrandir l'image d'arrière-plan
+</String>
+<String id="Graffiti_Editor_ToolTip_ZoomOut">
+Diminuer l'image d'arrière-plan
+</String>
+<String id="Graffiti_Editor_ToolTip_Undo">
+Annuler
+</String>
+<String id="Graffiti_Editor_ToolTip_Redo">
+Rétablir
+</String>
+<String id="Graffiti_Editor_ToolTip_Move">
+Déplacer
+</String>
+<String id="Graffiti_Editor_ToolTip_Brush">
+Pinceau
+</String>
+<String id="Graffiti_Editor_ToolTip_Text">
+Zone de texte
+</String>
+<String id="Graffiti_Editor_ToolTip_Bubble">
+Boîte de dialogue couleur
+</String>
+<String id="Graffiti_Editor_ToolTip_DFC">
+Former un flash mot
+</String>
+<String id="Graffiti_Editor_Cancel_Prompt">
+Vous êtes en train de composer une émoticône, si quittez maintenant l'émoticône ne sera pas conservée, vous continuez à quitter ou pas?
+</String>
+<String id="Graffiti_Editor_NoVip">
+Vous n'êtes pas qq vip， après le-devenez vous jouirez des outils de graffiti supérieurs et plus de 50 autres vip privilèges.
+</String>
+<String id="Graffiti_Editor_FormatError">
+Désolé, le format d'image que vous téléchargez est incorrect, resélectionnez.
+</String>
+<String id="Graffiti_Editor_SynthesisPrompt">
+L'image est en train de se generer,attendez un instant...
+</String>
+<String id="CF_SecurityTip_ConfigTime">
+Définir heure
+</String>
+<String id="CF_SecurityTip_ConfigTime_End">
+
+</String>
+<String id="Contacts_MainPanelTitle">
+Carnet d&amp;amp;amp;amp;apos;adresses
+</String>
+<String id="IDS_SafeLogin">
+安全登录
+</String>
+<String id="LoginPanel_Update">
+Télécharger maintenant
+</String>
+<String id="LoginPanel_Close">
+Fermer
+</String>
+<String id="Finger_GroupNum">
+Identifiant du groupe
+</String>
+<String id="Tips_QQClock">
+Horloge universelle
+</String>
+<String id="YouMayLikeTitle">
+People You May Like
+</String>
+<String id="MsgMgr_NoFoundMsg">
+Pas trouvé
+</String>
+<String id="MsgMgr_NoMsgs">
+Pas de messages
+</String>
+<String id="TmpChat_CommonFriends">
+$FriendsNum$ amis en commun avec toi. Ajouter
+</String>
+<String id="TmpChat_CommonFriend">
+$FriendsNum$ ami en commun avec toi. Ajouter
+</String>
+</StringBundle>

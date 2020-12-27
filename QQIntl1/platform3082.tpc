@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tpc version="1.0.0">
+  <file-systems>
+    <file-system name="@thismisc:" path="Misc" type="windows"/>
+    <file-system name="@thisdata:" path="Resource.1.91.1369\Data"/>
+    <file-system name="@thisres:" path="Resource.1.91.1369\Res"/>
+    <file-system name="@thisxtml:" path="Resource.1.91.1369\Xtml3082"/>
+	<file-system name="@defaultxtml:" path="@thisxtml:\Template"/>
+    <file-system name="@thistheme:" path="Resource.1.91.1369\Themes\Default"/>
+    <file-system name="sysres:" path="@thisres:AppFramework"/>
+    <file-system name="sysxtml:" path="@thisxtml:AppFramework"/>
+    <file-system name="systheme:" path="@thistheme:AppFramework"/>
+  </file-systems>
+  <core-configs>
+    <core-config file="common.xml"/>
+    <core-config file="xgui.xml"/>	
+    <core-config file="kernel.xml"/>
+    <core-config file="af.xml"/>
+    <core-config file="app.xml"/>
+  </core-configs>
+  <gf-config file="gf-config.xml"/>
+  <delay-gf-config file="gf-config-postlogin.xml"/>
+  <i18n-config file="I18N\Config3082.xml"/>
+</tpc>

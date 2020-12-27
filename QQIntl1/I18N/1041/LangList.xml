@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Languages>
+	<Language LCID="1078" Name="アフリカーンス語" Code="af"/>
+	<Language LCID="1052" Name="アルバニア語" Code="sq"/>
+	<Language LCID="1025" Name="アラビア語" Code="ar"/>
+	<Language LCID="1067" Name="アルメニア語" Code="hy"/>
+	<Language LCID="2092" Name="アゼルバイジャン語" Code="az"/>
+	<Language LCID="1059" Name="白ロシア" Code="be"/>
+	<Language LCID="5146" Name="ボスニア語" Code="bs-ba"/>
+	<Language LCID="1026" Name="ブルガリア語" Code="bg"/>
+	<Language LCID="1109" Name="ビルマ語" Code="my"/>
+	<Language LCID="3076" Name="中国語 (繁体字)" Code="zh-hk"/>
+	<Language LCID="1027" Name="カタロニア語" Code="ca"/>
+	<Language LCID="1050" Name="クロアチア語" Code="hr"/>
+	<Language LCID="1029" Name="チェック語" Code="cs"/>
+	<Language LCID="1030" Name="デンマーク語" Code="da"/>
+	<Language LCID="1043" Name="オランダ語" Code="nl"/>
+	<Language LCID="1033" Name="英語" Code="en-us"/>
+	<Language LCID="1061" Name="エストニア語" Code="et"/>
+	<Language LCID="1065" Name="ペルシア (ファルシ) 語" Code="fa"/>
+	<Language LCID="1035" Name="フィンランド語" Code="fi"/>
+	<Language LCID="1036" Name="フランス語" Code="fr"/>
+	<Language LCID="2108" Name="ゲール語" Code="gd"/>
+	<Language LCID="1031" Name="ドイツ語" Code="de"/>
+	<Language LCID="1032" Name="ギリシャ語" Code="el"/>
+	<Language LCID="1095" Name="グジャラート語" Code="gu"/>
+	<Language LCID="1037" Name="ヘブライ語" Code="he"/>
+	<Language LCID="1081" Name="ヒンディー語" Code="hi"/>
+	<Language LCID="1038" Name="ハンガリー語" Code="hu"/>
+	<Language LCID="1039" Name="アイスランド語" Code="is"/>
+	<Language LCID="1057" Name="インドネシア語" Code="id"/>
+	<Language LCID="1040" Name="イタリア語" Code="it"/>
+	<Language LCID="1041" Name="日本語" Code="ja"/>
+	<Language LCID="1107" Name="クメール語" Code="km"/>
+	<Language LCID="1042" Name="韓国語" Code="ko"/>
+	<Language LCID="1108" Name="ラオ語" Code="lo"/>
+	<Language LCID="1062" Name="ラトビア語" Code="lv"/>
+	<Language LCID="1063" Name="リトアニア語" Code="lt"/>
+	<Language LCID="1071" Name="マケドニア語" Code="mk"/>
+	<Language LCID="1086" Name="マレー語" Code="ms"/>
+	<Language LCID="2052" Name="中国語 (簡体字)" Code="zh-cn"/>
+	<Language LCID="1104" Name="モンゴル語" Code="mn"/>
+	<Language LCID="1044" Name="ノルウェー語" Code="no"/>
+	<Language LCID="1045" Name="ポーランド語" Code="pl"/>
+	<Language LCID="2070" Name="ポルトガル語" Code="pt"/>
+	<Language LCID="1094" Name="パンジャブ語" Code="pa"/>
+	<Language LCID="1048" Name="ルーマニア語" Code="ro"/>
+	<Language LCID="1049" Name="ロシア語" Code="ru"/>
+	<Language LCID="3098" Name="セルビア語" Code="sr"/>
+	<Language LCID="1113" Name="シンド語" Code="sd"/>
+	<Language LCID="1051" Name="スロバキア語" Code="sk"/>
+	<Language LCID="1060" Name="スロベニア語" Code="sl"/>
+	<Language LCID="1143" Name="ソマリ語" Code="so"/>
+	<Language LCID="1034" Name="スペイン語" Code="es"/>
+	<Language LCID="1089" Name="スワヒリ語" Code="sw"/>
+	<Language LCID="1053" Name="スウェーデン語" Code="sv"/>
+	<Language LCID="1097" Name="タミル語" Code="ta"/>
+	<Language LCID="1092" Name="タタール語" Code="tt"/>
+	<Language LCID="1054" Name="タイ語" Code="th"/>
+	<Language LCID="1055" Name="トルコ語" Code="tr"/>
+	<Language LCID="1058" Name="ウクライナ語" Code="uk"/>
+	<Language LCID="1056" Name="ウルドゥー語" Code="ur"/>
+	<Language LCID="1066" Name="ベトナム語" Code="vi"/>
+	<Language LCID="1106" Name="ウェールズ語" Code="cy-gb"/>
+	<Language LCID="1085" Name="イディッシュ語" Code="yi"/>
+	<Language LCID="1130" Name="ヨルバ語" Code="yo"/>
+</Languages>

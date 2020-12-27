@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="ERROR">
+Error
+</String>
+<String id="DEF_FONT">
+Tahoma
+</String>
+<String id="DEF_FONTSIZE">
+9
+</String>
+<String id="FONT_SimSun">
+Song Font
+</String>
+<String id="FONT_Yahei">
+Microsoft Ya Black Font
+</String>
+<String id="PROD_NAME_VER" fmt="true">
+$__PNAME_V$
+</String>
+<String id="PROD_NAME_VER_SUBVER" fmt="true">
+$__PNAME_V_SV$
+</String>
+<String id="NoCase">
+Insensible a las mayusculas.
+</String>
+<String id="ValidCode">
+Codigo de Verificacion:
+</String>
+<String id="Cancel">
+Cancelar
+</String>
+<String id="Ok">
+OK
+</String>
+<String id="Apply">
+Aplicar
+</String>
+<String id="PLEASE_NOTICE">
+Tips
+</String>
+<String id="Send">
+Enviar
+</String>
+<String id="ValidateCodeNull">
+El codigo de verificacion no puede estar vacio.
+</String>
+<String id="ValidateCodeError">
+Codigo de verificacion invalido.
+</String>
+<String id="UnkownConnectError">
+Error desconocido de red.
+</String>
+<String id="TitlePrompt">
+Tips
+</String>
+<String id="Save">
+Save
+</String>
+</StringBundle>

@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="STRING_GOTO_IMQQROUP">
+您可以訪問IMQQ群。
+</String>
+<String id="IDS_GetMoreFaces">
+更多表情
+</String>
+<String id="IDS_Translator">
+翻譯
+</String>
+<String id="IDS_Translator_Tags">
+顯示;翻譯;在聊天窗口中顯示翻譯按鈕#附上;原;附上原文本#發送;自動;自動發送#
+</String>
+<String id="IDS_Translator_Lang">
+語言設置
+</String>
+<String id="IDS_Translator_Attach">
+附上原文本
+</String>
+<String id="IDS_Translator_AutoSend">
+自動發送
+</String>
+<String id="IDS_Translator_ShowButton">
+在聊天窗口中顯示翻譯按鈕
+</String>
+<String id="IDS_Translate">
+翻譯(&amp;e)
+</String>
+<String id="IDS_AddLang">
+增加翻譯項
+</String>
+<String id="IDS_QQIInvite">
+邀請您的朋友一起加入國際版QQ吧
+</String>
+<String id="IDS_QQICannotfind">
+不能找到您的朋友？
+</String>
+<String id="CF_DRAW_Graffiti">
+塗鴉
+</String>
+<String id="CF_TranslatePoweredBy">
+由Google和有道提供的翻譯
+</String>
+<String id="CF_HowToUseTranslator">
+怎麼使用翻譯？
+</String>
+<String id="CF_TranslatorHotkeyTips">
+提示：使用快捷鍵Alt+E來翻譯和發送消息！
+</String>
+<String id="CF_TranslateBtnTip">
+翻譯Alt+E
+</String>
+<String id="CF_TranslateMenuItem_Help">
+怎麼使用翻譯？
+</String>
+<String id="IDS_TranslatorTips">
+點擊這裏或按Alt+E來即時翻譯你要發送的消息。
+</String>
+<String id="IDS_TranslatorMenuAttach">
+附上原文本
+</String>
+<String id="IDS_TranslatorMenuAuto">
+自動發送
+</String>
+<String id="IDS_UploadPicLimit">
+QQ等級達4級以上才能上傳自定義頭像
+</String>
+<String id="IDS_BindEmailTips">
+綁定您的郵箱和QQ號，便可使用郵箱作為帳號登錄。
+</String>
+<String id="HelpTipSystem_Tips1Title">
+自定義您的個人資料
+</String>
+<String id="HelpTipSystem_Tips1">
+點擊您的頭像來完善個人資料，以便您的朋友更容易找到您。
+</String>
+<String id="HelpTipSystem_Tips2Title">
+邀請好友
+</String>
+<String id="HelpTipSystem_Tips2">
+點擊這裏邀請您的朋友一起加入國際版QQ。
+</String>
+<String id="HelpTipSystem_Tips3Title">
+搜索好友和群
+</String>
+<String id="HelpTipSystem_Tips3">
+在此可通過郵箱或QQ號來搜索好友或群。
+</String>
+<String id="HelpTipSystem_Tips4Title">
+國際版QQ微應用
+</String>
+<String id="HelpTipSystem_Tips4">
+查看最新國際版QQ提供的免費應用，比如工具、遊戲、新聞等！
+</String>
+<String id="HelpTipSystem_Tips5Title">
+自定義您的頭像
+</String>
+<String id="HelpTipSystem_Tips5">
+可通過更換有趣的主題皮膚來裝扮您的國際版QQ！
+</String>
+<String id="HelpTipSystem_Tips6Title">
+請檢查您的設置
+</String>
+<String id="HelpTipSystem_Tips6">
+點擊這裏，可按照您個人需要自定義您國際版QQ的設置。
+</String>
+<String id="HelpTipSystem_Tips15">
+所有消息和系統消息將在此處閃動，可以通過雙擊此處或Ctrl+Alt+Z來顯示。
+</String>
+<String id="Tips_CloseTip_Tips">
+您已經看過全部的6條提示，請問需要重新查看這些提示嗎？
+</String>
+<String id="Tips_CloseTip_Tips1">
+是的，請重新顯示所有提示。
+</String>
+<String id="Tips_CloseTip_Tips2">
+不再提示
+</String>
+<String id="IDS_RestartLater">
+稍後重啟
+</String>
+<String id="IDS_RestartNow">
+立即重啟
+</String>
+<String id="IDS_NEEDRESTART">
+您修改了國際版QQ語言，需要重啟才能生效，需要立即重啟嗎？
+</String>
+<String id="IDS_Tips">
+提示
+</String>
+<String id="IDS_QQLevelLocalTips">
+QQ等級: $LEVEL$
+</String>
+<String id="IDS_QQLevelActiveDaysTips">
+活躍天數: $NUM$
+</String>
+<String id="IDS_QQLevelLocalRemainTips">
+剩餘升級天數: $NUM$
+</String>
+<String id="IDS_QQTranslatorSettings">
+翻譯設置
+</String>
+<String id="IDS_QQTranslatorOnly7">
+最多添加7種語言翻譯項。
+</String>
+<String id="IDS_Translate2">
+翻譯
+</String>
+<String id="IDS_ShareTo">
+分享
+</String>
+<String id="FriendFinder">
+搜索好友
+</String>
+<String id="Navigator">
+Web Directory
+</String>
+<String id="AllFeeds">
+InstaViewer
+</String>
+<String id="ShareTo">
+分享到
+</String>
+<String id="QQI_QuickLink">
+Web Directory
+</String>
+<String id="AppBox_StoreTips">
+應用盒子
+</String>
+<String id="AppBox_ManageTips">
+管理您的應用
+</String>
+<String id="AppBox_Manage">
+管理
+</String>
+<String id="AppBox_Done">
+完成
+</String>
+<String id="MainPanel_Menus">
+主菜單
+</String>
+<String id="QQI_AppBox">
+應用盒子
+</String>
+<String id="QQI_FeedsBox">
+動態盒子
+</String>
+<String id="CF_MERGEWINDOW">
+合併回話窗口
+</String>
+<String id="FeedsBox_All">
+所有動態
+</String>
+<String id="FeedsBox_Facebook">
+Facebook
+</String>
+<String id="FeedsBox_Weibo">
+新浪微博
+</String>
+<String id="FeedsBox_Instagram">
+Instagram
+</String>
+<String id="FeedsBox_ConnectFacebook">
+連接到Facebook
+</String>
+<String id="FeedsBox_ConnectFacebookText">
+您還沒連接到Facebook，請點擊連接按鈕。
+</String>
+<String id="FeedsBox_ConnectSinaWeibo">
+連接到新浪微博
+</String>
+<String id="FeedsBox_ConnectSinaWeiboText">
+您還沒連接到新浪微博，請點擊連接按鈕。
+</String>
+<String id="FeedsBox_ConnectInstagram">
+連接到Instagram
+</String>
+<String id="FeedsBox_ConnectInstagramText">
+您還沒連接到Instagram，請點擊連接按鈕。
+</String>
+<String id="FeedsBox_FinishConnect">
+完成
+</String>
+<String id="Finger_Stranger">
+巧遇卡
+</String>
+<String id="Finger_StrangerTip">
+添加新朋友
+</String>
+<String id="Old_Finger_Stranger">
+找新朋友
+</String>
+<String id="IDS_IMPORTEMOTION_FAILED">
+導入自定義表情失敗，請檢查您的QQ是否已正常啟動。
+</String>
+<String id="SCANVIRUS_QQDOCTOR">
+QQ醫生
+</String>
+<String id="Finger_MayInterestText">
+您想和新朋友聊天嗎？
+</String>
+<String id="CF_FIRFACE_TIP">
+選擇一個動一下表情
+</String>
+<String id="CF_DRAWPIC_TIP">
+畫圖
+</String>
+<String id="QQI_WeixinApp">
+微信
+</String>
+<String id="IntroWeixin">
+微信是一款移動應用，可給IOS、安卓、Windows Phone和塞班上的國際版QQ發送和接收消息
+</String>
+<String id="DownloadWeixin">
+點擊這裏，下載國際版微信。
+</String>
+<String id="Weixin_UserOnline">
+您已經有$NUM$位好友在使用微信：
+</String>
+<String id="Weixin_UserOffline">
+您有$NUM$位好友可以通過微信來接收消息：
+</String>
+<String id="Weixin_User">
+這$NUM$朋友也在使用微信，您可以添加他們為好友：
+These $NUM$ people are also WeChat Users, you can add them in WeChat apps:
+</String>
+<String id="IDS_WeiYun_Text">微雲</String>
+<String id="IDS_FeedBack_EntryTips">
+回饋
+</String>
+<String id="IDS_SUBMIT">
+發送
+</String>
+<String id="IDS_FEEDBACK">
+回饋
+</String>
+<String id="IDS_FEEDBACK_CLOSE">
+關閉
+</String>
+<String id="IDS_THANKS">
+感謝您的回饋！
+</String>
+<String id="IDS_THANKSAGAIN">
+您的回饋將會被發給我們的產品組，我們會認真考慮您的建議並做出儘量讓您滿意的產品。
+</String>
+<String id="TencentWeibo">
+騰訊微博
+</String>
+<String id="strMiniPortal_TitleBar">
+國際版Today
+</String>
+<String id="Plugin_Tooltip">
+我的應用
+</String>
+<String id="AppBox_NotInstall">
+此應用並未安裝，您想現在安裝嗎？
+</String>
+<String id="ShareToWinTitle">
+分享到
+</String>
+<String id="ShareToWinSend">
+發送
+</String>
+<String id="ShareToWinFacebook">
+分享到Facebook
+</String>
+<String id="ShareToWinSina">
+分享到新浪微博
+</String>
+<String id="ViewPhoto">
+圖片查看器
+</String>
+<String id="IDS_Finger_QQiUser">
+查找您可能喜歡的人
+</String>
+<String id="UserWizard">
+用戶引導
+</String>
+<String id="PostWall">
+Post Wall
+</String>
+<String id="QQI_InstagramBox">
+InstaViewer
+</String>
+<String id="InstagramBox_Popular">
+最熱
+</String>
+<String id="InstagramBox_Search">
+搜索
+</String>
+<String id="InstagramBox_Clear">
+清除
+</String>
+<String id="InstagramBox_Feed">
+動態
+</String>
+<String id="InstagramBox_MyPhoto">
+我的圖片
+</String>
+<String id="InstagramBox_Login">
+登錄
+</String>
+<String id="InstagramBox_Logout">
+註銷
+</String>
+<String id="InstagramBox_Finish">
+完成
+</String>
+<String id="InstagramFeeds_NoResult">
+您目前沒用最新動態。
+</String>
+<String id="InstagramMyPhotos_NoResult">
+你還沒上傳任何照片到Instagram。
+</String>
+<String id="InstagramSearch_NoResult">
+未找到匹配項，請試著使用其他關鍵字搜索。
+</String>
+<String id="InstagramLogin_DesriptiveText">
+請先登錄Instagram。
+</String>
+<String id="InstagramFinish_DesriptiveText">
+請耐心等待，直到登錄後再點擊完成按鈕。
+</String>
+<String id="InstagramFirstPage_Timeout">
+網路連接問題，請刷新頁面。
+</String>
+<String id="QQLevel_LevelTip">
+QQ等級:
+</String>
+<String id="QQLevel_LevelAccelerateTip">
+加速QQ升級
+</String>
+<String id="QQLevel_ActiveDayTip">
+活躍天數:
+</String>
+<String id="QQLevel_RemainDayTip">
+剩餘升級活躍天數
+</String>
+<String id="Mutual_Friends">
+共同好友
+</String>
+<String id="Mutual_Groups">
+共同群
+</String>
+<String id="Mutual_MayHave">
+可能擁有共同好友
+</String>
+<String id="URLTip_Official">
+此網址為騰訊公司官方網站
+</String>
+<String id="URLTip_Safe">
+此網址經過檢測，未發現風險
+</String>
+<String id="URLTip_Unsure">
+此網址的安全性無法確定
+</String>
+<String id="URLTip_Unsafe">
+此網址被大量用戶舉報為惡意網址
+</String>
+<String id="Similar_Age">
+同齡人
+</String>
+<String id="Similar_Hometown">
+同鄉
+</String>
+<String id="Similar_Chance">
+碰巧
+</String>
+<String id="Similar_Suit">
+和您星座匹配
+</String>
+<String id="Similar_City">
+同城
+</String>
+<String id="Similar_Horoscope">
+同一星座
+</String>
+<String id="MainMenu_Settings">
+設置
+</String>
+<String id="MainMenu_Guide">
+用戶引導
+</String>
+<String id="MainMenu_Find">
+好友查找
+</String>
+<String id="MainMenu_Invite">
+邀請好友
+</String>
+<String id="MainMenu_Follow">
+關注
+</String>
+<String id="MainMenu_QQiBlog">
+國際版QQ微博
+</String>
+<String id="MainMenu_Facebook">
+Facebook
+</String>
+<String id="MainMenu_Twitter">
+Twitter
+</String>
+<String id="MainMenu_Google">
+Google+
+</String>
+<String id="MainMenu_TWeibo">
+騰訊微博
+</String>
+<String id="MainMenu_Help">
+幫助
+</String>
+<String id="MainMenu_Password">
+密碼找回
+</String>
+<String id="MainMenu_Feedback">
+回饋
+</String>
+<String id="MainMenu_About">
+關於國際版QQ
+</String>
+<String id="MainMenu_WhatNew">
+國際版QQ新特性
+</String>
+<String id="MainMenu_Update">
+線上升級
+</String>
+<String id="MainMenu_QQiWebsite">
+國際版QQ官網
+</String>
+<String id="MainMenu_Logout">
+註銷
+</String>
+<String id="MainMenu_AboutQQi">
+關於國際版QQ
+</String>
+<String id="Finder_BubbleTips">
+在此搜索好友
+</String>
+<String id="Profile_BubbleTips">
+在此完善個人資料
+</String>
+<String id="Title_CreateGroup">
+創建群
+</String>
+<String id="AuthMenu_MyWorkPlace">
+您在哪工作？
+</String>
+<String id="AuthMenu_MyBirthday">
+您哪天生日？
+</String>
+<String id="AuthMenu_MyPhone">
+您的電話號碼是？
+</String>
+<String id="AuthMenu_MyName">
+您的真實姓名是？
+</String>
+<String id="AuthMenu_MyFavoriteFood">
+您最喜歡的食物是？
+</String>
+<String id="GroupToolBarTips_CreateDiscussion">
+創建討論組
+</String>
+<String id="GroupToolBarTips_GroupAlbum">
+查看群相冊
+</String>
+<String id="UserWizard_ProductBlog">
+產品博客
+</String>
+<String id="UserWizard_FacebookPage">
+Facebook主頁
+</String>
+<String id="BtnTip_NoneYouMayKnow">
+您可以通過條件搜索找朋友聊天，試試吧
+</String>
+<String id="UIMgr_WinTitle">
+界面管理器
+</String>
+<String id="UIMgr_ThemeTag">
+主題
+</String>
+<String id="UIMgr_ThemeTagTip">
+給自己一個嶄新的界面吧
+</String>
+<String id="UIMgr_MainPanelTag">
+主面板
+</String>
+<String id="UIMgr_MainPanelTagTip">
+自定義主面板上的快捷入口
+</String>
+<String id="UIMgr_QuickList">
+底端快捷入口
+</String>
+<String id="UIMgr_PersonalInfo">
+頂端快捷入口
+</String>
+<String id="UIMgr_MoveBtnText">
+移動
+</String>
+<String id="UIMgr_WeatherCheckText">
+天氣
+</String>
+<String id="ErrorWords_FloatTranslate">
+（錯誤:抱歉，翻譯失敗！翻譯內容請不要超過200字，或檢查你的網路是否正常。）
+</String>
+<String id="Finger_GroupNum">
+群號
+</String>
+<String id="Tips_QQClock">
+世界時鐘
+</String>
+<String id="YouMayLikeTitle">
+您可能喜歡的人
+</String>
+<String id="MsgMgr_NoFoundMsg">
+未找到匹配的消息記錄
+</String>
+<String id="MsgMgr_NoMsgs">
+沒有任何消息記錄
+</String>
+<String id="TmpChat_CommonFriends">
+你們有$FriendsNum$個共同好友，加為好友
+</String>
+<String id="TmpChat_CommonFriend">
+你們有$FriendsNum$個共同好友，加為好友
+</String>
+</StringBundle>

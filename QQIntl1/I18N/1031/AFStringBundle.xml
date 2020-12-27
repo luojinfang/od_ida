@@ -1,0 +1,2540 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="IDS_HYPERLINK_FORMAT_ERROR">
+Hyperlink-Formatfehler
+</String>
+<String id="IDS_TIP">
+Tipp
+</String>
+<String id="IDS_URL_ERROR">
+URL-Fehler. Bitte überprüfen.
+</String>
+<String id="IDS_INSTALL_ERROR">
+Formatfehler im Installationspaket. Bitte überprüfen.
+</String>
+<String id="IDS_MISTAKE">
+Fehler
+</String>
+<String id="IDS_QQSUPERBAG">
+QQ-Themenpaket
+</String>
+<String id="IDS_UNINSTALL_SUPERBAG">
+Themenpaket im QQ-Verzeichnis installieren. Weiter?
+</String>
+<String id="IDS_SKINNOTSUPPORT_KIP">
+Ihre QQ-Version unterstützt diese Funktion leider nicht.
+</String>
+<String id="IDS_QQSCENE">
+QQ Scene
+</String>
+<String id="IDS_UNINSTALL_SCENE">
+QQ Scene im QQ-Verzeichnis installieren. Weiter?
+</String>
+<String id="IDS_QQFACE">
+Benutzerdefinierte QQ-Emoticons
+</String>
+<String id="IDS_UNINSTALL_FACE">
+Benutzerdefinierte Emoticons im QQ-Verzeichnis installieren. Weiter?
+</String>
+<String id="IDS_EMAIL_UNAUTHOR">
+Nicht verifiziert
+</String>
+<String id="IDS_REMAIN_TIME_TITLE">
+Geschätzte verbleibende Zeit:
+</String>
+<String id="IDS_DL_PATH_TITLE">
+Speichern unter:
+</String>
+<String id="IDS_TRAN_SPEED_TITLE">
+Übertragungsgeschwindigkeit
+</String>
+<String id="IDS_DL_DAILED">
+Download fehlgeschlagen. URL ungültig?
+</String>
+<String id="IDS_BREAKPOINT_MISTAKE">
+Haltepunkt stimmt nicht mit Dateigröße überein.
+</String>
+<String id="IDS_READ_FILEINFO">
+Dateiinformationen werden gelesen.
+</String>
+<String id="IDS_CONNECT_SERVER">
+Verbindung zum Server wird aufgebaut.
+</String>
+<String id="IDS_CONNECTSUCCESS_SERVER">
+Verbunden, Download beginnt.
+</String>
+<String id="IDS_REMAIN_TIME">
+Geschätzte verbleibende Zeit: %d Sekunden (%d KB von %d KB kopiert)
+</String>
+<String id="IDS_DL_PATH">
+Speichern unter: %s
+</String>
+<String id="IDS_TRAN_SPEED">
+Übertragungsgeschwindigkeit: XX KB/s
+</String>
+<String id="IDS_DLFILE_FINISH">
+Datei-Download beendet.
+</String>
+<String id="IDS_DL_FAILED">
+Download fehlgeschlagen.
+</String>
+<String id="IDS_SERVER_CLOSE">
+Server getrennt.
+</String>
+<String id="IDS_WRITEFILE_MISTAKE">
+Fehler beim Speichern der Datei. Die Datei wird verwendet, oder die Festplatte ist voll.
+</String>
+<String id="IDS_UNCONNECT_SERVER">
+Es konnte keine Verbindung zum Server aufgebaut werden.
+</String>
+<String id="IDS_FILE_NOTFOUND">
+Datei nicht gefunden.
+</String>
+<String id="IDS_UNAVAIL_SERVER">
+Serveradresse ungültig.
+</String>
+<String id="IDS_SKIN_KIP">
+QQ-Skin-Installationsprogramm; alle Dateien
+</String>
+<String id="IDS_SCENE_CIP">
+QQ-Scene-Installationsprogramm; alle Dateien
+</String>
+<String id="IDS_EMOTION_EIP">
+QQ-Installationsprogramm für benutzerdefinierte Emoticons; alle Dateien
+</String>
+<String id="IDS_EMOTION_CFC">
+QQ-Installationsprogramm für benutzerdefinierte Emoticons; alle Dateien
+</String>
+<String id="IDS_SOURCEFILE_PATH">
+Quelldateipfad:
+</String>
+<String id="IDS_FILEFORMAT_MISTAKE">
+Dateiformatfehler.
+</String>
+<String id="IDS_RUNQQ">
+Sie haben QQ nicht gestartet, oder Sie verwenden eine ältere Version von QQ. Bitte überprüfen.
+</String>
+<String id="IDS_INSTALLFACE_FAILED">
+Das Emoticon konnte nicht geladen werden.
+</String>
+<String id="IDS_SELUINERROR">
+Sie haben keine QQ-ID gewählt, oder die gewählte QQ-ID ist falsch.
+</String>
+<String id="IDS_FINDREG_FAILED">
+Die Suche nach gespeicherten Zugangsdaten ist fehlgeschlagen.
+</String>
+<String id="IDS_INSTALL_SUCCESS">
+Installation abgeschlossen
+</String>
+<String id="IDS_INSTALLFILE_SUCCESS">
+Datei installiert. Datei speichern unter: %s
+</String>
+<String id="IDS_INSTALL_PATH">
+Installationspfad:
+</String>
+<String id="IDS_INSTALL_FAILED">
+Installation fehlgeschlagen
+</String>
+<String id="IDS_INSTALLFILE_FAILED">
+Dateiinstallation fehlgeschlagen
+</String>
+<String id="IDS_UNSUPPORT">
+Ihre QQ-Version unterstützt diese Funktion nicht.
+</String>
+<String id="IDS_INSTALL_NOMATCHING">
+Beim Test des Installationsprogramms wurde festgestellt, dass der Installationspfad nicht mit Ihrer aktuellen QQ-Version kompatibel ist. Starten Sie QQ erneut und führen Sie das Installationsprogramm erneut aus.
+</String>
+<String id="IDS_SKIN_NOTLOGIN">
+QQ wird nicht gestartet. Führen Sie die Installation nach der Einloggen bei QQ durch.
+</String>
+<String id="IDS_SKIN_CLOSE">
+Schließen
+</String>
+<String id="IDS_FORHUMMER_TIP">
+Die Version, mit der diese QQ-ID verknüpft ist, unterstützt die Ein-Tasten-Einloggen nicht. Wählen Sie die StandardEinloggen.
+</String>
+<String id="IDS_LOGIN_FIRST">
+Melden Sie sich erst an.
+</String>
+<String id="IDS_SWITCH_TM">
+Sie müssen TM starten, damit Sie diese Funktion nutzen können. Zu TM wechseln?
+</String>
+<String id="IDS_SWITCH_QQ">
+Sie müssen QQ starten, um diese Funktion zu nutzen. Bei QQ anmelden.
+</String>
+<String id="IDS_CHOOSENUM">
+ID auswählen
+</String>
+<String id="IDS_INVOKETM_FAILED">
+Ihre TM-Version unterstützt diese Funktion nicht. Laden Sie die neueste Version herunter.
+</String>
+<String id="IDS_INVOKEQQ_FAILED">
+Ihre QQ-Version unterstützt diese Funktion nicht. Laden Sie die neueste Version herunter.
+</String>
+<String id="IDS_TMSTART_FAILED">
+Das System konnte TM nicht starten. Starten Sie TM manuell.
+</String>
+<String id="IDS_QQSTART_FAILED">
+Das System konnte QQ nicht starten. Starten Sie QQ manuell.
+</String>
+<String id="IDS_UNSUPPORT_SWITCH">
+Ihre QQ-Version unterstützt den Ein-Tasten-Wechsel zwischen QQ und TM nicht. Laden Sie die neueste Version herunter.
+</String>
+<String id="IDS_LOGINING_TIP">
+Sie werden angemeldet. Bitte warten Sie, um zu wechseln.
+</String>
+<String id="IDS_STARTQQ_NOTIFY">
+Sie müssen sich mit der QQ-ID %d anmelden, um diese Funktion zu nutzen. Möchten Sie sich jetzt mit dieser QQ-ID anmelden?
+</String>
+<String id="IDS_STARTTM_NOTIFY">
+Sie müssen sich mit der TM-ID %d anmelden, um diese Funktion zu nutzen. Möchten Sie sich jetzt mit dieser TM-ID anmelden?
+</String>
+<String id="IDS_SYSTEMCHECK_QQ">
+Sie haben QQ nicht gestartet. Melden Sie sich bei QQ an, bevor Sie diese Funktion zu nutzen versuchen. Möchten Sie QQ jetzt starten?
+</String>
+<String id="IDS_SYSTEMCHECK_TM">
+Ihr TM wird nicht gestartet. Melden Sie sich bei TM an, bevor Sie diese Funktion zu nutzen versuchen. Möchten Sie TM jetzt starten?
+</String>
+<String id="IDS_LFUINUSE_TIP">
+Sie müssen sich mit der QQ/TM-ID %d anmelden, um diese Funktion zu nutzen. Melden Sie sich mit dieser ID an, um es erneut zu versuchen.
+</String>
+<String id="IDS_INSTALLFAILED">
+Installation fehlgeschlagen.
+</String>
+<String id="IDS_INVALIDPOINTER">
+Die ID, die Sie für QQ/TM ausgewählt haben, ist ungültig. Prüfen Sie, ob die ID abgelaufen ist.
+</String>
+<String id="CF_SecurityTip_ConfigTime_End">
+-
+</String>
+<String id="CF_SecurityTip_ConfigTime">
+Zeit einstellen
+</String>
+<String id="IDS_APPCENTER_DESC">
+Tencent TT ist ein schneller, stabiler und sicherer Online-Browser.
+</String>
+<String id="IDS_APPCENTER_TITLE">
+TT-Browser
+</String>
+<String id="CF_TRUSTTIP">
+Sie haben diese Website als vertrauenswürdig eingestuft.
+</String>
+<String id="IDS_Flirtation_TipTitle">
+Anstupsen
+</String>
+<String id="IDS_Flirtation_CountFMT">
+---
+</String>
+<String id="IDS_Flirtation_TimeFormat">
+---
+</String>
+<String id="IDS_Flirtation_Add_TA">
+Ihr Kontakt
+</String>
+<String id="IDS_Flirtation_Text_You">
+Sie
+</String>
+<String id="IDS_Flirtation_PreviewText">
+hat Sie angestupst. Öffnen Sie das Chat-Fenster, um es zu sehen.
+</String>
+<String id="ConvertSS2CDHint">
+$_PNAME$ lädt den Chat-Verlauf hoch. Dieser Vorgang dauert $TIME$ Minuten. Bitte warten.
+</String>
+<String id="Link_Resend">
+Erneut senden
+</String>
+<String id="IDS_AUDIOFILE_SUFFIX">
+---
+</String>
+<String id="IDS_VIDEOFILE_SUFFIX">
+---
+</String>
+<String id="SELSENDFOLDER_TITLE">
+Zielordner zum Speichern der Datei auswählen
+</String>
+<String id="SoSoFaceBtn_Tip">
+Emoticons suchen
+</String>
+<String id="SoSoFace_BubbleTip_Content">
+Sie können Stichwörter eingeben, um weitere Emoticons im Internet zu suchen.
+</String>
+<String id="SoSoFace_BubbleTip_Title">
+Für weitere Emoticons hier klicken
+</String>
+<String id="Btn_SoSoFace_Tab">
+Suche
+</String>
+<String id="IDS_About_Version">
+$__PNAME_V_SV$ ($VERSION$)
+</String>
+<String id="IDS_QQPinyin_Name_Tooltip">
+QQ-Pinyin
+</String>
+<String id="IDS_QQPinyin_Name">
+QQPinyin.ime
+</String>
+<String id="IDS_FileTransfer_AllRefuse">
+Ablehnen
+</String>
+<String id="IDS_FileTransfer_AllSave">
+Unter...
+</String>
+<String id="IDS_FileTransfer_AllAccept">
+Alle
+</String>
+<String id="IDS_BatchDelContact_DelBox_Deleted">
+Gelöscht
+</String>
+<String id="IDS_BatchDelContact_DelBox_Deleting">
+Löschen ...
+</String>
+<String id="IDS_BatchDelContact_DeletingPrompt">
+Kontakte werden gelöscht ...
+</String>
+<String id="IDS_BatchDelContact_DeletingPrompt_1">
+正在删除好友...（第1步，共2步）
+</String>
+<String id="IDS_BatchDelContact_DeletingPrompt_2">
+正在反向删除好友...（第2步，共2步）
+</String>
+<String id="IDS_BatchDelContact_Caption">
+Kontakte löschen
+</String>
+<String id="IDS_BatchDelContact_ReadyPrompt">
+Möchten Sie die nachstehenden Kontakte wirklich löschen?
+</String>
+<String id="IDS_BatchDelContact_PartialSuccessPrompt">
+部分好友删除失败，请您重试
+</String>
+<String id="IDS_BatchDelContact_FailedPrompt">
+删除好友失败，请您重试
+</String>
+<String id="IDS_BatchDelContact_WaitingCancel">
+正在取消，请耐心等待...
+</String>
+<String id="IDS_BatchDelContact_Loading">
+正在加载，请耐心等待...
+</String>
+<String id="IDS_BatchDelContact_RetryButton">
+重试
+</String>
+<String id="IDS_BatchDelContact_ReverseDelCheckButton">
+Mich aus der Liste des anderen Nutzers entfernen 
+</String>
+<String id="IDS_QQMAIL_FMT">
+$UIN$@qq.com
+</String>
+<String id="Tip_Change">
+Ändern
+</String>
+<String id="CUSTOMFACE_SHORTCUT_KEY">
+Schnellzugriffe
+</String>
+<String id="Button_AddBuddyFrame_AddBuddy">
+Hinzufügen
+</String>
+<String id="AutoUpdate_WarningText">
+Eine Aktualisierungsinstanz wird bereits ausgeführt.
+</String>
+<String id="GROUP_BLUEBAR_UPLOAD_PHOTO">
+Ins QQi-Gruppenfotoalbum hochladen
+</String>
+<String id="CF_GROUP_PICTURE_OVERSIZE_PRECHECK">
+Bildgröße überschreitet 1 MB. Bitte ins QQi-Gruppenfotoalbum hochladen
+</String>
+<String id="CF_PICTURE_OVERSIZE_PRECHECK">
+Das Bild in der Nachricht ist über 1 MB groß. Senden Sie es als Datei.
+</String>
+<String id="AIO_Campus_Title">
+Klassengruppe
+</String>
+<String id="Button_PwdGuard_Update">
+Jetzt aktualisieren
+</String>
+<String id="Title_SecurityWnd">
+QQ-Sicherheitscenter
+</String>
+<String id="Button_MsgBoxEx_No">
+Nein
+</String>
+<String id="Button_MsgBoxEx_Yes">
+Ja
+</String>
+<String id="Button_MsgBoxEx_Retry">
+Wiederholen
+</String>
+<String id="Button_MsgBoxEx_Cancel">
+Abbrechen
+</String>
+<String id="Button_MsgBoxEx_Ok">
+OK
+</String>
+<String id="CampusGroup_KEY">
+kk$@%$#^%$&amp;23DS1
+</String>
+<String id="Text_SuperGroup_Overdue">
+-Abgelaufen
+</String>
+<String id="Text_SuperGroup">
+Super-Gruppe
+</String>
+<String id="Text_AdvGroupLv2">
+高级群LV2
+</String>
+<String id="Text_AdvGroup">
+VIP-Gruppe
+</String>
+<String id="Text_NormalGroup">
+Normale Gruppe
+</String>
+<String id="Tips_OfflinePicFailTips">
+Offline-Sendung des Bildes/der Bilder fehlgeschlagen.
+</String>
+<String id="Tips_OfflinePicSuccessTips">
+Offline-Sendung des Bildes/der Bilder erfolgreich.
+</String>
+<String id="BlueBarTips_TooManyPics">
+Die Offline-Sendung der Bilder ist fehlgeschlagen. Jede Offline-Nachricht darf höchstens $NUM$ Bilder enthalten.
+</String>
+<String id="BlueBarTips_TotalSizeTooLarge">
+Die Offline-Sendung der Bilder ist fehlgeschlagen. Die maximale Zahl Bilder pro Nachricht beträgt $NUM$KB.
+</String>
+<String id="BlueBarTips_SinglePicTooLarge">
+Offline-Sendung des Bildes/der Bilder fehlgeschlagen. Jedes Bild muss kleiner als $NUM$KB sein.
+</String>
+<String id="CameraSaveAs_DefaultFileExt">
+png
+</String>
+<String id="CameraSaveAs_DefaultFileName">
+Unbenannte QQ-Bildschirmaufnahme
+</String>
+<String id="CameraSaveAs_FileFilter_GIF">
+GIF (*.gif)|*.gif|
+</String>
+<String id="CameraSaveAs_FileFilter_JPG">
+JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|
+</String>
+<String id="CameraSaveAs_FileFilter_BMP">
+BMP (*.bmp)|*.bmp|
+</String>
+<String id="CameraSaveAs_FileFilter_PNG">
+PNG (*.png)|*.png|
+</String>
+<String id="CameraSaveAs_FileFilter">
+PNG (*.png)|*.png|BMP (*.bmp)|*.bmp|PEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|GIF (*.gif)|*.gif||
+</String>
+<String id="Font_Tahoma">
+Tahoma
+</String>
+<String id="Font_SongTi">
+Tahoma
+</String>
+<String id="Tip_ScreenCapButton">
+Bildschirmaufnahme
+</String>
+<String id="IDS_FONTSIZE_LIST">
+8,9,10,11,12,14,16,18,20,22
+</String>
+<String id="Menu_Camera_PopMenu_Exit">
+Beenden
+</String>
+<String id="Menu_Camera_PopMenu_Show">
+Symbolleiste "Bearbeiten" anzeigen
+</String>
+<String id="Menu_Camera_PopMenu_Hide">
+Symbolleiste "Bearbeiten" ausblenden
+</String>
+<String id="Menu_Camera_PopMenu_SaveAs">
+Speichern unter
+</String>
+<String id="Menu_Camera_PopMenu_Copy">
+Abgeschlossen
+</String>
+<String id="Menu_Camera_PopMenu_Reset">
+Aufnahmebereich erneut auswählen
+</String>
+<String id="ImpeachFrame_Fail">
+Ihr Bericht wurde leider nicht gesendet.  Versuchen Sie es später erneut.
+</String>
+<String id="Menu_Camera_PopMenu_Undo">
+Rückgängig
+</String>
+<String id="ImpeachFrame_Success">
+Ihr Bericht wurde gesendet und wird in Kürze bearbeitet.
+</String>
+<String id="Menu_Camera_PopMenu_Text">
+Zeichen einfügen
+</String>
+<String id="Menu_Camera_PopMenu_Filter">
+Filter
+</String>
+<String id="ImpeachFrame_EmptyUin">
+Bitte geben Sie zuerst die schädliche ID ein.
+</String>
+<String id="Menu_Camera_PopMenu_Brush">
+Pinsel (Tool)
+</String>
+<String id="Menu_Camera_PopMenu_Arrow">
+Pfeil einfügen
+</String>
+<String id="ImpeachFrame_SelfUin">
+Sie können keine Meldung über sich selbst erstatten.
+</String>
+<String id="Menu_Camera_PopMenu_Circle">
+Ellipse einfügen
+</String>
+<String id="ImpeachFrame_WrongUin">
+Die eingegebene ID gehört nicht zu dieser Gruppe oder Diskussion. Geben Sie einen der Kontakte aus dieser Gruppe ein.
+</String>
+<String id="Menu_Camera_PopMenu_Rectangle">
+Rechteck einfügen
+</String>
+<String id="Title_ImpeachFrame_Prompt">
+Tipps
+</String>
+<String id="Text_Camera_Toolbar_Finish">
+Fertigstellen
+</String>
+<String id="Tips_Camera_Toolbar_FinishTip">
+Fertigstellen
+</String>
+<String id="Tips_Camera_Toolbar_ExitTip">
+Beenden
+</String>
+<String id="Tips_Camera_Toolbar_SaveTip">
+Speichern
+</String>
+<String id="ConfigVipDetail">
+特权
+</String>
+<String id="RomAllMsgRecordLastMonth">
+Den Verlauf des vorherigen Monats online speichern
+</String>
+<String id="RomAllMsgRecordCount">
+$COUNT$ Kontakte
+</String>
+<String id="Tips_Camera_Toolbar_UndoTip">
+Rückgängig
+</String>
+<String id="Tips_Camera_Toolbar_TextTip">
+Zeichen einfügen
+</String>
+<String id="Tips_Camera_Toolbar_BrushTip">
+Pinsel
+</String>
+<String id="Tips_Camera_Toolbar_ArrowTip">
+Pfeil einfügen
+</String>
+<String id="RomAllMsgRecordSet">
+Den Nachrichtenverlauf der Kontakte online speichern. Sie haben $SET$/ gespeichert
+</String>
+<String id="RoamMsgRecordVipIntroduction">
+QQ会员尊享永久漫游指定好友或漫游全体好友30天的消息记录等
+</String>
+<String id="RoamMsgRecordTips">
+您还可以设置：
+</String>
+<String id="Tips_Camera_Toolbar_CircleTip">
+Ellipse einfügen
+</String>
+<String id="Tips_Camera_Toolbar_BtnRectangleTip">
+Rechteck einfügen
+</String>
+<String id="Text_FaceEdit_Alert2">
+Das ausgewählte Bild überschreitet die Größenbeschränkung und wird beschnitten. Möchten Sie den Vorgang fortsetzen?
+</String>
+<String id="Text_FaceEdit_Alert">
+Das ausgewählte Bild ist sehr groß. Der Ladevorgang wird sich dadurch verlangsamen. Möchten Sie den Vorgang fortsetzen?
+</String>
+<String id="Title_FaceEdit_Alert">
+Tipps:
+</String>
+<String id="FaceRoam_FaceRoam">
+Emoticons online speichern
+</String>
+<String id="FaceRoam_TooManyByTabLimit">
+Jede Gruppe darf maximal $NUM$ Emoticons enthalten. Fügen Sie es zu einer anderen Gruppe hinzu.
+</String>
+<String id="FaceRoam_TooMany">
+Sie haben die maximale Zahl Emoticons für die VIP$VIPNUM$-Ebene bereits erreicht.
+</String>
+<String id="FaceRoam_MaxTabErrPrmt">
+Ihre Emoticon-Gruppen sind auf $NUM$ beschränkt.  Kombinieren oder entfernen Sie vorhandene Gruppen.
+</String>
+<String id="FaceRoam_NetErrPrmt">
+Tipps
+</String>
+<String id="FaceRoam_NetErr">
+Netzwerk-Zeitlimit überschritten.
+</String>
+<String id="FaceRoam_FaceTipTextTooMany">
+Upload-Grenzwert überschritten.
+</String>
+<String id="FaceRoam_FaceTipTextWait">
+Upload läuft
+</String>
+<String id="FaceRoam_FaceTipText5">
+Sie haben die Online-Emoticon-Funktion abgebrochen.
+</String>
+<String id="FaceRoam_FaceTipText4">
+Fehler: Zeitlimit überschritten. Dieses Emoticon wurde nicht hochgeladen.
+</String>
+<String id="FaceRoam_FaceTipText3">
+Fehler beim Hochladen: Bitte weniger als $NUM$KB Emoticon-Bilder hochladen.
+</String>
+<String id="FaceRoam_FaceTipText2">
+Auf den Server hochgeladen.
+</String>
+<String id="FaceRoam_FaceTipTextEditPt">
+Neue Emoticon-Bearbeitungsfunktion. Zum Auswählen mit der rechten Maustaste klicken.
+</String>
+<String id="FaceEdit_FileFilter">
+Alle Dateien (*.gif;*.jpg;*.bmp;*.png)|*.gif;*.jpg;*.jpeg;*.bmp;*.png| GIF-Datei (*.gif)|*.gif| JPG-Datei (*.jpg;*.jpeg)|*.jpg;*.jpeg| BMP-Datei (*.bmp)|*.bmp| PNG-Datei (*.png)|*.png||
+</String>
+<String id="FaceRoam_RomeGrpText">
+Sie haben diese Gruppe mit Emoticons online gespeichert. Neu hinzugefügte Emoticons werden automatisch hoch- und heruntergeladen.
+</String>
+<String id="FaceRoam_Retry">
+Wiederholen
+</String>
+<String id="FaceRoam_UpResult3">
+$NUM$ Emoticon(s) hochgeladen. $NUM2$ Emoticon(s) über $NUM3$K
+</String>
+<String id="FaceRoam_UpResult2">
+$NUM$ Emoticon(s) hochgeladen. Zeitlimit überschritten bei $NUM2$ Emoticon(s).
+</String>
+<String id="FaceRoam_Ignor">
+Ignorieren
+</String>
+<String id="FaceRoam_Uploading">
+Upload läuft:
+</String>
+<String id="FaceRoam_WaitingText">
+Upload läuft. Bitte warten ...
+</String>
+<String id="FaceRoam_MaxPicNum">
+Oberer Grenzwert:
+</String>
+<String id="FaceRoam_AllReadyRoam">
+Online gespeichert
+</String>
+<String id="FaceRoam_CancelOneRoam">
+Vom Server löschen
+</String>
+<String id="FaceRoam_SetRoam">
+Dieses Emoticon online speichern
+</String>
+<String id="FaceRoam_RoamResult">
+Online-Emoticons: $NUM$
+</String>
+<String id="FaceRoam_CancelRoam">
+Diese Gruppe mit Online-Emoticons abbrechen
+</String>
+<String id="FaceRoam_RoamText">
+Diese Gruppe mit Emoticons online speichern
+</String>
+<String id="FaceRoam_RoamTips">
+Sonderrecht für QQ-VIP: Sie können diese Emoticon-Gruppe online speichern.
+</String>
+<String id="ToBeingVip_ThreeReasons">
+Gründe, VIP-Mitglied zu werden
+</String>
+<String id="VipPre_Info_KnowMore">
+Sonderrechte für VIP-Mitglieder
+</String>
+<String id="FaceRoam_Info_KnowMore">
+Weitere Informationen
+</String>
+<String id="FaceRoam_Info_CancelRoam">
+Diese Emoticon-Gruppe wird dauerhaft vom Server gelöscht. Möchten Sie den Vorgang fortsetzen?
+</String>
+<String id="FaceRoam_Info_TextPerVip">
+Für VIP$VIPNUM$ beträgt der Grenzwert für Emoticons $LIMIT$. Nur die ersten $NUM$ Emoticons werden hochgeladen. Fortfahren?
+</String>
+<String id="FaceRoam_Info_TextPerVip_MaxLevel">
+Die Zahl Ihrer Emoticons hat die Online-Speicherbeschränkung für VIP6 überschritten. Nur die ersten $NUM$ werden dieses Mal zugelassen. Möchten Sie sie dennoch online speichern?
+</String>
+<String id="FaceRoam_Info_TextPerGrp">
+Eine einzelne Gruppe darf höchstens $NUM$ Emoticons enthalten. Nur die ersten $NUM$ Emoticons werden hochgeladen. Fortfahren?
+</String>
+<String id="FaceRoam_Info_Text">
+Dieser Dienst kann nur von QQ-VIPs genutzt werden. Werden Sie jetzt VIP und nutzen Sie über 40 Sonderrechte.
+</String>
+<String id="FaceRoam_Info_NoVipCheckForever">
+您还不是QQ会员，开通QQ会员即可永久漫游好友消息记录与图片，还可享受全部50余项会员特权。
+</String>
+<String id="FaceRoam_Info_NoVipConfigRoam">
+您还不是QQ会员，开通QQ会员即可享受包括图片在内全体好友30天以及指定好友永久消息记录漫游。
+</String>
+<String id="RoamFaceFull_OpenYearTip">
+Sie haben die Online-Speicherbeschränkung für die VIP$VIPLevel$-Ebene erreicht. Sie können keine weiteren Elemente hochladen. Holen Sie sich die VIP-Mitgliedschaft für ein Jahr und nutzen Sie mehr Speicherplatz und ein schnelleres Status-Upgrade.
+</String>
+<String id="RoamFaceFull_NoOpenYearTip">
+Sie haben die Online-Speicherbeschränkung für die VIP6-Ebene erreicht. Sie können keine weiteren Elemente hochladen.
+</String>
+<String id="RoamFaceInGroupFull">
+Ihre Emoticons in dieser Gruppe überschreiten die maximale Zahl von $MaxNum$. Bitte zu einer anderen Gruppe hinzufügen.
+</String>
+<String id="RoamFaceInGroupFull_RoamGroup">
+Wenn Sie dieses Emoticon hochladen, wird die gesamte Gruppe ebenfalls hochgeladen. Dadurch wird die maximale Zahl von $MaxNum$ Online-Emoticons überschritten. Bitte zu einer anderen Gruppe hinzufügen.
+</String>
+<String id="NeedRoamGroup">
+Wenn Sie dieses Emoticon hochladen, wird die gesamte Gruppe ebenfalls hochgeladen. Möchten Sie fortfahren?
+</String>
+<String id="RoamGroupFull">
+Wenn Sie dieses Emoticon hochladen, wird die gesamte Gruppe ebenfalls hochgeladen. Sie haben bereits die maximale Zahl von $MaxGroup$ Online-Gruppen erreicht. Sie können keine weiteren Gruppen hochladen. Fügen Sie sie zu einer vorhandenen Online-Gruppe hinzu.
+</String>
+<String id="RoamFaceFull_RoamGroup">
+Wenn Sie dieses Emoticon hochladen, wird die gesamte Gruppe ebenfalls hochgeladen. Dadurch überschreitet die Summe Ihrer Emoticons die maximal zulässige Zahl für VIP$VIPLevel$. Bitte zu einer anderen Gruppe hinzufügen.
+</String>
+<String id="FaceList_AddNew">
+Benutzerdefiniertes Emoticon hinzufügen
+</String>
+<String id="FaceList_DeleteFace">
+Löschen
+</String>
+<String id="FaceList_EditFace">
+Emoticon bearbeiten
+</String>
+<String id="FaceList_MoveTo">
+Verschieben nach
+</String>
+<String id="FaceEdit_ErrWndTitle">
+Tipps
+</String>
+<String id="FaceEdit_ErrNotPromptNext">
+Ich möchte nicht wieder gefragt werden.
+</String>
+<String id="FaceEdit_FontDefault">
+Tahoma
+</String>
+<String id="FaceEdit_FontSetting">
+Schriftart
+</String>
+<String id="FaceEdit_AddToGroup">
+Emoticon zur Gruppe hinzufügen:
+</String>
+<String id="FaceEdit_MoveText">
+Textblase zum Anpassen von Position und Größe ziehen.
+</String>
+<String id="Btn_FaceEdit_OpenVip">
+VIP werden
+</String>
+<String id="FaceEdit_NoVipTextLink">
+Möchten Sie Ihr Emoticon mit einer Sprechblase versehen?
+</String>
+<String id="FaceEdit_NoVipText">
+Möchte $LinkText$
+</String>
+<String id="FaceEdit_ChooseTextFrm">
+Wählen Sie eine Textblase aus:
+</String>
+<String id="FaceEdit_ViewDetail">
+Weitere Informationen
+</String>
+<String id="FaceEdit_VipText">
+Sie können Ihre Emoticons kostenlos mit Sprechblasen versehen!
+</String>
+<String id="Tip_FaceEdit_EditText">
+Kritzeln
+</String>
+<String id="Rich_Edit_To_QQFace">
+Emoticon bearbeiten
+</String>
+<String id="Tip_FaceEdit_Edit">
+Kritzeln
+</String>
+<String id="Tip_FaceEdit_SaveAs">
+Speichern unter ...
+</String>
+<String id="Tip_FaceEdit_Add">
+Emoticon hinzufügen
+</String>
+<String id="Btn_FaceEdit_Cancel">
+Abbrechen
+</String>
+<String id="Btn_FaceEdit_Finish">
+Fertigstellen
+</String>
+<String id="Btn_FaceEdit_Close">
+Schließen
+</String>
+<String id="Btn_SelectAPicture">
+Bild auswählen
+</String>
+<String id="Title_FaceEdit">
+Emoticon mit einer Sprechblase versehen
+</String>
+<String id="CF_CopyToClipBoard">
+Diese URL wurde in die Zwischenablage kopiert.
+</String>
+<String id="Link_CF_Identify">
+Woran kann man falsche Tencent-Websites erkennen?
+</String>
+<String id="Link_CF_Report">
+Bericht
+</String>
+<String id="Link_CF_prevent">
+Betrugsbekämpfungscenter
+</String>
+<String id="Link_CF_CopyUrl">
+URL kopieren
+</String>
+<String id="ClickInst_FAIL_WRITE">
+Das Installationspaket $CON$ wurde nicht gespeichert. Möglicherweise ist Ihre Festplatte schreibgeschützt oder es ist nicht genug Speicherplatz verfügbar.
+</String>
+<String id="ClickInst_FAIL_NET_WITHURL">
+Download des $CON$-Installationspakets fehlgeschlagen. Versuchen Sie es später. Sie können es auch aus dem Internet herunterladen.
+</String>
+<String id="ClickInst_FAIL_NET">
+Das Installationspaket $CON$ wurde nicht heruntergeladen. Überprüfen Sie, ob das Netzwerk ordnungsgemäß verbunden ist, und versuchen Sie es erneut. Sie können das Installationspaket $LINE$ auch von der Website herunterladen.
+</String>
+<String id="ClickInst_FAIL_DOWN_WITHURL">
+Download des $CON$-Installationspakets fehlgeschlagen. Überprüfen Sie die Verbindung und versuchen Sie es erneut. Sie können $LINE$ auch aus dem Internet herunterladen.
+</String>
+<String id="ClickInst_FAIL_DOWN">
+Download des $CON$-Installationspakets fehlgeschlagen. Überprüfen Sie die Verbindung und versuchen Sie es erneut.
+</String>
+<String id="ClickInst_Installing">
+Eines der $CON$ Programme wird installiert
+</String>
+<String id="NewFaceEdit_ErrWndTitle">
+Benachrichtigung über die Aktivierung der VIP-Mitgliedschaft bei QQ
+</String>
+<String id="Button_ClickInst_OpenVip">
+VIP-Mitgliedschaft bei QQ aktivieren
+</String>
+<String id="Button_ClickInst_ErrorOk">
+OK
+</String>
+<String id="ClickInst_DownloadTipText">
+Wenn der Download nur langsam voranschreitet, klicken Sie hier, um den Download von der Website aus zu starten.
+</String>
+<String id="ClickInst_DownloadFromNetText">
+Von Websites herunterladen
+</String>
+<String id="ClickInst_DownloadText">
+Installationspaket $CON$ wird heruntergeladen. Dieser Vorgang kann einige Minuten dauern. Bitte warten ...
+</String>
+<String id="ClickInst_Introduction">
+Was ist $CON$?
+</String>
+<String id="Button_ClickInst_Cancel">
+Abbrechen
+</String>
+<String id="Button_ClickInst_Install">
+Installieren
+</String>
+<String id="Button_ClickInst_DetailBtnText">
+Details
+</String>
+<String id="ClickInst_NeedInst">
+Herzlich willkommen bei $CON$. Bitte führen Sie zunächst die Installation oder das Upgrade aus.
+</String>
+<String id="Title_ClickInst_WndTitle">
+Online-Installation
+</String>
+<String id="Button_Skip">
+Überspringen
+</String>
+<String id="MsgImport_usePassword">
+Sicherheitsfrage
+</String>
+<String id="MsgImport_useQuestion">
+Sicherheitsfrage
+</String>
+<String id="MsgImport_MsgPswdError">
+&lt;text config="RedStatic"&gt;Ungültiges Kennwort. &lt;/text&gt;&lt;text&gt;Bitte erneut eingeben:&lt;/text&gt;
+</String>
+<String id="AutoReplayText3">
+Ich bin gerade beim Essen und melde mich bei Ihnen, wenn ich wieder zurück bin.
+</String>
+<String id="AutoReplayText2">
+Ich arbeite im Moment und möchte nicht gestört werden.
+</String>
+<String id="AutoReplayText1">
+Ich bin im Moment nicht da, aber ich melde mich später bei Ihnen.
+</String>
+<String id="CurrentSatus">
+Status
+</String>
+<String id="MsgTip">
+Nachrichten
+</String>
+<String id="Sound">
+Sounds
+</String>
+<String id="PopupNotify">
+Pop-up-Meldungen
+</String>
+<String id="StartPluginTipContent" fmt="true">
+$PLUGINNAME$ wurde nicht aktiviert. Möchten Sie es aktivieren?
+</String>
+<String id="IDS_SENDFILE_TAB">
+Datei(en) senden
+</String>
+<String id="PluginMgr">
+Meine Anwendungen verwalten
+</String>
+<String id="AppSetting">
+Einstellungen
+</String>
+<String id="FolderNotExist">
+Dieser Ordner ist nicht vorhanden.
+</String>
+<String id="FileNotExist">
+Die Datei wurde nicht gefunden.
+</String>
+<String id="VipIeWnd_Title">
+QQ-VIP-Bereich – Hier finden Sie erweiterte und spezielle Dienste
+</String>
+<String id="SoftKeyboard_Key_BackSpace">
+-
+</String>
+<String id="SoftKeyboard_Key_CapsLock">
+Caps Lock
+</String>
+<String id="SoftKeyboard_Key_Shift">
+Shift
+</String>
+<String id="BeOpen">
+Ein
+</String>
+<String id="FaceMgr_FaceExisted" fmt="true">
+Dieses Emoticon ist bereits in der Kategorie $NAME$ vorhanden.
+</String>
+<String id="SelectContact_Del">
+Löschen
+</String>
+<String id="SelectContact_Add">
+Hinzufügen
+</String>
+<String id="SelectContact_SelectedContacts">
+Ausgewählte Kontakte:
+</String>
+<String id="SelectContact_SelectedContacts_Format">
+Selected Contacts:&#160;$SEL$/$COUNT$
+</String>
+<String id="SelectContact_SelectContact">
+Kontakte auswählen
+</String>
+<String id="SelectContact_InputSearchKeyWord">
+Bitte Stichwort eingeben
+</String>
+<String id="SelectContact_SelectBound">
+Suchen in:
+</String>
+<String id="FaceMgr_Add">
+Hinzufügen
+</String>
+<String id="FaceMgr_Group_2">
+Gruppe
+</String>
+<String id="UseAgreement_Title">
+Softwarelizenz und Dienstvereinbarung
+</String>
+<String id="FaceMgr_Unknown_Error">
+Unbekannter Fehler.
+</String>
+<String id="ConfigCenter_title">
+Einstellungen
+</String>
+<String id="SelectContact_Tip">
+Tipps
+</String>
+<String id="ConfigCenter_SaveFailed">
+Die Einstellungen wurden nicht gespeichert.
+</String>
+<String id="SelectContact_WhetherSaveModification">
+Möchten Sie die Änderungen wirklich speichern?
+</String>
+<String id="ConfigCenter_ChatFrame_TopSettingBtn_More">
+Weitere Einstellungen
+</String>
+<String id="FaceMgr_MoveFaceTip">
+Einige Standard-Emoticons sind gewählt und können nicht verschoben werden. Möchten Sie den Vorgang fortsetzen?
+</String>
+<String id="FaceMgr_Del">
+Löschen
+</String>
+<String id="FaceMgr_FaceMoveNext">
+Rückwärts
+</String>
+<String id="FaceMgr_FaceMovePre">
+Vorwärts
+</String>
+<String id="FaceMgr_Edit">
+Bearbeiten
+</String>
+<String id="FaceMgr_DelFaceTip">
+Einige Standard-Emoticons sind gewählt und können nicht gelöscht werden. Möchten Sie den Vorgang fortsetzen?
+</String>
+<String id="FaceMgr_ModifyFaceGroup">
+Emoticon-Gruppe bearbeiten
+</String>
+<String id="FaceMgr_AddGroupError">
+Unbekannter Fehler. Verwenden Sie andere Namen.
+</String>
+<String id="FaceMgr_GroupNameExist">
+Der Gruppenname ist bereits vorhanden.
+</String>
+<String id="SelectContact_CannotFindContact">
+Nicht gefunden
+</String>
+<String id="SelectContact_MaxContactCount">
+Ihre Kontaktliste ist voll und Sie können keine weiteren Kontakte mehr hinzufügen.
+</String>
+<String id="SelectContact_AllContacts">
+Alle Kontakte
+</String>
+<String id="SelectContact_AllGroupMembers">
+Alle Gruppenmitglieder
+</String>
+<String id="SelectContact_AllFriends">
+Alle Freunde
+</String>
+<String id="FaceMgr_ModifyCustomFace">
+Benutzerdefiniertes Emoticon bearbeiten
+</String>
+<String id="FaceMgr_RemoveAllFaceWhileDelGroup">
+Die Gruppe löschen und ihre Emoticons verschieben nach
+</String>
+<String id="FaceMgr_DelCurGroupAllFaces">
+Alle Emoticons in der Gruppe löschen
+</String>
+<String id="FaceMgr_DelFaceGroup">
+Emoticon-Gruppe löschen
+</String>
+<String id="FaceMgr_MoveNext">
+Rückwärts
+</String>
+<String id="FaecMgr_MovePre">
+Vorwärts
+</String>
+<String id="FaceMgr_SelectAll">
+Alle
+</String>
+<String id="FaceMgr_ImportExport">
+Importieren und exportieren
+</String>
+<String id="FaceMgr_GroupManage">
+Gruppenverwaltung
+</String>
+<String id="FaceMgr_MoveTo">
+Verschieben nach
+</String>
+<String id="FaceMgr_DelFace">
+Löschen
+</String>
+<String id="FaceMgr_ModifyFace">
+Bearbeiten
+</String>
+<String id="FaceMgr_AddFace">
+Hinzufügen
+</String>
+<String id="FaceMgr_Selected__More_Files">
+Mehrere Dateien gewählt
+</String>
+<String id="FaceMgr_Emotion_FileType">
+Bilddateien (*.jpg;*.jpeg;*.bmp;*.gif;*.png)|*.jpg;*.jpeg;*.bmp;*.gif;*.png|(*.jpg;*.jpeg)|*.jpg;*.jpeg|(*.bmp)|*.bmp|(*.gif)|*.gif|(*.png)|*.png||
+</String>
+<String id="FaceMgr_Succ_To_Add_Faces">
+Sie haben $COUNT$ Emoticons hinzugefügt. $OVERSIZE$$EXIST$.
+</String>
+<String id="FaceMgr_Some_Faces_OverSize">
+Die Emoticon-Größe $COUNT$ ist zu groß
+</String>
+<String id="FaceMgr_Exist_Some_Faces">
+, $COUNT$ Emoticons vorhanden.
+</String>
+<String id="FaceMgr_Picture_No_Exist">
+Emoticon-Datei nicht vorhanden.
+</String>
+<String id="FaceMgr_Picture_OverSize">
+Bild ist zu groß. Klicken Sie zum Senden auf "Bild senden".
+</String>
+<String id="FaceMgr_Single_Add_Succ_Title">
+Tipps
+</String>
+<String id="FaceMgr_Single_Add_Succ">
+Das Emoticon wurde zu der Gruppe $GROUP$ hinzugefügt.
+</String>
+<String id="FaceMgr_Face_Exist">
+Das Emoticon ist bereits vorhanden.
+</String>
+<String id="FaceMgr_Modify_Fail">
+Bearbeitung wurde nicht durchgeführt.
+</String>
+<String id="FaceMgr_Add_Fail">
+Hinzufügen wurde nicht durchgeführt
+</String>
+<String id="FaceMgr_Cannot_obliqueLine_As_Shortcut">
+"/" kann nicht für den Schnellzugriff verwendet werden.
+</String>
+<String id="FaceMgr_Export_Group">
+Exportieren
+</String>
+<String id="FaceMgr_Import_Face">
+Importieren
+</String>
+<String id="FaceMgr_Export_All_CustomFaces">
+Alle benutzerdefinierten Emoticons exportieren
+</String>
+<String id="FaceMgr_Export_Cur_Group_CustomFaces">
+Benutzerdefinierte Emoticons von der Gruppe exportieren
+</String>
+<String id="FaceMgr_Export_Sel_Faces">
+Ausgewählte benutzerdefinierte Emoticons exportieren
+</String>
+<String id="FaceMgr_Del_Group">
+Gruppe löschen
+</String>
+<String id="FaceMgr_Rename">
+Umbenennen
+</String>
+<String id="FaceMgr_Group_MoveNext">
+Nach rechts verschieben
+</String>
+<String id="FaceMgr_Group_MovePre">
+Nach links verschieben
+</String>
+<String id="FaceMgr_AddGroup">
+Gruppe hinzufügen
+</String>
+<String id="FaceMgr_Import_Some_Faces">
+Sie haben $COUNT$ Emoticon(s) importiert.
+</String>
+<String id="FaceMgr_Import_Result">
+Sie haben $TOTALCOUNT$ Emoticon(s) importiert. $EXISTCOUNT$ Emoticon(s) vorhanden.
+</String>
+<String id="FaceMgr_Export_Face_Fail">
+Export wurde nicht durchgeführt.
+</String>
+<String id="FaceMgr_Export_Face_Succ">
+Die Emoticons wurden exportiert.
+</String>
+<String id="FaceMgr_FaceExportFile">
+Exportdateien (*.eif)|*.eif||"
+</String>
+<String id="FaceMgr_Exporting_Face">
+Emoticons werden exportiert. Bitte warten ...
+</String>
+<String id="FaceMgr_Have_None_CustomFace">
+Kein benutzerdefiniertes Emoticon.
+</String>
+<String id="FaceMgr_Tip">
+Tipps
+</String>
+<String id="FaceMgr_CurSel_None_CustomFace">
+Kein benutzerdefiniertes Emoticon ausgewählt.
+</String>
+<String id="FaceMgr_FaceManage">
+Emoticons
+</String>
+<String id="FaceMgr_Whether_Import_GroupInfo">
+Möchten Sie die Gruppeneinstellungen wirklich importieren?
+</String>
+<String id="FaceMgr_FacePack">
+Alle Dateien (*.eip;*.eif)|*.eip;*.eif| Emoticon-Pakete (*.eip)|*.eip| Emoticon-Exportdateien (*.eif)|*.eif||
+</String>
+<String id="FaceMgr_Importing_Face">
+Emoticons werden importiert. Bitte warten ...
+</String>
+<String id="QQFace_ImportPacking">
+正在导入"$packName$
+</String>
+<String id="QQFace_ImportWait">
+"表情包，请耐心等待...
+</String>
+<String id="QQFace_ImportPackWhenBusy">
+正在导入"$packName$"表情包，请稍后重试!
+</String>
+<String id="Link_CF_SaveUrl">
+Favoriten hinzufügen
+</String>
+<String id="CF_IMPEACH">
+Melden
+</String>
+<String id="CF_COPY">
+Kopieren
+</String>
+<String id="CF_OPEN_URL">
+URL öffnen
+</String>
+<String id="CF_Only_Open_Safe_URL" fmt="true">
+Öffnen Sie zum Schutz von $__PNAME$ nur vertrauenswürdige URLs.
+</String>
+<String id="FaceMgr_GroupName">
+Gruppenname:
+</String>
+<String id="FaceMgr_Cancel">
+Abbrechen
+</String>
+<String id="FaceMgr_OK">
+OK
+</String>
+<String id="FaceMgr_Use_FileName_As_Name">
+Dateinamen als Emoticon-Namen verwenden
+</String>
+<String id="FaceMgr_Use_FileName_As_ShortCut">
+Dateinamen für den Schnellzugriff verwenden
+</String>
+<String id="FaceMgr_Next_Photo">
+Weiter
+</String>
+<String id="FaceMgr_Pre_Photo">
+Zurück
+</String>
+<String id="FaceMgr_EmotionName">
+Name (optional):
+</String>
+<String id="FaceMgr_Max_Six_Character">
+max. 6 Zeichen
+</String>
+<String id="FaceMgr_ShortCut">
+Schnellzugriff (optional):
+</String>
+<String id="FaceMgr_AddNewGroup_Tip">
+Neue Emoticon-Gruppe
+</String>
+<String id="FaceMgr_AddNewGroup">
+Gruppe hinzufügen
+</String>
+<String id="FaceMgr_Group">
+Gruppe:
+</String>
+<String id="FaceMgr_Browse">
+Durchsuchen
+</String>
+<String id="FaceMgr_SelectPic">
+Ein Bild auswählen:
+</String>
+<String id="FaceMgr_AddCustomFace">
+Benutzerdefiniertes Emoticon hinzufügen
+</String>
+<String id="FaceMgr_RoamNewFace">
+Die hinzugefügten Emoticons hochladen
+</String>
+<String id="LoginPanel_ReLogin">
+Erneut anmelden
+</String>
+<String id="LoginPanel_CantZero">
+Geben Sie Ihre ID ein.
+</String>
+<String id="LoginPanel_ExceedAppNum">
+Sie können sich nicht mit weiteren IDs bei QQ anmelden.
+</String>
+<String id="LoginPanel_TheSameAccount">
+Diese ID ist bereits angemeldet: $ACCOUNT$.
+</String>
+<String id="LoginPanel_NewEncypt">
+Einloggen mit neuer Verschlüsselung ist erforderlich!
+</String>
+<String id="LoginPanel_TimeOut">
+Beim Anmelden wurde das Zeitlimit überschritten!
+</String>
+<String id="LoginPanel_NotClear">
+Ein anderes Bild verwenden
+</String>
+<String id="LoginPanel_NoCaplock">
+Groß-/Kleinschreibung nicht beachten
+</String>
+<String id="LoginPanel_Safe2">
+Prüfcode:
+</String>
+<String id="LoginPanel_AccountExsistException">
+账号存在异常
+</String>
+<String id="LoginPanel_Validate">
+Identitätsprüfung
+</String>
+<String id="LoginPanel_Update">
+Jetzt herunterladen
+</String>
+<String id="LoginPanel_InvalidAccountPrompt">
+Geben Sie eine gültige ID ein, entweder Ihre QQ-Nummer oder Ihre E-Mail-Adresse.
+</String>
+<String id="LoginPanel_Close">
+Schließen
+</String>
+<String id="LoginPanel_Ok">
+OK
+</String>
+<String id="LoginPanel_LoginFailed">
+Tipps
+</String>
+<String id="AddBuddy_ValidateCodeTimeOut">
+Beim Laden des Prüfcodes wurde das Zeitlimit überschritten.
+</String>
+<String id="AddBuddy_GetValidateCodeFailed">
+Fehler beim Laden des Validierungscodes
+</String>
+<String id="LoginPanel_PwdGuardPrompt">
+Sie haben die Ausführung einer Sicherheitsvalidierung vor der Einloggen beantragt.
+</String>
+<String id="LoginPanel_DelAccount_InUse">
+Diese ID wird verwendet und kann nicht gelöscht werden.
+</String>
+<String id="LoginPanel_DelAccount_Title">
+ID löschen
+</String>
+<String id="LoginPanel_DelAccountAllMsg_Prompt">
+Achtung: Durch diesen Vorgang werden alle mit dieser ID verbundenen Dateien gelöscht (einschließlich des Nachrichtenverlaufs).
+</String>
+<String id="LoginPanel_DelAccountAllMsg">
+Alle mit dieser ID verbundenen Dateien löschen
+</String>
+<String id="LoginPanel_DelAccountFromList">
+Diese ID von der Liste löschen
+</String>
+<String id="LoginPanel_InputPswBeforeLogin">
+Geben Sie Ihr Kennwort ein.
+</String>
+<String id="LoginPanel_IM_Fail" fmt="true">
+Die Überprüfung wurde nicht durchgeführt. Die Datei in $__PNAME$ ist vermutlich beschädigt, und Sie müssen $__PNAME$ erneut installieren.
+</String>
+<String id="AddBuddy_WillAddThisBuddy">
+Der folgende Benutzer wird hinzugefügt.
+</String>
+<String id="AddBuddy_AllowViewQZone">
+Ihm/ihr erlauben, meine Qzone in einer Woche zu besuchen
+</String>
+<String id="AddBuddy_GettingValidateInfo">
+Validierungsmeldung wird geladen
+</String>
+<String id="AddBuddy_GettingConfirmType">
+Wird geladen, bitte warten
+</String>
+<String id="AddBuddy_ToBlackList">
+Anfragen von dieser Person blockieren
+</String>
+<String id="AddBuddy_AddRemark">
+Anzeigename:
+</String>
+<String id="AddBuddy_Add">
+Kontaktanfrage
+</String>
+<String id="AddBuddy_Close">
+Schließen
+</String>
+<String id="AddBuddy_Cancel">
+Abbrechen
+</String>
+<String id="AddBuddy_InputValidateInfo">
+Bitte geben Sie Ihre Anfrage ein:
+</String>
+<String id="AddBuddy_BeAskedToAnswer">
+Diese Person bittet Sie, zu Validierungszwecken Fragen zu beantworten:
+</String>
+<String id="Addbuddy_Vip_Viewdetails">
+Weitere Informationen
+</String>
+<String id="AddBuddy_Addtional">
+Nachricht:
+</String>
+<String id="AddBuddy_Session">
+Chat
+</String>
+<String id="AddBuddy_Group">
+Kategorie:
+</String>
+<String id="AddBuddy_Accept">
+$CON$ hat Ihre Anfrage akzeptiert.
+</String>
+<String id="AddBuddy_BeRefused">
+&lt;link config="RSLinkTextHandNode"  label="$label$"&gt;$CON$&lt;/link&gt;拒绝了您的添加请求
+</String>
+<String id="AddBuddy_BeRefused_NoAccount">
+&lt;static&gt;$CON$&lt;/static&gt;拒绝了您的添加请求
+</String>
+<String id="AddBuddy_OneThousandPrompt">
+&lt;link config="RSLinkTextHandNode" label="OneThousandPrompt"&gt;提升好友上限至1000人&lt;/link&gt;
+</String>
+<String id="AddBuddy_Separate_IfFeelBother">
+Zum Schutz Ihrer Privatsphäre können Sie zu schützen:
+</String>
+<String id="AddBuddy_Separate_AlreadyFriend">
+您可以:
+</String>
+<String id="AddBuddy_AddMoreBuddy">
+您可以继续添加可能认识的人:
+</String>
+<String id="AddBuddy_MoreOperation_MgrBuddy">
+使用&lt;link config="RSLinkTextHandNode" label="BuddyMgr"&gt;好友管理器&lt;/link&gt;删除部分QQ好友后再添加。
+</String>
+<String id="AddBuddy_MgrBuddy">
+管理好友
+</String>
+<String id="AddBuddy_MoreOperation_OpenVip">
+开通QQ会员，升级您的好友上限。
+</String>
+<String id="AddBuddy_MoreOperation_ModifyFolder">
+Sie können den Anzeigenamen und die Kategorie ändern
+</String>
+<String id="AddBuddy_FolderAuth_Caption">
+当前选中分组权限
+</String>
+<String id="AddBuddy_FolderAuth_Setting">
+设置好友分组权限
+</String>
+<String id="AddBuddy_FolderAuth_Line1">
+允许访问空间
+</String>
+<String id="AddBuddy_FolderAuth_Line2">
+允许查看所有个人资料
+</String>
+<String id="AddBuddy_FolderAuth_Line3">
+隐身对该分组可见
+</String>
+<String id="AddBuddy_FolderAuth_Line4">
+在线对该分组隐身
+</String>
+<String id="AddBuddy_FolderAuth_Line5">
+7天内允许对方查看我的QQ空间
+</String>
+<String id="AddBuddy_MoreOperation_Report">
+&lt;link config="RSLinkTextHandNode" label="LinkLabel_2ndPwd"&gt;Denunzieren&lt;/link&gt; diese person
+</String>
+<String id="AddBuddy_MoreOperation_AuthSetting">
+Bearbeiten&lt;link config="RSLinkTextHandNode" label="LinkLabel_2ndPwd"&gt; Identitätsprüfung&lt;/link&gt;.
+</String>
+<String id="AddBuddy_AcceptCheckImpeach">
+Wenn Sie belästig werden, &lt;link config="RSLinkTextHandNode" label="melden"&gt;melden&lt;/link&gt; Sie den betreffenden Nutzer oder ändern Sie Ihre &lt;link config="RSLinkTextHandNode" label="DisturbPrevent"&gt;Anti-Belästigungs-Einstellungen&lt;/link&gt;.
+</String>
+<String id="Button_NewGrp">
+Erstellen Sie eine neue Kategorie
+</String>
+<String id="AddBuddy_Reject">
+Ablehnen
+</String>
+<String id="AddBuddy_Agree">
+Akzeptieren
+</String>
+<String id="AddBuddy_AgreeAndAdd">
+Akzeptieren und zu meiner Kontaktliste hinzufügen
+</String>
+<String id="AddBuddy_RejectReason">
+Bitte geben Sie Ihre Begründung ein.
+</String>
+<String id="ACCOUNTMGR">
+IDs und Profile verwalten
+</String>
+<String id="Help_ViewUserAgreement">
+Benutzervereinbarung anzeigen
+</String>
+<String id="Button_Cancel">
+&amp;Abbrechen
+</String>
+<String id="Button_OK">
+&amp;OK
+</String>
+<String id="Copyright_Info">
+TENCENT Inc. Alle Rechte vorbehalten.
+Copyright(C) 1998-2014 TENCENT Inc. Alle Rechte vorbehalten.
+</String>
+<String id="GIPS_VERSION_INFO">
+Teile: Copyright (C) 1999-2014 Global IP Sound Inc.
+    Alle Rechte vorbehalten. Global IP Sound, GIPS, SoundWare, NetEQ, iPCM, iLBC, GIPS VoiceEngine und die damit verbundenen Designmarken und -logos sind Warenzeichen, deren Eigentümer oder durch Lizenz berechtigter Inhaber Global IP Sound AB ist, und können in den USA und anderen Ländern eingetragen sein.
+    Patente und zum Patent angemeldet: Global IP Sound Inc.
+    www.globalipsound.com
+
+Die Purevoice-SDK-Technologie und die zugehörigen Warenzeichen sind Eigentum von QUALCOMM Incorporated.
+Patente und Warenzeichen: QUALCOMM Incorporated.
+</String>
+<String id="AboutDlg_Title" fmt="true">
+Über $__PNAME_V_SV$
+</String>
+<String id="ValidateCode_Prompt">
+Zum Schutz Ihrer ID müssen wir Ihre ID überprüfen. Geben Sie die Zeichen ein, die Sie unten im Bild sehen.
+</String>
+<String id="ValidateCode_UnknowError">
+Im Prüfcode ist ein unbekannter Fehler aufgetreten.
+</String>
+<String id="ValidateCode_CheckTimeOut">
+Zeitüberschreitung bei der Überprüfung
+</String>
+<String id="ValidateCode_ValidateCodeNull">
+Sie müssen den Prüfcode eingeben.
+</String>
+<String id="ValidateCode_CheckFailed">
+Der Prüfcode ist ungültig
+</String>
+<String id="ValidateCode_GetTimeOut">
+Beim Abrufen des Prüfcodes wurde das Zeitlimit überschritten.
+</String>
+<String id="ValidateCode_GetFailed">
+Validierungscode wurde nicht geladen
+</String>
+<String id="Field_ChineseMonth_Extra">
+Schaltjahr
+</String>
+<String id="ContactInfoTab_Setting">
+Einstellungen
+</String>
+<String id="ContactInfo_Year">
+</String>
+<String id="ContactInfo_Day"> 
+</String>
+<String id="ContactInfo_Month_12">
+Dezember
+</String>
+<String id="ContactInfo_Month_11">
+November
+</String>
+<String id="ContactInfo_Month_10">
+Oktober
+</String>
+<String id="ContactInfo_Month_9">
+September
+</String>
+<String id="ContactInfo_Month_8">
+August
+</String>
+<String id="ContactInfo_Month_7">
+Juli
+</String>
+<String id="ContactInfo_Month_6">
+Juni
+</String>
+<String id="ContactInfo_Month_5">
+Mai
+</String>
+<String id="ContactInfo_Month_4">
+April
+</String>
+<String id="ContactInfo_Month_3">
+März
+</String>
+<String id="ContactInfo_Month_2">
+Februar
+</String>
+<String id="ContactInfo_Month_1">
+Januar
+</String>
+<String id="TIP_NEGLECTS">
+Blinken abbrechen
+</String>
+<String id="TIP_VIEWALL">
+Alle anzeigen
+</String>
+<String id="SubItem_ImportTip_MsgImport">
+Import-Tool
+</String>
+<String id="Text_MSGImport_BlueBarTip" fmt="true">
+QQ bietet ein Import-Tool zum Importieren von Verlaufsnachrichten. Sie können es über die Option "Nachrichten verwalten" starten oder indem Sie im Hauptmenü von $__PNAME$ "Tools" wählen.
+</String>
+<String id="MSGMGR_SECURITYSYSMSG">
+Nachrichten des Sicherheitscenters
+</String>
+<String id="MSGMGR_SYSMSG">
+System
+</String>
+<String id="Menu_MoveTo_BlackList">
+Dauerhaft blockieren
+</String>
+<String id="Menu_Delete_Friend">
+Kontakt löschen
+</String>
+<String id="ImpeachFrame_SafePrompt">
+Helfen Sie uns beim Aufbau einer gesunden Netzwerkumgebung!
+</String>
+<String id="ImpeachFrame_Url_Explain">
+Beschreiben Sie die schädlichen Handlungen ausführlich.
+</String>
+<String id="ImpeachFrame_Uin_Explain">
+Geben Sie hier einen kurzen Kommentar ein.
+</String>
+<String id="Option_ImpeachFrame_AlsoImpeachUin">
+Auch die Benutzer-ID melden
+</String>
+<String id="ImpeachFrame_BadUrl">
+Schädliche URL:
+</String>
+<String id="ImpeachFrame_ImpeachUrl">
+Schädliche Handlungen melden
+</String>
+<String id="Button_NewsTipBtnViewAll">
+Klicken, um alle anzuzeigen
+</String>
+<String id="Button_NewsTipBtnViewMore">
+查看更多新闻
+</String>
+<String id="Button_NewsTipBtnView">
+Ansicht
+</String>
+<String id="Button_NewsTipBtnOption">
+设置
+</String>
+<String id="Button_NewsTipBtnReply">
+回复
+</String>
+<String id="Button_NewsTipBtnWBShare">
+分享到腾讯微博
+</String>
+<String id="Button_NewsTipBtnWB">
+分享
+</String>
+<String id="Button_ImpeachFrame_Cancel">
+Abbrechen
+</String>
+<String id="Button_ImpeachFrame_Submit">
+Absenden
+</String>
+<String id="Link_ImpeachFrame_Deal">
+Wie wir mit Benutzerberichten umgehen
+</String>
+<String id="ImpeachFrame_SelectProof">
+Wählen Sie mindestens eine aktuelle Nachricht als Nachweis aus.
+</String>
+<String id="Option_ImpeachFrame_Reason5">
+Sonstige
+</String>
+<String id="Option_ImpeachFrame_Reason4">
+Erpressung
+</String>
+<String id="Option_ImpeachFrame_Reason3">
+Spam
+</String>
+<String id="Option_ImpeachFrame_Reason2">
+Viren
+</String>
+<String id="Option_ImpeachFrame_Reason1">
+Täuschungen
+</String>
+<String id="Link_ImpeachFrame_ImpeachMore">
+Weitere Meldungen
+</String>
+<String id="ImpeachFrame_Description">
+Kommentare:
+</String>
+<String id="ImpeachFrame_ImpeachProof">
+Nachweis:
+</String>
+<String id="ImpeachFrame_ImpeachReason">
+Einen Grund auswählen:
+</String>
+<String id="ImpeachFrame_BadUin">
+Schädliche QQ-ID:
+</String>
+<String id="ImpeachFrame_ImpeachUin">
+Schädliche QQ-ID melden
+</String>
+<String id="Title_Impeach">
+Melden
+</String>
+<String id="Link_AddFrend_Impeach_User">
+Melden
+</String>
+<String id="Btn_ChatFrame_Impeach">
+Melden
+</String>
+<String id="Tips_ChatFrame_Impeach">
+Melden
+</String>
+<String id="Menu_Impeach_User">
+Melden
+</String>
+<String id="Menu_Impeach">
+Melden
+</String>
+<String id="ImpeachOuterFrame_Title">
+Melden
+</String>
+<String id="MainPanel_Menu_V">
+Keine Benachrichtigung bei Empfang
+</String>
+<String id="MainPanel_Menu_U">
+Nur die Nachrichtenmenge wird angezeigt
+</String>
+<String id="MainPanel_Menu_T">
+Pop-up-Meldungen
+</String>
+<String id="MainPanel_Menu_S">
+Benachrichtigung bei Empfang
+</String>
+<String id="Rich_Append_To_QQFace">
+&amp;Emoticon hinzufügen
+</String>
+<String id="CF_ImpeachPic">
+Dieses Bild melden
+</String>
+<String id="Rich_Pic_Saveas">
+&amp;Speichern unter ...
+</String>
+<String id="Rich_Menu_UserZYFInputFace">
+E&amp;moticons per Schnellzugriff eingeben
+</String>
+<String id="Rich_Menu_SelectAll">
+&amp;Alle auswählen
+</String>
+<String id="Rich_Menu_Font">
+Schri&amp;ftart
+</String>
+<String id="Rich_Menu_Paste">
+E&amp;infügen
+</String>
+<String id="Rich_Menu_Copy">
+&amp;Kopieren
+</String>
+<String id="Rich_Menu_OpenFolder">
+O&amp;rdner öffnen
+</String>
+<String id="Rich_Menu_Open">
+&amp;Öffnen
+</String>
+<String id="Rich_Menu_Cut">
+Au&amp;sschneiden
+</String>
+<String id="CF_DISCUSSTOPTOOLBAR_EXIT">
+Verlassen
+</String>
+<String id="CF_DISCUSSTOPTOOLBAR_ADD">
+Einen Freund einladen
+</String>
+<String id="CF_DISCUSSTOPTOOLBAR_SETTING">
+Diskussionseinstellungen
+</String>
+<String id="CF_TUSERINFO_PERTITLE">
+Beschreibung
+</String>
+<String id="CF_TUSERINFO_CITYTITLE">
+Ort
+</String>
+<String id="CF_TUSERINFO_PROVICETITLE">
+Bundesstaat/Provinz
+</String>
+<String id="CF_TUSERINFO_AGETITLE">
+Alter
+</String>
+<String id="CF_TUSERINFO_NICKTITLE">
+Nickname
+</String>
+<String id="CF_GROUPUSERINFO_NAMETITLE">
+Name
+</String>
+<String id="CF_GROUPUSERINFO_SEXTITLE">
+Geschlecht
+</String>
+<String id="CF_GROUPUSERINFO_TELTITLE">
+Telefon
+</String>
+<String id="CF_GROUPUSERINFO_EMAILTITLE">
+E-Mail
+</String>
+<String id="CF_GROUPUSERINFO_REMARDTITLE">
+Anzeigename
+</String>
+<String id="Btn_TempSession_Setting">
+Chat-Einstellungen
+</String>
+<String id="Btn_TempSession_Block">
+Blockieren
+</String>
+<String id="CF_Discuss_Title_EDIT">
+Zum Bearbeiten des Themas anklicken
+</String>
+<String id="CF_Discuss">
+Diskussion:
+</String>
+<String id="CF_Group">
+Gruppen:
+</String>
+<String id="CF_TempSession_Title1">
+Temporäre Nachrichten
+</String>
+<String id="CF_TempSession_Title">
+Chat
+</String>
+<String id="Text_TipDlgContentText4_2">
+Doppelklick auf das Video zu aufnehmen.
+</String>
+<String id="Text_TipDlgContentText4">
+Doppelklick auf das Video zu starten.
+</String>
+<String id="Text_TipDlgContentText3_DynaMovie_Complete">
+das Video, um die Aufnahme zu beenden.
+</String>
+<String id="Text_TipDlgContentText3_DynaMovie_Start">
+das Video zu starten.
+</String>
+<String id="Text_TipDlgContentText3_DynaPic">
+Video zu aufnehmen.
+</String>
+<String id="Text_TipDlgContentText3_DynaPic_2">
+Doppelklick auf
+</String>
+<String id="Text_TipDlgContentText2">
+ Sekunden verbleiben.
+</String>
+<String id="Menu_DynaCaptureMovie">
+Videoclip aufzeichnen
+</String>
+<String id="Menu_DynaCapturePicture">
+Videobild aufnehmen
+</String>
+<String id="Menu_DynaCaptureConfig">
+Einstellungen für Clip-Aufnahmen
+</String>
+<String id="CF_CAMERA_SHOWTOOLBAR">
+Symbolleiste für Bildschirmaufnahme anzeigen
+</String>
+<String id="CF_CAMERA_HIDDENCURRENTWINDOWS">
+Chat-Fenster beim Aufnehmen von Bildern ausblenden
+</String>
+<String id="CF_ENTER_SENDMSG_TIP">
+Zum Senden von Nachrichten die Eingabetaste drücken; zum Beginnen in einer neuen Zeile Strg + Eingabetaste drücken.
+</String>
+<String id="CF_VIEWHISTORY_TIP">
+Nachrichtenverlauf anzeigen
+</String>
+<String id="CF_CUTSCREEN_TIP">
+Bildschirmaufnahme Strg+Alt+A
+</String>
+<String id="CF_SENDPIC_TIP">
+Bild einfügen
+</String>
+<String id="CF_TWITTER_TIP">
+Ein Klingelzeichen an den Kontakt senden
+</String>
+<String id="CF_SETFONT_TIP">
+Schrift-Symbolleiste
+</String>
+<String id="CF_SELECTFLIRTATIONFACE_TIP">
+Anstupser auswählen
+</String>
+<String id="CF_SETFACE_TIP">
+Emoticon einfügen
+</String>
+<String id="CF_QUICKBAR_MORE">
+更多功能
+</String>
+<String id="CF_BEPREVENT_TIP">
+Sie haben diesen Kontakt blockiert. Wenn er/sie Ihnen Nachrichten sendet, werden Sie nicht benachrichtigt.
+</String>
+<String id="CF_SELF_OFFLINE">
+Sie können keine Nachrichten senden, solange Sie offline sind.
+</String>
+<String id="CF_SENDTEMPSESSION_ERROR">
+Sie müssen diese Person erst Ihrer Kontaktliste hinzufügen, bevor Ihre Nachricht gesendet werden kann.
+</String>
+<String id="CF_EDITMSG_LARGE_MESSAGE">
+Die Nachricht ist zu lang. Bitte teilen Sie sie in mehrere Nachrichten auf und senden Sie sie erneut.
+</String>
+<String id="CF_EDITMSG_NONE_MESSAGE">
+Sie müssen das Feld "Nachricht" ausfüllen.
+</String>
+<String id="CF_EDITMSG_DELETEIMAGE_MESSAGE">
+Das Bild in Ihrer Nachricht wurde möglicherweise gelöscht. Die Nachricht kann nicht gesendet werden.
+</String>
+<String id="CF_PICTURE_OVERSIZE">
+Das Bild in der Nachricht darf höchstens 1 MB groß sein. Bearbeiten Sie das Bild und senden Sie es erneut.
+</String>
+<String id="IDS_SAVE_PICTURE">
+Bild speichern
+</String>
+<String id="CF_OPEN_PICTURE">
+Bilder öffnen
+</String>
+<String id="CF_Pic_Open_Filter">
+Bilddateien (*.bmp;*.jpg;*.jpeg;*.gif)|*.jpg;*.jpeg;*.bmp;*.gif||"
+</String>
+<String id="CF_Pic_Save_Filter_GIF">
+Bilddateien (*.gif)| *.gif |Bilddateien (*.jpg)| *.jpg| Bilddateien (*.bmp)| *.bmp||"
+</String>
+<String id="CF_Pic_Save_Filter_JPG">
+Bilddateien (*.jpg)| *.jpg| Bilddateien (*.bmp)| *.bmp||"
+</String>
+<String id="CF_Pic_Save_Filter_PNG">
+Bilddateien (*.png)| *.png||"
+</String>
+<String id="CF_Pic_Save_Filter">
+Bilddateien (*.bmp;*.jpg;*.jpeg;*.gif)|*.jpg;*.jpeg;*.bmp;*.gif|Alle Dateien (*.*)|*.*||"
+</String>
+<String id="CF_Pic_Save_Name">
+Unbenannt
+</String>
+<String id="CF_GROUPPLUGIN_GROUPMEMLIST">
+Mitgliederliste
+</String>
+<String id="CF_TEMPSESSION_EXCEPTION">
+Gründe:
+</String>
+<String id="CF_TEMPSESSION_VIEWLOGIN">
+查看登录地
+</String>
+<String id="CF_TEMPSESSION_LOGINPROTECT">
+设置登录保护
+</String>
+<String id="CF_TEMPSESSION_CODE">
+Prüfcode:
+</String>
+<String id="CF_CLOSE">
+&amp;Schließen
+</String>
+<String id="CF_SENDMSG">
+&amp;Senden
+</String>
+<String id="Button_TempSession_Cancel">
+Abbrechen
+</String>
+<String id="Button_TempSession_OK">
+OK
+</String>
+<String id="CF_TEMPSESSION_SessionInvalid">
+Sie können nicht mehr in diesem Fenster chatten. Bitte rufen Sie von der Kontaktliste aus ein neues Fenster auf.
+</String>
+<String id="CF_TEMPSESSION_OLDWPAADDFRIEND">
+Fügen Sie erst den Kontakt hinzu, bevor Sie Nachrichten senden.
+</String>
+<String id="CF_MSGHISTORY_EnableMsgFlow">
+Kürzlich gesendete Nachrichten zusammenführen
+</String>
+<String id="CF_MSGHISTORY_CLEAR">
+Alle löschen
+</String>
+<String id="CF_MSGHISTORY_NOTSHOW">
+Nachrichtenverlauf ausblenden
+</String>
+<String id="CF_MSGHISTORY_SHOW">
+Nachrichtenverlauf anzeigen
+</String>
+<String id="SEARCH_CLEAR">
+Löschen
+</String>
+<String id="CF_MSGHISTORY_SHOWRATIO">
+Größe anzeigen
+</String>
+<String id="CF_MSGHISTORY">
+Nachrichtenverlauf
+</String>
+<String id="CF_GROUPMSG_TIP">
+Keine Benachrichtigung bei Empfang
+</String>
+<String id="CF_EXITDISCUSS_FAIL">
+Die folgende Diskussion wurde nicht verlassen: $DISCUSSNAME$. Bitte versuchen Sie es erneut.
+</String>
+<String id="CF_EXITDISCUSS_SUCCESS">
+Sie haben die folgende Diskussion verlassen: $DISCUSSNAME$.
+</String>
+<String id="CF_CREATEDISCUSS_FAIL">
+Die Diskussion wurde nicht erstellt. Versuchen Sie es erneut.
+</String>
+<String id="CF_EXITDISCUSS_TIPS">
+Möchten Sie diese Diskussion wirklich verlassen?
+</String>
+<String id="CF_TEMPSESSION_OPENGROUPCARD">
+Meine Gruppenkarte bearbeiten
+</String>
+<String id="CF_TEMPSESSION_GROUPTITLE">
+Gruppen
+</String>
+<String id="CF_MESSAGE_TITLE">
+Tipps
+</String>
+<String id="CF_GROUPPLUGIN_GROUPMEMO">
+Gruppenaktualisierungen
+</String>
+<String id="BTN_GROUPMEMMENU_ADDFRIEND">
+Hinzufügen
+</String>
+<String id="CF_GROUPMEMMENU_ADDFRIEND">
+Zur Kontaktliste hinzufügen
+</String>
+<String id="CF_GROUPTOPTOOLBAR_SETTING">
+Gruppeneinstellungen
+</String>
+<String id="CF_DISUCSS_INFO">
+Diskussionsinfo
+</String>
+<String id="CF_GROUP_INFO">
+Gruppeninfo
+</String>
+<String id="CF_CHATSCENE_QQSHOW">
+Bild
+</String>
+<String id="CF_GROUPCARD_TAB">
+Gruppenkarte
+</String>
+<String id="CF_CHATSCENE_TAB">
+Profil
+</String>
+<String id="CF_GETGROUPPIC_TIP">
+Klicken Sie hier, um das Bild anzuzeigen.
+</String>
+<String id="CF_GROUPCODE_NAME" fmt="true">
+($$FLAG$$) $$CLASS$$
+</String>
+<String id="CF_EDITMSG_NONE_IMAGE">
+Das Bild in Ihrer Nachricht wurde möglicherweise gelöscht. Die Nachricht kann nicht gesendet werden.
+</String>
+<String id="CF_ADDMEM_FAIL_FULL">
+Ihre Kontaktliste ist voll und Sie können keine Kontakte mehr hinzufügen.
+</String>
+<String id="BTN_BUDDYTOPTOOLBAR_INVITE">
+Diskussion
+</String>
+<String id="CF_BUDDYTOPTOOLBAR_INVITE">
+Abstimmung erzeugen
+</String>
+<String id="Btn_BUDDYTOPTOOLBAR_APPLICATION">
+Übernehmen
+</String>
+<String id="CF_BUDDYTOPTOOLBAR_APPLICATION">
+Weitere Funktionen
+</String>
+<String id="CF_BUDDYTOPTOOLBAR_APPLICATION_NEW">
+Weitere Funktionen
+</String>
+<String id="BTN_BUDDYTOPTOOLBAR_ENTERMENT">
+Unterhaltung
+</String>
+<String id="CF_BUDDYTOPTOOLBAR_ENTERMENT">
+Spiele
+</String>
+<String id="Tips_CF_UNUSUAL_PLACE_LOGIN">
+Ihr Kontakt hat sich von einem ungewöhnlichen Ort aus bei QQ angemeldet. Überprüfen Sie seine/ihre Identität.
+</String>
+<String id="CF_UNUSUAL_PLACE_LOGIN">
+Nichtlokale Einloggen
+</String>
+<String id="CF_INPUT_STATE">
+Eingabe...
+</String>
+<String id="CF_SENDBUDDYFAST_TIP">
+.
+</String>
+<String id="PLEASE_CONFIRME">
+Bitte bestätigen
+</String>
+<String id="CUSTOMFACE_WARN_SAMESYSSHORTCUT">
+Die von Ihnen eingerichteten Schnellzugriffe überschneiden sich mit Schnellzugriffen des Systems. Bitte setzen Sie sie zurück.
+</String>
+<String id="CUSTOMFACE_NEXT_PAGE">
+Weiter
+</String>
+<String id="CUSTOMFACE_PRE_PAGE">
+Zurück
+</String>
+<String id="CUSTOMFACE_TEMPSESSION_TIP">
+Keine benutzerdefinierten Emoticons verfügbar
+</String>
+<String id="CUSTOMFACE_Mgr_MoreFace">
+Weitere Emoticons
+</String>
+<String id="CUSTOMFACE_CUSTOMFACE_MANAGE">
+Emoticons
+</String>
+<String id="CUSTOMFACE_ADD_GROUP_NAME_EMPTY">
+Geben Sie einen Gruppennamen ein.
+</String>
+<String id="NoSearchResult">
+Nicht gefunden
+</String>
+<String id="Create_Discuss_Fail">
+Es wurde keine neue Diskussion erstellt.
+</String>
+<String id="Create_Discuss_Tip_Title">
+Tipps
+</String>
+<String id="Camera_RectTipText">
+Zum Aufnehmen doppelklicken.
+</String>
+<String id="Camera_RectTip">
+Bereichsgröße: $WIDTH$*$HEIGHT$
+RGB aktuell: ($COLORR$,$COLORG$,$COLORB$)
+</String>
+<String id="Camera_Information">
+$WIDTH$ x $HEIGHT$
+RGB:($COLORR$,$COLORG$,$COLORB$)
+</String>
+<String id="Camera_Information2">
+$WIDTH$ x $HEIGHT$
+RGB:$COLORHEX$
+</String>
+<String id="Camera_Adsorption">
+"Alt" drücken, um eine gerade Linie zu ziehen
+</String>
+<String id="Camera_FinishHint">
+Zum Fertigstellen in den Aufnahmebereich doppelklicken
+</String>
+<String id="Camera_AdjustAreaHint">
+RGB Aktuelles Pixel [%d,%d,%d]
+</String>
+<String id="Camera_ExitOperHintEx">
+Zum Beenden "Esc" drücken
+</String>
+<String id="Camera_FixSelectAreaHint">
+Linke Maustaste loslassen, um den Aufnahmebereich zu bestätigen
+</String>
+<String id="Camera_ReSelectHint">
+Mit der rechten Maustaste klicken, um den Aufnahmebereich erneut auszuwählen
+</String>
+<String id="Camera_ExitOperHint">
+Zum Beenden "Esc" drücken oder mit der rechten Maustaste klicken
+</String>
+<String id="Camera_SelectHint">
+Mit der linken Maustaste klicken und Maustaste halten, um den Aufnahmebereich auszuwählen.
+</String>
+<String id="Camera_oper_tip">
+Zum Aufnehmen des Bildes doppelklicken. 
+Zum Beenden der Bildschirmaufnahme "Esc" drücken.
+</String>
+<String id="Welcome_Word" fmt="true">
+Sie verwenden das Dienstprogramm für Bildschirmaufnahmen $__PNAME$.
+Klicken Sie mit der linken Maustaste und ziehen Sie, um den Aufnahmebereich auszuwählen.
+Klicken Sie mit der rechten Maustaste oder drücken Sie auf "Esc", um den Vorgang zu beenden.
+</String>
+<String id="RecoverTip">
+Nachstehend sind die Nachrichten aufgeführt, die bei Ihrem letzten Beenden des Programms noch ungelesen waren.
+</String>
+<String id="Graffiti_Editor_Title">
+Der Editor der Graffiti
+</String>
+<String id="Graffiti_Editor_Confirm">
+Gefertigt
+</String>
+<String id="Graffiti_Editor_Cancel">
+Abschaffen
+</String>
+<String id="Graffiti_Editor_Vip_Illustration_1">
+Sehr geehter User，
+</String>
+<String id="Graffiti_Editor_Vip_Illustration_2">
+Graffitiswerkzeug zu genießen ,exklusives Erfahren!
+</String>
+<String id="Graffiti_Editor_Vip_Illustration_3">
+Sehr geehtes Mitglied qqs,Sie könnnten das Graffitiswerkzeug kostenlos genießen!
+</String>
+<String id="Graffiti_Editor_Open_Vip">
+Mitgliedschaft zu bekommen
+</String>
+<String id="Graffiti_Editor_Learn_More">
+Sich über mehr Details zu informieren
+</String>
+<String id="Graffiti_Editor_Add_To_Group">
+Zu Gruppen:
+</String>
+<String id="Graffiti_Editor_Default_FontName">
+Neu song
+</String>
+<String id="Graffiti_Editor_DFC_FontName">
+Microsoft yahei
+</String>
+<String id="Graffiti_Editor_Input_Prompt">
+Wörter einzugeben:
+</String>
+<String id="Graffiti_Editor_MakeDFC">
+Fertigstellen
+</String>
+<String id="Graffiti_Editor_Limit_Text">
+Die Menge der Text-Box erreicht die Obergrenze.
+</String>
+<String id="Graffiti_Editor_Limit_Bubble">
+彩色对话框数量已达上限。
+</String>
+<String id="Graffiti_Editor_Limit_DFC">
+Die Menge der blickenden Wörter erreicht die Obergrenze.
+</String>
+<String id="Graffiti_Editor_ToolTip_OpenFile">
+Die Bilder im Computer hochzuladen
+</String>
+<String id="Graffiti_Editor_ToolTip_ZoomIn">
+Das hinterlegende Bild zu vergrößern
+</String>
+<String id="Graffiti_Editor_ToolTip_ZoomOut">
+Das hinterlegende Bild zu verkleinern
+</String>
+<String id="Graffiti_Editor_ToolTip_Undo">
+Abschaffen
+</String>
+<String id="Graffiti_Editor_ToolTip_Redo">
+Wiederherstellen
+</String>
+<String id="Graffiti_Editor_ToolTip_Move">
+Versetzen
+</String>
+<String id="Graffiti_Editor_ToolTip_Brush">
+Der Pinsel
+</String>
+<String id="Graffiti_Editor_ToolTip_Text">
+Text-box
+</String>
+<String id="Graffiti_Editor_ToolTip_Bubble">
+Farbiges Dialogfeld
+</String>
+<String id="Graffiti_Editor_ToolTip_DFC">
+Blinkende Wörter zu schaffen
+</String>
+<String id="Graffiti_Editor_Cancel_Prompt">
+Sie bearbeiten nun das Emoticon,es wird nicht verwahrt,wenn Sie verlassen,verlassen Sie noch？
+</String>
+<String id="Graffiti_Editor_NoVip">
+Sie sind noch nicht Mitglied des qqs,wenn Sie die Mitgliedschaft bekommen, würden Sie über 50 Vorrechte erhalten. 
+</String>
+<String id="Graffiti_Editor_Introduction">
+Das Werkzeug für die Graffiti auszuwählen.
+	Das persönliche Emoticon zu bearbeiten.
+</String>
+<String id="Graffiti_Editor_FormatError">
+Die Form des hochgeladenen Bild ist falsch,wählen Sie es noch einmal!
+</String>
+<String id="Graffiti_Editor_SynthesisPrompt">
+Das Bild wird entstehen,warten Sie bitte!
+</String>
+<String id="Graffiti_Editor_WordCheck_TimeOut">
+System ausgelastet. Versuchen Sie es später.
+</String>
+<String id="Graffiti_Editor_Synthesis_Failed">
+Bilderzeugung fehlgeschlagen. Versuchen Sie es später.
+</String>
+<String id="TiTle_PaiPaiList_UserInfo">
+Persönliche Daten des Paipai-Mitglieds
+</String>
+<String id="CF_ZOOM_TIP">
+Dieses Bild ist komprimiert. Doppelklicken Sie, um das Originalbild anzuzeigen.
+</String>
+<String id="CF_ZOOM_CLICK_TIP">
+Bildreduzierung ($RADIO$%)
+Klicken für Originalbild
+</String>
+<String id="AntiFraud_Text_OR">
+Oder
+</String>
+<String id="AntiFraud_Text_Accept">
+Annehmen
+</String>
+<String id="AntiFraud_Text_Reject">
+Ablehnen
+</String>
+<String id="AntiFraud_Text_VideoFraud">
+Videobetrug
+</String>
+<String id="AntiFraud_Text_KnowMore">
+Weitere Infos
+</String>
+<String id="AntiFraud_BlueTip_Media_Unusual">
+Ihr Kontakt meldet sich nicht vom üblichen Ort an. Überprüfen Sie seine Identität, wenn es im Chat um Geld geht.
+</String>
+<String id="AntiFraud_BlueTip_Media_Normal">
+Überprüfen Sie seine Identität, wenn es im Chat um Geld geht.
+</String>
+<String id="AntiFraud_BlueTip_Video_Unusual">
+Ihr Kontakt meldet sich nicht vom üblichen Ort an. Überprüfen Sie seine Identität, wenn es im Chat um Geld geht.
+</String>
+<String id="AntiFraud_BlueTip_Video_Normal">
+Überprüfen Sie seine Identität, wenn es im Chat um Geld geht.
+</String>
+<String id="AntiFraud_BlueTip_UnusualPlace">
+Ihr Kontakt meldet sich nicht vom üblichen Ort an. Überprüfen Sie seine Identität, wenn es im Chat um Geld geht.
+</String>
+<String id="AntiFraud_BlueTip_UnusualPlace2">
+Ihr Kontakt meldet sich nicht vom üblichen Ort an. Überprüfen Sie seine Identität, wenn es im Chat um Geld geht.
+</String>
+<String id="AntiFraud_SecondConfirm_Title">
+Annehmen und Videodatei wiedergeben.
+</String>
+<String id="AntiFraud_SecondConfirm_NormalPlace">
+Nehmen Sie die Anfrage für die Wiedergabe einer Videodatei an?
+Überprüfen Sie seine Identität, wenn es im Chat um Geld geht.
+</String>
+<String id="AntiFraud_SecondConfirm_UnusualPlace">
+Ihr Kontakt meldet sich nicht vom üblichen Ort an. Nehmen Sie die Anfrage für die Wiedergabe einer Videodatei an?
+Überprüfen Sie seine Identität, wenn es im Chat um Geld geht.
+</String>
+<String id="AntiFraud_HasKeyword_UnusualPlace">
+Warnung: Ihr Kontakt meldet sich nicht vom üblichen Ort an. Überprüfen Sie seine Identität, wenn es im Chat um Geld geht.
+</String>
+<String id="AntiFraud_HasKeyword_NormalPlace">
+Vorsicht: Überprüfen Sie seine Identität, wenn es im Chat um Geld geht.
+</String>
+<String id="AntiFraud_Authentication">
+Sicherheitsfragen senden
+</String>
+<String id="AntiFraud_ClickImpeach">
+Zum melden klicken
+</String>
+<String id="AntiFraud_VideoComm_UnusualPlace">
+Vorsicht: Ihr Kontakt meldet sich nicht vom üblichen Ort an.
+</String>
+<String id="AntiFraud_MediaFile_UnusualPlace">
+Ihr Kontakt meldet sich nicht vom üblichen Ort an. Überprüfen Sie seine Identität, wenn es im Chat um Geld geht.
+</String>
+<String id="AntiFraud_MediaFile_NormalPlace">
+Überprüfen Sie seine Identität, wenn es im Chat um Geld geht.
+</String>
+<String id="AntiFraud_BeCaution">
+Überprüfen Sie seine Identität, wenn es im Chat um Geld geht.
+</String>
+<String id="SharePic_UploadFail">
+Netzwerkfehler. Bitte überprüfen.
+</String>
+<String id="HotKey_RegisterFailTitle">
+Hotkeys Conflict
+</String>
+<String id="HotKey_RegisterFailMsg1">
+Der Standard-Hotkey für $HotKeyName$ wird von einem anderen Programm verwendet. Ändern Sie dies oder wählen Sie einen anderen Hotkey für $HotKeyName$.
+</String>
+<String id="HotKey_RegisterFailMsg2">
+$User$，$FailHotKeyCount$ der Hotkeys werden von anderen Programmen verwendet. Bearbeiten Sie diese oder wählen Sie andere Hotkeys für QQ.
+</String>
+<String id="HotKey_FailKeepSilent">
+Nicht wieder erinnern
+</String>
+<String id="HotKey_MsgBoxButtonClose">
+Close
+</String>
+<String id="HotKey_StatusNormal">
+OK
+</String>
+<String id="HotKey_StatusRegisterFailed">
+Conflict
+</String>
+<String id="IDS_Impeach_MsgRecord_File">
+[File]
+</String>
+<String id="IDS_Impeach_MsgRecord_Folder">
+[Folder]
+</String>
+<String id="Tips_Camera_Toolbar_FilterTip">
+Filter
+</String>
+<String id="Tips_Camera_Toolbar_FilterBar_Original">
+Original
+</String>
+<String id="Tips_Camera_Toolbar_FilterBar_Sunshine">
+Sonnenschein
+</String>
+<String id="Tips_Camera_Toolbar_FilterBar_LOMO">
+LOMO
+</String>
+<String id="Tips_Camera_Toolbar_FilterBar_Ageing">
+Altern
+</String>
+<String id="Tips_Camera_Toolbar_FilterBar_Gray">
+Grau
+</String>
+<String id="Tips_Camera_Toolbar_FilterBar_Sketch">
+Sketch
+</String>
+<String id="Tips_Camera_Toolbar_FilterBar_ClassicLOMO">
+Klassische LOMO
+</String>
+<String id="Tips_Camera_Toolbar_FilterBar_Rainbow">
+Rainbow
+</String>
+<String id="Tips_Camera_Toolbar_FilterBar_Copperplate">
+Kupferstich
+</String>
+<String id="Tips_Camera_Toolbar_FilterBar_Polaroid">
+Polaroid
+</String>
+<String id="Tips_Camera_Toolbar_FilterBar_Sweet">
+Süße
+</String>
+<String id="Tips_Camera_Toolbar_FilterBar_Nightfall">
+Einbruch der Nacht
+</String>
+<String id="IDS_QPLUS_TEXT_NOT_INSTALLED">
+系统未安装Q+。
+</String>
+<String id="IDS_QPLUS_TITLE_NOT_INSTALLED">
+Q+
+</String>
+<String id="CF_SETTINGMENU_TOPMOST">
+Fenster als Erstes beibehalten
+</String>
+<String id="CF_SETTINGMENU_CHATBOX">
+Chat-Fenster zusammenfügen
+</String>
+<String id="QQFace_RBtnMenu_ClearHistoryFace">
+Emoticon-Verlauf löschen
+</String>
+<String id="QQFace_RBtnMenu_SetFaceTop">
+Erste bestimmen
+</String>
+<String id="QQFace_RBtnMenu_SearchSimilarFace">
+Ähnlicher Ausdruck suchen
+</String>
+<String id="QQFace_RBtnMenu_DoodleFace">
+Kritzeln
+</String>
+<String id="QQFace_RBtnMenu_MoveFaceTo">
+Bewegung zu
+</String>
+<String id="QQFace_RBtnMenu_DelFace">
+löschen
+</String>
+<String id="QQFace_RBtnMenu_ModifyFace">
+Ausdruck ändern
+</String>
+<String id="QQFace_RBtnMenu_RoamFace">
+Reise Ausdruck einstellen
+</String>
+<String id="QQFace_RBtnMenu_UnRoamFace">
+Reise Ausdruck abmelden
+</String>
+<String id="QQFace_ToolBarMenu_UseShortCut">
+Schnelltaste Ausdruck nutzen
+</String>
+<String id="QQFace_ToolBarMenu_ImportFace">
+Import Packung Ausdruck
+</String>
+<String id="QQFace_ToolBarMenu_ExportFace">
+Export Packung Ausdruck
+</String>
+<String id="QQFace_ToolBarMenu_ExportAllFace">
+Emoticon-Paket exportieren
+</String>
+<String id="QQFace_ToolBarMenu_ManagerFace">
+Emoticons verwalten
+</String>
+<String id="QQFace_ToolBarMenu_FeedBack">
+Rückmeldung
+</String>
+<String id="QQFace_AddFace_SelectGroup">
+Gruppe:
+</String>
+<String id="QQFace_AddFace_CreateGroup">
+Neue Gruppe
+</String>
+<String id="QQFace_AddFace_ShortCut">
+Schnelltaste:
+</String>
+<String id="QQFace_ToolBarTip_FaceMenu">
+Ausdruck einstellen
+</String>
+<String id="QQFace_RoamBtnTip_PromptToBeVipLink">
+&lt;link config="RSLinkTextNode" label="RoamFace"&gt;$LinkContent$&lt;/link&gt;
+</String>
+<String id="QQFace_RoamBtnTip_RoamState">
+Reise Gruppe Ausdruck:
+</String>
+<String id="QQFace_RoamBtnTip_StateOpen">
+Ein
+</String>
+<String id="QQFace_RoamBtnTip_StateUpload">
+Reise hochladen
+</String>
+<String id="QQFace_RoamBtnTip_StateDownload">
+Reise herunterladen
+</String>
+<String id="QQFace_RoamBtnTip_StateWaiting">
+warten
+</String>
+<String id="QQFace_RoamBtnTip_StateClose">
+nicht Ein
+</String>
+<String id="QQFace_RoamBtnTip_UseRoamFaceEverywhereAfter">
+Nutzung der Gruppe Ausdruck an jedem PC
+</String>
+<String id="QQFace_RoamBtnTip_PromtToBeVip">
+Become VIP
+</String>
+<String id="QQFace_RoamBtnTip_EnableRoam">
+aktivieren
+</String>
+<String id="QQFace_RoamBtnTip_SuccRstInfo">
+Reise von $RoamNum$, Vorfolgen von $RoamLimit$
+</String>
+<String id="QQFace_RoamBtnTip_FaileRstInfo">
+, $RoamTimeOutCnt$ abgelaufen
+</String>
+<String id="QQFace_PageSelector_PageInfo">
+Seite Ausdruck $PageIndex$/$PageSize$
+</String>
+<String id="QQFace_Misc_PromptToAddFirstFace">
+Erster definierter Ausdruck einfügen
+</String>
+<String id="QQFace_Misc_HistoryFaceTip">
+Aktuellste Emoticons
+</String>
+<String id="QQFace_Misc_SysMoveGroupTip">
+Gespeicherte Ausdrücke in "$SysMoveGroup$" bewegt
+</String>
+<String id="QQFace_Misc_FavoriteGroupInAddFace">
+Favoriten (Erzeugen nach Bestätigung)
+</String>
+<String id="QQFace_Misc_AddFristCustomFace">
+Erster Ausdruck speichern
+</String>
+<String id="QQFace_FaceTip_NoShortCut">
+Schnelltaste: Keine
+</String>
+<String id="QQFace_FaceTip_ShortCut">
+Schnelltaste:
+</String>
+<String id="STR_QPLUS_STARTUP_CMDLINE_WITH_APPINFO_WEB">sys/account=$SelfUin$&amp;loginmode=2&amp;from=weblink</String>
+<String id="SelectContact_InputSearchTips">Kontakte suchen</String>
+<String id="Text_ThousandMenGroup">Gruppe mit 2000 Personen</String>
+<String id="Text_GroupScale">Gruppe mit $MEMCNT$ Personen</String>
+<String id="FaceRoam_Info_AutoRoam">本次将为您漫游前$NUM$个，确定漫游吗？</String>
+<String id="RoamFaceFull_NoVipTip">Emoticon-Obergrenze erreicht</String>
+<String id="Store_Winks_Play_MenuItem">Abspielen</String>
+<String id="Store_Offline_Msg_Info">Sie sind offline. Bitte melden Sie sich an und versuchen Sie es erneut</String>
+<String id="Store_Offline_Delete_Group_Info">Sie sind offline. Bitte melden Sie sich an und versuchen Sie es erneut</String>
+<String id="Link_CF_Appeal">Beschwerde einlegen</String>
+<String id="FaceMgr_SettingBtn">Setup</String>
+<String id="FaceMgr_RoamBtn">Cloud</String>
+<String id="FaceMgr_AddBtn">Hinzufügen</String>
+<String id="CF_PREVENT">Blockieren</String>
+<String id="CF_COPIED">Kopiert</String>
+<String id="CF_NOTKNOW_Safe_URL" fmt="true">Besuchen Sie diese Seite auf eigene Gefahr</String>
+<String id="AddBuddy_ValidateInfo">Verifizierung:</String>
+<String id="AddBuddy_NoValidateInfo">Nein</String>
+<String id="Button_NewsTipBtnAccept">Annehmen</String>
+<String id="Button_NewsTipBtnRefuse">Ablehnen</String>
+<String id="MainPanel_Menu_Forbid_All_Groupmsg_Prompt">Blockierte Gruppennachrichten</String>
+<String id="CF_Discuss_Init">Diskussion erstellen</String>
+<String id="CF_TempSession_Title_Group">Von</String>
+<String id="CF_GROUPPLUGIN_SENDBTN">OK</String>
+<String id="CF_GROUP_FEED">Gruppen-Feed</String>
+<String id="CF_GROUP_APP">Gruppen-App</String>
+<String id="CF_GROUPFILE_SAVE">Speichern unter</String>
+<String id="QQFace_RBtnMenu_RomanFacePackage">Cloud-Emoticons</String>
+<String id="QQFace_RBtnMenu_UnRomanFacePackage">Cloud-Emoticons deaktivieren</String>
+<String id="QQFace_MyFavorite_Group">Favoriten</String>
+<String id="QQFace_RBtnMenu_AddFace">Emoticon hinzufügen</String>
+<String id="QQFace_ToolBarMenu_ImportExportFace">Import/Export</String>
+<String id="QQFace_RoamBtnTip_JumpToBeVipLink">&lt;link config="RSLinkTextNode" label="RoamFaceJump"&gt;$LinkContent$&lt;/link&gt;</String>
+<String id="QQFace_RoamBtnTip_SuccVipTips">Max. $RoamLimit$, gesamt $RoamNum$</String>
+<String id="QQFace_RoamBtnTip_SuccNoVipTips">Maximum 1200</String>
+<String id="QQFace_RoamBtnTip_SuccGroupRoamInfo">Insgesamt $RoamNum$ in der Cloud dieser Gruppe, $FailNum$ Fehler</String>
+<String id="QQFace_MgrToolBar_SelectAll">Alle auswählen</String>
+<String id="QQFace_MgrToolBar_UnSelectAll">Auswahl aufheben</String>
+<String id="QQFace_MgrToolBar_Delete">Löschen</String>
+<String id="QQFace_MgrToolBar_MoveTo">Verschieben</String>
+<String id="QQFace_MgrToolBar_NewGroup">Neu</String>
+<String id="QQFace_MgrToolBar_ExitMgr">Verlassen</String>
+<String id="QQFace_DragTip_MoveTo">Verschieben</String>
+<String id="QQFace_DragTip_MovePrePage">Weiter</String>
+<String id="QQFace_DragTip_MoveNextPage">Zurück</String>
+<String id="QQFace_DragTip_MovePageMode">Blättern</String>
+<String id="QQFace_DelMsgBox_Title">Emoticon-Manager</String>
+<String id="QQFace_DelMsgBox_Text">Möchten Sie das ausgewählte Emoticon löschen?</String>
+<String id="GroupInfoMemo_SubmitBtn">Übertragen</String>
+<String id="IDS_QPLUS_QQ_NOT_LOGIN">Bitte zuerst anmelden</String>
+<String id="IDS_QPLUS_QQ_PROMPT">QQ-Tipp</String>
+<String id="AFGVideoShow_Manager">Video von Admin beendet</String>
+<String id="AFGVideoShow_SVR">Video von Admin beendet</String>
+<String id="IDS_LNN_CustomFace_Btn_Enable">Emoticon</String>
+<String id="ConfigCenter_KindPage_ItemTitle_Colon">:</String>
+<String id="ConfigCenter_Search_NoResult">Nicht gefunden</String>
+<String id="IDS_GetPic_From_Local_Text">Lokales Bild senden</String>
+<String id="DiscussSidebar_JoinInDissGroup">松下鼠标加入讨论组</String>
+<String id="GroupSideBar__JoinOneInGroup">松下鼠标将此人加入群</String>
+<String id="BuddyChatSession__CreateDisscus">松下鼠标创建讨论组</String>
+<String id="RecommadFacePacket_Loading">Bitte warten...</String>
+<String id="RecommadFacePacket_LoadFail">Schlechte Verbindung, bitte aktualisieren</String>
+<String id="RecommandFacePacket_Retry">Aktualisieren</String>
+<String id="QQFace_StoreFace_Take_Look">Schauen Sie herein</String>
+<String id="HummerImage_DefaultSaveName">QQ-Foto</String>
+  <String id="QQEmojiFace_DefaultText">
+    :emoji:
+  </String>
+  <String id="QQEmojiFace_LoadingText">
+    （Loading, please wait.）
+  </String>
+  <String id="QQEmojiFace_LoadingFailedText">
+    （Error, please close the window and try again.）
+  </String>
+</StringBundle>

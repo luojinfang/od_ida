@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StringBundle version="1.0">
+	<String id="ERROR">
+		エラー
+	</String>
+	<String id="DEF_FONT">
+		MS Mincho
+	</String>
+	<String id="DEF_FONTSIZE">
+		9
+	</String>
+	
+	<String id="PROD_NAME_VER" fmt="true">
+		$__PNAME_V$
+	</String>
+	<String id="PROD_NAME_VER_SUBVER" fmt="true">
+		$__PNAME_V_SV$
+	</String>
+	<String id="NoCase">
+		大文字と小文字を区別しない
+	</String>
+	<String id="ValidCode">
+		検証コード: 
+	</String>
+	<String id="Cancel">
+		取消
+	</String>
+	<String id="Ok">
+		OK
+	</String>
+	<String id="Apply">
+		適用
+	</String>
+	<String id="PLEASE_NOTICE">
+		通知
+	</String>
+	<String id="Send">
+		送信
+	</String>
+	<String id="ValidateCodeNull">
+		検証コードは空白にできません。
+	</String>
+	<String id="ValidateCodeError">
+		無効な検証コード
+	</String>
+	<String id="UnkownConnectError">
+		原因不明のネットワーク エラー
+	</String>
+	<String id="TitlePrompt">
+		通知
+	</String>
+<String id="FONT_SimSun">MS Mincho</String>
+<String id="FONT_Yahei">Microsoft YaHei</String>
+<String id="Save">
+保存
+</String>
+</StringBundle>

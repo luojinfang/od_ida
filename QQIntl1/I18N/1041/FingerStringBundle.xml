@@ -1,0 +1,641 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="Finger_GroupConditionPrompt">
+検索結果が Web ブラウザに表示されます。
+</String>
+<String id="Finger_FingerResultForYou">
+一致する以下のユーザーが見つかりました
+</String>
+<String id="Finger_NotValidateGroup">
+グループ ID を確認して入力し直してください。
+</String>
+<String id="Finger_TimeOut">
+検索タイムアウト。
+</String>
+<String id="Finger_UnkownError">
+原因不明のエラー。
+</String>
+<String id="Finger_InputAccount">
+ID をここに入力してください。
+</String>
+<String id="Finger_InputNick">
+ニックネームをここに入力してください
+</String>
+<String id="Finger_GroupFingerResultForYou">
+一致する以下のグループが見つかりました
+</String>
+<String id="Finger_CurrentOnlineNum">
+現在のオンライン ユーザー:$NUM$
+</String>
+<String id="Finger_CurrentOnlineNum_Unkown">
+現在のオンライン ユーザー:不明
+</String>
+<String id="Finger_CurrentPageNum">
+現在のページ:$NUM$
+</String>
+<String id="Finger_StartChat">
+チャットをする
+</String>
+<String id="Finger_Account">
+ID
+</String>
+<String id="Finger_Friend">
+知り合いかも
+</String>
+<String id="Finger_FriendTip">
+友達を追加
+</String>
+<String id="Finger_Group">
+グループを探す
+</String>
+<String id="Finger_GroupTip">
+ｸﾞﾙｰﾌﾟを追加する
+</String>
+<String id="Finger_Corpor">
+企業を探す
+</String>
+<String id="Finger_CorporTip">
+企業を追加
+</String>
+<String id="Finger_InterestTome">
+挨拶をしてくれた人
+</String>
+<String id="Finger_MayKnow">
+知っている人かも
+</String>
+<String id="Finger_MayInterest">
+縁のある人
+</String>
+<String id="Finger_SearchQQTip">
+QQ番号もしくはヒント番号を入力して下さい
+</String>
+<String id="Finger_SearchResult">
+$COUNT$の結果が見つかりました
+</String>
+<String id="Finger_Setting">
+コンタクトの検索
+</String>
+<String id="Finger_Setting_Basic">
+一般設定
+</String>
+<String id="Finger_Setting_RecommandMe">
+知り合いかもしれない人に自分の推薦がされず、彼らを自分に推薦することもしない
+</String>
+<String id="Finger_Setting_RecvGreeting">
+知らない人の挨拶メッセージを受取る
+</String>
+<String id="Finger_Setting_RemindMe">
+新しいメッセージの時はお知らせします
+</String>
+<String id="Finger_Setting_NotRemindMe">
+新しいメッセージの時は、お知らせをせずに未読数だけ表示
+</String>
+<String id="Finger_Setting_Details">
+あなたに興味を示す人が挨拶してきた時、「コンタクトの検索」でその人の資料を見ることができます
+</String>
+<String id="Finger_SendGreeting_Title">
+相手に挨拶をする
+</String>
+<String id="Finger_SendGreeting_Prompt">
+メッセージを入力し、ENTERキーで発送します
+</String>
+<String id="Finger_SendGreeting_Send">
+発送
+</String>
+<String id="Finger_SendGreeting_Times_Female">
+彼女に挨拶できる回数
+</String>
+<String id="Finger_SendGreeting_Times_Male">
+彼に挨拶出来る回数
+</String>
+<String id="Finger_SendGreeting_Private">
+相手に7日間以内私のQZONEを訪問することを許可します
+</String>
+<String id="Finger_SendGreeting_PrivateDetails">
+友人リスト追加する前に、相手は7日間以内私のQZONEを見ることができます。
+</String>
+<String id="Finger_ReplyGreeting_Title">
+挨拶に返信をする
+</String>
+<String id="Finger_ReplyGreeting_Private">
+相手に7日間以内私のQZONEを訪問することを許可します
+</String>
+<String id="Finger_ReplyGreeting_PrivateDetails">
+友人リスト追加する前に、相手は7日間以内私のQZONEを見ることができます。
+</String>
+<String id="Finger_ReplyGreeting_Times_Female">
+彼女に挨拶できる回数
+</String>
+<String id="Finger_ReplyGreeting_Times_Male">
+彼に挨拶出来る回数
+</String>
+<String id="Finger_ReplyGreeting_Prompt">
+ENTERキーで返信を発送する
+</String>
+<String id="Finger_Block_Message">
+相手からのメッセージを拒否しますか？挨拶をしてくれた人リストから削除されます。
+</String>
+<String id="Finger_CustomHead_Message">
+写真を設定することで、より信頼されます。挨拶する前に写真を設定しましょう！
+</String>
+<String id="Finger_Mainpanel_HasGreeting_Tip">
+$NUM$人があなたのこと興味を示した
+</String>
+<String id="Finger_Mainpanel_NoGreeting_Tip">
+コンタクトを探す
+</String>
+<String id="Finger_MsgBox_PromptTitle">
+通知
+</String>
+<String id="Finger_ReplyGreeting_Send">
+発送
+</String>
+<String id="Finger_ReplyGreeting_Send_Timeout">
+タイムアウト。ネットワークを確認下さい。
+</String>
+<String id="Finger_ReplyGreeting_Send_Sensitive">
+不正な言葉が入ってる可能性があります
+</String>
+<String id="Finger_ReplyGreeting_Send_Fail">
+発送失敗
+</String>
+<String id="Finger_ReplyGreeting_Send_BodyFull">
+一日に挨拶できる人数は5人までです。
+</String>
+<String id="Finger_ReplyGreeting_Send_Deny">
+相手は知らない人からのメッセージを拒否してます
+</String>
+<String id="Finger_ReplyGreeting_FullTimesPrompt_Male">
+“10回挨拶しました。続きにチャットをする場合は、友人追加をしましょう！”
+</String>
+<String id="Finger_ReplyGreeting_FullTimesPrompt_Female">
+“10回挨拶しました。続きにチャットをする場合は、友人追加をしましょう！”
+</String>
+<String id="Finger_ReplyGreeting_Default_Reason">
+：はあなたに挨拶を送りました
+</String>
+<String id="Finger_UnRead_Tips_Wording">
+$UNREADNUM$人がオフラインの際に挨拶をした。ここをクリックして詳細を確認。
+</String>
+<String id="Finger_IMCard_Greet_OfflinePrompt">
+オフラインです。まずはオンラインしてから挨拶しましょう。
+</String>
+<String id="Finger_IMCard_Greet_BlockPrompt">
+挨拶機能をオフにしました。設定でオンにしてから挨拶しましょう！
+</String>
+<String id="Finger_GreetingTips_Title">
+挨拶をする
+</String>
+<String id="Finger_GreetingTips_Setting">
+設置ヒント
+</String>
+<String id="Finger_GreetingTips_Reply">
+返信
+</String>
+<String id="Finger_GreetingTips_View">
+見る
+</String>
+<String id="Finger_IM_Time_Exactly">
+先ほど
+</String>
+<String id="Finger_IM_Time_Minutes">
+$MIN$分
+</String>
+<String id="Finger_IM_Time_Hours">
+$HOUR$時間
+</String>
+<String id="Finger_IM_Time_Days">
+$DAY$日
+</String>
+<String id="Finger_IM_Time_Yesterday">
+昨日
+</String>
+<String id="Finger_IM_CurPageNum">
+現在:$PAGE$ページ目
+</String>
+<String id="Finger_IM_ShieldPrompt">
+相手からのメッセージを拒否しますか？挨拶をしてくれた人リストから削除されます。
+</String>
+<String id="Finger_IM_OfflinePrompt">
+オフライン状態です。ログインしてから操作して下さい
+</String>
+<String id="Finger_Custom_Head_Prompt">
+写真を設定することで、より信頼されます。挨拶する前に写真を設定しましょう！
+</String>
+<String id="Finger_Finding">
+検索中...
+</String>
+<String id="Finger_NoResult">
+条件に一致するユーザーが見つかりませんでした
+</String>
+<String id="Finger_NoGroupResult">
+条件に一致するグループが見つかりませんでした
+</String>
+<String id="Finger_UsrAge">
+年齢:
+</String>
+<String id="Finger_UsrSex">
+性別:
+</String>
+<String id="Finger_UsrConstellation">
+星座:
+</String>
+<String id="Finger_UsrBlood">
+血液型:
+</String>
+<String id="Finger_UsrResidencePlace">
+所在地:
+</String>
+<String id="Finger_UsrHomeland">
+出身地:
+</String>
+<String id="Finger_Nickname">
+ニックネーム
+</String>
+<String id="Finger_ComeFrom">
+どちらから
+</String>
+<String id="Finger_Sex">
+性別
+</String>
+<String id="Finger_Age1">
+年齢
+</String>
+<String id="Finger_GroupNum">
+グループ ID
+</String>
+<String id="Finger_GroupName">
+グループ名
+</String>
+<String id="Finger_GroupOwner">
+グループ管理者
+</String>
+<String id="Finger_PleaseSelectAContact">
+メンバーを選択してください
+</String>
+<String id="Finger_FingerTitle">
+メンバーまたはグループを検索
+</String>
+<String id="Finger_Finger">
+検索
+</String>
+<String id="Finger_AddBuddy">
+追加
+</String>
+<String id="Finger_AddGroup">
+参加
+</String>
+<String id="Finger_Fingering">
+検索しています...
+</String>
+<String id="Finger_FingerNoUser">
+一致するユーザーは見つかりませんでした
+</String>
+<String id="Finger_DisRegiment">
+制限なし
+</String>
+<String id="Finger_GenderMale">
+男性
+</String>
+<String id="Finger_GenderFemale">
+女性
+</String>
+<String id="Finger_ZeroToFifteen">
+16 未満
+</String>
+<String id="Finger_SixteenToTwentyTwo">
+16-22
+</String>
+<String id="Finger_TwentyThreeToThirty">
+23-30
+</String>
+<String id="Finger_ThirtyOneToForty">
+31-40
+</String>
+<String id="Finger_FortyOneToInfinit">
+40 以上
+</String>
+<String id="Finger_FingerWay">
+検索モード
+</String>
+<String id="Finger_ContactFinger">
+メンバー
+</String>
+<String id="Finger_ExactFinger">
+ID で検索
+</String>
+<String id="Finger_ClassFinger">
+高度な検索
+</String>
+<String id="Finger_GroupFinger">
+グループ
+</String>
+<String id="Finger_ExactFingerCondition">
+検索基準:
+</String>
+<String id="Finger_ContactAccount">
+ID (メールまたは QQ 番号):
+</String>
+<String id="Finger_ContactNick">
+ニックネーム:
+</String>
+<String id="Finger_YourFingerCondition">
+条件を検索:
+</String>
+<String id="Finger_Online">
+オンライン
+</String>
+<String id="Finger_WithCamera">
+カメラを使う方
+</String>
+<String id="Finger_Country">
+国/地域:
+</String>
+<String id="Finger_Province">
+州/省:
+</String>
+<String id="Finger_City">
+市:
+</String>
+<String id="Finger_Age">
+年齢:
+</String>
+<String id="Finger_Gender">
+性別:
+</String>
+<String id="Finger_Language">
+言語:
+</String>
+<String id="Finger_Condition">
+検索基準:
+</String>
+<String id="Finger_InputGroupNum">
+グループ ID:
+</String>
+<String id="Finger_InputGroupNumPrompt">
+グループ ID をここに入力してください
+</String>
+<String id="Finger_GroupClass1">
+検索:
+</String>
+<String id="Finger_GroupClass2">
+2レベルのカテゴリ:
+</String>
+<String id="Finger_GroupClass3">
+3レベルのカテゴリ:
+</String>
+<String id="Finger_GroupFingerKey">
+キーワードを検索:
+</String>
+<String id="Finger_Key">
+キーワード
+</String>
+<String id="Finger_Advance">
+高度な検索
+</String>
+<String id="Finger_All">
+すべて
+</String>
+<String id="Finger_ViewInfo">
+プロファイルの表示
+</String>
+<String id="Finger_LastPage">
+前へ
+</String>
+<String id="Finger_NextPage">
+次へ
+</String>
+<String id="Finger_LastStep">
+前へ
+</String>
+<String id="Finger_Cancel">
+取消
+</String>
+<String id="Finger_Close">
+閉じる
+</String>
+<String id="Finger_ExactAccountError">
+ID を確認して入力し直してください。
+</String>
+<String id="Finger_ExactAccoutCantNull">
+ID またはニックネームを入力してください。
+</String>
+<String id="Finger_SecurityReport">
+通報する
+</String>
+<String id="Finger_ConnectToServer">
+まずログインしてください。
+</String>
+<String id="Finger_ConnectToServer_Report">
+まずログインしてください。
+</String>
+<String id="Finger_ConnectToServer_AddFrd">
+オンラインしてから操作して下さい。
+</String>
+<String id="Finger_ConnectToServer_Title">
+通知
+</String>
+<String id="Finger_ViewInfoTip">
+プロフィールの閲覧
+</String>
+<String id="Finger_SayHelloTip">
+$SEX$に挨拶をする
+</String>
+<String id="Finger_SayHelloTip_Male">
+彼に挨拶をする
+</String>
+<String id="Finger_SayHelloTip_Female">
+彼女に挨拶をする
+</String>
+<String id="Finger_TempChatTip">
+臨時会話を開始
+</String>
+<String id="Finger_AddFriendTip">
+コンタクトに追加
+</String>
+<String id="Finger_ShieldTip">
+該当ユーザーのメッセージを受け取らない
+</String>
+<String id="Finger_AddFriendSocialTip">
+友人リストに追加する
+</String>
+<String id="Finger_DeleteCommend">
+推薦の削除
+</String>
+<String id="Finger_GroupViewInfoTip">
+グループの詳細を見る
+</String>
+<String id="Finger_GroupAddFriendTip">
+Add the Group
+</String>
+<String id="Finger_Refresh">
+更新
+</String>
+<String id="Finger_Edit_RealSearch">
+真实姓名取自QQ校友社区
+</String>
+<String id="Finger_Static_RealSearch">
+本名:
+</String>
+<String id="Finger_Static_RealName">
+$name$($school$)
+</String>
+<String id="Finger_Static_Age">
+$age$歳
+</String>
+<String id="Finger_Static_Area">
+$province$ $city$
+</String>
+<String id="Finger_TypeinValidName">
+フルネームを入力してください
+</String>
+<String id="Finger_AcceptTempSession">
+一時的なチャットを許可
+</String>
+<String id="Finger_ContactEmptyTip">
+QQ番号、もしくはニックネームを入力し、検索して下さい
+</String>
+<String id="Finger_GroupEmptyTip">
+ｸﾞﾙｰﾌﾟの番号を入力し、検索して下さい
+</String>
+<String id="Finger_GroupClassEmptyTip">
+キーワードを入力し、検索して下さい
+</String>
+<String id="Finger_He">
+彼
+</String>
+<String id="Finger_She">
+彼女
+</String>
+<String id="Finger_NoInterest_Title">
+みんなに注目される方法をお教えします
+</String>
+<String id="Finger_PerfectInfo">
+プロファイルをより詳しく編集すること
+</String>
+<String id="Finger_PerfectInfo_Tip">
+プロファイルを完了させると、QQi の他のユーザーとマッチする確率が高くなり、新しい友達を作るチャンスが増えます。
+</String>
+<String id="Finger_SetLabel">
+自分にタグを付けること
+</String>
+<String id="Finger_SetLabel_Tip">
+タグを付けて自分のことをアピールしましょう
+</String>
+<String id="Finger_CustomHead">
+プロファイル写真
+</String>
+<String id="Finger_CustomHead_Tip">
+プロファイル写真があると、人気が高くなります。 今すぐアップロード!
+</String>
+<String id="Finger_TakeGreet">
+打招呼
+</String>
+<String id="Finger_TakeGreet_Tip">
+我们帮你搜索一些可能感兴趣的人，马上去和他们打招呼。
+</String>
+<String id="Finger_NoGreetingPrompt">
+你还没有引起众人的注意，四招教你吸引大家的目光。
+</String>
+<String id="Finger_GroupNum">
+グループ ID
+</String>
+<String id="Finger_NewVersion_Tip">
+メンバー検索に新機能を追加しました。 これで友達探しがとても簡単になります。
+</String>
+<String id="Finger_Commend_Location">
+$PROVINCE$  $CITY$
+</String>
+<String id="Finger_Mayknow_Offline">
+オフライン状態です。まずはログインして下さい
+</String>
+<String id="Finger_Commend_TimeOut">
+ネットワークエラー、後ほど再度お試し下さい
+</String>
+<String id="Finger_Interest_Offline">
+オフライン状態です。まずはログインして下さい
+</String>
+<String id="Finger_RecommendReason_MayHasFriend">
+共通の友人がいるかもしれません。
+</String>
+<String id="Finger_Greeting_RecommendReason_MayInterest">
+路过宝地，发现你俩有惊人的相似之处！他向你挥手打了个招呼。
+</String>
+<String id="Finger_Greeting_RecommendReason_SearchResult">
+在茫茫人海中，千挑万选找到了你，向你挥手打了个招呼。
+</String>
+<String id="Finger_Greeting_RecommendReason_MayKnow">
+ $FRIEND$ さんは共通の友人で、共通のグループ $GROUP$ に参加しています。 お知り合いの方かもしれません!
+</String>
+<String id="Finger_Greeting_RecommendReason_MayKnow_Friend">
+ $FRIEND$ さんは共通の友人です。 お知り合いの方かもしれません!
+</String>
+<String id="Finger_Greeting_RecommendReason_MayKnow_Group">
+共通のグループ $GROUP$ に参加しています。 お知り合いの方かもしれません!
+</String>
+<String id="Finger_Greet_Offline">
+オフライン状態です。まずはログインして下さい
+</String>
+<String id="Finger_FriendSocialFriend">
+pengyou.com　から来ました。
+</String>
+<String id="Finger_AddBuddy_SourceAndAppendInfo">
+“打招呼”与您聊过,
+</String>
+<String id="Finger_DelMayKnow_Tip">
+删除推荐后，此用户将不再作为可能认识的人推荐给您，同时系统也不会把您推荐给对方。您确定删除此推荐吗？
+</String>
+<String id="Finger_Interest_Tip">
+茫茫人海中，与你有相似点的有缘人：
+</String>
+<String id="IDS_FINGER_QUIT_CONFIRM">
+ウィンドウを閉じることで全てのチャットルームから退室します。よろしいですか？
+</String>
+<String id="IDS_NOTICE">
+通知
+</String>
+<String id="IDS_MSGBOX_NEVER_REMIND">
+二度と通知しないで下さい
+</String>
+<String id="IDS_CLOSE">
+閉じる
+</String>
+<String id="IDS_Cancel">
+取消
+</String>
+<String id="IDS_OK">
+確認
+</String>
+<String id="IDS_QUIT">
+退室
+</String>
+<String id="IDS_STRANGER_AIO_CLOSE_CONFIRM">
+ウィンドウを閉じると同時にチャットルームから退出になります。よろしいですか？
+</String>
+<String id="IDS_STRANGER_AIO_ADD_FRIEND_NOTIFY">
+今すぐ　彼/彼女を友人に追加しませんか。二度と会えなくなるかもしれませんよ。
+</String>
+<String id="IDS_STRANGER_AIO_ADD_FRIEND">
+友人に追加
+</String>
+<String id="IDS_NEW_FREATURE_OF_FINGER">
+新機能
+</String>
+<String id="FingerStrangerAIO_ErrorText">
+ページがみつかりません。ネットワークを確認ください。
+</String>
+<String id="IDS_BTN_RETRY">
+もう一度試す
+</String>
+<String id="Finger_Stranger">チャットカード</String>
+<String id="Finger_StrangerTip">オンラインで他の人とチャットする</String>
+<String id="Finger_WebSearch">検索</String>
+<String id="Finger_Suggestion">フィードバック</String>
+<String id="Finger_NoResult_Suffix_Link">規制対象のQQ IDまたはゲストアカウント</String>
+<String id="Finger_NoResult_Suffix_Link_toolTip">これについて詳細を見る</String>
+<String id="Finger_NoResult_ClassContact">見つかりません。再度検索してください</String>
+<String id="Finger_UsrNickName">愛称:</String>
+<String id="Finger_ClassFinger_ContactEmptyTip">空にできません</String>
+<String id="Finger_ConnectToServer_App">現在オフラインです。[検索]を使用する前にログインしてください</String>
+<String id="Finger_ConnectToServer_Title_App">通知</String>
+</StringBundle>

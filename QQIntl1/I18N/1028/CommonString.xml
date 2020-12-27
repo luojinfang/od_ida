@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="ERROR">
+錯誤
+</String>
+<String id="DEF_FONT">
+宋體
+</String>
+<String id="DEF_FONTSIZE">
+9
+</String>
+<String id="FONT_SimSun">
+宋體
+</String>
+<String id="FONT_Yahei">
+微軟雅黑
+</String>
+<String id="PROD_NAME_VER" fmt="true">
+$__PNAME_V$
+</String>
+<String id="PROD_NAME_VER_SUBVER" fmt="true">
+$__PNAME_V_SV$
+</String>
+<String id="NoCase">
+以下字元不區分大小寫
+</String>
+<String id="ValidCode">
+驗證碼:
+</String>
+<String id="Cancel">
+取消
+</String>
+<String id="Ok">
+確定
+</String>
+<String id="Apply">
+應用
+</String>
+<String id="PLEASE_NOTICE">
+請注意
+</String>
+<String id="Send">
+發送
+</String>
+<String id="ValidateCodeNull">
+驗證碼不能為空
+</String>
+<String id="ValidateCodeError">
+驗證碼錯誤
+</String>
+<String id="UnkownConnectError">
+未知網路錯誤
+</String>
+<String id="TitlePrompt">
+提示
+</String>
+<String id="Save">
+保存
+</String>
+</StringBundle>

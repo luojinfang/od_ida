@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="FACE_SHORTCUT_CHINESE0">
+/미소
+</String>
+<String id="FACE_SHORTCUT_CHINESE1">
+/찌푸림
+</String>
+<String id="FACE_SHORTCUT_CHINESE2">
+/침흘림
+</String>
+<String id="FACE_SHORTCUT_CHINESE3">
+/노려봄
+</String>
+<String id="FACE_SHORTCUT_CHINESE4">
+/쌀쌀함
+</String>
+<String id="FACE_SHORTCUT_CHINESE5">
+/흐느낌
+</String>
+<String id="FACE_SHORTCUT_CHINESE6">
+/부끄러움
+</String>
+<String id="FACE_SHORTCUT_CHINESE7">
+/침묵
+</String>
+<String id="FACE_SHORTCUT_CHINESE8">
+/취침
+</String>
+<String id="FACE_SHORTCUT_CHINESE9">
+/울음
+</String>
+<String id="FACE_SHORTCUT_CHINESE10">
+/당황
+</String>
+<String id="FACE_SHORTCUT_CHINESE11">
+/흥분
+</String>
+<String id="FACE_SHORTCUT_CHINESE12">
+/윙크
+</String>
+<String id="FACE_SHORTCUT_CHINESE13">
+/싱긋 웃음
+</String>
+<String id="FACE_SHORTCUT_CHINESE14">
+/놀람
+</String>
+<String id="FACE_SHORTCUT_CHINESE15">
+/찡그림
+</String>
+<String id="FACE_SHORTCUT_CHINESE16">
+/멋짐
+</String>
+<String id="FACE_SHORTCUT_CHINESE17">
+/부끄러움
+</String>
+<String id="FACE_SHORTCUT_CHINESE18">
+/비명
+</String>
+<String id="FACE_SHORTCUT_CHINESE19">
+/구토
+</String>
+<String id="FACE_SHORTCUT_CHINESE20">
+/킬킬 웃음
+</String>
+<String id="FACE_SHORTCUT_CHINESE21">
+/만족
+</String>
+<String id="FACE_SHORTCUT_CHINESE22">
+/의심
+</String>
+<String id="FACE_SHORTCUT_CHINESE23">
+/세침
+</String>
+<String id="FACE_SHORTCUT_CHINESE24">
+/비웃음
+</String>
+<String id="FACE_SHORTCUT_CHINESE25">
+/졸림
+</String>
+<String id="FACE_SHORTCUT_CHINESE26">
+/공황
+</String>
+<String id="FACE_SHORTCUT_CHINESE27">
+/땀흘림
+</String>
+<String id="FACE_SHORTCUT_CHINESE28">
+/웃음
+</String>
+<String id="FACE_SHORTCUT_CHINESE29">
+/군인
+</String>
+<String id="FACE_SHORTCUT_CHINESE30">
+/분투
+</String>
+<String id="FACE_SHORTCUT_CHINESE31">
+/꾸지람
+</String>
+<String id="FACE_SHORTCUT_CHINESE32">
+/혼란
+</String>
+<String id="FACE_SHORTCUT_CHINESE33">
+/쉬
+</String>
+<String id="FACE_SHORTCUT_CHINESE34">
+/최면
+</String>
+<String id="FACE_SHORTCUT_CHINESE35">
+/좌절
+</String>
+<String id="FACE_SHORTCUT_CHINESE36">
+/비밀로
+</String>
+<String id="FACE_SHORTCUT_CHINESE37">
+/해골
+</String>
+<String id="FACE_SHORTCUT_CHINESE38">
+/해머
+</String>
+<String id="FACE_SHORTCUT_CHINESE39">
+/파장
+</String>
+<String id="FACE_SHORTCUT_CHINESE40">
+/안심
+</String>
+<String id="FACE_SHORTCUT_CHINESE41">
+/무례함
+</String>
+<String id="FACE_SHORTCUT_CHINESE42">
+/박수
+</String>
+<String id="FACE_SHORTCUT_CHINESE43">
+/불그스레한
+</String>
+<String id="FACE_SHORTCUT_CHINESE44">
+/안녕
+</String>
+<String id="FACE_SHORTCUT_CHINESE45">
+/냉대 1
+</String>
+<String id="FACE_SHORTCUT_CHINESE46">
+/냉대 2
+</String>
+<String id="FACE_SHORTCUT_CHINESE47">
+/하품
+</String>
+<String id="FACE_SHORTCUT_CHINESE48">
+/부부
+</String>
+<String id="FACE_SHORTCUT_CHINESE49">
+/고민
+</String>
+<String id="FACE_SHORTCUT_CHINESE50">
+/훌쩍
+</String>
+<String id="FACE_SHORTCUT_CHINESE51">
+/교활
+</String>
+<String id="FACE_SHORTCUT_CHINESE52">
+/당혹
+</String>
+<String id="FACE_SHORTCUT_CHINESE53">
+/이런
+</String>
+<String id="FACE_SHORTCUT_CHINESE54">
+/흐느낌
+</String>
+<String id="FACE_SHORTCUT_CHINESE55">
+/명석함
+</String>
+<String id="FACE_SHORTCUT_CHINESE56">
+/수박
+</String>
+<String id="FACE_SHORTCUT_CHINESE57">
+/맥주
+</String>
+<String id="FACE_SHORTCUT_CHINESE58">
+/농구
+</String>
+<String id="FACE_SHORTCUT_CHINESE59">
+/탁구
+</String>
+<String id="FACE_SHORTCUT_CHINESE60">
+/커피
+</String>
+<String id="FACE_SHORTCUT_CHINESE61">
+/쌀
+</String>
+<String id="FACE_SHORTCUT_CHINESE62">
+/돼지
+</String>
+<String id="FACE_SHORTCUT_CHINESE63">
+/장미
+</String>
+<String id="FACE_SHORTCUT_CHINESE64">
+/무기력
+</String>
+<String id="FACE_SHORTCUT_CHINESE65">
+/키스
+</String>
+<String id="FACE_SHORTCUT_CHINESE66">
+/애정
+</String>
+<String id="FACE_SHORTCUT_CHINESE67">
+/실연
+</String>
+<String id="FACE_SHORTCUT_CHINESE68">
+/케이크
+</String>
+<String id="FACE_SHORTCUT_CHINESE69">
+/번개
+</String>
+<String id="FACE_SHORTCUT_CHINESE70">
+/폭탄
+</String>
+<String id="FACE_SHORTCUT_CHINESE71">
+/단도
+</String>
+<String id="FACE_SHORTCUT_CHINESE72">
+/축구
+</String>
+<String id="FACE_SHORTCUT_CHINESE73">
+/레이디버그
+</String>
+<String id="FACE_SHORTCUT_CHINESE74">
+/정보
+</String>
+<String id="FACE_SHORTCUT_CHINESE75">
+/달
+</String>
+<String id="FACE_SHORTCUT_CHINESE76">
+/태양
+</String>
+<String id="FACE_SHORTCUT_CHINESE77">
+/선물
+</String>
+<String id="FACE_SHORTCUT_CHINESE78">
+/포옹
+</String>
+<String id="FACE_SHORTCUT_CHINESE79">
+/승인
+</String>
+<String id="FACE_SHORTCUT_CHINESE80">
+/거절
+</String>
+<String id="FACE_SHORTCUT_CHINESE81">
+/악수
+</String>
+<String id="FACE_SHORTCUT_CHINESE82">
+/승리
+</String>
+<String id="FACE_SHORTCUT_CHINESE83">
+/존경
+</String>
+<String id="FACE_SHORTCUT_CHINESE84">
+/손짓
+</String>
+<String id="FACE_SHORTCUT_CHINESE85">
+/주먹
+</String>
+<String id="FACE_SHORTCUT_CHINESE86">
+/새끼 손가락
+</String>
+<String id="FACE_SHORTCUT_CHINESE87">
+/사랑
+</String>
+<String id="FACE_SHORTCUT_CHINESE88">
+/아니 아니
+</String>
+<String id="FACE_SHORTCUT_CHINESE89">
+/좋음
+</String>
+<String id="FACE_SHORTCUT_CHINESE90">
+/열애 중
+</String>
+<String id="FACE_SHORTCUT_CHINESE91">
+/사랑
+</String>
+<String id="FACE_SHORTCUT_CHINESE92">
+/아장아장
+</String>
+<String id="FACE_SHORTCUT_CHINESE93">
+/앉기
+</String>
+<String id="FACE_SHORTCUT_CHINESE94">
+/아아!
+</String>
+<String id="FACE_SHORTCUT_CHINESE95">
+/회전
+</String>
+<String id="FACE_SHORTCUT_CHINESE96">
+/인사
+</String>
+<String id="FACE_SHORTCUT_CHINESE97">
+/외면
+</String>
+<String id="FACE_SHORTCUT_CHINESE98">
+/점프
+</String>
+<String id="FACE_SHORTCUT_CHINESE99">
+/항복
+</String>
+<String id="FACE_SHORTCUT_CHINESE100">
+/만세
+</String>
+<String id="FACE_SHORTCUT_CHINESE101">
+/헤이 헤이
+</String>
+<String id="FACE_SHORTCUT_CHINESE102">
+/키스
+</String>
+<String id="FACE_SHORTCUT_CHINESE103">
+/싸우는 소녀
+</String>
+<String id="FACE_SHORTCUT_CHINESE104">
+/싸우는 소년
+</String>
+<String id="FACE_SHORTCUT_CHINESE105">
+/非典
+</String>
+<String id="FACE_SHORTCUT_CHINESE106">
+/闪人
+</String>
+<String id="FACE_SHORTCUT_CHINESE107">
+/找
+</String>
+<String id="FACE_SHORTCUT_CHINESE108">
+/美眉
+</String>
+<String id="FACE_SHORTCUT_CHINESE109">
+/猫咪
+</String>
+<String id="FACE_SHORTCUT_CHINESE110">
+/小狗
+</String>
+<String id="FACE_SHORTCUT_CHINESE111">
+/钱
+</String>
+<String id="FACE_SHORTCUT_CHINESE112">
+/灯泡
+</String>
+<String id="FACE_SHORTCUT_CHINESE113">
+/酒杯
+</String>
+<String id="FACE_SHORTCUT_CHINESE114">
+/音乐
+</String>
+<String id="FACE_SHORTCUT_CHINESE115">
+/药丸
+</String>
+<String id="FACE_SHORTCUT_CHINESE116">
+/吻
+</String>
+<String id="FACE_SHORTCUT_CHINESE117">
+/会议
+</String>
+<String id="FACE_SHORTCUT_CHINESE118">
+/电话
+</String>
+<String id="FACE_SHORTCUT_CHINESE119">
+/时间
+</String>
+<String id="FACE_SHORTCUT_CHINESE120">
+/邮件
+</String>
+<String id="FACE_SHORTCUT_CHINESE121">
+/电视
+</String>
+<String id="FACE_SHORTCUT_CHINESE122">
+/多多
+</String>
+<String id="FACE_SHORTCUT_CHINESE123">
+/美女
+</String>
+<String id="FACE_SHORTCUT_CHINESE124">
+/汉良
+</String>
+<String id="FACE_SHORTCUT_CHINESE125">
+/毛毛
+</String>
+<String id="FACE_SHORTCUT_CHINESE126">
+/Q仔
+</String>
+<String id="FACE_SHORTCUT_CHINESE127">
+/白酒
+</String>
+<String id="FACE_SHORTCUT_CHINESE128">
+/汽水
+</String>
+<String id="FACE_SHORTCUT_CHINESE129">
+/下雨
+</String>
+<String id="FACE_SHORTCUT_CHINESE130">
+/多云
+</String>
+<String id="FACE_SHORTCUT_CHINESE131">
+/雪人
+</String>
+<String id="FACE_SHORTCUT_CHINESE132">
+/星星
+</String>
+<String id="FACE_SHORTCUT_CHINESE133">
+/女
+</String>
+<String id="FACE_SHORTCUT_CHINESE134">
+/男
+</String>
+<String id="FACE2_SHORTCUT_CHINESE0">/wealthgod</String>
+<String id="FACE2_SHORTCUT_CHINESE1">/manekineko</String>
+<String id="FACE2_SHORTCUT_CHINESE2">/doll</String>
+<String id="FACE2_SHORTCUT_CHINESE3">/devil</String>
+<String id="FACE2_SHORTCUT_CHINESE4">/angel</String>
+<String id="FACE2_SHORTCUT_CHINESE5">/monk</String>
+<String id="FACE2_SHORTCUT_CHINESE6">/wukong </String>
+<String id="FACE2_SHORTCUT_CHINESE7">/journey</String>
+<String id="FACE2_SHORTCUT_CHINESE8">/bow</String>
+<String id="FACE2_SHORTCUT_CHINESE9">/boots</String>
+<String id="FACE2_SHORTCUT_CHINESE10">/highheels</String>
+<String id="FACE2_SHORTCUT_CHINESE11">/lipstick</String>
+<String id="FACE2_SHORTCUT_CHINESE12">/Ring</String>
+<String id="FACE2_SHORTCUT_CHINESE13">/Diamond</String>
+<String id="FACE2_SHORTCUT_CHINESE14">/Panda</String>
+<String id="FACE2_SHORTCUT_CHINESE15">/cat</String>
+<String id="FACE2_SHORTCUT_CHINESE16">/dollhead</String>
+<String id="FACE2_SHORTCUT_CHINESE17">/car</String>
+<String id="FACE2_SHORTCUT_CHINESE18">/aircraft</String>
+<String id="FACE2_SHORTCUT_CHINESE19">/banana</String>
+<String id="FACE2_SHORTCUT_CHINESE20">/cucumber</String>
+<String id="FACE2_SHORTCUT_CHINESE21">/carrot</String>
+<String id="FACE2_SHORTCUT_CHINESE22">/pear</String>
+<String id="FACE2_SHORTCUT_CHINESE23">/Apple</String>
+<String id="FACE2_SHORTCUT_CHINESE24">/candle</String>
+<String id="FACE2_SHORTCUT_CHINESE25">/redscarf</String>
+<String id="FACE2_SHORTCUT_CHINESE26">/DoubleHappiness</String>
+<String id="FACE2_SHORTCUT_CHINESE27">/Chess</String>
+<String id="FACE2_SHORTCUT_CHINESE28">/crab</String>
+<String id="FACE2_SHORTCUT_CHINESE29">/vinegar</String>
+<String id="FACE2_SHORTCUT_CHINESE30">/noodles</String>
+<String id="FACE2_SHORTCUT_CHINESE31">/chicken</String>
+<String id="FACE2_SHORTCUT_CHINESE32">/lollipop</String>
+<String id="FACE2_SHORTCUT_CHINESE33">/Crown</String>
+<String id="FACE2_SHORTCUT_CHINESE34">/daisy</String>
+<String id="FACE2_SHORTCUT_CHINESE35">/turtle</String>
+<String id="FACE2_SHORTCUT_CHINESE36">/camera</String>
+<String id="FACE2_SHORTCUT_CHINESE37">/Lucky</String>
+<String id="FACE2_SHORTCUT_CHINESE38">/alarmclock</String>
+<String id="FACE2_SHORTCUT_CHINESE39">/bulb</String>
+<String id="FACE2_SHORTCUT_CHINESE40">/clouds</String>
+<String id="FACE2_SHORTCUT_CHINESE41">/rain</String>
+<String id="FACE2_SHORTCUT_CHINESE42">/bottle</String>
+<String id="FACE2_SHORTCUT_CHINESE43">/pills</String>
+<String id="FACE2_SHORTCUT_CHINESE44">/UFO</String>
+<String id="FACE2_SHORTCUT_CHINESE45">/sofa</String>
+<String id="FACE2_SHORTCUT_CHINESE46">/handle</String>
+<String id="FACE2_SHORTCUT_CHINESE47">/pencil</String>
+<String id="FACE2_SHORTCUT_CHINESE48">/pistol</String>
+<String id="FACE2_SHORTCUT_CHINESE49">/phone</String>
+<String id="FACE2_SHORTCUT_CHINESE50">/briefcase</String>
+<String id="FACE2_SHORTCUT_CHINESE51">/microphone</String>
+<String id="FACE2_SHORTCUT_CHINESE52">/TV</String>
+<String id="FACE2_SHORTCUT_CHINESE53">/toiletpaper</String>
+<String id="FACE2_SHORTCUT_CHINESE54">/tile</String>
+<String id="FACE2_SHORTCUT_CHINESE55">/umbrella</String>
+<String id="FACE2_TOOL_TIP0">부의 신</String>
+<String id="FACE2_TOOL_TIP1">운이 좋은 고양이</String>
+<String id="FACE2_TOOL_TIP2">인형</String>
+<String id="FACE2_TOOL_TIP3">악마</String>
+<String id="FACE2_TOOL_TIP4">천사</String>
+<String id="FACE2_TOOL_TIP5">수도사</String>
+<String id="FACE2_TOOL_TIP6">Wukong</String>
+<String id="FACE2_TOOL_TIP7">여행</String>
+<String id="FACE2_TOOL_TIP8">활</String>
+<String id="FACE2_TOOL_TIP9">장화</String>
+<String id="FACE2_TOOL_TIP10">하이힐</String>
+<String id="FACE2_TOOL_TIP11">입술 연지</String>
+<String id="FACE2_TOOL_TIP12">링</String>
+<String id="FACE2_TOOL_TIP13">다이아몬드</String>
+<String id="FACE2_TOOL_TIP14">팬더</String>
+<String id="FACE2_TOOL_TIP15">고양이</String>
+<String id="FACE2_TOOL_TIP16">인형</String>
+<String id="FACE2_TOOL_TIP17">자동차</String>
+<String id="FACE2_TOOL_TIP18">항공기</String>
+<String id="FACE2_TOOL_TIP19">바나나</String>
+<String id="FACE2_TOOL_TIP20">오이</String>
+<String id="FACE2_TOOL_TIP21">당근</String>
+<String id="FACE2_TOOL_TIP22">배</String>
+<String id="FACE2_TOOL_TIP23">사과</String>
+<String id="FACE2_TOOL_TIP24">초</String>
+<String id="FACE2_TOOL_TIP25">빨간색 스카프</String>
+<String id="FACE2_TOOL_TIP26">더블 행복</String>
+<String id="FACE2_TOOL_TIP27">체스</String>
+<String id="FACE2_TOOL_TIP28">게</String>
+<String id="FACE2_TOOL_TIP29">식초</String>
+<String id="FACE2_TOOL_TIP30">국수</String>
+<String id="FACE2_TOOL_TIP31">치킨</String>
+<String id="FACE2_TOOL_TIP32">사탕 과자</String>
+<String id="FACE2_TOOL_TIP33">황실 왕관</String>
+<String id="FACE2_TOOL_TIP34">국화</String>
+<String id="FACE2_TOOL_TIP35">남생이</String>
+<String id="FACE2_TOOL_TIP36">카메라</String>
+<String id="FACE2_TOOL_TIP37">운이 좋은</String>
+<String id="FACE2_TOOL_TIP38">알람 시계</String>
+<String id="FACE2_TOOL_TIP39">구근</String>
+<String id="FACE2_TOOL_TIP40">구름</String>
+<String id="FACE2_TOOL_TIP41">비</String>
+<String id="FACE2_TOOL_TIP42">병</String>
+<String id="FACE2_TOOL_TIP43">알약</String>
+<String id="FACE2_TOOL_TIP44">UFO</String>
+<String id="FACE2_TOOL_TIP45">소파</String>
+<String id="FACE2_TOOL_TIP46">핸들</String>
+<String id="FACE2_TOOL_TIP47">연필</String>
+<String id="FACE2_TOOL_TIP48">권총</String>
+<String id="FACE2_TOOL_TIP49">전화</String>
+<String id="FACE2_TOOL_TIP50">서류 가방</String>
+<String id="FACE2_TOOL_TIP51">마이크로폰</String>
+<String id="FACE2_TOOL_TIP52">TV</String>
+<String id="FACE2_TOOL_TIP53">화장지</String>
+<String id="FACE2_TOOL_TIP54">타일</String>
+<String id="FACE2_TOOL_TIP55">우산</String>
+</StringBundle>

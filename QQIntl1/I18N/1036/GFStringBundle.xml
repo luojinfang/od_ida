@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="IE_Refresh">
+Actualiser
+</String>
+<String id="IE_RetryText">
+Cliquez sur $REFRESH$ pour réessayer
+</String>
+<String id="Empty_Menu">
+(N/A)
+</String>
+<String id="SYS_MESSAGEBOX_OK">
+OK
+</String>
+<String id="SYS_MESSAGEBOX_CANCEL">
+Annuler
+</String>
+<String id="SYS_MESSAGEBOX_RETRY">
+Réessayer
+</String>
+<String id="SYS_MESSAGEBOX_YES">
+Oui
+</String>
+<String id="SYS_MESSAGEBOX_NO">
+Non
+</String>
+<String id="SYS_MESSAGEBOX_ABORT">
+Abandonner
+</String>
+<String id="SYS_MESSAGEBOX_IGNORE">
+Ignorer
+</String>
+<String id="SYS_MESSAGEBOX_CONTINUE">
+Continuer
+</String>
+<String id="SYS_MESSAGEBOX_HELP">
+Aide
+</String>
+<String id="Sunday_Simple">
+D
+</String>
+<String id="Monday_Simple">
+L
+</String>
+<String id="Tuesday_Simple">
+M
+</String>
+<String id="Wednesday_Simple">
+M
+</String>
+<String id="Thursday_Simple">
+J
+</String>
+<String id="Friday_Simple">
+V
+</String>
+<String id="Saturday_Simple">
+S
+</String>
+<String id="Sunday">
+Dimanche
+</String>
+<String id="Monday">
+Lundi
+</String>
+<String id="Tuesday">
+Mardi
+</String>
+<String id="Wednesday">
+Mercredi
+</String>
+<String id="Thursday">
+Jeudi
+</String>
+<String id="Friday">
+Vendredi
+</String>
+<String id="Saturday">
+Samedi
+</String>
+<String id="PreYear">
+L&apos;année dernière
+</String>
+<String id="NextYear">
+L&apos;année prochaine
+</String>
+<String id="PreMonth">
+Le mois dernier
+</String>
+<String id="NextMonth">
+Le mois prochain
+</String>
+<String id="MonthCalCtrl_Help">
+Aide
+</String>
+<String id="MonthCalCtrl_Close">
+Fermer
+</String>
+<String id="LoginPanel_CapslockOpen">
+Le verrouillage des majuscules est activé.
+</String>
+<String id="UtilInfo_ElmCount">
+Total : $COUNT$
+</String>
+<String id="CloseWindow">
+Fermer
+</String>
+<String id="MaxisizeWindow">
+Agrandir
+</String>
+<String id="RestoreWindow">
+Restaurer
+</String>
+<String id="MinimizeWindow">
+Réduire
+</String>
+<String id="LoginPanel_DelAccount_Tips">
+Détails suppression compte
+</String>
+<String id="Flash_ErrorText">
+Votre version Flash est trop ancienne pour afficher normalement QQ Show. Cliquez ici pour télécharger la toute dernière version.
+</String>
+<String id="Flash_DownloadUrl">
+http://ptlogin2.qq.com/flash_plugin
+</String>
+<String id="IE_LoadingText">
+Veuillez patienter, chargement en cours...
+</String>
+<String id="IE_ErrText">
+Erreur réseau. Échec du chargement de la page
+</String>
+<String id="Tips_Backward">
+Précédent
+</String>
+<String id="Tips_Forward">
+Suivant
+</String>
+<String id="IE_ScriptErrText">
+Erreur de script dans la page actuelle.
+</String>
+<String id="Edit_NumberOnlyTips">
+You can only type numbers here.
+</String>
+<String id="Edit_FontSongTi">
+宋体
+</String>
+<String id="Edit_RButtonMenu_Cancel">
+Cancel(&amp;U)
+</String>
+<String id="Edit_RButtonMenu_Cut">
+Cut(&amp;T)
+</String>
+<String id="Edit_RButtonMenu_Copy">
+Copy(&amp;C)
+</String>
+<String id="Edit_RButtonMenu_Paste">
+Paste(&amp;P)
+</String>
+<String id="Edit_RButtonMenu_Delete">
+Delete(&amp;D)
+</String>
+<String id="Edit_RButtonMenu_SelectAll">
+Select All(&amp;A)
+</String>
+<String id="AppName">Nom du service</String>
+<String id="HotKey_DoubleCtrl">Appuyez deux fois sur la touche Ctrl</String>
+<String id="HotKey_NoSet">Aucun</String>
+<String id="Error">Erreur</String>
+<String id="Version">Version</String>
+<String id="HotKey_DoubleShift">Appuyez deux fois sur la touche Maj</String>
+<String id="Close">Fermer</String>
+<String id="HotKey_DoubleAlt">Appuyez deux fois sur la touche Alt</String>
+</StringBundle>

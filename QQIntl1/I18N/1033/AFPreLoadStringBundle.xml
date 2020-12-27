@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="LoginPanel_NewAccount">
+Sign up
+</String>
+<String id="MiniLoginPanel_NewAccount">
+Register
+</String>
+<String id="LoginPanel_GetYourPswBack">
+Retrieve password
+</String>
+<String id="MiniLoginPanel_GetYourPswBack">
+Retrieve password
+</String>
+<String id="CloseFloatWindow">
+Return to chat window
+</String>
+</StringBundle>

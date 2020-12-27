@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="LoginPanel_NewAccount">
+註冊新帳號
+</String>
+<String id="MiniLoginPanel_NewAccount">
+註冊帳號
+</String>
+<String id="LoginPanel_GetYourPswBack">
+找回密碼
+</String>
+<String id="MiniLoginPanel_GetYourPswBack">
+找回密碼
+</String>
+<String id="CloseFloatWindow">
+返回會話窗口
+</String>
+</StringBundle>

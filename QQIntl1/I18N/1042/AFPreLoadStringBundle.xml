@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StringBundle version="1.0">
+<String id="LoginPanel_NewAccount">
+등록
+</String>
+<String id="MiniLoginPanel_NewAccount">
+등록
+</String>
+<String id="LoginPanel_GetYourPswBack">
+암호 검색
+</String>
+<String id="MiniLoginPanel_GetYourPswBack">
+암호 복구
+</String>
+<String id="CloseFloatWindow">
+채팅 창으로 돌아가기
+</String>
+</StringBundle>
