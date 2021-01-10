@@ -96,6 +96,9 @@ eax==0x750043   //取ax 的值等于0x750043
 //条件断点
 https://blog.csdn.net/q123456789098/article/details/50502405
 
+//OK
+[UNICODE ebx]=="aa1197663"     //注意 ebx是存的是字符串的地址. 如果ebx存的是一个指向地址的地址，则要用  [UNICODE [ebx]]=="aa1197663"
+
 
 假设当CreateFile打开"c:\\1212.txt"时实现中断，则shift+F2
 
@@ -105,8 +108,10 @@ https://blog.csdn.net/q123456789098/article/details/50502405
 
 [esp+4] - 在地址esp+4处的无符号双字内容
 
-STRING [123456] - 以地址123456作为开始，以零作为结尾的ASCII字符串。中括号是必须的，因为您要显示内存的内容
+STRING 123456 - 以地址123456作为开始，以零作为结尾的ASCII字符串。中括号是必须的，因为您要显示内存的内容
 [STRING 123456]=="Brown fox" - 如果从地址0x00123456开始的内存为ASCII字符串"Brown fox"、"BROWN FOX JUMPS"、 "brown fox???"，或类似的串，那么其值为1。比较不区分大小写和文本长度
+
+
 
 EAX=="Brown fox" - 同上，EAX按指针对待。
 
