@@ -1,0 +1,11 @@
+Type,Address,Module/Label/Exception,State,Disassembly,Hits,Summary
+Software,,,,,,
+,6883A820,<common.dll.?SendData@CDataSenderBase@@QAEHPAUITXData@@HPAEPAK@Z>,Disabled,push ebp,0,senddata
+,6C342B04,hummerengine.dll,Enabled,call dword ptr ds:[6C36689C],0,exitprocess
+,6C73F4E7,ucrtbase.dll,Enabled,call dword ptr ds:[<&ExitProcess>],0,
+,75C834B5,<ws2_32.dll.sendto>,Disabled,"mov edi,edi",0,
+,75C8B6DC,<ws2_32.dll.recvfrom>,Disabled,"mov edi,edi",0,
+,762A79F8,<kernel32.dll.ExitProcess>,Disabled,jmp hummerengine.6C342947,0,
+,763C0DFB,<user32.dll.ShowWindow>,Disabled,jmp gf.680DF260,0,ShowWindow
+,76417D97,<user32.dll.ShowWindowAsync>,Disabled,"mov eax,111B",0,
+,77C0801C,<ntdll.dll.RtlExitUserThread>,Disabled,"mov edi,edi",0,
