@@ -285,6 +285,8 @@ Base     Module                                    Party  Path                  
 ---------------------------
  
 //注意多线程 
+
+//单击左键打开主界面
 5231B6D8 | FF15 50573252            | call dword ptr ds:[<&ShowWindow>]       |
 5231706C | E8 9F450000              | call gf.5231B610                        |gf.dll 
 5223DD38 | E8 13930D00              | call gf.52317050                        |
@@ -309,11 +311,22 @@ Base     Module                                    Party  Path                  
 ... user32方法循环？
 
 
-
- 
+//单击右键打开菜单
+5231B6D8 | FF15 50573252            | call dword ptr ds:[<&ShowWindow>]       | [通用]
+5231706C | E8 9F450000              | call gf.5231B610                        | [通用]
+522B3B26 | E8 25350600              | call gf.52317050                        |
+522B37B3 | E8 18000000              | call gf.522B37D0                        |
+522B81A1 | E8 BAB3FFFF              | call gf.522B3560                        |
+59AE699D | FF91 F4040000            | call dword ptr ds:[ecx+4F4]             | tasktray.dll
+59AE3208 | E8 712E0000              | call tasktray.59AE607E                  |
+59AE03EC | FF50 04                  | call dword ptr ds:[eax+4]               | [通用]
+4FE7251F | FF50 0C                  | call dword ptr ds:[eax+C]               | afutil.dll
+4FE72592 | E8 08FFFFFF              | call afutil.4FE7249F                    |
+4FE72776 | FF10                     | call dword ptr ds:[eax]                 | [通用]
+user32.dll
 
 ========================================================================================================================================================================================================
- //5231B6D8
+ //5231B6D8  显示窗口通用
  int __thiscall sub_5231B610(_DWORD *this, int nCmdShow) //gf.dll
 {
   _DWORD *v2; // esi@1
@@ -1016,7 +1029,7 @@ int __stdcall sub_6B89A8A(int a1, int a2) //mainframe.dll
 
 ========================================================================================================================================================================================================
 //59AE6028
-
+//打开主界面
 int __thiscall sub_59AE5DBF(_DWORD *this) //tasktray.dll
 {
   _DWORD *v1; // ebx@1
@@ -1138,6 +1151,563 @@ LABEL_27:
   }
   return sub_59AD12C9(&v22, v13);
 }
+
+//打开菜单
+void __thiscall sub_59AE607E(int this)
+{
+  int v1; // esi@1
+  int v2; // ecx@2
+  int v3; // edx@2
+  int v4; // esi@7
+  int v5; // eax@7
+  int v6; // eax@7
+  int v7; // edi@7
+  int v8; // eax@9
+  bool v9; // zf@9
+  int v10; // esi@9
+  int v11; // edi@9
+  signed int v12; // ecx@9
+  signed int v13; // ecx@10
+  int v14; // esi@12
+  int v15; // ecx@12
+  int v16; // ecx@12
+  const wchar_t *v17; // eax@13
+  const wchar_t *v18; // eax@13
+  int v19; // edi@13
+  const wchar_t *v20; // esi@13
+  _DWORD *v21; // ecx@13
+  int v22; // ecx@13
+  int v23; // edx@13
+  int v24; // edx@14
+  int v25; // edx@15
+  int v26; // edx@17
+  const wchar_t *v27; // eax@18
+  const wchar_t *v28; // eax@18
+  int v29; // edi@18
+  const wchar_t *v30; // esi@18
+  const WCHAR *v31; // ecx@18
+  int v32; // ecx@18
+  char v33; // ST0C_1@18
+  int v34; // esi@18
+  int v35; // ecx@18
+  int v36; // ecx@18
+  const wchar_t *v37; // eax@18
+  const wchar_t *v38; // eax@18
+  int v39; // edi@18
+  const wchar_t *v40; // esi@18
+  _DWORD *v41; // ecx@18
+  int v42; // ecx@18
+  const wchar_t *v43; // ST0C_4@18
+  int v44; // esi@18
+  int v45; // eax@18
+  __int16 v46; // ax@18
+  const wchar_t *v47; // eax@22
+  const wchar_t *v48; // eax@22
+  int v49; // edi@22
+  const wchar_t *v50; // esi@22
+  const WCHAR *v51; // ecx@22
+  int v52; // ecx@22
+  char v53; // ST0C_1@22
+  int v54; // esi@22
+  int v55; // ecx@22
+  int v56; // ecx@22
+  int v57; // esi@22
+  int v58; // eax@23
+  int v59; // eax@24
+  int v60; // edi@24
+  int v61; // esi@24
+  int v62; // ecx@24
+  signed int v63; // ecx@24
+  int v64; // esi@24
+  int v65; // ecx@24
+  int v66; // ecx@24
+  const wchar_t *v67; // eax@25
+  const wchar_t *v68; // eax@25
+  int v69; // edi@25
+  const wchar_t *v70; // esi@25
+  const WCHAR *v71; // ecx@25
+  int v72; // ecx@25
+  char v73; // ST0C_1@25
+  int v74; // esi@25
+  int v75; // ecx@25
+  int v76; // ecx@25
+  const wchar_t *v77; // eax@25
+  const wchar_t *v78; // eax@25
+  int v79; // edi@25
+  const wchar_t *v80; // esi@25
+  _DWORD *v81; // ecx@25
+  int v82; // ecx@25
+  int v83; // edx@25
+  int v84; // edx@25
+  int v85; // esi@26
+  const wchar_t *v86; // eax@27
+  const wchar_t *v87; // eax@27
+  int v88; // edi@27
+  const wchar_t *v89; // esi@27
+  const WCHAR *v90; // ecx@27
+  int v91; // ecx@27
+  char v92; // ST0C_1@27
+  int v93; // esi@27
+  int v94; // ecx@27
+  int v95; // ecx@27
+  const wchar_t *v96; // eax@27
+  const wchar_t *v97; // eax@27
+  int v98; // edi@27
+  const wchar_t *v99; // esi@27
+  _DWORD *v100; // ecx@27
+  int v101; // ecx@27
+  const wchar_t *v102; // ST0C_4@27
+  int v103; // ecx@29
+  int *v104; // eax@32
+  int v105; // ecx@32
+  int v106; // edx@33
+  char v107; // [sp-28h] [bp-78h]@12
+  int (__stdcall *v108)(int, signed int, int, int *); // [sp-24h] [bp-74h]@12
+  int *v109; // [sp-20h] [bp-70h]@12
+  signed int v110; // [sp-1Ch] [bp-6Ch]@12
+  int v111; // [sp-18h] [bp-68h]@12
+  int v112; // [sp-14h] [bp-64h]@12
+  signed int v113; // [sp-10h] [bp-60h]@12
+  signed int v114; // [sp-Ch] [bp-5Ch]@12
+  _DWORD *v115; // [sp-8h] [bp-58h]@10
+  HWND *v116; // [sp-4h] [bp-54h]@10
+  const WCHAR *v117; // [sp+0h] [bp-50h]@9
+  signed int v118; // [sp+4h] [bp-4Ch]@9
+  struct tagPOINT Point; // [sp+8h] [bp-48h]@2
+  char v120; // [sp+10h] [bp-40h]@3
+  int *v121; // [sp+14h] [bp-3Ch]@7
+  int (__stdcall *v122)(int, signed int, int, int *); // [sp+18h] [bp-38h]@7
+  int v123; // [sp+1Ch] [bp-34h]@18
+  int v124; // [sp+20h] [bp-30h]@18
+  _DWORD *v125; // [sp+24h] [bp-2Ch]@2
+  HWND hWnd; // [sp+28h] [bp-28h]@28
+  char v127; // [sp+2Ch] [bp-24h]@7
+  char v128; // [sp+30h] [bp-20h]@7
+  const WCHAR *v129; // [sp+34h] [bp-1Ch]@9
+  const WCHAR *v130; // [sp+38h] [bp-18h]@9
+  int v131; // [sp+3Ch] [bp-14h]@4
+  LONG v132; // [sp+40h] [bp-10h]@9
+  int v133; // [sp+44h] [bp-Ch]@1
+  int *v134; // [sp+48h] [bp-8h]@3
+  char v135; // [sp+4Fh] [bp-1h]@4
+
+  v1 = this;
+  v133 = this;
+  if ( *(_DWORD *)(this + 132) )
+  {
+    sub_59AEC707(this + 172);
+    Point.x = 0;
+    Point.y = 0;
+    GetCursorPos(&Point);
+    v2 = *(_DWORD *)(v1 + 132);
+    v125 = 0;
+    if ( (*(int (__stdcall **)(int, int *))(*(_DWORD *)v2 + 64))(v2, (int *)&v125) < 0 )
+    {
+LABEL_34:
+      sub_59AD12C9(&v125, v3);
+      return;
+    }
+    v134 = 0;
+    sub_59AD86AE(&v134);
+    (*(void (__stdcall **)(int, _DWORD, _DWORD))(*v134 + 28))((int)v134, 0, 0);
+    sub_59AD91CC(v134, 4098, sub_59AE2267, 0);
+    CTXStringW::CTXStringW((CTXStringW *)&v120);
+    if ( !*(_DWORD *)(v1 + 164) )
+    {
+      v129 = (const WCHAR *)-16777216;
+      CTXStringW::CTXStringW(&v121, L"platform", v117);
+      v86 = (const wchar_t *)CTXStringW::operator wchar_t const *(&v121);
+      v87 = TXLoadString(L"TRAY_MENU_OPENMAINFRAME", v86);
+      v88 = (int)v134;
+      v89 = v87;
+      v90 = v117;
+      v117 = v129;
+      CTXStringW::CTXStringW(&v116, &WindowName, v90);
+      v114 = 1;
+      v113 = 1;
+      v112 = 0;
+      v111 = 0;
+      v110 = 0;
+      v109 = 0;
+      v108 = 0;
+      CTXStringW::CTXStringW(&v107, &WindowName, v91);
+      sub_59ADF00B(v88, 108, v89, v92, *(_DWORD *)&v107, v108, v109, v110, v111, v112, v113, v114, v115);
+      CTXStringW::~CTXStringW((CTXStringW *)&v121);
+      v93 = (int)v134;
+      v129 = (const WCHAR *)-16777216;
+      v115 = (_DWORD *)-16777216;
+      CTXStringW::CTXStringW(&v114, &WindowName, v94);
+      v115 = 0;
+      v114 = 1;
+      v113 = 0;
+      v112 = 0;
+      v111 = 0;
+      v110 = 1;
+      v109 = 0;
+      CTXStringW::CTXStringW(&v108, &WindowName, v95);
+      sub_59ADF00B(v93, 0, L"-", v107, v108, v109, v110, v111, v112, v113, v114, (char)v115, v116);
+      v129 = (const WCHAR *)-16777216;
+      CTXStringW::CTXStringW(&v121, L"platform", v117);
+      v96 = (const wchar_t *)CTXStringW::operator wchar_t const *(&v121);
+      v97 = TXLoadString(L"TRAY_MENU_QUITIM", v96);
+      v98 = (int)v134;
+      v99 = v97;
+      v100 = v115;
+      v115 = v129;
+      CTXStringW::CTXStringW(&v114, &WindowName, v100);
+      v115 = 0;
+      v114 = 1;
+      v113 = 0;
+      v112 = 0;
+      v111 = 0;
+      v110 = 0;
+      v109 = 0;
+      CTXStringW::CTXStringW(&v108, &WindowName, v101);
+      v102 = v99;
+      v85 = v133;
+      sub_59ADF00B(v98, 110, v102, v107, v108, v109, v110, v111, v112, v113, v114, (char)v115, v116);
+      CTXStringW::~CTXStringW((CTXStringW *)&v121);
+LABEL_28:
+      Util::DataReport::SetDataReportBit(
+        (Util::DataReport *)0xBC000001,
+        (unsigned __int32)"dwCountofSetting1",
+        (const char *)2,
+        (unsigned __int8)v117);
+      hWnd = 0;
+      if ( v125 )
+      {
+        v103 = *v125;
+        v116 = &hWnd;
+        v115 = v125;
+        if ( (*(int (__stdcall **)(_DWORD *, HWND *))(v103 + 608))(v125, &hWnd) >= 0 )
+        {
+          if ( hWnd )
+            SetForegroundWindow(hWnd);
+        }
+      }
+      v104 = v134;
+      *(struct tagPOINT *)&v115 = Point;
+      *(_DWORD *)(v85 + 328) = 1;
+      v114 = 0;
+      v105 = *v104;
+      v113 = (signed int)v104;
+      (*(void (__stdcall **)(int *, _DWORD, _DWORD *, HWND *))(v105 + 1268))(v104, 0, v115, v116);
+      goto LABEL_33;
+    }
+    v135 = 0;
+    v131 = 0;
+    if ( sub_59AD90DC(&v131) )
+      (*(void (__stdcall **)(int, char *))(*(_DWORD *)v131 + 36))(v131, &v135);
+    if ( v135 )
+    {
+      CTXBSTR::CTXBSTR(&v127);
+      CTXBSTR::CTXBSTR(&v128);
+      v4 = v131;
+      v122 = *(int (__stdcall **)(int, signed int, int, int *))(*(_DWORD *)v131 + 56);
+      v121 = (int *)CTXBSTR::operator&(&v128);
+      v5 = CTXBSTR::operator&(&v127);
+      v6 = v122(v4, 1, v5, v121);
+      v7 = v6;
+      if ( v131 && v6 >= 0 )
+      {
+        CTXStringW::CTXStringW(&v130, &v127, v117);
+        CTXStringW::CTXStringW(&v129, &v128, Point.y);
+        v132 = -16777216;
+        v8 = CTXStringW::operator wchar_t const *(&v130);
+        Point.x = v132;
+        v9 = v7 == 0;
+        v10 = v8;
+        v11 = (int)v134;
+        v118 = v12;
+        v117 = &WindowName;
+        if ( v9 )
+        {
+          CTXStringW::CTXStringW(&v118, v117, v118);
+          v117 = 0;
+          v116 = (HWND *)1;
+          v115 = 0;
+        }
+        else
+        {
+          CTXStringW::CTXStringW(&v118, v117, v118);
+          v117 = 0;
+          v116 = (HWND *)1;
+          v115 = (_DWORD *)1;
+        }
+        v114 = 0;
+        v113 = 0;
+        v112 = 0;
+        v111 = 0;
+        v110 = v13;
+        CTXStringW::CTXStringW(&v110);
+        sub_59ADF00B(v11, 113, v10, (unsigned int)&v129, v110, v111, v112, v113, v114, v115, v116, (char)v117, v118);
+        v14 = (int)v134;
+        v132 = -16777216;
+        v118 = -16777216;
+        CTXStringW::CTXStringW(&v117, &WindowName, v15);
+        v115 = 0;
+        v114 = 1;
+        v113 = 0;
+        v112 = 0;
+        v111 = 0;
+        v110 = 1;
+        v109 = 0;
+        CTXStringW::CTXStringW(&v108, &WindowName, v16);
+        sub_59ADF00B(v14, 0, L"-", v107, v108, v109, v110, v111, v112, v113, v114, (char)v115, v116);
+        CTXStringW::~CTXStringW((CTXStringW *)&v129);
+        CTXStringW::~CTXStringW((CTXStringW *)&v130);
+      }
+      v132 = -16777216;
+      CTXStringW::CTXStringW(&v129, L"platform", v117);
+      v17 = (const wchar_t *)CTXStringW::operator wchar_t const *(&v129);
+      v18 = TXLoadString(L"TRAY_MENU_QUITIM", v17);
+      v19 = (int)v134;
+      v20 = v18;
+      v21 = v115;
+      v115 = (_DWORD *)v132;
+      CTXStringW::CTXStringW(&v114, &WindowName, v21);
+      v115 = 0;
+      v114 = 1;
+      v113 = 0;
+      v112 = 0;
+      v111 = 0;
+      v110 = 0;
+      v109 = 0;
+      CTXStringW::CTXStringW(&v108, &WindowName, v22);
+      sub_59ADF00B(v19, 110, v20, v107, v108, v109, v110, v111, v112, v113, v114, (char)v115, v116);
+      CTXStringW::~CTXStringW((CTXStringW *)&v129);
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v128);
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v127);
+LABEL_26:
+      sub_59AD12C9(&v131, v23);
+      v85 = v133;
+      goto LABEL_28;
+    }
+    v129 = 0;
+    if ( sub_59AD912C(&v129) )
+    {
+      v132 = 0;
+      (*(void (__stdcall **)(int, int *))(*(_DWORD *)v129 + 60))((int)v129, (int *)&v132);
+      if ( v132 )
+      {
+        sub_59ADF5F9(v132, 10, v134);
+        sub_59ADF5F9(v132, 60, v134);
+        sub_59ADF5F9(v132, 30, v134);
+        sub_59ADF5F9(v132, 50, v134);
+        sub_59ADF5F9(v132, 70, v134);
+        sub_59ADF5F9(v132, 40, v134);
+        sub_59ADF5F9(v132, 20, v134);
+        v130 = (const WCHAR *)-16777216;
+        CTXStringW::CTXStringW(&v124, L"platform", v117);
+        v27 = (const wchar_t *)CTXStringW::operator wchar_t const *(&v124);
+        v28 = TXLoadString(L"MainPanel_Menu_B8", v27);
+        v29 = (int)v134;
+        v30 = v28;
+        v31 = v117;
+        v117 = v130;
+        CTXStringW::CTXStringW(&v116, &WindowName, v31);
+        v114 = 0;
+        v113 = 1;
+        v112 = 0;
+        v111 = 0;
+        v110 = 0;
+        v109 = 0;
+        v108 = 0;
+        CTXStringW::CTXStringW(&v107, &WindowName, v32);
+        sub_59ADF00B(v29, 107, v30, v33, *(_DWORD *)&v107, v108, v109, v110, v111, v112, v113, v114, v115);
+        CTXStringW::~CTXStringW((CTXStringW *)&v124);
+        v34 = (int)v134;
+        v130 = (const WCHAR *)-16777216;
+        v115 = (_DWORD *)-16777216;
+        CTXStringW::CTXStringW(&v114, &WindowName, v35);
+        v115 = 0;
+        v114 = 1;
+        v113 = 0;
+        v112 = 0;
+        v111 = 0;
+        v110 = 1;
+        v109 = 0;
+        CTXStringW::CTXStringW(&v108, &WindowName, v36);
+        sub_59ADF00B(v34, 0, L"-", v107, v108, v109, v110, v111, v112, v113, v114, (char)v115, v116);
+        v124 = 0;
+        sub_59ADE76F(11, 0, &v124);
+        v130 = (const WCHAR *)-16777216;
+        v121 = (int *)(v124 == 0);
+        CTXStringW::CTXStringW(&v123, L"platform", v117);
+        v37 = (const wchar_t *)CTXStringW::operator wchar_t const *(&v123);
+        v38 = TXLoadString(L"Menu_CloseSoundPrompt", v37);
+        v39 = (int)v134;
+        v40 = v38;
+        v41 = v115;
+        v115 = v130;
+        CTXStringW::CTXStringW(&v114, &WindowName, v41);
+        v115 = 0;
+        v114 = 1;
+        v113 = 0;
+        v112 = 0;
+        v111 = 0;
+        v110 = 0;
+        v109 = v121;
+        CTXStringW::CTXStringW(&v108, &WindowName, v42);
+        v43 = v40;
+        v44 = v133;
+        sub_59ADF00B(v39, 109, v43, v107, v108, v109, v110, v111, v112, v113, v114, (char)v115, v116);
+        CTXStringW::~CTXStringW((CTXStringW *)&v123);
+        v45 = Util::Contact::GetSelfUin(0);
+        v46 = Util::Contact::GetStatus(v45, v116);
+        v123 = 0;
+        v122 = (int (__stdcall *)(int, signed int, int, int *))(*(_DWORD *)(v44 + 516) == 0);
+        if ( 70 == v46 || 50 == v46 || 20 == v46 )
+        {
+          v123 = 1;
+          v122 = (int (__stdcall *)(int, signed int, int, int *))1;
+        }
+        v130 = (const WCHAR *)-16777216;
+        CTXStringW::CTXStringW(&v121, L"platform", v117);
+        v47 = (const wchar_t *)CTXStringW::operator wchar_t const *(&v121);
+        v48 = TXLoadString(L"CloseFlashTrayIcon", v47);
+        v49 = (int)v134;
+        v50 = v48;
+        v51 = v117;
+        v117 = v130;
+        CTXStringW::CTXStringW(&v116, &WindowName, v51);
+        v114 = 0;
+        v113 = 1;
+        v112 = v123;
+        v111 = 0;
+        v110 = 0;
+        v109 = 0;
+        v108 = v122;
+        CTXStringW::CTXStringW(&v107, &WindowName, v52);
+        sub_59ADF00B(v49, 114, v50, v53, *(_DWORD *)&v107, v108, v109, v110, v111, v112, v113, v114, v115);
+        CTXStringW::~CTXStringW((CTXStringW *)&v121);
+        v54 = (int)v134;
+        v130 = (const WCHAR *)-16777216;
+        v115 = (_DWORD *)-16777216;
+        CTXStringW::CTXStringW(&v114, &WindowName, v55);
+        v115 = 0;
+        v114 = 1;
+        v113 = 0;
+        v112 = 0;
+        v111 = 0;
+        v110 = 1;
+        v109 = 0;
+        CTXStringW::CTXStringW(&v108, &WindowName, v56);
+        sub_59ADF00B(v54, 0, L"-", v107, v108, v109, v110, v111, v112, v113, v114, (char)v115, v116);
+        CTXBSTR::CTXBSTR(&v128);
+        CTXBSTR::CTXBSTR(&v127);
+        v57 = v131;
+        if ( v131 )
+        {
+          v122 = *(int (__stdcall **)(int, signed int, int, int *))(*(_DWORD *)v131 + 52);
+          v121 = (int *)CTXBSTR::operator&(&v127);
+          v58 = CTXBSTR::operator&(&v128);
+          if ( v122(v57, 1, v58, v121) >= 0 )
+          {
+            CTXStringW::CTXStringW(&v122, &v128, v117);
+            CTXStringW::CTXStringW(&v121, &v127, v118);
+            v130 = (const WCHAR *)-16777216;
+            v59 = CTXStringW::operator wchar_t const *(&v122);
+            v117 = v130;
+            v60 = (int)v134;
+            v61 = v59;
+            CTXStringW::CTXStringW(&v116, &WindowName, v62);
+            v117 = 0;
+            v116 = (HWND *)1;
+            v115 = 0;
+            v114 = 0;
+            v113 = 0;
+            v112 = 0;
+            v111 = 0;
+            v110 = v63;
+            v109 = (int *)&v121;
+            CTXStringW::CTXStringW(&v110);
+            sub_59ADF00B(v60, 112, v61, (char)v109, v110, v111, v112, v113, v114, v115, v116, (char)v117, v118);
+            v64 = (int)v134;
+            v130 = (const WCHAR *)-16777216;
+            v118 = -16777216;
+            CTXStringW::CTXStringW(&v117, &WindowName, v65);
+            v115 = 0;
+            v114 = 1;
+            v113 = 0;
+            v112 = 0;
+            v111 = 0;
+            v110 = 1;
+            v109 = 0;
+            CTXStringW::CTXStringW(&v108, &WindowName, v66);
+            sub_59ADF00B(v64, 0, L"-", v107, v108, v109, v110, v111, v112, v113, v114, (char)v115, v116);
+            CTXStringW::~CTXStringW((CTXStringW *)&v121);
+            CTXStringW::~CTXStringW((CTXStringW *)&v122);
+          }
+        }
+        v130 = (const WCHAR *)-16777216;
+        CTXStringW::CTXStringW(&v121, L"platform", v117);
+        v67 = (const wchar_t *)CTXStringW::operator wchar_t const *(&v121);
+        v68 = TXLoadString(L"TRAY_MENU_OPENMAINFRAME", v67);
+        v69 = (int)v134;
+        v70 = v68;
+        v71 = v117;
+        v117 = v130;
+        CTXStringW::CTXStringW(&v116, &WindowName, v71);
+        v114 = 1;
+        v113 = 1;
+        v112 = 0;
+        v111 = 0;
+        v110 = 0;
+        v109 = 0;
+        v108 = 0;
+        CTXStringW::CTXStringW(&v107, &WindowName, v72);
+        sub_59ADF00B(v69, 108, v70, v73, *(_DWORD *)&v107, v108, v109, v110, v111, v112, v113, v114, v115);
+        CTXStringW::~CTXStringW((CTXStringW *)&v121);
+        v74 = (int)v134;
+        v130 = (const WCHAR *)-16777216;
+        v115 = (_DWORD *)-16777216;
+        CTXStringW::CTXStringW(&v114, &WindowName, v75);
+        v115 = 0;
+        v114 = 1;
+        v113 = 0;
+        v112 = 0;
+        v111 = 0;
+        v110 = 1;
+        v109 = 0;
+        CTXStringW::CTXStringW(&v108, &WindowName, v76);
+        sub_59ADF00B(v74, 0, L"-", v107, v108, v109, v110, v111, v112, v113, v114, (char)v115, v116);
+        v130 = (const WCHAR *)-16777216;
+        CTXStringW::CTXStringW(&v121, L"platform", v117);
+        v77 = (const wchar_t *)CTXStringW::operator wchar_t const *(&v121);
+        v78 = TXLoadString(L"TRAY_MENU_QUITIM", v77);
+        v79 = (int)v134;
+        v80 = v78;
+        v81 = v115;
+        v115 = v130;
+        CTXStringW::CTXStringW(&v114, &WindowName, v81);
+        v115 = 0;
+        v114 = 1;
+        v113 = 0;
+        v112 = 0;
+        v111 = 0;
+        v110 = 0;
+        v109 = 0;
+        CTXStringW::CTXStringW(&v108, &WindowName, v82);
+        sub_59ADF00B(v79, 110, v80, v107, v108, v109, v110, v111, v112, v113, v114, (char)v115, v116);
+        CTXStringW::~CTXStringW((CTXStringW *)&v121);
+        CTXBSTR::~CTXBSTR((CTXBSTR *)&v127);
+        CTXBSTR::~CTXBSTR((CTXBSTR *)&v128);
+        sub_59AD12C9(&v132, v83);
+        sub_59AD12C9(&v129, v84);
+        goto LABEL_26;
+      }
+      sub_59AD12C9(&v132, v25);
+    }
+    sub_59AD12C9(&v129, v24);
+    sub_59AD12C9(&v131, v26);
+LABEL_33:
+    CTXStringW::~CTXStringW((CTXStringW *)&v120);
+    sub_59AD12C9(&v134, v106);
+    goto LABEL_34;
+  }
+}
+
 ========================================================================================================================================================================================================
 //59AE3E44
 int __thiscall sub_59AE314E(int *this, int a2, int a3)//tasktray.dll
@@ -1272,7 +1842,7 @@ int __thiscall sub_59AE314E(int *this, int a2, int a3)//tasktray.dll
       if ( a3 != 515 )
       {
         if ( a3 == 517 )
-          sub_59AE607E(v3);
+          sub_59AE607E(v3);//打开菜单
         return 0;
       }
       if ( !v3[123] )
@@ -1309,7 +1879,7 @@ int __thiscall sub_59AE314E(int *this, int a2, int a3)//tasktray.dll
               (*(void (__stdcall **)(_DWORD))(**(_DWORD **)(i + 8) + 12))(*(_DWORD *)(i + 8));
             sub_59AE9209(&Memory);
             sub_59AD992D(Memory, 12);
-            sub_59AE5DBF((_DWORD *)v47);
+            sub_59AE5DBF((_DWORD *)v47); //打开主界面
             v50 = GetTickCount();
             sub_59AD1284(
               L"file",
@@ -1805,7 +2375,8 @@ signed int __stdcall sub_59AE03A8(int a1, int a2, int a3)//tasktray.dll
  
 ========================================================================================================================================================================================================
 
-//4FE7241F  afutil.dll
+//4FE7241F  afutil.dll  
+//右下角图标 mouseover
 int __thiscall sub_4FE723E1(int this, int a2, void *a3, int a4, int a5)
 {
   int v5; // esi@1
@@ -1820,9 +2391,9 @@ int __thiscall sub_4FE723E1(int this, int a2, void *a3, int a4, int a5)
       KillTimer(*(HWND *)(this + 4), 1u);
       if ( *(_DWORD *)(v5 + 48) )
       {
-        v6 = *(_DWORD *)(v5 + 60);
+        v6 = *(_DWORD *)(v5 + 60);  //是否有点击事件？？ .faq 追 v5 + 60
         if ( v6 )
-          (*(void (__stdcall **)(int, _DWORD, _DWORD))(*(_DWORD *)v6 + 12))(   // =>sub_59AE03A8()
+          (*(void (__stdcall **)(int, _DWORD, _DWORD))(*(_DWORD *)v6 + 12))(   // =>sub_59AE03A8() 
             v6,
             *(_DWORD *)(v5 + 52),
             *(_DWORD *)(v5 + 56));
@@ -1851,6 +2422,52 @@ int __thiscall sub_4FE723E1(int this, int a2, void *a3, int a4, int a5)
   }
   return 0;
 }
+
+//显示菜单???
+int __thiscall sub_4FE7249F(int this, int a2, int a3, int a4, int a5)
+{
+  int v5; // esi@1
+  int v6; // edx@10
+  UINT v7; // eax@14
+
+  v5 = this;
+  if ( a4 == 513 )
+    goto LABEL_14;
+  if ( a4 == 514 )
+  {
+    if ( !*(_DWORD *)(this + 48) )
+      return 0;
+LABEL_14:
+    *(_DWORD *)(this + 48) = 1;
+    KillTimer(*(HWND *)(this + 4), 1u);
+    *(_DWORD *)(v5 + 52) = a3;
+    *(_DWORD *)(v5 + 56) = a4;
+    v7 = GetDoubleClickTime();
+    SetTimer(*(HWND *)(v5 + 4), 1u, v7, 0);
+    return 0;
+  }
+  if ( a4 == 512 )
+  {
+    KillTimer(*(HWND *)(this + 4), 3u);
+    GetCursorPos((LPPOINT)(v5 + 64));
+    SetTimer(*(HWND *)(v5 + 4), 3u, 0x1F4u, 0);
+  }
+  if ( a4 == 515 )
+    *(_DWORD *)(v5 + 48) = 0;
+  if ( *(_DWORD *)(v5 + 76) != a2 || *(_DWORD *)(v5 + 80) != a3 || *(_DWORD *)(v5 + 84) != a4 )
+  {
+    v6 = *(_DWORD *)(v5 + 60);
+    *(_DWORD *)(v5 + 76) = a2;
+    *(_DWORD *)(v5 + 80) = a3;
+    *(_DWORD *)(v5 + 84) = a4;
+    if ( v6 )
+      (*(void (__stdcall **)(int, int, int))(*(_DWORD *)v6 + 12))(v6, a3, a4);
+    *(_DWORD *)(v5 + 76) = 0;
+    *(_DWORD *)(v5 + 80) = 0;
+    *(_DWORD *)(v5 + 84) = 0;
+  }
+  return 0;
+}
 ========================================================================================================================================================================================================
 //4FE72610  afutil.dll
 signed int __thiscall sub_4FE72567(void *this, int a2, int a3, void *a4, int a5, int *a6, signed int a7)
@@ -1865,9 +2482,35 @@ signed int __thiscall sub_4FE72567(void *this, int a2, int a3, void *a4, int a5,
   v7 = (int)this;
   if ( !a7 )
   {
-    if ( a3 == 1149 )
+
+//4FE72579 | 8B75 0C                  | mov esi,dword ptr ss:[ebp+C]            |
+//4FE7257C | B9 7D040000              | mov ecx,47D                             |   bk,  (esi != 0x47D && esi != 0x113) 右下角图标,鼠标移入移出
+// esi = 0x1c/28 没处理? 显示隐藏主界面操作结果同步?  bk,     (0x1c!=esi ) && (esi != 0x47D && esi != 0x113)
+
+----------------------------------
+//这里没处理?
+//右键显示菜单 
+0x46 /70
+0x47 /71 
+0x86 /134
+0x6  /6
+0x281/641
+0x282/642
+0x7  /7
+----------------------------------
+//空处左键隐藏菜单
+0x86
+0x6
+0x8
+0x281
+0x282
+0xC178/49528
+
+---------------------------------- 
+
+    if ( a3 == 1149 ) //0x47D / mouseover?
     {
-      *a6 = sub_4FE7249F(1149, a4, a5, &a7);
+      *a6 = sub_4FE7249F(1149, a4, a5, &a7); //显示菜单???
       return 1;
     }
     result = 1;
@@ -1893,9 +2536,9 @@ LABEL_12:
       *a6 = v11;
       return 1;
     }
-    if ( a3 == 275 )
+    if ( a3 == 275 ) //0x113 /mouseout?   
     {
-      v11 = sub_4FE723E1(v7, 275, a4, a5, (int)&a7);
+      v11 = sub_4FE723E1(v7, 275, a4, a5, (int)&a7);	//显示主界面？？
       goto LABEL_12;
     }
     if ( a3 == 17 )
@@ -1982,12 +2625,83 @@ int __stdcall sub_4FE72732(int a1, UINT Msg, WPARAM wParam, LPARAM lParam)
   }
   return a1;
 }
+
+
+
+
+.text:4FE7275F                 lea     eax, [ebp+var_24]
+.text:4FE72762                 push    0
+.text:4FE72764                 push    ecx
+.text:4FE72765                 push    [ebp+lParam]
+.text:4FE72768                 mov     [esi+18h], eax
+.text:4FE7276B                 mov     ecx, esi
+.text:4FE7276D                 push    [ebp+wParam]
+.text:4FE72770                 mov     eax, [esi]
+.text:4FE72772                 push    edi
+.text:4FE72773                 push    dword ptr [esi+4] //hwnd
+.text:4FE72776                 call    dword ptr [eax]  //sub_4FE72567()
+
 ========================================================================================================================================================================================================
 //user32.dll
 
 ========================================================================================================================================================================================================
+//使用界面时,获得对应winproc去设置? 
+int (__stdcall *sub_4FE721E0())(int, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+  return sub_4FE72732;
+}
 
+//数据块 off_4FF0B93C 引用 sub_4FE721E0
+.rdata:4FF0B93C off_4FF0B93C    dd offset sub_4FE72567  ; DATA XREF: sub_4FE720C6+1Eo
+.rdata:4FF0B93C                                         ; sub_4FE72169+Ao
+.rdata:4FF0B940                 dd offset sub_4FE72196
+.rdata:4FF0B944                 dd offset sub_4FE721E0
+.rdata:4FF0B948                 dd offset nullsub_2
 
+//引用 off_4FF0B93C
+int __thiscall sub_4FE720C6(int this)
+{
+  int v1; // edi@1
+  _DWORD *v2; // esi@1
+
+  v1 = this;
+  *(_DWORD *)(this + 4) = 0;
+  v2 = (_DWORD *)(this + 36);
+  *(_DWORD *)(this + 20) = 0;
+  *(_DWORD *)(this + 24) = 0;
+  *(_DWORD *)(this + 28) = 0;
+  *(_DWORD *)(this + 32) = DefWindowProcW;
+  *(_DWORD *)this = &off_4FF0B93C;
+  *(_DWORD *)(this + 36) = 0;
+  *(_DWORD *)(this + 40) = 0;
+  *(_DWORD *)(this + 44) = 0;
+  *(_DWORD *)(this + 48) = 0;
+  *(_DWORD *)(this + 52) = 0;
+  *(_DWORD *)(this + 56) = 0;
+  *(_DWORD *)(this + 60) = 0;
+  *(_DWORD *)(this + 64) = 0;
+  *(_DWORD *)(this + 68) = 0;
+  sub_4FE720AF(this + 36);
+  (*(void (__stdcall **)(_DWORD, const wchar_t *))(*(_DWORD *)*v2 + 168))(*v2, L"CTrayRecverWnd");
+  memset((void *)(v1 + 72), 0, 0x1Cu);
+  return v1;
+}
+
+//引用 off_4FF0B93C
+int __thiscall sub_4FE72169(int this)
+{
+  int v1; // esi@1
+  int result; // eax@1
+
+  v1 = this;
+  *(_DWORD *)(this + 4) = 0;
+  *(_DWORD *)this = &off_4FF0B93C;
+  CXmlLinkAnalyzer::~CXmlLinkAnalyzer((CXmlLinkAnalyzer *)(this + 60));
+  result = CXmlLinkAnalyzer::~CXmlLinkAnalyzer((CXmlLinkAnalyzer *)(v1 + 36));
+  if ( *(_DWORD *)(v1 + 20) )
+    result = sub_4FED0F33(*(_DWORD *)(v1 + 20));
+  return result;
+}
 ========================================================================================================================================================================================================
 
 
@@ -2005,2056 +2719,2471 @@ int __stdcall sub_4FE72732(int a1, UINT Msg, WPARAM wParam, LPARAM lParam)
 
 
 
+
+
+
+
+
+========================================================================================================================================================================================================
+
+ 0028DC34  5231B6DE  return to gf.5231B6DE from ???
+ 0028DC60  4F9FFC66  return to appframework.4F9FFC66 from appframework.4FB6D53A
+ 0028DC68  52317071  return to gf.52317071 from gf.5231B610
+ 0028DC7C  52184B2F  return to gf.52184B2F from ???
+ 0028DCA4  768432E4  return to user32.768432E4 from user32.7683616A
+ 0028DCB4  5223DD3D  return to gf.5223DD3D from gf.52317050
+ 0028DCC8  521CB0F4  return to gf.521CB0F4 from ???
+ 0028DCD4  4FADDFF2  return to appframework.4FADDFF2 from ???
+ 0028DCF0  771688A4  return to rpcrt4.771688A4 from rpcrt4.771688B5
+ 0028DD14  77C948B5  return to ntdll.77C948B5 from ntdll.77C82280
+ 0028DD30  77167E9A  return to rpcrt4.77167E9A from rpcrt4.77167E27
+ 0028DD3C  77167B8E  return to rpcrt4.77167B8E from rpcrt4.77167E67
+ 0028DD60  77185002  return to rpcrt4.77185002 from rpcrt4.77185018
+ 0028DD84  77171F3E  return to rpcrt4.77171F3E from rpcrt4.77168825
+ 0028DD98  77171EFE  return to rpcrt4.77171EFE from rpcrt4.77171F08
+ 0028DDD4  7716915C  return to rpcrt4.7716915C from rpcrt4.77168FDD
+ 0028DDF4  771690DF  return to rpcrt4.771690DF from ???
+ 0028DE18  7716FFDA  return to rpcrt4.7716FFDA from rpcrt4.771604A0
+ 0028DE2C  771678DF  return to rpcrt4.771678DF from ???
+ 0028DE4C  77167526  return to rpcrt4.77167526 from rpcrt4.771678B9
+ 0028DE64  7716757F  return to rpcrt4.7716757F from ???
+ 0028DE74  7716FE87  return to rpcrt4.7716FE87 from rpcrt4.77167537
+ 0028DE84  77167262  return to rpcrt4.77167262 from ???
+ 0028DE90  77167F0D  return to rpcrt4.77167F0D from rpcrt4.77167252
+ 0028DEA0  77167FE0  return to rpcrt4.77167FE0 from rpcrt4.77167EEE
+ 0028DEB0  4FB6675E  return to appframework.4FB6675E from appframework.4FB6D53A
+ 0028DECC  76837F63  return to user32.76837F63 from user32.76837F99
+ 0028DED8  76837F71  return to user32.76837F71 from user32.7683616A
+ 0028DF00  4FB675D8  return to appframework.4FB675D8 from ???
+ 0028DF18  4FB675E9  return to appframework.4FB675E9 from appframework.4FB6D53A
+ 0028DF34  4FB660AA  return to appframework.4FB660AA from appframework.4FB6759F
+ 0028DF48  4FB662A7  return to appframework.4FB662A7 from appframework.4FB6D53A
+ 0028DF8C  77C8E38C  return to ntdll.77C8E38C from ntdll.77C8DF29
+ 0028DF90  77C8E38C  return to ntdll.77C8E38C from ntdll.77C8DF29
+ 0028DFDC  77C8E38C  return to ntdll.77C8E38C from ntdll.77C8DF29
+ 0028E00C  5188363C  return to common.5188363C from ???
+ 0028E020  517DE776  return to common.517DE776 from ???
+ 0028E040  518E9949  return to common.518E9949 from common.518E9928
+ 0028E04C  518653A0  return to common.518653A0 from common.518E993E
+ 0028E068  51864C54  return to common.51864C54 from ???
+ 0028E074  517DF008  return to common.517DF008 from common.51864BF0
+ 0028E094  4F9F6E8E  return to appframework.4F9F6E8E from ???
+ 0028E0A8  4FADCD41  return to appframework.4FADCD41 from appframework.4F9F6E6B
+ 0028E0B8  4F9FFC56  return to appframework.4F9FFC56 from ???
+ 0028E0D4  4F9FFC66  return to appframework.4F9FFC66 from appframework.4FB6D53A
+ 0028E0DC  4F9F6E8E  return to appframework.4F9F6E8E from ???
+ 0028E12C  4FADE8B1  return to appframework.4FADE8B1 from appframework.4FADDF15
+ 0028E148  4FADEFC9  return to appframework.4FADEFC9 from appframework.4FADE88E
+ 0028E164  06B89B08  return to mainframe.06B89B08 from ???
+ 0028E184  06B89A9D  return to mainframe.06B89A9D from ???
+ 0028E19C  59AE602B  return to tasktray.59AE602B from ???
+ 0028E1CC  59ADEC99  return to tasktray.59ADEC99 from tasktray.59B03F52
+ 0028E1F4  77170E20  return to rpcrt4.77170E20 from rpcrt4.77170E45
+ 0028E234  77C94797  return to ntdll.77C94797 from ntdll.77C92714
+ 0028E260  771605FA  return to rpcrt4.771605FA from ???
+ 0028E27C  77C8E023  return to ntdll.77C8E023 from ntdll.77C8E392
+ 0028E2BC  77C94797  return to ntdll.77C94797 from ntdll.77C92714
+ 0028E2E8  771605FA  return to rpcrt4.771605FA from ???
+ 0028E328  76837D19  return to user32.76837D19 from user32.76837E88
+ 0028E33C  76836210  return to user32.76836210 from ???
+ 0028E34C  76837DC4  return to user32.76837DC4 from user32.768361FF
+ 0028E350  76837D93  return to user32.76837D93 from user32.7683616A
+ 0028E37C  4FB68AD3  return to appframework.4FB68AD3 from ???
+ 0028E388  4FB68AEC  return to appframework.4FB68AEC from ???
+ 0028E394  4FB68AF7  return to appframework.4FB68AF7 from appframework.4FB6D53A
+ 0028E3B8  4FB68C9B  return to appframework.4FB68C9B from appframework.4FB68A55
+ 0028E3C8  4FB68E49  return to appframework.4FB68E49 from appframework.4FB6D53A
+ 0028E40C  77C94797  return to ntdll.77C94797 from ntdll.77C92714
+ 0028E438  771605FA  return to rpcrt4.771605FA from ???
+ 0028E454  77C8E023  return to ntdll.77C8E023 from ntdll.77C8E392
+ 0028E46C  771605FA  return to rpcrt4.771605FA from ???
+ 0028E480  771605B9  return to rpcrt4.771605B9 from rpcrt4.771605C0
+ 0028E48C  77170996  return to rpcrt4.77170996 from rpcrt4.771605AC
+ 0028E498  5175B572  return to common.5175B572 from common.518EAD3A
+ 0028E4F8  51736B36  return to common.51736B36 from ???
+ 0028E508  51736B45  return to common.51736B45 from common.518E992D
+ 0028E520  51746B1E  return to common.51746B1E from common.51744DA0
+ 0028E53C  5174657F  return to common.5174657F from common.51744DA0
+ 0028E554  59B04277  return to tasktray.59B04277 from tasktray.59B04CE1
+ 0028E560  59AD9557  return to tasktray.59AD9557 from tasktray.59B0425D
+ 0028E56C  59AE8488  return to tasktray.59AE8488 from tasktray.59AD9537
+ 0028E570  59AE84AE  return to tasktray.59AE84AE from tasktray.59B042E6
+ 0028E594  59B03BFB  return to tasktray.59B03BFB from tasktray.59B0401A
+ 0028E5A0  59AD9955  return to tasktray.59AD9955 from tasktray.59B03BF0
+ 0028E5C8  59B03BFB  return to tasktray.59B03BFB from tasktray.59B0401A
+ 0028E5D4  59AD9955  return to tasktray.59AD9955 from tasktray.59B03BF0
+ 0028E5EC  59AE3E49  return to tasktray.59AE3E49 from tasktray.59AE5DBF
+ 0028E614  76836B00  return to user32.76836B00 from user32.7683616A
+ 0028E618  0028E680  return to 0028E680 from ???
+ 0028E61C  76836D91  return to user32.76836D91 from ???
+ 0028E620  76836D51  return to user32.76836D51 from user32.7683616A
+ 0028E680  76836D51  return to user32.76836D51 from user32.7683616A
+ 0028E684  76840D27  return to user32.76840D27 from user32.76836C83
+ 0028E6BC  76840D4D  return to user32.76840D4D from user32.76840CC9
+ 0028E6DC  522B112C  return to gf.522B112C from ???
+ 0028E728  768362FA  return to user32.768362FA from ???
+ 0028E75C  76836D51  return to user32.76836D51 from user32.7683616A
+ 0028E764  76836D91  return to user32.76836D91 from ???
+ 0028E768  76836D51  return to user32.76836D51 from user32.7683616A
+ 0028E778  522C6661  return to gf.522C6661 from gf.522CB300
+ 0028E798  521D8ED9  return to gf.521D8ED9 from ???
+ 0028E7A0  521D8F2D  return to gf.521D8F2D from ???
+ 0028E7B0  521D8F91  return to gf.521D8F91 from gf.5231F90F
+ 0028E7B4  7591537D  return to kernelbase.7591537D from ???
+ 0028E800  5224134C  return to gf.5224134C from gf.521D8E60
+ 0028E814  52241AC5  return to gf.52241AC5 from ???
+ 0028E828  521D9CEE  return to gf.521D9CEE from ???
+ 0028E834  521D9EFA  return to gf.521D9EFA from gf.5231F90F
+ 0028E848  06BEBBB3  return to mainframe.06BEBBB3 from mainframe.06D89B4A
+ 0028E878  59B930AA  return to xplatform.59B930AA from ???
+ 0028E880  0028E8B4  return to 0028E8B4 from 3E5BE8DE
+ 0028E884  6BCAFED7  return to avsdk.6BCAFED7 from ???
+ 0028E88C  0028E8FC  return to 0028E8FC from 008BE926
+ 0028E8B0  0028E8FC  return to 0028E8FC from 008BE926
+ 0028E8B4  126E3E33  return to audiovideo.126E3E33 from audiovideo.1274F52D
+ 0028E8BC  126E5B6D  return to audiovideo.126E5B6D from audiovideo.126E3E10
+ 0028E8D0  522C6B43  return to gf.522C6B43 from ???
+ 0028E8D8  522C6B55  return to gf.522C6B55 from ???
+ 0028E8E4  522C6B72  return to gf.522C6B72 from gf.5231F90F
+ 0028E8F8  0028E8B4  return to 0028E8B4 from 3E5BE8DE
+ 0028E96C  521842C8  return to gf.521842C8 from ???
+ 0028E974  52184300  return to gf.52184300 from ???
+ 0028E984  7683829E  return to user32.7683829E from ???
+ 0028E988  768382CD  return to user32.768382CD from user32.76838289
+ 0028E9A8  532756FD  return to hummerengine.532756FD from ???
+ 0028E9B8  53275779  return to hummerengine.53275779 from hummerengine.53280E84
+ 0028E9BC  518E9966  return to common.518E9966 from common.518EAD5E
+ 0028E9C8  51852D42  return to common.51852D42 from common.518E994C
+ 0028EA44  59AE03EF  return to tasktray.59AE03EF from ???
+ 0028EA58  4FE72422  return to afutil.4FE72422 from ???
+ 0028EA7C  4FE72615  return to afutil.4FE72615 from afutil.4FE723E1
+ 0028EAA0  4FE72778  return to afutil.4FE72778 from ???
+ 0028EAF0  768362FA  return to user32.768362FA from ???
+ 0028EB1C  76836D3A  return to user32.76836D3A from user32.768362D7
+ 0028EB60  76836CE9  return to user32.76836CE9 from ???
+ 0028EB94  768377C4  return to user32.768377C4 from user32.76836C83
+ 0028EBF4  7683788A  return to user32.7683788A from user32.768376D7
+ 0028EC04  00714578  return to asynctask.00714578 from ???
+ 0028EC1C  007144FB  return to asynctask.007144FB from asynctask.00714507
+ 0028EC4C  0071437C  return to asynctask.0071437C from asynctask.007144C1
+ 0028EC5C  00714178  return to asynctask.00714178 from ???
+ 0028EC78  0071207A  return to asynctask.0071207A from ???
+ 0028EC80  00712024  return to asynctask.00712024 from asynctask.00712065
+ 0028EC9C  53270B6D  return to hummerengine.53270B6D from ???
+ 0028F250  77C7FE6E  return to ntdll.77C7FE6E from ???
+ 0028F280  5186512F  return to common.5186512F from common.518EAD40
+ 0028F288  51865153  return to common.51865153 from ???
+ 0028F2B4  518E9966  return to common.518E9966 from common.518EAD5E
+ 0028F2BC  51865324  return to common.51865324 from ???
+ 0028F2DC  518E9949  return to common.518E9949 from common.518E9928
+ 0028F2E8  5186538B  return to common.5186538B from common.518E993E
+ 0028F304  51864C54  return to common.51864C54 from ???
+ 0028F310  518619B5  return to common.518619B5 from common.51864BF0
+ 0028F31C  5326F6F7  return to hummerengine.5326F6F7 from ???
+ 0028F338  53277E23  return to hummerengine.53277E23 from hummerengine.5326F82B
+ 0028F3B8  00F0289B  return to qq.00F0289B from ???
+ 0028F3D4  77C9E024  return to ntdll.77C9E024 from ntdll.77C8DF29
+ 0028F6A4  00440077  return to wdexhelper.00440077 from wdexhelper.0043E885
+ 0028F854  00F012C6  return to qq.00F012C6 from qq.00F02506
+ 0028F860  00F03365  return to qq.00F03365 from qq.00F012BB
+ 0028F8AC  76D733AA  return to kernel32.76D733AA from ???
+ 0028F8B8  77C99F72  return to ntdll.77C99F72 from ???
+ 0028F8F8  77C99F45  return to ntdll.77C99F45 from ntdll.77C99F4B
 
 
 
 
 ========================================================================================================================================================================================================
 栈
-0043E004  6814B6DE  return to gf.6814B6DE from ???
-0043E008  00090E0C  
-0043E00C  00000005  
-0043E010  00000005  
-0043E014  0D17F888  
-0043E018  67FFB0E0  gf.67FFB0E0
-0043E01C  00000000  
-0043E020  4FA61810  L"PerfStand"
-0043E024  4FA048C8  appframework.4FA048C8
-0043E028  0043E0D4  &L"CPanelOrHwnd::Show.Begin"
-0043E02C  03B76D90  
-0043E030  00000001  
-0043E034  0043E084  
-0043E038  68147071  return to gf.68147071 from gf.6814B610
-0043E03C  00000005  
-0043E040  03B76D90  
-0043E044  0D17F888  
-0043E048  0043E0D4  &L"CPanelOrHwnd::Show.Begin"
-0043E04C  0043E068  
-0043E050  67FB4B2F  return to gf.67FB4B2F from ???
-0043E054  0D17F880  
-0043E058  03B76D90  
-0043E05C  0D17F880  
-0043E060  67FFB0E0  gf.67FFB0E0
-0043E064  0D17F880  
-0043E068  00000000  
-0043E06C  00090E0C  
-0043E070  6815F101  gf.6815F101
-0043E074  0043E0A8  
-0043E078  763C32E4  return to user32.763C32E4 from user32.763B616A
-0043E07C  5646EA28  
-0043E080  03B76D90  
-0043E084  0043E098  
-0043E088  6806DD3D  return to gf.6806DD3D from gf.68147050
-0043E08C  00000005  
-0043E090  0D17F880  
-0043E094  0D17F888  
-0043E098  0043E0A4  
-0043E09C  67FFB0F4  return to gf.67FFB0F4 from ???
-0043E0A0  00000005  
-0043E0A4  0043E4FC  
-0043E0A8  4F96DFF2  return to appframework.4F96DFF2 from ???
-0043E0AC  0D17F880  
-0043E0B0  00000005  
-0043E0B4  03B76D08  
-0043E0B8  00000001  
-0043E0BC  00000000  
-0043E0C0  001A48A8  
-0043E0C4  00000000  
-0043E0C8  00000030  
-0043E0CC  002F0007  
-0043E0D0  00380007  
-0043E0D4  4FA617DC  L"CPanelOrHwnd::Show.Begin"
-0043E0D8  03B76D90  
-0043E0DC  0018A600  
-0043E0E0  001A48A8  
-0043E0E4  001A4B30  &"0K\x1A"
-0043E0E8  00000040  
-0043E0EC  0043E080  
-0043E0F0  00090E0C  
-0043E0F4  0D17F880  
-0043E0F8  0018A4D8  "@d\x18"
-0043E0FC  0018A608  
-0043E100  1E7B2200  
-0043E104  001A4C00  "8VZ\x11"
-0043E108  77BDE0F2  return to ntdll.77BDE0F2 from ntdll.77BDE269
-0043E10C  0043E0A0  
-0043E110  11286BC8  
-0043E114  0043E764  "0m?"
-0043E118  77C271F5  ntdll.77C271F5
-0043E11C  0FE64D58  &L".rdb"
-0043E120  FFFFFFFE  
-0043E124  77BDE38C  return to ntdll.77BDE38C from ntdll.77BDDF29
-0043E128  77BDE0F2  return to ntdll.77BDE0F2 from ntdll.77BDE269
-0043E12C  73E44100  winsta.73E44100
-0043E130  00000000  
-0043E134  0809CD4C  
-0043E138  000004B6  
-0043E13C  77BE261D  ntdll.77BE261D
-0043E140  00000000  
-0043E144  000E0001  
-0043E148  00000000  
-0043E14C  00180000  
-0043E150  1147C1F0  
-0043E154  001A48A8  
-0043E158  001802E4  
-0043E15C  FFFF0000  
-0043E160  5320834C  
-0043E164  0000000C  
-0043E168  00000002  
-0043E16C  00000000  
-0043E170  1147BF00  &"0K\x1A"
-0043E174  00000001  
-0043E178  1147C1E8  
-0043E17C  0043E194  
-0043E180  77BDE023  return to ntdll.77BDE023 from ntdll.77BDE392
-0043E184  11286BC8  
-0043E188  00000002  
-0043E18C  00000000  
-0043E190  00000048  
-0043E194  0043E1A8  
-0043E198  0043E1B0  
-0043E19C  6C3DCF33  return to libtcmalloc.6C3DCF33 from ???
-0043E1A0  0043E1C8  
-0043E1A4  764B064F  return to rpcrt4.764B064F from rpcrt4.764B04A0
-0043E1A8  00000048  
-0043E1AC  00000043  
-0043E1B0  1E7B2200  
-0043E1B4  00180000  
-0043E1B8  00000040  
-0043E1BC  00000006  
-0043E1C0  73E44100  winsta.73E44100
-0043E1C4  1E7B2200  
-0043E1C8  0043E1E0  
-0043E1CC  764BC9C5  return to rpcrt4.764BC9C5 from rpcrt4.764BC832
-0043E1D0  73E440EC  winsta.73E440EC
-0043E1D4  73E44100  winsta.73E44100
-0043E1D8  00000001  
-0043E1DC  00000000  
-0043E1E0  0043E214  &")T\x10"
-0043E1E4  764B6316  return to rpcrt4.764B6316 from rpcrt4.764B04A0
-0043E1E8  00000062  
-0043E1EC  00000062  
-0043E1F0  73E4415A  winsta.73E4415A
-0043E1F4  0043E3A4  
-0043E1F8  0043E7D0  
-0043E1FC  1139B720  
-0043E200  1139B720  
-0043E204  0043E228  
-0043E208  764D5002  return to rpcrt4.764D5002 from rpcrt4.764D5018
-0043E20C  0043E3A4  
-0043E210  0043E794  
-0043E214  73E44162  ")T\x10"
-0043E218  00000000  
-0043E21C  00000000  
-0043E220  73E4415A  winsta.73E4415A
-0043E224  0043E7D0  
-0043E228  0043E23C  
-0043E22C  764C1F3E  return to rpcrt4.764C1F3E from rpcrt4.764B8825
-0043E230  00000000  
-0043E234  00000000  
-0043E238  0043E3A4  
-0043E23C  0043E278  
-0043E240  764C1EFE  return to rpcrt4.764C1EFE from rpcrt4.764C1F08
-0043E244  0043E3A4  
-0043E248  73E44156  winsta.73E44156
-0043E24C  73E4415A  winsta.73E4415A
-0043E250  0043E700  return to 0043E700 from ???
-0043E254  0809CBB8  
-0043E258  00000000  
-0043E25C  0043E7D0  
-0043E260  0043E29C  "邜KvゃC"
-0043E264  00000000  
-0043E268  1139B7B8  
-0043E26C  00000000  
-0043E270  11280000  
-0043E274  00000003  
-0043E278  0043E298  
-0043E27C  764B915C  return to rpcrt4.764B915C from rpcrt4.764B8FDD
-0043E280  0043E3A4  
-0043E284  0043E7D0  
-0043E288  00000000  
-0043E28C  1139B7B8  
-0043E290  73E4415A  winsta.73E4415A
-0043E294  0043E3A4  
-0043E298  0043E2E4  
-0043E29C  764B90DF  return to rpcrt4.764B90DF from ???
-0043E2A0  0043E3A4  
-0043E2A4  0043E7D0  
-0043E2A8  73E4415A  winsta.73E4415A
-0043E2AC  1139B700  
-0043E2B0  0043E4A4  
-0043E2B4  73E44156  winsta.73E44156
-0043E2B8  0043E3A4  
-0043E2BC  0043E328  
-0043E2C0  764BFFDA  return to rpcrt4.764BFFDA from rpcrt4.764B04A0
-0043E2C4  00000063  
-0043E2C8  0000003D  
-0043E2CC  0809CBB8  
-0043E2D0  00000022  
-0043E2D4  764B78DF  return to rpcrt4.764B78DF from ???
-0043E2D8  1E9EEB90  
-0043E2DC  0809CBB8  
-0043E2E0  00000000  
-0043E2E4  00000000  
-0043E2E8  0809CBB8  
-0043E2EC  00000000  
-0043E2F0  0043E328  
-0043E2F4  764B7526  return to rpcrt4.764B7526 from rpcrt4.764B78B9
-0043E2F8  00000000  
-0043E2FC  00000001  
-0043E300  00000000  
-0043E304  0043E340  
-0043E308  75A904CB  return to kernelbase.75A904CB from kernelbase.75A8FD27
-0043E30C  0043E348  
-0043E310  0043E408  
-0043E314  0043E3F0  
-0043E318  75A90B0A  return to kernelbase.75A90B0A from kernelbase.75A7F0FD
-0043E31C  0043E380  L"2C\x01"
-0043E320  FFFA001C  
-0043E324  00000001  
-0043E328  0043E630  
-0043E32C  00000001  
-0043E330  5664F37F  
-0043E334  0043E350  
-0043E338  6C730057  return to ucrtbase.6C730057 from ucrtbase.6C6E9350
-0043E33C  561D0C85  msgmgr.561D0C85
-0043E340  0043E3A8  
-0043E344  6C6EC8BA  return to ucrtbase.6C6EC8BA from ???
-0043E348  000003A8  
-0043E34C  00000009  
-0043E350  0043E62F  
-0043E354  00000001  
-0043E358  0043E380  L"2C\x01"
-0043E35C  00000001  
-0043E360  001E0075  
-0043E364  00000000  
-0043E368  6C6EC9A5  return to ucrtbase.6C6EC9A5 from ucrtbase.6C6FC060
-0043E36C  00000000  
-0043E370  1E750032  
-0043E374  00000002  
-0043E378  0043E630  
-0043E37C  0043E398  
-0043E380  00430032  "ibe=\"绐冨枩\" Display=\"true\" IconURL=\"http://appimg1.3g.qq.com/msoft/mobileQQ_richstatus/moodV3/mood1016.png\" PCIcon=\"http://appimg1.3g.qq.com/msoft/pcqq_richstatus/mood/mood_pc1016.png\" TinyIcon=\"http://appimg1.3g.qq.com/msoft/mobileQQ_richstatus/moodV3/mood_tiny1016.png\"></RichState>\r\n            <RichState ActionId=\"1017\" ActionName=\"瀵傚癁\" Describe=\"瀵傚癁\" Display=\"true\" IconURL=\"http://appimg1.3g.qq.com/msoft/mobileQQ_richstatus/moodV3/mood1017.png\" PCIcon=\"http://"
-0043E384  00000001  
-0043E388  00000000  
-0043E38C  001E23F8  "養ll"
-0043E390  1E75C690  
-0043E394  001E3ED0  
-0043E398  6C708A00  ucrtbase.6C708A00
-0043E39C  00000000  
-0043E3A0  00430000  
-0043E3A4  5664F327  
-0043E3A8  0043E850  return to 0043E850 from E7B9E895
-0043E3AC  6C6EBE6D  return to ucrtbase.6C6EBE6D from ucrtbase.6C6EC5E0
-0043E3B0  00000001  
-0043E3B4  689C263C  common.689C263C
-0043E3B8  6C6EBF01  return to ucrtbase.6C6EBF01 from ucrtbase.6C6FC060
-0043E3BC  00000002  
-0043E3C0  7FFFFFFF  
-0043E3C4  001E23F8  "養ll"
-0043E3C8  1E75C690  
-0043E3CC  001E3ED0  
-0043E3D0  00000027  
-0043E3D4  0000004E  
-0043E3D8  00000000  
-0043E3DC  00000000  
-0043E3E0  0043E400  
-0043E3E4  688A363C  return to common.688A363C from ???
-0043E3E8  02B5E000  
-0043E3EC  6C7A59D0  vcruntime140.6C7A59D0
-0043E3F0  00000000  
-0043E3F4  0043E43C  
-0043E3F8  687FE776  return to common.687FE776 from ???
-0043E3FC  0043E43C  
-0043E400  689D73A4  common.689D73A4
-0043E404  0F52B1C0  
-0043E408  77374680  oleaut32.77374680
-0043E40C  02380630  
-0043E410  00008C07  
-0043E414  0043E420  
-0043E418  68909949  return to common.68909949 from common.68909928
-0043E41C  00003518  
-0043E420  0043E43C  
-0043E424  688853A0  return to common.688853A0 from common.6890993E
-0043E428  00000000  
-0043E42C  14A537A0  &"@lS\x1B"
-0043E430  77374680  oleaut32.77374680
-0043E434  02380630  
-0043E438  0000A529  
-0043E43C  0043E488  
-0043E440  68884C54  return to common.68884C54 from ???
-0043E444  00003510  
-0043E448  14A537B4  L"CAFMainFrameController::ShowMainFrame 2"
-0043E44C  687FF008  return to common.687FF008 from common.68884BF0
-0043E450  4FA618C8  L"QQLogin"
-0043E454  00000002  
-0043E458  4FA048C8  appframework.4FA048C8
-0043E45C  03B76D08  
-0043E460  0043E488  
-0043E464  14A537B4  L"CAFMainFrameController::ShowMainFrame 2"
-0043E468  4F886E8E  return to appframework.4F886E8E from ???
-0043E46C  0D17F880  
-0043E470  0043E508  
-0043E474  0043E470  
-0043E478  0043E4BC  
-0043E47C  4F96CD41  return to appframework.4F96CD41 from appframework.4F886E6B
-0043E480  4FA048C8  appframework.4FA048C8
-0043E484  00000002  
-0043E488  0043E504  
-0043E48C  4F88FC56  return to appframework.4F88FC56 from ???
-0043E490  0043E4C0  &"娠朞\x01"
-0043E494  4FA618C8  L"QQLogin"
-0043E498  4FA048C8  appframework.4FA048C8
-0043E49C  0043E53C  &L"CAFMainFrameController::ShowMainFrame 2"
-0043E4A0  4FA07438  L"file"
-0043E4A4  03B76C00  
-0043E4A8  4F88FC66  return to appframework.4F88FC66 from appframework.4F9FD53A
-0043E4AC  0043E4C0  &"娠朞\x01"
-0043E4B0  4F886E8E  return to appframework.4F886E8E from ???
-0043E4B4  E0C9C09C  
-0043E4B8  01D6F135  
-0043E4BC  0043E53C  &L"CAFMainFrameController::ShowMainFrame 2"
-0043E4C0  0043E51C  "娠朞\x01"
-0043E4C4  00000002  
-0043E4C8  00000254  
-0043E4CC  00000000  
-0043E4D0  00003BF0  
-0043E4D4  0F9B00AD  
-0043E4D8  00000000  
-0043E4DC  02B2CF30  
-0043E4E0  2D3C81B8  
-0043E4E4  00000177  
-0043E4E8  00000000  
-0043E4EC  00000000  
-0043E4F0  00000000  
-0043E4F4  4FA07438  L"file"
-0043E4F8  54944AF0  
-0043E4FC  0043E518  
-0043E500  4F96E8B1  return to appframework.4F96E8B1 from appframework.4F96DF15
-0043E504  00000001  
-0043E508  00000000  
-0043E50C  4FA07438  L"file"
-0043E510  03B76C00  
-0043E514  4FA0742C  L"func"
-0043E518  0043E534  
-0043E51C  4F96EFC9  return to appframework.4F96EFC9 from appframework.4F96E88E
-0043E520  00000001  
-0043E524  00000000  
-0043E528  00000028  
-0043E52C  04B5B180  
-0043E530  1B4CA870  
-0043E534  0043E554  
-0043E538  65F19B08  return to mainframe.65F19B08 from ???
-0043E53C  4FA62108  L"CAFMainFrameController::ShowMainFrame 2"
-0043E540  00000001  
-0043E544  00000000  
-0043E548  1B4CA870  
-0043E54C  00000000  
-0043E550  0078BA40  
-0043E554  0043E56C  
-0043E558  65F19A9D  return to mainframe.65F19A9D from ???
-0043E55C  0478BA40  L"慨昒戈昒戬昒\x04"
-0043E560  00000001  
-0043E564  00000000  
-0043E568  00000000  
-0043E56C  0043E9BC  
-0043E570  05E1602B  return to tasktray.05E1602B from ???
-0043E574  0478BA40  L"慨昒戈昒戬昒\x04"
-0043E578  00000001  
-0043E57C  1B4CA870  
-0043E580  1B4CA870  
-0043E584  04B5B180  
-0043E588  0043E5B0  
-0043E58C  0043E9B4  
-0043E590  05E0EC84  return to tasktray.05E0EC84 from tasktray.05E169C2
-0043E594  0478BA40  L"慨昒戈昒戬昒\x04"
-0043E598  00000000  
-0043E59C  00000203  
-0043E5A0  05E0EC99  return to tasktray.05E0EC99 from tasktray.05E33F52
-0043E5A4  00000001  
-0043E5A8  00000003  
-0043E5AC  04B5B180  
-0043E5B0  00001658  
-0043E5B4  00000000  
-0043E5B8  0043E854  
-0043E5BC  65112194  return to inetsafe.65112194 from ???
-0043E5C0  00000045  
-0043E5C4  00000000  
-0043E5C8  5676FF55  
-0043E5CC  000100D6  &"Actx "
-0043E5D0  00001658  
-0043E5D4  651121AE  return to inetsafe.651121AE from inetsafe.6511D65F
-0043E5D8  00000045  
-0043E5DC  00000000  
-0043E5E0  00000000  
-0043E5E4  04B5AC94  
-0043E5E8  0043E60C  
-0043E5EC  00000045  
-0043E5F0  00000005  
-0043E5F4  00000001  
-0043E5F8  00000200  
-0043E5FC  0043E628  
-0043E600  0000047D  
-0043E604  04B5AC94  
-0043E608  0043EE98  
-0043E60C  0043E65C  
-0043E610  67E22778  return to afutil.67E22778 from ???
-0043E614  000B122A  
-0043E618  0000047D  
-0043E61C  00000001  
-0043E620  00000200  
-0043E624  0043E664  
-0043E628  00000000  
-0043E62C  32000000  
-0043E630  00000000  
-0043E634  32000000  
-0043E638  02FC0FA0  
-0043E63C  0000047D  
-0043E640  00000001  
-0043E644  00000200  
-0043E648  00000000  
-0043E64C  00000000  
-0043E650  00000000  
-0043E654  00000024  
-0043E658  00000001  
-0043E65C  0043E688  
-0043E660  763B62FA  return to user32.763B62FA from ???
-0043E664  00000000  
-0043E668  0000047D  
-0043E66C  00000001  
-0043E670  00000200  
-0043E674  02FC0FA0  
-0043E678  DCBAABCD  
-0043E67C  00000000  
-0043E680  00000000  
-0043E684  02FC0FA0  
-0043E688  0043E698  &"Qm;v鑝;v"
-0043E68C  0043E6B4  
-0043E690  76420230  user32.76420230
-0043E694  0043E664  
-0043E698  0043E700  return to 0043E700 from ???
-0043E69C  763B6D91  return to user32.763B6D91 from ???
-0043E6A0  763B6D51  return to user32.763B6D51 from user32.763B616A
-0043E6A4  5664F7A3  
-0043E6A8  00000000  
-0043E6AC  000B122A  
-0043E6B0  00000000  
-0043E6B4  00000024  
-0043E6B8  00000001  
-0043E6BC  00000000  
-0043E6C0  00000000  
-0043E6C4  00000070  
-0043E6C8  FFFFFFFF  
-0043E6CC  FFFFFFFF  
-0043E6D0  763B6CE9  return to user32.763B6CE9 from ???
-0043E6D4  763B6D91  return to user32.763B6D91 from ???
-0043E6D8  00000001  
-0043E6DC  00000001  
-0043E6E0  00000000  
-0043E6E4  00000000  
-0043E6E8  0043E6A4  "ｗdV"
-0043E6EC  77BE7510  return to ntdll.77BE7510 from ntdll.77BE304A
-0043E6F0  0043E74C  
-0043E6F4  7641A61E  user32.7641A61E
-0043E6F8  201C7DFB  
-0043E6FC  FFFFFFFE  
-0043E700  763B6D51  return to user32.763B6D51 from user32.763B616A
-0043E704  763B6DE8  return to user32.763B6DE8 from user32.763B6C83
-0043E708  00000000  
-0043E70C  02FC0FA0  
-0043E710  000B122A  
-0043E714  0000047D  
-0043E718  00000001  
-0043E71C  00000200  
-0043E720  00A26D58  &"Actx "
-0043E724  763B6DF3  return to user32.763B6DF3 from user32.763B616A
-0043E728  5664F7FF  
-0043E72C  0043E7D8  &L"lResolution"
-0043E730  00000000  
-0043E734  00000000  
-0043E738  0000007B  
-0043E73C  77BE74B5  return to ntdll.77BE74B5 from ntdll.77BE2714
-0043E740  00000000  
-0043E744  0043E728  
-0043E748  1E74E618  
-0043E74C  0043E7A8  
-0043E750  7641A61E  user32.7641A61E
-0043E754  201C7D5B  
-0043E758  FFFFFFFE  
-0043E75C  763B6DF3  return to user32.763B6DF3 from user32.763B616A
-0043E760  763B6E44  return to user32.763B6E44 from ???
-0043E764  00A26D30  
-0043E768  77BCF8EA  return to ntdll.77BCF8EA from ???
-0043E76C  763B6E57  return to user32.763B6E57 from ???
-0043E770  0043E780  
-0043E774  00000018  
-0043E778  00000000  
-0043E77C  00000418  
-0043E780  00000000  
-0043E784  00000000  
-0043E788  00000000  
-0043E78C  74686CCF  
-0043E790  00000000  
-0043E794  00000000  
-0043E798  0043E7BC  
-0043E79C  77BC010A  return to ntdll.77BC010A from ???
-0043E7A0  0043E7D8  &L"lResolution"
-0043E7A4  00000000  
-0043E7A8  0043EF50  
-0043E7AC  77BC0070  ntdll.77BC0070
-0043E7B0  00000000  
-0043E7B4  00000000  
-0043E7B8  00000000  
-0043E7BC  0043E834  
-0043E7C0  00000000  
-0043E7C4  00000002  
-0043E7C8  0043E7D8  &L"lResolution"
-0043E7CC  00000000  
-0043E7D0  1E7FA670  
-0043E7D4  0043E7E0  
-0043E7D8  09830000  L"lResolution"
-0043E7DC  00001658  
-0043E7E0  00000001  
-0043E7E4  0043E818  
-0043E7E8  77BE624F  return to ntdll.77BE624F from ntdll.77BE625C
-0043E7EC  77BE6254  return to ntdll.77BE6254 from ntdll.77BDDF29
-0043E7F0  78187738  
-0043E7F4  00000001  
-0043E7F8  00001658  
-0043E7FC  09830000  L"lResolution"
-0043E800  0043E7F0  L"眸砘\x01"
-0043E804  0000041D  
-0043E808  0043EF50  
-0043E80C  77C271F5  ntdll.77C271F5
-0043E810  0FE651F8  netdisk.0FE651F8
-0043E814  FFFFFFFE  
-0043E818  0043E828  
-0043E81C  75A9778A  return to kernelbase.75A9778A from ???
-0043E820  00000005  
-0043E824  00001658  
-0043E828  00000001  
-0043E82C  00000002  
-0043E830  00000000  
-0043E834  00000000  
-0043E838  0043E858  return to 0043E858 from E832E89D
-0043E83C  688A363C  return to common.688A363C from ???
-0043E840  02B5E000  
-0043E844  6C7A59D0  vcruntime140.6C7A59D0
-0043E848  00000000  
-0043E84C  0043E894  
-0043E850  687FE776  return to common.687FE776 from ???
-0043E854  0043E894  
-0043E858  687FE7EF  return to common.687FE7EF from ???
-0043E85C  14D6E004  
-0043E860  00000000  
-0043E864  02BCB354  
-0043E868  77374680  oleaut32.77374680
-0043E86C  68885324  return to common.68885324 from ???
-0043E870  02B42CB4  
-0043E874  00000000  
-0043E878  0043E898  
-0043E87C  688A363C  return to common.688A363C from ???
-0043E880  02B42CB4  
-0043E884  00003BF0  
-0043E888  00000000  
-0043E88C  00000000  
-0043E890  02BCB340  
-0043E894  0043E8E4  
-0043E898  68884C96  return to common.68884C96 from ???
-0043E89C  02B42CB4  
-0043E8A0  00000000  
-0043E8A4  687FF008  return to common.687FF008 from common.68884BF0
-0043E8A8  05E38258  L"PerfStand.TrayToShowMainPanel.Begin"
-0043E8AC  00000002  
-0043E8B0  05E38250  L"%lu"
-0043E8B4  02B2CF30  
-0043E8B8  FFFFFFFC  
-0043E8BC  02BCB354  
-0043E8C0  02B2CF9C  
-0043E8C4  FFFFFFFC  
-0043E8C8  0043E918  &"p↙\x1B"
-0043E8CC  68756B36  return to common.68756B36 from ???
-0043E8D0  02B2CF9C  
-0043E8D4  00000000  
-0043E8D8  00000000  
-0043E8DC  05E38250  L"%lu"
-0043E8E0  00000002  
-0043E8E4  0043E960  
-0043E8E8  05E01624  return to tasktray.05E01624 from ???
-0043E8EC  04924330  
-0043E8F0  0043E90C  
-0043E8F4  68766B1E  return to common.68766B1E from common.68764DA0
-0043E8F8  04924340  
-0043E8FC  05E3AFC0  tasktray.05E3AFC0
-0043E900  05E3AFC0  tasktray.05E3AFC0
-0043E904  00000000  
-0043E908  04924330  
-0043E90C  0043E928  
-0043E910  6876657F  return to common.6876657F from common.68764DA0
-0043E914  05E3AFC0  tasktray.05E3AFC0
-0043E918  0043EA04  "p↙\x1B"
-0043E91C  00000000  
-0043E920  00000000  
-0043E924  0043E930  
-0043E928  05E34277  return to tasktray.05E34277 from tasktray.05E34CE1
-0043E92C  0000000C  
-0043E930  0043E93C  
-0043E934  05E09557  return to tasktray.05E09557 from tasktray.05E3425D
-0043E938  0000000C  
-0043E93C  0043E970  
-0043E940  05E18488  return to tasktray.05E18488 from tasktray.05E09537
-0043E944  05E184AE  return to tasktray.05E184AE from tasktray.05E342E6
-0043E948  5487FE9A  
-0043E94C  00000000  
-0043E950  00000000  
-0043E954  05E3821E  &"怩醛Mふ\x01"
-0043E958  00000000  
-0043E95C  02380630  
-0043E960  00007E6F  
-0043E964  0043E970  
-0043E968  05E33BFB  return to tasktray.05E33BFB from tasktray.05E3401A
-0043E96C  000034C0  
-0043E970  0043E980  
-0043E974  05E09955  return to tasktray.05E09955 from tasktray.05E33BF0
-0043E978  0FCDF270  "|緭h\x01"
-0043E97C  0000000C  
-0043E980  0043E9B0  
-0043E984  1B4CA870  
-0043E988  1B4CA870  
-0043E98C  04B5B180  
-0043E990  02380630  
-0043E994  0000DA65  
-0043E998  0043E9A4  
-0043E99C  05E33BFB  return to tasktray.05E33BFB from tasktray.05E3401A
-0043E9A0  000034B0  
-0043E9A4  0043E9B4  
-0043E9A8  05E09955  return to tasktray.05E09955 from tasktray.05E33BF0
-0043E9AC  1B4CA870  
-0043E9B0  0000000C  
-0043E9B4  0043EE14  
-0043E9B8  5487FE56  
-0043E9BC  0043EE14  
-0043E9C0  05E1382D  return to tasktray.05E1382D from tasktray.05E15DBF
-0043E9C4  00000000  
-0043E9C8  04B5B180  
-0043E9CC  00000203  
-0043E9D0  00000000  
-0043E9D4  00180000  
-0043E9D8  1E6FB228  
-0043E9DC  00000000  
-0043E9E0  0F9B00AD  
-0043E9E4  1E7F5060  
-0043E9E8  115F0CE0  L"2T AUTHORITY\\SYSTEM"
-0043E9EC  1E7F5078  
-0043E9F0  00110006  
-0043E9F4  00001E41  
-0043E9F8  000021FE  
-0043E9FC  04B5B180  
-0043EA00  77BE4797  return to ntdll.77BE4797 from ntdll.77BE2714
-0043EA04  1B4CA870  
-0043EA08  00000000  
-0043EA0C  1E7F5058  
-0043EA10  006E004F  
-0043EA14  00680053  &L"\\C:\\Program Files (x86)\\360\\360Safe\\safemon\\SafeWrapper.dll"
-0043EA18  0077006F  
-0043EA1C  00740049  
-0043EA20  006D0065  
-0043EA24  006C0043  
-0043EA28  00630069  
-0043EA2C  0000006B  
-0043EA30  00180000  
-0043EA34  00000000  
-0043EA38  1E7FA658  
-0043EA3C  00000001  
-0043EA40  1E7FB480  
-0043EA44  0043EA5C  
-0043EA48  77BDE023  return to ntdll.77BDE023 from ntdll.77BDE392
-0043EA4C  1E7FB488  
-0043EA50  1B4B2980  
-0043EA54  0043ED00  
-0043EA58  1E7FB480  
-0043EA5C  0043EA70  
-0043EA60  764B05FA  return to rpcrt4.764B05FA from ???
-0043EA64  73E43B68  "WinStationQueryInformationW"
-0043EA68  73E411EF  return to winsta.73E411EF from winsta.73E41200
-0043EA6C  1E7FB488  
-0043EA70  0043EA7C  
-0043EA74  764B05B9  return to rpcrt4.764B05B9 from rpcrt4.764B05C0
-0043EA78  1E7FB488  
-0043EA7C  0043EA8C  
-0043EA80  764C0996  return to rpcrt4.764C0996 from rpcrt4.764B05AC
-0043EA84  1E7FB488  
-0043EA88  1E7FB488  
-0043EA8C  0043EAA8  
-0043EA90  73E45BCC  return to winsta.73E45BCC from winsta.73E41252
-0043EA94  55C1D804  
-0043EA98  73E43B68  "WinStationQueryInformationW"
-0043EA9C  00000000  
-0043EAA0  0043ED00  
-0043EAA4  1B4B2980  
-0043EAA8  0043ED00  
-0043EAAC  02380630  
-0043EAB0  0043EA94  
-0043EAB4  0043EAC4  
-0043EAB8  0043F028  
-0043EABC  73E49AA9  winsta.73E49AA9
-0043EAC0  2666691C  
-0043EAC4  FFFFFFFE  
-0043EAC8  73E45BCC  return to winsta.73E45BCC from winsta.73E41252
-0043EACC  73E45CFA  return to winsta.73E45CFA from winsta.73E41200
-0043EAD0  0018A4D8  "@d\x18"
-0043EAD4  0000001E  
-0043EAD8  057717A8  
-0043EADC  77BDE023  return to ntdll.77BDE023 from ntdll.77BDE392
-0043EAE0  0043EABC  
-0043EAE4  000026BB  
-0043EAE8  0043EBC4  
-0043EAEC  77C271F5  ntdll.77C271F5
-0043EAF0  0FE64D78  netdisk.0FE64D78
-0043EAF4  0043EB34  
-0043EAF8  00000000  
-0043EAFC  31BE74B5  
-0043EB00  00000000  
-0043EB04  00180000  
-0043EB08  7818742C  
-0043EB0C  0043EB50  return to 0043EB50 from 009E0A0C
-0043EB10  77C19409  return to ntdll.77C19409 from ntdll.77C19266
-0043EB14  0043EB30  
-0043EB18  77BD9FC8  ntdll.77BD9FC8
-0043EB1C  00000000  
-0043EB20  77BDE38C  return to ntdll.77BDE38C from ntdll.77BDDF29
-0043EB24  78187488  
-0043EB28  00000000  
-0043EB2C  00180274  
-0043EB30  00180000  
-0043EB34  00000011  
-0043EB38  0043EBC0  
-0043EB3C  03C20009  
-0043EB40  0000068F  
-0043EB44  00000001  
-0043EB48  1B4B2980  
-0043EB4C  1EBAE838  
-0043EB50  01ED005A  
-0043EB54  03E0000A  
-0043EB58  0000068F  
-0043EB5C  00000000  
-0043EB60  00000000  
-0043EB64  0018A7E8  
-0043EB68  00000000  
-0043EB6C  000000E8  
-0043EB70  00000000  
-0043EB74  00000000  
-0043EB78  080493C8  
-0043EB7C  0018A4D8  "@d\x18"
-0043EB80  0018A65C  
-0043EB84  08089550  
-0043EB88  0018B3C8  
-0043EB8C  00000000  
-0043EB90  0043EB24  
-0043EB94  00000000  
-0043EB98  0043EC70  
-0043EB9C  08089550  
-0043EBA0  77BE2CC9  return to ntdll.77BE2CC9 from ntdll.77BDDF40
-0043EBA4  08089550  
-0043EBA8  00000000  
-0043EBAC  000000E8  
-0043EBB0  00000000  
-0043EBB4  00000000  
-0043EBB8  00000008  
-0043EBBC  00000000  
-0043EBC0  00000000  
-0043EBC4  00000000  
-0043EBC8  00000000  
-0043EBCC  00000000  
-0043EBD0  00000000  
-0043EBD4  00000000  
-0043EBD8  00000000  
-0043EBDC  00000000  
-0043EBE0  00000000  
-0043EBE4  00000000  
-0043EBE8  00000000  
-0043EBEC  00000000  
-0043EBF0  00000000  
-0043EBF4  00000000  
-0043EBF8  00000000  
-0043EBFC  00000000  
-0043EC00  00000000  
-0043EC04  00000000  
-0043EC08  00000000  
-0043EC0C  00000002  
-0043EC10  00000000  
-0043EC14  000000F0  
-0043EC18  00000000  
-0043EC1C  0043EC34  
-0043EC20  6C3DCF33  return to libtcmalloc.6C3DCF33 from ???
-0043EC24  0043EC44  
-0043EC28  680F6661  return to gf.680F6661 from gf.680FB300
-0043EC2C  0043EC38  
-0043EC30  0043EC68  
-0043EC34  16000008  
-0043EC38  00000014  
-0043EC3C  00000014  
-0043EC40  00140008  
-0043EC44  0043ECAC  
-0043EC48  68008ED9  return to gf.68008ED9 from ???
-0043EC4C  0043ECAC  
-0043EC50  68008F2D  return to gf.68008F2D from ???
-0043EC54  0043EC84  
-0043EC58  0043ED68  
-0043EC5C  FFFFFFFF  
-0043EC60  68008F91  return to gf.68008F91 from gf.6814F90F
-0043EC64  00000003  
-0043EC68  00000014  
-0043EC6C  00000014  
-0043EC70  16000008  
-0043EC74  00000000  
-0043EC78  00000000  
-0043EC7C  00000000  
-0043EC80  00000000  
-0043EC84  00000000  
-0043EC88  00000000  
-0043EC8C  00000000  
-0043EC90  00000000  
-0043EC94  00000000  
-0043EC98  00000000  
-0043EC9C  00000000  
-0043ECA0  00000000  
-0043ECA4  5646E6CC  
-0043ECA8  16000238  
-0043ECAC  0043ECC8  
-0043ECB0  680F721C  return to gf.680F721C from gf.68008E60
-0043ECB4  0043ED68  
-0043ECB8  FFFFFFFF  
-0043ECBC  FFFFFFFF  
-0043ECC0  0043ECD4  
-0043ECC4  680F7615  return to gf.680F7615 from ???
-0043ECC8  16000F08  
-0043ECCC  0043ED68  
-0043ECD0  FFFFFFFF  
-0043ECD4  0043ED84  
-0043ECD8  68009CEE  return to gf.68009CEE from ???
-0043ECDC  0043ECF4  
-0043ECE0  16000F08  
-0043ECE4  68009EFA  return to gf.68009EFA from gf.6814F90F
-0043ECE8  0043EE10  
-0043ECEC  15EED900  &"@蠸\x1B"
-0043ECF0  65F7BBB3  return to mainframe.65F7BBB3 from mainframe.66119B4A
-0043ECF4  00000000  
-0043ECF8  681A7BBC  "@┘\x02"
-0043ECFC  02BCA940  
-0043ED00  00000014  
-0043ED04  02380630  
-0043ED08  0000DB09  
-0043ED0C  0043ED18  
-0043ED10  6814FC71  return to gf.6814FC71 from gf.6814F90A
-0043ED14  000034E0  
-0043ED18  0043ED30  
-0043ED1C  6800B9FC  return to gf.6800B9FC from gf.6814FC66
-0043ED20  00000014  
-0043ED24  67FB4E6C  return to gf.67FB4E6C from gf.67FB2BB0
-0043ED28  16000008  
-0043ED2C  00000014  
-0043ED30  16000008  
-0043ED34  0043ED7C  
-0043ED38  680F6CA0  return to gf.680F6CA0 from ???
-0043ED3C  0043ED64  
-0043ED40  00000000  
-0043ED44  00000000  
-0043ED48  00000004  
-0043ED4C  16000F08  
-0043ED50  680F6CBC  return to gf.680F6CBC from gf.6814F90F
-0043ED54  0043EDC0  
-0043ED58  00000070  
-0043ED5C  00000010  
-0043ED60  00000010  
-0043ED64  00000000  
-0043ED68  00000000  
-0043ED6C  00000010  
-0043ED70  00000070  
-0043ED74  16001108  
-0043ED78  16000F08  
-0043ED7C  03C91200  
-0043ED80  680F6B43  return to gf.680F6B43 from ???
-0043ED84  0043EE54  
-0043ED88  680F6B55  return to gf.680F6B55 from ???
-0043ED8C  0043EE10  
-0043ED90  15F108C8  
-0043ED94  680F6B72  return to gf.680F6B72 from gf.6814F90F
-0043ED98  00000000  
-0043ED9C  40000000  
-0043EDA0  00000000  
-0043EDA4  40000000  
-0043EDA8  68E8BCBC  L"ICL"
-0043EDAC  00000003  
-0043EDB0  67217CA0  L"ActiveStatus"
-0043EDB4  02B2CF30  
-0043EDB8  0000001A  
-0043EDBC  00000019  
-0043EDC0  00000000  
-0043EDC4  00000000  
-0043EDC8  00000010  
-0043EDCC  00000010  
-0043EDD0  01030328  
-0043EDD4  00000064  
-0043EDD8  00000045  
-0043EDDC  00000011  
-0043EDE0  00000011  
-0043EDE4  00000004  
-0043EDE8  00000004  
-0043EDEC  0043EE3C  
-0043EDF0  68756B36  return to common.68756B36 from ???
-0043EDF4  02B2CF9C  
-0043EDF8  681A869C  gf.681A869C
-0043EDFC  00000004  
-0043EE00  00000004  
-0043EE04  00000015  
-0043EE08  00000015  
-0043EE0C  16000F08  
-0043EE10  5487F9FE  
-0043EE14  0043EE28  
-0043EE18  05E103EF  return to tasktray.05E103EF from ???
-0043EE1C  00000001  
-0043EE20  00000203  
-0043EE24  04B5AC94  
-0043EE28  0043EE48  
-0043EE2C  67E22522  return to afutil.67E22522 from ???
-0043EE30  048ACBA0  
-0043EE34  00000001  
-0043EE38  00000203  
-0043EE3C  0000047D  
-0043EE40  0000047D  
-0043EE44  04B5AC94  
-0043EE48  0043EE6C  
-0043EE4C  67E22597  return to afutil.67E22597 from afutil.67E2249F
-0043EE50  0000047D  
-0043EE54  00000001  
-0043EE58  00000203  
-0043EE5C  0043EE88  
-0043EE60  0000047D  
-0043EE64  04B5AC94  
-0043EE68  00000000  
-0043EE6C  0043EEBC  
-0043EE70  67E22778  return to afutil.67E22778 from ???
-0043EE74  000B122A  
-0043EE78  0000047D  
-0043EE7C  00000001  
-0043EE80  00000203  
-0043EE84  0043EEC4  
-0043EE88  00000000  
-0043EE8C  00000000  
-0043EE90  02FC0FA0  
-0043EE94  00000000  
-0043EE98  000B122A  
-0043EE9C  0000047D  
-0043EEA0  00000001  
-0043EEA4  00000203  
-0043EEA8  00000000  
-0043EEAC  00000000  
-0043EEB0  00000000  
-0043EEB4  00000024  
-0043EEB8  00000001  
-0043EEBC  0043EEE8  
-0043EEC0  763B62FA  return to user32.763B62FA from ???
-0043EEC4  00000000  
-0043EEC8  0000047D  
-0043EECC  00000001  
-0043EED0  00000203  
-0043EED4  02FC0FA0  
-0043EED8  DCBAABCD  
-0043EEDC  00000000  
-0043EEE0  00000000  
-0043EEE4  02FC0FA0  
-0043EEE8  0043EF60  
-0043EEEC  763B6D3A  return to user32.763B6D3A from user32.763B62D7
-0043EEF0  02FC0FA0  
-0043EEF4  000B122A  
-0043EEF8  0000047D  
-0043EEFC  00000001  
-0043EF00  00000203  
-0043EF04  5664FFC3  
-0043EF08  00000000  
-0043EF0C  000B122A  
-0043EF10  00000000  
-0043EF14  00000024  
-0043EF18  00000001  
-0043EF1C  00000000  
-0043EF20  00000000  
-0043EF24  00000030  
-0043EF28  FFFFFFFF  
-0043EF2C  FFFFFFFF  
-0043EF30  763B6CE9  return to user32.763B6CE9 from ???
-0043EF34  00000000  
-0043EF38  00000000  
-0043EF3C  00000001  
-0043EF40  00000000  
-0043EF44  00000000  
-0043EF48  0043EF04  
-0043EF4C  00100DBC  
-0043EF50  0043EFAC  Pointer to SEH_Record[1]
-0043EF54  7641A61E  user32.7641A61E
-0043EF58  201C7DFB  
-0043EF5C  00000000  
-0043EF60  0043EFBC  
-0043EF64  763B6DE8  return to user32.763B6DE8 from user32.763B6C83
-0043EF68  00000000  
-0043EF6C  02FC0FA0  
-0043EF70  000B122A  
-0043EF74  0000047D  
-0043EF78  00000001  
-0043EF7C  00000203  
-0043EF80  00A26D58  &"Actx "
-0043EF84  00000001  
-0043EF88  5664FF1F  
-0043EF8C  0043F038  "0m?"
-0043EF90  00000000  
-0043EF94  00000000  
-0043EF98  561D1FDD  msgmgr.561D1FDD
-0043EF9C  00000001  
-0043EFA0  00000000  
-0043EFA4  0043EF88  
-0043EFA8  00000024  
-0043EFAC  0043F008  Pointer to SEH_Record[2]
-0043EFB0  7641A61E  user32.7641A61E
-0043EFB4  201C7D5B  
-0043EFB8  FFFFFFFE  
-0043EFBC  0043EFF8  
-0043EFC0  763B6E44  return to user32.763B6E44 from ???
-0043EFC4  00A26D30  
-0043EFC8  00000000  
-0043EFCC  0000047D  
-0043EFD0  00000001  
-0043EFD4  00000203  
-0043EFD8  02FC0FA0  
-0043EFDC  00000102  
-0043EFE0  00000102  
-0043EFE4  00000000  
-0043EFE8  00000000  
-0043EFEC  FDFBA480  
-0043EFF0  00000000  
-0043EFF4  00000000  
-0043EFF8  0043F01C  
-0043EFFC  77BC010A  return to ntdll.77BC010A from ???
-0043F000  0043F038  "0m?"
-0043F004  00000000  
-0043F008  0043FD40  Pointer to SEH_Record[3]
-0043F00C  77BC0070  ntdll.77BC0070
-0043F010  00000000  
-0043F014  77BC00DC  ntdll.77BC00DC
-0043F018  75A71654  return to kernelbase.75A71654 from kernelbase.75A96FC9
-0043F01C  0043F080  
-0043F020  00000000  
-0043F024  00000002  
-0043F028  0043F038  "0m?"
-0043F02C  00000000  
-0043F030  00000000  
-0043F034  00000001  
-0043F038  00A26D30  
-0043F03C  00000000  
-0043F040  0000047D  
-0043F044  00000001  
-0043F048  00000203  
-0043F04C  02FC0FA0  
-0043F050  77BE2612  ntdll.77BE2612
-0043F054  00000000  
-0043F058  763C0735  return to user32.763C0735 from ???
-0043F05C  763C06EB  return to user32.763C06EB from user32.763C0720
-0043F060  0043F0D4  
-0043F064  00000000  
-0043F068  00000000  
-0043F06C  00000000  
-0043F070  00000000  
-0043F074  00995BE0  
-0043F078  FFFDB800  
-0043F07C  00000000  
-0043F080  0043F0AC  
-0043F084  763C0751  return to user32.763C0751 from user32.763C06BE
-0043F088  0043F0D4  
-0043F08C  00000000  
-0043F090  00000000  
-0043F094  00000000  
-0043F098  00000000  
-0043F09C  00000000  
-0043F0A0  0043F0F0  
-0043F0A4  763C05BA  user32.763C05BA
-0043F0A8  00000000  
-0043F0AC  0043F0F0  
-0043F0B0  6C2C444E  return to asynctask.6C2C444E from ???
-0043F0B4  0043F0D4  
-0043F0B8  00000000  
-0043F0BC  00000000  
-0043F0C0  00000000  
-0043F0C4  00000000  
-0043F0C8  02BC9960  
-0043F0CC  02BC9940  "饎,l\x01"
-0043F0D0  00000000  
-0043F0D4  00000000  
-0043F0D8  00000000  
-0043F0DC  00000000  
-0043F0E0  00000000  
-0043F0E4  00000000  
-0043F0E8  00000000  
-0043F0EC  00000000  
-0043F0F0  0043F11C  
-0043F0F4  6C2C4375  return to asynctask.6C2C4375 from asynctask.6C2C43CF
-0043F0F8  00000000  
-0043F0FC  02BC9940  "饎,l\x01"
-0043F100  00000001  
-0043F104  6C2C4178  return to asynctask.6C2C4178 from ???
-0043F108  6C35507C  hummerengine.6C35507C
-0043F10C  0043F220  
-0043F110  0043F220  
-0043F114  047B9400  
-0043F118  00000001  
-0043F11C  0043F140  
-0043F120  6C2C207A  return to asynctask.6C2C207A from ???
-0043F124  0043F220  
-0043F128  6C2C2024  return to asynctask.6C2C2024 from asynctask.6C2C2065
-0043F12C  0043F7F0  
-0043F130  00000001  
-0043F134  047B9300  
-0043F138  0043F220  
-0043F13C  00000000  
-0043F140  0043F7DC  
-0043F144  6C340B6D  return to hummerengine.6C340B6D from ???
-0043F148  6C347D98  hummerengine.6C347D98
-0043F14C  00000000  
-0043F150  002A45A0  L"HummerEngine.dll"
-0043F154  00000000  
-0043F158  00000101  
-0043F15C  0000000C  
-0043F160  00000A29  
-0043F164  00000000  
-0043F168  FBB7E000  
-0043F16C  00000003  
-0043F170  00000000  
-0043F174  00000000  
-0043F178  00000000  
-0043F17C  00000001  
-0043F180  6C35A2A0  L"嘐水嚝水坽水Com.Tencent.VAS"
-0043F184  00000000  
-0043F188  00000000  
-0043F18C  00000000  
-0043F190  00000000  
-0043F194  000003E8  
-0043F198  00000001  
-0043F19C  00000000  
-0043F1A0  00000000  
-0043F1A4  00000000  
-0043F1A8  0026A7DB  
-0043F1AC  00000000  
-0043F1B0  00000000  
-0043F1B4  00005B39  
-0043F1B8  00006C0E  
-0043F1BC  00000004  
-0043F1C0  02C14E24  L"9.4.2.27662"
-0043F1C4  02B2ACE4  L" .2 Build27662"
-0043F1C8  00010101  
-0043F1CC  000069DA  
-0043F1D0  02C1C014  L"HummerEngine.dll:740D7E939C0EE5DCE8D9E5AF2EA3E96F|LongCnn.dll:49D1D3DA9BEEF6DFB733389B52CD1F3F|KernelUtil.dll:CD5F05380D3378BDA29F0965ABD38A73|TSIP.DAT:19743810C06CB91D2735E4D34FDB4817"
-0043F1D4  00000000  
-0043F1D8  00000000  
-0043F1DC  049F6624  "l坨h\x03"
-0043F1E0  00000000  
-0043F1E4  6C3596E0  hummerengine.6C3596E0
-0043F1E8  04806360  
-0043F1EC  03BF59C4  L"稘梔\x03"
-0043F1F0  04BEFE00  "榶攈\x01"
-0043F1F4  00000000  
-0043F1F8  00000000  
-0043F1FC  00000000  
-0043F200  84BEFEA0  
-0043F204  0043F7F0  
-0043F208  04FDDE30  
-0043F20C  847B9380  
-0043F210  84BEAD80  
-0043F214  00000000  
-0043F218  047B9380  &L"鲯柇底柇鱬柇遳柇飒柇餌柇鬥柇魟柇鮙柇鰆柇鰪柇鳉柇逐柇摺柇通柇弨柇彅柇彩柇徉柇徰柇過柇逤柇撘柇逮柇逸柇"
-0043F21C  84BF1B54  
-0043F220  6C35A130  hummerengine.6C35A130
-0043F224  00000000  
-0043F228  02B20830  
-0043F22C  0F58D800  
-0043F230  00000080  
-0043F234  00000000  
-0043F238  00000000  
-0043F23C  145B9000  "滥\r\rㄧC"
-0043F240  145B9030  &"ǔ揾\x01"
-0043F244  145B95E8  
-0043F248  00000000  
-0043F24C  02B208D0  
-0043F250  00000000  
-0043F254  00000000  
-0043F258  00000000  
-0043F25C  00000000  
-0043F260  02BC9940  "饎,l\x01"
-0043F264  0CF46DC8  
-0043F268  0CF46DC8  
-0043F26C  0CF46DD0  
-0043F270  00000000  
-0043F274  00000000  
-0043F278  00000001  
-0043F27C  00000000  
-0043F280  00000000  
-0043F284  00000000  
-0043F288  00000000  
-0043F28C  00000000  
-0043F290  0000000F  
-0043F294  02B20928  
-0043F298  13693E00  
-0043F29C  00000080  
-0043F2A0  00000000  
-0043F2A4  00000000  
-0043F2A8  0023C898  
-0043F2AC  FFFFFFFF  
-0043F2B0  00000000  
-0043F2B4  00000000  
-0043F2B8  00000000  
-0043F2BC  000007D0  
-0043F2C0  0043F130  
-0043F2C4  00000000  
-0043F2C8  00000000  
-0043F2CC  00000000  
-0043F2D0  00000058  
-0043F2D4  00000000  
-0043F2D8  00000000  
-0043F2DC  00000000  
-0043F2E0  00000000  
-0043F2E4  00000000  
-0043F2E8  00000000  
-0043F2EC  00000000  
-0043F2F0  02B209E8  
-0043F2F4  00000000  
-0043F2F8  00000000  
-0043F2FC  00000000  
-0043F300  00000000  
-0043F304  00000000  
-0043F308  00000000  
-0043F30C  00000000  
-0043F310  00000000  
-0043F314  000000C8  
-0043F318  000000C8  
-0043F31C  00000000  
-0043F320  00000000  
-0043F324  00000000  
-0043F328  00000000  
-0043F32C  00000000  
-0043F330  00000000  
-0043F334  00000000  
-0043F338  00000000  
-0043F33C  00000000  
-0043F340  00000040  
-0043F344  00000059  
-0043F348  FBB7E000  
-0043F34C  00000003  
-0043F350  6737C000  libssl-1_1.6737C000
-0043F354  00000000  
-0043F358  FB9AE000  
-0043F35C  00000005  
-0043F360  69961000  
-0043F364  00000002  
-0043F368  FFFE0000  
-0043F36C  00000000  
-0043F370  F62A9000  
-0043F374  00000000  
-0043F378  00000000  
-0043F37C  00000000  
-0043F380  00000000  
-0043F384  6C359750  hummerengine.6C359750
-0043F388  00000001  
-0043F38C  00000000  
-0043F390  0000024C  
-0043F394  0513FCD8  "軆,l"
-0043F398  04FE0060  "悇,l\x01"
-0043F39C  000003D8  
-0043F3A0  69676F4C  
-0043F3A4  006C6163  &L"\\C:\\Program Files (x86)\\360\\360Safe\\safemon\\SafeWrapper.dll"
-0043F3A8  00000000  
-0043F3AC  00000000  
-0043F3B0  00000007  
-0043F3B4  0000000F  
-0043F3B8  003A0043  
-0043F3BC  0057005C  
-0043F3C0  006E0069  
-0043F3C4  006F0064  
-0043F3C8  00730077  
-0043F3CC  00000000  
-0043F3D0  00000000  
-0043F3D4  00000000  
-0043F3D8  00000000  
-0043F3DC  00000000  
-0043F3E0  00000000  
-0043F3E4  00000000  
-0043F3E8  00000000  
-0043F3EC  00000000  
-0043F3F0  00000000  
-0043F3F4  00000000  
-0043F3F8  00000000  
-0043F3FC  00000000  
-0043F400  00000000  
-0043F404  00000000  
-0043F408  00000000  
-0043F40C  00000000  
-0043F410  00000000  
-0043F414  00000000  
-0043F418  00000000  
-0043F41C  00000000  
-0043F420  00000000  
-0043F424  00000000  
-0043F428  00000000  
-0043F42C  00000000  
-0043F430  00000000  
-0043F434  00000000  
-0043F438  00000000  
-0043F43C  00000000  
-0043F440  00000000  
-0043F444  00000000  
-0043F448  00000000  
-0043F44C  00000000  
-0043F450  00000000  
-0043F454  00000000  
-0043F458  00000000  
-0043F45C  00000000  
-0043F460  00000000  
-0043F464  00000000  
-0043F468  00000000  
-0043F46C  00000000  
-0043F470  00000000  
-0043F474  00000000  
-0043F478  00000000  
-0043F47C  00000000  
-0043F480  00000000  
-0043F484  00000000  
-0043F488  00000000  
-0043F48C  00000000  
-0043F490  00000000  
-0043F494  00000000  
-0043F498  00000000  
-0043F49C  00000000  
-0043F4A0  00000000  
-0043F4A4  00000000  
-0043F4A8  00000000  
-0043F4AC  00000000  
-0043F4B0  00000000  
-0043F4B4  00000000  
-0043F4B8  00000000  
-0043F4BC  00000000  
-0043F4C0  00000000  
-0043F4C4  00000000  
-0043F4C8  00000000  
-0043F4CC  00000000  
-0043F4D0  00000000  
-0043F4D4  00000000  
-0043F4D8  00000000  
-0043F4DC  00000000  
-0043F4E0  00000000  
-0043F4E4  00000000  
-0043F4E8  00000000  
-0043F4EC  00000000  
-0043F4F0  00000000  
-0043F4F4  00000000  
-0043F4F8  00000000  
-0043F4FC  00000000  
-0043F500  00000000  
-0043F504  00000000  
-0043F508  00000000  
-0043F50C  00000000  
-0043F510  00000000  
-0043F514  00000000  
-0043F518  00000000  
-0043F51C  00000000  
-0043F520  00000000  
-0043F524  00000000  
-0043F528  00000000  
-0043F52C  00000000  
-0043F530  00000000  
-0043F534  00000000  
-0043F538  00000000  
-0043F53C  00000000  
-0043F540  00000000  
-0043F544  00000000  
-0043F548  00000000  
-0043F54C  00000000  
-0043F550  00000000  
-0043F554  00000000  
-0043F558  00000000  
-0043F55C  00000000  
-0043F560  00000000  
-0043F564  00000000  
-0043F568  00000000  
-0043F56C  00000000  
-0043F570  00000000  
-0043F574  00000000  
-0043F578  00000000  
-0043F57C  00000000  
-0043F580  00000000  
-0043F584  00000000  
-0043F588  00000000  
-0043F58C  00000000  
-0043F590  00000000  
-0043F594  00000000  
-0043F598  00000000  
-0043F59C  00000000  
-0043F5A0  00000000  
-0043F5A4  00000000  
-0043F5A8  00000000  
-0043F5AC  00000000  
-0043F5B0  00000000  
-0043F5B4  00000000  
-0043F5B8  00000000  
-0043F5BC  00000000  
-0043F5C0  00000000  
-0043F5C4  00000000  
-0043F5C8  003A0044  
-0043F5CC  0050005C  
-0043F5D0  006F0072  
-0043F5D4  00720067  
-0043F5D8  006D0061  
-0043F5DC  00460020  
-0043F5E0  006C0069  
-0043F5E4  00730065  
-0043F5E8  00280020  
-0043F5EC  00380078  
-0043F5F0  00290036  
-0043F5F4  0054005C  
-0043F5F8  006E0065  
-0043F5FC  00650063  
-0043F600  0074006E  
-0043F604  0051005C  
-0043F608  005C0051  
-0043F60C  00690042  
-0043F610  005C006E  
-0043F614  00510051  
-0043F618  0065002E  
-0043F61C  00650078  
-0043F620  00000000  
-0043F624  00000000  
-0043F628  00000000  
-0043F62C  00000000  
-0043F630  00000000  
-0043F634  00000000  
-0043F638  00000000  
-0043F63C  00000000  
-0043F640  00000000  
-0043F644  00000000  
-0043F648  00000000  
-0043F64C  00000000  
-0043F650  00000000  
-0043F654  00000000  
-0043F658  00000000  
-0043F65C  00000000  
-0043F660  00000000  
-0043F664  00000000  
-0043F668  00000000  
-0043F66C  00000000  
-0043F670  00000000  
-0043F674  00000000  
-0043F678  00000000  
-0043F67C  00000000  
-0043F680  00000000  
-0043F684  00000000  
-0043F688  00000000  
-0043F68C  00000000  
-0043F690  00000000  
-0043F694  00000000  
-0043F698  00000000  
-0043F69C  00000000  
-0043F6A0  00000000  
-0043F6A4  00000000  
-0043F6A8  00000000  
-0043F6AC  00000000  
-0043F6B0  00000000  
-0043F6B4  00000000  
-0043F6B8  00000000  
-0043F6BC  00000000  
-0043F6C0  00000000  
-0043F6C4  00000000  
-0043F6C8  00000000  
-0043F6CC  00000000  
-0043F6D0  00000000  
-0043F6D4  00000000  
-0043F6D8  00000000  
-0043F6DC  00000000  
-0043F6E0  00000000  
-0043F6E4  00000000  
-0043F6E8  00000000  
-0043F6EC  00180000  
-0043F6F0  0022CF78  
-0043F6F4  0F310000  wdthelper.0F310000
-0043F6F8  77BCFE6E  return to ntdll.77BCFE6E from ???
-0043F6FC  0047001C  
-0043F700  0005E048  
-0043F704  0043F754  
-0043F708  56760E39  
-0043F70C  0022CF78  
-0043F710  0022CF60  
-0043F714  00000001  
-0043F718  0022CF70  
-0043F71C  0043F734  
-0043F720  00000022  
-0043F724  00000044  
-0043F728  6888512F  return to common.6888512F from common.6890AD40
-0043F72C  0043F748  
-0043F730  68885153  return to common.68885153 from ???
-0043F734  00000024  
-0043F738  00000000  
-0043F73C  00000022  
-0043F740  0043F7D4  
-0043F744  689C2628  common.689C2628
-0043F748  0043F768  
-0043F74C  00000000  
-0043F750  00000000  
-0043F754  0043F79C  
-0043F758  0043F764  
-0043F75C  68909966  return to common.68909966 from common.6890AD5E
-0043F760  0043F780  
-0043F764  68885324  return to common.68885324 from ???
-0043F768  02B422BC  
-0043F76C  689E5D5C  common.689E5D5C
-0043F770  02B407E0  "C:\\Users\\Administrator1\\AppData\\Roaming\\Tencent\\QQ\\loginrdo.cache"
-0043F774  0043F7F0  
-0043F778  02380630  
-0043F77C  00001590  
-0043F780  0043F78C  
-0043F784  68909949  return to common.68909949 from common.68909928
-0043F788  0002BE80  
-0043F78C  0043F7A8  &"#~4l"
-0043F790  6888538B  return to common.6888538B from common.6890993E
-0043F794  00000000  
-0043F798  02B407E0  "C:\\Users\\Administrator1\\AppData\\Roaming\\Tencent\\QQ\\loginrdo.cache"
-0043F79C  0043F7F0  
-0043F7A0  02380630  
-0043F7A4  000015A0  
-0043F7A8  0043F7E0  "#~4l"
-0043F7AC  68884C54  return to common.68884C54 from ???
-0043F7B0  0002BE78  
-0043F7B4  0043F7D8  
-0043F7B8  688819B5  return to common.688819B5 from common.68884BF0
-0043F7BC  68886870  common.68886870
-0043F7C0  68881980  common.68881980
-0043F7C4  6C33F6F7  return to hummerengine.6C33F6F7 from ???
-0043F7C8  6C347D98  hummerengine.6C347D98
-0043F7CC  00000000  
-0043F7D0  002A45A0  L"HummerEngine.dll"
-0043F7D4  5646FD11  
-0043F7D8  82B407F4  
-0043F7DC  0043F85C  
-0043F7E0  6C347E23  return to hummerengine.6C347E23 from hummerengine.6C33F82B
-0043F7E4  00000000  
-0043F7E8  FFFFFFFF  
-0043F7EC  00000000  
-0043F7F0  6C359708  hummerengine.6C359708
-0043F7F4  6C353E08  hummerengine.6C353E08
-0043F7F8  02C17380  "鴢5l\x01"
-0043F7FC  0023C7D0  
-0043F800  FFFFFFFF  
-0043F804  00000000  
-0043F808  00000000  
-0043F80C  00000000  
-0043F810  000007D0  
-0043F814  00000000  
-0043F818  0043F7F0  
-0043F81C  0000032C  
-0043F820  00000000  
-0043F824  00002101  
-0043F828  00229040  
-0043F82C  00000000  
-0043F830  00000234  
-0043F834  00000001  
-0043F838  6C353E00  hummerengine.6C353E00
-0043F83C  02C173A0  L"阠氵\x01"
-0043F840  6C353E08  hummerengine.6C353E08
-0043F844  02BC92C0  "钑5l\x02"
-0043F848  6C359768  hummerengine.6C359768
-0043F84C  00000238  
-0043F850  02B40734  L"D:\\qqdata\\All Users\\TIM\\History.db"
-0043F854  02B40794  L"D:\\qqdata\\All Users\\QQ\\History.db"
-0043F858  00000000  
-0043F85C  0043FCF8  
-0043F860  002A289B  return to qq.002A289B from ???
-0043F864  00000000  
-0043F868  00000000  
-0043F86C  002A7A8C  qq.002A7A8C
-0043F870  FFFDE000  
-0043F874  0043F8F4  
-0043F878  0F90C0C0  
-0043F87C  77BEE024  return to ntdll.77BEE024 from ntdll.77BDDF29
-0043F880  781867D4  
-0043F884  00000000  
-0043F888  77BF670C  ntdll.77BF670C
-0043F88C  FFFDE000  
-0043F890  00000024  
-0043F894  00000001  
-0043F898  00000000  
-0043F89C  00000000  
-0043F8A0  00000070  
-0043F8A4  FFFFFFFF  
-0043F8A8  00000114  
-0043F8AC  00000006  
-0043F8B0  00000001  
-0043F8B4  00001DB1  
-0043F8B8  00000002  
-0043F8BC  00650053  
-0043F8C0  00760072  
-0043F8C4  00630069  
-0043F8C8  00200065  
-0043F8CC  00610050  
-0043F8D0  006B0063  
-0043F8D4  00310020  
-0043F8D8  00000000  
-0043F8DC  00000000  
-0043F8E0  00000000  
-0043F8E4  00000000  
-0043F8E8  00000000  
-0043F8EC  00000000  
-0043F8F0  00000000  
-0043F8F4  00000000  
-0043F8F8  00000000  
-0043F8FC  00000000  
-0043F900  00000000  
-0043F904  00000000  
-0043F908  00000000  
-0043F90C  00000000  
-0043F910  00000000  
-0043F914  00000000  
-0043F918  00000000  
-0043F91C  00000000  
-0043F920  00000000  
-0043F924  00000000  
-0043F928  00000000  
-0043F92C  00000000  
-0043F930  00000000  
-0043F934  00000000  
-0043F938  00000000  
-0043F93C  00000000  
-0043F940  00000000  
-0043F944  00000000  
-0043F948  00000000  
-0043F94C  00000000  
-0043F950  00000000  
-0043F954  00000000  
-0043F958  00000000  
-0043F95C  00000000  
-0043F960  00000000  
-0043F964  00000000  
-0043F968  00000000  
-0043F96C  00000000  
-0043F970  00000000  
-0043F974  00000000  
-0043F978  00000000  
-0043F97C  00000000  
-0043F980  00000000  
-0043F984  00000000  
-0043F988  00000000  
-0043F98C  00000000  
-0043F990  00000000  
-0043F994  00000000  
-0043F998  00000000  
-0043F99C  00000000  
-0043F9A0  00000000  
-0043F9A4  00000000  
-0043F9A8  00000000  
-0043F9AC  00000000  
-0043F9B0  00000000  
-0043F9B4  00000000  
-0043F9B8  00000000  
-0043F9BC  00180000  
-0043F9C0  0000011C  
-0043F9C4  00000006  
-0043F9C8  00000001  
-0043F9CC  00001DB1  
-0043F9D0  00000002  
-0043F9D4  00650053  
-0043F9D8  00760072  
-0043F9DC  00630069  
-0043F9E0  00200065  
-0043F9E4  00610050  
-0043F9E8  006B0063  
-0043F9EC  00310020  
-0043F9F0  00000000  
-0043F9F4  00000000  
-0043F9F8  00000000  
-0043F9FC  00000000  
-0043FA00  00000000  
-0043FA04  00000000  
-0043FA08  00000000  
-0043FA0C  00000000  
-0043FA10  00000000  
-0043FA14  00000000  
-0043FA18  00000000  
-0043FA1C  00000000  
-0043FA20  00000000  
-0043FA24  00000000  
-0043FA28  00000000  
-0043FA2C  00000000  
-0043FA30  00000000  
-0043FA34  00000000  
-0043FA38  00000000  
-0043FA3C  00000000  
-0043FA40  00000000  
-0043FA44  00000000  
-0043FA48  00000000  
-0043FA4C  00000000  
-0043FA50  00000000  
-0043FA54  00000000  
-0043FA58  00000000  
-0043FA5C  00000000  
-0043FA60  00000000  
-0043FA64  00000000  
-0043FA68  00000000  
-0043FA6C  00000000  
-0043FA70  00000000  
-0043FA74  00000000  
-0043FA78  00000000  
-0043FA7C  00000000  
-0043FA80  00000000  
-0043FA84  00000000  
-0043FA88  00000000  
-0043FA8C  00000000  
-0043FA90  00000000  
-0043FA94  00000000  
-0043FA98  00000000  
-0043FA9C  00000000  
-0043FAA0  00000000  
-0043FAA4  00000000  
-0043FAA8  00000000  
-0043FAAC  00000000  
-0043FAB0  00000000  
-0043FAB4  00000000  
-0043FAB8  00000000  
-0043FABC  00000000  
-0043FAC0  00000000  
-0043FAC4  00000000  
-0043FAC8  00000000  
-0043FACC  00000000  
-0043FAD0  00000000  
-0043FAD4  00000001  
-0043FAD8  00010100  
-0043FADC  00760065  
-0043FAE0  0051005B  
-0043FAE4  00500051  
-0043FAE8  00720065  
-0043FAEC  004C0066  &"Actx "
-0043FAF0  0067006F  
-0043FAF4  0020005D  
-0043FAF8  00770064  
-0043FAFC  0061004D  
-0043FB00  006E0069  
-0043FB04  006E0045  
-0043FB08  00720074  
-0043FB0C  00200079  
-0043FB10  0020003D  
-0043FB14  00360032  
-0043FB18  00310031  
-0043FB1C  00340034  
-0043FB20  00360037  
-0043FB24  00200038  
-0043FB28  0020002C  
-0043FB2C  00770064  
-0043FB30  00480053  "program cannot be run in DOS mode.\r\r\n$"
-0043FB34  003D0020  
-0043FB38  00320020  
-0043FB3C  00310036  
-0043FB40  00340031  
-0043FB44  00370034  
-0043FB48  00380036  
-0043FB4C  002C0020  
-0043FB50  00640020  
-0043FB54  00440077  
-0043FB58  006C0065  
-0043FB5C  00740065  
-0043FB60  00200065  
-0043FB64  0020003D  
-0043FB68  00000030  
-0043FB6C  00000000  
-0043FB70  00000000  
-0043FB74  00000000  
-0043FB78  00000000  
-0043FB7C  00000000  
-0043FB80  00000000  
-0043FB84  00000000  
-0043FB88  00000000  
-0043FB8C  00000000  
-0043FB90  00000000  
-0043FB94  00000000  
-0043FB98  00000000  
-0043FB9C  00000000  
-0043FBA0  00000000  
-0043FBA4  00000000  
-0043FBA8  00000000  
-0043FBAC  00000000  
-0043FBB0  00000000  
-0043FBB4  00000000  
-0043FBB8  00000000  
-0043FBBC  00000000  
-0043FBC0  00000000  
-0043FBC4  00000000  
-0043FBC8  00000000  
-0043FBCC  00000000  
-0043FBD0  00000000  
-0043FBD4  00000000  
-0043FBD8  00000000  
-0043FBDC  00000000  
-0043FBE0  00000000  
-0043FBE4  00000000  
-0043FBE8  00000000  
-0043FBEC  00000000  
-0043FBF0  00000000  
-0043FBF4  00000000  
-0043FBF8  00000000  
-0043FBFC  00000000  
-0043FC00  00000000  
-0043FC04  00000000  
-0043FC08  00000000  
-0043FC0C  00000000  
-0043FC10  00000000  
-0043FC14  00000000  
-0043FC18  00000000  
-0043FC1C  00000000  
-0043FC20  00000000  
-0043FC24  00000000  
-0043FC28  00000000  
-0043FC2C  00000000  
-0043FC30  00000000  
-0043FC34  00000000  
-0043FC38  00000000  
-0043FC3C  00000000  
-0043FC40  00000000  
-0043FC44  00000000  
-0043FC48  00000000  
-0043FC4C  00000000  
-0043FC50  00000000  
-0043FC54  00000000  
-0043FC58  00000000  
-0043FC5C  00000000  
-0043FC60  00000000  
-0043FC64  00000000  
-0043FC68  00000000  
-0043FC6C  00000000  
-0043FC70  00000000  
-0043FC74  00000000  
-0043FC78  00000000  
-0043FC7C  00000000  
-0043FC80  00000000  
-0043FC84  00000000  
-0043FC88  00000000  
-0043FC8C  00000000  
-0043FC90  00000000  
-0043FC94  00000000  
-0043FC98  00000000  
-0043FC9C  00000000  
-0043FCA0  00000000  
-0043FCA4  00000000  
-0043FCA8  00000000  
-0043FCAC  00000000  
-0043FCB0  00000000  
-0043FCB4  00000000  
-0043FCB8  00000000  
-0043FCBC  00000000  
-0043FCC0  00000000  
-0043FCC4  00000000  
-0043FCC8  00000000  
-0043FCCC  00000000  
-0043FCD0  00000000  
-0043FCD4  00000000  
-0043FCD8  00000000  
-0043FCDC  00000000  
-0043FCE0  00000000  
-0043FCE4  00000000  
-0043FCE8  00000000  
-0043FCEC  00000000  
-0043FCF0  00000000  
-0043FCF4  599E56A5  ieframe.599E56A5
-0043FCF8  0043FD04  
-0043FCFC  002A12C6  return to qq.002A12C6 from qq.002A2506
-0043FD00  00000000  
-0043FD04  0043FD50  
-0043FD08  002A3365  return to qq.002A3365 from qq.002A12BB
-0043FD0C  002A0000  "MZ?"
-0043FD10  00000000  
-0043FD14  00182EE4  L"/hosthwnd=12848806 /hostname=QQ_IPC_{784BC6B9-A250-4421-808B-AFF9C6ACC460} /memoryid=0 \"D:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQ.exe\" "
-0043FD18  00000000  
-0043FD1C  599E5381  ieframe.599E5381
-0043FD20  00000000  
-0043FD24  00000000  
-0043FD28  FFFDE000  
-0043FD2C  082FA300  
-0043FD30  0000009A  
-0043FD34  00670FBA  
-0043FD38  0043FD1C  
-0043FD3C  51B1F0CA  
-0043FD40  0043FD8C  Pointer to SEH_Record[4]
-0043FD44  002A3185  qq.002A3185
-0043FD48  59F7E259  ieframe.59F7E259
-0043FD4C  00000000  
-0043FD50  0043FD5C  
-0043FD54  762A33AA  return to kernel32.762A33AA from ???
-0043FD58  FFFDE000  
-0043FD5C  0043FD9C  
-0043FD60  77BE9F72  return to ntdll.77BE9F72 from ???
-0043FD64  FFFDE000  
-0043FD68  781862BC  
-0043FD6C  00000000  
-0043FD70  00000000  
-0043FD74  FFFDE000  
-0043FD78  00000000  
-0043FD7C  00000000  
-0043FD80  00000000  
-0043FD84  0043FD68  
-0043FD88  00000000  
-0043FD8C  FFFFFFFF  End of SEH Chain
-0043FD90  77C271F5  ntdll.77C271F5
-0043FD94  0FE65A70  netdisk.0FE65A70
-0043FD98  00000000  
-0043FD9C  0043FDB4  
-0043FDA0  77BE9F45  return to ntdll.77BE9F45 from ntdll.77BE9F4B
-0043FDA4  002A33E9  qq.EntryPoint
-0043FDA8  FFFDE000  
-0043FDAC  00000000  
-0043FDB0  00000000  
-0043FDB4  00000000  
-0043FDB8  00000000  
-0043FDBC  002A33E9  qq.EntryPoint
-0043FDC0  FFFDE000  
-0043FDC4  00000000  
-0043FDC8  00000000  
-0043FDCC  00000000  
-0043FDD0  00000000  
-0043FDD4  00000000  
-0043FDD8  00000000  
-0043FDDC  00000000  
-0043FDE0  00000000  
-0043FDE4  00000000  
-0043FDE8  00000000  
-0043FDEC  00000000  
-0043FDF0  00000000  
-0043FDF4  00000000  
-0043FDF8  00000000  
-0043FDFC  00000000  
-0043FE00  00000000  
-0043FE04  00000000  
-0043FE08  00000000  
-0043FE0C  00000000  
-0043FE10  00000000  
-0043FE14  00000000  
-0043FE18  00000000  
-0043FE1C  00000000  
-0043FE20  00000000  
-0043FE24  00000000  
-0043FE28  00000000  
-0043FE2C  00000000  
-0043FE30  00000000  
-0043FE34  00000000  
-0043FE38  00000000  
-0043FE3C  00000000  
-0043FE40  00000000  
-0043FE44  00000000  
-0043FE48  00000000  
-0043FE4C  00000000  
-0043FE50  00000000  
-0043FE54  00000000  
-0043FE58  00000000  
-0043FE5C  00000000  
-0043FE60  00000000  
-0043FE64  00000000  
-0043FE68  00000000  
-0043FE6C  00000000  
-0043FE70  00000000  
-0043FE74  00000000  
-0043FE78  00000000  
-0043FE7C  00000000  
-0043FE80  00000000  
-0043FE84  00000000  
-0043FE88  00000000  
-0043FE8C  00000000  
-0043FE90  00000000  
-0043FE94  00000000  
-0043FE98  00000000  
-0043FE9C  00000000  
-0043FEA0  00000000  
-0043FEA4  00000000  
-0043FEA8  00000000  
-0043FEAC  00000000  
-0043FEB0  00000000  
-0043FEB4  00000000  
-0043FEB8  00000000  
-0043FEBC  00000000  
-0043FEC0  00000000  
-0043FEC4  00000000  
-0043FEC8  00000000  
-0043FECC  00000000  
-0043FED0  00000000  
-0043FED4  00000000  
-0043FED8  00000000  
-0043FEDC  00000000  
-0043FEE0  00000000  
-0043FEE4  00000000  
-0043FEE8  00000000  
-0043FEEC  00000000  
-0043FEF0  00000000  
-0043FEF4  00000000  
-0043FEF8  00000000  
-0043FEFC  00000000  
-0043FF00  00000000  
-0043FF04  00000000  
-0043FF08  00000000  
-0043FF0C  00000000  
-0043FF10  00000000  
-0043FF14  00000000  
-0043FF18  00000000  
-0043FF1C  00000000  
-0043FF20  00000000  
-0043FF24  00000000  
-0043FF28  00000000  
-0043FF2C  00000000  
-0043FF30  00000000  
-0043FF34  00000000  
-0043FF38  00000000  
-0043FF3C  00000000  
-0043FF40  00000000  
-0043FF44  00000000  
-0043FF48  00000000  
-0043FF4C  00000000  
-0043FF50  00000000  
-0043FF54  00000000  
-0043FF58  00000000  
-0043FF5C  00000000  
-0043FF60  00000000  
-0043FF64  00000000  
-0043FF68  00000000  
-0043FF6C  00000000  
-0043FF70  00000000  
-0043FF74  00000000  
-0043FF78  00000000  
-0043FF7C  00000000  
-0043FF80  00000000  
-0043FF84  00000000  
-0043FF88  00000000  
-0043FF8C  00000000  
-0043FF90  00000000  
-0043FF94  00000000  
-0043FF98  00000000  
-0043FF9C  00000000  
-0043FFA0  00000000  
-0043FFA4  00000000  
-0043FFA8  00000000  
-0043FFAC  00000000  
-0043FFB0  00000000  
-0043FFB4  00000000  
-0043FFB8  00000000  
-0043FFBC  00000000  
-0043FFC0  00000000  
-0043FFC4  00000000  
-0043FFC8  00000000  
-0043FFCC  00000000  
-0043FFD0  00000000  
-0043FFD4  00000000  
-0043FFD8  00000000  
-0043FFDC  00000000  
-0043FFE0  00000000  
-0043FFE4  00000000  
-0043FFE8  00000000  
-0043FFEC  00000000  
-0043FFF0  00000000  
-0043FFF4  00000000  
-0043FFF8  00000000  
-0043FFFC  00000000  
+
+0028DC34  5231B6DE  return to gf.5231B6DE from ???
+0028DC38  0001094E  
+0028DC3C  00000005  
+0028DC40  00000005  
+0028DC44  0DB2D188  
+0028DC48  521CB0E0  gf.521CB0E0
+0028DC4C  00000000  
+0028DC50  4FB748C8  appframework.4FB748C8
+0028DC54  0028DD00  &L"CPanelOrHwnd::Show.Begin"
+0028DC58  0639BF90  "€巡\r"
+0028DC5C  00000001  
+0028DC60  4F9FFC66  return to appframework.4F9FFC66 from appframework.4FB6D53A
+0028DC64  0028DCB0  
+0028DC68  52317071  return to gf.52317071 from gf.5231B610
+0028DC6C  00000005  
+0028DC70  0639BF90  "€巡\r"
+0028DC74  0DB2D188  
+0028DC78  0028DC94  
+0028DC7C  52184B2F  return to gf.52184B2F from ???
+0028DC80  0DB2D180  
+0028DC84  0639BF90  "€巡\r"
+0028DC88  0DB2D180  
+0028DC8C  521CB0E0  gf.521CB0E0
+0028DC90  0DB2D180  
+0028DC94  00000000  
+0028DC98  0001094E  
+0028DC9C  5232F101  gf.5232F101
+0028DCA0  0028DCD4  "蜻璒€巡\r\x05"
+0028DCA4  768432E4  return to user32.768432E4 from user32.7683616A
+0028DCA8  A237A6FC  
+0028DCAC  A2645E0C  
+0028DCB0  0028DCC4  
+0028DCB4  5223DD3D  return to gf.5223DD3D from gf.52317050
+0028DCB8  00000005  
+0028DCBC  0DB2D180  
+0028DCC0  0DB2D188  
+0028DCC4  0028DCD0  
+0028DCC8  521CB0F4  return to gf.521CB0F4 from ???
+0028DCCC  00000005  
+0028DCD0  0028E128  
+0028DCD4  4FADDFF2  return to appframework.4FADDFF2 from ???
+0028DCD8  0DB2D180  
+0028DCDC  00000005  
+0028DCE0  0639BF08  
+0028DCE4  00000001  
+0028DCE8  00000000  
+0028DCEC  0028DD08  
+0028DCF0  771688A4  return to rpcrt4.771688A4 from rpcrt4.771688B5
+0028DCF4  1EB6D338  
+0028DCF8  00000000  
+0028DCFC  11F2D324  
+0028DD00  4FBD17DC  L"CPanelOrHwnd::Show.Begin"
+0028DD04  0639BF90  "€巡\r"
+0028DD08  00000000  
+0028DD0C  1EBB7BE0  
+0028DD10  0028DD50  &L"紙皃$"
+0028DD14  77C948B5  return to ntdll.77C948B5 from ntdll.77C82280
+0028DD18  77D620D8  ntdll.77D620D8
+0028DD1C  0001094E  
+0028DD20  0DB2D180  
+0028DD24  740C4100  winsta.740C4100
+0028DD28  120DC748  
+0028DD2C  0028DD38  
+0028DD30  77167E9A  return to rpcrt4.77167E9A from rpcrt4.77167E27
+0028DD34  740C4100  winsta.740C4100
+0028DD38  0028DD74  
+0028DD3C  77167B8E  return to rpcrt4.77167B8E from rpcrt4.77167E67
+0028DD40  740C40EC  winsta.740C40EC
+0028DD44  740C4100  winsta.740C4100
+0028DD48  740C415A  winsta.740C415A
+0028DD4C  0028DEFC  
+0028DD50  0028E328  L"紙皃$"
+0028DD54  1EB6D320  
+0028DD58  1EB6D320  
+0028DD5C  0028DD80  
+0028DD60  77185002  return to rpcrt4.77185002 from rpcrt4.77185018
+0028DD64  0028DEFC  
+0028DD68  0028E2EC  &"\t鎋闳?"
+0028DD6C  740C4162  ")T\x10"
+0028DD70  00000000  
+0028DD74  00000000  
+0028DD78  740C415A  winsta.740C415A
+0028DD7C  0028E328  L"紙皃$"
+0028DD80  0028DD94  
+0028DD84  77171F3E  return to rpcrt4.77171F3E from rpcrt4.77168825
+0028DD88  00000000  
+0028DD8C  00000000  
+0028DD90  0028DEFC  
+0028DD94  0028DDD0  
+0028DD98  77171EFE  return to rpcrt4.77171EFE from rpcrt4.77171F08
+0028DD9C  0028DEFC  
+0028DDA0  740C4156  winsta.740C4156
+0028DDA4  740C415A  winsta.740C415A
+0028DDA8  0028E200  
+0028DDAC  11F2D228  
+0028DDB0  00000000  
+0028DDB4  0028E328  L"紙皃$"
+0028DDB8  0028DDF4  
+0028DDBC  00000000  
+0028DDC0  1EB6D330  
+0028DDC4  00000000  
+0028DDC8  08B00000  
+0028DDCC  000002AA  
+0028DDD0  0028DDF0  
+0028DDD4  7716915C  return to rpcrt4.7716915C from rpcrt4.77168FDD
+0028DDD8  0028DEFC  
+0028DDDC  0028E328  L"紙皃$"
+0028DDE0  00000000  
+0028DDE4  1EB6D330  
+0028DDE8  740C415A  winsta.740C415A
+0028DDEC  0028DEFC  
+0028DDF0  0028DE3C  
+0028DDF4  771690DF  return to rpcrt4.771690DF from ???
+0028DDF8  0028DEFC  
+0028DDFC  0028E328  L"紙皃$"
+0028DE00  740C415A  winsta.740C415A
+0028DE04  1EB6D200  
+0028DE08  0028DFFC  
+0028DE0C  740C4156  winsta.740C4156
+0028DE10  0028DEFC  
+0028DE14  0028DE80  
+0028DE18  7716FFDA  return to rpcrt4.7716FFDA from rpcrt4.771604A0
+0028DE1C  00000063  
+0028DE20  0000003D  
+0028DE24  11F2D228  
+0028DE28  00000022  
+0028DE2C  771678DF  return to rpcrt4.771678DF from ???
+0028DE30  20911960  
+0028DE34  11F2D228  
+0028DE38  00000000  
+0028DE3C  00000000  
+0028DE40  11F2D228  
+0028DE44  00000000  
+0028DE48  0028DE80  
+0028DE4C  77167526  return to rpcrt4.77167526 from rpcrt4.771678B9
+0028DE50  00000000  
+0028DE54  11F2D228  
+0028DE58  11F2D358  
+0028DE5C  11F2D228  
+0028DE60  00000000  
+0028DE64  7716757F  return to rpcrt4.7716757F from ???
+0028DE68  0028DEFC  
+0028DE6C  11F2D228  
+0028DE70  0028E2EC  &"\t鎋闳?"
+0028DE74  7716FE87  return to rpcrt4.7716FE87 from rpcrt4.77167537
+0028DE78  0028DED0  &"N\t\x01"
+0028DE7C  0028DEFC  
+0028DE80  0028DE8C  
+0028DE84  77167262  return to rpcrt4.77167262 from ???
+0028DE88  0028DED0  &"N\t\x01"
+0028DE8C  0028DE9C  
+0028DE90  77167F0D  return to rpcrt4.77167F0D from rpcrt4.77167252
+0028DE94  0028DED0  &"N\t\x01"
+0028DE98  0028DFFC  
+0028DE9C  0028DEB0  
+0028DEA0  77167FE0  return to rpcrt4.77167FE0 from rpcrt4.77167EEE
+0028DEA4  0028DEFC  
+0028DEA8  740C4098  winsta.740C4098
+0028DEAC  00DEE480  "稗繭H呃Ol呃ON\t\x01"
+0028DEB0  4FB6675E  return to appframework.4FB6675E from appframework.4FB6D53A
+0028DEB4  0028DF1C  
+0028DEB8  00DEE480  "稗繭H呃Ol呃ON\t\x01"
+0028DEBC  0028DF70  
+0028DEC0  00DEE480  "稗繭H呃Ol呃ON\t\x01"
+0028DEC4  00000001  
+0028DEC8  0028DF04  &"稗繭H呃Ol呃ON\t\x01"
+0028DECC  76837F63  return to user32.76837F63 from user32.76837F99
+0028DED0  0102EAD0  "N\t\x01"
+0028DED4  00000000  
+0028DED8  76837F71  return to user32.76837F71 from user32.7683616A
+0028DEDC  A237A52C  
+0028DEE0  00DEE480  "稗繭H呃Ol呃ON\t\x01"
+0028DEE4  0028DF70  
+0028DEE8  00000000  
+0028DEEC  0028DEDC  
+0028DEF0  00000001  
+0028DEF4  0028E900  
+0028DEF8  A024A3F1  
+0028DEFC  0028DF30  
+0028DF00  4FB675D8  return to appframework.4FB675D8 from ???
+0028DF04  00DEE480  "稗繭H呃Ol呃ON\t\x01"
+0028DF08  00000000  
+0028DF0C  0028DF1C  
+0028DF10  0028DF70  
+0028DF14  00DEE480  "稗繭H呃Ol呃ON\t\x01"
+0028DF18  4FB675E9  return to appframework.4FB675E9 from appframework.4FB6D53A
+0028DF1C  00000601  
+0028DF20  00000088  
+0028DF24  0000072D  
+0028DF28  0000034E  
+0028DF2C  A024A23D  
+0028DF30  0028E384  
+0028DF34  4FB660AA  return to appframework.4FB660AA from appframework.4FB6759F
+0028DF38  00000000  
+0028DF3C  0028DF70  
+0028DF40  76837D2F  user32.76837D2F
+0028DF44  00DEE480  "稗繭H呃Ol呃ON\t\x01"
+0028DF48  4FB662A7  return to appframework.4FB662A7 from appframework.4FB6D53A
+0028DF4C  0028E2EC  &"\t鎋闳?"
+0028DF50  1EB6D330  
+0028DF54  1EB6D400  
+0028DF58  20911858  
+0028DF5C  00DEE480  "稗繭H呃Ol呃ON\t\x01"
+0028DF60  00000000  
+0028DF64  00000000  
+0028DF68  00000000  
+0028DF6C  00001180  
+0028DF70  00000601  
+0028DF74  00000088  
+0028DF78  0000072D  
+0028DF7C  0000034E  
+0028DF80  00000000  
+0028DF84  00000000  
+0028DF88  00280000  
+0028DF8C  77C8E38C  return to ntdll.77C8E38C from ntdll.77C8DF29
+0028DF90  77C8E38C  return to ntdll.77C8E38C from ntdll.77C8DF29
+0028DF94  779CD5E5  
+0028DF98  00000000  
+0028DF9C  0028CE88  
+0028DFA0  00000000  
+0028DFA4  0028E0A0  
+0028DFA8  0028E2EC  &"\t鎋闳?"
+0028DFAC  00000000  
+0028DFB0  00011398  
+0028DFB4  00000000  
+0028DFB8  00001180  
+0028DFBC  00000002  
+0028DFC0  0028DFFC  
+0028DFC4  00050004  
+0028DFC8  00000000  
+0028DFCC  00000000  
+0028DFD0  00000000  
+0028DFD4  00521A98  
+0028DFD8  00000000  
+0028DFDC  77C8E38C  return to ntdll.77C8E38C from ntdll.77C8DF29
+0028DFE0  0028E378  
+0028DFE4  00000001  
+0028DFE8  20911858  
+0028DFEC  00000000  
+0028DFF0  004FA780  
+0028DFF4  00000009  
+0028DFF8  00000027  
+0028DFFC  0000004E  
+0028E000  00000000  
+0028E004  00000000  
+0028E008  0028E028  
+0028E00C  5188363C  return to common.5188363C from ???
+0028E010  00DAE000  
+0028E014  752A59D0  vcruntime140.752A59D0
+0028E018  00000000  
+0028E01C  0028E064  
+0028E020  517DE776  return to common.517DE776 from ???
+0028E024  0028E064  
+0028E028  519B73A4  common.519B73A4
+0028E02C  11B57340  
+0028E030  777D4680  oleaut32.777D4680
+0028E034  026D0630  
+0028E038  0000A2F4  
+0028E03C  0028E048  
+0028E040  518E9949  return to common.518E9949 from common.518E9928
+0028E044  00016E00  
+0028E048  0028E064  
+0028E04C  518653A0  return to common.518653A0 from common.518E993E
+0028E050  00000000  
+0028E054  184919D0  
+0028E058  777D4680  oleaut32.777D4680
+0028E05C  026D0630  
+0028E060  0000C248  
+0028E064  0028E0B4  
+0028E068  51864C54  return to common.51864C54 from ???
+0028E06C  00016DF8  
+0028E070  184919E4  L"CAFMainFrameController::ShowMainFrame 2"
+0028E074  517DF008  return to common.517DF008 from common.51864BF0
+0028E078  4FBD18C8  L"QQLogin"
+0028E07C  00000002  
+0028E080  4FB748C8  appframework.4FB748C8
+0028E084  0000072D  
+0028E088  0639BF08  
+0028E08C  184919E4  L"CAFMainFrameController::ShowMainFrame 2"
+0028E090  0028E0A4  
+0028E094  4F9F6E8E  return to appframework.4F9F6E8E from ???
+0028E098  0DB2D180  
+0028E09C  0028E134  
+0028E0A0  0028E09C  
+0028E0A4  0028E0E8  
+0028E0A8  4FADCD41  return to appframework.4FADCD41 from appframework.4F9F6E6B
+0028E0AC  4FB748C8  appframework.4FB748C8
+0028E0B0  00000002  
+0028E0B4  0028E130  
+0028E0B8  4F9FFC56  return to appframework.4F9FFC56 from ???
+0028E0BC  0028E0EC  &"娠璒\x01"
+0028E0C0  4FBD18C8  L"QQLogin"
+0028E0C4  4FB748C8  appframework.4FB748C8
+0028E0C8  0028E168  &L"CAFMainFrameController::ShowMainFrame 2"
+0028E0CC  4FB77438  L"file"
+0028E0D0  0639BE00  
+0028E0D4  4F9FFC66  return to appframework.4F9FFC66 from appframework.4FB6D53A
+0028E0D8  0028E0EC  &"娠璒\x01"
+0028E0DC  4F9F6E8E  return to appframework.4F9F6E8E from ???
+0028E0E0  44B0D0B8  
+0028E0E4  01D6F16C  
+0028E0E8  0028E168  &L"CAFMainFrameController::ShowMainFrame 2"
+0028E0EC  0028E148  "娠璒\x01"
+0028E0F0  00000002  
+0028E0F4  00000254  
+0028E0F8  00000000  
+0028E0FC  000021E4  
+0028E100  014D154B  
+0028E104  00000000  
+0028E108  00D7CF30  
+0028E10C  2EA0F568  
+0028E110  00000177  
+0028E114  00000000  
+0028E118  00000000  
+0028E11C  00000000  
+0028E120  4FB77438  L"file"
+0028E124  A0249C25  
+0028E128  0028E144  
+0028E12C  4FADE8B1  return to appframework.4FADE8B1 from appframework.4FADDF15
+0028E130  00000001  
+0028E134  00000000  
+0028E138  4FB77438  L"file"
+0028E13C  0639BE00  
+0028E140  4FB7742C  L"func"
+0028E144  0028E160  
+0028E148  4FADEFC9  return to appframework.4FADEFC9 from appframework.4FADE88E
+0028E14C  00000001  
+0028E150  00000000  
+0028E154  00000028  
+0028E158  00D89900  "衞癥`p癥坧癥\x02"
+0028E15C  17007910  
+0028E160  0028E180  
+0028E164  06B89B08  return to mainframe.06B89B08 from ???
+0028E168  4FBD2108  L"CAFMainFrameController::ShowMainFrame 2"
+0028E16C  00000001  
+0028E170  00000000  
+0028E174  17007910  
+0028E178  1BC5E7E0  
+0028E17C  003DC500  L"d:\\Cocos\\Cocos2d-x\\Cocos2d-x-3.10\\templates;d:\\Cocos\\Cocos2d-x\\Cocos2d-x-3.10\\tools\\cocos2d-console\\bin;;d:\\Microsoft VS Code\\bin;C:\\Users\\Administrator1\\AppData\\Roaming\\npm;C:\\Users\\Administrator1\\AppData\\Local\\Apps°"
+0028E180  0028E198  
+0028E184  06B89A9D  return to mainframe.06B89A9D from ???
+0028E188  073DC500  
+0028E18C  00000001  
+0028E190  00000000  
+0028E194  00000000  
+0028E198  0028E5E8  
+0028E19C  59AE602B  return to tasktray.59AE602B from ???
+0028E1A0  073DC500  
+0028E1A4  00000001  
+0028E1A8  17007910  
+0028E1AC  17007910  
+0028E1B0  00D89900  "衞癥`p癥坧癥\x02"
+0028E1B4  0000000A  
+0028E1B8  00000000  
+0028E1BC  00000000  
+0028E1C0  073DC500  
+0028E1C4  0028EAF4  
+0028E1C8  00000202  
+0028E1CC  59ADEC99  return to tasktray.59ADEC99 from tasktray.59B03F52
+0028E1D0  00000011  
+0028E1D4  00000001  
+0028E1D8  00D89900  "衞癥`p癥坧癥\x02"
+0028E1DC  00000000  
+0028E1E0  00000000  
+0028E1E4  00000000  
+0028E1E8  00000001  
+0028E1EC  20911858  
+0028E1F0  0028E244  
+0028E1F4  77170E20  return to rpcrt4.77170E20 from rpcrt4.77170E45
+0028E1F8  0A45F7C0  L"NT AUTHORITY\\NETWORK SERVICE"
+0028E1FC  00000006  
+0028E200  0000000A  
+0028E204  00000000  
+0028E208  004F0000  "\t鎋闳?"
+0028E20C  1EB0CEE8  L"#ecurity=Impersonation Dynamic False"
+0028E210  00000000  
+0028E214  004F0000  "\t鎋闳?"
+0028E218  1203CB60  
+0028E21C  120DC550  L"8T AUTHORITY\\NETWORK SERVICE"
+0028E220  1203CC20  
+0028E224  001D0004  
+0028E228  0001139A  
+0028E22C  00003D2C  
+0028E230  00000001  
+0028E234  77C94797  return to ntdll.77C94797 from ntdll.77C92714
+0028E238  1203CB30  
+0028E23C  00000001  
+0028E240  1203CB58  
+0028E244  00000000  
+0028E248  004F0000  "\t鎋闳?"
+0028E24C  20911858  
+0028E250  1D0B80A4  &"爛\v\x1D"
+0028E254  20911858  
+0028E258  00A60002  
+0028E25C  0D176665  chatframeapp.0D176665
+0028E260  771605FA  return to rpcrt4.771605FA from ???
+0028E264  004F0000  "\t鎋闳?"
+0028E268  00000000  
+0028E26C  20911468  
+0028E270  00000001  
+0028E274  20911850  &"咑u#hN\x01"
+0028E278  0028E290  &"\t鎋闳?"
+0028E27C  77C8E023  return to ntdll.77C8E023 from ntdll.77C8E392
+0028E280  20911858  
+0028E284  1D0B80A4  &"爛\v\x1D"
+0028E288  80004002  
+0028E28C  00000000  
+0028E290  004F0000  "\t鎋闳?"
+0028E294  1EB0CE38  L".ecurity=Impersonation Dynamic False"
+0028E298  00000000  
+0028E29C  004F0000  "\t鎋闳?"
+0028E2A0  1203CB78  
+0028E2A4  05636EF0  
+0028E2A8  1203CBD8  
+0028E2AC  00140008  
+0028E2B0  0001139E  
+0028E2B4  0000C56F  
+0028E2B8  00000001  
+0028E2BC  77C94797  return to ntdll.77C94797 from ntdll.77C92714
+0028E2C0  1203CB30  
+0028E2C4  00000001  
+0028E2C8  1203CB70  
+0028E2CC  00000000  
+0028E2D0  004F0000  "\t鎋闳?"
+0028E2D4  20911710  
+0028E2D8  16E4E480  "爛\v\x1D"
+0028E2DC  20911710  
+0028E2E0  007D0003  
+0028E2E4  0D176666  chatframeapp.0D176666
+0028E2E8  771605FA  return to rpcrt4.771605FA from ???
+0028E2EC  004F0000  "\t鎋闳?"
+0028E2F0  00000000  
+0028E2F4  20911468  
+0028E2F8  00000001  
+0028E2FC  20911708  
+0028E300  0028E318  &L"紙皃$"
+0028E304  00000008  
+0028E308  0028E338  
+0028E30C  16E4E480  "爛\v\x1D"
+0028E310  00000000  
+0028E314  20911708  
+0028E318  0028E328  L"紙皃$"
+0028E31C  00000008  
+0028E320  00000424  
+0028E324  0028E338  
+0028E328  76837D19  return to user32.76837D19 from user32.76837E88
+0028E32C  00000024  
+0028E330  00000024  
+0028E334  00000008  
+0028E338  0028E348  
+0028E33C  76836210  return to user32.76836210 from ???
+0028E340  768A0230  user32.768A0230
+0028E344  00000400  
+0028E348  0028E380  
+0028E34C  76837DC4  return to user32.76837DC4 from user32.768361FF
+0028E350  76837D93  return to user32.76837D93 from user32.7683616A
+0028E354  A23799A8  
+0028E358  00000008  
+0028E35C  76837D2F  user32.76837D2F
+0028E360  00000424  
+0028E364  00000004  
+0028E368  0028E354  
+0028E36C  0028E900  
+0028E370  0028E900  
+0028E374  7689A61E  user32.7689A61E
+0028E378  0028E3B4  
+0028E37C  4FB68AD3  return to appframework.4FB68AD3 from ???
+0028E380  A0249E89  
+0028E384  0028E3B4  
+0028E388  4FB68AEC  return to appframework.4FB68AEC from ???
+0028E38C  00DEE480  "稗繭H呃Ol呃ON\t\x01"
+0028E390  00000000  
+0028E394  4FB68AF7  return to appframework.4FB68AF7 from appframework.4FB6D53A
+0028E398  00DEE480  "稗繭H呃Ol呃ON\t\x01"
+0028E39C  0000063D  
+0028E3A0  000005F9  
+0028E3A4  00000080  
+0028E3A8  00000735  
+0028E3AC  00000356  
+0028E3B0  A0249EB9  
+0028E3B4  0028E804  
+0028E3B8  4FB68C9B  return to appframework.4FB68C9B from appframework.4FB68A55
+0028E3BC  00000064  
+0028E3C0  00000113  
+0028E3C4  00DEE488  "l呃ON\t\x01"
+0028E3C8  4FB68E49  return to appframework.4FB68E49 from appframework.4FB6D53A
+0028E3CC  00000000  
+0028E3D0  00000000  
+0028E3D4  00000000  
+0028E3D8  00000000  
+0028E3DC  00000000  
+0028E3E0  004F0000  "\t鎋闳?"
+0028E3E4  1EB0D048  
+0028E3E8  00000000  
+0028E3EC  004F0000  "\t鎋闳?"
+0028E3F0  1203CC68  
+0028E3F4  05637010  
+0028E3F8  1203CBC0  
+0028E3FC  0011000C  
+0028E400  000113A2  
+0028E404  0000C570  
+0028E408  00000001  
+0028E40C  77C94797  return to ntdll.77C94797 from ntdll.77C92714
+0028E410  1203CB30  
+0028E414  00000001  
+0028E418  1203CC60  
+0028E41C  00000000  
+0028E420  004F0000  "\t鎋闳?"
+0028E424  209115C8  
+0028E428  1791A300  &"爛\v\x1D"
+0028E42C  209115C8  
+0028E430  00540004  
+0028E434  0D176667  chatframeapp.0D176667
+0028E438  771605FA  return to rpcrt4.771605FA from ???
+0028E43C  004F0000  "\t鎋闳?"
+0028E440  00000000  
+0028E444  20911468  
+0028E448  00000001  
+0028E44C  209115C0  
+0028E450  0028E468  
+0028E454  77C8E023  return to ntdll.77C8E023 from ntdll.77C8E392
+0028E458  209115C8  
+0028E45C  1791A300  &"爛\v\x1D"
+0028E460  00000000  
+0028E464  209115C0  
+0028E468  0028E47C  
+0028E46C  771605FA  return to rpcrt4.771605FA from ???
+0028E470  004F0000  "\t鎋闳?"
+0028E474  00000000  
+0028E478  209115C8  
+0028E47C  0028E488  
+0028E480  771605B9  return to rpcrt4.771605B9 from rpcrt4.771605C0
+0028E484  209115C8  
+0028E488  0028E498  
+0028E48C  77170996  return to rpcrt4.77170996 from rpcrt4.771605AC
+0028E490  00000001  
+0028E494  00000001  
+0028E498  5175B572  return to common.5175B572 from common.518EAD3A
+0028E49C  13C4F923  
+0028E4A0  0028E508  "EksQ\x06"
+0028E4A4  00000001  
+0028E4A8  13C4F922  
+0028E4AC  0028E50C  
+0028E4B0  00000001  
+0028E4B4  13C4F921  
+0028E4B8  0028E518  
+0028E4BC  00000001  
+0028E4C0  13C4F924  
+0028E4C4  13C4F924  
+0028E4C8  00000006  
+0028E4CC  0028E508  "EksQ\x06"
+0028E4D0  13C4F923  
+0028E4D4  00000001  
+0028E4D8  00000003  
+0028E4DC  00D7CF30  
+0028E4E0  00D7CF30  
+0028E4E4  FFFFFFFC  
+0028E4E8  00D7CF30  
+0028E4EC  00D7CF9C  
+0028E4F0  FFFFFFFC  
+0028E4F4  0028E544  
+0028E4F8  51736B36  return to common.51736B36 from ???
+0028E4FC  00D7CF9C  
+0028E500  0028EAF4  
+0028E504  00000000  
+0028E508  51736B45  return to common.51736B45 from common.518E992D
+0028E50C  00000006  
+0028E510  0028E57C  
+0028E514  050795C0  
+0028E518  06391650  
+0028E51C  0028E538  &"wB癥\f"
+0028E520  51746B1E  return to common.51746B1E from common.51744DA0
+0028E524  06391660  
+0028E528  59B0AFC0  tasktray.59B0AFC0
+0028E52C  59B0AFC0  tasktray.59B0AFC0
+0028E530  00000000  
+0028E534  06391650  
+0028E538  0028E554  "wB癥\f"
+0028E53C  5174657F  return to common.5174657F from common.51744DA0
+0028E540  59B0AFC0  tasktray.59B0AFC0
+0028E544  0028E630  
+0028E548  00000000  
+0028E54C  00000000  
+0028E550  0028E55C  
+0028E554  59B04277  return to tasktray.59B04277 from tasktray.59B04CE1
+0028E558  0000000C  
+0028E55C  0028E568  
+0028E560  59AD9557  return to tasktray.59AD9557 from tasktray.59B0425D
+0028E564  0000000C  
+0028E568  0028E59C  
+0028E56C  59AE8488  return to tasktray.59AE8488 from tasktray.59AD9537
+0028E570  59AE84AE  return to tasktray.59AE84AE from tasktray.59B042E6
+0028E574  A01D26CD  
+0028E578  00000000  
+0028E57C  00000000  
+0028E580  59B0821E  &"怩醛Mふ\x01"
+0028E584  00000000  
+0028E588  026D0630  
+0028E58C  0000B85A  
+0028E590  0028E59C  
+0028E594  59B03BFB  return to tasktray.59B03BFB from tasktray.59B0401A
+0028E598  00016DA8  
+0028E59C  0028E5AC  
+0028E5A0  59AD9955  return to tasktray.59AD9955 from tasktray.59B03BF0
+0028E5A4  170B5090  
+0028E5A8  0000000C  
+0028E5AC  0028E5DC  
+0028E5B0  17007910  
+0028E5B4  17007910  
+0028E5B8  00D89900  "衞癥`p癥坧癥\x02"
+0028E5BC  026D0630  
+0028E5C0  0000B803  
+0028E5C4  0028E5D0  
+0028E5C8  59B03BFB  return to tasktray.59B03BFB from tasktray.59B0401A
+0028E5CC  00016D98  
+0028E5D0  0028E5E0  
+0028E5D4  59AD9955  return to tasktray.59AD9955 from tasktray.59B03BF0
+0028E5D8  17007910  
+0028E5DC  0000000C  
+0028E5E0  0028EA40  
+0028E5E4  A01D26B9  
+0028E5E8  0028EA40  
+0028E5EC  59AE3E49  return to tasktray.59AE3E49 from tasktray.59AE5DBF
+0028E5F0  0028EAF4  
+0028E5F4  00D89900  "衞癥`p癥坧癥\x02"
+0028E5F8  00000000  
+0028E5FC  00000000  
+0028E600  00000000  
+0028E604  77C9261D  ntdll.77C9261D
+0028E608  0028E618  
+0028E60C  0028E634  
+0028E610  768A0230  user32.768A0230
+0028E614  76836B00  return to user32.76836B00 from user32.7683616A
+0028E618  0028E680  return to 0028E680 from ???
+0028E61C  76836D91  return to user32.76836D91 from ???
+0028E620  76836D51  return to user32.76836D51 from user32.7683616A
+0028E624  A2379CA8  
+0028E628  00D89900  "衞癥`p癥坧癥\x02"
+0028E62C  77C9261D  ntdll.77C9261D
+0028E630  17007910  
+0028E634  00000000  
+0028E638  00000001  
+0028E63C  006E004F  
+0028E640  00680053  
+0028E644  0077006F  &"Actx "
+0028E648  00740049  
+0028E64C  006D0065  
+0028E650  006C0043  
+0028E654  00630069  
+0028E658  0000006B  
+0028E65C  00000001  
+0028E660  00000000  
+0028E664  00000000  
+0028E668  0028E624  
+0028E66C  0028E688  
+0028E670  0028E7B8  
+0028E674  7689A61E  user32.7689A61E
+0028E678  D49C1770  
+0028E67C  FFFFFFFE  
+0028E680  76836D51  return to user32.76836D51 from user32.7683616A
+0028E684  76840D27  return to user32.76840D27 from user32.76836C83
+0028E688  00000000  
+0028E68C  77C9261D  ntdll.77C9261D
+0028E690  0001094E  
+0028E694  00000113  
+0028E698  00000064  
+0028E69C  00000000  
+0028E6A0  00000000  
+0028E6A4  00000000  
+0028E6A8  00000113  
+0028E6AC  11800280  
+0028E6B0  0028E72C  
+0028E6B4  00000000  
+0028E6B8  0028E6D8  
+0028E6BC  76840D4D  return to user32.76840D4D from user32.76840CC9
+0028E6C0  77C9261D  ntdll.77C9261D
+0028E6C4  0001094E  
+0028E6C8  00000113  
+0028E6CC  00000064  
+0028E6D0  00000000  
+0028E6D4  00000000  
+0028E6D8  0028E724  
+0028E6DC  522B112C  return to gf.522B112C from ???
+0028E6E0  77C9261D  ntdll.77C9261D
+0028E6E4  0001094E  
+0028E6E8  00000113  
+0028E6EC  00000064  
+0028E6F0  00000000  
+0028E6F4  00000000  
+0028E6F8  00000000  
+0028E6FC  00000000  
+0028E700  02FC0F40  
+0028E704  00000113  
+0028E708  00000064  
+0028E70C  00000000  
+0028E710  00000000  
+0028E714  00000000  
+0028E718  00000000  
+0028E71C  00000024  
+0028E720  00000001  
+0028E724  0028E750  
+0028E728  768362FA  return to user32.768362FA from ???
+0028E72C  00000000  
+0028E730  00000113  
+0028E734  00000064  
+0028E738  00000000  
+0028E73C  02FC0F40  
+0028E740  DCBAABCD  
+0028E744  00000000  
+0028E748  00000000  
+0028E74C  02FC0F40  
+0028E750  0028E760  
+0028E754  0028E77C  
+0028E758  768A0230  user32.768A0230
+0028E75C  76836D51  return to user32.76836D51 from user32.7683616A
+0028E760  0028E7C8  
+0028E764  76836D91  return to user32.76836D91 from ???
+0028E768  76836D51  return to user32.76836D51 from user32.7683616A
+0028E76C  A2379DE0  
+0028E770  00000113  
+0028E774  0028E794  
+0028E778  522C6661  return to gf.522C6661 from gf.522CB300
+0028E77C  0028E788  
+0028E780  0028E7B8  
+0028E784  117EC588  
+0028E788  00000119  
+0028E78C  00000003  
+0028E790  FFFFFFFF  
+0028E794  0028E7FC  
+0028E798  521D8ED9  return to gf.521D8ED9 from ???
+0028E79C  0028E7FC  
+0028E7A0  521D8F2D  return to gf.521D8F2D from ???
+0028E7A4  0028E7D4  
+0028E7A8  0028E8B8  
+0028E7AC  00000120  
+0028E7B0  521D8F91  return to gf.521D8F91 from gf.5231F90F
+0028E7B4  7591537D  return to kernelbase.7591537D from ???
+0028E7B8  00000119  
+0028E7BC  00000003  
+0028E7C0  117EC588  
+0028E7C4  00000000  
+0028E7C8  00000000  
+0028E7CC  00000000  
+0028E7D0  00000000  
+0028E7D4  00000000  
+0028E7D8  00000000  
+0028E7DC  00000000  
+0028E7E0  00000000  
+0028E7E4  00000000  
+0028E7E8  00000000  
+0028E7EC  00000000  
+0028E7F0  00000000  
+0028E7F4  A2646588  
+0028E7F8  117EC7EC  
+0028E7FC  0028E818  
+0028E800  5224134C  return to gf.5224134C from gf.521D8E60
+0028E804  0028E8B8  
+0028E808  00000120  
+0028E80C  FFFFFFFF  
+0028E810  0028E824  
+0028E814  52241AC5  return to gf.52241AC5 from ???
+0028E818  1443EC88  
+0028E81C  0028E8B8  
+0028E820  00000120  
+0028E824  0028E8D4  
+0028E828  521D9CEE  return to gf.521D9CEE from ???
+0028E82C  0028E844  
+0028E830  1443EC88  
+0028E834  521D9EFA  return to gf.521D9EFA from gf.5231F90F
+0028E838  0028E960  
+0028E83C  117EC7E0  
+0028E840  0001094E  
+0028E844  0DA7C5E0  
+0028E848  06BEBBB3  return to mainframe.06BEBBB3 from mainframe.06D89B4A
+0028E84C  00E1A940  
+0028E850  00000120  
+0028E854  026D0630  
+0028E858  0000B6AF  
+0028E85C  0028E868  
+0028E860  0DA7C5E0  
+0028E864  00000080  
+0028E868  0DA7C5E0  
+0028E86C  11D1B53C  
+0028E870  00000080  
+0028E874  0028E880  
+0028E878  59B930AA  return to xplatform.59B930AA from ???
+0028E87C  11D1B53C  
+0028E880  0028E8B4  return to 0028E8B4 from 3E5BE8DE
+0028E884  6BCAFED7  return to avsdk.6BCAFED7 from ???
+0028E888  0DA7C5E0  
+0028E88C  0028E8FC  return to 0028E8FC from 008BE926
+0028E890  0DA7C5E0  
+0028E894  14655054  
+0028E898  00000006  
+0028E89C  11D1B53C  
+0028E8A0  0028EB80  
+0028E8A4  59BDD267  xplatform.59BDD267
+0028E8A8  FFFFFFFF  
+0028E8AC  0028EA1C  
+0028E8B0  0028E8FC  return to 0028E8FC from 008BE926
+0028E8B4  126E3E33  return to audiovideo.126E3E33 from audiovideo.1274F52D
+0028E8B8  00000080  
+0028E8BC  126E5B6D  return to audiovideo.126E5B6D from audiovideo.126E3E10
+0028E8C0  00DAB040  "榹扱\x01"
+0028E8C4  1443EE88  
+0028E8C8  1443EC88  
+0028E8CC  A2646A4C  
+0028E8D0  522C6B43  return to gf.522C6B43 from ???
+0028E8D4  0740E400  
+0028E8D8  522C6B55  return to gf.522C6B55 from ???
+0028E8DC  0028E960  
+0028E8E0  1457B998  
+0028E8E4  522C6B72  return to gf.522C6B72 from gf.5231F90F
+0028E8E8  00000001  
+0028E8EC  40080000  "MZ?"
+0028E8F0  00000001  
+0028E8F4  40080000  "MZ?"
+0028E8F8  0028E8B4  return to 0028E8B4 from 3E5BE8DE
+0028E8FC  006B0063  
+0028E900  0028E9D8  &"牏(S"
+0028E904  7689A61E  user32.7689A61E
+0028E908  0000001A  
+0028E90C  00000019  
+0028E910  00000000  
+0028E914  00000000  
+0028E918  00000000  
+0028E91C  00000001  
+0028E920  00000000  
+0028E924  00000000  
+0028E928  00000000  
+0028E92C  00000001  
+0028E930  00000000  
+0028E934  00000000  
+0028E938  00000006  
+0028E93C  00000000  
+0028E940  00000000  
+0028E944  1275DE04  audiovideo.1275DE04
+0028E948  00000000  
+0028E94C  00000000  
+0028E950  00000000  
+0028E954  00000000  
+0028E958  00000000  
+0028E95C  00000001  
+0028E960  00000000  
+0028E964  00000000  
+0028E968  0028E980  &"f檸Q "
+0028E96C  521842C8  return to gf.521842C8 from ???
+0028E970  0028E980  &"f檸Q "
+0028E974  52184300  return to gf.52184300 from ???
+0028E978  1468ECA4  
+0028E97C  00000000  
+0028E980  0028E9BC  "f檸Q "
+0028E984  7683829E  return to user32.7683829E from ???
+0028E988  768382CD  return to user32.768382CD from user32.76838289
+0028E98C  00010922  
+0028E990  00000000  
+0028E994  0028E998  
+0028E998  02080000  
+0028E99C  0028EC2C  "\"\t\x01"
+0028E9A0  0028ECD8  &L"嘐匧嚝匧坽匧Com.Tencent.VAS"
+0028E9A4  0028EBE8  
+0028E9A8  532756FD  return to hummerengine.532756FD from ???
+0028E9AC  0028E9DC  L"TXGuiFoundation"
+0028E9B0  00008FFF  
+0028E9B4  00E194C0  L"蓰q\x01"
+0028E9B8  53275779  return to hummerengine.53275779 from hummerengine.53280E84
+0028E9BC  518E9966  return to common.518E9966 from common.518EAD5E
+0028E9C0  00000020  
+0028E9C4  0028E9F4  L"ion"
+0028E9C8  51852D42  return to common.51852D42 from common.518E994C
+0028E9CC  00000020  
+0028E9D0  A2646A19  
+0028E9D4  00000001  
+0028E9D8  0028ECD8  &L"嘐匧嚝匧坽匧Com.Tencent.VAS"
+0028E9DC  00580054  
+0028E9E0  00750047  
+0028E9E4  00460069  
+0028E9E8  0075006F  
+0028E9EC  0064006E  
+0028E9F0  00740061  
+0028E9F4  006F0069  
+0028E9F8  0000006E  
+0028E9FC  00000000  
+0028EA00  00000000  
+0028EA04  00000000  
+0028EA08  00000000  
+0028EA0C  00000000  
+0028EA10  00000000  
+0028EA14  00000000  
+0028EA18  00000000  
+0028EA1C  00000000  
+0028EA20  00000000  
+0028EA24  00000000  
+0028EA28  00000000  
+0028EA2C  00000000  
+0028EA30  00000000  
+0028EA34  00000000  
+0028EA38  00000000  
+0028EA3C  A01D2911  
+0028EA40  0028EA54  
+0028EA44  59AE03EF  return to tasktray.59AE03EF from ???
+0028EA48  00000001  
+0028EA4C  00000202  
+0028EA50  00D89B94  "<桂O\"\t\x01"
+0028EA54  0028EA78  
+0028EA58  4FE72422  return to afutil.4FE72422 from ???
+0028EA5C  0638E520  "嗖癥\x02"
+0028EA60  00000001  
+0028EA64  00000202  
+0028EA68  00D89B94  "<桂O\"\t\x01"
+0028EA6C  00000113  
+0028EA70  00D89B94  "<桂O\"\t\x01"
+0028EA74  00D89B94  "<桂O\"\t\x01"
+0028EA78  0028EA9C  
+0028EA7C  4FE72615  return to afutil.4FE72615 from afutil.4FE723E1
+0028EA80  00000113  
+0028EA84  00000001  
+0028EA88  00000000  
+0028EA8C  0028EAB8  
+0028EA90  00000113  
+0028EA94  00D89B94  "<桂O\"\t\x01"
+0028EA98  00000000  
+0028EA9C  0028EAEC  
+0028EAA0  4FE72778  return to afutil.4FE72778 from ???
+0028EAA4  00010922  
+0028EAA8  00000113  
+0028EAAC  00000001  
+0028EAB0  00000000  
+0028EAB4  0028EAF4  
+0028EAB8  00000000  
+0028EABC  00000000  
+0028EAC0  02FC0FA0  
+0028EAC4  00000000  
+0028EAC8  00010922  
+0028EACC  00000113  
+0028EAD0  00000001  
+0028EAD4  00000000  
+0028EAD8  00000000  
+0028EADC  00000000  
+0028EAE0  00000000  
+0028EAE4  00000024  
+0028EAE8  00000001  
+0028EAEC  0028EB18  
+0028EAF0  768362FA  return to user32.768362FA from ???
+0028EAF4  00000000  
+0028EAF8  00000113  
+0028EAFC  00000001  
+0028EB00  00000000  
+0028EB04  02FC0FA0  
+0028EB08  DCBAABCD  
+0028EB0C  00000000  
+0028EB10  00000000  
+0028EB14  02FC0FA0  
+0028EB18  0028EB90  
+0028EB1C  76836D3A  return to user32.76836D3A from user32.768362D7
+0028EB20  02FC0FA0  
+0028EB24  00010922  
+0028EB28  00000113  
+0028EB2C  00000001  
+0028EB30  00000000  
+0028EB34  A23791B8  
+0028EB38  0028EC34  
+0028EB3C  0028EC2C  "\"\t\x01"
+0028EB40  0102ACB0  "\"\t\x01"
+0028EB44  00000024  
+0028EB48  00000001  
+0028EB4C  00000000  
+0028EB50  00000000  
+0028EB54  00000030  
+0028EB58  FFFFFFFF  
+0028EB5C  FFFFFFFF  
+0028EB60  76836CE9  return to user32.76836CE9 from ???
+0028EB64  00000000  
+0028EB68  00000000  
+0028EB6C  00000001  
+0028EB70  00000000  
+0028EB74  00000000  
+0028EB78  0028EB34  
+0028EB7C  00000000  
+0028EB80  0028EBE0  Pointer to SEH_Record[1]
+0028EB84  7689A61E  user32.7689A61E
+0028EB88  D49C1770  
+0028EB8C  00000000  
+0028EB90  0028EBF0  
+0028EB94  768377C4  return to user32.768377C4 from user32.76836C83
+0028EB98  00000000  
+0028EB9C  02FC0FA0  
+0028EBA0  00010922  
+0028EBA4  00000113  
+0028EBA8  00000001  
+0028EBAC  00000000  
+0028EBB0  0102ACD8  &"Actx "
+0028EBB4  00000001  
+0028EBB8  A23791D8  
+0028EBBC  00E194C0  L"蓰q\x01"
+0028EBC0  0028EC2C  "\"\t\x01"
+0028EBC4  00008FFF  
+0028EBC8  00000000  
+0028EBCC  00000001  
+0028EBD0  00000000  
+0028EBD4  00000000  
+0028EBD8  0028EBB8  
+0028EBDC  00000000  
+0028EBE0  0028F898  Pointer to SEH_Record[2]
+0028EBE4  7689A61E  user32.7689A61E
+0028EBE8  D49C0DC0  
+0028EBEC  FFFFFFFE  
+0028EBF0  0028EC00  
+0028EBF4  7683788A  return to user32.7683788A from user32.768376D7
+0028EBF8  02FC0FA0  
+0028EBFC  00000000  
+0028EC00  0028EC18  
+0028EC04  00714578  return to asynctask.00714578 from ???
+0028EC08  0028EC2C  "\"\t\x01"
+0028EC0C  00000001  
+0028EC10  00E194C0  L"蓰q\x01"
+0028EC14  00000000  
+0028EC18  0028EC48  
+0028EC1C  007144FB  return to asynctask.007144FB from asynctask.00714507
+0028EC20  0028EC2C  "\"\t\x01"
+0028EC24  00E194E0  
+0028EC28  00E194C0  L"蓰q\x01"
+0028EC2C  00010922  
+0028EC30  00000113  
+0028EC34  00000001  
+0028EC38  00000000  
+0028EC3C  014D154B  
+0028EC40  0000063D  
+0028EC44  00000424  
+0028EC48  0028EC74  
+0028EC4C  0071437C  return to asynctask.0071437C from asynctask.007144C1
+0028EC50  00000000  
+0028EC54  00E194C0  L"蓰q\x01"
+0028EC58  00000001  
+0028EC5C  00714178  return to asynctask.00714178 from ???
+0028EC60  5328507C  hummerengine.5328507C
+0028EC64  0028ED78  
+0028EC68  0028ED78  
+0028EC6C  06431300  
+0028EC70  00000001  
+0028EC74  0028EC98  
+0028EC78  0071207A  return to asynctask.0071207A from ???
+0028EC7C  0028ED78  
+0028EC80  00712024  return to asynctask.00712024 from asynctask.00712065
+0028EC84  0028F348  
+0028EC88  00000001  
+0028EC8C  06430F00  
+0028EC90  0028ED78  
+0028EC94  00000000  
+0028EC98  0028F334  
+0028EC9C  53270B6D  return to hummerengine.53270B6D from ???
+0028ECA0  53277D98  hummerengine.53277D98
+0028ECA4  00000000  
+0028ECA8  00F045A0  L"HummerEngine.dll"
+0028ECAC  00000000  
+0028ECB0  00000101  
+0028ECB4  0000000C  
+0028ECB8  00000A29  
+0028ECBC  00000000  
+0028ECC0  FBB7E000  
+0028ECC4  00000003  
+0028ECC8  00000000  
+0028ECCC  00000000  
+0028ECD0  00000000  
+0028ECD4  00000001  
+0028ECD8  5328A2A0  L"嘐匧嚝匧坽匧Com.Tencent.VAS"
+0028ECDC  00000000  
+0028ECE0  00000000  
+0028ECE4  00000000  
+0028ECE8  00000000  
+0028ECEC  000003E8  
+0028ECF0  00000001  
+0028ECF4  00000000  
+0028ECF8  00000000  
+0028ECFC  00000000  
+0028ED00  0026A7DB  
+0028ED04  00000000  
+0028ED08  00000000  
+0028ED0C  00005B39  
+0028ED10  00006C12  
+0028ED14  00000005  
+0028ED18  00E6AE24  L"9.4.2.27666"
+0028ED1C  00D7ACE4  L" .2 Build27666"
+0028ED20  00010101  
+0028ED24  000069DB  
+0028ED28  00D84014  L"HummerEngine.dll:AA193F76BF1C4B5175B5BD3EFA6D4BC9|LongCnn.dll:F6D2896F568BBFE240D8F821ED907E4E|KernelUtil.dll:1269A0423A7E0875210034978E5182C2|TSIP.DAT:19743810C06CB91D2735E4D34FDB4817"
+0028ED2C  00000000  
+0028ED30  00000000  
+0028ED34  04F84A44  
+0028ED38  00000000  
+0028ED3C  532896E0  hummerengine.532896E0
+0028ED40  0641EEA0  
+0028ED44  0463B9E4  L"稘冒\x03"
+0028ED48  064367C0  "榶扱\x01"
+0028ED4C  00000000  
+0028ED50  00000000  
+0028ED54  00000000  
+0028ED58  86436860  
+0028ED5C  0028F348  
+0028ED60  04208F60  
+0028ED64  86430F80  
+0028ED68  85079590  
+0028ED6C  00000000  
+0028ED70  06430F80  &L"鲯偪底偪鱬偪遳偪飒偪餌偪鬥偪魟偪鮙偪鰆偪鰪偪鳉偪逐偪摺偪通偪弨偪彅偪彩偪徉偪徰偪過偪逤偪撘偪逮偪逸偪"
+0028ED74  86430554  
+0028ED78  5328A130  hummerengine.5328A130
+0028ED7C  00000000  
+0028ED80  00D707F0  
+0028ED84  15B7E400  
+0028ED88  00000100  
+0028ED8C  00000000  
+0028ED90  00000000  
+0028ED94  0404CC00  
+0028ED98  0404CC18  
+0028ED9C  0404D1E8  
+0028EDA0  00000000  
+0028EDA4  00D708B0  
+0028EDA8  00000000  
+0028EDAC  00000000  
+0028EDB0  00000000  
+0028EDB4  00000000  
+0028EDB8  00E194C0  L"蓰q\x01"
+0028EDBC  0DA7FCC8  
+0028EDC0  0DA7FCC8  
+0028EDC4  0DA7FCD0  
+0028EDC8  00000000  
+0028EDCC  00000000  
+0028EDD0  00000001  
+0028EDD4  00000000  
+0028EDD8  00000000  
+0028EDDC  00000000  
+0028EDE0  00000000  
+0028EDE4  00000000  
+0028EDE8  0000000F  
+0028EDEC  00D70838  
+0028EDF0  0DA72800  &"`啫\r`啫\r"
+0028EDF4  00000100  
+0028EDF8  00000000  
+0028EDFC  00000000  
+0028EE00  005AABA8  
+0028EE04  FFFFFFFF  
+0028EE08  00000000  
+0028EE0C  00000000  
+0028EE10  00000000  
+0028EE14  000007D0  
+0028EE18  0028EC88  
+0028EE1C  00000000  
+0028EE20  00000000  
+0028EE24  00000000  
+0028EE28  00000224  
+0028EE2C  00000000  
+0028EE30  00000000  
+0028EE34  00000000  
+0028EE38  00000000  
+0028EE3C  00000000  
+0028EE40  00000000  
+0028EE44  00000000  
+0028EE48  00D708C8  
+0028EE4C  00000000  
+0028EE50  00000000  
+0028EE54  00000000  
+0028EE58  00000000  
+0028EE5C  00000000  
+0028EE60  00000000  
+0028EE64  00000000  
+0028EE68  00000000  
+0028EE6C  000000C8  
+0028EE70  000000C8  
+0028EE74  00000000  
+0028EE78  00000000  
+0028EE7C  00000000  
+0028EE80  00000000  
+0028EE84  00000000  
+0028EE88  00000000  
+0028EE8C  00000000  
+0028EE90  00000000  
+0028EE94  00000000  
+0028EE98  00000040  
+0028EE9C  00000027  
+0028EEA0  FBB7E000  
+0028EEA4  00000003  
+0028EEA8  6939D000  
+0028EEAC  00000002  
+0028EEB0  FB9AE000  
+0028EEB4  00000005  
+0028EEB8  4EAAB000  
+0028EEBC  00000004  
+0028EEC0  FFFE0000  
+0028EEC4  00000000  
+0028EEC8  F6DAB000  
+0028EECC  00000000  
+0028EED0  00000000  
+0028EED4  00000000  
+0028EED8  00000000  
+0028EEDC  53289750  hummerengine.53289750
+0028EEE0  00000001  
+0028EEE4  00000000  
+0028EEE8  0000024C  
+0028EEEC  04B8FB38  
+0028EEF0  04208E70  L"蒐q\x01"
+0028EEF4  000024DC  
+0028EEF8  69676F4C  
+0028EEFC  006C6163  
+0028EF00  00000000  
+0028EF04  00000000  
+0028EF08  00000007  
+0028EF0C  0000000F  
+0028EF10  003A0043  
+0028EF14  0057005C  
+0028EF18  006E0069  
+0028EF1C  006F0064  
+0028EF20  00730077  
+0028EF24  00000000  
+0028EF28  00000000  
+0028EF2C  00000000  
+0028EF30  00000000  
+0028EF34  00000000  
+0028EF38  00000000  
+0028EF3C  00000000  
+0028EF40  00000000  
+0028EF44  00000000  
+0028EF48  00000000  
+0028EF4C  00000000  
+0028EF50  00000000  
+0028EF54  00000000  
+0028EF58  00000000  
+0028EF5C  00000000  
+0028EF60  00000000  
+0028EF64  00000000  
+0028EF68  00000000  
+0028EF6C  00000000  
+0028EF70  00000000  
+0028EF74  00000000  
+0028EF78  00000000  
+0028EF7C  00000000  
+0028EF80  00000000  
+0028EF84  00000000  
+0028EF88  00000000  
+0028EF8C  00000000  
+0028EF90  00000000  
+0028EF94  00000000  
+0028EF98  00000000  
+0028EF9C  00000000  
+0028EFA0  00000000  
+0028EFA4  00000000  
+0028EFA8  00000000  
+0028EFAC  00000000  
+0028EFB0  00000000  
+0028EFB4  00000000  
+0028EFB8  00000000  
+0028EFBC  00000000  
+0028EFC0  00000000  
+0028EFC4  00000000  
+0028EFC8  00000000  
+0028EFCC  00000000  
+0028EFD0  00000000  
+0028EFD4  00000000  
+0028EFD8  00000000  
+0028EFDC  00000000  
+0028EFE0  00000000  
+0028EFE4  00000000  
+0028EFE8  00000000  
+0028EFEC  00000000  
+0028EFF0  00000000  
+0028EFF4  00000000  
+0028EFF8  00000000  
+0028EFFC  00000000  
+0028F000  00000000  
+0028F004  00000000  
+0028F008  00000000  
+0028F00C  00000000  
+0028F010  00000000  
+0028F014  00000000  
+0028F018  00000000  
+0028F01C  00000000  
+0028F020  00000000  
+0028F024  00000000  
+0028F028  00000000  
+0028F02C  00000000  
+0028F030  00000000  
+0028F034  00000000  
+0028F038  00000000  
+0028F03C  00000000  
+0028F040  00000000  
+0028F044  00000000  
+0028F048  00000000  
+0028F04C  00000000  
+0028F050  00000000  
+0028F054  00000000  
+0028F058  00000000  
+0028F05C  00000000  
+0028F060  00000000  
+0028F064  00000000  
+0028F068  00000000  
+0028F06C  00000000  
+0028F070  00000000  
+0028F074  00000000  
+0028F078  00000000  
+0028F07C  00000000  
+0028F080  00000000  
+0028F084  00000000  
+0028F088  00000000  
+0028F08C  00000000  
+0028F090  00000000  
+0028F094  00000000  
+0028F098  00000000  
+0028F09C  00000000  
+0028F0A0  00000000  
+0028F0A4  00000000  
+0028F0A8  00000000  
+0028F0AC  00000000  
+0028F0B0  00000000  
+0028F0B4  00000000  
+0028F0B8  00000000  
+0028F0BC  00000000  
+0028F0C0  00000000  
+0028F0C4  00000000  
+0028F0C8  00000000  
+0028F0CC  00000000  
+0028F0D0  00000000  
+0028F0D4  00000000  
+0028F0D8  00000000  
+0028F0DC  00000000  
+0028F0E0  00000000  
+0028F0E4  00000000  
+0028F0E8  00000000  
+0028F0EC  00000000  
+0028F0F0  00000000  
+0028F0F4  00000000  
+0028F0F8  00000000  
+0028F0FC  00000000  
+0028F100  00000000  
+0028F104  00000000  
+0028F108  00000000  
+0028F10C  00000000  
+0028F110  00000000  
+0028F114  00000000  
+0028F118  00000000  
+0028F11C  00000000  
+0028F120  003A0044  
+0028F124  0050005C  
+0028F128  006F0072  
+0028F12C  00720067  asynctask.00720067
+0028F130  006D0061  
+0028F134  00460020  
+0028F138  006C0069  
+0028F13C  00730065  
+0028F140  00280020  
+0028F144  00380078  
+0028F148  00290036  &L"rige)"
+0028F14C  0054005C  
+0028F150  006E0065  
+0028F154  00650063  
+0028F158  0074006E  &"Actx "
+0028F15C  0051005C  
+0028F160  005C0051  
+0028F164  00690042  
+0028F168  005C006E  
+0028F16C  00510051  
+0028F170  0065002E  
+0028F174  00650078  
+0028F178  00000000  
+0028F17C  00000000  
+0028F180  00000000  
+0028F184  00000000  
+0028F188  00000000  
+0028F18C  00000000  
+0028F190  00000000  
+0028F194  00000000  
+0028F198  00000000  
+0028F19C  00000000  
+0028F1A0  00000000  
+0028F1A4  00000000  
+0028F1A8  00000000  
+0028F1AC  00000000  
+0028F1B0  00000000  
+0028F1B4  00000000  
+0028F1B8  00000000  
+0028F1BC  00000000  
+0028F1C0  00000000  
+0028F1C4  00000000  
+0028F1C8  00000000  
+0028F1CC  00000000  
+0028F1D0  00000000  
+0028F1D4  00000000  
+0028F1D8  00000000  
+0028F1DC  00000000  
+0028F1E0  00000000  
+0028F1E4  00000000  
+0028F1E8  00000000  
+0028F1EC  00000000  
+0028F1F0  00000000  
+0028F1F4  00000000  
+0028F1F8  00000000  
+0028F1FC  00000000  
+0028F200  00000000  
+0028F204  00000000  
+0028F208  00000000  
+0028F20C  00000000  
+0028F210  00000000  
+0028F214  00000000  
+0028F218  00000000  
+0028F21C  00000000  
+0028F220  00000000  
+0028F224  00000000  
+0028F228  00000000  
+0028F22C  00000000  
+0028F230  00000000  
+0028F234  00000000  
+0028F238  00000000  
+0028F23C  00000000  
+0028F240  00000000  
+0028F244  004F0000  "\t鎋闳?"
+0028F248  0059B310  
+0028F24C  00340000  wdthelper.00340000
+0028F250  77C7FE6E  return to ntdll.77C7FE6E from ???
+0028F254  0002000D  
+0028F258  006200A7  
+0028F25C  0028F2AC  
+0028F260  A20215CE  
+0028F264  0059B310  
+0028F268  0059B0D0  "@!Y"
+0028F26C  00000001  
+0028F270  0059B308  "u嚿ug"
+0028F274  0028F28C  
+0028F278  00000022  
+0028F27C  00000044  
+0028F280  5186512F  return to common.5186512F from common.518EAD40
+0028F284  0028F2A0  
+0028F288  51865153  return to common.51865153 from ???
+0028F28C  00000024  
+0028F290  00000000  
+0028F294  00000022  
+0028F298  0028F32C  
+0028F29C  519A2628  common.519A2628
+0028F2A0  0028F2C0  
+0028F2A4  00000000  
+0028F2A8  00000000  
+0028F2AC  0028F2F4  
+0028F2B0  0028F2BC  
+0028F2B4  518E9966  return to common.518E9966 from common.518EAD5E
+0028F2B8  0028F2D8  
+0028F2BC  51865324  return to common.51865324 from ???
+0028F2C0  00D922BC  
+0028F2C4  519C5D5C  common.519C5D5C
+0028F2C8  00D908A0  "C:\\Users\\Administrator1\\AppData\\Roaming\\Tencent\\QQ\\loginrdo.cache"
+0028F2CC  0028F348  
+0028F2D0  026D0630  
+0028F2D4  000006B8  
+0028F2D8  0028F2E4  
+0028F2DC  518E9949  return to common.518E9949 from common.518E9928
+0028F2E0  0002BF00  
+0028F2E4  0028F300  &"#~'S"
+0028F2E8  5186538B  return to common.5186538B from common.518E993E
+0028F2EC  00000000  
+0028F2F0  00D908A0  "C:\\Users\\Administrator1\\AppData\\Roaming\\Tencent\\QQ\\loginrdo.cache"
+0028F2F4  0028F348  
+0028F2F8  026D0630  
+0028F2FC  000006C8  
+0028F300  0028F338  "#~'S"
+0028F304  51864C54  return to common.51864C54 from ???
+0028F308  0002BEF8  
+0028F30C  0028F330  
+0028F310  518619B5  return to common.518619B5 from common.51864BF0
+0028F314  51866870  common.51866870
+0028F318  51861980  common.51861980
+0028F31C  5326F6F7  return to hummerengine.5326F6F7 from ???
+0028F320  53277D98  hummerengine.53277D98
+0028F324  00000000  
+0028F328  00F045A0  L"HummerEngine.dll"
+0028F32C  A2647263  
+0028F330  80D908B4  
+0028F334  0028F3B4  
+0028F338  53277E23  return to hummerengine.53277E23 from hummerengine.5326F82B
+0028F33C  00000000  
+0028F340  FFFFFFFF  
+0028F344  00000000  
+0028F348  53289708  hummerengine.53289708
+0028F34C  53283E08  hummerengine.53283E08
+0028F350  00E6D380  "鴢(S\x01"
+0028F354  005AAA18  
+0028F358  FFFFFFFF  
+0028F35C  00000000  
+0028F360  00000000  
+0028F364  00000000  
+0028F368  000007D0  
+0028F36C  00000000  
+0028F370  0028F348  
+0028F374  00000334  
+0028F378  00000000  
+0028F37C  00002101  
+0028F380  005A3338  
+0028F384  000006F4  
+0028F388  00000234  
+0028F38C  00000001  
+0028F390  53283E00  hummerengine.53283E00
+0028F394  00E6D3A0  L"阠匨\x01"
+0028F398  53283E08  hummerengine.53283E08
+0028F39C  00E192C0  "钑(S\x02"
+0028F3A0  53289768  hummerengine.53289768
+0028F3A4  00000238  
+0028F3A8  00D903D4  L"D:\\qqdata\\All Users\\TIM\\History.db"
+0028F3AC  00D904F4  L"D:\\qqdata\\All Users\\QQ\\History.db"
+0028F3B0  00000000  
+0028F3B4  0028F850  
+0028F3B8  00F0289B  return to qq.00F0289B from ???
+0028F3BC  00000000  
+0028F3C0  00000000  
+0028F3C4  00F07A8C  qq.00F07A8C
+0028F3C8  FFFDE000  
+0028F3CC  0028F44C  
+0028F3D0  0062166E  
+0028F3D4  77C9E024  return to ntdll.77C9E024 from ntdll.77C8DF29
+0028F3D8  779CC1B1  
+0028F3DC  00000000  
+0028F3E0  77CA670C  ntdll.77CA670C
+0028F3E4  FFFDE000  
+0028F3E8  00000024  
+0028F3EC  00000001  
+0028F3F0  00000000  
+0028F3F4  00000000  
+0028F3F8  00000070  
+0028F3FC  FFFFFFFF  
+0028F400  00000114  
+0028F404  00000006  
+0028F408  00000001  
+0028F40C  00001DB1  
+0028F410  00000002  
+0028F414  00650053  
+0028F418  00760072  
+0028F41C  00630069  
+0028F420  00200065  
+0028F424  00610050  
+0028F428  006B0063  
+0028F42C  00310020  msvcrt40.00310020
+0028F430  00000000  
+0028F434  00000000  
+0028F438  00000000  
+0028F43C  00000000  
+0028F440  00000000  
+0028F444  00000000  
+0028F448  00000000  
+0028F44C  00000000  
+0028F450  00000000  
+0028F454  00000000  
+0028F458  00000000  
+0028F45C  00000000  
+0028F460  00000000  
+0028F464  00000000  
+0028F468  00000000  
+0028F46C  00000000  
+0028F470  00000000  
+0028F474  00000000  
+0028F478  00000000  
+0028F47C  00000000  
+0028F480  00000000  
+0028F484  00000000  
+0028F488  00000000  
+0028F48C  00000000  
+0028F490  00000000  
+0028F494  00000000  
+0028F498  00000000  
+0028F49C  00000000  
+0028F4A0  00000000  
+0028F4A4  00000000  
+0028F4A8  00000000  
+0028F4AC  00000000  
+0028F4B0  00000000  
+0028F4B4  00000000  
+0028F4B8  00000000  
+0028F4BC  00000000  
+0028F4C0  00000000  
+0028F4C4  00000000  
+0028F4C8  00000000  
+0028F4CC  00000000  
+0028F4D0  00000000  
+0028F4D4  00000000  
+0028F4D8  00000000  
+0028F4DC  00000000  
+0028F4E0  00000000  
+0028F4E4  00000000  
+0028F4E8  00000000  
+0028F4EC  00000000  
+0028F4F0  00000000  
+0028F4F4  00000000  
+0028F4F8  00000000  
+0028F4FC  00000000  
+0028F500  00000000  
+0028F504  00000000  
+0028F508  00000000  
+0028F50C  00000000  
+0028F510  00000000  
+0028F514  004F0000  "\t鎋闳?"
+0028F518  0000011C  
+0028F51C  00000006  
+0028F520  00000001  
+0028F524  00001DB1  
+0028F528  00000002  
+0028F52C  00650053  
+0028F530  00760072  
+0028F534  00630069  
+0028F538  00200065  
+0028F53C  00610050  
+0028F540  006B0063  
+0028F544  00310020  msvcrt40.00310020
+0028F548  00000000  
+0028F54C  00000000  
+0028F550  00000000  
+0028F554  00000000  
+0028F558  00000000  
+0028F55C  00000000  
+0028F560  00000000  
+0028F564  00000000  
+0028F568  00000000  
+0028F56C  00000000  
+0028F570  00000000  
+0028F574  00000000  
+0028F578  00000000  
+0028F57C  00000000  
+0028F580  00000000  
+0028F584  00000000  
+0028F588  00000000  
+0028F58C  00000000  
+0028F590  00000000  
+0028F594  00000000  
+0028F598  00000000  
+0028F59C  00000000  
+0028F5A0  00000000  
+0028F5A4  00000000  
+0028F5A8  00000000  
+0028F5AC  00000000  
+0028F5B0  00000000  
+0028F5B4  00000000  
+0028F5B8  00000000  
+0028F5BC  00000000  
+0028F5C0  00000000  
+0028F5C4  00000000  
+0028F5C8  00000000  
+0028F5CC  00000000  
+0028F5D0  00000000  
+0028F5D4  00000000  
+0028F5D8  00000000  
+0028F5DC  00000000  
+0028F5E0  00000000  
+0028F5E4  00000000  
+0028F5E8  00000000  
+0028F5EC  00000000  
+0028F5F0  00000000  
+0028F5F4  00000000  
+0028F5F8  00000000  
+0028F5FC  00000000  
+0028F600  00000000  
+0028F604  00000000  
+0028F608  00000000  
+0028F60C  00000000  
+0028F610  00000000  
+0028F614  00000000  
+0028F618  00000000  
+0028F61C  00000000  
+0028F620  00000000  
+0028F624  00000000  
+0028F628  00000000  
+0028F62C  00000001  
+0028F630  00010100  
+0028F634  00760065  
+0028F638  0051005B  
+0028F63C  00500051  
+0028F640  00720065  asynctask.00720065
+0028F644  004C0066  &"Actx "
+0028F648  0067006F  
+0028F64C  0020005D  
+0028F650  00770064  
+0028F654  0061004D  
+0028F658  006E0069  
+0028F65C  006E0045  
+0028F660  00720074  asynctask.00720074
+0028F664  00200079  
+0028F668  0020003D  
+0028F66C  00340036  wdthelper.00340036
+0028F670  00380032  
+0028F674  00370032  wdthelper.00370032
+0028F678  00200030  
+0028F67C  0020002C  
+0028F680  00770064  
+0028F684  00480053  "\\/\x1A"
+0028F688  003D0020  
+0028F68C  00360020  wdthelper.00360020
+0028F690  00320034  wdthelper.00320034
+0028F694  00320038  wdthelper.00320038
+0028F698  00300037  msvcrt40.00300037
+0028F69C  002C0020  
+0028F6A0  00640020  
+0028F6A4  00440077  return to wdexhelper.00440077 from wdexhelper.0043E885
+0028F6A8  006C0065  
+0028F6AC  00740065  
+0028F6B0  00200065  
+0028F6B4  0020003D  
+0028F6B8  00000030  
+0028F6BC  00000000  
+0028F6C0  00000000  
+0028F6C4  00000000  
+0028F6C8  00000000  
+0028F6CC  00000000  
+0028F6D0  00000000  
+0028F6D4  00000000  
+0028F6D8  00000000  
+0028F6DC  00000000  
+0028F6E0  00000000  
+0028F6E4  00000000  
+0028F6E8  00000000  
+0028F6EC  00000000  
+0028F6F0  00000000  
+0028F6F4  00000000  
+0028F6F8  00000000  
+0028F6FC  00000000  
+0028F700  00000000  
+0028F704  00000000  
+0028F708  00000000  
+0028F70C  00000000  
+0028F710  00000000  
+0028F714  00000000  
+0028F718  00000000  
+0028F71C  00000000  
+0028F720  00000000  
+0028F724  00000000  
+0028F728  00000000  
+0028F72C  00000000  
+0028F730  00000000  
+0028F734  00000000  
+0028F738  00000000  
+0028F73C  00000000  
+0028F740  00000000  
+0028F744  00000000  
+0028F748  00000000  
+0028F74C  00000000  
+0028F750  00000000  
+0028F754  00000000  
+0028F758  00000000  
+0028F75C  00000000  
+0028F760  00000000  
+0028F764  00000000  
+0028F768  00000000  
+0028F76C  00000000  
+0028F770  00000000  
+0028F774  00000000  
+0028F778  00000000  
+0028F77C  00000000  
+0028F780  00000000  
+0028F784  00000000  
+0028F788  00000000  
+0028F78C  00000000  
+0028F790  00000000  
+0028F794  00000000  
+0028F798  00000000  
+0028F79C  00000000  
+0028F7A0  00000000  
+0028F7A4  00000000  
+0028F7A8  00000000  
+0028F7AC  00000000  
+0028F7B0  00000000  
+0028F7B4  00000000  
+0028F7B8  00000000  
+0028F7BC  00000000  
+0028F7C0  00000000  
+0028F7C4  00000000  
+0028F7C8  00000000  
+0028F7CC  00000000  
+0028F7D0  00000000  
+0028F7D4  00000000  
+0028F7D8  00000000  
+0028F7DC  00000000  
+0028F7E0  00000000  
+0028F7E4  00000000  
+0028F7E8  00000000  
+0028F7EC  00000000  
+0028F7F0  00000000  
+0028F7F4  00000000  
+0028F7F8  00000000  
+0028F7FC  00000000  
+0028F800  00000000  
+0028F804  00000000  
+0028F808  00000000  
+0028F80C  00000000  
+0028F810  00000000  
+0028F814  00000000  
+0028F818  00000000  
+0028F81C  00000000  
+0028F820  00000000  
+0028F824  00000000  
+0028F828  00000000  
+0028F82C  00000000  
+0028F830  00000000  
+0028F834  00000000  
+0028F838  00000000  
+0028F83C  00000000  
+0028F840  00000000  
+0028F844  00000000  
+0028F848  00000000  
+0028F84C  A24624D1  
+0028F850  0028F85C  
+0028F854  00F012C6  return to qq.00F012C6 from qq.00F02506
+0028F858  00000000  
+0028F85C  0028F8A8  
+0028F860  00F03365  return to qq.00F03365 from qq.00F012BB
+0028F864  00F00000  "MZ?"
+0028F868  00000000  
+0028F86C  004F2FF0  L"/hosthwnd=133338 /hostname=QQ_IPC_{A3D2835A-82F7-4546-B537-B38246B88DF9} /memoryid=0 \"D:\\Program Files (x86)\\Tencent\\QQ\\Bin\\QQ.exe\" "
+0028F870  00000000  
+0028F874  A2462FB5  
+0028F878  00000000  
+0028F87C  00000000  
+0028F880  FFFDE000  
+0028F884  CABFEC00  
+0028F888  80000003  
+0028F88C  002F38E9  
+0028F890  0028F874  
+0028F894  0028E558  
+0028F898  0028F8E4  Pointer to SEH_Record[3]
+0028F89C  00F03185  qq.00F03185
+0028F8A0  A29E9B95  
+0028F8A4  00000000  
+0028F8A8  0028F8B4  
+0028F8AC  76D733AA  return to kernel32.76D733AA from ???
+0028F8B0  FFFDE000  
+0028F8B4  0028F8F4  
+0028F8B8  77C99F72  return to ntdll.77C99F72 from ???
+0028F8BC  FFFDE000  
+0028F8C0  779CCD09  
+0028F8C4  00000000  
+0028F8C8  00000000  
+0028F8CC  FFFDE000  
+0028F8D0  80000003  
+0028F8D4  76D97717  kernel32.76D97717
+0028F8D8  76D97717  kernel32.76D97717
+0028F8DC  0028F8C0  "\t蜏w"
+0028F8E0  0028E580  
+0028F8E4  FFFFFFFF  End of SEH Chain
+0028F8E8  77CD71F5  ntdll.77CD71F5
+0028F8EC  007CF0AD  
+0028F8F0  00000000  
+0028F8F4  0028F90C  
+0028F8F8  77C99F45  return to ntdll.77C99F45 from ntdll.77C99F4B
+0028F8FC  00F033E9  qq.EntryPoint
+0028F900  FFFDE000  
+0028F904  00000000  
+0028F908  00000000  
+0028F90C  00000000  
+0028F910  00000000  
+0028F914  00F033E9  qq.EntryPoint
+0028F918  FFFDE000  
+0028F91C  00000000  
+0028F920  00000000  
+0028F924  00000000  
+0028F928  00000000  
+0028F92C  00000000  
+0028F930  00000000  
+0028F934  00000000  
+0028F938  00000000  
+0028F93C  00000000  
+0028F940  00000000  
+0028F944  00000000  
+0028F948  00000000  
+0028F94C  00000000  
+0028F950  00000000  
+0028F954  00000000  
+0028F958  00000000  
+0028F95C  00000000  
+0028F960  00000000  
+0028F964  00000000  
+0028F968  00000000  
+0028F96C  00000000  
+0028F970  00000000  
+0028F974  00000000  
+0028F978  00000000  
+0028F97C  00000000  
+0028F980  00000000  
+0028F984  00000000  
+0028F988  00000000  
+0028F98C  00000000  
+0028F990  00000000  
+0028F994  00000000  
+0028F998  00000000  
+0028F99C  00000000  
+0028F9A0  00000000  
+0028F9A4  00000000  
+0028F9A8  00000000  
+0028F9AC  00000000  
+0028F9B0  00000000  
+0028F9B4  00000000  
+0028F9B8  00000000  
+0028F9BC  00000000  
+0028F9C0  00000000  
+0028F9C4  00000000  
+0028F9C8  00000000  
+0028F9CC  00000000  
+0028F9D0  00000000  
+0028F9D4  00000000  
+0028F9D8  00000000  
+0028F9DC  00000000  
+0028F9E0  00000000  
+0028F9E4  00000000  
+0028F9E8  00000000  
+0028F9EC  00000000  
+0028F9F0  00000000  
+0028F9F4  00000000  
+0028F9F8  00000000  
+0028F9FC  00000000  
+0028FA00  00000000  
+0028FA04  00000000  
+0028FA08  00000000  
+0028FA0C  00000000  
+0028FA10  00000000  
+0028FA14  00000000  
+0028FA18  00000000  
+0028FA1C  00000000  
+0028FA20  00000000  
+0028FA24  00000000  
+0028FA28  00000000  
+0028FA2C  00000000  
+0028FA30  00000000  
+0028FA34  00000000  
+0028FA38  00000000  
+0028FA3C  00000000  
+0028FA40  00000000  
+0028FA44  00000000  
+0028FA48  00000000  
+0028FA4C  00000000  
+0028FA50  00000000  
+0028FA54  00000000  
+0028FA58  00000000  
+0028FA5C  00000000  
+0028FA60  00000000  
+0028FA64  00000000  
+0028FA68  00000000  
+0028FA6C  00000000  
+0028FA70  00000000  
+0028FA74  00000000  
+0028FA78  00000000  
+0028FA7C  00000000  
+0028FA80  00000000  
+0028FA84  00000000  
+0028FA88  00000000  
+0028FA8C  00000000  
+0028FA90  00000000  
+0028FA94  00000000  
+0028FA98  00000000  
+0028FA9C  00000000  
+0028FAA0  00000000  
+0028FAA4  00000000  
+0028FAA8  00000000  
+0028FAAC  00000000  
+0028FAB0  00000000  
+0028FAB4  00000000  
+0028FAB8  00000000  
+0028FABC  00000000  
+0028FAC0  00000000  
+0028FAC4  00000000  
+0028FAC8  00000000  
+0028FACC  00000000  
+0028FAD0  00000000  
+0028FAD4  00000000  
+0028FAD8  00000000  
+0028FADC  00000000  
+0028FAE0  00000000  
+0028FAE4  00000000  
+0028FAE8  00000000  
+0028FAEC  00000000  
+0028FAF0  00000000  
+0028FAF4  00000000  
+0028FAF8  00000000  
+0028FAFC  00000000  
+0028FB00  00000000  
+0028FB04  00000000  
+0028FB08  00000000  
+0028FB0C  00000000  
+0028FB10  00000000  
+0028FB14  00000000  
+0028FB18  00000000  
+0028FB1C  00000000  
+0028FB20  00000000  
+0028FB24  00000000  
+0028FB28  00000000  
+0028FB2C  00000000  
+0028FB30  00000000  
+0028FB34  00000000  
+0028FB38  00000000  
+0028FB3C  00000000  
+0028FB40  00000000  
+0028FB44  00000000  
+0028FB48  00000000  
+0028FB4C  00000000  
+0028FB50  00000000  
+0028FB54  00000000  
+0028FB58  00000000  
+0028FB5C  00000000  
+0028FB60  00000000  
+0028FB64  00000000  
+0028FB68  00000000  
+0028FB6C  00000000  
+0028FB70  00000000  
+0028FB74  00000000  
+0028FB78  00000000  
+0028FB7C  00000000  
+0028FB80  00000000  
+0028FB84  00000000  
+0028FB88  00000000  
+0028FB8C  00000000  
+0028FB90  00000000  
+0028FB94  00000000  
+0028FB98  00000000  
+0028FB9C  00000000  
+0028FBA0  00000000  
+0028FBA4  00000000  
+0028FBA8  00000000  
+0028FBAC  00000000  
+0028FBB0  00000000  
+0028FBB4  00000000  
+0028FBB8  00000000  
+0028FBBC  00000000  
+0028FBC0  00000000  
+0028FBC4  00000000  
+0028FBC8  00000000  
+0028FBCC  00000000  
+0028FBD0  00000000  
+0028FBD4  00000000  
+0028FBD8  00000000  
+0028FBDC  00000000  
+0028FBE0  00000000  
+0028FBE4  00000000  
+0028FBE8  00000000  
+0028FBEC  00000000  
+0028FBF0  00000000  
+0028FBF4  00000000  
+0028FBF8  00000000  
+0028FBFC  00000000  
+0028FC00  00000000  
+0028FC04  00000000  
+0028FC08  00000000  
+0028FC0C  00000000  
+0028FC10  00000000  
+0028FC14  00000000  
+0028FC18  00000000  
+0028FC1C  00000000  
+0028FC20  00000000  
+0028FC24  00000000  
+0028FC28  00000000  
+0028FC2C  00000000  
+0028FC30  00000000  
+0028FC34  00000000  
+0028FC38  00000000  
+0028FC3C  00000000  
+0028FC40  00000000  
+0028FC44  00000000  
+0028FC48  00000000  
+0028FC4C  00000000  
+0028FC50  00000000  
+0028FC54  00000000  
+0028FC58  00000000  
+0028FC5C  00000000  
+0028FC60  00000000  
+0028FC64  00000000  
+0028FC68  00000000  
+0028FC6C  00000000  
+0028FC70  00000000  
+0028FC74  00000000  
+0028FC78  00000000  
+0028FC7C  00000000  
+0028FC80  00000000  
+0028FC84  00000000  
+0028FC88  00000000  
+0028FC8C  00000000  
+0028FC90  00000000  
+0028FC94  00000000  
+0028FC98  00000000  
+0028FC9C  00000000  
+0028FCA0  00000000  
+0028FCA4  00000000  
+0028FCA8  00000000  
+0028FCAC  00000000  
+0028FCB0  00000000  
+0028FCB4  00000000  
+0028FCB8  00000000  
+0028FCBC  00000000  
+0028FCC0  00000000  
+0028FCC4  00000000  
+0028FCC8  00000000  
+0028FCCC  00000000  
+0028FCD0  00000000  
+0028FCD4  00000000  
+0028FCD8  00000000  
+0028FCDC  00000000  
+0028FCE0  00000000  
+0028FCE4  00000000  
+0028FCE8  00000000  
+0028FCEC  00000000  
+0028FCF0  00000000  
+0028FCF4  00000000  
+0028FCF8  00000000  
+0028FCFC  00000000  
+0028FD00  00000000  
+0028FD04  00000000  
+0028FD08  00000000  
+0028FD0C  00000000  
+0028FD10  00000000  
+0028FD14  00000000  
+0028FD18  00000000  
+0028FD1C  00000000  
+0028FD20  00000000  
+0028FD24  00000000  
+0028FD28  00000000  
+0028FD2C  00000000  
+0028FD30  00000000  
+0028FD34  00000000  
+0028FD38  00000000  
+0028FD3C  00000000  
+0028FD40  00000000  
+0028FD44  00000000  
+0028FD48  00000000  
+0028FD4C  00000000  
+0028FD50  00000000  
+0028FD54  00000000  
+0028FD58  00000000  
+0028FD5C  00000000  
+0028FD60  00000000  
+0028FD64  00000000  
+0028FD68  00000000  
+0028FD6C  00000000  
+0028FD70  00000000  
+0028FD74  00000000  
+0028FD78  00000000  
+0028FD7C  00000000  
+0028FD80  00000000  
+0028FD84  00000000  
+0028FD88  00000000  
+0028FD8C  00000000  
+0028FD90  00000000  
+0028FD94  00000000  
+0028FD98  00000000  
+0028FD9C  00000000  
+0028FDA0  00000000  
+0028FDA4  00000000  
+0028FDA8  00000000  
+0028FDAC  00000000  
+0028FDB0  00000000  
+0028FDB4  00000000  
+0028FDB8  00000000  
+0028FDBC  00000000  
+0028FDC0  00000000  
+0028FDC4  00000000  
+0028FDC8  00000000  
+0028FDCC  00000000  
+0028FDD0  00000000  
+0028FDD4  00000000  
+0028FDD8  00000000  
+0028FDDC  00000000  
+0028FDE0  00000000  
+0028FDE4  00000000  
+0028FDE8  00000000  
+0028FDEC  00000000  
+0028FDF0  00000000  
+0028FDF4  00000000  
+0028FDF8  00000000  
+0028FDFC  00000000  
+0028FE00  00000000  
+0028FE04  00000000  
+0028FE08  00000000  
+0028FE0C  00000000  
+0028FE10  00000000  
+0028FE14  00000000  
+0028FE18  00000000  
+0028FE1C  00000000  
+0028FE20  00000000  
+0028FE24  00000000  
+0028FE28  00000000  
+0028FE2C  00000000  
+0028FE30  00000000  
+0028FE34  00000000  
+0028FE38  00000000  
+0028FE3C  00000000  
+0028FE40  00000000  
+0028FE44  00000000  
+0028FE48  00000000  
+0028FE4C  00000000  
+0028FE50  00000000  
+0028FE54  00000000  
+0028FE58  00000000  
+0028FE5C  00000000  
+0028FE60  00000000  
+0028FE64  00000000  
+0028FE68  00000000  
+0028FE6C  00000000  
+0028FE70  00000000  
+0028FE74  00000000  
+0028FE78  00000000  
+0028FE7C  00000000  
+0028FE80  00000000  
+0028FE84  00000000  
+0028FE88  00000000  
+0028FE8C  00000000  
+0028FE90  00000000  
+0028FE94  00000000  
+0028FE98  00000000  
+0028FE9C  00000000  
+0028FEA0  00000000  
+0028FEA4  00000000  
+0028FEA8  00000000  
+0028FEAC  00000000  
+0028FEB0  00000000  
+0028FEB4  00000000  
+0028FEB8  00000000  
+0028FEBC  00000000  
+0028FEC0  00000000  
+0028FEC4  00000000  
+0028FEC8  00000000  
+0028FECC  00000000  
+0028FED0  00000000  
+0028FED4  00000000  
+0028FED8  00000000  
+0028FEDC  00000000  
+0028FEE0  00000000  
+0028FEE4  00000000  
+0028FEE8  00000000  
+0028FEEC  00000000  
+0028FEF0  00000000  
+0028FEF4  00000000  
+0028FEF8  00000000  
+0028FEFC  00000000  
+0028FF00  00000000  
+0028FF04  00000000  
+0028FF08  00000000  
+0028FF0C  00000000  
+0028FF10  00000000  
+0028FF14  00000000  
+0028FF18  00000000  
+0028FF1C  00000000  
+0028FF20  00000000  
+0028FF24  00000000  
+0028FF28  00000000  
+0028FF2C  00000000  
+0028FF30  00000000  
+0028FF34  00000000  
+0028FF38  00000000  
+0028FF3C  00000000  
+0028FF40  00000000  
+0028FF44  00000000  
+0028FF48  00000000  
+0028FF4C  00000000  
+0028FF50  00000000  
+0028FF54  00000000  
+0028FF58  00000000  
+0028FF5C  00000000  
+0028FF60  00000000  
+0028FF64  00000000  
+0028FF68  00000000  
+0028FF6C  00000000  
+0028FF70  00000000  
+0028FF74  00000000  
+0028FF78  00000000  
+0028FF7C  00000000  
+0028FF80  00000000  
+0028FF84  00000000  
+0028FF88  00000000  
+0028FF8C  00000000  
+0028FF90  00000000  
+0028FF94  00000000  
+0028FF98  00000000  
+0028FF9C  00000000  
+0028FFA0  00000000  
+0028FFA4  00000000  
+0028FFA8  00000000  
+0028FFAC  00000000  
+0028FFB0  00000000  
+0028FFB4  00000000  
+0028FFB8  00000000  
+0028FFBC  00000000  
+0028FFC0  00000000  
+0028FFC4  00000000  
+0028FFC8  00000000  
+0028FFCC  00000000  
+0028FFD0  00000000  
+0028FFD4  00000000  
+0028FFD8  00000000  
+0028FFDC  00000000  
+0028FFE0  00000000  
+0028FFE4  00000000  
+0028FFE8  00000000  
+0028FFEC  00000000  
+0028FFF0  00000000  
+0028FFF4  00000000  
+0028FFF8  00000000  
+0028FFFC  00000000  
