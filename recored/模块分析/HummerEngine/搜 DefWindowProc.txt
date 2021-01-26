@@ -1,0 +1,9 @@
+//IDA 勾选 find all occurences 
+
+Address         Function     Instruction                                                                          
+-------         --------     -----------                                                                          
+.text:69F06AFB  sub_69F06AEC                 mov     eax, ds:DefWindowProcW                                       
+.text:69F06BE1  sub_69F06BCB                 jmp     ds:DefWindowProcW                                            
+.text:69F06DF5  sub_69F06D4D                 cmp     eax, ds:DefWindowProcW                                       
+.idata:69F10478              ; LRESULT __stdcall DefWindowProcW(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
+.rdata:69F18386                              db 'DefWindowProcW',0                                                

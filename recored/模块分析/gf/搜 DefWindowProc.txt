@@ -1,0 +1,13 @@
+//IDA 勾选 find all occurences 
+Address         Function     Instruction                                                                          
+-------         --------     -----------                                                                          
+.text:30801A9A  sub_30801A10                 cmp     eax, ds:DefWindowProcW                                       
+.text:30827887  sub_30827875                 call    ds:DefWindowProcW                                            
+.text:308B0D61  sub_308B0D2A                 mov     eax, ds:DefWindowProcW                                       
+.text:308B3DD4  sub_308B3DD4                 mov     edx, ds:DefWindowProcW                                       
+.text:308FC665  sub_308FC654                 mov     eax, ds:DefWindowProcW                                       
+.text:3091E765  sub_3091E73E                 call    ds:DefWindowProcW                                            
+.text:309212AF  sub_3092072C                 call    ds:DefWindowProcW                                            
+.text:309221ED  sub_309221ED                 mov     eax, ds:DefWindowProcW                                       
+.idata:3096366C              ; LRESULT __stdcall DefWindowProcW(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
+.rdata:309D9F7E                              db 'DefWindowProcW',0                                                

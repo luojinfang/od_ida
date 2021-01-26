@@ -1,0 +1,10 @@
+IDA默认将反编译的10进制数 转化成16进制数的设置
+
+ 
+在 Edit->plugins -> Hex-Rays Decompiler->Options-> Default radix 改成 16进制
+
+ 
+https://blog.csdn.net/qq_36535153/article/details/110130738
+
+
+!!! 需要在 C:\IDA 6.8\cfg\hexrays.cfg  配置里修改

@@ -1,6 +1,2228 @@
+
+39702603 | E8 1CECFFFF              | call riched20.39701224                  | 
+39716654 | E8 9EBFFEFF              | call riched20.397025F7                  | 		eax 为文本内容
+3978E2AF | E8 6083F8FF              | call riched20.39716614                  | 		esi  为文本内容
+3086D24C | FF50 34                  | call dword ptr ds:[eax+34]              |gf
+30870B64 | FF16                     | call dword ptr ds:[esi]                 |
+30875FA5 | E8 5AABFFFF              | call gf.30870B04                        |gf
+65710D7E | FF91 24040000            | call dword ptr ds:[ecx+424]             |afctrl
+65710D7E | FF91 24040000            | call dword ptr ds:[ecx+424]             |
+6576CD26 | FF17                     | call dword ptr ds:[edi]                 |
+6576CF8C | E8 87FCFFFF              | call afctrl.6576CC18                    |afctrl
+6576F949 | FF91 C4050000            | call dword ptr ds:[ecx+5C4]             |
+6576F6EF | FF90 64030000            | call dword ptr ds:[eax+364]             |
+6576FF61 | E8 5DF7FFFF              | call afctrl.6576F6C3                    |
+3082940E | FF51 1C                  | call dword ptr ds:[ecx+1C]              |gf
+30825697 | E8 E83C0000              | call gf.30829384                        |
+30918762 | E8 0DCDF0FF              | call <gf.?DispatchFrameMsg@GF@Util@@YAJ |
+3091AA65 | E8 2EDCFFFF              | call gf.30918698                        |
+30921938 | FF90 A4000000            | call dword ptr ds:[eax+A4]              |
+30920EB7 | FF52 64                  | call dword ptr ds:[edx+64]              |
+3092216E | FF50 10                  | call dword ptr ds:[eax+10]              |
+30801A52 | FF10                     | call dword ptr ds:[eax]                 |
+764A62F7 | FF55 08                  | call dword ptr ss:[ebp+8]               | user32
+=================================================================================================================================================================================================
  
+
  
+
+=================================================================================================================================================================================================
+
+=================================================================================================================================================================================================
+
+=================================================================================================================================================================================================
+/*
+//Riched32
+1. 初始化的过程：
+  INITCOMMONCONTROLSEX picc;
+  picc.dwSize = sizeof(picc);
+  picc.dwICC = ICC_WIN95_CLASSES;
+  InitCommonControlsEx(&picc);
+
+  //要加载richedit.dll
+  LoadLibrary(L"Riched32.dll");
+
+2.创建一个richedit的控件方法：
+   g_hRichEdit = CreateWindow(RICHEDIT_CLASS, _T(""), WS_CHILD | WS_BORDER | ES_MULTILINE | WS_VISIBLE,
+     10, 10, 500, 500, 
+     hWnd, NULL, hInstance, NULL); 
  
+// 关于windowless的rich edit：
+1.看了一个介绍：个人猜测就是首先要写一个类，来实现ITextHost这个接口，
+	同个这个类来把宿主窗口和无窗口的richedit联系起来。然后调用 CreateTextServices ，传入ITextHost指针，
+	返回IUnknown指针。通过这个IUnown接口，可以查询到ITextServices和ITextDocument接口。
+	最后通过这两个接口完成绝大多数功能。
+	
+//39701544  CreateTextServices
+*/
+
+=================================================================================================================================================================================================
+unsigned int __cdecl sub_39701224(unsigned int a1, char *a2, unsigned int a3) //a2 为文本内容
+{
+  int v3; // esi@1
+  int v4; // edi@1
+  unsigned int v5; // ecx@4
+  unsigned int result; // eax@10
+  int v7; // esi@22
+  int v8; // edi@22
+  unsigned int v9; // ecx@23
+
+  v3 = (int)a2;
+  v4 = a1;
+  if ( a1 > (unsigned int)a2 && a1 < (unsigned int)&a2[a3] )
+  {
+    v7 = (int)&a2[a3 - 4];
+    v8 = a3 + a1 - 4;
+    if ( v8 & 3 )
+    {
+      if ( a3 >= 4 )
+        JUMPOUT(__CS__, *((_DWORD *)&loc_3971F6E8 + (v8 & 3) + 1));
+      switch ( a3 )
+      {
+        case 0u:
+LABEL_26:
+          result = a1;
+          break;
+        case 1u:
+LABEL_20:
+          *(_BYTE *)(v8 + 3) = *(_BYTE *)(v7 + 3);
+          result = a1;
+          break;
+        case 2u:
+LABEL_30:
+          *(_BYTE *)(v8 + 3) = *(_BYTE *)(v7 + 3);
+          *(_BYTE *)(v8 + 2) = *(_BYTE *)(v7 + 2);
+          result = a1;
+          break;
+        case 3u:
+          goto LABEL_21;
+      }
+    }
+    else
+    {
+      v9 = a3 >> 2;
+      if ( a3 >> 2 < 8 )
+        JUMPOUT(loc_3973303B);
+      qmemcpy((void *)v8, (const void *)v7, 4 * v9);
+      v7 += 4 * v9;
+      v8 += 4 * v9;
+      switch ( a3 & 3 )
+      {
+        case 0u:
+          goto LABEL_26;
+        case 1u:
+          goto LABEL_20;
+        case 2u:
+          goto LABEL_30;
+        case 3u:
+          break;
+      }
+LABEL_21:
+      *(_BYTE *)(v8 + 3) = *(_BYTE *)(v7 + 3);
+      *(_BYTE *)(v8 + 2) = *(_BYTE *)(v7 + 2);
+      *(_BYTE *)(v8 + 1) = *(_BYTE *)(v7 + 1);
+      result = a1;
+    }
+  }
+  else
+  {
+    if ( a1 & 3 )
+    {
+      if ( a3 >= 4 )
+        JUMPOUT(__CS__, *(void **)((char *)&off_3971F6A6 + 4 * (a1 & 3) + 2));
+      JUMPOUT(__CS__, *((_DWORD *)&loc_3971F6E8 + a3 - 4));
+    }
+    v5 = a3 >> 2;
+    switch ( a3 >> 2 )
+    {
+      case 4u:
+        goto LABEL_5;
+      case 3u:
+        goto LABEL_6;
+      case 2u:
+        goto LABEL_7;
+      case 1u:
+        goto LABEL_8;
+      case 0u:
+        break;
+      case 6u:
+        goto LABEL_11;
+      case 5u:
+        goto LABEL_12;
+      case 7u:
+        *(_DWORD *)(a1 + 4 * v5 - 0x1C) = *(_DWORD *)&a2[4 * v5 - 0x1C];
+LABEL_11:
+        *(_DWORD *)(a1 + 4 * v5 - 0x18) = *(_DWORD *)&a2[4 * v5 - 0x18];
+LABEL_12:
+        *(_DWORD *)(a1 + 4 * v5 - 0x14) = *(_DWORD *)&a2[4 * v5 - 0x14];
+LABEL_5:
+        *(_DWORD *)(a1 + 4 * v5 - 0x10) = *(_DWORD *)&a2[4 * v5 - 0x10];
+LABEL_6:
+        *(_DWORD *)(a1 + 4 * v5 - 0xC) = *(_DWORD *)&a2[4 * v5 - 0xC];
+LABEL_7:
+        *(_DWORD *)(a1 + 4 * v5 - 8) = *(_DWORD *)&a2[4 * v5 - 8];
+LABEL_8:
+        *(_DWORD *)(a1 + 4 * v5 - 4) = *(_DWORD *)&a2[4 * v5 - 4];
+        v3 = (int)&a2[4 * v5];
+        v4 = 4 * v5 + a1;
+        break;
+      default:
+        qmemcpy((void *)a1, a2, 4 * v5);
+        v3 = (int)&a2[4 * v5];
+        v4 = a1 + 4 * v5;
+        break;
+    }
+    switch ( a3 & 3 )
+    {
+      case 0u:
+        result = a1;
+        break;
+      case 1u:
+        *(_BYTE *)v4 = *(_BYTE *)v3;
+        result = a1;
+        break;
+      case 2u:
+        *(_BYTE *)v4 = *(_BYTE *)v3;
+        *(_BYTE *)(v4 + 1) = *(_BYTE *)(v3 + 1);
+        result = a1;
+        break;
+      case 3u:
+        *(_BYTE *)v4 = *(_BYTE *)v3;
+        *(_BYTE *)(v4 + 1) = *(_BYTE *)(v3 + 1);
+        *(_BYTE *)(v4 + 2) = *(_BYTE *)(v3 + 2);
+        result = a1;
+        break;
+    }
+  }
+  return result;
+}
+=================================================================================================================================================================================================//39702603 | E8 1CECFFFF              | call riched20.39701224                  |
+int __stdcall sub_397025F7(int a1, int a2, int a3)
+{
+  return sub_39701224(a1, a2, a3);  //a2 为文本内容
+}
+
+=================================================================================================================================================================================================//39716654 | E8 9EBFFEFF              | call riched20.397025F7                  | 		(a2) eax 为文本内容, (a3)新建字符串空间
+int __thiscall sub_39716614(void *this, int a2, int a3)
+{
+  int v3; // ebx@1
+  int v4; // eax@2
+  int v5; // esi@3
+  int v7; // [sp+18h] [bp-4h]@1
+
+  v3 = a2;
+  v7 = a2;
+  sub_397088A7(this);
+  while ( v3 )
+  {
+    v4 = sub_39708D1E(&a2);
+    if ( !v4 )
+      break;
+    v5 = a2;
+    if ( a2 >= v3 )
+    {
+      v5 = v3;
+      a2 = v3;
+    }
+    sub_397025F7(a3, v4, 2 * v5);  //39716654
+    a3 += 2 * v5;
+    v3 -= v5;
+    sub_3970ACC8(v5);
+  }
+  return v7 - v3;
+}
+
+//返回控件字符串内容
+int sub_3971B3B5()
+{
+  if ( !dword_397DA710 )
+    sub_3970CF23((int)&dword_397DA710, 0, "SysAllocStringLen"); //申请一个指定字符长度的 BSTR 指针,并初始化为一个字符串
+  return dword_397DA710(); // dword_397DA710 字符串地址
+}
+
+//SysAllocString() 申请一个 BSTR 指针，并初始化为一个字符串 
+//SysAllocStringLen() 申请一个指定字符长度的 BSTR 指针，并初始化为一个字符串
+
+=================================================================================================================================================================================================//3978E2AF | E8 6083F8FF              | call riched20.39716614                 
+unsigned int __thiscall sub_3978E251(_DWORD *this, int *a2)
+{
+  _DWORD *v2; // ebx@1
+  unsigned int v3; // esi@2
+  int v4; // edi@3
+  int v5; // eax@5
+  char v7; // [sp+8h] [bp-24h]@7
+  char v8; // [sp+1Ch] [bp-10h]@9
+
+  v2 = this;
+  sub_39704068(this, 0);
+  sub_39702F5E(v2);
+  if ( a2 )
+  {
+    v4 = v2[0x35];  
+    if ( v4 > 0 )
+    {
+      v5 = sub_3971B3B5(); //返回控件字符串内容 
+	  //3978E295 断点 (v5) eax 为字符串   //条件断点 eax==L"123"
+      *a2 = v5; 
+      if ( !v5 )
+      {
+        sub_39774103(v2[0x18]);
+        v3 = 0x8007000E;
+        goto LABEL_9;
+      }
+      sub_39716614(&v7, v4, v5);//3978E2AF    //赋值？
+    }
+    else
+    {
+      *a2 = 0;
+    }
+    v3 = 0;
+    goto LABEL_9;
+  }
+  v3 = 0x80070057;
+LABEL_9:
+  sub_39704537(&v8);
+  return v3;      
+}
+
+
+
+=================================================================================================================================================================================================//3086D24C | FF50 34                  | call dword ptr ds:[eax+34]              |gf
+int __stdcall sub_3086D237(int a1, int a2)
+{
+  int v2; // ecx@1
+  int result; // eax@2
+
+  v2 = *(_DWORD *)(a1 + 0x15C);
+  if ( v2 )
+    result = (*(int (__stdcall **)(int))(*(_DWORD *)v2 + 0x34))(a2); //3086D24C
+  else
+    result = 0x80004002;
+  return result;
+}
+
+=================================================================================================================================================================================================//30870B64 | FF16                     | call dword ptr ds:[esi]                 |gf
+unsigned int __thiscall sub_30870B04(_DWORD *this, _DWORD *a2)
+{
+  signed int v2; // ebx@1
+  unsigned int result; // eax@2
+  int *v4; // edi@4
+  int v5; // esi@6
+  int v6; // eax@6
+  int v7; // eax@9
+  CTXBSTR *v8; // eax@9
+  int v9; // eax@10
+  _DWORD *v10; // [sp+Ch] [bp-1Ch]@1
+  int *v11; // [sp+10h] [bp-18h]@4
+  int v12; // [sp+14h] [bp-14h]@6
+  char v13; // [sp+18h] [bp-10h]@6
+  unsigned int v14; // [sp+24h] [bp-4h]@4
+
+  v10 = this;
+  v2 = 0;
+  if ( a2 )
+  {
+    v11 = 0;
+    v14 = 0;
+    sub_3086E714(&v11);
+    v4 = v11;
+    if ( v11 )
+    {
+      CTXBSTR::CTXBSTR(&v13);
+      v5 = *v4;
+      LOBYTE(v14) = 1;
+      v6 = CTXBSTR::operator&(&v13);
+      (*(void (__cdecl **)(int *, int))(v5 + 0x80))(v4, v6); //30870B64
+      v12 = 0;
+      sub_3086F943(v10, 0x45A, 0, 0, &v12); 
+      if ( CTXBSTR::IsEmpty((CTXBSTR *)&v13) )
+      {
+        v2 = 1;
+      }
+      else if ( v12 & 1 )
+      {
+        *a2 = CTXBSTR::Copy((CTXBSTR *)&v13);
+      }
+      else
+      {
+        CTXStringW::CTXStringW(&v12, &v13);
+        LOBYTE(v14) = 2;
+        v7 = CTXStringW::GetLength((CTXStringW *)&v12);
+        CTXStringW::Delete((CTXStringW *)&v12, v7 - 1, 1);
+        v8 = (CTXBSTR *)CTXBSTR::CTXBSTR(&v10, &v12);
+        *a2 = CTXBSTR::Copy(v8);
+        CTXBSTR::~CTXBSTR((CTXBSTR *)&v10);
+        LOBYTE(v14) = 1;
+        CTXStringW::~CTXStringW((CTXStringW *)&v12);
+      }
+      CTXBSTR::~CTXBSTR((CTXBSTR *)&v13);
+      v9 = *v4;
+      v14 = 0xFFFFFFFF;
+      (*(void (__cdecl **)(int *))(v9 + 8))(v4);
+      result = v2;
+    }
+    else
+    {
+      result = 0x80004002;
+    }
+  }
+  else
+  {
+    result = 0x80070057;
+  }
+  return result;
+}
+=================================================================================================================================================================================================//30875FA5 | E8 5AABFFFF              | call gf.30870B04                        |gf
+int __stdcall sub_30875F99(int a1, int a2)
+{
+  return sub_30870B04(a2);
+}
+=================================================================================================================================================================================================//65710D7E | FF91 24040000            | call dword ptr ds:[ecx+424]             |afctrl
+//再次执行
+=================================================================================================================================================================================================//65710D7E | FF91 24040000            | call dword ptr ds:[ecx+424]             |
+int __stdcall sub_65710D64(int a1, int a2)
+{
+  int v2; // eax@1
+  int result; // eax@2
+
+  v2 = *(_DWORD *)(a1 + 8);
+  if ( v2 )
+    result = (*(int (__stdcall **)(int, int))(*(_DWORD *)v2 + 0x424))(v2, a2); //65710D7E
+  else
+    result = 0x80004005;
+  return result;
+}
+=================================================================================================================================================================================================//6576CD26 | FF17                     | call dword ptr ds:[edi]                 |
+int __thiscall sub_6576CC18(int this)
+{
+  int v1; // esi@1
+  int v2; // eax@2
+  int v3; // eax@4
+  int *v4; // eax@9
+  int v5; // edi@9
+  int v6; // eax@9
+  char *v7; // ecx@9
+  int v8; // ecx@9
+  int *v9; // ecx@9
+  int v10; // eax@9
+  bool v11; // zf@9
+  int v12; // eax@10
+  int v13; // ecx@10
+  char *v14; // eax@10
+  int v15; // ecx@10
+  int v16; // ecx@11
+  int v17; // eax@12
+  int v18; // eax@12
+  int v19; // eax@14
+  int v20; // eax@14
+  int v21; // eax@14
+  char *v23; // [sp+20h] [bp-94h]@9
+  int *v24; // [sp+24h] [bp-90h]@9
+  int *v25; // [sp+28h] [bp-8Ch]@4
+  int *v26; // [sp+2Ch] [bp-88h]@9
+  int v27; // [sp+30h] [bp-84h]@9
+  int v28; // [sp+38h] [bp-7Ch]@14
+  int v29; // [sp+3Ch] [bp-78h]@4
+  int v30; // [sp+40h] [bp-74h]@4
+  int v31; // [sp+44h] [bp-70h]@4
+  int v32; // [sp+48h] [bp-6Ch]@9
+  int v33; // [sp+4Ch] [bp-68h]@9
+  int v34; // [sp+50h] [bp-64h]@9
+  int v35; // [sp+54h] [bp-60h]@9
+  int v36; // [sp+58h] [bp-5Ch]@9
+  int v37; // [sp+5Ch] [bp-58h]@9
+  int v38; // [sp+60h] [bp-54h]@9
+  int v39; // [sp+64h] [bp-50h]@9
+  int v40; // [sp+68h] [bp-4Ch]@9
+  int v41; // [sp+6Ch] [bp-48h]@7
+  char v42; // [sp+70h] [bp-44h]@6
+  int v43; // [sp+74h] [bp-40h]@4
+  _DWORD *v44; // [sp+78h] [bp-3Ch]@9
+  int v45; // [sp+7Ch] [bp-38h]@10
+  char v46; // [sp+80h] [bp-34h]@9
+  char v47; // [sp+84h] [bp-30h]@9
+  int v48; // [sp+88h] [bp-2Ch]@4
+  int v49; // [sp+8Ch] [bp-28h]@12
+  int *v50; // [sp+90h] [bp-24h]@4
+  int *v51; // [sp+94h] [bp-20h]@9
+  char v52; // [sp+98h] [bp-1Ch]@4
+  char v53; // [sp+9Ch] [bp-18h]@9
+  int *v54; // [sp+A0h] [bp-14h]@10
+  int *v55; // [sp+A4h] [bp-10h]@6
+  int v56; // [sp+B0h] [bp-4h]@4
+
+  v1 = this;
+  if ( *(_DWORD *)(this + 0x16C) <= 0 )
+  {
+    v2 = *(_DWORD *)(this + 0xCC);
+    if ( v2 != 3 && v2 != 5 )
+    {
+      v50 = (int *)sub_657677C3();
+      v48 = *(_DWORD *)(v1 + 0xCC);
+      *(_DWORD *)(v1 + 0xCC) = 3;
+      v29 = 0;
+      v30 = 0;
+      v31 = 0;
+      v56 = 0;
+      v43 = 0;
+      ((void (__thiscall *)(char *, int *))CTXBSTR::CTXBSTR)(&v52, v25);
+      LOBYTE(v56) = 2;
+      v3 = CTXBSTR::operator&(&v52);
+      sub_6576CA56(v3);
+      if ( v48 == 2 )
+        CTXBSTR::operator=(v1 + 0xC8, &v52);
+      (*(void (__stdcall **)(int, int *, char *))(*(_DWORD *)v1 + 0x3B0))(v1, (int *)&v55, &v42);
+      if ( *(_DWORD *)(v1 + 0xAC) )
+        v41 = 1;
+      else
+        v41 = *(_DWORD *)(v1 + 0xA8);
+      v40 = 0;
+      v33 = 0;
+      v34 = 0;
+      v35 = 0;
+      LOBYTE(v56) = 3;
+      sub_6576C30E(&v46, &v32);
+      LOBYTE(v56) = 4;
+      sub_6576A1A5(v55);
+      ((void (__thiscall *)(char *, int *, int))CTXBSTR::CTXBSTR)(&v53, v26, v27);
+      v4 = *(int **)(v1 + 8);
+      v5 = *v4;
+      LOBYTE(v56) = 5;
+      v51 = v4;
+      v6 = CTXBSTR::operator&(&v53);
+      (*(void (__stdcall **)(int *, int))(v5 + 0x424))(v51, v6);  //6576CD26
+      CTXStringW::CTXStringW(&v47, &v53);
+      v37 = 0;
+      v38 = 0;
+      v39 = 0;
+      v27 = v1 + 0x190;
+      v26 = &v32;
+      v25 = &v40;
+      v24 = &v36;
+      v23 = v7;
+      v44 = &v23;
+      LOBYTE(v56) = 7;
+      CTXStringW::CTXStringW(&v23);
+      v8 = *(_DWORD *)(v1 + 0xB8);
+      sub_6577400B(*(_DWORD *)(v1 + 0xA4), (unsigned int)&v46, v23, v24, v25, v26);
+      v26 = v55;
+      v25 = &v36;
+      v24 = v9;
+      v44 = &v24;
+      v23 = &v47;
+      CTXStringW::CTXStringW(&v24);
+      v10 = sub_6576A6FD((char)v23, v24, v25);
+      v11 = *(_DWORD *)(v1 + 0x18C) == 0;
+      v55 = (int *)v10;
+      if ( !v11 )
+      {
+        v54 = 0;
+        LOBYTE(v56) = 8;
+        Util::Data::CreateTXData((Util::Data *)&v54, (struct ITXData **)v26);
+        v51 = v54;
+        v12 = sub_657028A3(&v44, L"bNumLimit");
+        v13 = *v51;
+        v25 = *(int **)(v1 + 0x190);
+        v45 = v13;
+        LOBYTE(v56) = 9;
+        v25 = (int *)CTXBSTR::operator wchar_t *(v12);
+        v24 = v51;
+        (*(void (__stdcall **)(int *, int *))(v45 + 0xCC))(v51, v25);
+        LOBYTE(v56) = 8;
+        CTXBSTR::~CTXBSTR(&v44);
+        v25 = v54;
+        v14 = *(char **)(v1 + 0x18C);
+        v15 = *(_DWORD *)v14;
+        v24 = 0;
+        v23 = v14;
+        (*(void (__stdcall **)(char *, _DWORD, int *))(v15 + 0xC))(v14, 0, v54);
+        LOBYTE(v56) = 7;
+        if ( v54 )
+        {
+          v16 = *v54;
+          v25 = v54;
+          (*(void (__stdcall **)(int *))(v16 + 8))(v54);
+        }
+      }
+      v25 = v50;
+      v17 = *(_DWORD *)v1;
+      v24 = v50;
+      v23 = (char *)v1;
+      (*(void (__stdcall **)(int, int, int))(v17 + 0x3C8))(v1, (int)v50, (int)v50);
+      v18 = *(_DWORD *)v1;
+      v25 = &v49;
+      v24 = (int *)v1;
+      v49 = 0;
+      (*(void (__stdcall **)(int, int *))(v18 + 0x414))(v1, &v49);
+      if ( v49 )
+        v55 = 0;
+      v25 = v55;
+      v19 = *(_DWORD *)v1;
+      v24 = v55;
+      v23 = (char *)v1;
+      (*(void (__stdcall **)(int, int *))(v19 + 0x3C8))(v1, v55);
+      v20 = *(_DWORD *)v1;
+      v24 = (int *)v1;
+      (*(void (__stdcall **)(int))(v20 + 0xD4))(v1);
+      v21 = *(_DWORD *)v1;
+      v24 = (int *)v1;
+      (*(void (__stdcall **)(int))(v21 + 0xD0))(v1);
+      *(_DWORD *)(v1 + 0xCC) = v48;
+      LOBYTE(v56) = 6;
+      sub_6576A9F8((int)&v36);
+      LOBYTE(v56) = 5;
+      CTXStringW::~CTXStringW(&v47);
+      CTXBSTR::~CTXBSTR(&v53);
+      LOBYTE(v56) = 3;
+      CTXStringW::~CTXStringW(&v46);
+      LOBYTE(v56) = 2;
+      sub_6576A9F8((int)&v32);
+      CTXBSTR::~CTXBSTR(&v52);
+      sub_65711967((int)&v28);
+    }
+  }
+  return 0;
+}
+
+=================================================================================================================================================================================================//6576CF8C | E8 87FCFFFF              | call afctrl.6576CC18                    |afctrl
+int __stdcall sub_6576CF77(int a1, int a2)
+{
+  if ( *(_DWORD *)(a1 + 0xAC) != a2 )
+  {
+    *(_DWORD *)(a1 + 0xAC) = a2;
+    sub_6576CC18(); //6576CF8C
+  }
+  return 0;
+}
+=================================================================================================================================================================================================//6576F949 | FF91 C4050000            | call dword ptr ds:[ecx+5C4]             |
+unsigned int __stdcall sub_6576F845(int a1, int a2)
+{
+  int v2; // ebx@1
+  bool v3; // zf@1
+  unsigned int result; // eax@2
+  int v5; // eax@3
+  int v6; // eax@4
+  _DWORD *v7; // eax@9
+  int v8; // edi@9
+  int v9; // eax@9
+  int v10; // eax@9
+  int v11; // edi@9
+  int *v12; // eax@9
+  int v13; // ecx@9
+  int v14; // ecx@13
+  int v15; // eax@15
+  int v16; // eax@18
+  int v17; // edi@20
+  int v18; // eax@20
+  int v19; // eax@21
+  int v20; // eax@21
+  int v21; // edx@21
+  int v22; // eax@21
+  int v23; // edx@21
+  int v24; // eax@23
+  int v25; // eax@23
+  int v26; // edx@23
+  int v27; // eax@23
+  int v28; // edx@23
+  int v29; // eax@24
+  int v30; // eax@27
+  _DWORD *v31; // eax@27
+  int v32; // edi@27
+  _DWORD *v33; // eax@27
+  int v34; // edi@27
+  int v35; // eax@27
+  _DWORD *v36; // edi@29
+  void (__stdcall **v37)(_DWORD, _DWORD); // edi@30
+  _DWORD *v38; // eax@31
+  void (__stdcall **v39)(_DWORD, _DWORD); // edi@32
+  int v40; // eax@33
+  int v41; // eax@35
+  int v42; // [sp-4h] [bp-48h]@3
+  struct ITXData **v43; // [sp+0h] [bp-44h]@18
+  int v44; // [sp+Ch] [bp-38h]@4
+  int v45; // [sp+10h] [bp-34h]@4
+  int v46; // [sp+14h] [bp-30h]@4
+  int v47; // [sp+18h] [bp-2Ch]@4
+  int v48; // [sp+1Ch] [bp-28h]@1
+  int v49; // [sp+20h] [bp-24h]@21
+  int v50; // [sp+24h] [bp-20h]@21
+  int v51; // [sp+28h] [bp-1Ch]@9
+  int v52; // [sp+2Ch] [bp-18h]@9
+  int v53; // [sp+30h] [bp-14h]@18
+  char v54; // [sp+34h] [bp-10h]@27
+  int v55; // [sp+40h] [bp-4h]@9
+  _DWORD *v56; // [sp+4Ch] [bp+8h]@9
+  _DWORD *v57; // [sp+4Ch] [bp+8h]@27
+  _DWORD *v58; // [sp+4Ch] [bp+8h]@27
+  _DWORD *v59; // [sp+4Ch] [bp+8h]@30
+  int v60; // [sp+4Ch] [bp+8h]@31
+
+  v2 = a1;
+  v48 = *(_DWORD *)(a1 + 0x80);
+  v3 = *(_DWORD *)(a1 + 0x40) == 0;
+  *(_DWORD *)(a1 + 0x80) = a2;
+  if ( v3 )
+  {
+    result = 0x80004005;
+  }
+  else
+  {
+    (*(void (__stdcall **)(int, int))(*(_DWORD *)a1 + 0xD4))(a1, v42);
+    v5 = *(_DWORD *)(a1 + 0x80);
+    if ( v5 )
+    {
+      if ( v5 == 1 )
+      {
+        (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(a1 + 0x40) + 0x478))(
+          *(_DWORD *)(a1 + 0x40),
+          *(_DWORD *)(a1 + 0x11C));
+        (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD))(**(_DWORD **)(a1 + 0x40) + 0x3C8))(*(_DWORD *)(a1 + 0x40), 0, 0);
+        (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(a1 + 0x40) + 0x45C))(*(_DWORD *)(a1 + 0x40), 0);
+        (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(a1 + 0x40) + 0x130))(*(_DWORD *)(a1 + 0x40), 0);
+        (*(void (__stdcall **)(_DWORD, signed int))(**(_DWORD **)(a1 + 0x40) + 0x460))(*(_DWORD *)(a1 + 0x40), 1);
+        (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(a1 + 0x40) + 0x534))(*(_DWORD *)(a1 + 0x40), 0);
+        (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(a1 + 0x40) + 0x474))(*(_DWORD *)(a1 + 0x40), 0);
+        (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(a1 + 0x40) + 0x154))(*(_DWORD *)(a1 + 0x40), 0);
+        (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(a1 + 0x40) + 0x5C4))(*(_DWORD *)(a1 + 0x40), 0);
+        (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(a1 + 0x40) + 0x160))(*(_DWORD *)(a1 + 0x40), 0);
+        ((void (__thiscall *)(int *))CTXBSTR::CTXBSTR)(&v51);
+        v7 = *(_DWORD **)(a1 + 0x40);
+        v8 = *v7;
+        v55 = 0;
+        v56 = v7;
+        v9 = CTXBSTR::operator&(&v51);
+        (*(void (__stdcall **)(_DWORD *, int))(v8 + 0x5C8))(v56, v9);
+        v10 = *(_DWORD *)(v2 + 0x40);
+        a2 = 0;
+        v11 = 0;
+        (*(void (__stdcall **)(int, int *))(*(_DWORD *)v10 + 0x4A0))(v10, &a2);
+        v52 = 0;
+        v12 = *(int **)(v2 + 0x40);
+        v13 = *v12;
+        LOBYTE(v55) = 1;
+        (*(void (__stdcall **)(int *, signed int, _DWORD, int *, _DWORD))(v13 + 0x330))(v12, 0x43C, 0, &v52, 0);
+        if ( v52 )
+          v11 = (*(int (__stdcall **)(int))(*(_DWORD *)v52 + 0x10))(v52);
+        a2 += v11;
+        v14 = !CTXBSTR::IsEmpty((CTXBSTR *)&v51) || a2;
+        (*(void (__stdcall **)(_DWORD, int))(**(_DWORD **)(v2 + 0x100) + 0x104))(*(_DWORD *)(v2 + 0x100), v14);
+        (*(void (__stdcall **)(_DWORD, signed int))(**(_DWORD **)(v2 + 0x4C) + 0x104))(*(_DWORD *)(v2 + 0x4C), 1);
+        v15 = *(_DWORD *)v2;
+        v46 = 0;
+        v47 = 0;
+        (*(void (__stdcall **)(int, int *))(v15 + 0x190))(v2, &v46);
+        (*(void (__stdcall **)(int, int, int))(*(_DWORD *)v2 + 0x194))(v2, ++v46, v47);
+        (*(void (__stdcall **)(int, int, int))(*(_DWORD *)v2 + 0x194))(v2, --v46, v47);
+        (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)v2 + 0x130))(v2, 0);
+        LOBYTE(v55) = 0;
+        if ( v52 )
+          (*(void (__stdcall **)(int))(*(_DWORD *)v52 + 8))(v52);
+        CTXBSTR::~CTXBSTR(&v51);
+      }
+    }
+    else
+    {
+      v6 = *(_DWORD *)(a1 + 0x40);
+      v42 = 0;
+      *(_DWORD *)(a1 + 0x110) = 1;
+      (*(void (__stdcall **)(int, int))(*(_DWORD *)v6 + 0x478))(v6, v42);
+      v44 = 3;
+      v45 = 2;
+      v46 = 3;
+      v47 = 2;
+      (*(void (__stdcall **)(_DWORD, signed int, signed int, signed int, signed int))(**(_DWORD **)(a1 + 0x40) + 0x1B4))(
+        *(_DWORD *)(a1 + 0x40),
+        3,
+        2,
+        3,
+        2);
+      (*(void (__stdcall **)(_DWORD, signed int))(**(_DWORD **)(a1 + 0x40) + 0x45C))(*(_DWORD *)(a1 + 0x40), 1);
+      (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(a1 + 0x40) + 0x460))(*(_DWORD *)(a1 + 0x40), 0);
+      (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(a1 + 0x40) + 0x418))(*(_DWORD *)(a1 + 0x40), 0);
+      (*(void (__stdcall **)(_DWORD, signed int))(**(_DWORD **)(a1 + 0x100) + 0x104))(*(_DWORD *)(a1 + 0x100), 1);
+      (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(a1 + 0x40) + 0x160))(*(_DWORD *)(a1 + 0x40), 0);
+      (*(void (__stdcall **)(_DWORD, signed int))(**(_DWORD **)(a1 + 0x40) + 0x534))(*(_DWORD *)(a1 + 0x40), 1);
+      (*(void (__stdcall **)(_DWORD, signed int))(**(_DWORD **)(a1 + 0x40) + 0x474))(*(_DWORD *)(a1 + 0x40), 1);
+      (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(a1 + 0x40) + 0x154))(
+        *(_DWORD *)(a1 + 0x40),
+        *(_DWORD *)(a1 + 0x6C));
+      (*(void (__stdcall **)(_DWORD, signed int))(**(_DWORD **)(a1 + 0x40) + 0x5C4))(*(_DWORD *)(a1 + 0x40), 1);  //6576F949
+      (*(void (__stdcall **)(_DWORD, _DWORD))(**(_DWORD **)(a1 + 0x4C) + 0x104))(
+        *(_DWORD *)(a1 + 0x4C),
+        *(_DWORD *)(a1 + 0x84) == 1);
+      (*(void (__stdcall **)(_DWORD, signed int))(**(_DWORD **)(a1 + 0x4C) + 0x104))(*(_DWORD *)(a1 + 0x4C), 1);
+      if ( *(_DWORD *)(a1 + 0x40) && sub_6576EB8B(a1) <= 0 )
+      {
+        v44 = 3;
+        v45 = 2;
+        v46 = 3;
+        v47 = 2;
+        (*(void (__stdcall **)(_DWORD, signed int, signed int, signed int, signed int))(**(_DWORD **)(a1 + 0x40) + 0x1B4))(
+          *(_DWORD *)(a1 + 0x40),
+          3,
+          2,
+          3,
+          2);
+      }
+      (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)a1 + 0x130))(a1, *(_DWORD *)(a1 + 0x64));
+      sub_6576F396(a1);
+    }
+    v53 = 0;
+    v55 = 2;
+    Util::Data::CreateTXData((Util::Data *)&v53, v43);
+    v16 = *(_DWORD *)(v2 + 0x80);
+    if ( v16 != v48 )
+    {
+      if ( v16 )
+      {
+        if ( !*(_DWORD *)(v2 + 0x84) )
+        {
+          v24 = *(_DWORD *)v2;
+          v46 = 0;
+          v47 = 0;
+          (*(void (__stdcall **)(int, int *))(v24 + 0x190))(v2, &v46);
+          v25 = v46 - *(_DWORD *)(v2 + 0x88);
+          v26 = *(_DWORD *)v2;
+          v42 = v47 - *(_DWORD *)(v2 + 0x8C);
+          v46 = v25;
+          v47 = v42;
+          (*(void (__stdcall **)(int, int, int))(v26 + 0x194))(v2, v25, v42);
+          (*(void (__stdcall **)(int, int *))(*(_DWORD *)v2 + 0x1A8))(v2, &v49);
+          v27 = v49 - *(_DWORD *)(v2 + 0x90);
+          v28 = *(_DWORD *)v2;
+          v42 = v50 - *(_DWORD *)(v2 + 0x94);
+          v49 = v27;
+          v50 = v42;
+          (*(void (__stdcall **)(int, int, int))(v28 + 0x1AC))(v2, v27, v42);
+        }
+        v29 = *(_DWORD *)(v2 + 0x120);
+        if ( v29 )
+          (*(void (__stdcall **)(int, int, _DWORD, int, int, int, int, _DWORD))(*(_DWORD *)v29 + 0x3FC))(
+            v29,
+            v2,
+            0,
+            v44,
+            v45,
+            v46,
+            v47,
+            0);
+        if ( *(_DWORD *)(v2 + 0x80) != v48 )
+        {
+          v30 = Util::Contact::GetSelfUin(4);
+          a2 = Util::Contact::IsFlagValid(v30, v42);
+          ((void (__thiscall *)(char *))CTXBSTR::CTXBSTR)(&v54);
+          v31 = *(_DWORD **)(v2 + 0x40);
+          v32 = *v31;
+          LOBYTE(v55) = 3;
+          v57 = v31;
+          v42 = CTXBSTR::operator&(&v54);
+          (*(void (__stdcall **)(_DWORD *, int))(v32 + 0x5D8))(v57, v42);
+          ((void (__thiscall *)(int *))CTXBSTR::CTXBSTR)(&v50);
+          v33 = *(_DWORD **)(v2 + 0x40);
+          v34 = *v33;
+          LOBYTE(v55) = 4;
+          v58 = v33;
+          v42 = CTXBSTR::operator&(&v50);
+          (*(void (__stdcall **)(_DWORD *, int))(v34 + 0x5C8))(v58, v42);
+          v35 = (unsigned __int8)CTXBSTR::operator!=(&v54, &v50);
+          v51 = (unsigned __int8)v35;
+          if ( !a2 && v35 )
+          {
+            v36 = (_DWORD *)(v2 + 0x120);
+            if ( !*(_DWORD *)(v2 + 0x120) )
+            {
+              sub_6576F567(v2 + 0x120);
+              v59 = (_DWORD *)*v36;
+              v37 = (void (__stdcall **)(_DWORD, _DWORD))(*(_DWORD *)*v36 + 0x3F4);
+              v42 = sub_658051DD(v2);
+              (*v37)(v59, v42);
+            }
+            v38 = *(_DWORD **)(v2 + 0x120);
+            v60 = *(_DWORD *)(v2 + 0x120);
+            if ( v38 )
+            {
+              v39 = (void (__stdcall **)(_DWORD, _DWORD))(*v38 + 0x404);
+              v42 = sub_658051DD(v2);
+              (*v39)(v60, v42);
+            }
+            v40 = CTXBSTR::operator wchar_t *(&v54);
+            sub_6576E916(v40);
+          }
+          v42 = v51;
+          (*(void (__stdcall **)(int, const wchar_t *, int))(*(_DWORD *)v53 + 0xCC))(v53, L"bHaveExtCF", v51);
+          CTXBSTR::~CTXBSTR(&v50);
+          LOBYTE(v55) = 2;
+          CTXBSTR::~CTXBSTR(&v54);
+        }
+      }
+      else
+      {
+        v17 = *(_DWORD *)v2;
+        v18 = CTXBSTR::operator&(v2 + 0x108);
+        (*(void (__stdcall **)(int, int))(v17 + 0x330))(v2, v18);
+        if ( !*(_DWORD *)(v2 + 0x84) )
+        {
+          v19 = *(_DWORD *)v2;
+          v46 = 0;
+          v47 = 0;
+          (*(void (__stdcall **)(int, int *))(v19 + 0x190))(v2, &v46);
+          v20 = *(_DWORD *)(v2 + 0x88) + v46;
+          v21 = *(_DWORD *)v2;
+          v42 = *(_DWORD *)(v2 + 0x8C) + v47;
+          v46 = v20;
+          v47 = v42;
+          (*(void (__stdcall **)(int, int, int))(v21 + 0x194))(v2, v20, v42);
+          (*(void (__stdcall **)(int, int *))(*(_DWORD *)v2 + 0x1A8))(v2, &v49);
+          v22 = *(_DWORD *)(v2 + 0x90) + v49;
+          v23 = *(_DWORD *)v2;
+          v42 = *(_DWORD *)(v2 + 0x94) + v50;
+          v49 = v22;
+          v50 = v42;
+          (*(void (__stdcall **)(int, int, int))(v23 + 0x1AC))(v2, v22, v42);
+        }
+      }
+    }
+    v41 = *(_DWORD *)v2;
+    v42 = 0;
+    (*(void (__stdcall **)(int))(v41 + 0x98))(v2);
+    if ( *(_DWORD *)(v2 + 0x80) != v48 )
+      (*(void (__stdcall **)(int, signed int, int))(*(_DWORD *)(v2 + 0x14) + 0x3C))(v2 + 0x14, 0x65, v53);
+    v55 = 0xFFFFFFFF;
+    if ( v53 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)v53 + 8))(v53);
+    result = 0;
+  }
+  return result;
+}
+
+=================================================================================================================================================================================================//6576F6EF | FF90 64030000            | call dword ptr ds:[eax+364]             |
+int __thiscall sub_6576F6C3(char *this, int a2, int a3, int a4, int a5, int a6)
+{
+  char *v6; // esi@1
+
+  v6 = this;
+  sub_65765AA6(this + 0x10, a2, a3, a4, a5, a6);
+  if ( *((_DWORD *)v6 + 0x20) == 1 )
+  {
+    (*(void (__stdcall **)(char *, _DWORD))(*(_DWORD *)v6 + 0x364))(v6, 0); //6576F6EF
+    (*(void (__stdcall **)(_DWORD))(**((_DWORD **)v6 + 0x10) + 0x2C0))(*((_DWORD *)v6 + 0x10));
+  }
+  return 0;
+}
+=================================================================================================================================================================================================//6576FF61 | E8 5DF7FFFF              | call afctrl.6576F6C3                    |
+int __stdcall sub_6576FF14(int a1, int a2, int *a3, int a4, int a5, int a6)
+{
+  int v6; // eax@1
+  int v7; // eax@3
+  int v8; // eax@4
+  int v9; // eax@5
+  int result; // eax@7
+  int v11; // eax@12
+  int v12; // eax@13
+
+  v6 = *a3;
+  if ( *a3 <= 0x6B )
+  {
+    if ( *a3 == 0x6B )
+      return sub_6576F6C3(a2, a3, a4, a5, a6); //6576FF61
+    v7 = v6 - 0x66;
+    if ( !v7 )
+      return sub_6576F7CD(a2, a3, a4, a5, a6);
+    v8 = v7 - 1;
+    if ( !v8 )
+      return sub_6576F803(a2, a3, a4, a5, a6);
+    v9 = v8 - 2;
+    if ( !v9 )
+      return sub_6576F6C3(a2, a3, a4, a5, a6);
+    if ( v9 == 1 )
+      return sub_6576F708(a2, a3, a4, a5, a6);
+    return sub_65765AA6(a1, a2, a3, a4, a5, a6);
+  }
+  v11 = v6 - 0x6C;
+  if ( !v11 )
+    return sub_6576F708(a2, a3, a4, a5, a6);
+  v12 = v11 - 0x5F;
+  if ( v12 )
+  {
+    if ( v12 != 0x320 )
+      return sub_65765AA6(a1, a2, a3, a4, a5, a6);
+    result = sub_6576F5C9(a2, a3, a4, a5, a6);
+  }
+  else
+  {
+    result = sub_6576F742(a2, a3, a4, a5, a6);
+  }
+  return result;
+}
+=================================================================================================================================================================================================//3082940E | FF51 1C                  | call dword ptr ds:[ecx+1C]              |gf
+int __cdecl sub_30829384(int a1, int a2, int a3, int a4, int a5, _DWORD *a6)
+{
+  int v6; // edi@2
+  int v8; // eax@7
+  int v9; // [sp+Ch] [bp-18h]@2
+  int v10; // [sp+10h] [bp-14h]@7
+  int v11; // [sp+14h] [bp-10h]@1
+  unsigned int v12; // [sp+20h] [bp-4h]@1
+
+  sub_308290FD(a1);
+  v12 = 0;
+  if ( v11 )
+  {
+    v9 = 1;
+    v6 = (*(int (__stdcall **)(int, int, int, int, int, _DWORD *, int *))(*(_DWORD *)v11 + 0x2C))(
+           v11,
+           a2,
+           a3,
+           a4,
+           a5,
+           a6,
+           &v9);
+    if ( !*a6 || !v9 )
+    {
+LABEL_4:
+      v12 = 0xFFFFFFFF;
+      if ( v11 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)v11 + 8))(v11);
+      return v6;
+    }
+  }
+  sub_3082911F(a1);
+  v8 = v10;
+  LOBYTE(v12) = 1;
+  if ( v10 )
+  {
+    v6 = (*(int (__stdcall **)(int, int, int, int, int, _DWORD *))(*(_DWORD *)v10 + 0x1C))(v10, a2, a3, a4, a5, a6); //3082940E
+    v8 = v10;
+    if ( !*a6 )
+    {
+      LOBYTE(v12) = 0;
+      if ( v10 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)v10 + 8))(v10);
+      goto LABEL_4;
+    }
+  }
+  LOBYTE(v12) = 0;
+  if ( v8 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v8 + 8))(v8);
+  v12 = 0xFFFFFFFF;
+  if ( v11 )
+    (*(void (__stdcall **)(int))(*(_DWORD *)v11 + 8))(v11);
+  return 0;
+}
+=================================================================================================================================================================================================//30825697 | E8 E83C0000              | call gf.30829384                        |
+
+Util::GF *__cdecl Util::GF::DispatchFrameMsg(Util::GF *this, struct IGFFrame *a2, struct tagBaseArg *a3, int *a4, __int32 *a5)
+{
+  Util::GF *v5; // edi@1
+  Util::GF *result; // eax@9
+  int v7; // ecx@12
+  _DWORD *v8; // eax@21
+  int v9; // eax@23
+  int *v10; // eax@33
+  struct IGFElement *v11; // [sp-4h] [bp-58h]@0
+  struct IGFElement *v12; // [sp-4h] [bp-58h]@2
+  int v13; // [sp+Ch] [bp-48h]@14
+  int v14; // [sp+10h] [bp-44h]@10
+  int v15; // [sp+14h] [bp-40h]@10
+  int v16; // [sp+18h] [bp-3Ch]@10
+  char v17; // [sp+1Ch] [bp-38h]@23
+  char v18; // [sp+28h] [bp-2Ch]@20
+  char v19; // [sp+2Ch] [bp-28h]@22
+  Util::GF *v20; // [sp+34h] [bp-20h]@4
+  char v21; // [sp+38h] [bp-1Ch]@33
+  Util::GF *v22; // [sp+3Ch] [bp-18h]@4
+  int v23; // [sp+40h] [bp-14h]@7
+  Util::GF *v24; // [sp+44h] [bp-10h]@12
+  unsigned int v25; // [sp+50h] [bp-4h]@1
+
+  v5 = this;
+  sub_30825EEA(this);
+  v25 = 0;
+  if ( v5 && Util::GF::IsValidGFElement(v5, v11) )
+  {
+    this = 0;
+    LOBYTE(v25) = 1;
+    sub_308249DE(&this);
+    if ( this
+      && (v22 = 0,
+          v20 = (Util::GF *)(*(int (__stdcall **)(Util::GF *, Util::GF *, struct IGFFrame *, struct tagBaseArg *, int *, int *))(*(_DWORD *)this + 0x28))(
+                              this,
+                              v5,
+                              a2,
+                              a3,
+                              a4,
+                              (int *)&v22),
+          v22) )
+    {
+      LOBYTE(v25) = 0;
+      if ( this )
+        (*(void (__stdcall **)(Util::GF *))(*(_DWORD *)this + 8))(this);
+      v25 = 0xFFFFFFFF;
+      if ( v23 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)v23 + 8))(v23);
+      result = v20;
+    }
+    else
+    {
+      v14 = 0;
+      v15 = 0;
+      v16 = 0;
+      LOBYTE(v25) = 2;
+      if ( !a5 )
+      {
+        sub_309227B6(8);
+        sub_30825EEA(v5);
+        while ( v22 )
+        {
+          v24 = 0;
+          v7 = *(_DWORD *)v22;
+          LOBYTE(v25) = 4;
+          (*(void (__stdcall **)(Util::GF *, Util::GF **))(v7 + 0xB4))(v22, &v24);
+          if ( v24 && Util::GF::IsValidGFElement(v24, v12) )
+            sub_308409E1(&v13, (int)&v24);
+          if ( v22 != v24 )
+            AtlComPtrAssign(&v22, v24);
+          LOBYTE(v25) = 3;
+          if ( v24 )
+            (*(void (__stdcall **)(Util::GF *))(*(_DWORD *)v24 + 8))(v24);
+        }
+        LOBYTE(v25) = 2;
+        sub_3087E330(&v18);
+        while ( 1 )
+        {
+          v9 = sub_3087E357(&v17);
+          if ( (unsigned __int8)sub_3087DFCF(v9) )
+            break;
+          v22 = (Util::GF *)1;
+          v8 = (_DWORD *)sub_308224CA(&v18);
+          v24 = (Util::GF *)sub_308292B9(*v8, v5, a2, a3, a4, &v22);
+          if ( !v22 )
+            goto LABEL_28;
+          sub_308216F6(&v19);
+        }
+      }
+      v22 = (Util::GF *)1;
+      v24 = (Util::GF *)sub_308292B9(v5, v5, a2, a3, a4, &v22);
+      if ( v22 )
+      {
+        v22 = (Util::GF *)1;
+        v24 = (Util::GF *)sub_30829384((int)v5, (int)v5, (int)a2, (int)a3, (int)a4, &v22);
+        if ( v22 )
+        {
+          if ( !a5 )
+          {
+            sub_3087E061(v14, &v13);
+            while ( 1 )
+            {
+              sub_3087E061(v15, &v13);
+              if ( (unsigned __int8)sub_309142AD(&v19) )
+                break;
+              v20 = (Util::GF *)1;
+              v10 = (int *)sub_3080DB78(&v21);
+              v24 = (Util::GF *)sub_30829384(*v10, (int)v5, (int)a2, (int)a3, (int)a4, &v20); //30825697
+              if ( !v20 )
+                break;
+              sub_30825EC4(&v21);
+            }
+          }
+        }
+      }
+LABEL_28:
+      sub_3080401E((int)&v13);
+      LOBYTE(v25) = 0;
+      if ( this )
+        (*(void (__stdcall **)(Util::GF *))(*(_DWORD *)this + 8))(this);
+      v25 = 0xFFFFFFFF;
+      if ( v23 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)v23 + 8))(v23);
+      result = v24;
+    }
+  }
+  else
+  {
+    v25 = 0xFFFFFFFF;
+    if ( v23 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)v23 + 8))(v23);
+    result = (Util::GF *)0x80004005;
+  }
+  return result;
+}
+=================================================================================================================================================================================================//30918762 | E8 0DCDF0FF              | call <gf.?DispatchFrameMsg@GF@Util@@YAJ |
+Util::GF *__stdcall sub_30918698(Util::GF *a1, void *Src, struct tagBaseArg *a3, int *a4, __int32 *a5)
+{
+  Util::GF *result; // eax@2
+  struct IGFFrame *v6; // esi@4
+  int v7; // eax@4
+  int v8; // eax@7
+  int v9; // eax@14
+  struct IGFElement *v10; // [sp+0h] [bp-28h]@0
+  Util::GF *v11; // [sp+0h] [bp-28h]@1
+  int Dst; // [sp+8h] [bp-20h]@7
+
+  if ( Util::GF::IsValidGFElement(a1, v10) )
+  {
+    if ( Util::GF::GetCurrentModeId(v11) == 1 )
+    {
+      v6 = (struct IGFFrame *)Src;
+      v7 = *(_DWORD *)Src;
+      if ( *(_DWORD *)Src == 0x65 || v7 == 0x66 || v7 == 0x67 )
+      {
+        memcpy(&Dst, Src, 0x20u);
+        v8 = *(_DWORD *)Src;
+        if ( *(_DWORD *)Src == 0x65 )
+          Dst = 0x75;
+        if ( v8 == 0x66 )
+          Dst = 0x74;
+        if ( v8 == 0x67 )
+          Dst = 0x76;
+        Util::GF::DispatchFrameMsg(a1, (struct IGFFrame *)&Dst, a3, a4, (__int32 *)1);
+      }
+      v9 = *(_DWORD *)a1;
+      Src = 0;
+      (*(void (__stdcall **)(Util::GF *, void **))(v9 + 0x114))(a1, &Src);
+      if ( Src )
+        result = Util::GF::DispatchFrameMsg(a1, v6, a3, a4, a5);  //30918762
+      else
+        result = 0;
+    }
+    else
+    {
+      result = Util::GF::DispatchFrameMsg(a1, (struct IGFFrame *)Src, a3, a4, a5);
+    }
+  }
+  else
+  {
+    sub_309183DA(a1);
+    result = (Util::GF *)0x80004005;
+  }
+  return result;
+}
+
+=================================================================================================================================================================================================//3091AA65 | E8 2EDCFFFF              | call gf.30918698    
+unsigned int __stdcall sub_3091A800(int a1, HWND a2, int a3, int a4, int a5, struct tagBaseArg *a6)
+{
+  int v6; // eax@2
+  Util::GF *v7; // eax@3
+  Util::GF *v8; // ST00_4@5
+  unsigned int result; // eax@10
+  int v10; // ecx@36
+  int Dst; // [sp+Ch] [bp-50h]@3
+  char v12; // [sp+14h] [bp-48h]@3
+  int v13; // [sp+1Ch] [bp-40h]@7
+  int v14; // [sp+20h] [bp-3Ch]@7
+  HWND v15; // [sp+24h] [bp-38h]@7
+  int v16; // [sp+28h] [bp-34h]@35
+  int v17; // [sp+2Ch] [bp-30h]@25
+  int v18; // [sp+30h] [bp-2Ch]@17
+  int v19; // [sp+34h] [bp-28h]@13
+  int v20; // [sp+38h] [bp-24h]@3
+  int v21; // [sp+3Ch] [bp-20h]@3
+  int v22; // [sp+40h] [bp-1Ch]@11
+  int v23; // [sp+44h] [bp-18h]@20
+  int v24; // [sp+48h] [bp-14h]@11
+  Util::GF *v25; // [sp+4Ch] [bp-10h]@3
+  unsigned int v26; // [sp+58h] [bp-4h]@3
+
+  if ( a6 && (v6 = *(_DWORD *)(a1 + 0x28)) != 0 )
+  {
+    v20 = 0;
+    v21 = 0;
+    v25 = 0;
+    v26 = 0;
+    sub_30829EE5(v6, &a3, &v25);
+    Dst = 0;
+    memset(&v12, 0, 0x18u);
+    v7 = *(Util::GF **)(a1 + 0x2C);
+    if ( v7 != v25 )
+    {
+      if ( v7 )
+      {
+        sub_309178DA(&Dst);
+        v8 = *(Util::GF **)(a1 + 0x2C);
+        Dst = 0x67;
+        sub_30918698(v8, &Dst, (struct tagBaseArg *)&v20, &v21, 0);
+        sub_308430BD(0);
+      }
+      if ( v25 )
+      {
+        sub_309178DA(&Dst);
+        v13 = a3;
+        v14 = a4;
+        v15 = (HWND)a5;
+        Dst = 0x66;
+        sub_30918698(v25, &Dst, (struct tagBaseArg *)&v20, &v21, 0);
+      }
+      sub_308BB702(&v25);
+    }
+    if ( v25 )
+    {
+      sub_308BB702(&v25);
+      sub_308BB702(&v25);
+      *(_DWORD *)(a1 + 0x40) = *(_DWORD *)(a1 + 0x38);
+      *(_DWORD *)(a1 + 0x44) = *(_DWORD *)(a1 + 0x3C);
+      *(_DWORD *)(a1 + 0x38) = a3;
+      *(_DWORD *)(a1 + 0x3C) = a4;
+      v22 = 0;
+      sub_30829141(*(_DWORD *)(a1 + 0x28));
+      LOBYTE(v26) = 2;
+      if ( v24 )
+        (*(void (__stdcall **)(int, int *))(*(_DWORD *)v24 + 0x20))(v24, &v22);
+      sub_3082E704(v25);
+      LOBYTE(v26) = 3;
+      v19 = 0;
+      if ( !a1 || (*(int (__stdcall **)(int, int *))(*(_DWORD *)a1 + 0x114))(a1, &v19) < 0 || !v19 )
+        sub_308430BD(v22);
+      v18 = 0;
+      if ( !a1 || (*(int (__stdcall **)(int, int *))(*(_DWORD *)a1 + 0x2E4))(a1, &v18) < 0 || !v18 )
+      {
+        v23 = 0;
+        LOBYTE(v26) = 4;
+        do
+        {
+          if ( !a1 || (*(int (__stdcall **)(int, int *))(*(_DWORD *)a1 + 0x2B0))(a1, &v23) < 0 || !v23 )
+            break;
+          sub_308430BD(v23);
+          if ( v23 )
+            AtlComPtrAssign(&v23, 0);
+          v17 = 0;
+          if ( !a1 )
+            break;
+        }
+        while ( (*(int (__stdcall **)(int, int *))(*(_DWORD *)a1 + 0x2E4))(a1, &v17) < 0 || !v17 );
+        LOBYTE(v26) = 3;
+        if ( v23 )
+          (*(void (__stdcall **)(int))(*(_DWORD *)v23 + 8))(v23);
+      }
+      if ( a1 && a1 != v22 && v24 )
+      {
+        (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)v24 + 0x1C))(v24, 0);
+        (*(void (__stdcall **)(int, int))(*(_DWORD *)v24 + 0x2C))(v24, a1);
+      }
+      sub_309178DA(&Dst);
+      v15 = a2;
+      v13 = a3;
+      v14 = a4;
+      v16 = a5;
+      Dst = 0x69;
+      sub_30918698(v25, &Dst, a6, &v21, 0); //30918698
+      if ( v24 )
+      {
+        a5 = 0;
+        v10 = *(_DWORD *)v24;
+        LOBYTE(v26) = 5;
+        (*(void (__stdcall **)(int, int *))(v10 + 0x20))(v24, &a5);
+        if ( a5 == a1 && v22 != a1 && sub_30829163(*(HWND *)(a1 + 0x28))
+          || a1
+          && v24
+          && (a6 = 0,
+              a2 = 0,
+              (*(void (__stdcall **)(int, struct tagBaseArg **))(*(_DWORD *)a1 + 0x20C))(a1, &a6),
+              (*(void (__stdcall **)(int, HWND *))(*(_DWORD *)a1 + 0x200))(a1, &a2),
+              (struct tagBaseArg *)GetFocus() != a6)
+          && GetActiveWindow() == a2
+          && a1 != *(_DWORD *)(a1 + 0x28) )
+        {
+          (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)v24 + 0x2C))(v24, 0);
+          (*(void (__stdcall **)(int, int))(*(_DWORD *)v24 + 0x1C))(v24, a1);
+        }
+        LOBYTE(v26) = 3;
+        if ( a5 )
+          (*(void (__stdcall **)(int))(*(_DWORD *)a5 + 8))(a5);
+      }
+      LOBYTE(v26) = 2;
+      if ( a1 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)a1 + 8))(a1);
+      LOBYTE(v26) = 1;
+      if ( v24 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)v24 + 8))(v24);
+      LOBYTE(v26) = 0;
+      if ( v22 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)v22 + 8))(v22);
+      v26 = 0xFFFFFFFF;
+      if ( v25 )
+        (*(void (__stdcall **)(Util::GF *))(*(_DWORD *)v25 + 8))(v25);
+    }
+    result = 0;
+  }
+  else
+  {
+    result = 0x80004005;
+  }
+  return result;
+}
+                  
+=================================================================================================================================================================================================//30921938 | FF90 A4000000            | call dword ptr ds:[eax+A4]              |
+void __thiscall sub_309218E7(int this, HWND hWnd, int a3, int a4, int a5, int a6, int a7)
+{
+  int v7; // esi@1
+  HWND v8; // edi@2
+  struct tagPOINT Point; // [sp+4h] [bp-8h]@4
+
+  v7 = this;
+  if ( *(_DWORD *)(this + 0x24) )
+  {
+    v8 = *(HWND *)(this + 4);
+    if ( GetCapture() != v8 )
+      SetCapture(v8);
+    Point.x = a4;
+    Point.y = a5;
+    ClientToScreen(hWnd, &Point);
+    (*(void (__stdcall **)(_DWORD, int, LONG, LONG, int, int))(**(_DWORD **)(v7 + 0x24) + 0xA4))( //30921938
+      *(_DWORD *)(v7 + 0x24),
+      a3,
+      Point.x,
+      Point.y,
+      a6,
+      a7);
+  }
+}
+
+=================================================================================================================================================================================================//30920EB7 | FF52 64                  | call dword ptr ds:[edx+64]              |
+LRESULT __thiscall sub_3092072C(void *this, UINT Msg, WPARAM wParam, LPARAM lParam, int a5)
+{
+  int v5; // eax@1
+  LRESULT result; // eax@9
+
+  v5 = a5;
+  *(_DWORD *)a5 = 0;
+  if ( Msg == 0x50 || Msg == 0x51 )
+  {
+    *(_DWORD *)a5 = 1;
+    result = DefWindowProcW(*((HWND *)this + 1), Msg, wParam, lParam);
+  }
+  else
+  {
+    if ( !*((_DWORD *)this + 6) && Msg != 0x100 && Msg != 0x104 && Msg != 0x105 && Msg != 0x101 && Msg != 0x20A )
+      return 0;
+    if ( Msg > 0x1C )
+    {
+      if ( Msg > 0x125 )
+      {
+        if ( Msg > 0x231 )
+        {
+          if ( Msg > 0x291 )
+          {
+            if ( Msg > 0x303 )
+            {
+              if ( Msg == 0x304 )
+              {
+                (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 0x130))(*((_DWORD *)this + 1), a5);
+                return 0;
+              }
+              if ( Msg == 0x312 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, unsigned int, int))(*(_DWORD *)this + 0x50))(
+                  *((_DWORD *)this + 1),
+                  wParam,
+                  (unsigned __int16)lParam,
+                  (unsigned int)lParam >> 0x10,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 0x31E )
+                return (*(int (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x118))(
+                         *((_DWORD *)this + 1),
+                         wParam,
+                         lParam,
+                         a5);
+            }
+            else
+            {
+              if ( Msg == 0x303 )
+              {
+                (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 0x12C))(*((_DWORD *)this + 1), a5);
+                return 0;
+              }
+              if ( Msg == 0x2A3 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x80))(
+                  *((_DWORD *)this + 1),
+                  wParam,
+                  lParam,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 0x300 )
+              {
+                (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 0x128))(*((_DWORD *)this + 1), a5);
+                return 0;
+              }
+              if ( Msg == 0x301 )
+              {
+                (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 0x120))(*((_DWORD *)this + 1), a5);
+                return 0;
+              }
+              if ( Msg == 0x302 )
+              {
+                (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 0x124))(*((_DWORD *)this + 1), a5);
+                return 0;
+              }
+            }
+          }
+          else
+          {
+            if ( Msg == 0x291 )
+              return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x154))(
+                       *((_DWORD *)this + 1),
+                       0x291,
+                       wParam,
+                       lParam,
+                       a5);
+            if ( Msg > 0x284 )
+            {
+              if ( Msg == 0x285 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x144))(
+                         *((_DWORD *)this + 1),
+                         0x285,
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 0x286 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x148))(
+                         *((_DWORD *)this + 1),
+                         0x286,
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 0x288 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x14C))(
+                         *((_DWORD *)this + 1),
+                         0x288,
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 0x290 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x150))(
+                         *((_DWORD *)this + 1),
+                         0x290,
+                         wParam,
+                         lParam,
+                         a5);
+            }
+            else
+            {
+              if ( Msg == 0x284 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x140))(
+                         *((_DWORD *)this + 1),
+                         0x284,
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 0x232 )
+                return (*(int (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 0x48))(*((_DWORD *)this + 1), a5);
+              if ( Msg == 0x281 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x134))(
+                         *((_DWORD *)this + 1),
+                         0x281,
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 0x282 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x138))(
+                         *((_DWORD *)this + 1),
+                         0x282,
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 0x283 )
+                return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x13C))(
+                         *((_DWORD *)this + 1),
+                         0x283,
+                         wParam,
+                         lParam,
+                         a5);
+            }
+          }
+        }
+        else
+        {
+          if ( Msg == 0x231 )
+            return (*(int (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 0x34))(*((_DWORD *)this + 1), a5);
+          switch ( Msg )
+          {
+            case 0x216u:
+              (*(void (__stdcall **)(_DWORD, LPARAM, int))(*(_DWORD *)this + 0x90))(*((_DWORD *)this + 1), lParam, a5);
+              return 0;
+            case 0x214u:
+              (*(void (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 0xEC))(
+                *((_DWORD *)this + 1),
+                wParam,
+                lParam,
+                a5);
+              return 0;
+            case 0x211u:
+              LOBYTE(v5) = wParam != 0;
+              return (*(int (__stdcall **)(_DWORD, int, int))(*(_DWORD *)this + 0x30))(*((_DWORD *)this + 1), v5, a5);
+            case 0x212u:
+              LOBYTE(v5) = wParam != 0;
+              return (*(int (__stdcall **)(_DWORD, int, int))(*(_DWORD *)this + 0x44))(*((_DWORD *)this + 1), v5, a5);
+            case 0x201u:  //30920EB7
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0x64))(
+                *((_DWORD *)this + 1),
+                0,
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x202u:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0x68))(
+                *((_DWORD *)this + 1),
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x203u:
+              (*(void (__stdcall **)(_DWORD, signed int, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0x64))(
+                *((_DWORD *)this + 1),
+                1,
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x204u:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0x6C))(
+                *((_DWORD *)this + 1),
+                0,
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x205u:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0x70))(
+                *((_DWORD *)this + 1),
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x206u:
+              (*(void (__stdcall **)(_DWORD, signed int, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0x6C))(
+                *((_DWORD *)this + 1),
+                1,
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x207u:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0x74))(
+                *((_DWORD *)this + 1),
+                0,
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x208u:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0x78))(
+                *((_DWORD *)this + 1),
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x209u:
+              (*(void (__stdcall **)(_DWORD, signed int, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0x74))(
+                *((_DWORD *)this + 1),
+                1,
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x200u:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0x84))(
+                *((_DWORD *)this + 1),
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                wParam,
+                a5);
+              return 0;
+            case 0x20Au:
+              (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, int))(*(_DWORD *)this + 0x88))(
+                *((_DWORD *)this + 1),
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                SHIWORD(wParam),
+                (signed __int16)wParam,
+                a5);
+              return 0;
+            default:
+              break;
+          }
+        }
+      }
+      else
+      {
+        if ( Msg == 0x125 )
+          return (*(int (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x110))(
+                   *((_DWORD *)this + 1),
+                   wParam,
+                   lParam,
+                   a5);
+        if ( Msg > 0xA3 )
+        {
+          if ( Msg > 0x105 )
+          {
+            if ( Msg == 0x106 )
+            {
+              (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, int))(*(_DWORD *)this + 0x100))(
+                *((_DWORD *)this + 1),
+                wParam,
+                (signed __int16)lParam,
+                a5);
+              return 0;
+            }
+            if ( Msg == 0x10D )
+              return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x158))(
+                       *((_DWORD *)this + 1),
+                       0x10D,
+                       wParam,
+                       lParam,
+                       a5);
+            if ( Msg == 0x10E )
+              return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x15C))(
+                       *((_DWORD *)this + 1),
+                       0x10E,
+                       wParam,
+                       lParam,
+                       a5);
+            if ( Msg == 0x10F )
+              return (*(int (__stdcall **)(_DWORD, signed int, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x160))(
+                       *((_DWORD *)this + 1),
+                       0x10F,
+                       wParam,
+                       lParam,
+                       a5);
+            if ( Msg == 0x110 )
+              return (*(int (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x54))(
+                       *((_DWORD *)this + 1),
+                       wParam,
+                       lParam,
+                       a5);
+            if ( Msg == 0x112 )
+            {
+              (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, _DWORD, int))(*(_DWORD *)this + 0xF0))(
+                *((_DWORD *)this + 1),
+                wParam,
+                (signed __int16)lParam,
+                SHIWORD(lParam),
+                a5);
+              return 0;
+            }
+            if ( Msg == 0x117 )
+            {
+              (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, unsigned int, int))(*(_DWORD *)this + 0x114))(
+                *((_DWORD *)this + 1),
+                wParam,
+                (unsigned __int16)lParam,
+                (unsigned int)lParam >> 0x10,
+                a5);
+              return 0;
+            }
+          }
+          else
+          {
+            if ( Msg == 0x105 )
+            {
+              (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, _DWORD, unsigned int, int))(*(_DWORD *)this + 0xFC))(
+                *((_DWORD *)this + 1),
+                wParam,
+                0,
+                (signed __int16)lParam,
+                (unsigned int)lParam >> 0x10,
+                a5);
+              return 0;
+            }
+            if ( Msg > 0x100 )
+            {
+              if ( Msg == 0x101 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, _DWORD, unsigned int, int))(*(_DWORD *)this + 0x5C))(
+                  *((_DWORD *)this + 1),
+                  wParam,
+                  0,
+                  (signed __int16)lParam,
+                  (unsigned int)lParam >> 0x10,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 0x102 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, int))(*(_DWORD *)this + 0x1C))(
+                  *((_DWORD *)this + 1),
+                  wParam,
+                  (signed __int16)lParam,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 0x104 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, signed int, _DWORD, unsigned int, int))(*(_DWORD *)this + 0xF8))(
+                  *((_DWORD *)this + 1),
+                  wParam,
+                  1,
+                  (signed __int16)lParam,
+                  (unsigned int)lParam >> 0x10,
+                  a5);
+                return 0;
+              }
+            }
+            else
+            {
+              if ( Msg == 0x100 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, signed int, _DWORD, unsigned int, int))(*(_DWORD *)this + 0x58))(
+                  *((_DWORD *)this + 1),
+                  wParam,
+                  1,
+                  (signed __int16)lParam,
+                  (unsigned int)lParam >> 0x10,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 0xA4 )
+              {
+                (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0xB4))(
+                  *((_DWORD *)this + 1),
+                  0,
+                  (signed __int16)lParam,
+                  SHIWORD(lParam),
+                  wParam,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 0xA5 )
+              {
+                (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0xB8))(
+                  *((_DWORD *)this + 1),
+                  (signed __int16)lParam,
+                  SHIWORD(lParam),
+                  wParam,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 0xA7 )
+              {
+                (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0xBC))(
+                  *((_DWORD *)this + 1),
+                  0,
+                  (signed __int16)lParam,
+                  SHIWORD(lParam),
+                  wParam,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 0xA8 )
+              {
+                (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0xC0))(
+                  *((_DWORD *)this + 1),
+                  (signed __int16)lParam,
+                  SHIWORD(lParam),
+                  wParam,
+                  a5);
+                return 0;
+              }
+            }
+          }
+        }
+        else
+        {
+          if ( Msg == 0xA3 )
+          {
+            (*(void (__stdcall **)(_DWORD, signed int, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0xB0))(
+              *((_DWORD *)this + 1),
+              1,
+              (signed __int16)lParam,
+              SHIWORD(lParam),
+              wParam,
+              a5);
+            return 0;
+          }
+          if ( Msg > 0x81 )
+          {
+            if ( Msg > 0x86 )
+            {
+              if ( Msg == 0xA0 )
+              {
+                (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0xC4))(
+                  *((_DWORD *)this + 1),
+                  (signed __int16)lParam,
+                  SHIWORD(lParam),
+                  wParam,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 0xA1 )
+              {
+                (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0xA8))(
+                  *((_DWORD *)this + 1),
+                  0,
+                  (signed __int16)lParam,
+                  SHIWORD(lParam),
+                  wParam,
+                  a5);
+                return 0;
+              }
+              if ( Msg == 0xA2 )
+              {
+                (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, WPARAM, int))(*(_DWORD *)this + 0xAC))(
+                  *((_DWORD *)this + 1),
+                  (signed __int16)lParam,
+                  SHIWORD(lParam),
+                  wParam,
+                  a5);
+                return 0;
+              }
+            }
+            else
+            {
+              if ( Msg == 0x86 )
+                return (*(int (__stdcall **)(_DWORD, WPARAM, _DWORD, _DWORD, int))(*(_DWORD *)this + 0x94))(
+                         *((_DWORD *)this + 1),
+                         wParam,
+                         0,
+                         0,
+                         a5);
+              if ( Msg == 0x82 )
+              {
+                (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 0xA0))(*((_DWORD *)this + 1), a5);
+                return 0;
+              }
+              if ( Msg == 0x83 )
+                return (*(int (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x98))(
+                         *((_DWORD *)this + 1),
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 0x84 )
+                return (*(int (__stdcall **)(_DWORD, _DWORD, _DWORD, int))(*(_DWORD *)this + 0xC8))(
+                         *((_DWORD *)this + 1),
+                         (signed __int16)lParam,
+                         SHIWORD(lParam),
+                         a5);
+              if ( Msg == 0x85 )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, int))(*(_DWORD *)this + 0xA4))(*((_DWORD *)this + 1), wParam, a5);
+                return 0;
+              }
+            }
+          }
+          else
+          {
+            if ( Msg == 0x81 )
+              return (*(int (__stdcall **)(_DWORD, LPARAM, int))(*(_DWORD *)this + 0x9C))(
+                       *((_DWORD *)this + 1),
+                       lParam,
+                       a5);
+            if ( Msg > 0x46 )
+            {
+              if ( Msg == 0x47 )
+              {
+                (*(void (__stdcall **)(_DWORD, LPARAM, int))(*(_DWORD *)this + 0xD8))(*((_DWORD *)this + 1), lParam, a5);
+                return 0;
+              }
+              if ( Msg == 0x4E )
+                return (*(int (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 0xCC))(
+                         *((_DWORD *)this + 1),
+                         wParam,
+                         lParam,
+                         a5);
+              if ( Msg == 0x7E )
+              {
+                (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, WPARAM, int))(*(_DWORD *)this + 0x2C))(
+                  *((_DWORD *)this + 1),
+                  wParam,
+                  (unsigned __int16)lParam,
+                  wParam >> 0x10,
+                  a5);
+                return 0;
+              }
+            }
+            else
+            {
+              if ( Msg == 0x46 )
+                return (*(int (__stdcall **)(_DWORD, LPARAM, int))(*(_DWORD *)this + 0xD4))(
+                         *((_DWORD *)this + 1),
+                         lParam,
+                         a5);
+              if ( Msg == 0x20 )
+                return (*(int (__stdcall **)(_DWORD, WPARAM, _DWORD, unsigned int, int))(*(_DWORD *)this + 0xE0))(
+                         *((_DWORD *)this + 1),
+                         wParam,
+                         (unsigned __int16)lParam,
+                         (unsigned int)lParam >> 0x10,
+                         a5);
+              if ( Msg == 0x21 )
+                return (*(int (__stdcall **)(_DWORD, WPARAM, _DWORD, unsigned int, int))(*(_DWORD *)this + 0x7C))(
+                         *((_DWORD *)this + 1),
+                         wParam,
+                         (unsigned __int16)lParam,
+                         (unsigned int)lParam >> 0x10,
+                         a5);
+              if ( Msg == 0x24 )
+              {
+                (*(void (__stdcall **)(_DWORD, LPARAM, int))(*(_DWORD *)this + 0x4C))(*((_DWORD *)this + 1), lParam, a5);
+                return 0;
+              }
+              if ( Msg == 0x3D )
+                return (*(int (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x11C))(
+                         *((_DWORD *)this + 1),
+                         wParam,
+                         lParam,
+                         a5);
+            }
+          }
+        }
+      }
+    }
+    else
+    {
+      if ( Msg == 0x1C )
+      {
+        (*(void (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x18))(
+          *((_DWORD *)this + 1),
+          wParam,
+          lParam,
+          a5);
+        return 0;
+      }
+      if ( Msg > 0xA )
+      {
+        if ( Msg == 0xF )
+        {
+          (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 0xD0))(*((_DWORD *)this + 1), a5);
+          return 0;
+        }
+        if ( Msg == 0x10 )
+        {
+          (*(void (__stdcall **)(_DWORD, WPARAM, int))(*(_DWORD *)this + 0x20))(*((_DWORD *)this + 1), wParam, a5);
+          return 0;
+        }
+        if ( Msg == 0x11 )
+          return (unsigned __int16)(*(int (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 0xDC))(
+                                     *((_DWORD *)this + 1),
+                                     a5);
+        if ( Msg == 0x14 )
+          return (*(int (__stdcall **)(_DWORD, WPARAM, int))(*(_DWORD *)this + 0x40))(*((_DWORD *)this + 1), wParam, a5);
+        if ( Msg == 0x16 )
+        {
+          (*(void (__stdcall **)(_DWORD, WPARAM, int))(*(_DWORD *)this + 0x3C))(*((_DWORD *)this + 1), wParam, a5);
+          return 0;
+        }
+        if ( Msg == 0x18 )
+        {
+          (*(void (__stdcall **)(_DWORD, WPARAM, LPARAM, int))(*(_DWORD *)this + 0xF4))(
+            *((_DWORD *)this + 1),
+            wParam,
+            lParam,
+            a5);
+          return 0;
+        }
+      }
+      else
+      {
+        if ( Msg == 0xA )
+        {
+          LOBYTE(v5) = wParam == 1;
+          (*(void (__stdcall **)(_DWORD, int, int))(*(_DWORD *)this + 0x38))(*((_DWORD *)this + 1), v5, a5);
+          return 0;
+        }
+        if ( Msg == 1 )
+          return ((*(int (__stdcall **)(_DWORD, LPARAM, int))(*(_DWORD *)this + 0x24))(
+                    *((_DWORD *)this + 1),
+                    lParam,
+                    a5) != 0)
+               - 1;
+        if ( Msg == 2 )
+        {
+          (*(void (__stdcall **)(_DWORD, int))(*(_DWORD *)this + 0x28))(*((_DWORD *)this + 1), a5);
+          return 0;
+        }
+        if ( Msg == 3 )
+        {
+          (*(void (__stdcall **)(_DWORD, _DWORD, _DWORD, int))(*(_DWORD *)this + 0x8C))(
+            *((_DWORD *)this + 1),
+            (signed __int16)lParam,
+            SHIWORD(lParam),
+            a5);
+          return 0;
+        }
+        if ( Msg == 5 )
+        {
+          (*(void (__stdcall **)(_DWORD, WPARAM, _DWORD, _DWORD, int))(*(_DWORD *)this + 0xE8))(
+            *((_DWORD *)this + 1),
+            wParam,
+            (signed __int16)lParam,
+            SHIWORD(lParam),
+            a5);
+          return 0;
+        }
+        if ( Msg == 6 )
+        {
+          (*(void (__stdcall **)(_DWORD, _DWORD, LPARAM, WPARAM, int))(*(_DWORD *)this + 0x14))(
+            *((_DWORD *)this + 1),
+            (unsigned __int16)wParam,
+            lParam,
+            wParam >> 0x10,
+            a5);
+          return 0;
+        }
+        if ( Msg == 7 )
+        {
+          (*(void (__stdcall **)(_DWORD, WPARAM, int))(*(_DWORD *)this + 0xE4))(*((_DWORD *)this + 1), wParam, a5);
+          return 0;
+        }
+        if ( Msg == 8 )
+        {
+          (*(void (__stdcall **)(_DWORD, WPARAM, int))(*(_DWORD *)this + 0x60))(*((_DWORD *)this + 1), wParam, a5);
+          return 0;
+        }
+      }
+    }
+    if ( Msg - 0x400 > 0x7BFF )
+    {
+      if ( Msg - 0x8000 > 0x3FFF )
+      {
+        if ( Msg - 0xC000 > 0x3FFF )
+          return 0;
+        result = (*(int (__stdcall **)(_DWORD, UINT, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x10C))(
+                   *((_DWORD *)this + 1),
+                   Msg,
+                   wParam,
+                   lParam,
+                   a5);
+      }
+      else
+      {
+        result = (*(int (__stdcall **)(_DWORD, UINT, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x108))(
+                   *((_DWORD *)this + 1),
+                   Msg,
+                   wParam,
+                   lParam,
+                   a5);
+      }
+    }
+    else
+    {
+      result = (*(int (__stdcall **)(_DWORD, UINT, WPARAM, LPARAM, int))(*(_DWORD *)this + 0x104))(
+                 *((_DWORD *)this + 1),
+                 Msg,
+                 wParam,
+                 lParam,
+                 a5);
+    }
+  }
+  return result;
+}
+=================================================================================================================================================================================================//3092216E | FF50 10                  | call dword ptr ds:[eax+10]              |
+int __thiscall sub_30922146(void *this, int a2, unsigned int a3, int a4, int a5, int *a6, signed int a7)
+{
+  int v7; // eax@3
+  int v8; // eax@3
+  bool v9; // zf@3
+  int result; // eax@4
+
+  result = 0;
+  if ( !a7 && a3 <= 0xFFFF )
+  {
+    v7 = *(_DWORD *)this;
+    a7 = 1;
+    v8 = (*(int (__stdcall **)(unsigned int, int, int, signed int *))(v7 + 16))(a3, a4, a5, &a7); //3092216E
+    v9 = a7 == 0;
+    *a6 = v8;
+    if ( !v9 )
+      result = 1;
+  }
+  return result;
+}
+=================================================================================================================================================================================================//30801A52 | FF10                     | call dword ptr ds:[eax]                 |
+int __stdcall sub_30801A10(int a1, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+  int v4; // esi@1
+  UINT v5; // edi@1
+  LPARAM v6; // ST0C_4@1
+  WPARAM v7; // ST08_4@1
+  int v8; // ST00_4@1
+  LONG v9; // eax@5
+  int v10; // eax@8
+  int v11; // ecx@10
+  int (__thiscall **v12)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD); // eax@10
+  char v14; // [sp+8h] [bp-28h]@1
+  LONG v15; // [sp+2Ch] [bp-4h]@4
+
+  v4 = a1;
+  v5 = Msg;
+  sub_3080184C((int)&v14, *(_DWORD *)(a1 + 4), Msg, wParam, lParam, 1);
+  v6 = lParam;
+  Msg = *(_DWORD *)(v4 + 0x18);
+  v7 = wParam;
+  v8 = *(_DWORD *)(v4 + 4);
+  *(_DWORD *)(v4 + 0x18) = &v14;
+  if ( !(**(int (__thiscall ***)(int, int, UINT, WPARAM, LPARAM, int *, _DWORD))v4)(v4, v8, v5, v7, v6, &a1, 0) ) //30801A52
+  {
+    if ( v5 == 0x82 )
+    {
+      v15 = GetWindowLongW(*(HWND *)(v4 + 4), 0xFFFFFFFC);
+      a1 = sub_30801970(v4, 0x82u, wParam, lParam);
+      if ( *(LRESULT (__stdcall **)(HWND, UINT, WPARAM, LPARAM))(v4 + 0x20) != DefWindowProcW )
+      {
+        v9 = GetWindowLongW(*(HWND *)(v4 + 4), 0xFFFFFFFC);
+        if ( v9 == v15 )
+          SetWindowLongW(*(HWND *)(v4 + 4), 0xFFFFFFFC, *(_DWORD *)(v4 + 0x20));
+      }
+      *(_DWORD *)(v4 + 0x1C) |= 1u;
+    }
+    else
+    {
+      a1 = sub_30801970(v4, v5, wParam, lParam);
+    }
+  }
+  v10 = *(_DWORD *)(v4 + 0x1C);
+  if ( !(v10 & 1) || Msg )
+  {
+    *(_DWORD *)(v4 + 0x18) = Msg;
+  }
+  else
+  {
+    v11 = *(_DWORD *)(v4 + 4);
+    *(_DWORD *)(v4 + 0x1C) = v10 & 0xFFFFFFFE;
+    v12 = *(int (__thiscall ***)(_DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD, _DWORD))v4;
+    *(_DWORD *)(v4 + 4) = 0;
+    *(_DWORD *)(v4 + 0x18) = 0;
+    ((void (__thiscall *)(int, int))v12[3])(v4, v11);
+  }
+  return a1;
+}
+
+=================================================================================================================================================================================================//764A62F7 | FF55 08                  | call dword ptr ss:[ebp+8]               | user32
+
+=================================================================================================================================================================================================
+
+=================================================================================================================================================================================================
+
+=================================================================================================================================================================================================
+
+=================================================================================================================================================================================================
+
+=================================================================================================================================================================================================
+
+=================================================================================================================================================================================================
+
+=================================================================================================================================================================================================
+
+=================================================================================================================================================================================================
+
+  
+  
+  
+  
+  
+================================================================================================================================================================================================= 
 0012B730  |39702608  返回到 RICHED20.39702608 来自 RICHED20.39701224  
 0012B740  |39704A67  返回到 RICHED20.39704A67 来自 RICHED20.397025F7
 0012B76C  |397049D3  返回到 RICHED20.397049D3 来自 RICHED20.39704A04

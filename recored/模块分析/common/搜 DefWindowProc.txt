@@ -1,0 +1,13 @@
+//IDA 勾选 find all occurences
+
+Address         Function                                      Instruction                                                                          
+-------         --------                                      -----------                                                                          
+.text:30080DAB  sub_30080D9E                                                  jmp     ds:DefWindowProcW                                            
+.text:30090DB1  sub_30090D55                                                  call    ds:DefWindowProcW                                            
+.text:300937C1  sub_3009379C                                                  call    ds:DefWindowProcW                                            
+.text:3009FEF4  sub_3009FEA2                                                  call    ds:DefWindowProcW                                            
+.text:300A9A93  ?P2PWndProc@CP2PDownload@@CGJPAUHWND__@@IIJ@Z                 call    ds:DefWindowProcW                                            
+.text:300C7CD4  sub_300C7CAC                                                  call    ds:DefWindowProcW                                            
+.text:300D0869  sub_300D078F                                                  jmp     ds:DefWindowProcW                                            
+.idata:3014D7F4                                               ; LRESULT __stdcall DefWindowProcW(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
+.rdata:301A6F9A                                                               db 'DefWindowProcW',0                                                
