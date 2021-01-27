@@ -1,0 +1,16 @@
+ 
+
+//password: {s:4*ecx+0x402000}
+//log {eax}
+//log {s:eax}   //打印 eax 指向的字符串
+//0x320031  //L"12"  //断点条件 0x320031 != [eax]
+>	x32dbg.dll!valfromstring(const char * string=0x0961f28c, unsigned long * value=0x0961ec94, bool silent=true, bool baseonly=false, int * value_size=0x00000000, bool * isvar=0x00000000, bool * hexonly=0x00000000, bool allowassign=false) 行 1991	C++
+ 	x32dbg.dll!printValue(const char * value=0x0961f28c, ValueType type=Hex) 行 27	C++
+ 	x32dbg.dll!handleFormatStringInline(const std::string & formatString={...}) 行 243	C++
+ 	x32dbg.dll!stringformatinline(std::string format={...}) 行 279	C++
+ 	x32dbg.dll!cbInstrLog(int argc=2, char * * argv=0x08ba3818) 行 57	C++
+ 	x32dbg.dll!cmdexeccallback(COMMAND * cmd=0x086bc6a0, const std::string & command={...}) 行 257	C++
+ 	x32dbg.dll!cmdloop() 行 301	C++
+ 	x32dbg.dll!DbgCommandLoopThread(void * a=0x00000000) 行 484	C++
+ 	[外部代码]	
+ 	kernel32.dll![下面的框架可能不正确和/或缺失，没有为 kernel32.dll 加载符号]	未知

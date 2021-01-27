@@ -262,7 +262,10 @@ unsigned int __thiscall sub_3978E251(_DWORD *this, int *a2)
     if ( v4 > 0 )
     {
       v5 = sub_3971B3B5(); //返回控件字符串内容 
-	  //3978E295 断点 (v5) eax 为字符串   //条件断点 eax==L"123"
+	  //3978E295 断点 (v5) eax 为字符串   
+	  //L"12"  //断点条件 0x320031 == [eax]
+	  //L"123"  //断点条件 (0x320031 == [eax]) &&( 0x000033 == ([eax+4]&0xff ))  //注意,这里是比较了5个字节的数值
+	  
       *a2 = v5; 
       if ( !v5 )
       {
@@ -285,7 +288,15 @@ LABEL_9:
   return v3;      
 }
 
+//https://help.x64dbg.com/en/latest/introduction/Formatting.html
 
+//log {utf8[;length]@address}
+ 
+log {utf8;8@0x0E5B2B84}
+log {utf8@eax}
+log {ansi[;length]@address}
+
+log {ansi[;8]@0x0E5B2B84}
 
 =================================================================================================================================================================================================//3086D24C | FF50 34                  | call dword ptr ds:[eax+34]              |gf
 int __stdcall sub_3086D237(int a1, int a2)
