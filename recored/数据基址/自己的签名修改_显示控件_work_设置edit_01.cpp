@@ -24,11 +24,27 @@ Address  To       From     Size     Comment           Party
 
 
 ===============================================================================================================================================================================================
+HRESULT CreateTextServices(
+  IUnknown  *punkOuter,
+  ITextHost *pITextHost,
+  IUnknown  **ppUnk
+);
+Parameters
+	punkOuter
+		Type: IUnknown*
+		Pointer to the controlling IUnknown interface on the outer object if the text services object is being created as part of an aggregate object. This parameter can be NULL if the object is not part of an aggregate.
 
+	pITextHost
+		Type: ITextHost*
+		Pointer to your implementation of the ITextHost interface. This pointer must not be NULL.
 
+	ppUnk
+		Type: IUnknown**
+		Pointer to a variable that receives a pointer to the private IUnknown of the text services object. You can call QueryInterface on this pointer to retrieve ITextServices or ITextDocument interface pointers.
 
 
 ===============================================================================================================================================================================================
+//3086E3AD
 int __stdcall sub_3086DAF0(int a1, int a2, int a3, wchar_t *Str, int pvParam)
 {
   int v5; // esi@12

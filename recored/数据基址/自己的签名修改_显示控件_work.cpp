@@ -29,8 +29,477 @@
 =================================================================================================================================================================================================
 
 =================================================================================================================================================================================================
+//主界面初始化时调用到 CreateTextServices //39701544  四次？
+Address  To       From     Siz Comment                Part
+0018AC10 3087411B 39701544 20  riched20.39701544      User
+0018AC30 30874864 3087411B 30  gf.3087411B            User
+0018AC60 3089767E 30874864 10  gf.30874864            User
+0018AC70 657D8930 3089767E 14  gf.3089767E            User
+0018AC84 65712AD7 657D8930 30  afctrl.657D8930        User
+0018ACB4 657D8930 65712AD7 14  afctrl.65712AD7        User
+0018ACC8 65726029 657D8930 B8  afctrl.657D8930        User
+0018AD80 657D8930 65726029 14  afctrl.65726029        User
+0018AD94 6576D400 657D8930 3C  afctrl.657D8930        User
+0018ADD0 30845AF9 6576D400 4C  afctrl.6576D400        User
+0018AE1C 30845C9C 30845AF9 48  gf.30845AF9            User
+0018AE64 30845B2D 30845C9C 48  gf.30845C9C            User
+0018AEAC 30845C9C 30845B2D 48  gf.30845B2D            User
+0018AEF4 30845B2D 30845C9C 48  gf.30845C9C            User
+0018AF3C 30845C9C 30845B2D 48  gf.30845B2D            User
+0018AF84 30845B2D 30845C9C 48  gf.30845C9C            User
+0018AFCC 30845D15 30845B2D 14  gf.30845B2D            User
+0018AFE0 3082A5EC 30845D15 14  gf.30845D15            User
+0018AFF4 308214D4 3082A5EC 24  gf.3082A5EC            User
+0018B018 308258BF 308214D4 464 gf.308214D4            User
+0018B47C 6570350E 308258BF 3C  gf.308258BF            User
+0018B4B8 65703590 6570350E 40  afctrl.6570350E        User
+0018B4F8 657E3B75 65703590 1C  afctrl.65703590        User
+0018B514 657703AA 657E3B75 64  afctrl.657E3B75        User
+0018B578 30845AF9 657703AA 4C  afctrl.657703AA        User
+0018B5C4 30845C9C 30845AF9 48  gf.30845AF9            User
+0018B60C 30845B2D 30845C9C 48  gf.30845C9C            User
+0018B654 30845C9C 30845B2D 48  gf.30845B2D            User
+0018B69C 30845B2D 30845C9C 48  gf.30845C9C            User
+0018B6E4 30845C9C 30845B2D 48  gf.30845B2D            User
+0018B72C 30845B2D 30845C9C 48  gf.30845C9C            User
+0018B774 30845D15 30845B2D 14  gf.30845B2D            User
+0018B788 3082A5EC 30845D15 14  gf.30845D15            User
+0018B79C 308214D4 3082A5EC 24  gf.3082A5EC            User
+0018B7C0 308258BF 308214D4 464 gf.308214D4            User
+0018BC24 61C13CBC 308258BF 3C  gf.308258BF            User
+0018BC60 61C191D1 61C13CBC 3C  mainframe.61C13CBC     User
+0018BC9C 61C1977E 61C191D1 3C  mainframe.61C191D1     User
+0018BCD8 61C2B80B 61C1977E 94  mainframe.61C1977E     User
+0018BD6C 61C176DA 61C2B80B 458 mainframe.61C2B80B     User
+0018C1C4 61C17C15 61C176DA 34  mainframe.61C176DA     User
+0018C1F8 61C8FA37 61C17C15 10  mainframe.61C17C15     User
+0018C208 0408CB24 61C8FA37 894 mainframe.61C8FA37     User
+0018CA9C 040B1718 0408CB24 14  preloginlogic.0408CB24 User
+0018CAB0 04098043 040B1718 40  preloginlogic.040B1718 User
+0018CAF0 040984AB 04098043 50  preloginlogic.04098043 User
+0018CB40 0409E354 040984AB 30  preloginlogic.040984AB User
+0018CB70 040877D5 0409E354 10  preloginlogic.0409E354 User
+0018CB80 0407C2AC 040877D5 54  preloginlogic.040877D5 User
+0018CBD4 0407CA3D 0407C2AC     preloginlogic.0407C2AC User
 
 =================================================================================================================================================================================================
+Address  To       From     Size Comment                Party 
+0018B494 3087411B 39701544 20   riched20.39701544      User
+0018B4B4 30874864 3087411B 30   gf.3087411B            User
+0018B4E4 3089767E 30874864 10   gf.30874864            User
+0018B4F4 657D8930 3089767E 14   gf.3089767E            User
+0018B508 65712AD7 657D8930 30   afctrl.657D8930        User
+0018B538 657D8930 65712AD7 14   afctrl.65712AD7        User
+0018B54C 6578DD2C 657D8930 30   afctrl.657D8930        User
+0018B57C 657839D6 6578DD2C 58   afctrl.6578DD2C        User
+0018B5D4 6578B846 657839D6 34   afctrl.657839D6        User
+0018B608 30845AF9 6578B846 4C   afctrl.6578B846        User
+0018B654 30845C9C 30845AF9 48   gf.30845AF9            User
+0018B69C 30845B2D 30845C9C 48   gf.30845C9C            User
+0018B6E4 30845C9C 30845B2D 48   gf.30845B2D            User
+0018B72C 30845B2D 30845C9C 48   gf.30845C9C            User
+0018B774 30845D15 30845B2D 14   gf.30845B2D            User
+0018B788 3082A5EC 30845D15 14   gf.30845D15            User
+0018B79C 308214D4 3082A5EC 24   gf.3082A5EC            User
+0018B7C0 308258BF 308214D4 464  gf.308214D4            User
+0018BC24 61C13CBC 308258BF 3C   gf.308258BF            User
+0018BC60 61C191D1 61C13CBC 3C   mainframe.61C13CBC     User
+0018BC9C 61C1977E 61C191D1 3C   mainframe.61C191D1     User
+0018BCD8 61C2B80B 61C1977E 94   mainframe.61C1977E     User
+0018BD6C 61C176DA 61C2B80B 458  mainframe.61C2B80B     User
+0018C1C4 61C17C15 61C176DA 34   mainframe.61C176DA     User
+0018C1F8 61C8FA37 61C17C15 10   mainframe.61C17C15     User
+0018C208 0408CB24 61C8FA37 894  mainframe.61C8FA37     User
+0018CA9C 040B1718 0408CB24 14   preloginlogic.0408CB24 User
+0018CAB0 04098043 040B1718 40   preloginlogic.040B1718 User
+0018CAF0 040984AB 04098043 50   preloginlogic.04098043 User
+0018CB40 0409E354 040984AB 30   preloginlogic.040984AB User
+0018CB70 040877D5 0409E354 10   preloginlogic.0409E354 User
+0018CB80 0407C2AC 040877D5 54   preloginlogic.040877D5 User
+0018CBD4 0407CA3D 0407C2AC 6C   preloginlogic.0407C2AC User
+0018CC40 0407CE29 0407CA3D 2C   preloginlogic.0407CA3D User
+0018CC6C 0407A405 0407CE29 24   preloginlogic.0407CE29 User
+0018CC90 300A5BFC 0407A405 58   preloginlogic.0407A405 User
+0018CCE8 300A5271 300A5BFC 24   common.300A5BFC        User
+0018CD0C 300996C0 300A5271 60   common.300A5271        User
+0018CD6C 3009991B 300996C0 44   common.300996C0        User
+0018CDB0 30099B20 3009991B 284C common.3009991B        User
+0018F5FC 3009110A 30099B20 1C   common.30099B20        User
+0018F618 300935C6 3009110A 2C   common.3009110A        User
+0018F644 30093678 300935C6 58   common.300935C6        User
+0018F69C 300937DA 30093678 8    common.30093678        User
+0018F6A4 773362FA 300937DA 2C   common.300937DA        System
+0018F6D0 77336D3A 773362FA 78   user32.773362FA        System
+0018F748 773377C4 77336D3A 60   user32.77336D3A        System
+0018F7A8 7733788A 773377C4 10   user32.773377C4        System
+0018F7B8 69F0652A 7733788A 3C   user32.7733788A        User
+0018F7F4 69F06059 69F0652A      hummerengine.69F0652A  User
+=================================================================================================================================================================================================
+
+
+Address  To       From     Siz Comment               Party 
+0018EE08 3085C9C2 39701544 20  riched20.39701544     User
+0018EE28 3085CC8F 3085C9C2 38  gf.3085C9C2           User
+0018EE60 3089767E 3085CC8F 10  gf.3085CC8F           User
+0018EE70 30845AF9 3089767E 4C  gf.3089767E           User
+0018EEBC 30845C9C 30845AF9 48  gf.30845AF9           User
+0018EF04 30845B2D 30845C9C 48  gf.30845C9C           User
+0018EF4C 30845D15 30845B2D 14  gf.30845B2D           User
+0018EF60 3082A5EC 30845D15 14  gf.30845D15           User
+0018EF74 308214D4 3082A5EC 24  gf.3082A5EC           User
+0018EF98 308258BF 308214D4 464 gf.308214D4           User
+0018F3FC 64C14202 308258BF 3C  gf.308258BF           User
+0018F438 64C8103C 64C14202 3C  chatframeapp.64C14202 User
+0018F474 64C819FA 64C8103C 3C  chatframeapp.64C8103C User
+0018F4B0 64CACB1D 64C819FA DC  chatframeapp.64C819FA User
+0018F58C 3001033F 64CACB1D 3C  chatframeapp.64CACB1D User
+0018F5C8 300106E6 3001033F 18  common.3001033F       User
+0018F5E0 3001F1CC 300106E6 44  common.300106E6       User
+0018F624 30013E4E 3001F1CC 38  common.3001F1CC       User
+0018F65C 30015D21 30013E4E 18  common.30013E4E       User
+0018F674 3001BDAC 30015D21 18  common.30015D21       User
+0018F68C 61212654 3001BDAC 34  common.3001BDAC       User
+0018F6C0 6121B227 61212654 10  apputil.61212654      User
+0018F6D0 6121F104 6121B227 64  apputil.6121B227      User
+0018F734 6121EF07 6121F104 40  apputil.6121F104      User
+0018F774 69F04807 6121EF07 4C  apputil.6121EF07      User
+0018F7C0 69F06364 69F04807 34  hummerengine.69F04807 User
+0018F7F4 69F06059 69F06364 1C  hummerengine.69F06364 User
+0018F810 69F04529 69F06059 3C  hummerengine.69F06059 User
+0018F84C 69F0AF44 69F04529 510 hummerengine.69F04529 User
+0018FD5C 69F0B146 69F0AF44 4C  hummerengine.69F0AF44 User
+0018FDA8 004014D9 69F0B146 144 hummerengine.69F0B146 User
+0018FEEC 0040128B 004014D9 C   qq.004014D9           User
+0018FEF8 00401A8F 0040128B 94  qq.0040128B           User
+0018FF8C 75A033AA 00401A8F C   qq.00401A8F           System
+0018FF98 778B9F72 75A033AA 40  kernel32.75A033AA     System
+0018FFD8 778B9F45 778B9F72 18  ntdll.778B9F72        System
+0018FFF0 00000000 778B9F45     ntdll.778B9F45        User
+
+=================================================================================================================================================================================================
+Address  To       From     Siz Comment               Party 
+0018EE08 3085C9C2 39701544 20  riched20.39701544     User
+0018EE28 3085CC8F 3085C9C2 38  gf.3085C9C2           User
+0018EE60 3089767E 3085CC8F 10  gf.3085CC8F           User
+0018EE70 30845AF9 3089767E 4C  gf.3089767E           User
+0018EEBC 30845C9C 30845AF9 48  gf.30845AF9           User
+0018EF04 30845B2D 30845C9C 48  gf.30845C9C           User
+0018EF4C 30845D15 30845B2D 14  gf.30845B2D           User
+0018EF60 3082A5EC 30845D15 14  gf.30845D15           User
+0018EF74 308214D4 3082A5EC 24  gf.3082A5EC           User
+0018EF98 308258BF 308214D4 464 gf.308214D4           User
+0018F3FC 64C14202 308258BF 3C  gf.308258BF           User
+0018F438 64C8103C 64C14202 3C  chatframeapp.64C14202 User
+0018F474 64C819FA 64C8103C 3C  chatframeapp.64C8103C User
+0018F4B0 64CACB1D 64C819FA DC  chatframeapp.64C819FA User
+0018F58C 3001033F 64CACB1D 3C  chatframeapp.64CACB1D User
+0018F5C8 300106E6 3001033F 18  common.3001033F       User
+0018F5E0 3001F1CC 300106E6 44  common.300106E6       User
+0018F624 30013E4E 3001F1CC 38  common.3001F1CC       User
+0018F65C 30015D21 30013E4E 18  common.30013E4E       User
+0018F674 3001BDAC 30015D21 18  common.30015D21       User
+0018F68C 61212654 3001BDAC 34  common.3001BDAC       User
+0018F6C0 6121B227 61212654 10  apputil.61212654      User
+0018F6D0 6121F104 6121B227 64  apputil.6121B227      User
+0018F734 6121EF07 6121F104 40  apputil.6121F104      User
+0018F774 69F04807 6121EF07 4C  apputil.6121EF07      User
+0018F7C0 69F06364 69F04807 34  hummerengine.69F04807 User
+0018F7F4 69F06059 69F06364 1C  hummerengine.69F06364 User
+0018F810 69F04529 69F06059 3C  hummerengine.69F06059 User
+0018F84C 69F0AF44 69F04529 510 hummerengine.69F04529 User
+0018FD5C 69F0B146 69F0AF44 4C  hummerengine.69F0AF44 User
+0018FDA8 004014D9 69F0B146 144 hummerengine.69F0B146 User
+0018FEEC 0040128B 004014D9 C   qq.004014D9           User
+0018FEF8 00401A8F 0040128B 94  qq.0040128B           User
+0018FF8C 75A033AA 00401A8F C   qq.00401A8F           System
+0018FF98 778B9F72 75A033AA 40  kernel32.75A033AA     System
+0018FFD8 778B9F45 778B9F72 18  ntdll.778B9F72        System
+0018FFF0 00000000 778B9F45     ntdll.778B9F45        User
+
+
+=================================================================================================================================================================================================
+
+
+=================================================================================================================================================================================================
+//打开聊天对话界面 调用到两次 CreateTextServices /39701544
+Address  To       From     Siz Comment               Part
+0018BFF4 3087411B 39701544 20  riched20.39701544     User
+0018C014 30874864 3087411B 30  gf.3087411B           User
+0018C044 3089767E 30874864 10  gf.30874864           User
+0018C054 657D8930 3089767E 14  gf.3089767E           User
+0018C068 65712AD7 657D8930 30  afctrl.657D8930       User
+0018C098 657D8930 65712AD7 14  afctrl.65712AD7       User
+0018C0AC 65726029 657D8930 B8  afctrl.657D8930       User
+0018C164 30845AF9 65726029 4C  afctrl.65726029       User
+0018C1B0 30845C9C 30845AF9 48  gf.30845AF9           User
+0018C1F8 30845B2D 30845C9C 48  gf.30845C9C           User
+0018C240 30845C9C 30845B2D 48  gf.30845B2D           User
+0018C288 30845B2D 30845C9C 48  gf.30845C9C           User
+0018C2D0 30845C9C 30845B2D 48  gf.30845B2D           User
+0018C318 30845B2D 30845C9C 48  gf.30845C9C           User
+0018C360 30845D15 30845B2D 14  gf.30845B2D           User
+0018C374 3082A5EC 30845D15 14  gf.30845D15           User
+0018C388 308214D4 3082A5EC 24  gf.3082A5EC           User
+0018C3AC 308258BF 308214D4 464 gf.308214D4           User
+0018C810 6620CB98 308258BF 3C  gf.308258BF           User
+0018C84C 6620CC1A 6620CB98 40  appframework.6620CB98 User
+0018C88C 662DD166 6620CC1A 1C  appframework.6620CC1A User
+0018C8A8 66286BD4 662DD166 3C  appframework.662DD166 User
+0018C8E4 30845AF9 66286BD4 4C  appframework.66286BD4 User
+0018C930 30845C9C 30845AF9 48  gf.30845AF9           User
+0018C978 30845B2D 30845C9C 48  gf.30845C9C           User
+0018C9C0 30845C9C 30845B2D 48  gf.30845B2D           User
+0018CA08 30845B2D 30845C9C 48  gf.30845C9C           User
+0018CA50 30845D15 30845B2D 14  gf.30845B2D           User
+0018CA64 3082A5EC 30845D15 14  gf.30845D15           User
+0018CA78 308214D4 3082A5EC 24  gf.3082A5EC           User
+0018CA9C 308258BF 308214D4 464 gf.308214D4           User
+0018CF00 6620CB98 308258BF 3C  gf.308258BF           User
+0018CF3C 6620CC1A 6620CB98 40  appframework.6620CB98 User
+0018CF7C 662DD166 6620CC1A 1C  appframework.6620CC1A User
+0018CF98 662CBEC0 662DD166 34  appframework.662DD166 User
+0018CFCC 64C2345B 662CBEC0 14  appframework.662CBEC0 User
+0018CFE0 64C814B3 64C2345B 38  chatframeapp.64C2345B User
+0018D018 64C7E975 64C814B3 3C  chatframeapp.64C814B3 User
+0018D054 64C09882 64C7E975 80  chatframeapp.64C7E975 User
+0018D0D4 662804AE 64C09882 3C  chatframeapp.64C09882 User
+0018D110 64C04ED0 662804AE 34  appframework.662804AE User
+0018D144 64C08A81 64C04ED0 5D8 chatframeapp.64C04ED0 User
+0018D71C 6627F872 64C08A81 474 chatframeapp.64C08A81 User
+0018DB90 6627FC23 6627F872 34  appframework.6627F872 User
+0018DBC4 66280286 6627FC23 48  appframework.6627FC23 User
+0018DC0C 64C029EB 66280286 18  appframework.66280286 User
+0018DC24 64C03E2C 64C029EB 1C  chatframeapp.64C029EB User
+0018DC40 02818782 64C03E2C 40  chatframeapp.64C03E2C User
+0018DC80 61229D1F 02818782 48  afutil.02818782       User
+0018DCC8 61C787EA 61229D1F     apputil.61229D1F      User
+
+=================================================================================================================================================================================================
+Address  To       From     Siz Comment               Part
+0018BFF4 3087411B 39701544 20  riched20.39701544     User
+0018C014 30874864 3087411B 30  gf.3087411B           User
+0018C044 3089767E 30874864 10  gf.30874864           User
+0018C054 657D8930 3089767E 14  gf.3089767E           User
+0018C068 65712AD7 657D8930 30  afctrl.657D8930       User
+0018C098 657D8930 65712AD7 14  afctrl.65712AD7       User
+0018C0AC 65726029 657D8930 B8  afctrl.657D8930       User
+0018C164 30845AF9 65726029 4C  afctrl.65726029       User
+0018C1B0 30845C9C 30845AF9 48  gf.30845AF9           User
+0018C1F8 30845B2D 30845C9C 48  gf.30845C9C           User
+0018C240 30845C9C 30845B2D 48  gf.30845B2D           User
+0018C288 30845B2D 30845C9C 48  gf.30845C9C           User
+0018C2D0 30845C9C 30845B2D 48  gf.30845B2D           User
+0018C318 30845B2D 30845C9C 48  gf.30845C9C           User
+0018C360 30845D15 30845B2D 14  gf.30845B2D           User
+0018C374 3082A5EC 30845D15 14  gf.30845D15           User
+0018C388 308214D4 3082A5EC 24  gf.3082A5EC           User
+0018C3AC 308258BF 308214D4 464 gf.308214D4           User
+0018C810 6620CB98 308258BF 3C  gf.308258BF           User
+0018C84C 6620CC1A 6620CB98 40  appframework.6620CB98 User
+0018C88C 662DD166 6620CC1A 1C  appframework.6620CC1A User
+0018C8A8 66286BD4 662DD166 3C  appframework.662DD166 User
+0018C8E4 30845AF9 66286BD4 4C  appframework.66286BD4 User
+0018C930 30845C9C 30845AF9 48  gf.30845AF9           User
+0018C978 30845B2D 30845C9C 48  gf.30845C9C           User
+0018C9C0 30845C9C 30845B2D 48  gf.30845B2D           User
+0018CA08 30845B2D 30845C9C 48  gf.30845C9C           User
+0018CA50 30845D15 30845B2D 14  gf.30845B2D           User
+0018CA64 3082A5EC 30845D15 14  gf.30845D15           User
+0018CA78 308214D4 3082A5EC 24  gf.3082A5EC           User
+0018CA9C 308258BF 308214D4 464 gf.308214D4           User
+0018CF00 6620CB98 308258BF 3C  gf.308258BF           User
+0018CF3C 6620CC1A 6620CB98 40  appframework.6620CB98 User
+0018CF7C 662DD166 6620CC1A 1C  appframework.6620CC1A User
+0018CF98 662CBEC0 662DD166 34  appframework.662DD166 User
+0018CFCC 64C2345B 662CBEC0 14  appframework.662CBEC0 User
+0018CFE0 64C814B3 64C2345B 38  chatframeapp.64C2345B User
+0018D018 64C7E975 64C814B3 3C  chatframeapp.64C814B3 User
+0018D054 64C09882 64C7E975 80  chatframeapp.64C7E975 User
+0018D0D4 662804AE 64C09882 3C  chatframeapp.64C09882 User
+0018D110 64C04ED0 662804AE 34  appframework.662804AE User
+0018D144 64C08A81 64C04ED0 5D8 chatframeapp.64C04ED0 User
+0018D71C 6627F872 64C08A81 474 chatframeapp.64C08A81 User
+0018DB90 6627FC23 6627F872 34  appframework.6627F872 User
+0018DBC4 66280286 6627FC23 48  appframework.6627FC23 User
+0018DC0C 64C029EB 66280286 18  appframework.66280286 User
+0018DC24 64C03E2C 64C029EB 1C  chatframeapp.64C029EB User
+0018DC40 02818782 64C03E2C 40  chatframeapp.64C03E2C User
+0018DC80 61229D1F 02818782 48  afutil.02818782       User
+0018DCC8 61C787EA 61229D1F     apputil.61229D1F      User
+
+
+=================================================================================================================================================================================================
+
+
+=================================================================================================================================================================================================
+Address  To       From     Siz Comment               Party 
+0018F370 3087411B 39701544 20  riched20.39701544     User
+0018F390 30874864 3087411B 30  gf.3087411B           User
+0018F3C0 3089767E 30874864 10  gf.30874864           User
+0018F3D0 657D8930 3089767E 14  gf.3089767E           User
+0018F3E4 65712AD7 657D8930 30  afctrl.657D8930       User
+0018F414 657D8930 65712AD7 14  afctrl.65712AD7       User
+0018F428 65726029 657D8930 B8  afctrl.657D8930       User
+0018F4E0 657D8930 65726029 14  afctrl.65726029       User
+0018F4F4 6576D400 657D8930 3C  afctrl.657D8930       User
+0018F530 657C0C8A 6576D400 3C  afctrl.6576D400       User
+0018F56C 662D1D73 657C0C8A 38  afctrl.657C0C8A       User
+0018F5A4 662D246E 662D1D73 C   appframework.662D1D73 User
+0018F5B0 662ED87A 662D246E 10  appframework.662D246E User
+0018F5C0 300C882B 662ED87A 14  appframework.662ED87A User
+0018F5D4 300C8BB9 300C882B 80  common.300C882B       User
+0018F654 300C7D2A 300C8BB9 18  common.300C8BB9       User
+0018F66C 773362FA 300C7D2A 2C  common.300C7D2A       System
+0018F698 77336D3A 773362FA 78  user32.773362FA       System
+0018F710 773377C4 77336D3A 60  user32.77336D3A       System
+0018F770 7733788A 773377C4 10  user32.773377C4       System
+0018F780 69F0652A 7733788A 44  user32.7733788A       User
+0018F7C4 69F0633C 69F0652A 30  hummerengine.69F0652A User
+0018F7F4 69F06059 69F0633C 1C  hummerengine.69F0633C User
+0018F810 69F04529 69F06059 3C  hummerengine.69F06059 User
+0018F84C 69F0AF44 69F04529 510 hummerengine.69F04529 User
+0018FD5C 69F0B146 69F0AF44 4C  hummerengine.69F0AF44 User
+0018FDA8 004014D9 69F0B146 144 hummerengine.69F0B146 User
+0018FEEC 0040128B 004014D9 C   qq.004014D9           User
+0018FEF8 00401A8F 0040128B 94  qq.0040128B           User
+0018FF8C 75A033AA 00401A8F C   qq.00401A8F           System
+0018FF98 778B9F72 75A033AA 40  kernel32.75A033AA     System
+0018FFD8 778B9F45 778B9F72 18  ntdll.778B9F72        System
+0018FFF0 00000000 778B9F45     ntdll.778B9F45        User
+
+
+
+=================================================================================================================================================================================================
+3086D938 | E8 03B30D00              | call <JMP.&CreateTextServices>          |
+=================================================================================================================================================================================================
+unsigned int __stdcall sub_3086D849(int a1, HDC hdc)
+{
+  int v2; // ebx@1
+  unsigned int result; // eax@2
+  int v4; // ecx@13
+  int v5; // ST30_4@13
+  int v6; // eax@13
+  int v7; // ecx@13
+  struct tagTEXTMETRICW tm; // [sp+Ch] [bp-70h]@8
+  int v9; // [sp+48h] [bp-34h]@13
+  int v10; // [sp+4Ch] [bp-30h]@13
+  int v11; // [sp+50h] [bp-2Ch]@13
+  int v12; // [sp+54h] [bp-28h]@13
+  int v13; // [sp+58h] [bp-24h]@13
+  int v14; // [sp+5Ch] [bp-20h]@13
+  int v15; // [sp+60h] [bp-1Ch]@13
+  int v16; // [sp+64h] [bp-18h]@13
+  HGDIOBJ v17; // [sp+68h] [bp-14h]@7
+  HGDIOBJ h; // [sp+6Ch] [bp-10h]@3
+  unsigned int v19; // [sp+78h] [bp-4h]@3
+
+  v2 = a1;
+  if ( *(_DWORD *)(a1 + 0x1BC) )
+  {
+    a1 = 0;
+    v19 = 0;
+    h = CreateFontW(0xC, 0, 0, 0, 0x190, 0, 0, 0, 0, 0, 0, 0, 0x20u, L"Tahoma");
+    if ( sub_3086BDFF(hdc, v2 + 0x2C, h) < 0 || sub_3086BF0B((void *)(v2 + 0xA0)) < 0 )
+      goto LABEL_18;
+    if ( !*(_DWORD *)(v2 + 0x164) )
+      *(_DWORD *)(v2 + 0x164) = 0x200044;
+    v17 = SelectObject(hdc, h);
+    if ( v17
+      && (GetTextMetricsW(hdc, &tm),
+          SelectObject(hdc, v17),
+          dword_309ED9F4 = tm.tmAveCharWidth,
+          dword_309ED9F8 = tm.tmHeight,
+          nDenominator = GetDeviceCaps(hdc, 0x58),
+          dword_309ED9FC = GetDeviceCaps(hdc, 0x5A),
+          sub_3086C2EA(v2),
+          CreateTextServices(0, v2 + 4, &a1) >= 0)
+      && (**(int (__stdcall ***)(int, void *, int))a1)(a1, &unk_30976AFC, v2 + 0x15C) >= 0 )
+    {
+      v4 = *(_DWORD *)(v2 + 0x1BC);
+      sub_30833994(&v13);
+      v9 = *(_DWORD *)(v2 + 0x25C);
+      v10 = *(_DWORD *)(v2 + 0x260);
+      v11 = *(_DWORD *)(v2 + 0x264);
+      v12 = *(_DWORD *)(v2 + 0x268);
+      v14 += v10;
+      v16 -= v12;
+      v15 -= v11;
+      v5 = v15 - (v9 + v13);
+      v13 += v9;
+      *(_DWORD *)(v2 + 0x18C) = sub_3086B9B8(v5, nDenominator);
+      v6 = sub_3086B9B8(v16 - v14, dword_309ED9FC);
+      v7 = *(_DWORD *)(v2 + 0x15C);
+      *(_DWORD *)(v2 + 0x190) = v6;
+      *(_DWORD *)(v2 + 0x1C8) = (*(int (__stdcall **)(int *))(*(_DWORD *)v7 + 0x24))(&v13) >= 0;
+      (*(void (**)(void))(**(_DWORD **)(v2 + 0x15C) + 0x2C))();
+      DeleteObject(h);
+      v19 = 0xFFFFFFFF;
+      if ( a1 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)a1 + 8))(a1);
+      result = 0;
+    }
+    else
+    {
+LABEL_18:
+      v19 = 0xFFFFFFFF;
+      if ( a1 )
+        (*(void (__stdcall **)(int))(*(_DWORD *)a1 + 8))(a1);
+      result = 0x80004005;
+    }
+  }
+  else
+  {
+    result = 0x80004002;
+  }
+  return result;
+}
+
+
+https://docs.microsoft.com/en-us/windows/win32/api/textserv/nf-textserv-createtextservices
+
+The CreateTextServices function creates an instance of a text services object. 
+The text services object supports a variety of interfaces, including ITextServices and the Text Object Model (TOM).
+
+
+HRESULT CreateTextServices(
+  IUnknown  *punkOuter,
+  ITextHost *pITextHost,  //实现 ITextHost 接口的实例
+  IUnknown  **ppUnk  //指向  ITextServices 的实例, 通过 ITextServices 操作 ITextHost
+);
+Parameters
+	punkOuter
+		Type: IUnknown*
+		Pointer to the controlling IUnknown interface on the outer object if the text services object is being created as part of an aggregate object. 
+		This parameter can be NULL if the object is not part of an aggregate.
+
+	pITextHost
+		Type: ITextHost*
+		Pointer to your implementation of the ITextHost interface. This pointer must not be NULL.
+
+	ppUnk
+		Type: IUnknown**
+		Pointer to a variable that receives a pointer to the private IUnknown of the text services object.
+		You can call QueryInterface on this pointer to retrieve ITextServices or ITextDocument interface pointers.
+
+Return value
+	Type: HRESULT
+	If the text services object was created successfully, the return value is S_OK.
+	If the function fails, one of the following COM error codes are returned. For more information on COM error codes, see Error Handling in COM.
+
+
+=================================================================================================================================================================================================
+
+
+
+=================================================================================================================================================================================================
+
+
+
+
+=================================================================================================================================================================================================
+
+
+
 /*
 //Riched32
 1. 初始化的过程：
@@ -49,11 +518,19 @@
  
 // 关于windowless的rich edit：
 1.看了一个介绍：个人猜测就是首先要写一个类，来实现ITextHost这个接口，
-	同个这个类来把宿主窗口和无窗口的richedit联系起来。然后调用 CreateTextServices ，传入ITextHost指针，
-	返回IUnknown指针。通过这个IUnown接口，可以查询到ITextServices和ITextDocument接口。
+	同个这个类来把宿主窗口和无窗口的richedit联系起来。然后调用 CreateTextServices ，传入 ITextHost 指针，
+	返回IUnknown指针。通过这个IUnown接口，可以查询到 ITextServices 和 ITextDocument 接口。
 	最后通过这两个接口完成绝大多数功能。
+
+
 	
 //39701544  CreateTextServices
+https://www.cnblogs.com/likwo/archive/2011/05/05/2037138.html
+
+https://docs.microsoft.com/en-us/windows/win32/api/textserv/nl-textserv-itextservices
+https://docs.microsoft.com/en-us/windows/win32/controls/about-windowless-rich-edit-controls
+
+
 */
 
 =================================================================================================================================================================================================

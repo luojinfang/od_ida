@@ -1,0 +1,170 @@
+https://www.cnblogs.com/likwo/archive/2011/05/05/2037138.html
+
+https://docs.microsoft.com/en-us/windows/win32/api/textserv/nl-textserv-itextservices
+https://docs.microsoft.com/en-us/windows/win32/controls/about-windowless-rich-edit-controls
+
+hook qq 聊天内容 
+
+做这件事难点在于，QQ2010 的聊天框用的是无窗口 RichEdit，
+因此不能像普通的RichEdit那样通过 FindWindow 找到窗口然后发送 WM_GETTEXT 来获取文本，
+但是是不是就没有办法了呢，当然不是，这篇文章就要告诉大家抓取 QQ2010（以及之后版本）的QQ聊天框信息的一些基本思路。
+
+大家先用 Dependency Walker看一下RICHED20.dll这个文件，这个文件位于Tencent\QQ\Bin目录下，
+同样也位于Windows\System32目录下，可以看到该文件导出了几个函数：
+
+Ordinal ^ Hint Function Entry Point
+2 (0x0002) 1 (0x0001) IID_IRichEditOle 0x00014C60
+3 (0x0003) 2 (0x0002) IID_IRichEditOleCallback 0x00014C50
+4 (0x0004) 0 (0x0000) CreateTextServices 0x0000D882
+5 (0x0005) 5 (0x0005) IID_ITextServices 0x00014C20
+6 (0x0006) 3 (0x0003) IID_ITextHost 0x00014C30
+7 (0x0007) 4 (0x0004) IID_ITextHost2 0x00014C40
+8 (0x0008) 6 (0x0006) REExtendedRegisterClass 0x0004BA5C
+9 (0x0009) 7 (0x0007) RichEdit10ANSIWndProc 0x0003DB01
+10 (0x000A) 8 (0x0008) RichEditANSIWndProc 0x00015681
+
+这里大家需要注意的是 CreateTextServices 函数，在MSDN上查询后得知，该函数的原型如下：
+HRESULT CreateTextServices( IUnknown *punkOuter,
+  ITextHost *pITextHost,
+  IUnknown **ppUnk
+);
+
+第一个参数不用管，第二个参数暂时也不用管，至于第三个参数，返回一个 ppUnk，
+通过这个 ppUnk，我们可以通过调用 QueryInterface 得到 ITextServices 接口指针，比如：
+
+ITextServices* lpTs;
+((IUnknown*)(*ppUnk))->QueryInterface(IID_ITextServices, (void**)(&lpTs));
+
+这时候在MSDN上查询一下 ITextServices 接口，可以看到它的成员函数
+HRESULT TxGetText( BSTR *pbstrText
+);
+
+通过这个函数，我们就可以得到创建的无窗口 RichEdit 中的文本了。
+
+让我们来理一理思路，综上所述，我们需要做的就是Hook一下CreateTextServices函数，
+然后得到 ppUnk 这个指针，关于 Hook API 的方法我这里就不多说了，我采用的是一个比较简单的方法，大家可以参考这篇文章
+
+http://www.codeproject.com/KB/COM/cominterfacehookingpart.aspx
+
+简单说一下这篇文章的思路，主要的方法就是我们自己实现一个RICHED20.dll，
+并且把这个DLL复制到Tencent\QQ\Bin目录下覆盖源文件，
+然后导出前面的几个函数，用自己的函数来代替，比如 CreateTextServices，我们可以这样实现：
+
+#define NEW_DLL_NAME _T("\\RichEd20.Dll")
+
+HRESULT WINAPI CreateTextServices(IUnknown *punkOuter, ITextHost *pITextHost, IUnknown **ppUnk)
+{
+TCHAR szLib[MAX_PATH]; //255 is enough
+DWORD dw = GetSystemDirectory(szLib, MAX_PATH);
+if(dw == 0) return 0;
+szLib[dw] = TCHAR('\0');
+::lstrcat(szLib, NEW_DLL_NAME);
+HMODULE hLib = LoadLibrary(szLib);
+  if(!hLib) return 0;
+
+  lpCreateTextServices _CreateTextServices = (HRESULT (__stdcall *)  
+(IUnknown*, ITextHost*, IUnknown**))
+::GetProcAddress(hLib, "CreateTextServices");
+if(!_CreateTextServices) return 0;
+
+HRESULT hr = (_CreateTextServices)(punkOuter, pITextHost, ppUnk);
+
+ITextServices* lpTx;
+((IUnknown*)(*ppUnk))->QueryInterface(IID_ITextServices, (void**)(&lpTx));
+
+//这里是为了获取聊天窗口的句柄,因为 RichEdit 是 Windowless，所以只能通过这种方式获取 hostwindow
+pITextHost->TxSetCapture(TRUE);
+HWND hWnd = GetCapture();
+pITextHost->TxSetCapture(FALSE);
+TCHAR szText[200] = {0};
+WINDOWINFO wi = {sizeof(wi)};
+GetWindowInfo(hWnd,&wi);
+if (wi.dwStyle == 0x860F0000 && wi.dwExStyle == 0x300) //这个风格，表示是聊天窗口
+{
+g_mapTextServices.insert(std::make_pair(hWnd,lpTx));
+}
+
+return hr;
+}
+
+接下来让我一步一步说明这个函数的功能
+1. 首先获取System32目录，然后载入System32下真正的RICHED20.dll，
+2. 用GetProcAddress获取真正的CreateTextServices函数
+3. 调用CreateTextServices函数，得到ppUnk指针
+4. 调用ppUnk的QueryInterface得到ITextServices指针
+
+到这一步的时候，就有两个个问题，首先，我们如何保存得到的 ITextServices 指针；
+其次，如何获取聊天窗口的句柄，下面我们一个一个来讲。
+
+因为QQ在创建聊天窗口时不只一次的调用了 CreateTextServices，
+事实上每创建一个窗口，就会调用三次，
+经过我后面的验证，第一次调用时创建的是发送新消息框，
+第二次调用时创建的是消息显示框，
+所以这里我采用的方法，是定义一个multimap<HWND,ITextServices*>类型的map，
+然后把跟每个窗口对应的三个ITextServices指针插入到该map中，
+这样以后如果我需要得到某个窗口的聊天框内容，
+只需要根据该窗口的句柄，然后经过map的查找得到相应的迭代器，将迭代器++，
+就可以得到对应的聊天框ITextServices指针。
+但是问题是如何获取聊天窗口的窗口句柄呢？
+因为我查遍了ITextServices相关的接口，包括ITextHost等，没有任何返回HWND的函数，
+所以这里我用了一个小技巧，ITextHost 接口中有一个 TxSetCapture 函数用以捕获鼠标，
+当外部调用我们的CreateTextServices时，会传进来一个 ITextHost* 类型的指针,
+我们调用它的 TxSetCapture(TRUE) 函数，然后紧接着调用一下 GetCapture，
+这样得到的就是 RichEdit 的 HostWindow 的窗口句柄了，对应于QQ的聊天窗口，就是QQ聊天窗口的句柄了。
+
+
+5. 在得到了窗口句柄以后，我们需要判断一下调用 CreateTextServices 的 HostWindow 是不是聊天窗口，
+通过SPY++，我们发现聊天窗口具有0x860F0000的风格以及0x300的扩展风格，这时候我们调用一下GetWindowInfo，
+获取到窗口的一些信息，然后将取到的窗口风格与这两个值做一个比较，如果相同，我们就认为它是一个聊天窗口，并将它插入到map中。
+到此，主要的工作已经基本完成，接下来就是如何从map获取聊天窗口的ITextServices指针，
+并且调用它的 TxGetText 函数获取聊天窗口中的信息问题了，这里我就不多说了，大家可以根据自己的需要来进行改造。
+
+如果大家需要源码，可以与我联系，我的邮箱是oldmanzhao@163.com
+
+
+
+
+
+
+
+
+
+
+
+//CreateTextServices 示例
+    .
+    .
+    HRESULT hr;
+    IUnknown* pUnk = NULL;
+    ITextServices* pTextServices =  NULL;
+    
+    // Create an instance of the application-defined object that implements the 
+    // ITextHost interface.
+    TextHost* pTextHost = new TextHost();
+    if (pTextHost == NULL) 
+        goto errorHandler;
+
+    // Create an instance of the text services object.
+    hr = CreateTextServices(NULL, pTextHost, &pUnk);
+    if (FAILED(hr))
+        goto errorHandler;
+        
+    // Retrieve the IID_ITextServices interface identifier from 
+    // Msftedit.dll. The hmodRichEdit parameter is a handle to the 
+    // Msftedit.dll module retrieved by a previous call to the 
+    // GetModuleHandle function.
+    IID* pIID_ITS = (IID*) (VOID*) GetProcAddress(hmodRichEdit, 
+        "IID_ITextServices");
+               
+    // Retrieve the ITextServices interface.    
+    hr = pUnk->QueryInterface(*pIID_ITS, (void **)&pTextServices);
+    if (FAILED(hr))
+        goto errorHandler;
+     .
+     . 
+     .
+
+
+
+
+
