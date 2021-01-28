@@ -531,6 +531,22 @@ https://docs.microsoft.com/en-us/windows/win32/api/textserv/nl-textserv-itextser
 https://docs.microsoft.com/en-us/windows/win32/controls/about-windowless-rich-edit-controls
 
 
+
+msftedit.dll 库是 RichEdit4.0??
+
+PCreateTextServices TextServicesProc = NULL;
+HMODULE hmod = LoadLibrary(_T("msftedit.dll"));
+if (hmod)
+{
+    TextServicesProc = (PCreateTextServices)GetProcAddress(hmod, "CreateTextServices");
+}
+if (TextServicesProc)
+{
+    HRESULT hr = TextServicesProc(NULL, this, &pUnk);
+}
+hr = pUnk->QueryInterface(IID_ITextServices, (void **)&pserv);
+
+
 */
 
 =================================================================================================================================================================================================
