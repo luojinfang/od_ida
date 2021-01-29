@@ -1,7 +1,7 @@
 
 39702603 | E8 1CECFFFF              | call riched20.39701224                  | 
 39716654 | E8 9EBFFEFF              | call riched20.397025F7                  | 		eax 为文本内容
-3978E2AF | E8 6083F8FF              | call riched20.39716614                  | 		esi  为文本内容
+3978E2AF | E8 6083F8FF              | call riched20.39716614                  | 		esi  为文本内容  sub_39716614
 3086D24C | FF50 34                  | call dword ptr ds:[eax+34]              |gf
 30870B64 | FF16                     | call dword ptr ds:[esi]                 |
 30875FA5 | E8 5AABFFFF              | call gf.30870B04                        |gf
@@ -22,7 +22,136 @@
 30801A52 | FF10                     | call dword ptr ds:[eax]                 |
 764A62F7 | FF55 08                  | call dword ptr ss:[ebp+8]               | user32
 =================================================================================================================================================================================================
- 
+Address  To       From     Size     Comment           Party 
+0018EB78 3086D24F 3978E295 C        riched20.3978E295 User    // sub_3978E251
+0018EB84 30870B66 3086D24F 3C       gf.3086D24F       User
+0018EBC0 30875FAA 30870B66 C        gf.30870B66       User
+0018EBCC 65710D84 30875FAA 10       gf.30875FAA       User
+0018EBDC 65710D84 65710D84 10       afctrl.65710D84   User
+0018EBEC 6576CD28 65710D84 9C       afctrl.65710D84   User
+0018EC88 6576D0D6 6576CD28 4C       afctrl.6576CD28   User
+0018ECD4 657D21C2 6576D0D6 44       afctrl.6576D0D6   User
+0018ED18 657EE049 657D21C2 14       afctrl.657D21C2   User
+0018ED2C 3091559F 657EE049 74       afctrl.657EE049   User
+0018EDA0 30874C28 3091559F 88       gf.3091559F       User
+0018EE28 3086C26F 30874C28 10       gf.30874C28       User
+0018EE38 39713FAD 3086C26F 40       gf.3086C26F       User
+0018EE78 3970F4A1 39713FAD 20       riched20.39713FAD User
+0018EE98 39706039 3970F4A1 148      riched20.3970F4A1 User
+0018EFE0 7660EADA 39706039 C        riched20.39706039 System
+0018EFEC 7660EAB2 7660EADA C        msctf.7660EADA    System
+0018EFF8 39728E08 7660EAB2 38       msctf.7660EAB2    User
+0018F030 3086E3AD 39728E08 28       riched20.39728E08 User
+0018F058 300D9040 3086E3AD FFE70FAC gf.3086E3AD       User
+00000004 00000000 300D9040          common.300D9040   User
+
+=================================================================================================================================================================================================
+Address  To       From     Siz Comment               Party 
+0018F1A8 3086D24F 3978E295 C   riched20.3978E295     User
+0018F1B4 30870B66 3086D24F 3C  gf.3086D24F           User
+0018F1F0 30875FAA 30870B66 C   gf.30870B66           User
+0018F1FC 65710D84 30875FAA 10  gf.30875FAA           User
+0018F20C 65710D84 65710D84 10  afctrl.65710D84       User
+0018F21C 6576CD28 65710D84 9C  afctrl.65710D84       User
+0018F2B8 6576CF91 6576CD28 8   afctrl.6576CD28       User
+0018F2C0 6576FA4E 6576CF91 58  afctrl.6576CF91       User
+0018F318 6576F786 6576FA4E 18  afctrl.6576FA4E       User
+0018F330 6576FFF9 6576F786 1C  afctrl.6576F786       User
+0018F34C 30829411 6576FFF9 48  afctrl.6576FFF9       User
+0018F394 3082569C 30829411 78  gf.30829411           User
+0018F40C 30918690 3082569C 20  gf.3082569C           User
+0018F42C 3091A433 30918690 64  gf.30918690           User
+0018F490 309218A0 3091A433 20  gf.3091A433           User
+0018F4B0 30920C7E 309218A0 2C  gf.309218A0           User
+0018F4DC 30922171 30920C7E 18  gf.30920C7E           User
+0018F4F4 30801A54 30922171 50  gf.30922171           User
+0018F544 751F62FA 30801A54 2C  gf.30801A54           System
+0018F570 751F6D3A 751F62FA 78  user32.751F62FA       System
+0018F5E8 75200D27 751F6D3A 38  user32.751F6D3A       System
+0018F620 75200D4D 75200D27 20  user32.75200D27       System
+0018F640 05622550 75200D4D 1C  user32.75200D4D       User
+0018F65C 0562261C 05622550 48  appframework.05622550 User
+0018F6A4 751F62FA 0562261C 2C  appframework.0562261C System
+0018F6D0 751F6D3A 751F62FA 78  user32.751F62FA       System
+0018F748 751F77C4 751F6D3A 60  user32.751F6D3A       System
+0018F7A8 751F788A 751F77C4 10  user32.751F77C4       System
+0018F7B8 69F0652A 751F788A 3C  user32.751F788A       User
+0018F7F4 69F06059 69F0652A 1C  hummerengine.69F0652A User
+0018F810 69F04529 69F06059 3C  hummerengine.69F06059 User
+0018F84C 69F0AF44 69F04529 510 hummerengine.69F04529 User
+0018FD5C 69F0B146 69F0AF44 4C  hummerengine.69F0AF44 User
+0018FDA8 004014D9 69F0B146 144 hummerengine.69F0B146 User
+0018FEEC 0040128B 004014D9 C   qq.004014D9           User
+0018FEF8 00401A8F 0040128B 94  qq.0040128B           User
+0018FF8C 76F133AA 00401A8F C   qq.00401A8F           System
+0018FF98 77669F72 76F133AA 40  kernel32.76F133AA     System
+0018FFD8 77669F45 77669F72 18  ntdll.77669F72        System
+0018FFF0 00000000 77669F45     ntdll.77669F45        User
+
+=================================================================================================================================================================================================
+Address  To       From     Size Comment                Party 
+0018BAE8 3086D24F 3978E295 C    riched20.3978E295      User
+0018BAF4 30870B66 3086D24F 3C   gf.3086D24F            User
+0018BB30 30875FAA 30870B66 C    gf.30870B66            User
+0018BB3C 65710D84 30875FAA 10   gf.30875FAA            User
+0018BB4C 65710D84 65710D84 10   afctrl.65710D84        User
+0018BB5C 6576CD28 65710D84 9C   afctrl.65710D84        User
+0018BBF8 6576D0D6 6576CD28 4C   afctrl.6576CD28        User
+0018BC44 657D21C2 6576D0D6 44   afctrl.6576D0D6        User
+0018BC88 657EE049 657D21C2 14   afctrl.657D21C2        User
+0018BC9C 3091559F 657EE049 74   afctrl.657EE049        User
+0018BD10 30874C28 3091559F 88   gf.3091559F            User
+0018BD98 3086C26F 30874C28 10   gf.30874C28            User
+0018BDA8 39713FAD 3086C26F 40   gf.3086C26F            User
+0018BDE8 3970F4A1 39713FAD 20   riched20.39713FAD      User
+0018BE08 39706039 3970F4A1 158  riched20.3970F4A1      User
+0018BF60 3086E3AD 39706039 10   riched20.39706039      User
+0018BF70 3086E428 3086E3AD 1E4  gf.3086E3AD            User
+0018C154 30876237 3086E428 C    gf.3086E428            User
+0018C160 657A75BC 30876237 10   gf.30876237            User
+0018C170 657A75BC 657A75BC 10   afctrl.657A75BC        User
+0018C180 657A75BC 657A75BC 10   afctrl.657A75BC        User
+0018C190 65768AC4 657A75BC 34   afctrl.657A75BC        User
+0018C1C4 6576A13E 65768AC4 34   afctrl.65768AC4        User
+0018C1F8 6576C976 6576A13E 44C  afctrl.6576A13E        User
+0018C644 657BFFD1 6576C976 14   afctrl.6576C976        User
+0018C658 33DC3FC4 657BFFD1 458  afctrl.657BFFD1        User
+0018CAB0 33DC64E0 33DC3FC4 58   im.33DC3FC4            User
+0018CB08 33DC75A5 33DC64E0 38   im.33DC64E0            User
+0018CB40 33DC7938 33DC75A5 40   im.33DC75A5            User
+0018CB80 0509C2AC 33DC7938 54   im.33DC7938            User
+0018CBD4 0509CA3D 0509C2AC 6C   preloginlogic.0509C2AC User
+0018CC40 0509CE29 0509CA3D 2C   preloginlogic.0509CA3D User
+0018CC6C 0509A405 0509CE29 24   preloginlogic.0509CE29 User
+0018CC90 300A5BFC 0509A405 58   preloginlogic.0509A405 User
+0018CCE8 300A5271 300A5BFC 24   common.300A5BFC        User
+0018CD0C 300996C0 300A5271 60   common.300A5271        User
+0018CD6C 3009991B 300996C0 44   common.300996C0        User
+0018CDB0 30099B20 3009991B 284C common.3009991B        User
+0018F5FC 3009110A 30099B20 1C   common.30099B20        User
+0018F618 300935C6 3009110A 2C   common.3009110A        User
+0018F644 30093678 300935C6 58   common.300935C6        User
+0018F69C 300937DA 30093678 8    common.30093678        User
+0018F6A4 751F62FA 300937DA 2C   common.300937DA        System
+0018F6D0 751F6D3A 751F62FA 78   user32.751F62FA        System
+0018F748 751F77C4 751F6D3A 60   user32.751F6D3A        System
+0018F7A8 751F788A 751F77C4 10   user32.751F77C4        System
+0018F7B8 69F0652A 751F788A 3C   user32.751F788A        User
+0018F7F4 69F06059 69F0652A 1C   hummerengine.69F0652A  User
+0018F810 69F04529 69F06059 3C   hummerengine.69F06059  User
+0018F84C 69F0AF44 69F04529      hummerengine.69F04529  User
+
+=================================================================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
 
  
 
