@@ -1,0 +1,10 @@
+
+st:
+	cmp eip,0x76ae9cc0
+	jne end
+log:
+	log "  >>>>>>>>>>>> load dll[{s:esp+4}]"
+end:
+	run
+	jmp st
+ 

@@ -1,0 +1,153 @@
+st:
+ 
+	//cmp eip,0x5390E65F //  
+	//je stop
+	
+	
+	cmp eip,0x5390E6A9 //  load nop patch,002
+	je stop
+	
+	cmp eip,0x5390EAC7 //  
+	je stop
+	
+	cmp eip,0x557BDFE1 //  
+	je stop
+	
+	cmp eip,0x557AFC32 //version::init()
+	je stop
+	
+	
+	cmp eip,0x5390E819 //  
+	je stop	
+	cmp eip,0x5390E820 //  
+	je stop
+	
+	cmp eip,557AFB28 //  oi_symmetry_decrypt2 返回处
+	je stop
+	
+	cmp eip,0x5390E6A9 // ** 修改 mov eax,1
+	je stop
+
+	cmp eip,0x5390EBE8 // ** 修改 nop
+	je stop
+
+	cmp eip,0x5390E79d // ** 修改 mov ebx,1; test ebx,ebx;  nop 直到 5390E7B4,保证跳转 jne 0x5390E7C5
+	je stop
+	
+	
+	
+	cmp eip,0x5390E819  // ** 修改 mov eax,1
+	je stop
+	
+
+	
+
+	
+	//557BDF93 
+
+		
+	//kernelutil.557BDBD7   error
+	
+	
+	//557BDF93 
+	
+	
+	//cmp eip,5390E762 // ***
+	//je stop
+	
+	//cmp eip,0x5390E678  //0x5390E675 之后
+	//je stop
+	
+	cmp eip,0x76AF5990
+	je stop
+//===========================================================================	
+ 	cmp eip,0x7715F630  //LoadLibraryW  
+	je b001
+	
+ 	cmp eip,77160710  // LoadLibraryA 
+	je b002
+	
+ 	cmp eip,0x77160870  //  LoadLibraryExA
+	je b003
+	
+ 	cmp eip,0x77161A30  //  LoadLibraryExW
+	je b004
+//===========================================================================	
+	//cmp eip,0x77BB4E8A
+	//je m001
+	//cmp eip,0x557AFE76
+	//je m002
+	//cmp eip,0x5390E675
+	//je m003
+	
+		
+	cmp eip,0x522D3A02  //  
+	je m004
+	cmp eip,0x5390E81E   
+	je m005
+
+	cmp eip,0x557AFE81   
+	je m006
+	
+	
+	jmp end
+//===========================================================================
+b001:
+	log "LoadLibraryW {s:esp+4}"
+	jmp end
+
+b002:
+	log "LoadLibraryA {s:esp+4}"
+	jmp end
+	
+b003:
+	log "LoadLibraryExA {s:esp+4}"
+	jmp end
+
+b004:
+	log "LoadLibraryExW {s:esp+4}"
+	jmp end	
+	
+
+
+	
+
+
+//===========================================================================	
+m001:
+	mov eax,0
+	log "  IsDebuggerPresent return eax[{eax}]"
+	jmp end
+m002:
+	mov eax,1
+	log "  version::init return eax[{eax}]"
+	jmp end
+	
+m003:
+	mov eax,0x7EC
+	log " hummerengine  sub_5390E58A Initialization 001"
+	jmp end
+
+m004:
+	mov eax,1
+	log " common   oi_symmetry_decrypt2  ret 1"
+	jmp end
+	
+m005:
+	mov eax,1
+	log " sub_5390E268 ret 1"
+	jmp end
+		
+	
+m006:
+	mov eax,1
+	log "version::init return eax[{eax}]"
+	jmp end	
+//===========================================================================	
+log:
+	log "  >>>>>>>>>>>> load dll[{s:esp+4}]"
+end:
+	run
+	jmp st
+stop:
+	

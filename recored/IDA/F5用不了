@@ -6,3 +6,8 @@ https://blog.csdn.net/u010334666/article/details/82937413
 
 1.在 options->generals 选项里把 stack pointer 选上，显示方法栈的标值,可查看方法结束时，是否栈平衡,没有平衡的，要alt-k修复(右键->change stack pointer).
 2.手动创建 function. alt-p (edit function)
+
+
+
+
+可用鼠标直接框选代码，按 P 创建方法.(从方法起始代码选到 retn 处)
