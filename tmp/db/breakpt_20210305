@@ -1,0 +1,24 @@
+Type,Address,Module/Label/Exception,State,Disassembly,Hits,Summary
+Software,,,,,,
+,0040286A,qq.exe,Disabled,call dword ptr ds:[<&LoadLibraryW>],0,
+,52291000,common.dll,Disabled,push ebp,0,
+,5235DAD0,common.dll,Disabled,push ebp,0,"ret, =>showWindow"
+,5235DE95,common.dll,Disabled,call dword ptr ds:[<&ShowWindow>],0,nop
+,5235E2C0,common.dll,Disabled,push ebp,0,ret 4
+,5317A430,<gf.dll.?DispatchFrameMsg@GF@Util@@YAJPAUIGFFrame@@PAUtagBaseArg@@PAHPAJH@Z>,Disabled,push ebp,0,
+,5317A439,gf.dll,Disabled,"mov edi,dword ptr ss:[ebp+8]",0,breakif(ebx == 0x905a4d)
+,5390E655,hummerengine.dll,Enabled,call dword ptr ds:[<&?Init@Version@@YAHXZ>],0,version::init()
+,5390EF88,hummerengine.dll,Disabled,call dword ptr ds:[<&?Run@Thread@AsyncTask@@MAEXPAVMessageLoop@2@@Z>],0,
+,539217CC,<hummerengine.dll.EntryPoint>,Disabled,push ebp,0,
+,68901544,riched20.dll,Disabled,???,0,
+,76AE9CC0,<kernel32.dll.LoadLibraryW>,Disabled,"mov edi,edi",0,LoadlibraryW
+,76AEA520,<kernel32.dll.IsDebuggerPresent>,Enabled,jmp dword ptr ds:[<&IsDebuggerPresent>],2,IsDebuggerPresent
+,77485F30,<user32.dll.ShowWindow>,Disabled,jmp dword ptr ds:[<&NtUserShowWindow>],0,showwindow
+,774C1930,<user32.dll.MessageBoxA>,Enabled,"mov edi,edi",0,
+,774C1980,<user32.dll.MessageBoxExA>,Enabled,"mov edi,edi",0,
+,774C19B0,<user32.dll.MessageBoxExW>,Enabled,"mov edi,edi",0,
+,774C19E0,<user32.dll.MessageBoxIndirectA>,Enabled,"mov edi,edi",0,
+,774C1B20,<user32.dll.MessageBoxIndirectW>,Enabled,"mov edi,edi",0,
+,774C1BB0,<user32.dll.MessageBoxTimeoutA>,Enabled,"mov edi,edi",0,
+,774C1C90,<user32.dll.MessageBoxTimeoutW>,Enabled,"mov edi,edi",0,
+,774C1E50,<user32.dll.MessageBoxW>,Enabled,"mov edi,edi",1,
