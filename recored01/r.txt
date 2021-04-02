@@ -1,0 +1,56 @@
+=================================================================================================
+=================================================================================================
+
+
+=================================================================================================
+当一个 PE文件被加载到内存后,便是我们常说的模块(Module), 其起始地址就是所谓的 HModule
+HModule = GetModuleHandleW(0); // HModule对应的地址就是pe文件中,dos头的起始,地址从小到大
+
+
+=================================================================================================
+
+
+
+
+//https://www.hex-rays.com/products/decompiler/manual/tricks.shtml
+
+//signed int __usercall sub_53931703@<eax>(int a1@<ebp>)
+_usercall 是编译器开过完全优化以后，会以任意寄存器作为参数传递。
+IDA supports the user-defined calling convention. In this calling convention, 
+the user can explicitly specify the locations of arguments and the return value. For example:
+
+        int __usercall func<ebx>(int x, int y<esi>);
+denotes a function with 2 arguments: the first argument is passed on the stack and 
+the second argument is passed in the ESI register and the return value is 
+stored in the EBX register. General rules for the user defined prototypes are:
+  - the return value must be in a register
+  - if the return type is 'void', the return location must not be specified
+  - if the argument location is not specified, it is assumed to be
+    on the stack; consequent stack locations are allocated for such arguments
+  - currently, ida does not check the register sizes, but it is recommended
+    to specify correct register sizes (for example, use AL for char type)
+  - it is allowed to declare nested declarations, for example:
+    int **__usercall func16<eax>(int *(__usercall *x)<ebx>
+                                                (int, long<ecx>, int)<esi>);
+    Here the pointer "x" is passed in the ESI register;
+    The pointed function is a usercall function and expects its second
+    argument in the ECX register, its return value is in the EBX register.
+    The rule of thumb to apply in such complex cases is to specify the
+    the registers just before the opening brace for the parameter list.
+  - registers used for the location names must be valid for the current
+    processor; some registers are unsupported (if the register name is
+    generated on the fly, it is unsupported; inform us about such cases;
+    we might improve the processor module if it is easy)
+  - register pairs can be specified with a colon like <edx:eax>
+IDA also understands the "__userpurge" calling convention. It is the same thing as __usercall, the only difference is that the callee cleans the stack.
+The name used in the declaration is ignored by IDA.
+
+
+=================================================================================================
+ 
+ __debugbreak() //当遇到这个断点时系统会很快的让我们选择是否调试。选中调试就可以容易的附加到进程。
+
+=================================================================================================
+ 
+
+=================================================================================================

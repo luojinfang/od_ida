@@ -1,0 +1,2958 @@
+0.看进程里是否有QQ保护进程，先关闭, showWindow方法下断点时，会跑飞
+1.用 pelib库,在pe文件里把 ALSR关闭. 处理qq.exe和所有用到的qq库文件
+2.分析 调用 IsDebuggerPresent()/kernelbase.dll 的地方,返回的地方处理一下，不要走到异常. 
+	IsDebuggerPresent 返回eax处,把 eax改为 0x0 
+	asynctask.dll   0x51b25e5f 调用 IsDebuggerPresent
+	 
+	 
+		77BB4E80 <kernelbase.IsDebuggerPresent  | 64:A1 30000000        | mov eax,dword ptr fs:[30]                      |
+		77BB4E86                         		| 0FB640 02             | movzx eax,byte ptr ds:[eax+2]                  | //改为 mov eax,0
+		77BB4E8A                         		| C3                    | ret                                            |
+
+	
+3.firstload.dll
+
+
+4.common.dll 不会跳转,走到了异常
+523CEF60                         | 0F85 98000000         | jne common.523CEFFE                            |
+
+
+5.调试不要放太多断点，快速执行
+
+6.在  user32.dll::MessageBoxW 断点，显示异常框时会断点,分析哪里触发了异常逻辑.   (显示的界面要么是showwindow,要么是messagebox?)
+	kernelutil.dll::version::init() 返回异常,需修改
+		=> oi_symmetry_decrypt2() //这里会用 qq.exe文件内容的 md5 码, 做为解密的key读取 vi.dat. 这里可以修改为读取原qq.exe文件,生成md5码
+	
+
+7. hummerengine.dll,Base=53900000
+	5390E819         | E8 4AFAFFFF           | call hummerengine.5390E268                          |
+
+	cmp eip,5390E6A9 // ** 修改 mov eax,1
+	je stop
+
+	cmp eip,5390EBE8 // ** 修改 nop
+	je stop
+
+	cmp eip,5390E79d // ** 修改 mov ebx,1; test ebx,ebx;  nop 直到 5390E7B4,保证跳转 jne 0x5390E7C5
+	je stop
+	
+8.kernelutil.dll,Base=556A0000	
+.text:557BDFE1                 call    [ebp+var_40C]	
+	
+
+ 
+	
+9.查看日志，发现会加载 QPSection.dll,QQProtect.exe, 想办法弄清关系，关闭保护.
+	callstack: LoadLibraryW(L"C:\\Program Files (x86)\\Common Files\\Tencent\\QQProtect\\Bin\\QPSection.dll")
+		Address  To       From     Siz Comment               Party 
+		0019F0D0 52401C7E 7715F630 28  kernelbase.7715F630   User
+		0019F0F8 53908F54 52401C7E 22C common.52401C7E       User
+		0019F324 53908DF5 53908F54 3C  hummerengine.53908F54 User
+		0019F360 5390FCFD 53908DF5 6A0 hummerengine.53908DF5 User
+		0019FA00 53917E23 5390FCFD 80  hummerengine.5390FCFD User
+		0019FA80 0040289B 53917E23 49C hummerengine.53917E23 User
+		0019FF1C 004012C6 0040289B C   qq.0040289B           User
+		0019FF28 00403365 004012C6 4C  qq.004012C6           User
+		0019FF74 75BD6359 00403365 10  qq.00403365           System
+		0019FF84 77CB8944 75BD6359 5C  kernel32.75BD6359     System
+		0019FFE0 77CB8914 77CB8944 10  ntdll.77CB8944        System
+		0019FFF0 00000000 77CB8914     ntdll.77CB8914        User
+
+
+		//LoadLibraryExW 
+		Address  To       From     Siz Comment               Party 
+		0019F0BC 7715F641 77161A30 14  kernelbase.77161A30   System
+		0019F0D0 52401C7E 7715F641 28  kernelbase.7715F641   User
+		0019F0F8 53908F54 52401C7E 22C common.52401C7E       User
+		0019F324 53908DF5 53908F54 3C  hummerengine.53908F54 User
+		0019F360 5390FCFD 53908DF5 6A0 hummerengine.53908DF5 User
+		0019FA00 53917E23 5390FCFD 80  hummerengine.5390FCFD User
+		0019FA80 0040289B 53917E23 49C hummerengine.53917E23 User
+		0019FF1C 004012C6 0040289B C   qq.0040289B           User
+		0019FF28 00403365 004012C6 4C  qq.004012C6           User
+		0019FF74 75BD6359 00403365 10  qq.00403365           System
+		0019FF84 77CB8944 75BD6359 5C  kernel32.75BD6359     System
+		0019FFE0 77CB8914 77CB8944 10  ntdll.77CB8944        System
+		0019FFF0 00000000 77CB8914     ntdll.77CB8914        User
+		
+		
+	callstack: LoadLibraryW(L"C:\\Program Files (x86)\\Common Files\\Tencent\\QQProtect\\Bin\\QQProtect.exe")
+		Address  To       From     Size Comment               Party 
+		0019DF08 5390BDF0 7715F630 10E4 kernelbase.7715F630   User
+		0019EFEC 5390BBB1 5390BDF0 8C   hummerengine.5390BDF0 User
+		0019F078 5390B9AB 5390BBB1 23C  hummerengine.5390BBB1 User
+		0019F2B4 5390802D 5390B9AB 7C   hummerengine.5390B9AB User
+		0019F330 53906963 5390802D 30   hummerengine.5390802D User
+		0019F360 5390FCFD 53906963 6A0  hummerengine.53906963 User
+		0019FA00 53917E23 5390FCFD 80   hummerengine.5390FCFD User
+		0019FA80 0040289B 53917E23 49C  hummerengine.53917E23 User
+		0019FF1C 004012C6 0040289B C    qq.0040289B           User
+		0019FF28 00403365 004012C6 4C   qq.004012C6           User
+		0019FF74 75BD6359 00403365 10   qq.00403365           System
+		0019FF84 77CB8944 75BD6359 5C   kernel32.75BD6359     System
+		0019FFE0 77CB8914 77CB8944 10   ntdll.77CB8944        System
+		0019FFF0 00000000 77CB8914      ntdll.77CB8914        User
+
+	 
+线程 ID 地址       返回到      返回自      大小  注释 
+		=>CreateProcess    L"C:\\Program Files (x86)\\Common Files\\Tencent\\QQProtect\\Bin\\QQProtect.exe"  //是哪里取到的目录？
+      0019EB08 75957A96 7564A3F0 244 kernelbase.7564A3F0      系统模块
+      0019ED4C 7595B20E 75957A96 38  windows.storage.75957A96 系统模块
+      0019ED84 75957462 7595B20E 34  windows.storage.7595B20E 系统模块
+      0019EDB8 759576BA 75957462 18  windows.storage.75957462 系统模块
+      0019EDD0 7595A0A6 759576BA 48  windows.storage.759576BA 系统模块
+      0019EE18 759574D2 7595A0A6 38  windows.storage.7595A0A6 系统模块
+      0019EE50 7595B7C5 759574D2 110 windows.storage.759574D2 系统模块
+      0019EF60 75F55505 7595B7C5 30  windows.storage.7595B7C5 系统模块
+      0019EF90 75F555E4 75F55505 2C  shell32.75F55505         系统模块
+      0019EFBC 75F55A9A 75F555E4 EC  shell32.75F555E4         系统模块
+      0019F0A8 75F55D70 75F55A9A F8  shell32.75F55A9A         系统模块
+      0019F1A0 53917367 75F55D70 198 shell32.75F55D70         用户模块
+      0019F338 53916A3D 53917367 28  hummerengine.53917367    用户模块    // ====>  ShellExecuteExW()
+      0019F360 5391FCFD 53916A3D 6A0 hummerengine.53916A3D    用户模块
+      0019FA00 53927E8B 5391FCFD 80  hummerengine.5391FCFD    用户模块
+      0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B    用户模块
+      0019FF1C 004012C6 0040289B C   qq.0040289B              用户模块
+      0019FF28 00403365 004012C6 4C  qq.004012C6              用户模块
+      0019FF74 74FB0419 00403365 10  qq.00403365              系统模块
+      0019FF84 778966DD 74FB0419 5C  kernel32.74FB0419        系统模块
+      0019FFE0 778966AD 778966DD 10  ntdll.778966DD           系统模块
+      0019FFF0 00000000 778966AD     ntdll.778966AD           用户模块
+ 
+	
+10.运行不久会弹出,qq文件已损坏的提示	
+	
+	
+	
+	
+跳转指令
+https://blog.csdn.net/ssihc0/article/details/5215044	
+je jne  等于0
+jb jnb  小于
+jg jng  大于
+js jns  负号
+
+
+=========================================================================================================================================================
+
+//LoadLibraryExW
+	Address  To       From     Siz Comment               Party 
+	0019F0BC 7715F641 77161A30 14  kernelbase.77161A30   System
+	0019F0D0 52401C7E 7715F641 28  kernelbase.7715F641   User
+	0019F0F8 53908F54 52401C7E 22C common.52401C7E       User
+	0019F324 53908DF5 53908F54 3C  hummerengine.53908F54 User
+	0019F360 5390FCFD 53908DF5 6A0 hummerengine.53908DF5 User
+	0019FA00 53917E23 5390FCFD 80  hummerengine.5390FCFD User
+	0019FA80 0040289B 53917E23 49C hummerengine.53917E23 User
+	0019FF1C 004012C6 0040289B C   qq.0040289B           User
+	0019FF28 00403365 004012C6 4C  qq.004012C6           User
+	0019FF74 75BD6359 00403365 10  qq.00403365           System
+	0019FF84 77CB8944 75BD6359 5C  kernel32.75BD6359     System
+	0019FFE0 77CB8914 77CB8944 10  ntdll.77CB8944        System
+	0019FFF0 00000000 77CB8914     ntdll.77CB8914        User
+
+
+
+
+
+
+
+=========================================================================================================================================================
+Address  To       From     Siz Comment               Party 
+0019F2EC 5326F27D 02F7FF41 18  02F7FF41              User
+0019F304 53909B83 5326F27D 28  gf.5326F27D           User
+0019F32C 53909A45 53909B83 10  hummerengine.53909B83 User
+0019F33C 5390684E 53909A45 24  hummerengine.53909A45 User
+0019F360 5390FCFD 5390684E 6A0 hummerengine.5390684E User
+0019FA00 53917E23 5390FCFD 80  hummerengine.5390FCFD User
+0019FA80 0040289B 53917E23 49C hummerengine.53917E23 User
+0019FF1C 004012C6 0040289B C   qq.0040289B           User
+0019FF28 00403365 004012C6 4C  qq.004012C6           User
+0019FF74 76AE6359 00403365 10  qq.00403365           System
+0019FF84 77D78944 76AE6359 5C  kernel32.76AE6359     System
+0019FFE0 77D78914 77D78944 10  ntdll.77D78944        System
+0019FFF0 00000000 77D78914     ntdll.77D78914        User
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+signed int __thiscall sub_53909AE1(_DWORD *this)
+{
+  _DWORD *v1; // ebx@1
+  signed int v2; // edi@1
+  HMODULE v3; // esi@3
+  const WCHAR *v4; // eax@3
+  HWND v5; // eax@3
+  HMODULE v6; // esi@7
+  const WCHAR *v7; // eax@7
+  HWND v8; // eax@7
+  HMODULE v9; // esi@13
+  const WCHAR *v10; // eax@13
+  HWND v11; // eax@13
+  signed int v13; // [sp-18h] [bp-30h]@4
+  const wchar_t *v14; // [sp-14h] [bp-2Ch]@4
+  const wchar_t *v15; // [sp-Ch] [bp-24h]@4
+  const wchar_t *v16; // [sp-8h] [bp-20h]@4
+  DWORD v17; // [sp-4h] [bp-1Ch]@4
+  DWORD v18; // [sp+Ch] [bp-Ch]@2
+  int v19; // [sp+10h] [bp-8h]@9
+  char v20; // [sp+14h] [bp-4h]@1
+
+  v1 = this;
+  v2 = 0;
+  CTXStringW::CTXStringW((CTXStringW *)&v20);
+  if ( !sub_53909A50(v1) )
+    goto LABEL_16;
+  v18 = GetCurrentProcessId();
+  if ( v1[1] )
+  {
+LABEL_6:
+    if ( !v1[2] ) //53909B83
+    {
+      CTXStringW::Format((CTXStringW *)&v20, L"%s", L"807189C9-A8A2-4B2D-BC8C-6D1B33153FEF");
+      v6 = GetModuleHandleW(0);
+      v7 = CTXStringW::GetString((CTXStringW *)&v20);
+      v8 = CreateWindowExW(0, L"QQProtectExchangeWnd", v7, 0, 0, 0, 100, 100, 0, 0, v6, 0);
+      v1[2] = v8;
+      if ( !v8 )
+      {
+        v17 = GetLastError();
+        v16 = L"Failed to create private ipc wnd.(%08X)";
+        v15 = L"QPIPC_WndWrapper";
+        v14 = L"func";
+        v13 = 113;
+        goto LABEL_15;
+      }
+      ShowWindow(v8, 0);
+      v19 = 0;
+      sub_5390879E(&v19);
+      if ( v19 )
+        (*(void (__stdcall **)(int, _DWORD))(*(_DWORD *)v19 + 60))(v19, v1[2]);
+      sub_5390164A(&v19);
+    }
+    if ( !v1[3] )
+    {
+      CTXStringW::Format((CTXStringW *)&v20, L"%s_%d", L"C777F873-4A84-48DC-9AEE-64B62558A62A", v18);
+      v9 = GetModuleHandleW(0);
+      v10 = CTXStringW::GetString((CTXStringW *)&v20);
+      v11 = CreateWindowExW(0, L"QQProtectExchangeWnd", v10, 0, 0, 0, 100, 100, 0, 0, v9, 0);
+      v1[3] = v11;
+      if ( !v11 )
+      {
+        v17 = GetLastError();
+        v16 = L"Failed to create private ipc wnd.(%08X)";
+        v15 = L"QPIPC_WndWrapper";
+        v14 = L"func";
+        v13 = 134;
+        goto LABEL_15;
+      }
+      ShowWindow(v11, 0);
+    }
+    v2 = 1;
+    CTXStringW::~CTXStringW((CTXStringW *)&v20);
+    return v2;
+  }
+  CTXStringW::Format((CTXStringW *)&v20, L"%s", L"C626F873-5966-9677-EE99-69763329792A");
+  v3 = GetModuleHandleW(0);
+  v4 = CTXStringW::GetString((CTXStringW *)&v20);
+  v5 = CreateWindowExW(0, L"QQProtectExchangeWnd", v4, 0, 0, 0, 100, 100, 0, 0, v3, 0);
+  v1[1] = v5;
+  if ( v5 )
+  {
+    ShowWindow(v5, 0);
+    goto LABEL_6;
+  }
+  v17 = GetLastError();
+  v16 = L"Failed to create public ipc wnd.(%08X)";
+  v15 = L"QPIPC_WndWrapper";
+  v14 = L"func";
+  v13 = 98;
+LABEL_15:
+  sub_53901B89(L"file", v13, v14, 2, v15, (const char *)v16, v17);
+LABEL_16:
+  CTXStringW::~CTXStringW((CTXStringW *)&v20);
+  sub_53909CC9(v1);
+  return v2;
+}
+
+
+void *sub_539099DA()
+{
+  void *result; // eax@3
+  int v1; // esi@4
+
+  if ( !(dword_53936B1C & 1) )
+  {
+    dword_53936B20 = 0;
+    dword_53936B1C |= 1u;
+    sub_5392126B((int)sub_53922818);
+  }
+  result = dword_53936B20;
+  if ( !dword_53936B20 )
+  {
+    v1 = sub_53920EB1(0x10u);
+    *(_DWORD *)v1 = 0;
+    *(_DWORD *)(v1 + 4) = 0;
+    *(_DWORD *)(v1 + 8) = 0;
+    *(_DWORD *)(v1 + 12) = 0;
+    if ( (void *)v1 != dword_53936B20 )
+    {
+      if ( dword_53936B20 )
+        sub_53909EC9(dword_53936B20, (int)dword_53936B20);
+    }
+    dword_53936B20 = (void *)v1;
+    sub_53909AE1((_DWORD *)v1); //call sub_53909AE1=>53909B83
+    result = dword_53936B20;
+  }
+  return result;
+}
+
+
+
+
+signed int __thiscall sub_5390683E(void *this, const wchar_t *a2)
+{
+  void *v2; // esi@1
+  void *v3; // ecx@1
+  int v4; // edi@1
+  HANDLE v5; // eax@1
+  int v6; // ecx@2
+  int v7; // eax@3
+  int v8; // ebx@3
+  signed int v9; // eax@6
+  int v10; // ecx@16
+  bool v11; // zf@16
+  int v12; // eax@17
+  int v13; // eax@17
+  const wchar_t *v14; // ebx@18
+  int v15; // ecx@19
+  int v16; // ST24_4@19
+  int v17; // ecx@19
+  int v18; // ecx@22
+  int v19; // eax@23
+  int v20; // ebx@24
+  int v21; // eax@28
+  int v22; // ecx@28
+  int v23; // ebx@33
+  int v24; // eax@34
+  int v25; // eax@36
+  int v26; // ecx@36
+  int v28; // [sp-14h] [bp-30h]@0
+  int v29; // [sp-10h] [bp-2Ch]@1
+  int v30; // [sp-Ch] [bp-28h]@16
+  int v31; // [sp-8h] [bp-24h]@16
+  int v32; // [sp-4h] [bp-20h]@16
+  char v33; // [sp+Ch] [bp-10h]@2
+  int v34; // [sp+10h] [bp-Ch]@1
+  int v35; // [sp+14h] [bp-8h]@1
+  int v36; // [sp+18h] [bp-4h]@1
+
+  v2 = this;
+  sub_539099DA(); //call sub_539099DA=>53909A45
+  v4 = 0;
+  v35 = 1;
+  sub_53908E10(v3);
+  v34 = 0;
+  v36 = 0;
+  v5 = CreateEventW(0, 0, 0, 0);
+  *((_DWORD *)v2 + 9) = v5;
+  if ( v5 )
+  {
+    if ( sub_5390B196(&v33) )
+    {
+      v7 = sub_5390912C(v6);
+      v8 = v7;
+      if ( v7 )
+      {
+        sub_53901B89(L"file", 861, L"func", 2, L"QQ_QP_Logic", (const char *)L"Failed to connect to pub ipc.(%08X)", v7);
+        if ( v8 == -2144141311 )
+        {
+          *((_DWORD *)v2 + 6) = 6;
+        }
+        else
+        {
+          v9 = 1;
+          if ( v8 == -2144141310 )
+            v9 = 7;
+          *((_DWORD *)v2 + 6) = v9;
+        }
+        goto LABEL_38;
+      }
+      *((_DWORD *)v2 + 5) = 0;
+      if ( sub_53906F43(v2) )
+      {
+        if ( !sub_53907417() )
+        {
+          a2 = L"Failed to request priv ipc.";
+          sub_539024B3(962, (int)L"file", (int)L"func", 2, (int)L"QQ_QP_Logic", (const char *)L"%s");
+        }
+        return 1;
+      }
+    }
+    else
+    {
+      if ( !sub_5390B530() )
+      {
+        sub_53907E8E(1, 35, 1);
+        v10 = *((_DWORD *)v2 + 41);
+        v11 = v10 == 0;
+        if ( !v10 )
+        {
+          v12 = sub_53920EB1(0x64u);
+          v13 = sub_53909EFD(v12);
+          *((_DWORD *)v2 + 41) = v13;
+          sub_5390A1F4(v13);
+          v11 = *((_DWORD *)v2 + 41) == 0;
+        }
+        v14 = a2;
+        if ( !v11 )
+        {
+          sub_5390A879();
+          v16 = v15;
+          v17 = *((_DWORD *)v2 + 41);
+          if ( sub_5390A591(v16) )
+            *(_DWORD *)v14 = *(_DWORD *)(*((_DWORD *)v2 + 41) + 48);
+        }
+        if ( *(_DWORD *)v14
+          && ((v18 = *((_DWORD *)v2 + 42)) != 0
+           || (v19 = sub_53920EB1(0x84u), v18 = sub_53902738(v19), (*((_DWORD *)v2 + 42) = v18) != 0)) )
+        {
+          v20 = sub_53902760(*(_DWORD *)v14, v18, &v34, &v36);
+          if ( v36 && *((_DWORD *)v2 + 41) )
+            sub_5390A724();
+        }
+        else
+        {
+          v20 = v35;
+        }
+        v21 = sub_539026C5();
+        if ( v21 )
+          sub_5390261F(
+            v22,
+            *(_DWORD *)(v21 + 4),
+            *(_DWORD *)(v21 + 8),
+            *(_DWORD *)(v21 + 12),
+            *(_DWORD *)(v21 + 16),
+            v28,
+            v29,
+            v30,
+            v31,
+            v32);
+        if ( v20 )
+        {
+          sub_53906FDB(1);
+          if ( v34 )
+          {
+            if ( sub_5390B196(&v33) )
+            {
+              v23 = *((_DWORD *)v2 + 42);
+              if ( v23 || (v24 = sub_53920EB1(0x84u), v23 = sub_53902738(v24), (*((_DWORD *)v2 + 42) = v23) != 0) )
+              {
+                if ( *(_DWORD *)(v23 + 128)
+                  || (v25 = sub_53920EB1(0xCu), v26 = sub_53901490(v25), (*(_DWORD *)(v23 + 128) = v26) != 0) )
+                {
+                  sub_539014E3();
+                }
+              }
+            }
+          }
+        }
+        goto LABEL_38;
+      }
+      *((_DWORD *)v2 + 5) = 1;
+      if ( sub_53906F43(v2) )
+        return 1;
+    }
+  }
+LABEL_38:
+  if ( *((_DWORD *)v2 + 9) )
+  {
+    CloseHandle(*((HANDLE *)v2 + 9));
+    *((_DWORD *)v2 + 9) = 0;
+  }
+  if ( *((_DWORD *)v2 + 6) )
+  {
+    sub_539074A7(*((_DWORD *)v2 + 6));
+    sub_53907E8E(1, 33, *((_DWORD *)v2 + 6));
+  }
+  return v4;
+}
+
+
+
+
+
+
+signed int __thiscall sub_5390F82B(void *this, wchar_t *a2)
+{
+  void *v2; // edi@1
+  int v3; // ecx@1
+  signed int v4; // ebx@4
+  unsigned __int32 v5; // esi@4
+  Util::Misc *v6; // eax@4
+  const wchar_t *v7; // esi@4
+  int v8; // esi@4
+  loginstatistics::CTXLoginStatistic *v9; // eax@13
+  int v10; // eax@13
+  int v11; // ecx@13
+  const struct _GUID *v12; // esi@13
+  char v13; // al@14
+  void *v15; // eax@16
+  const char *v16; // esi@20
+  int v17; // edx@22
+  int v18; // edx@25
+  int v19; // ecx@31
+  char v20; // al@34
+  signed int v21; // ebx@46
+  volatile LONG *v22; // edi@46
+  int v23; // eax@53
+  PerfDataReportUtil *v24; // eax@53
+  unsigned __int32 v25; // edi@53
+  unsigned __int32 v26; // esi@53
+  unsigned __int16 v27; // ax@53
+  wchar_t *v28; // esi@53
+  const wchar_t *v29; // eax@53
+  const wchar_t *v30; // eax@53
+  int v31; // eax@53
+  Util::HostResolve *v32; // eax@53
+  int v33; // esi@53
+  int v34; // eax@63
+  int v35; // ecx@63
+  int v36; // eax@65
+  int v37; // ecx@65
+  HMODULE v38; // eax@76
+  FARPROC v39; // eax@77
+  int v40; // eax@78
+  const char *v41; // edi@79
+  const wchar_t *v42; // eax@83
+  const wchar_t *v43; // eax@83
+  int v44; // esi@84
+  void (__stdcall *v45)(int, int); // edi@84
+  int v46; // eax@84
+  int v47; // eax@84
+  int v48; // esi@84
+  void (__stdcall *v49)(int, wchar_t *); // edi@84
+  wchar_t *v50; // eax@84
+  int v51; // esi@84
+  void (__thiscall *v52)(int, int, const wchar_t *); // edi@84
+  const wchar_t *v53; // eax@84
+  const wchar_t *v54; // eax@84
+  int v55; // ST38_4@84
+  int v56; // edx@86
+  int v57; // eax@89
+  int v58; // eax@92
+  int v59; // ecx@99
+  int v60; // esi@101
+  int v61; // eax@101
+  HMODULE v62; // esi@110
+  int v63; // ST38_4@124
+  int v64; // eax@129
+  signed int v65; // eax@134
+  const wchar_t *v66; // ecx@134
+  int v67; // ecx@136
+  wchar_t *v68; // esi@139
+  int v69; // eax@139
+  unsigned __int32 v70; // eax@139
+  char v71; // al@141
+  int v72; // ecx@141
+  int v73; // ecx@145
+  void *v74; // eax@146
+  Util::MsgIndex *v75; // ST34_4@154
+  Util::Misc *v76; // [sp+0h] [bp-694h]@3
+  bool Dst; // [sp+10h] [bp-684h]@13
+  bool v78; // [sp+11h] [bp-683h]@13
+  const wchar_t *v79; // [sp+14h] [bp-680h]@13
+  unsigned __int32 v80; // [sp+18h] [bp-67Ch]@13
+  DWORDLONG v81; // [sp+20h] [bp-674h]@13
+  int v82; // [sp+2Ch] [bp-668h]@4
+  int v83; // [sp+30h] [bp-664h]@4
+  int v84; // [sp+34h] [bp-660h]@53
+  int (__thiscall **v85)(void *, char); // [sp+38h] [bp-65Ch]@4
+  int v86; // [sp+3Ch] [bp-658h]@4
+  int v87; // [sp+40h] [bp-654h]@4
+  int v88; // [sp+44h] [bp-650h]@4
+  char v89; // [sp+48h] [bp-64Ch]@4
+  int v90; // [sp+4Ch] [bp-648h]@4
+  int v91; // [sp+50h] [bp-644h]@4
+  __int64 v92; // [sp+58h] [bp-63Ch]@4
+  LARGE_INTEGER Frequency; // [sp+60h] [bp-634h]@4
+  char v94; // [sp+6Ch] [bp-628h]@4
+  char v95; // [sp+78h] [bp-61Ch]@4
+  char v96; // [sp+7Ch] [bp-618h]@4
+  char v97; // [sp+88h] [bp-60Ch]@4
+  int v98; // [sp+8Ch] [bp-608h]@154
+  int v99; // [sp+90h] [bp-604h]@63
+  int v100; // [sp+94h] [bp-600h]@37
+  int v101; // [sp+98h] [bp-5FCh]@63
+  int (__thiscall **v102)(void *, char); // [sp+9Ch] [bp-5F8h]@4
+  int v103; // [sp+A0h] [bp-5F4h]@58
+  int v104; // [sp+A4h] [bp-5F0h]@60
+  int v105; // [sp+A8h] [bp-5ECh]@60
+  struct _TRACE_GUID_REGISTRATION TraceGuidReg; // [sp+ACh] [bp-5E8h]@83
+  int v107; // [sp+B4h] [bp-5E0h]@40
+  int v108; // [sp+B8h] [bp-5DCh]@4
+  void *v109; // [sp+BCh] [bp-5D8h]@1
+  LONG Target; // [sp+C0h] [bp-5D4h]@13
+  PerfDataReportUtil *v111; // [sp+C4h] [bp-5D0h]@83
+  struct ITXArray *v112; // [sp+C8h] [bp-5CCh]@38
+  int v113; // [sp+CCh] [bp-5C8h]@83
+  unsigned __int32 v114; // [sp+D0h] [bp-5C4h]@4
+  const wchar_t *v115; // [sp+D4h] [bp-5C0h]@4
+  int (__thiscall **v116)(void *, char); // [sp+D8h] [bp-5BCh]@4
+  int v117; // [sp+1C8h] [bp-4CCh]@4
+  int v118; // [sp+1CCh] [bp-4C8h]@4
+  int v119; // [sp+1D0h] [bp-4C4h]@4
+  int v120; // [sp+1D4h] [bp-4C0h]@4
+  int v121; // [sp+1D8h] [bp-4BCh]@4
+  int v122; // [sp+1DCh] [bp-4B8h]@4
+  int v123; // [sp+1E0h] [bp-4B4h]@4
+  int v124; // [sp+1E4h] [bp-4B0h]@4
+  int v125; // [sp+1E8h] [bp-4ACh]@4
+  int v126; // [sp+1ECh] [bp-4A8h]@4
+  int v127; // [sp+1F0h] [bp-4A4h]@4
+  struct _MEMORYSTATUSEX Buffer; // [sp+1F8h] [bp-49Ch]@4
+  int (__thiscall **v129)(void *, char); // [sp+23Ch] [bp-458h]@4
+  AsyncTask::MessageLoop *v130; // [sp+24Ch] [bp-448h]@4
+  unsigned __int32 v131; // [sp+254h] [bp-440h]@4
+  Util::Misc *Caption[132]; // [sp+270h] [bp-424h]@5
+  Util::Misc *Filename[60]; // [sp+480h] [bp-214h]@5
+  struct _OSVERSIONINFOW VersionInformation; // [sp+570h] [bp-124h]@103
+
+  v2 = this;
+  v109 = this;
+  sub_5391180A();
+  if ( (unsigned __int8)sub_53917FCD(v3) )
+    Util::FS::StartAddCache();
+  else
+    Util::Misc::LogTaskCheckDead(v76);
+  sub_53901B89(L"file", 2080, L"func", 2, L"ExitInfo", (const char *)L"Hook PostQuitMessage,cmdline:%s", Str);
+  v85 = &off_5392A2A0;
+  v86 = 0;
+  v87 = 0;
+  v88 = 0;
+  v4 = 1;
+  v89 = 0;
+  v90 = 1000;
+  v91 = 1;
+  _mm_storel_pd((double *)&v92, 0i64);
+  AsyncTask::MessageLoopForUI::MessageLoopForUI((AsyncTask::MessageLoopForUI *)&v116);
+  v116 = &off_5392A130;
+  v117 = 0;
+  v118 = 200;
+  v119 = 200;
+  v120 = 0;
+  v121 = 0;
+  v122 = 0;
+  v123 = 0;
+  v124 = 0;
+  v125 = 0;
+  v126 = 0;
+  v127 = 0;
+  AsyncTask::MessageLoopForUI::AddObserver(
+    (AsyncTask::MessageLoopForUI *)&v116,
+    (struct AsyncTask::MessagePumpWin::Observer *)&v85);
+  v82 = 0;
+  v83 = 0;
+  v102 = &off_539296E0;
+  AsyncTask::Thread::Thread((AsyncTask::Thread *)&v129, "Logical");
+  v129 = &off_53929750;
+  AsyncTask::Thread::StartWithOptions((AsyncTask::Thread *)&v129, (const struct AsyncTask::Thread::Options *)&v82);
+  AsyncTask::MessageLoop::SetWorkerFactory(v130, (struct AsyncTask::MessageLoop::WorkerFactory *)&v102);
+  Util::Misc::SetMainAndLogicMsgLoop((Util::Misc *)&v116, v130, v76);
+  v5 = v131;
+  v6 = (Util::Misc *)GetCurrentThreadId();
+  Util::Misc::SetMainAndLogicThreadId(v6, v5, (unsigned __int32)v76);
+  CTXStringW::CTXStringW((CTXStringW *)&v95);
+  CTXStringW::CTXStringW((CTXStringW *)&v96);
+  CTXStringW::CTXStringW((CTXStringW *)&v97);
+  Version::GetVersionExW((Version *)&v94);
+  CTXStringW::CTXStringW(&v76);
+  sub_539087AF(L"file", 166, L"func", 2, L"TXPerf", &unk_539288E8, (unsigned int)&v95);
+  Frequency.QuadPart = 0i64;
+  QueryPerformanceFrequency(&Frequency);
+  v7 = (const wchar_t *)Util::Misc::GetCPUCores(v76);
+  v115 = v7;
+  v114 = Util::Misc::GetCPUFrequency(v76);
+  sub_53901B89(
+    L"file",
+    177,
+    L"func",
+    2,
+    L"TXPerf",
+    (const char *)L"CPU\u6709%d\u4e2a\uff0c\u4e3b\u9891\uff1a%lu\uff0c\u9ad8\u6027\u80fd\u8ba1\u6570\u5668\u9891\u7387\u9a"
+                   "d8\u4f4d%lu\uff0c\u4f4e\u4f4d%lu",
+    v7,
+    v114,
+    Frequency.s.HighPart,
+    Frequency.s.LowPart);
+  Buffer.dwLength = 64;
+  memset(&Buffer.dwMemoryLoad, 0, 0x3Cu);
+  GlobalMemoryStatusEx(&Buffer);
+  sub_53901B89(
+    L"file",
+    183,
+    L"func",
+    2,
+    L"TXPerf",
+    (const char *)&unk_53928958,
+    Buffer.dwMemoryLoad,
+    Buffer.ullTotalPhys,
+    Buffer.ullAvailPhys,
+    Buffer.ullTotalPageFile,
+    Buffer.ullAvailPageFile);
+  v108 = 0;
+  v8 = 0;
+  if ( OSVersion::IsWin7OrGreater(v76) )
+  {
+    LOWORD(Caption[0]) = 0;
+    LOWORD(Filename[0]) = 0;
+    GetWindowsDirectoryW((LPWSTR)Caption, 0x104u);
+    GetModuleFileNameW(0, (LPWSTR)Filename, 0x104u);
+    if ( LOWORD(Caption[0]) == LOWORD(Filename[0]) )
+    {
+      if ( 0 != LOWORD(Caption[0]) )
+      {
+        v8 = Util::Misc::IsSupoortTrim(Caption[0], (wchar_t)v76);
+        v108 = v8;
+LABEL_12:
+        sub_53901B89(
+          L"file",
+          218,
+          L"func",
+          2,
+          L"TXPerf",
+          (const char *)&unk_53928A28,
+          Caption[0],
+          v108,
+          LOWORD(Filename[0]),
+          v8);
+        goto LABEL_13;
+      }
+    }
+    else if ( 0 != LOWORD(Caption[0]) )
+    {
+      v108 = Util::Misc::IsSupoortTrim(Caption[0], (wchar_t)v76);
+    }
+    if ( LOWORD(Filename[0]) )
+      v8 = Util::Misc::IsSupoortTrim(Filename[0], (wchar_t)v76);
+    goto LABEL_12;
+  }
+LABEL_13:
+  memset(&Dst, 0, 0x18u);
+  v79 = v115;
+  Dst = v108 != 0;
+  v80 = v114;
+  v81 = Buffer.ullTotalPhys;
+  v78 = v8 != 0;
+  v9 = (loginstatistics::CTXLoginStatistic *)loginstatistics::CTXLoginStatistic::instance();
+  loginstatistics::CTXLoginStatistic::setMachineInfo(v9, (struct loginstatistics::LoginMachineInfo *)&Dst);
+  v10 = sub_53920EB1(0x28u);
+  v12 = (const struct _GUID *)sub_5390D152(v10);
+  Target = (LONG)v12;
+  if ( v12 )
+  {
+    v13 = sub_53917FCD(v11);
+    if ( !sub_5390E58A(v12, v13) )
+      goto LABEL_15;
+  }
+  v115 = 0;
+  v15 = (void *)sub_53905257();
+  if ( !sub_5390683E(v15, (const wchar_t *)&v115) ) //call sub_5390683E=> 5390684E
+  {
+    dword_53935770 = 1;
+    Util::Misc::SetMainAndLogicMsgLoop(0, 0, v76);
+    AsyncTask::Thread::Stop((AsyncTask::Thread *)&v129);
+    sub_539116BF((LONG)v12);
+LABEL_15:
+    CTXStringW::~CTXStringW((CTXStringW *)&v97);
+    CTXStringW::~CTXStringW((CTXStringW *)&v96);
+    CTXStringW::~CTXStringW((CTXStringW *)&v95);
+    AsyncTask::Thread::~Thread((AsyncTask::Thread *)&v129);
+    v102 = &off_539296EC;
+    sub_539151DA(&v116);
+    v85 = &off_5392A2A0;
+    sub_539158F1(&v86);
+    return 0;
+  }
+  if ( TXUpdateCfg::IsNeedRestore(v76) )
+  {
+    v115 = L"Need restore";
+    v16 = (const char *)L"%s";
+    sub_539024B3(291, (int)L"file", (int)L"func", 2, (int)L"TXUPD", (const char *)L"%s");
+    v115 = L"InitTXUpdate(false)";
+    sub_539024B3(294, (int)L"file", (int)L"func", 2, (int)L"txupd", (const char *)L"%s");
+    if ( Target && !sub_5390D470(0) )
+    {
+      v115 = L"InitTXUpdate(false) succeeded.";
+      v17 = 298;
+LABEL_23:
+      sub_539024B3(v17, (int)L"file", (int)L"func", 2, (int)L"txupd", v16);
+LABEL_24:
+      Util::Misc::SetMainAndLogicMsgLoop(0, 0, v76);
+      AsyncTask::Thread::Stop((AsyncTask::Thread *)&v129);
+      sub_539116BF(Target);
+      goto LABEL_15;
+    }
+    v115 = L"InitTXUpdate(false) failed.";
+    v18 = 307;
+LABEL_31:
+    sub_539024B3(v18, (int)L"file", (int)L"func", 2, (int)L"txupd", v16);
+    goto LABEL_34;
+  }
+  v16 = (const char *)L"%s";
+  if ( TXUpdateCfg::IsNeedRestorePatch(v76) )
+  {
+    v115 = L"Need restore patch";
+    sub_539024B3(314, (int)L"file", (int)L"func", 2, (int)L"TXUPD", (const char *)L"%s");
+    v115 = L"InitTXUpdate(true)";
+    sub_539024B3(316, (int)L"file", (int)L"func", 2, (int)L"txupd", (const char *)L"%s");
+    if ( Target && !sub_5390D470(1) )
+    {
+      v115 = L"InitTXUpdate(true) succeeded.";
+      v17 = 320;
+      goto LABEL_23;
+    }
+    v115 = L"InitTXUpdate(true) failed.";
+    v18 = 329;
+    goto LABEL_31;
+  }
+  v115 = L"Do not need restore";
+  sub_539024B3(334, (int)L"file", (int)L"func", 2, (int)L"TXUPD", (const char *)L"%s");
+  v115 = L"InitAutoUpdate";
+  sub_539024B3(337, (int)L"file", (int)L"func", 2, (int)L"txupd", (const char *)L"%s");
+  if ( Target && !sub_5390D2C0() )
+    goto LABEL_24;
+LABEL_34:
+  v20 = sub_53917FCD(v19);
+  v114 = 0;
+  if ( v20 )
+  {
+    sub_53901DC3(&unk_53928120, &v114);
+    sub_5390164A(&v114);
+  }
+  else
+  {
+    sub_53901DC3(&unk_53928130, &v114);
+    sub_5390164A(&v114);
+  }
+  v100 = 0;
+  sub_53901DC3(&unk_539296B8, &v100);
+  if ( v100 )
+  {
+    v114 = 0;
+    (*(void (__stdcall **)(int, int *))(*(_DWORD *)v100 + 12))(v100, (int *)&v114);
+    v112 = 0;
+    (*(void (__stdcall **)(int, int *))(*(_DWORD *)v100 + 32))(v100, (int *)&v112);
+    HttpClientUtil::SetPtLogin2HttpsUrlConfig(v114, v112);
+    sub_5390164A(&v112);
+  }
+  if ( sub_539117AB() )
+  {
+    v107 = 0;
+    sub_53901DC3(&unk_53925110, &v107);
+    if ( v107 )
+      (*(void (__stdcall **)(int, _DWORD, signed int, _DWORD))(*(_DWORD *)v107 + 24))(v107, 0, 8, 0);
+    v112 = 0;
+    v114 = 2;
+    sub_53901DC3(&unk_539296A8, &v112);
+    if ( v112 )
+    {
+      (*(void (__stdcall **)(struct ITXArray *, int *))(*(_DWORD *)v112 + 60))(v112, (int *)&v114);
+      if ( !v114 )
+        Util::GF::DPI::SetDPIAdaptFlag(0, v76);
+    }
+    if ( (unsigned __int8)sub_53917FB4() )
+    {
+      sub_53915A7B((char *)v2 + 60);
+      v21 = 0;
+      v22 = (volatile LONG *)((char *)v2 + 69);
+      do
+      {
+        if ( InterlockedExchangeAdd(v22, 0) )
+          break;
+        Sleep(0x3E8u);
+        ++v21;
+      }
+      while ( v21 < 5 );
+      Util::Misc::SetEnablePreload(0, v76);
+      sub_53915B78((char *)v109 + 60);
+      v4 = 1;
+    }
+    sub_53901B89(L"file", 423, L"func", 2, L"Startup", v16, L"background startup");
+    sub_5390164A(&v112);
+    sub_5390164A(&v107);
+  }
+  if ( sub_53910E5B() )
+  {
+    v23 = sub_53908B55(&v115, "wStartToShowLP");
+    v24 = (PerfDataReportUtil *)CTXBSTR::operator wchar_t *(v23);
+    PerfDataReportUtil::SetPerfReportDataForWord(v24, a2, 0, v76);
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v115);
+    v25 = Version::GetBuildVer(v76);
+    v26 = Version::GetPubNo();
+    v27 = sub_53904ED8();
+    sub_53901B89(L"file", 438, L"func", 2, L"ConnectionLost", (const char *)&unk_53928C78, v27, v26, v25);
+    v84 = 0;
+    v28 = (wchar_t *)*((_DWORD *)v109 + 19);
+    CTXStringW::CTXStringW(&v114, L"platform");
+    v29 = (const wchar_t *)CTXStringW::operator wchar_t const *(&v114);
+    v30 = TXLoadString(L"HttpDataReportDomainName", v29);
+    v31 = CTXBSTR::CTXBSTR(&v115, v30);
+    v32 = (Util::HostResolve *)CTXBSTR::operator wchar_t *(v31);
+    Util::HostResolve::Resolve(v32, v28, (struct ITXHostResolverSink *)&v84, (unsigned __int32 *)v76);
+    CTXBSTR::~CTXBSTR((CTXBSTR *)&v115);
+    CTXStringW::~CTXStringW((CTXStringW *)&v114);
+    v33 = (int)v109;
+    if ( !sub_53916460((char *)v109 + 44) )
+    {
+      v41 = (const char *)L"%s";
+LABEL_151:
+      Util::ExitInfo::UpdateExitInfo(100);
+      Util::GF::ClosePopupWindows(v76);
+      TraceGuidReg.RegHandle = &unk_53928F24;
+      sub_539024B3(786, (int)L"file", (int)L"func", 2, (int)L"TBH|AddrSearch", v41);
+      sub_53901B89(L"file", 787, L"func", 2, L"ExitFlow", v41, L"exit message loop");
+      if ( (unsigned __int8)sub_53917FB4() )
+      {
+        Util::Misc::SetEnablePreload(0, v76);
+        if ( !InterlockedExchangeAdd((volatile LONG *)(v33 + 68), 0) )
+        {
+          sub_53901B89(L"file", 798, L"func", 2, L"ExitFlow", v41, L"Begin Exit Set PreThreadExit.");
+          sub_53915B78(v33 + 60);
+        }
+      }
+      Util::ExitInfo::UpdateExitInfo(120);
+      sub_53915337(&v116);
+      Util::Misc::SetMainAndLogicMsgLoop(0, 0, v76);
+      Util::MsgIndex::StopThread(v75);
+      Util::ExitInfo::UpdateExitInfo(130);
+      Util::Msg::StopMsgThread(v76);
+      Util::Msg::CloseMsgStorage(v76);
+      Util::ExitInfo::UpdateExitInfo(135);
+      sub_53915337(&v116);
+      TraceGuidReg.RegHandle = L"Close info.db begin";
+      sub_539024B3(838, (int)L"file", (int)L"func", 2, (int)L"Exit", v41);
+      v98 = 0;
+      sub_53901DC3(&unk_53929648, &v98);
+      if ( v98 )
+      {
+        (*(void (__stdcall **)(int))(*(_DWORD *)v98 + 28))(v98);
+        FS::RemoveFileSystem((FS *)L"UserDataInfoStorage:", (const wchar_t *)v76);
+      }
+      TraceGuidReg.RegHandle = L"Close info.db end";
+      sub_539024B3(846, (int)L"file", (int)L"func", 2, (int)L"Exit", v41);
+      NewRegistry::OnExitProcess(v76);
+      AsyncTask::Thread::Stop((AsyncTask::Thread *)&v129);
+      sub_539116BF(Target);
+      sub_5390164A(&v98);
+      goto LABEL_157;
+    }
+    if ( (unsigned __int8)sub_539179DC() )
+      sub_53916F26(&byte_53936809);
+    if ( byte_53936809 )
+      goto LABEL_57;
+    v103 = 0;
+    sub_53901DC3(&unk_53929698, &v103);
+    if ( v103 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)v103 + 16))(v103);
+    v104 = 0;
+    v105 = 0;
+    sub_53901DC3(&unk_53925110, &v104);
+    if ( v104 )
+    {
+      (*(void (__stdcall **)(int, const wchar_t *, _DWORD, signed int, int *))(*(_DWORD *)v104 + 32))(
+        v104,
+        L"PCMgrInstaller_Domain",
+        0,
+        1,
+        &v105);
+      if ( v105 )
+      {
+        v108 = 0;
+        (*(void (__stdcall **)(int, const char *, int *))(*(_DWORD *)v105 + 16))(v105, "PCMgrInstaller_Setting", &v108);
+        if ( v108 )
+        {
+          v101 = 0;
+          v99 = 0;
+          v34 = (*(int (__stdcall **)(int, const char *, int *))(*(_DWORD *)v108 + 56))(v108, "StrongLogic", &v101);
+          v35 = v101;
+          if ( v34 )
+            v35 = 0;
+          v101 = v35;
+          v36 = (*(int (__stdcall **)(int, const char *, int *))(*(_DWORD *)v108 + 56))(v108, "WeakLogic", &v99);
+          v37 = v99;
+          if ( v36 )
+            v37 = 0;
+          v99 = v37;
+          if ( v101 || v37 )
+          {
+            v107 = 0;
+            sub_53901DC3(&unk_53929688, &v107);
+            if ( v107 && (*(int (__stdcall **)(int))(*(_DWORD *)v107 + 12))(v107) < 0 )
+            {
+              Util::Misc::SetMainAndLogicMsgLoop(0, 0, v76);
+              AsyncTask::Thread::Stop((AsyncTask::Thread *)&v129);
+              sub_539116BF(Target);
+              sub_5390164A(&v107);
+              sub_5390164A(&v108);
+LABEL_72:
+              sub_5390164A(&v105);
+              sub_5390164A(&v104);
+              sub_5390164A(&v103);
+              v4 = 0;
+              goto LABEL_157;
+            }
+            sub_5390164A(&v107);
+          }
+        }
+        sub_5390164A(&v108);
+      }
+    }
+    if ( !Util::Misc::IsOverWindowVista(v76) )
+      goto LABEL_79;
+    v38 = Util::Sys::SafeLoadLibrary((Util::Sys *)L"user32.dll", (const wchar_t *)v76);
+    if ( v38 )
+    {
+      v39 = GetProcAddress(v38, "ChangeWindowMessageFilter");
+      if ( v39 )
+      {
+        v40 = ((int (__stdcall *)(signed int, signed int))v39)(74, 1);
+        sub_53901B89(L"file", 528, L"func", 3, L"QQProtect", (const char *)L"ChangeWindowMessageFilter :%u", v40);
+LABEL_79:
+        v41 = (const char *)L"%s";
+        goto LABEL_80;
+      }
+      v115 = L"ChangeWindowMessageFilter fail";
+      v56 = 532;
+    }
+    else
+    {
+      v115 = L"load user32.dll fail";
+      v56 = 537;
+    }
+    v41 = (const char *)L"%s";
+    sub_539024B3(v56, (int)L"file", (int)L"func", 2, (int)L"QQProtect", (const char *)L"%s");
+LABEL_80:
+    v112 = 0;
+    sub_53901DC3(&unk_53929678, &v112);
+    if ( v112 )
+      (*(void (__stdcall **)(struct ITXArray *))(*(_DWORD *)v112 + 28))(v112);
+    sub_5390164A(&v112);
+    v112 = 0;
+    sub_53901DC3(&unk_53929668, &v112);
+    if ( !v112 )
+    {
+      CTXStringW::CTXStringW(&v111, L"platform");
+      v42 = (const wchar_t *)CTXStringW::operator wchar_t const *(&v111);
+      v43 = TXLoadString(L"MsgBox_Text_FileBroken", v42);
+      CTXStringW::CTXStringW(&v115, v43);
+      CTXStringW::~CTXStringW((CTXStringW *)&v111);
+      v113 = 0;
+      sub_53901BAE(&v113);
+      TraceGuidReg.RegHandle = 0;
+      if ( v113 )
+      {
+        (*(void (__stdcall **)(int, _DWORD, _DWORD))(*(_DWORD *)v113 + 28))(v113, 0, 0);
+        v44 = v113;
+        v45 = *(void (__stdcall **)(int, int))(*(_DWORD *)v113 + 176);
+        v46 = CTXBSTR::CTXBSTR(&v111, L"MsgBoxEx");
+        v47 = CTXBSTR::operator wchar_t *(v46);
+        v45(v44, v47);
+        CTXBSTR::~CTXBSTR((CTXBSTR *)&v111);
+        v48 = v113;
+        v49 = *(void (__stdcall **)(int, wchar_t *))(*(_DWORD *)v113 + 1304);
+        v50 = CTXStringW::GetBSTR((CTXStringW *)&v115);
+        v49(v48, v50);
+        v51 = v113;
+        v52 = *(void (__thiscall **)(int, int, const wchar_t *))(*(_DWORD *)v113 + 1144);
+        CTXStringW::CTXStringW(&v111, L"platform");
+        v53 = (const wchar_t *)CTXStringW::operator wchar_t const *(&v111);
+        v54 = TXLoadString(L"CF_MESSAGE_TITLE", v53);
+        v52(v55, v51, v54);
+        CTXStringW::~CTXStringW((CTXStringW *)&v111);
+        (*(void (__stdcall **)(int, signed int))(*(_DWORD *)v113 + 1312))(v113, 262192);
+        (*(void (__stdcall **)(int, _DWORD, HANDLE *, _DWORD))(*(_DWORD *)v113 + 1288))(
+          v113,
+          0,
+          &TraceGuidReg.RegHandle,
+          0);
+      }
+      Util::Misc::SetMainAndLogicMsgLoop(0, 0, v76);
+      AsyncTask::Thread::Stop((AsyncTask::Thread *)&v129);
+      sub_539116BF(Target);
+      sub_5390164A(&v113);
+      CTXStringW::~CTXStringW((CTXStringW *)&v115);
+      sub_5390164A(&v112);
+      goto LABEL_72;
+    }
+    sub_5390164A(&v112);
+    v57 = sub_539117AB();
+    if ( !sub_5390D4DC(v57) )
+    {
+      memset(Caption, 0, 0x20Au);
+      GetModuleFileNameW(0, (LPWSTR)Caption, 0x104u);
+      TraceGuidReg.RegHandle = L"Initialization failure: 0x00000030";
+      sub_539024B3(603, (int)L"file", (int)L"func", 2, (int)L"Initialize", v41);
+      v4 = 0;
+      MessageBoxW(0, L"Initialization failure: 0x00000030", (LPCWSTR)Caption, 0x10u);
+      Util::Misc::SetMainAndLogicMsgLoop(0, 0, v76);
+      AsyncTask::Thread::Stop((AsyncTask::Thread *)&v129);
+      sub_539116BF(Target);
+      sub_5390164A(&v105);
+      sub_5390164A(&v104);
+      sub_5390164A(&v103);
+      goto LABEL_157;
+    }
+    sub_53917FB4();
+    if ( (unsigned __int8)sub_53917FB4() )
+    {
+      v58 = sub_539117AB();
+      sub_5390D84B(v58);
+    }
+    sub_53916D41(v33 + 44);
+    if ( (unsigned __int8)sub_53917FB4() )
+    {
+      if ( sub_539117AB() )
+        Util::Misc::SetEnablePreload((Util::Misc *)1, v76);
+      TXTimer::SetIdleCallback(*(TXTimer **)(v33 + 8), 0);
+    }
+    if ( Util::Window::AddIdleCallback((Util::Window *)v33, v76) )
+    {
+      Util::Misc::SetMainAndLogicMsgLoop(0, 0, v76);
+      AsyncTask::Thread::Stop((AsyncTask::Thread *)&v129);
+      sub_539116BF(Target);
+      sub_5390164A(&v105);
+      sub_5390164A(&v104);
+      sub_5390164A(&v103);
+      v4 = 0;
+      goto LABEL_157;
+    }
+    if ( !Util::Sys::IsVista(v76) || !(unsigned __int8)sub_53917FCD(v59) )
+      goto LABEL_133;
+    v60 = qword_53936970;
+    v61 = *(&qword_53936970 + 1) | qword_53936970;
+    if ( *(_QWORD *)&qword_53936970 )
+    {
+LABEL_123:
+      if ( byte_53936980 & 1 )
+      {
+        sub_5390F411(v59, v59);
+        v60 = qword_53936970;
+        v59 = v63;
+      }
+      if ( byte_5393698D )
+      {
+        v59 = *(&qword_53936970 + 1);
+        if ( *(&qword_53936970 + 1) | v60 )
+        {
+          if ( byte_5393698C )
+          {
+            UnregisterTraceGuids(*(_QWORD *)v60);
+            v64 = *(_WORD *)(v60 + 42);
+            v59 = 0;
+            *(_DWORD *)(v60 + 32) = 0;
+            *(_BYTE *)(v60 + 40) = 0;
+            *(_DWORD *)(v60 + 8) = 0;
+            *(_DWORD *)(v60 + 12) = 0;
+            if ( (_WORD)v64 )
+            {
+              memset(*(void **)(v60 + 44), 0, 4 * ((v64 - 1) / 32) + 4);
+              v59 = 0;
+            }
+            *(_DWORD *)v60 = 0;
+            *(_DWORD *)(v60 + 4) = 0;
+          }
+          else
+          {
+            dword_53936984(v60, *(&qword_53936970 + 1));
+          }
+          _mm_storel_pd((double *)&qword_53936970, 0i64);
+        }
+      }
+LABEL_133:
+      if ( (unsigned __int8)sub_53917FCD(v59) )
+      {
+        v65 = 681;
+        v66 = L"PerfStand.Startup.End";
+      }
+      else
+      {
+        v65 = 685;
+        v66 = L"PerfStand.StartupEx.End";
+      }
+      sub_53901B89(L"file", v65, L"func", 2, v66, (const char *)L"%d", 1);
+      if ( (unsigned __int8)sub_53917FCD(v67) )
+      {
+        v113 = 0;
+        sub_53901DC3(&unk_53928120, &v113);
+        if ( v113 )
+        {
+          v111 = 0;
+          (*(void (__stdcall **)(int, int *))(*(_DWORD *)v113 + 16))(v113, (int *)&v111);
+          if ( v111 )
+          {
+            v68 = (wchar_t *)(GetTickCount() - (_DWORD)a2);
+            v69 = sub_53908B55(&TraceGuidReg.RegHandle, "wStartToShowLP");
+            v70 = CTXBSTR::operator wchar_t *(v69);
+            PerfDataReportUtil::SetPerfOPReportDataForWord(v111, v70, v68, 5u, v76);
+            CTXBSTR::~CTXBSTR((CTXBSTR *)&TraceGuidReg.RegHandle);
+          }
+        }
+        sub_5390164A(&v113);
+      }
+      sub_53915641(&v85);
+      v71 = sub_53917FB4();
+      v33 = (int)v109;
+      if ( v71 )
+        sub_53908C42(v72, *((_DWORD *)v109 + 21));
+      v114 = 0;
+      sub_53901DC3(&unk_53929658, &v114);
+      if ( v114 )
+      {
+        (*(void (__stdcall **)(unsigned __int32))(*(_DWORD *)v114 + 12))(v114);
+        v111 = 0;
+        sub_53901DC3(&unk_53929658, &v111);
+        (*(void (__stdcall **)(PerfDataReportUtil *, void *))(*(_DWORD *)v111 + 16))(v111, &unk_53935268);
+        sub_5390164A(&v111);
+      }
+      AsyncTask::MessageLoopForUI::Run((AsyncTask::MessageLoopForUI *)&v116);
+      if ( (unsigned __int8)sub_53917FB4() )
+      {
+        v74 = *(void **)(v33 + 84);
+        v109 = 0;
+        TraceGuidReg.RegHandle = v74;
+        Util::Core::GetPlatformCore((Util::Core *)&v109, (struct ITXCore **)v76);
+        if ( v109 )
+          (*(void (__stdcall **)(void *, void *, HANDLE))(*(_DWORD *)v109 + 52))(
+            v109,
+            &unk_539296F8,
+            TraceGuidReg.RegHandle);
+        sub_5390164A(&v109);
+      }
+      sub_53917FCD(v73);
+      dword_53935770 = 1;
+      sub_539157DC(&v85);
+      sub_5390164A(&v114);
+      sub_5390164A(&v105);
+      sub_5390164A(&v104);
+      sub_5390164A(&v103);
+      goto LABEL_151;
+    }
+    v113 &= v61;
+    if ( byte_5393698D != (_BYTE)v61 )
+    {
+LABEL_119:
+      if ( byte_5393698C )
+      {
+        TraceGuidReg.Guid = &ControlGuid;
+        *(_QWORD *)&qword_53936970 = (signed int)&RequestContext;
+        TraceGuidReg.RegHandle = 0;
+        RegisterTraceGuidsW(RequestAddress, &RequestContext, &ControlGuid, 1u, &TraceGuidReg, 0, 0, &RequestContext);
+      }
+      else
+      {
+        off_539352C8(&ControlGuid, sub_5390F123, &RequestContext, &qword_53936970);
+      }
+      v60 = qword_53936970;
+      goto LABEL_123;
+    }
+    VersionInformation.dwOSVersionInfoSize = 276;
+    if ( !GetVersionExW(&VersionInformation)
+      || ((byte_5393698C = VersionInformation.dwMajorVersion < 6, VersionInformation.dwMajorVersion > 6)
+       || VersionInformation.dwMajorVersion == 6 && VersionInformation.dwMinorVersion > 1 ? (v113 = 1) : (v113 = 0),
+          VersionInformation.dwMajorVersion >= 6) )
+    {
+      v62 = GetModuleHandleW(L"advapi32.dll");
+      if ( v62 || v113 && (v62 = GetModuleHandleW(L"api-ms-win-eventing-provider-l1-1-0.dll")) != 0 )
+      {
+        dword_53936988 = (int)GetProcAddress(v62, "EventWrite");
+        if ( dword_53936988 )
+        {
+          off_539352C8 = (int (__stdcall *)(_DWORD, _DWORD, _DWORD, _DWORD))GetProcAddress(v62, "EventRegister");
+          if ( off_539352C8 )
+          {
+            dword_53936984 = (int (__stdcall *)(_DWORD, _DWORD))GetProcAddress(v62, "EventUnregister");
+            if ( dword_53936984 )
+              goto LABEL_118;
+          }
+          off_539352C8 = (int (__stdcall *)(_DWORD, _DWORD, _DWORD, _DWORD))sub_5390F257;
+        }
+      }
+      byte_5393698C = v4;
+    }
+LABEL_118:
+    byte_5393698D = v4;
+    goto LABEL_119;
+  }
+  v4 = 0;
+LABEL_57:
+  Util::Misc::SetMainAndLogicMsgLoop(0, 0, v76);
+  AsyncTask::Thread::Stop((AsyncTask::Thread *)&v129);
+  sub_539116BF(Target);
+LABEL_157:
+  sub_5390164A(&v100);
+  CTXStringW::~CTXStringW((CTXStringW *)&v97);
+  CTXStringW::~CTXStringW((CTXStringW *)&v96);
+  CTXStringW::~CTXStringW((CTXStringW *)&v95);
+  AsyncTask::Thread::~Thread((AsyncTask::Thread *)&v129);
+  v102 = &off_539296EC;
+  sub_539151DA(&v116);
+  v85 = &off_5392A2A0;
+  sub_539158F1(&v86);
+  return v4;
+}
+
+
+
+signed int RunQQHummerEngine()
+{
+  wchar_t *v0; // esi@1
+  int v1; // ST18_4@1
+  signed int result; // eax@5
+  char v3; // [sp+8h] [bp-68h]@6
+
+  v0 = 0;
+  TXLog::SetWriteFileOpt(0);
+  if ( (unsigned __int8)sub_53917FCD(v1) )
+  {
+    sub_53901B89(L"file", 47, L"func", 2, L"PerfStand.Startup.Begin", (const char *)L"%d", 1);
+    v0 = (wchar_t *)GetTickCount();
+  }
+  else
+  {
+    sub_53901B89(L"file", 52, L"func", 2, L"PerfStand.StartupEx.Begin", (const char *)L"%d", 1);
+  }
+  if ( Util::Sys::CheckVistaAndStartSelfMediumLevel() )
+  {
+    result = 1;
+  }
+  else
+  {
+    sub_53917C58();
+    sub_5390F472(&v3);
+    sub_5390F82B(&v3, v0);  //call sub_5390F82B => 5390FCFD
+    TXLog::SetWriteFileOpt((TXLog *)1);
+    Util::ExitInfo::UpdateExitInfo(180);
+    sub_5390F6FE(&v3);
+    result = 0;
+  }
+  return result;
+}
+
+=========================================================================================================================================================
+//qq.exe
+int __stdcall sub_402506(int a1)
+{
+  char v1; // di@1
+  signed int v2; // ebx@3
+  int v3; // ecx@4
+  int v4; // esi@5
+  signed int v5; // edi@6
+  HMODULE v6; // esi@14
+  int v7; // eax@33
+  signed int v8; // ecx@41
+  int v9; // eax@41
+  int v10; // edx@41
+  DWORD_PTR v11; // ST1C_4@47
+  HANDLE v12; // eax@47
+  int v13; // esi@51
+  HMODULE v14; // eax@51
+  FARPROC v15; // edi@53
+  HMODULE v16; // eax@55
+  void (*v17)(void); // eax@56
+  char v19; // [sp+10h] [bp-480h]@1
+  struct _TRACE_GUID_REGISTRATION TraceGuidReg; // [sp+14h] [bp-47Ch]@25
+  struct _SYSTEM_INFO SystemInfo; // [sp+1Ch] [bp-474h]@40
+  struct _OSVERSIONINFOW VersionInformation; // [sp+40h] [bp-450h]@3
+  int Dst; // [sp+158h] [bp-338h]@37
+  int v24; // [sp+15Ch] [bp-334h]@38
+  int v25; // [sp+160h] [bp-330h]@39
+  WCHAR OutputString; // [sp+278h] [bp-218h]@51
+
+  v1 = GetTickCount();
+  v19 = v1;
+  if ( (unsigned __int8)sub_4028D4() )
+    sub_40240B();
+  memset(&VersionInformation.dwMajorVersion, 0, 0x110u);
+  VersionInformation.dwOSVersionInfoSize = 276;
+  GetVersionExW(&VersionInformation);
+  v2 = 1;
+  if ( VersionInformation.dwMajorVersion >= 6 && (unsigned __int8)sub_4028D4() )
+  {
+    v4 = qword_407A38;
+    if ( qword_407A38 )
+    {
+LABEL_27:
+      if ( byte_407A40 & 1 )
+      {
+        sub_401733(v3, v3);
+        v4 = qword_407A38;
+      }
+      if ( byte_407A4D && HIDWORD(qword_407A38) | v4 )
+      {
+        if ( byte_407A4C )
+        {
+          UnregisterTraceGuids(*(_QWORD *)v4);
+          v7 = *(_WORD *)(v4 + 42);
+          *(_DWORD *)(v4 + 32) = 0;
+          *(_BYTE *)(v4 + 40) = 0;
+          *(_DWORD *)(v4 + 8) = 0;
+          *(_DWORD *)(v4 + 12) = 0;
+          if ( (_WORD)v7 )
+            memset(*(void **)(v4 + 44), 0, 4 * ((v7 - 1) / 32) + 4);
+          *(_DWORD *)v4 = 0;
+          *(_DWORD *)(v4 + 4) = 0;
+        }
+        else
+        {
+          dword_407A44(v4, HIDWORD(qword_407A38));
+        }
+        _mm_storel_pd((double *)&qword_407A38, 0i64);
+      }
+      goto LABEL_37;
+    }
+    v5 = 0;
+    if ( byte_407A4D != (BYTE4(qword_407A38) | (unsigned __int8)qword_407A38) )
+    {
+LABEL_23:
+      if ( byte_407A4C )
+      {
+        TraceGuidReg.Guid = &ControlGuid;
+        qword_407A38 = (signed int)&RequestContext;
+        TraceGuidReg.RegHandle = 0;
+        RegisterTraceGuidsW(RequestAddress, &RequestContext, &ControlGuid, 1u, &TraceGuidReg, 0, 0, &RequestContext);
+      }
+      else
+      {
+        off_407560(&ControlGuid, sub_401445, &RequestContext, &qword_407A38);
+      }
+      v1 = v19;
+      v4 = qword_407A38;
+      goto LABEL_27;
+    }
+    VersionInformation.dwOSVersionInfoSize = 276;
+    if ( !GetVersionExW(&VersionInformation)
+      || ((byte_407A4C = VersionInformation.dwMajorVersion < 6, VersionInformation.dwMajorVersion > 6)
+       || VersionInformation.dwMajorVersion == 6 && VersionInformation.dwMinorVersion > 1 ? (v5 = 1) : (v5 = 0),
+          VersionInformation.dwMajorVersion >= 6) )
+    {
+      v6 = GetModuleHandleW(L"advapi32.dll");
+      if ( v6 || v5 && (v6 = GetModuleHandleW(L"api-ms-win-eventing-provider-l1-1-0.dll")) != 0 )
+      {
+        dword_407A48 = (int)GetProcAddress(v6, "EventWrite");
+        if ( dword_407A48 )
+        {
+          off_407560 = (int (__stdcall *)(_DWORD, _DWORD, _DWORD, _DWORD))GetProcAddress(v6, "EventRegister");
+          if ( off_407560 )
+          {
+            dword_407A44 = (int (__stdcall *)(_DWORD, _DWORD))GetProcAddress(v6, "EventUnregister");
+            if ( dword_407A44 )
+              goto LABEL_22;
+          }
+          off_407560 = (int (__stdcall *)(_DWORD, _DWORD, _DWORD, _DWORD))sub_401579;
+        }
+      }
+      byte_407A4C = 1;
+    }
+LABEL_22:
+    byte_407A4D = 1;
+    goto LABEL_23;
+  }
+LABEL_37:
+  memset(&Dst, 0, 0x11Cu);
+  Dst = 284;
+  GetVersionExW((LPOSVERSIONINFOW)&Dst);
+  if ( !(unsigned __int8)sub_4028D4() && v24 == 5 && v25 == 2 )
+  {
+    memset(&SystemInfo, 0, 0x24u);
+    GetSystemInfo(&SystemInfo);
+    if ( SystemInfo.dwNumberOfProcessors > 1 )
+    {
+      v8 = 0;
+      v9 = 0;
+      v10 = 0;
+      while ( 1 )
+      {
+        if ( v2 & SystemInfo.dwActiveProcessorMask )
+        {
+          if ( ++v9 >= 2 )
+            break;
+        }
+        v2 *= 2;
+        if ( ++v10 >= 32 )
+          goto LABEL_47;
+      }
+      v8 = v2;
+LABEL_47:
+      v11 = v8;
+      v12 = GetCurrentProcess();
+      SetProcessAffinityMask(v12, v11);
+    }
+  }
+  if ( (unsigned __int8)sub_4028D4() && sub_402484() )
+    LoadLibraryExW(L"riched20.dll", 0, 0x800u);
+  GetTickCount();
+  memset(&OutputString, 0, 0x20Au);
+  sub_401140(&OutputString, 260, 260, L"[QQPerfLog] dwMainEntry = %lu , dwSH = %lu , dwDelete = %lu", v1);
+  OutputDebugStringW(&OutputString);
+  v13 = -1;
+  v14 = GetModuleHandleW(L"HummerEngine.dll");
+  if ( v14 || (v14 = LoadLibraryW(L"HummerEngine.dll")) != 0 )
+  {
+    v15 = GetProcAddress(v14, "RunQQHummerEngine");
+    if ( v15 )
+    {
+      OleInitialize(0);
+      v13 = ((int (__cdecl *)(int))v15)(a1);
+      v16 = GetModuleHandleW(L"HummerEngine.dll");
+      if ( v16 )
+      {
+        v17 = (void (*)(void))GetProcAddress(v16, "UninitializeCom");
+        if ( v17 )
+          v17();
+      }
+    }
+    else
+    {
+      GetLastError();
+    }
+  }
+  return v13;
+}
+
+=========================================================================================================================================================
+
+
+
+=========================================================================================================================================================
+
+
+
+=========================================================================================================================================================
+
+
+
+=========================================================================================================================================================
+
+Address  To       From     Siz Comment               Party 
+0019F114 5390E8AB 774C1E50 24C user32.774C1E50       User
+0019F360 5390FC84 5390E8AB 6A0 hummerengine.5390E8AB User
+0019FA00 53917E23 5390FC84 80  hummerengine.5390FC84 User
+0019FA80 0040289B 53917E23 49C hummerengine.53917E23 User
+0019FF1C 004012C6 0040289B C   qq.0040289B           User
+0019FF28 00403365 004012C6 4C  qq.004012C6           User
+0019FF74 76AE6359 00403365 10  qq.00403365           System
+0019FF84 77D78944 76AE6359 5C  kernel32.76AE6359     System
+0019FFE0 77D78914 77D78944 10  ntdll.77D78944        System
+0019FFF0 00000000 77D78914     ntdll.77D78914        User
+ 
+
+=========================================================================================================================================================
+
+
+  v12 = (const struct _GUID *)sub_5390D152(v10);//5390FC63 
+  Target = (LONG)v12;
+  if ( v12 )  //5390FC70
+  {
+    v13 = sub_53917FCD(v11);
+    if ( !sub_5390E58A(v12, v13) )  // 5390FC84 =>5390E8AB
+      goto LABEL_15;
+  }
+=========================================================================================================================================================
+
+5390E60C
+
+
+  v4 = InitCommonControlsEx(&picce);
+  v5 = GetModuleHandleW(L"user32.dll");
+  v6 = (void (*)(void))GetProcAddress(v5, "SetProcessDPIAware");
+  if ( v6 )
+    v6();
+  if ( !v4 ) //5390E60C
+  {
+    v7 = L"Initialization failure: 0x00000001";
+    v8 = 192;
+LABEL_5:
+    picce.dwICC = (DWORD)v7;
+    sub_539024B3(v8, (int)L"file", (int)L"func", 2, (int)L"Initialize", (const char *)L"%s");
+    v17 = (const WCHAR *)&Dst;
+    v15 = v7;
+LABEL_40:
+    MessageBoxW(0, v15, v17, 0x10u);
+    return 0;
+  }
+  
+=========================================================================================================================================================
+ 1.version::init 返回 eax=1
+ 2. oi_symmetry_decrypt2 解析文件？ 返回 eax=1
+
+int __thiscall Version::Init(void *ecx0)   //依赖文件  bin/vi.dat
+	=> signed int __cdecl sub_557AF9D1(void *a1, const unsigned __int8 *a2, unsigned int a3)   
+		=> signed int __usercall sub_557AF83D@<eax>(int a1@<ebx>, int a2@<edi>, DWORD a3@<esi>, char a4, unsigned __int8 *a5)
+			=>  MD5_Init((struct MD5state_st *)&v15);  //libcrypto.dll
+				MD5_Update((struct MD5state_st *)&v15, a5, 0x10u);
+				MD5_Final(a5, (struct MD5state_st *)&v15);
+				
+				
+--------------------------------------				
+MD5_CTX ctx;
+
+MD5Init(&ctx);
+MD5Update(&ctx, (unsigned char *)buffer, len);
+MD5Update(&ctx, ...);
+MD5Final(md5, &ctx);
+
+结果就在md5中，16字节
+--------------------------------------
+
+53720000
+53722BA6
+
+556B1000
+2BA6
+
+556B3BA6
+int __userpurge sub_556B32B5@<eax>(int a1@<ebp>, int a2, int a3, int a4)
+
+
+
+
+============================= 
+//v32修改
+5372F883
+53720000
+F883
+556B0000
+556BF883 //sub_556BF873   void *__thiscall sub_556BF873(void *Dst, void *Src, int a3)
+
+
+53729ECD - 53720000 + 556B0000
+556B9ECD //void *__thiscall sub_556B9EAB(void *Dst, void *Src)
+ 
+
+
+5382FBF3 - 53720000 + 556B0000
+557BFBF3 //signed int __cdecl sub_557BFA6F(void *a1, const unsigned __int8 *a2, unsigned int a3)
+
+
+5382FDA4 - 53720000 + 556B0000
+557BFDA4 //int __thiscall Version::Init(void *ecx0)
+
+ 
+
+
+线程 ID 地址       返回到      返回自      大小  注释                    方   
+                                                   
+      004FEE50 53729ECD 5372F883 18  kernelutil.5372F883   用户模块
+      004FEE68 5382FBF3 53729ECD 88  kernelutil.53729ECD   用户模块
+      004FEEF0 5382FDA4 5382FBF3 54  kernelutil.5382FBF3   用户模块
+      004FEF44 5EA9185F 5382FDA4 38  kernelutil.5382FDA4   用户模块
+      004FEF7C 5EA8F84E 5EA9185F 69C hummerengine.5EA9185F 用户模块
+      004FF618 5EA97E8B 5EA8F84E 80  hummerengine.5EA8F84E 用户模块
+      004FF698 00C8289B 5EA97E8B 4A0 hummerengine.5EA97E8B 用户模块
+      004FFB38 00C812C6 00C8289B C   qq.00C8289B           用户模块
+      004FFB44 00C83365 00C812C6 4C  qq.00C812C6           用户模块
+      004FFB90 74FB0419 00C83365 10  qq.00C83365           系统模块
+      004FFBA0 778966DD 74FB0419 5C  kernel32.74FB0419     系统模块
+      004FFBFC 778966AD 778966DD 10  ntdll.778966DD        系统模块
+      004FFC0C 00000000 778966AD     ntdll.778966AD        用户模块
+ 
+=============================
+ 
+ 
+
+int __thiscall Version::Init(void *ecx0)
+{
+  int v1; // ST10_4@1
+  const WCHAR *v2; // eax@1
+  HANDLE v3; // esi@1
+  DWORD v4; // eax@2
+  DWORD v5; // edi@2
+  int v6; // edi@6
+  void *v7; // esi@7
+  unsigned int v8; // ecx@9
+  unsigned int v9; // edi@9
+  int v10; // esi@9
+  _WORD *v11; // esi@10
+  unsigned int v12; // edi@10
+  unsigned int v13; // eax@10
+  int v14; // esi@10
+  int v15; // eax@11
+  int v16; // eax@11
+  int v17; // esi@11
+  unsigned int v18; // edi@11
+  unsigned int v19; // ecx@15
+  int v20; // eax@16
+  signed int v21; // esi@17
+  void *v23; // [sp-8h] [bp-48h]@1
+  const wchar_t *v24; // [sp-4h] [bp-44h]@1
+  char v25; // [sp+Ch] [bp-34h]@1
+  DWORD NumberOfBytesRead; // [sp+10h] [bp-30h]@1
+  LONG Target; // [sp+14h] [bp-2Ch]@1
+  unsigned int v28; // [sp+18h] [bp-28h]@10
+  unsigned int v29; // [sp+1Ch] [bp-24h]@1
+  DWORD FileSizeHigh; // [sp+20h] [bp-20h]@2
+  void *Src; // [sp+24h] [bp-1Ch]@6
+  unsigned int v32; // [sp+34h] [bp-Ch]@6
+  unsigned int v33; // [sp+38h] [bp-8h]@6
+
+  Target = 0;
+  NumberOfBytesRead = 0; //文件大小
+  v24 = L"vi.dat";
+  v23 = ecx0;
+  CTXStringW::CTXStringW((CTXStringW *)&v23, &Default);
+  Util::Sys::GetProgramBinDir(&v29);
+  operator+(v1);
+  CTXStringW::~CTXStringW((CTXStringW *)&v29);
+  v24 = 0;
+  v23 = 0;
+  v2 = (const WCHAR *)CTXStringW::operator wchar_t const *(&v25);
+  v3 = CreateFileW(v2, 0x80000000, 1u, 0, 3u, (DWORD)v23, (HANDLE)v24);
+  if ( v3 != (HANDLE)-1 )
+  {
+    FileSizeHigh = 0;
+    v4 = GetFileSize(v3, &FileSizeHigh);
+    v5 = v4;
+    if ( !FileSizeHigh && v4 < 0x5000 )
+    {
+      Target = sub_557FC521(v4);
+      ReadFile(v3, (LPVOID)Target, v5, &NumberOfBytesRead, 0); //读取配置
+    }
+    CloseHandle(v3);
+  }
+  v32 = 0;
+  v33 = 15;
+  LOBYTE(Src) = 0;
+  sub_557BFA6F(&Src, (const unsigned __int8 *)Target, NumberOfBytesRead); //使用配置 vi.dat, 这个方法会把 v32 的值修改.  往上查看:v32修改
+  sub_55743CD0(&Target); //释放配置
+  v6 = v32;
+  if ( v32 < 0x10 )
+    goto LABEL_19;
+  v7 = &Src;
+  v24 = (const wchar_t *)12;
+  if ( v33 >= 0x10 )
+    v7 = Src;
+  memcpy(&byte_558634F4, v7, (size_t)v24);  //设置 byte_558634F4, _char_minorver,_char_majorver
+  v8 = *((_WORD *)v7 + 6);
+  v9 = v6 - 14;
+  v29 = v8;
+  v10 = (int)v7 + 14;
+  if ( v9 < v8 + 2 )
+    goto LABEL_19;
+  CTXStringW::CTXStringW(&FileSizeHigh, v10, v8 >> 1);
+  v11 = (_WORD *)(v29 + v10);
+  v12 = -2 - v29 + v9;
+  v13 = *v11;
+  v14 = (int)(v11 + 1);
+  v28 = v13;
+  if ( v12 < v13 )
+  {
+    CTXStringW::~CTXStringW((CTXStringW *)&FileSizeHigh);
+LABEL_19:
+    v21 = 0;
+    goto LABEL_20;
+  }
+  CTXStringW::CTXStringW(&v29, v14, v13 >> 1);
+  v15 = CTXStringW::operator wchar_t const *(&v29);
+  CTXStringW::operator=(&unk_55863500, v15);
+  v16 = CTXStringW::operator wchar_t const *(&FileSizeHigh);
+  CTXStringW::operator=(&unk_55863504, v16);
+  v17 = v28 + v14;
+  v18 = v12 - v28;
+  dword_55863508 = 65793;
+  dword_5586350C = 25600;
+  if ( (unsigned __int8)byte_558634F5 + 100 * (unsigned int)(unsigned __int8)byte_558634F4 >= 0xA0E && v18 >= 8 )
+  {
+    memcpy(&dword_55863508, (const void *)v17, 4u);
+    memcpy(&dword_5586350C, (const void *)(v17 + 4), 4u);
+    v17 += 8;
+    v18 -= 8;
+  }
+  if ( v18 >= 2 )
+  {
+    v19 = *(_WORD *)v17;
+    if ( v18 - 2 >= v19 )
+    {
+      CTXStringW::CTXStringW(&v28, v17 + 2, v19 >> 1);
+      v20 = CTXStringW::operator wchar_t const *(&v28);
+      CTXStringW::operator=(&unk_55863510, v20);
+      CTXStringW::~CTXStringW((CTXStringW *)&v28);
+    }
+  }
+  CTXStringW::~CTXStringW((CTXStringW *)&v29);
+  CTXStringW::~CTXStringW((CTXStringW *)&FileSizeHigh);
+  v21 = 1;
+LABEL_20:
+  sub_556B2B8C((int)&Src);
+  CTXStringW::~CTXStringW((CTXStringW *)&v25);
+  return v21;
+}
+
+
+
+
+//使用配置 vi.dat
+//@a2 为配置文件内容
+//@a3 文件大小
+signed int __cdecl sub_557BFA6F(void *a1, const unsigned __int8 *a2, unsigned int a3)
+{
+  signed int v3; // esi@3
+  char v5; // [sp+Ch] [bp-70h]@3
+  void *Dst; // [sp+34h] [bp-48h]@1
+  LONG Target; // [sp+38h] [bp-44h]@18
+  size_t Size; // [sp+3Ch] [bp-40h]@18
+  const unsigned __int8 *v9; // [sp+40h] [bp-3Ch]@15
+  __int16 v10; // [sp+44h] [bp-38h]@3
+  int v11; // [sp+48h] [bp-34h]@5
+  unsigned __int16 v12; // [sp+4Ch] [bp-30h]@14
+  char Src; // [sp+50h] [bp-2Ch]@19
+  int v14; // [sp+60h] [bp-1Ch]@19
+  int v15; // [sp+64h] [bp-18h]@19
+  char v16; // [sp+68h] [bp-14h]@7
+
+  Dst = a1;
+  if ( !a2 || !a3 )
+    return 0;
+  CTXCommPack::CTXCommPack((CTXCommPack *)&v5);
+  v3 = 1;
+  CTXCommPack::SetBufferIn((CTXCommPack *)&v5, a2, a3, 1);
+  if ( !CTXCommPack::GetWord((CTXCommPack *)&v5, (unsigned __int16 *)&v10, 0, 1)
+    || v10
+    || !CTXCommPack::GetByte((CTXCommPack *)&v5, (unsigned __int8 *)&v11, 1)
+    || (unsigned __int8)(v11 - 2) > 1u
+    ||  !sub_557BF8DB((int)CTXCommPack::GetWord, (int)a2, 1u, v11, (unsigned __int8 *)&v16)  /*md5判断*/ )
+  {
+    goto LABEL_25;
+  }
+  if ( (_BYTE)v11 != 1 && (_BYTE)v11 != 2 && (_BYTE)v11 != 3 )
+  {
+    CTXCommPack::~CTXCommPack((CTXCommPack *)&v5);
+    return 0;
+  }
+  if ( CTXCommPack::GetWord((CTXCommPack *)&v5, &v12, 0, 1)
+    && CTXCommPack::GetBuf((CTXCommPack *)&v5, &v9, v12, 1)
+    && CTXCommPack::GetWord((CTXCommPack *)&v5, &v12, 0, 1)
+    && CTXCommPack::GetBuf((CTXCommPack *)&v5, &v9, v12, 1) )
+  {
+    Size = v12 + 100;
+    Target = sub_557FC521(Size);
+	//用md5做为配置文件 vi.dat的解密key?
+    if ( oi_symmetry_decrypt2(v9, v12, (const unsigned __int8 *)&v16, (unsigned __int8 *)Target, (int *)&Size) )  //common::oi_symmetry_decrypt2
+    {
+      v14 = 0;
+      v15 = 15;
+      Src = 0;
+      sub_556C0857(&Src, (void *)Target, Size);
+      sub_556B9EAB(Dst, &Src);
+      sub_556B2B8C((int)&Src);
+    }
+    sub_55743CD0(&Target);
+  }
+  else
+  {
+LABEL_25:
+    v3 = 0;
+  }
+  CTXCommPack::~CTXCommPack((CTXCommPack *)&v5);
+  return v3;
+}
+
+
+
+//md5判断
+signed int __usercall sub_557BF8DB@<eax>(int a1@<ebx>, int a2@<edi>, DWORD a3@<esi>, char a4, unsigned __int8 *a5)
+{
+  WCHAR *v5; // eax@1
+  const WCHAR *v6; // eax@1
+  HANDLE v7; // esi@1
+  HMODULE v8; // eax@7
+  int v9; // ecx@8
+  signed int v10; // ebx@9
+  signed int v11; // edi@11
+  char v13; // [sp+4h] [bp-10C4h]@1
+  DWORD NumberOfBytesRead; // [sp+8h] [bp-10C0h]@2
+  char v15; // [sp+Ch] [bp-10BCh]@10
+  char v16; // [sp+68h] [bp-1060h]@2
+  char Buffer; // [sp+C4h] [bp-1004h]@4
+  DWORD v18; // [sp+10A8h] [bp-20h]@1
+  DWORD v19; // [sp+10ACh] [bp-1Ch]@1
+  struct _SECURITY_ATTRIBUTES *v20; // [sp+10B0h] [bp-18h]@1
+  DWORD v21; // [sp+10B4h] [bp-14h]@1
+  const unsigned __int8 *v22; // [sp+10B8h] [bp-10h]@1
+  void *v23; // [sp+10BCh] [bp-Ch]@1
+  DWORD v24; // [sp+10C0h] [bp-8h]@1
+  int v25; // [sp+10C4h] [bp-4h]@1
+
+  sub_557FCAE0();
+  v25 = a1;
+  v24 = a3;
+  CTXStringW::CTXStringW(&v13, a2);
+  v23 = (void *)260;
+  v5 = CTXStringW::GetBuffer((CTXStringW *)&v13, 260);
+  GetModuleFileNameW(0, v5, v24);
+  CTXStringW::ReleaseBuffer((CTXStringW *)&v13, -1);
+  v23 = 0;
+  v22 = 0;
+  v21 = 3;
+  v20 = 0;
+  v19 = 1;
+  v18 = 2147483648;
+  v6 = (const WCHAR *)CTXStringW::operator wchar_t const *(&v13);
+  v7 = CreateFileW(v6, v18, v19, v20, v21, (DWORD)v22, v23);
+  if ( v7 == (HANDLE)-1 )
+    goto LABEL_16;
+  NumberOfBytesRead = 0;
+  MD5_Init((struct MD5state_st *)&v16);
+  while ( ReadFile(v7, &Buffer, 0x1000u, &NumberOfBytesRead, 0) && NumberOfBytesRead )  //读取当前模块文件,获得 md5码在 v16
+    MD5_Update((struct MD5state_st *)&v16, (const unsigned __int8 *)&Buffer, NumberOfBytesRead);
+  CloseHandle(v7);
+  if ( a4 != 3 )
+    goto LABEL_9;
+  v8 = GetModuleHandleW(0);  	//获取一个应用程序或动态链接库的模块句柄,参数为0则获取当前模块的
+  if ( !v8 )
+  {
+LABEL_16:
+    v11 = 0;
+    goto LABEL_13;
+  }
+  v9 = *((_DWORD *)v8 + 15); //pe头偏移量. 指针是 _DWORD 所以 这里是pe文件往后,60字节,对应 _IMAGE_DOS_HEADER.e_lfanew 
+  v23 = *(void **)((char *)v8 + v9 + 28); // ? IMAGE_OPTIONAL_HEADER32.SizeOfCode; //所有代码节的总和（基于文件对齐）,编译器填的
+  v22 = (const unsigned __int8 *)v8 + *(_DWORD *)((char *)v8 + v9 + 44); //?  IMAGE_OPTIONAL_HEADER32.BaseOfCode;       //代码起始RVA,编译器填的
+  MD5_Update((struct MD5state_st *)&v16, v22, (unsigned __int32)v23);
+LABEL_9:
+  MD5_Final(a5, (struct MD5state_st *)&v16);   //MD5_Final 获得 md5 放在 a5里
+  v10 = 20;
+  do
+  {
+    MD5_Init((struct MD5state_st *)&v15);
+    MD5_Update((struct MD5state_st *)&v15, a5, 0x10u);
+    MD5_Final(a5, (struct MD5state_st *)&v15);
+    --v10;
+  }
+  while ( v10 );
+  v11 = 1;
+LABEL_13:
+  CTXStringW::~CTXStringW((CTXStringW *)&v13);
+  return v11;
+}
+
+
+
+
+
+=========================================================================================================================================================
+Address  To       From     Siz Comment               Party 
+0019F23C 557AFB25 522D3380 9C  common.522D3380       User
+0019F2D8 557AFD06 557AFB25 54  kernelutil.557AFB25   User
+0019F32C 5391182D 557AFD06 38  kernelutil.557AFD06   User
+0019F364 5390F84E 5391182D 69C hummerengine.5391182D User
+0019FA00 53917E23 5390F84E 80  hummerengine.5390F84E User
+0019FA80 0040289B 53917E23 49C hummerengine.53917E23 User
+0019FF1C 004012C6 0040289B C   qq.0040289B           User
+0019FF28 00403365 004012C6 4C  qq.004012C6           User
+0019FF74 75BD6359 00403365 10  qq.00403365           System
+0019FF84 77CB8944 75BD6359 5C  kernel32.75BD6359     System
+0019FFE0 77CB8914 77CB8944 10  ntdll.77CB8944        System
+0019FFF0 00000000 77CB8914     ntdll.77CB8914        User
+
+// a2 is file content
+signed int __cdecl sub_557AF9D1(void *a1, const unsigned __int8 *a2, unsigned int a3)
+	=> //common.dll, a3 is md5 string
+		int __cdecl oi_symmetry_decrypt2(const unsigned __int8 *a1, int a2, const unsigned __int8 *a3, unsigned __int8 *a4, int *a5)
+	 
+
+=========================================================================================================================================================
+
+
+Address  To       From     Siz Comment               Party 
+0019EDE4 5326F27D 02E7FF41 18  02E7FF41              User
+0019EDFC 523CEFEA 5326F27D 48  gf.5326F27D           User
+0019EE44 523CEC05 523CEFEA C   common.523CEFEA       User
+0019EE50 523CF780 523CEC05 18  common.523CEC05       User
+0019EE68 523D14A4 523CF780 2C  common.523CF780       User
+0019EE94 523D1BD6 523D14A4 18  common.523D14A4       User
+0019EEAC 5390EACD 523D1BD6 278 common.523D1BD6       User
+0019F124 5390E6AE 5390EACD 23C hummerengine.5390EACD User
+0019F360 5390FC84 5390E6AE 6A0 hummerengine.5390E6AE User
+0019FA00 53917E23 5390FC84 80  hummerengine.5390FC84 User
+0019FA80 0040289B 53917E23 49C hummerengine.53917E23 User
+0019FF1C 004012C6 0040289B C   qq.0040289B           User
+0019FF28 00403365 004012C6 4C  qq.004012C6           User
+0019FF74 75BD6359 00403365 10  qq.00403365           System
+0019FF84 77CB8944 75BD6359 5C  kernel32.75BD6359     System
+0019FFE0 77CB8914 77CB8944 10  ntdll.77CB8944        System
+0019FFF0 00000000 77CB8914     ntdll.77CB8914        User
+
+=========================================================================================================================================================
+Address  To       From     Siz Comment               Party 
+0019EDE4 5326F27D 02E6FF41 18  02E6FF41              User
+0019EDFC 523CEFEA 5326F27D 48  gf.5326F27D           User
+0019EE44 523CEC05 523CEFEA C   common.523CEFEA       User
+0019EE50 523CF780 523CEC05 18  common.523CEC05       User
+0019EE68 523D14A4 523CF780 2C  common.523CF780       User
+0019EE94 523D1BD6 523D14A4 18  common.523D14A4       User
+0019EEAC 5390EACD 523D1BD6 278 common.523D1BD6       User
+0019F124 5390E6AE 5390EACD 23C hummerengine.5390EACD User
+0019F360 5390FC84 5390E6AE 6A0 hummerengine.5390E6AE User
+0019FA00 53917E23 5390FC84 80  hummerengine.5390FC84 User
+0019FA80 0040289B 53917E23 49C hummerengine.53917E23 User
+0019FF1C 004012C6 0040289B C   qq.0040289B           User
+0019FF28 00403365 004012C6 4C  qq.004012C6           User
+0019FF74 75BD6359 00403365 10  qq.00403365           System
+0019FF84 77CB8944 75BD6359 5C  kernel32.75BD6359     System
+0019FFE0 77CB8914 77CB8944 10  ntdll.77CB8944        System
+0019FFF0 00000000 77CB8914     ntdll.77CB8914        User
+
+
+
+=========================================================================================================================================================
+QQProtect.exe
+
+1A5CDD84 
+1A5CDAF4
+1A5BDB22
+1A5BD892
+11E4EAAE
+11E4EBE2
+ 
+=========================================================================================================================================================
+
+
+
+=========================================================================================================================================================
+//asynctask.dll => IsDebuggerPresent
+
+51B25E4D | 6A 18               | push 18                                                 |
+51B25E4F | 68 C88DB251         | push asynctask.51B28DC8                                 |
+51B25E54 | E8 67130000         | call asynctask.51B271C0                                 |
+51B25E59 | FF15 5880B251       | call dword ptr ds:[<&IsDebuggerPresent>]                |
+51B25E5F | 85C0                | test eax,eax                                            |
+
+
+
+
+
+=========================================================================================================================================================
+//版本号
+
+  if ( (unsigned __int16)sub_53914ED8() >= 0x7ECu ) // 0x7ECu = 2028
+  {
+	....
+  }
+
+__int16 sub_53914ED8()
+{
+  unsigned __int8 v0; // bl@1
+
+  v0 = Version::GetMajorVer();
+  return 100 * v0 + Version::GetMinorVer();
+}
+=========================================================================================================================================================
+
+
+
+int __cdecl oi_symmetry_decrypt2(const unsigned __int8 *a1, int a2, const unsigned __int8 *a3, unsigned __int8 *a4, int *a5)
+{
+  signed int v5; // ecx@1
+  signed int v6; // ebx@6
+  signed int v7; // edi@6
+  unsigned __int32 v8; // ecx@6
+  unsigned __int32 v9; // esi@6
+  unsigned __int32 v10; // edx@7
+  unsigned __int8 *v11; // ebx@8
+  unsigned __int32 v12; // ecx@8
+  int v13; // edi@8
+  int v14; // eax@8
+  unsigned __int32 v15; // esi@8
+  const unsigned __int8 *v16; // edx@10
+  const unsigned __int8 *v17; // eax@10
+  int v18; // edi@10
+  signed int v19; // edi@15
+  signed int v20; // ebx@15
+  unsigned __int32 v21; // ecx@15
+  unsigned __int32 v22; // esi@15
+  unsigned __int32 v23; // edx@16
+  int v24; // eax@20
+  __int64 *v25; // edx@26
+  __m128i v26; // xmm3@28
+  __m128i v27; // xmm2@28
+  __m128i v28; // xmm0@29
+  __m128i v29; // xmm1@29
+  __m128i v30; // xmm2@30
+  __m128i v31; // xmm2@30
+  int v32; // edx@34
+  unsigned __int8 *v33; // ebx@34
+  char *v34; // eax@35
+  signed int v35; // ebx@38
+  unsigned __int32 v36; // ecx@38
+  unsigned __int32 v37; // esi@38
+  unsigned __int32 v38; // edx@39
+  unsigned __int8 *v39; // ebx@40
+  int v40; // eax@41
+  unsigned __int8 v41; // al@44
+  int v42; // eax@47
+  int v43; // edx@48
+  bool v44; // zf@48
+  bool v45; // sf@48
+  signed int v46; // ebx@50
+  signed int v47; // edi@50
+  unsigned __int32 v48; // ecx@50
+  unsigned __int32 v49; // esi@50
+  unsigned __int32 v50; // edx@51
+  int v51; // eax@52
+  signed int v52; // edi@58
+  signed int v53; // ebx@58
+  unsigned __int32 v54; // ecx@58
+  unsigned __int32 v55; // esi@58
+  unsigned __int32 v56; // edx@59
+  unsigned __int8 *v57; // ebx@60
+  signed int v58; // edx@60
+  unsigned __int8 v59; // al@61
+  int v60; // eax@63
+  int v62; // eax@68
+  int v63; // [sp+Ch] [bp-4Ch]@10
+  int v64; // [sp+Ch] [bp-4Ch]@20
+  int v65; // [sp+Ch] [bp-4Ch]@56
+  __int64 *v66; // [sp+10h] [bp-48h]@10
+  int v67; // [sp+10h] [bp-48h]@34
+  int v68; // [sp+10h] [bp-48h]@68
+  signed int v69; // [sp+14h] [bp-44h]@10
+  int v70; // [sp+14h] [bp-44h]@47
+  const unsigned __int8 *v71; // [sp+18h] [bp-40h]@10
+  unsigned __int8 *v72; // [sp+1Ch] [bp-3Ch]@1
+  const unsigned __int8 *v73; // [sp+20h] [bp-38h]@10
+  int v74; // [sp+20h] [bp-38h]@63
+  int v75; // [sp+24h] [bp-34h]@49
+  signed int v76; // [sp+28h] [bp-30h]@10
+  int v77; // [sp+2Ch] [bp-2Ch]@10
+  signed int v78; // [sp+30h] [bp-28h]@21
+  int v79; // [sp+30h] [bp-28h]@47
+  __m128i v80; // [sp+34h] [bp-24h]@2
+  unsigned __int32 v81; // [sp+44h] [bp-14h]@8
+  unsigned __int32 v82; // [sp+48h] [bp-10h]@8
+  __int64 v83; // [sp+4Ch] [bp-Ch]@10
+
+  v5 = 0;
+  v72 = a4;
+  if ( dword_524E89F8 < 2 )
+  {
+    do
+    {
+      v80.m128i_i32[v5] = _byteswap_ulong(*(_DWORD *)&a3[4 * v5]);
+      ++v5;
+    }
+    while ( v5 < 4 );
+  }
+  else
+  {
+    v80 = _mm_shuffle_epi8(*(__m128i *)a3, (__m128i)xmmword_524BC090);
+  }
+  if ( a2 % 8 )
+    return 0;
+  if ( a2 < 16 )
+    return 0;
+  v6 = 16;
+  v7 = -478700656;
+  v8 = _byteswap_ulong(*(_DWORD *)a1);
+  v9 = _byteswap_ulong(*((_DWORD *)a1 + 1));
+  do
+  {
+    v9 -= (v7 + v8) ^ (v80.m128i_i32[2] + 16 * v8) ^ (v80.m128i_i32[3] + (v8 >> 5));
+    v10 = (v7 + v9) ^ (v80.m128i_i32[0] + 16 * v9) ^ (v80.m128i_i32[1] + (v9 >> 5));
+    v7 += 1640531527;
+    v8 -= v10;
+    --v6;
+  }
+  while ( v6 );
+  v11 = a4;
+  v12 = _byteswap_ulong(v8);
+  v13 = v12 & 7;
+  v81 = v12;
+  v14 = a2 - v13 - 10;
+  v15 = _byteswap_ulong(v9);
+  v82 = v15;
+  if ( *a5 < v14 || v14 < 0 )
+    return 0;
+  *a5 = v14;
+  v66 = &v83;
+  v16 = a1;
+  v17 = a1 + 8;
+  _mm_storel_pd((double *)&v83, 0i64);
+  v18 = v13 + 1;
+  v73 = a1;
+  v71 = a1 + 8;
+  v76 = 8;
+  v77 = v18;
+  v69 = 1;
+  v63 = 15;
+  do
+  {
+    if ( v18 >= 8 )
+    {
+      if ( v18 != 8 )
+        continue;
+      v66 = (__int64 *)v16;
+      v73 = v17;
+      if ( v63 >= a2 )
+        return 0;
+      v19 = -478700656;
+      v20 = 16;
+      v21 = _byteswap_ulong(*(_DWORD *)v17 ^ v12);
+      v22 = _byteswap_ulong(*((_DWORD *)v17 + 1) ^ v15);
+      do
+      {
+        v22 -= (v19 + v21) ^ (v80.m128i_i32[2] + 16 * v21) ^ (v80.m128i_i32[3] + (v21 >> 5));
+        v23 = (v19 + v22) ^ (v80.m128i_i32[0] + 16 * v22) ^ (v80.m128i_i32[1] + (v22 >> 5));
+        v19 += 1640531527;
+        v21 -= v23;
+        --v20;
+      }
+      while ( v20 );
+      v76 += 8;
+      v17 = v71 + 8;
+      v63 += 8;
+      v18 = 0;
+      v11 = a4;
+      v16 = v73;
+      v12 = _byteswap_ulong(v21);
+      v15 = _byteswap_ulong(v22);
+      v81 = v12;
+      v82 = v15;
+      v71 += 8;
+    }
+    else
+    {
+      ++v18;
+      ++v69;
+    }
+    v77 = v18;
+  }
+  while ( v69 <= 2 );
+  v24 = *a5;
+  v64 = *a5;
+  if ( v18 <= 0 )
+    goto LABEL_47;
+  v78 = 8 - v18;
+  if ( v24 <= 8 - v18 )
+    goto LABEL_47;
+  if ( v18 < 8 )
+  {
+    if ( (unsigned int)(8 - v18) < 8
+      || (v24 = *a5, &v11[v18] <= (unsigned __int8 *)&v82 + 3) && v11 + 7 >= (unsigned __int8 *)&v81 + v18 )
+    {
+      v25 = v66;
+    }
+    else
+    {
+      v25 = v66;
+      if ( &v11[v18] <= (unsigned __int8 *)v66 + 7 && v11 + 7 >= (unsigned __int8 *)v66 + v18 )
+      {
+        v24 = *a5;
+      }
+      else
+      {
+        v26 = 0i64;
+        v27 = 0i64;
+        do
+        {
+          v26 = _mm_sub_epi32(v26, (__m128i)xmmword_524BC050);
+          v27 = _mm_sub_epi32(v27, (__m128i)xmmword_524BC050);
+          v28 = _mm_cvtsi32_si128(*(unsigned __int32 *)((char *)&v82 + v18));
+          *(_DWORD *)v11 = _mm_cvtsi128_si32(_mm_xor_si128(_mm_cvtsi32_si128(*(_DWORD *)((char *)v66 + v18)), _mm_cvtsi32_si128(*(unsigned __int32 *)((char *)&v81 + v18))));
+          v29 = _mm_cvtsi32_si128(*(_DWORD *)((char *)v66 + v18 + 4));
+          v18 += 8;
+          *((_DWORD *)v11 + 1) = _mm_cvtsi128_si32(_mm_xor_si128(v29, v28));
+          v11 += 8;
+        }
+        while ( v18 < 8 - v78 % 8 );
+        v30 = _mm_add_epi32(v27, v26);
+        v72 = v11;
+        v31 = _mm_add_epi32(v30, _mm_srli_si128(v30, 8));
+        v24 = v64 + _mm_cvtsi128_si32(_mm_add_epi32(v31, _mm_srli_si128(v31, 4)));
+        v64 = v24;
+      }
+    }
+    if ( v18 < 8 )
+    {
+      v32 = (char *)v25 - (char *)&v81;
+      v33 = v72;
+      v67 = v32;
+      v64 = v18 + v24 - 8;
+      do
+      {
+        v34 = (char *)&v81 + v18++;
+        *v33++ = *v34 ^ v34[v32];
+        v32 = v67;
+      }
+      while ( v18 < 8 );
+      v72 = v33;
+    }
+  }
+  v66 = (__int64 *)v73;
+  v73 = v71;
+  if ( v76 + 7 >= a2 )
+    return 0;
+  v35 = -478700656;
+  v18 = 16;
+  v36 = _byteswap_ulong(*(_DWORD *)v71 ^ v12);
+  v37 = _byteswap_ulong(*((_DWORD *)v71 + 1) ^ v15);
+  do
+  {
+    v37 -= (v35 + v36) ^ (v80.m128i_i32[2] + 16 * v36) ^ (v80.m128i_i32[3] + (v36 >> 5));
+    v38 = (v35 + v37) ^ (v80.m128i_i32[0] + 16 * v37) ^ (v80.m128i_i32[1] + (v37 >> 5));
+    v35 += 1640531527;
+    v36 -= v38;
+    --v18;
+  }
+  while ( v18 );
+  v71 += 8;
+  v76 += 8;
+  v24 = v64;
+  v39 = v72;
+  v77 = 0;
+  v12 = _byteswap_ulong(v36);
+  v81 = v12;
+  v15 = _byteswap_ulong(v37);
+  v82 = v15;
+  if ( v64 >= 8 )
+  {
+    v18 = 8;
+    v40 = v15 ^ *((_DWORD *)v66 + 1);
+    *(_DWORD *)v72 = v12 ^ *(_DWORD *)v66;
+    *((_DWORD *)v72 + 1) = v40;
+    v39 = v72 + 8;
+    v24 = v64 - 8;
+    v64 -= 8;
+    goto LABEL_46;
+  }
+  if ( v64 )
+  {
+    do
+    {
+      if ( v18 < 8 )
+      {
+        v41 = *((_BYTE *)&v81 + v18) ^ *((_BYTE *)v66 + v18);
+        ++v18;
+        *v39++ = v41;
+        v24 = v64-- - 1;
+      }
+    }
+    while ( v24 );
+LABEL_46:
+    v77 = v18;
+    v72 = v39;
+  }
+LABEL_47:
+  v42 = v24 / 8;
+  v79 = v42;
+  v70 = v76 + 8 * v42;
+  if ( v70 > a2 )
+    return 0;
+  v43 = (int)v71;
+  v44 = v42 == 0;
+  v45 = v42 < 0;
+  if ( v42 > 0 )
+  {
+    v75 = v42;
+    do
+    {
+      v46 = -478700656;
+      v66 = (__int64 *)v73;
+      v47 = 16;
+      v73 = (const unsigned __int8 *)v43;
+      v48 = _byteswap_ulong(*(_DWORD *)v43 ^ v12);
+      v49 = _byteswap_ulong(*(_DWORD *)(v43 + 4) ^ v15);
+      do
+      {
+        v49 -= (v46 + v48) ^ (v80.m128i_i32[2] + 16 * v48) ^ (v80.m128i_i32[3] + (v48 >> 5));
+        v50 = (v46 + v49) ^ (v80.m128i_i32[0] + 16 * v49) ^ (v80.m128i_i32[1] + (v49 >> 5));
+        v46 += 1640531527;
+        v48 -= v50;
+        --v47;
+      }
+      while ( v47 );
+      v12 = _byteswap_ulong(v48);
+      v15 = _byteswap_ulong(v49);
+      v51 = *((_DWORD *)v66 + 1);
+      *(_DWORD *)v72 = v12 ^ *(_DWORD *)v66;
+      *((_DWORD *)v72 + 1) = v15 ^ v51;
+      v43 = (int)(v71 + 8);
+      v71 += 8;
+      v44 = v75-- == 1;
+      v72 += 8;
+    }
+    while ( !v44 );
+    v44 = v79 == 0;
+    v45 = v79 < 0;
+    v18 = v77;
+    v81 = v12;
+    v82 = v15;
+  }
+  if ( !v45 && !v44 )
+    v18 = 8;
+  v65 = v64 % 8;
+  if ( v65 <= 0 )
+  {
+    if ( v18 >= 8 )
+      return 1;
+    v62 = (char *)v66 - (char *)&v81;
+    v68 = (char *)v66 - (char *)&v81;
+    while ( *((_BYTE *)&v81 + v18 + v62) == *((_BYTE *)&v81 + v18) )
+    {
+      v62 = v68;
+      if ( ++v18 >= 8 )
+        return 1;
+    }
+    return 0;
+  }
+  if ( v70 + 7 >= a2 )
+    return 0;
+  v52 = -478700656;
+  v53 = 16;
+  v54 = _byteswap_ulong(*(_DWORD *)v43 ^ v12);
+  v55 = _byteswap_ulong(*(_DWORD *)(v43 + 4) ^ v15);
+  do
+  {
+    v55 -= (v52 + v54) ^ (v80.m128i_i32[2] + 16 * v54) ^ (v80.m128i_i32[3] + (v54 >> 5));
+    v56 = (v52 + v55) ^ (v80.m128i_i32[0] + 16 * v55) ^ (v80.m128i_i32[1] + (v55 >> 5));
+    v52 += 1640531527;
+    v54 -= v56;
+    --v53;
+  }
+  while ( v53 );
+  v57 = v72;
+  v58 = 0;
+  v81 = _byteswap_ulong(v54);
+  v82 = _byteswap_ulong(v55);
+  if ( v65 <= 0 )
+    goto LABEL_75;
+  do
+  {
+    ++v57;
+    v59 = *((_BYTE *)&v81 + v58) ^ v73[v58];
+    ++v58;
+    *(v57 - 1) = v59;
+  }
+  while ( v58 < v65 );
+  if ( v58 < 8 )
+  {
+LABEL_75:
+    v60 = v73 - (const unsigned __int8 *)&v81;
+    v74 = v73 - (const unsigned __int8 *)&v81;
+    while ( *((_BYTE *)&v81 + v58 + v60) == *((_BYTE *)&v81 + v58) )
+    {
+      v60 = v74;
+      if ( ++v58 >= 8 )
+        return 1;
+    }
+    return 0;
+  }
+  return 1;
+}
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+
+
+
+
+=========================================================================================================================================================
+
+

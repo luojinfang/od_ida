@@ -1,0 +1,275 @@
+
+//isdebugpresent
+
+线程 ID 地址       返回到      返回自      大小  注释                     方   
+95484                                                       
+      0651F66C 74EE5D3E 75682452 24  kernelbase.75682452    系统模块
+      0651F690 74F30420 74EE5D3E 2C  rpcrt4.74EE5D3E        系统模块
+      0651F6BC 74ED6830 74F30420 4F8 rpcrt4.74F30420        系统模块
+      0651FBB4 74ED4964 74ED6830 14  rpcrt4.74ED6830        系统模块
+      0651FBC8 5F592954 74ED4964 60  rpcrt4.74ED4964        系统模块
+      0651FC28 3435D8B4 5F592954 6C  wlanapi.5F592954       用户模块
+      0651FC94 3435DAE0 3435D8B4 5C  ssoplatform.3435D8B4   用户模块
+      0651FCF0 3438295E 3435DAE0 30  ssoplatform.3435DAE0   用户模块
+      0651FD20 34356F3D 3438295E C   ssoplatform.3438295E   用户模块
+      0651FD2C 34347962 34356F3D 38  ssoplatform.34356F3D   用户模块
+      0651FD64 34347409 34347962 30  ssoplatform.34347962   用户模块
+      0651FD94 34347480 34347409 8   ssoplatform.34347409   用户模块
+      0651FD9C 753A5CAB 34347480 2C  ssoplatform.34347480   系统模块
+      0651FDC8 753967BC 753A5CAB E4  user32.753A5CAB        系统模块
+      0651FEAC 753958FB 753967BC 74  user32.753967BC        系统模块
+      0651FF20 753956D0 753958FB C   user32.753958FB        系统模块
+      0651FF2C 34347734 753956D0 3C  user32.753956D0        用户模块
+      0651FF68 34347789 34347734 C   ssoplatform.34347734   用户模块
+      0651FF74 74FB0419 34347789 10  ssoplatform.34347789   系统模块
+      0651FF84 778966DD 74FB0419 5C  kernel32.74FB0419      系统模块
+      0651FFE0 778966AD 778966DD 10  ntdll.778966DD         系统模块
+      0651FFF0 00000000 778966AD     ntdll.778966AD         用户模块
+ 
+ 
+ 
+ ==================================================================================
+      1242FEE4 5AB47015 75682E00 24  kernelbase.75682E00    用户模块
+      1242FF08 5AB46E48 5AB47015 18  xplatform_dl.5AB47015  用户模块
+      1242FF20 5AB3B47E 5AB46E48 1C  xplatform_dl.5AB46E48  用户模块
+      1242FF3C 774F738F 5AB3B47E 38  xplatform_dl.5AB3B47E  系统模块
+      1242FF74 74FB0419 774F738F 10  ucrtbase.774F738F      系统模块
+      1242FF84 778966DD 74FB0419 5C  kernel32.74FB0419      系统模块
+      1242FFE0 778966AD 778966DD 10  ntdll.778966DD         系统模块
+      1242FFF0 00000000 778966AD     ntdll.778966AD         用户模块
+
+
+
+ 
+
+
+==================================================================================
+      0490FF6C 5242021B 75682E00 8   kernelbase.75682E00         用户模块
+      0490FF74 74FB0419 5242021B 10  common.5242021B             系统模块  // sub_5241FA10 => IsDebuggerPresent()
+      0490FF84 778966DD 74FB0419 5C  kernel32.74FB0419           系统模块
+      0490FFE0 778966AD 778966DD 10  ntdll.778966DD              系统模块
+      0490FFF0 00000000 778966AD     ntdll.778966AD              用户模块
+	  
+	  
+	  
+	  
+      1474FF1C 1451A95D 75682E00 14  kernelbase.75682E00        用户模块
+      1474FF30 14543E2F 1451A95D 38  minibrowser_shell.1451A95D 用户模块
+      1474FF68 14543F57 14543E2F C   minibrowser_shell.14543E2F 用户模块
+      1474FF74 74FB0419 14543F57 10  minibrowser_shell.14543F57 系统模块
+      1474FF84 778966DD 74FB0419 5C  kernel32.74FB0419          系统模块
+      1474FFE0 778966AD 778966DD 10  ntdll.778966DD             系统模块
+      1474FFF0 00000000 778966AD     ntdll.778966AD             用户模块	
+
+
+
+      2007FB54 1EBAE40D 75682E00 3C0 kernelbase.75682E00        用户模块
+      2007FF14 5A7E934F 1EBAE40D 44  qbcore.1EBAE40D            用户模块
+      2007FF58 5A7E93CD 5A7E934F 1C  webctrl.5A7E934F           用户模块
+      2007FF74 74FB0419 5A7E93CD 10  webctrl.5A7E93CD           系统模块
+      2007FF84 778966DD 74FB0419 5C  kernel32.74FB0419          系统模块
+      2007FFE0 778966AD 778966DD 10  ntdll.778966DD             系统模块
+      2007FFF0 00000000 778966AD     ntdll.778966AD             用户模块
+
+      201BFEDC 1CC54A74 75682E00 1C  kernelbase.75682E00        用户模块
+      201BFEF8 1CC3A381 1CC54A74 1C  qbcore.1CC54A74            用户模块
+      201BFF14 5A7E934F 1CC3A381 44  qbcore.1CC3A381            用户模块
+      201BFF58 5A7E93CD 5A7E934F 1C  webctrl.5A7E934F           用户模块
+      201BFF74 74FB0419 5A7E93CD 10  webctrl.5A7E93CD           系统模块
+      201BFF84 778966DD 74FB0419 5C  kernel32.74FB0419          系统模块
+      201BFFE0 778966AD 778966DD 10  ntdll.778966DD             系统模块
+      201BFFF0 00000000 778966AD     ntdll.778966AD             用户模块
+	  
+	  
+      201BFB70 1DDEE9BC 75682E00 58  kernelbase.75682E00        用户模块
+      201BFBC8 1DDEEE02 1DDEE9BC 1CC qbcore.1DDEE9BC            用户模块
+      201BFD94 1DDBF1D5 1DDEEE02 80  qbcore.1DDEEE02            用户模块
+      201BFE14 1CBCDC65 1DDBF1D5 CC  qbcore.1DDBF1D5            用户模块
+      201BFEE0 1CC54AEC 1CBCDC65 18  qbcore.1CBCDC65            用户模块
+      201BFEF8 1CC3A381 1CC54AEC 1C  qbcore.1CC54AEC            用户模块
+      201BFF14 5A7E934F 1CC3A381 44  qbcore.1CC3A381            用户模块
+      201BFF58 5A7E93CD 5A7E934F 1C  webctrl.5A7E934F           用户模块
+      201BFF74 74FB0419 5A7E93CD 10  webctrl.5A7E93CD           系统模块
+      201BFF84 778966DD 74FB0419 5C  kernel32.74FB0419          系统模块
+      201BFFE0 778966AD 778966DD 10  ntdll.778966DD             系统模块
+      201BFFF0 00000000 778966AD     ntdll.778966AD             用户模块	  
+	  
+//qbcore 基址加载会变化 	  
+//minibrowser_shell  基址加载会变化 	   
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+//子进程	  
+	  =>createprocess  L"\"E:\\_work\\qq_test\\QQ\\Bin\\QQExternal.exe\" /SetupRegister" 	  
+	  04B8F89C 510F3A05 7564A3F0 4B8  kernelbase.7564A3F0        用户模块
+      04B8FD54 510F3778 510F3A05 30   apputil.510F3A05           用户模块
+      04B8FD84 51B224EE 510F3778 28   apputil.510F3778           用户模块
+      04B8FDAC 51B22591 51B224EE C    asynctask.51B224EE         用户模块
+      04B8FDB8 51B227CF 51B22591 38   asynctask.51B22591         用户模块
+      04B8FDF0 51B24321 51B227CF 2C   asynctask.51B227CF         用户模块
+      04B8FE1C 51B2207A 51B24321 24   asynctask.51B24321         用户模块
+      04B8FE40 51B25FE7 51B2207A 8    asynctask.51B2207A         用户模块
+      04B8FE48 5391EF8E 51B25FE7 10   asynctask.51B25FE7         用户模块
+      04B8FE58 51B26082 5391EF8E 114  hummerengine.5391EF8E      用户模块
+      04B8FF6C 51B25E47 51B26082 8    asynctask.51B26082         用户模块
+      04B8FF74 74FB0419 51B25E47 10   asynctask.51B25E47         系统模块
+      04B8FF84 778966DD 74FB0419 5C   kernel32.74FB0419          系统模块
+      04B8FFE0 778966AD 778966DD 10   ntdll.778966DD             系统模块
+      04B8FFF0 00000000 778966AD      ntdll.778966AD             用户模块  
+	  
+	  
+	  
+	  =>createprocess    L"E:\\_work\\qq_test\\QQ\\Bin\\QPerfHelper.exe"
+	  10ADF7F4 59B5264E 7564A3F0 498  kernelbase.7564A3F0        用户模块
+      10ADFC8C 59B53451 59B5264E 244  qperfmon.59B5264E          用户模块
+      10ADFED0 59B54780 59B53451 14   qperfmon.59B53451          用户模块
+      10ADFEE4 501C9BAA 59B54780 14   qperfmon.59B54780          用户模块
+      10ADFEF8 501C92B3 501C9BAA 20   afbase.501C9BAA            用户模块
+      10ADFF18 501C954C 501C92B3 34   afbase.501C92B3            用户模块
+      10ADFF4C 501C90C0 501C954C 20   afbase.501C954C            用户模块
+      10ADFF6C 501C9682 501C90C0 8    afbase.501C90C0            用户模块
+      10ADFF74 74FB0419 501C9682 10   afbase.501C9682            系统模块
+      10ADFF84 778966DD 74FB0419 5C   kernel32.74FB0419          系统模块
+      10ADFFE0 778966AD 778966DD 10   ntdll.778966DD             系统模块
+      10ADFFF0 00000000 778966AD      ntdll.778966AD             用户模块
+	  
+	  
+	  
+	L"D:\\Program Files (x86)\\Tencent\\QQ\\bin\\QQCallzp.exe"
+	  211FFE5C 55752174 7564A3F0 3C   kernelbase.7564A3F0        用户模块
+      211FFE98 557520DB 55752174 28   kernelutil.55752174        用户模块
+      211FFEC0 5575170E 557520DB 24   kernelutil.557520DB        用户模块
+      211FFEE4 557538DA 5575170E 18   kernelutil.5575170E        用户模块
+      211FFEFC 55751B4E 557538DA 18   kernelutil.557538DA        用户模块
+      211FFF14 55751936 55751B4E 10   kernelutil.55751B4E        用户模块
+      211FFF24 55752FC5 55751936 50   kernelutil.55751936        用户模块
+      211FFF74 74FB0419 55752FC5 10   kernelutil.55752FC5        系统模块
+      211FFF84 778966DD 74FB0419 5C   kernel32.74FB0419          系统模块
+      211FFFE0 778966AD 778966DD 10   ntdll.778966DD             系统模块
+      211FFFF0 00000000 778966AD      ntdll.778966AD             用户模块
+	  
+	  L"\"E:\\_work\\qq_test\\QQ\\Bin\\QQExternal.exe\" /load=CefSubProcess.dll --high-dpi-support=1 --type=renderer --disable-gpu-compositing --no-sandbox --disable-direct-write --client-id=gfwebctrl --enable-deferred-image-decoding --lang=en-US --lang=en-US --log-severity=disable --product-version=QQ/9.4.3.27712 --ppapi-flash-path=\"C:\\Windows\\SysWOW64\\Macromed\\Flash\\pepflashplayer32_32_0_0_403.dll\" --device-scale-factor=1.00 --gf-dpi-flag --client-id=gfwebctrl --frame-rate=15 --enable-pinch --device-s"
+	  202FF5E8 1CC49DB2 7564A3F0 118 kernelbase.7564A3F0        用户模块
+      202FF700 1CC49F74 1CC49DB2 40  qbcore.1CC49DB2            用户模块
+      202FF740 1EBC4D4A 1CC49F74 2A0 qbcore.1CC49F74            用户模块
+      202FF9E0 1DDE8660 1EBC4D4A A8  qbcore.1EBC4D4A            用户模块
+      202FFA88 1DDE8E86 1DDE8660 28  qbcore.1DDE8660            用户模块
+      202FFAB0 1CC67D19 1DDE8E86 B0  qbcore.1DDE8E86            用户模块
+      202FFB60 1CC3BFA4 1CC67D19 EC  qbcore.1CC67D19            用户模块
+      202FFC4C 1CC3B829 1CC3BFA4 84  qbcore.1CC3BFA4            用户模块
+      202FFCD0 1CC698E7 1CC3B829 24  qbcore.1CC3B829            用户模块
+      202FFCF4 1CC3BD90 1CC698E7 30  qbcore.1CC698E7            用户模块
+      202FFD24 1CC3BD46 1CC3BD90 24  qbcore.1CC3BD90            用户模块
+      202FFD48 1CC546FB 1CC3BD46 8   qbcore.1CC3BD46            用户模块
+      202FFD50 1DD72A3F 1CC546FB C8  qbcore.1CC546FB            用户模块
+      202FFE18 1DD72B1F 1DD72A3F C4  qbcore.1DD72A3F            用户模块
+      202FFEDC 1CC54B05 1DD72B1F 1C  qbcore.1DD72B1F            用户模块
+      202FFEF8 1CC3A381 1CC54B05 1C  qbcore.1CC54B05            用户模块
+      202FFF14 5A7E934F 1CC3A381 44  qbcore.1CC3A381            用户模块
+      202FFF58 5A7E93CD 5A7E934F 1C  webctrl.5A7E934F           用户模块
+      202FFF74 74FB0419 5A7E93CD 10  webctrl.5A7E93CD           系统模块
+      202FFF84 778966DD 74FB0419 5C  kernel32.74FB0419          系统模块
+      202FFFE0 778966AD 778966DD 10  ntdll.778966DD             系统模块
+      202FFFF0 00000000 778966AD     ntdll.778966AD             用户模块
+	  
+	  
+	  L"E:\\_work\\qq_test\\QQ\\txupd.exe"
+	 04B8F428 75957A96 7564A3F0 244 kernelbase.7564A3F0        系统模块
+      04B8F66C 7595B20E 75957A96 38  windows.storage.75957A96   系统模块
+      04B8F6A4 75957462 7595B20E 34  windows.storage.7595B20E   系统模块
+      04B8F6D8 759576BA 75957462 18  windows.storage.75957462   系统模块
+      04B8F6F0 7595A0A6 759576BA 48  windows.storage.759576BA   系统模块
+      04B8F738 759574D2 7595A0A6 38  windows.storage.7595A0A6   系统模块
+      04B8F770 7595B7C5 759574D2 110 windows.storage.759574D2   系统模块
+      04B8F880 75F55505 7595B7C5 30  windows.storage.7595B7C5   系统模块
+      04B8F8B0 75F555E4 75F55505 2C  shell32.75F55505           系统模块
+      04B8F8DC 75F55A9A 75F555E4 EC  shell32.75F555E4           系统模块
+      04B8F9C8 75F55D70 75F55A9A F4  shell32.75F55A9A           系统模块
+      04B8FABC 56DB5567 75F55D70 274 shell32.75F55D70           用户模块
+      04B8FD30 56DB2E83 56DB5567 14  plugincommon.56DB5567      用户模块
+      04B8FD44 510F3C3C 56DB2E83 10  plugincommon.56DB2E83      用户模块
+      04B8FD54 510F3778 510F3C3C 30  apputil.510F3C3C           用户模块
+      04B8FD84 51B224EE 510F3778 28  apputil.510F3778           用户模块
+      04B8FDAC 51B22591 51B224EE C   asynctask.51B224EE         用户模块
+      04B8FDB8 51B227CF 51B22591 38  asynctask.51B22591         用户模块
+      04B8FDF0 51B24321 51B227CF 2C  asynctask.51B227CF         用户模块
+      04B8FE1C 51B2207A 51B24321 24  asynctask.51B24321         用户模块
+      04B8FE40 51B25FE7 51B2207A 8   asynctask.51B2207A         用户模块
+      04B8FE48 5391EF8E 51B25FE7 10  asynctask.51B25FE7         用户模块
+      04B8FE58 51B26082 5391EF8E 114 hummerengine.5391EF8E      用户模块
+      04B8FF6C 51B25E47 51B26082 8   asynctask.51B26082         用户模块
+      04B8FF74 74FB0419 51B25E47 10  asynctask.51B25E47         系统模块
+      04B8FF84 778966DD 74FB0419 5C  kernel32.74FB0419          系统模块
+      04B8FFE0 778966AD 778966DD 10  ntdll.778966DD             系统模块
+      04B8FFF0 00000000 778966AD     ntdll.778966AD             用户模块
+	  
+	  
+	  
+	  //弹出错误框 
+	   0019EE88 532E7071 753A71F0 4C  user32.753A71F0            用户模块
+       0019EED4 5320DD3D 532E7071 14  gf.532E7071                用户模块
+       0019EEE8 532E75C5 5320DD3D 144 gf.5320DD3D                用户模块
+       0019F02C 53200E24 532E75C5 10  gf.532E75C5                用户模块
+       0019F03C 5021E6F1 53200E24 14  gf.53200E24                用户模块
+       0019F050 50346E09 5021E6F1 40  afctrl.5021E6F1            用户模块
+       0019F090 50346CB7 50346E09 1C  afctrl.50346E09            用户模块
+       0019F0AC 51105408 50346CB7 40  afctrl.50346CB7            用户模块
+       0019F0EC 52376F70 51105408 10  apputil.51105408           用户模块	//sub_5110525A
+       0019F0FC 52381992 52376F70 10  common.52376F70            用户模块
+       0019F10C 5237D150 52381992 1C  common.52381992            用户模块
+       0019F128 523780E0 5237D150 14  common.5237D150            用户模块
+       0019F13C 753A5CAB 523780E0 2C  common.523780E0            系统模块
+       0019F168 753967BC 753A5CAB E4  user32.753A5CAB            系统模块
+       0019F24C 753958FB 753967BC 74  user32.753967BC            系统模块
+       0019F2C0 753956D0 753958FB C   user32.753958FB            系统模块
+       0019F2CC 51B24578 753956D0 18  user32.753956D0            用户模块
+       0019F2E4 51B244FB 51B24578 30  asynctask.51B24578         用户模块
+       0019F314 51B2437C 51B244FB 2C  asynctask.51B244FB         用户模块
+       0019F340 51B2207A 51B2437C 24  asynctask.51B2437C         用户模块
+       0019F364 53920B86 51B2207A 69C asynctask.51B2207A         用户模块	//AsyncTask::MessageLoopForUI::Run((AsyncTask::MessageLoopForUI *)&v113);
+       0019FA00 53927E8B 53920B86 80  hummerengine.53920B86      用户模块	//sub_5391F82B
+       0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B      用户模块  	// RunQQHummerEngine()
+       0019FF1C 004012C6 0040289B C   qq.0040289B                用户模块
+       0019FF28 00403365 004012C6 4C  qq.004012C6                用户模块
+       0019FF74 74FB0419 00403365 10  qq.00403365                系统模块
+       0019FF84 778966DD 74FB0419 5C  kernel32.74FB0419          系统模块
+       0019FFE0 778966AD 778966DD 10  ntdll.778966DD             系统模块
+       0019FFF0 00000000 778966AD     ntdll.778966AD             用户模块
+	   
+	   
+	 
+	  
+	  L"E:\\_work\\qq_test\\QQ\\Bin\\QPerfHelper.exe"
+      10ADF7F4 59B5264E 7564A3F0 498 kernelbase.7564A3F0        用户模块
+      10ADFC8C 59B53451 59B5264E 244 qperfmon.59B5264E          用户模块
+      10ADFED0 59B54780 59B53451 14  qperfmon.59B53451          用户模块
+      10ADFEE4 501C9BAA 59B54780 14  qperfmon.59B54780          用户模块
+      10ADFEF8 501C92B3 501C9BAA 20  afbase.501C9BAA            用户模块
+      10ADFF18 501C954C 501C92B3 34  afbase.501C92B3            用户模块
+      10ADFF4C 501C90C0 501C954C 20  afbase.501C954C            用户模块
+      10ADFF6C 501C9682 501C90C0 8   afbase.501C90C0            用户模块
+      10ADFF74 74FB0419 501C9682 10  afbase.501C9682            系统模块
+      10ADFF84 778966DD 74FB0419 5C  kernel32.74FB0419          系统模块
+      10ADFFE0 778966AD 778966DD 10  ntdll.778966DD             系统模块
+      10ADFFF0 00000000 778966AD     ntdll.778966AD             用户模块
+	  
+	  
+	     L"\"E:\\_work\\qq_test\\QQ\\Bin\\QQExternal.exe\" /load OPMiscDll.dll app=\"\"  destipc=\"QQ_95064\" sid=16777216 groupid=12"
+      03EBEFC4 59BA4850 7564A3F0 CE0 kernelbase.7564A3F0        用户模块
+      03EBFCA4 59BA4950 59BA4850 94  renderservice.59BA4850     用户模块
+      03EBFD38 77863BE0 59BA4950 88  renderservice.59BA4950     系统模块
+      03EBFDC0 77880B73 77863BE0 1B4 ntdll.77863BE0             系统模块
+      03EBFF74 74FB0419 77880B73 10  ntdll.77880B73             系统模块
+      03EBFF84 778966DD 74FB0419 5C  kernel32.74FB0419          系统模块
+      03EBFFE0 778966AD 778966DD 10  ntdll.778966DD             系统模块
+      03EBFFF0 00000000 778966AD     ntdll.778966AD             用户模块
+	  
+	  
+	  
+	  
+	  
+	  

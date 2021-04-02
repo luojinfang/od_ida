@@ -1,0 +1,9 @@
+dump ebp-0xc
+dump ebp   //dump ebp地址
+dump [ebp]	//dump  ebp地址指向的地址
+
+
+log {s:ebp} //log 字符串 
+
+
+
