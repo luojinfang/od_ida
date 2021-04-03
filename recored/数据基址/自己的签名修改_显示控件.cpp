@@ -65,10 +65,123 @@
 	576F949    FF91 C4050000   call dword ptr ds:[ecx+0x5C4] =>6576CF8C
 6576F6EF    FF90 64030000   call dword ptr ds:[eax+0x364] =>576F949
 6576FF61    E8 5DF7FFFF     call AFCtrl.6576F6C3 =>6576F6EF
-3082940E    FF51 1C         call dword ptr ds:[ecx+0x1C]  =>  6576FF61  //点击签名框，进入编辑状态时触发, 查看 ecx 是怎样切换的,存在哪里?
+3082940E    FF51 1C         call dword ptr ds:[ecx+0x1C]  =>  6576FF4E =>6576FF61  //点击签名框，进入编辑状态时触发, 查看 ecx 是怎样切换的,存在哪里?
 30825697    E8 E83C0000     call GF.30829384 =>3082940E //高频调用   int __cdecl sub_30829384(int a1, int a2, int a3, int a4, int a5, _DWORD *a6)
 30918762    E8 0DCDF0FF     call GF.Util::GF::DispatchFrameMsg =>30825697
  
+ 
+ 
+
+ 
+ ------ 断点执行脚本
+ 
+ 
+START:
+	CMP eip,3082940E
+	JNE exit 
+
+	LOG ecx
+	run
+	JMP START
+exit: 
+	PAUSE
+	
+ ------
+ 
+ Log data
+地址       消息
+3082940E   断点位于 GF.3082940E
+           ecx: 3097F1A8
+3082940E   断点位于 GF.3082940E
+           ecx: 30987520
+ ------
+ 
+START:
+	CMP eip,3082940E
+	JNE exit
+	
+	CMP ecx,3097F1A8
+	JE exit	
+	CMP ecx,30987520
+	JE exit
+	CMP ecx,30987520
+	JE exit 
+	
+	CMP ecx,6476A080
+	JE exit	
+	CMP ecx,30989558
+	JE exit	
+	CMP ecx,3096F548
+	JE exit	
+	CMP ecx,61DD0298
+	JE exit	
+	CMP ecx,61DEF4A0
+	JE exit	
+	CMP ecx,61DDDFE0
+	JE exit	
+	CMP ecx,3096AF70
+	JE exit	
+	CMP ecx,61DD6F58
+	JE exit	
+	CMP ecx,3096C6A4
+	JE exit	
+	CMP ecx,309AA364
+	JE exit	
+	CMP ecx,6589E8C8
+	JE exit	
+	CMP ecx,61E19B08
+	JE exit
+
+	CMP ecx,65881688
+	JE exit
+	
+	CMP ecx,61E2C030
+	JE exit 
+ 
+	CMP ecx,309A22C8
+	JE exit
+				
+	CMP ecx,309A50A0
+	JE exit
+				
+	CMP ecx,309883D0
+	JE exit
+				
+	CMP ecx,30991E90
+	JE exit
+				
+	CMP ecx,30980250
+	JE exit
+				
+	CMP ecx,65892C08
+	JE exit
+				
+	CMP ecx,309AC9A4
+	JE exit
+				
+	CMP ecx,658950F0
+	JE exit
+	  
+
+	LOG ecx
+	 
+exit:
+	run
+	JMP START
+	
+ 
+ ------
+ ------
+ ------
+ ------
+ ------
+ ------
+
+ 
+ 
+ 
+ 
+------
 TransformMsg
 ======================
 3082940E    FF51 1C         call dword ptr ds:[ecx+0x1C]   查看 ecx 是怎样切换的,存在哪里 
