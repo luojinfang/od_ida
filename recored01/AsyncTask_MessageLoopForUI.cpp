@@ -32,10 +32,25 @@
 */
 
 --------------
-AsyncTask::MessageLoopForUI::Run() =>处理循环事件.使用相应系统方法处理事件. //获得 TranslateMessage, DispatchMessageW,PeekMessageW, 发送 PostMessageW
+AsyncTask::MessageLoopForUI::Run() =>处理循环事件.使用相应系统方法处理事件. //获得 TranslateMessage, DispatchMessageW,PeekMessageW, 发送 PostMessageW,SendMessageW
+
+//界面事件多用 sendmessage, 逻辑事件多用 PostMessage?
+
+LRESULT 	SendMessage(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM IParam)  
+BOOL WINAPI PostMessage(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) 
 
 
+SendMessage 将指定的消息发送到一个或多个窗口。 此函数为指定的窗口调用窗口程序，直到窗口程序处理完消息再返回。  //.faq 底层怎样的调用过程？
+PostMessage 是将一个消息寄送到一个线程的消息队列后就立即返回。 消息队列里的消息通过调用 GetMessage 和 PeekMessage 取得
 
+PeekMessage 非阻碍,线程不会挂起.不管有没有消息都会返回一个值，有消息是非零值，没有消息则是零值。
+			消息可设置是否从消息队列中将其删除
+GetMessage  阻碍,线程会挂起.在没有产生消息的时候并不返回，而是一直在等待，直到一个消息返回.
+			消息被取出以后，就从消息队列中将其删除
+	
+
+
+	
 --------------
 //初始化
 AsyncTask::MessageLoopForUI::MessageLoopForUI((AsyncTask::MessageLoopForUI *)&v116);
