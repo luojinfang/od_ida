@@ -4,6 +4,7 @@
 
 //拷贝发送内容-----------------------------关键
 Address  To       From     Si Comment                Party 
+	//=> memcpy
 0866F95C 6B48E1DC 6B48E153 1C common.6B48E153        User	//CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src, unsigned int Size)
 0866F978 6B48A69F 6B48E1DC 1C common.6B48E1DC        User	//CTXCommPack::AddBuf(CTXCommPack *this, const struct CTXBuffer *Src)  
 0866F994 6B489324 6B48A69F 30 common.6B48A69F        User	//sub_6B48A460
@@ -27,6 +28,9 @@ Address  To       From     Si Comment                Party
 0866FC54 77CB8944 75BD6359 5C kernel32.75BD6359      System
 0866FCB0 77CB8914 77CB8944 10 ntdll.77CB8944         System
 0866FCC0 00000000 77CB8914    ntdll.77CB8914         User
+
+
+
 //=================================
 libuv 
 Base=73950000
@@ -44,7 +48,18 @@ Base=6B360000
 im.dll
 Base=62270000
 
- 
+
+
+//=================================
+common =522A0000
+6B48A460 - 6B360000 + 522A0000
+
+
+
+523CA460/6B48A460
+
+6B48AE30 - 6B360000 + 522A0000
+523CAE30/6B48AE30
 
 //=================================
 
@@ -546,19 +561,19 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const struct CTXBuffer *Sr
   int v6; // ecx@3
   const struct CTXBuffer *v7; // edi@3
 
-  v2 = Src;
+  v2 = Src;  //v2    
   v3 = this;
   v4 = *(_DWORD *)Src;
   if ( *(_DWORD *)Src )
   {//新老buf 叠加?
     Src = 0;
-    (*(void (__stdcall **)(int, const struct CTXBuffer **))(*(_DWORD *)v4 + 52))(v4, &Src); //sub_6B3A8A70   Src = *(_DWORD *)v4+12  //size
+    (*(void (__stdcall **)(int, const struct CTXBuffer **))(*(_DWORD *)v4 + 52))(v4, &Src); //sub_6B3A8A70   Src = *(_DWORD *)v4+12  //size    // [esi]+48
     v6 = *(_DWORD *)v2;
     v7 = Src;//size
     if ( *(_DWORD *)v2 )
     {
       Src = 0;
-      (*(void (__stdcall **)(int, const struct CTXBuffer **))(*(_DWORD *)v6 + 48))(v6, &Src); //sub_6B3A8A40  Src = *(_DWORD *)v6+8  //content 
+      (*(void (__stdcall **)(int, const struct CTXBuffer **))(*(_DWORD *)v6 + 48))(v6, &Src); //sub_6B3A8A40  Src = *(_DWORD *)v6+8  //content //[esi]+32
       result = CTXCommPack::AddBuf(v3, (const unsigned __int8 *)Src, (unsigned int)v7);   //=================>
     }
     else
@@ -660,3 +675,9 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
   }
   return 0;
 }
+
+CTXCommPack[1*0x4] buf 大小指针?
+CTXCommPack[3*0x4] buf 指针指针？
+
+
+
