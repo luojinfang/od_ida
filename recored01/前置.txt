@@ -21,8 +21,10 @@
 
 6.在  user32.dll::MessageBoxW 断点，显示异常框时会断点,分析哪里触发了异常逻辑.   (显示的界面要么是showwindow,要么是messagebox?)
 	kernelutil.dll::version::init() 返回异常,需修改
-		=> oi_symmetry_decrypt2() //这里会用 qq.exe文件内容的 md5 码, 做为解密的key读取 vi.dat. 这里可以修改为读取原qq.exe文件,生成md5码
-	
+		sub_557BFA6F()=> 
+			sub_557BF8DB(),获得 qq.exe文件的md5
+			oi_symmetry_decrypt2() //这里会用 qq.exe文件内容的 md5 码, 做为解密的key读取 vi.dat. 这里可以修改为读取原qq.exe文件,生成md5码
+			
 
 7. hummerengine.dll,Base=53900000
 	5390E819         | E8 4AFAFFFF           | call hummerengine.5390E268                          |
