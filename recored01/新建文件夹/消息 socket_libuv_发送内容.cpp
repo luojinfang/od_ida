@@ -2,6 +2,39 @@
 /*
 修改版
 
+
+movzx 是将源操作数的内容拷贝到目的操作数，并将该值用0扩展至16位或者32位。但是它只适用于无符号整数。 他大致下面的三种格式。
+		movzx 32位通用寄存器, 8位通用寄存器/内存单元
+		movzx 32位通用寄存器, 16位通用寄存器/内存单元
+		movzx 16位通用寄存器, 8位通用寄存器/内存单元
+		若执行 movzx eax, ax 后 eax = 00004000h.
+		若执行 movzx eax, ah 后 eax = 00000040h.
+
+__fastcall 是一种快速调用方式。
+	调用约定(Calling Convention)
+	规定将前两个参数由寄存器ecx和edx来传递,其余参数还是通过堆栈传递(从右到左)。
+	不同编译器编译的程序规定的寄存器不同。在Intel 386平台上，使用ECX和EDX寄存器。
+	使用 __fastcall 方式无法用作跨编译器的接口。
+	
+__cdecl 是C Declaration的缩写,__cdecl是C和C++程序的缺省调用方式
+	表示C语言默认的函数调用方法：所有参数从右到左依次入栈，这些参数由调用者清除,称为手动清栈。
+	被调用函数不会要求调用者传递多少参数,调用者传递过多或者过少的参数,甚至完全不同的参数都不会产生编译阶段的错误。
+
+
+1、修饰名(Decoration name)："C"或者"C++"函数在内部（编译和链接）通过修饰名识别
+2、C编译时函数名修饰约定规则：
+	__stdcall 调用约定在输出函数名前加上一个下划线前缀，后面加上一个"@"符号和其参数的字节数，格式为 _functionname@number,例如 ：function(int a, int b)，其修饰名为：_function@8
+	__cdecl 调用约定仅在输出函数名前加上一个下划线前缀，格式为 _functionname。
+	__fastcall 调用约定在输出函数名前加上一个 "@" 符号，后面也是一个"@"符号和其参数的字节数，格式为 @functionname@number。
+
+
+//栈平衡
+//https://bbs.huaweicloud.com/blogs/101007
+__cdecl   ：函数调用结束后由函数调用者清除栈内数据。  
+__stdcall ：函数调用结束后由被调用函数清除栈内数据。
+__fastcall：函数调用结束后由被调用函数清除栈内数据。
+
+
 -------------
 //common
 
@@ -899,10 +932,665 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 5579721D | 50                  | push eax                                  | arg_0
 5579721E | E8 C6060000         | call kernelutil.557978E9                  |  
 
+
+
+ 
 //=============================================================================================
 
+.text:55796DC3                         sub_55796DC3    proc near               ; CODE XREF: Util::Msg::TranslateMsgPackToBuddyMsg(ITXMsgPack *,CTXBuffer &)+Dp
+.text:55796DC3                                                                 ; Util::Msg::TranslateMsgPackToBuddyMsgWithOfflinePic(ITXMsgPack *,CTXBuffer &,ITXArray *)+Ep ...
+.text:55796DC3
+.text:55796DC3                         var_58          = dword ptr -58h
+.text:55796DC3                         var_30          = dword ptr -30h
+.text:55796DC3                         var_2C          = dword ptr -2Ch
+.text:55796DC3                         var_28          = dword ptr -28h
+.text:55796DC3                         var_24          = dword ptr -24h
+.text:55796DC3                         var_20          = dword ptr -20h
+.text:55796DC3                         var_1C          = dword ptr -1Ch
+.text:55796DC3                         var_18          = dword ptr -18h
+.text:55796DC3                         lpMultiByteStr  = dword ptr -14h
+.text:55796DC3                         var_10          = dword ptr -10h
+.text:55796DC3                         var_C           = dword ptr -0Ch
+.text:55796DC3                         var_8           = dword ptr -8
+.text:55796DC3                         var_1           = byte ptr -1
+.text:55796DC3                         arg_0           = dword ptr  8
+.text:55796DC3                         arg_4           = dword ptr  0Ch
+.text:55796DC3                         arg_8           = dword ptr  10h
+.text:55796DC3                         arg_C           = dword ptr  14h
+.text:55796DC3
+.text:55796DC3 55                                      push    ebp
+.text:55796DC4 8B EC                                   mov     ebp, esp
+.text:55796DC6 8B 4D 0C                                mov     ecx, [ebp+arg_4]
+.text:55796DC9 83 EC 58                                sub     esp, 58h
+.text:55796DCC 8B 09                                   mov     ecx, [ecx]
+.text:55796DCE 85 C9                                   test    ecx, ecx
+.text:55796DD0 74 06                                   jz      short loc_55796DD8
+.text:55796DD2 8B 01                                   mov     eax, [ecx]
+.text:55796DD4 51                                      push    ecx
+.text:55796DD5 FF 50 20                                call    dword ptr [eax+20h]
+.text:55796DD8
+.text:55796DD8                         loc_55796DD8:                           ; CODE XREF: sub_55796DC3+Dj
+.text:55796DD8 53                                      push    ebx
+.text:55796DD9 8D 4D A8                                lea     ecx, [ebp+var_58]
+.text:55796DDC FF 15 EC 12 80 55                       call    ds:??0CTXCommPack@@QAE@XZ ; CTXCommPack::CTXCommPack(void)
+.text:55796DE2 8B 5D 08                                mov     ebx, [ebp+arg_0] //ebx .......................................................................................................>  
+.text:55796DE5 85 DB                                   test    ebx, ebx
+.text:55796DE7 0F 84 21 02 00 00                       jz      loc_5579700E
+.text:55796DED 33 C0                                   xor     eax, eax
+.text:55796DEF 21 45 E4                                and     [ebp+var_1C], eax
+.text:55796DF2 56                                      push    esi
+.text:55796DF3 33 F6                                   xor     esi, esi
+.text:55796DF5 89 45 E0                                mov     [ebp+var_20], eax
+.text:55796DF8 57                                      push    edi             ; struct ITXMsgImage *
+.text:55796DF9 89 75 DC                                mov     [ebp+var_24], esi
+.text:55796DFC 39 45 10                                cmp     [ebp+arg_8], eax
+.text:55796DFF 0F 85 E7 00 00 00                       jnz     loc_55796EEC
+.text:55796E05 39 45 14                                cmp     [ebp+arg_C], eax
+.text:55796E08 0F 85 DE 00 00 00                       jnz     loc_55796EEC
+.text:55796E0E 21 45 E8                                and     [ebp+var_18], eax
+.text:55796E11 8D 4D E8                                lea     ecx, [ebp+var_18]
+.text:55796E14 8B 03                                   mov     eax, [ebx]
+.text:55796E16 51                                      push    ecx
+.text:55796E17 53                                      push    ebx
+.text:55796E18 FF 50 40                                call    dword ptr [eax+40h]
+.text:55796E1B 33 C9                                   xor     ecx, ecx
+.text:55796E1D 89 4D F4                                mov     [ebp+var_C], ecx
+.text:55796E20 39 4D E8                                cmp     [ebp+var_18], ecx
+.text:55796E23 0F 86 C0 00 00 00                       jbe     loc_55796EE9
+.text:55796E29 8B 3D D8 16 80 55                       mov     edi, ds:??1CTXBSTR@@QAE@XZ ; CTXBSTR::~CTXBSTR(void)
+.text:55796E2F
+.text:55796E2F                         loc_55796E2F:                           ; CODE XREF: sub_55796DC3+11Dj
+.text:55796E2F 8B 03                                   mov     eax, [ebx]
+.text:55796E31 8D 55 FF                                lea     edx, [ebp+var_1]
+.text:55796E34 52                                      push    edx
+.text:55796E35 51                                      push    ecx
+.text:55796E36 53                                      push    ebx
+.text:55796E37 C6 45 FF 00                             mov     [ebp+var_1], 0
+.text:55796E3B FF 50 44                                call    dword ptr [eax+44h]
+.text:55796E3E 85 C0                                   test    eax, eax
+.text:55796E40 0F 88 90 00 00 00                       js      loc_55796ED6
+.text:55796E46 80 7D FF 03                             cmp     [ebp+var_1], 3
+.text:55796E4A 0F 85 86 00 00 00                       jnz     loc_55796ED6
+.text:55796E50 8B 03                                   mov     eax, [ebx]
+.text:55796E52 8D 4D F8                                lea     ecx, [ebp+var_8]
+.text:55796E55 83 65 F8 00                             and     [ebp+var_8], 0
+.text:55796E59 51                                      push    ecx
+.text:55796E5A 68 A4 06 82 55                          push    offset unk_558206A4
+.text:55796E5F FF 75 F4                                push    [ebp+var_C]
+.text:55796E62 53                                      push    ebx
+.text:55796E63 FF 50 48                                call    dword ptr [eax+48h]
+.text:55796E66 85 C0                                   test    eax, eax
+.text:55796E68 78 64                                   js      short loc_55796ECE
+.text:55796E6A 83 7D F8 00                             cmp     [ebp+var_8], 0
+.text:55796E6E 74 5E                                   jz      short loc_55796ECE
+.text:55796E70 68 E8 68 82 55                          push    offset aC2c     ; "C2C"
+.text:55796E75 8D 4D EC                                lea     ecx, [ebp+lpMultiByteStr]
+.text:55796E78 FF 15 08 11 80 55                       call    ds:??0CTXBSTR@@QAE@PB_W@Z ; CTXBSTR::CTXBSTR(wchar_t const *)
+.text:55796E7E 8B 75 F8                                mov     esi, [ebp+var_8]		 
+.text:55796E81 8D 4D EC                                lea     ecx, [ebp+lpMultiByteStr]
+.text:55796E84 FF 15 94 13 80 55                       call    ds:??BCTXBSTR@@QBEPA_WXZ ; CTXBSTR::operator wchar_t *(void)
+
+.text:55796E8A 56                                      push    esi             ; wchar_t *
+.text:55796E8B 50                                      push    eax             ; this
+.text:55796E8C E8 FF AE FF FF                          call    ?PreTranslateMsgImage@Msg@Util@@YAHPA_WPAUITXMsgImage@@@Z ; Util::Msg::PreTranslateMsgImage(wchar_t *,ITXMsgImage *)
+.text:55796E91 59                                      pop     ecx
+.text:55796E92 59                                      pop     ecx
 
 
+.text:55796E93 85 C0                                   test    eax, eax
+.text:55796E95 75 32                                   jnz     short loc_55796EC9
+.text:55796E97 FF 75 F4                                push    [ebp+var_C]
+.text:55796E9A 68 F0 68 82 55                          push    offset aPretranslatems ; "PreTranslateMsgImage Fail, Index = [%d]"
+.text:55796E9F 68 E4 41 82 55                          push    offset aUtilmsg ; "UtilMsg"
+.text:55796EA4 6A 02                                   push    2
+.text:55796EA6 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:55796EAB 68 E8 20 00 00                          push    20E8h
+.text:55796EB0 68 70 26 80 55                          push    offset aFile    ; "file"
+.text:55796EB5 E8 58 BD F1 FF                          call    sub_556B2C12
+.text:55796EBA 83 C4 1C                                add     esp, 1Ch
+.text:55796EBD 8D 45 F4                                lea     eax, [ebp+var_C]
+.text:55796EC0 8D 4D DC                                lea     ecx, [ebp+var_24]
+.text:55796EC3 50                                      push    eax
+.text:55796EC4 E8 5E B1 F2 FF                          call    sub_556C2027
+.text:55796EC9
+.text:55796EC9                         loc_55796EC9:                           ; CODE XREF: sub_55796DC3+D2j
+.text:55796EC9 8D 4D EC                                lea     ecx, [ebp+lpMultiByteStr]
+.text:55796ECC FF D7                                   call    edi ; CTXBSTR::~CTXBSTR(void) ; CTXBSTR::~CTXBSTR(void)
+.text:55796ECE
+.text:55796ECE                         loc_55796ECE:                           ; CODE XREF: sub_55796DC3+A5j
+.text:55796ECE                                                                 ; sub_55796DC3+ABj
+.text:55796ECE 8D 4D F8                                lea     ecx, [ebp+var_8]	//.......................................................................................................>  
+.text:55796ED1 E8 DA B4 F1 FF                          call    sub_556B23B0
+.text:55796ED6
+.text:55796ED6                         loc_55796ED6:                           ; CODE XREF: sub_55796DC3+7Dj
+.text:55796ED6                                                                 ; sub_55796DC3+87j
+.text:55796ED6 8B 4D F4                                mov     ecx, [ebp+var_C]
+.text:55796ED9 41                                      inc     ecx
+.text:55796EDA 89 4D F4                                mov     [ebp+var_C], ecx
+.text:55796EDD 3B 4D E8                                cmp     ecx, [ebp+var_18]
+.text:55796EE0 0F 82 49 FF FF FF                       jb      loc_55796E2F
+.text:55796EE6 8B 75 DC                                mov     esi, [ebp+var_24]
+.text:55796EE9
+.text:55796EE9                         loc_55796EE9:                           ; CODE XREF: sub_55796DC3+60j
+.text:55796EE9 8B 45 E0                                mov     eax, [ebp+var_20]
+.text:55796EEC
+.text:55796EEC                         loc_55796EEC:                           ; CODE XREF: sub_55796DC3+3Cj
+.text:55796EEC                                                                 ; sub_55796DC3+45j
+.text:55796EEC 8B F8                                   mov     edi, eax
+.text:55796EEE 33 C9                                   xor     ecx, ecx
+.text:55796EF0 2B FE                                   sub     edi, esi
+.text:55796EF2 33 D2                                   xor     edx, edx
+.text:55796EF4 83 C7 03                                add     edi, 3
+.text:55796EF7 C1 EF 02                                shr     edi, 2
+.text:55796EFA 3B F0                                   cmp     esi, eax
+.text:55796EFC 0F 47 F9                                cmova   edi, ecx
+.text:55796EFF 85 FF                                   test    edi, edi
+.text:55796F01 EB 14                                   jmp     short loc_55796F17
+.text:55796F03                         ; ---------------------------------------------------------------------------
+.text:55796F03
+.text:55796F03                         loc_55796F03:                           ; CODE XREF: sub_55796DC3+157j
+.text:55796F03 8B 06                                   mov     eax, [esi]
+.text:55796F05 8B 0B                                   mov     ecx, [ebx]
+.text:55796F07 2B C2                                   sub     eax, edx
+.text:55796F09 50                                      push    eax
+.text:55796F0A 53                                      push    ebx
+.text:55796F0B FF 51 4C                                call    dword ptr [ecx+4Ch]
+.text:55796F0E 8B 55 E8                                mov     edx, [ebp+var_18]
+.text:55796F11 8D 76 04                                lea     esi, [esi+4]
+.text:55796F14 42                                      inc     edx
+.text:55796F15 3B D7                                   cmp     edx, edi
+.text:55796F17
+.text:55796F17                         loc_55796F17:                           ; CODE XREF: sub_55796DC3+13Ej
+.text:55796F17 89 55 E8                                mov     [ebp+var_18], edx
+.text:55796F1A 75 E7                                   jnz     short loc_55796F03
+.text:55796F1C 8B 03                                   mov     eax, [ebx] // eax .......................................................................................................>  
+.text:55796F1E 8D 4D F0                                lea     ecx, [ebp+var_10]
+.text:55796F21 83 65 F0 00                             and     [ebp+var_10], 0
+.text:55796F25 51                                      push    ecx
+.text:55796F26 53                                      push    ebx
+.text:55796F27 FF 50 18                                call    dword ptr [eax+18h]
+.text:55796F2A 85 C0                                   test    eax, eax
+.text:55796F2C 0F 88 BF 00 00 00                       js      loc_55796FF1
+.text:55796F32 8D 4D F0                                lea     ecx, [ebp+var_10]
+.text:55796F35 E8 7B B9 F1 FF                          call    sub_556B28B5
+.text:55796F3A 8B F0                                   mov     esi, eax	//esi .......................................................................................................>  
+.text:55796F3C 8D 4D F0                                lea     ecx, [ebp+var_10]
+.text:55796F3F 89 75 F4                                mov     [ebp+var_C], esi // .......................................................................................................>  
+.text:55796F42 E8 8F B9 F1 FF                          call    sub_556B28D6
+.text:55796F47 8D 48 FF                                lea     ecx, [eax-1]
+.text:55796F4A 03 CE                                   add     ecx, esi
+.text:55796F4C 8D 46 17                                lea     eax, [esi+17h]
+.text:55796F4F 89 4D EC                                mov     [ebp+lpMultiByteStr], ecx
+.text:55796F52 3B C1                                   cmp     eax, ecx
+.text:55796F54 0F 87 97 00 00 00                       ja      loc_55796FF1
+.text:55796F5A 8B 3D FC 12 80 55                       mov     edi, ds:?AddBuf@CTXCommPack@@QAEHPBEI@Z ; CTXCommPack::AddBuf(uchar const *,uint)
+.text:55796F60 8D 4D A8                                lea     ecx, [ebp+var_58]
+.text:55796F63 6A 04                                   push    4
+.text:55796F65 56                                      push    esi
+.text:55796F66 FF D7                                   call    edi ; CTXCommPack::AddBuf(uchar const *,uint) ; CTXCommPack::AddBuf(uchar const *,uint)
+.text:55796F68 33 DB                                   xor     ebx, ebx
+.text:55796F6A 8D 4D A8                                lea     ecx, [ebp+var_58]
+.text:55796F6D 43                                      inc     ebx
+.text:55796F6E 53                                      push    ebx
+.text:55796F6F FF 76 04                                push    dword ptr [esi+4]
+.text:55796F72 8B 35 6C 15 80 55                       mov     esi, ds:?AddDWord@CTXCommPack@@QAEHKH@Z ; CTXCommPack::AddDWord(ulong,int)
+.text:55796F78 FF D6                                   call    esi ; CTXCommPack::AddDWord(ulong,int) ; CTXCommPack::AddDWord(ulong,int)
+.text:55796F7A 8B 45 F4                                mov     eax, [ebp+var_C]
+.text:55796F7D 8D 4D A8                                lea     ecx, [ebp+var_58]
+.text:55796F80 53                                      push    ebx
+.text:55796F81 FF 70 08                                push    dword ptr [eax+8]
+.text:55796F84 FF D6                                   call    esi ; CTXCommPack::AddDWord(ulong,int) ; CTXCommPack::AddDWord(ulong,int)
+.text:55796F86 8B 45 F4                                mov     eax, [ebp+var_C]
+.text:55796F89 8D 4D A8                                lea     ecx, [ebp+var_58]
+.text:55796F8C 53                                      push    ebx
+.text:55796F8D FF 70 0C                                push    dword ptr [eax+0Ch]
+.text:55796F90 FF D6                                   call    esi ; CTXCommPack::AddDWord(ulong,int) ; CTXCommPack::AddDWord(ulong,int)
+.text:55796F92 8B 45 F4                                mov     eax, [ebp+var_C]
+.text:55796F95 8D 4D A8                                lea     ecx, [ebp+var_58]
+.text:55796F98 53                                      push    ebx
+.text:55796F99 FF 70 10                                push    dword ptr [eax+10h]
+.text:55796F9C FF D6                                   call    esi ; CTXCommPack::AddDWord(ulong,int) ; CTXCommPack::AddDWord(ulong,int)
+.text:55796F9E 8B 75 F4                                mov     esi, [ebp+var_C] // .......................................................................................................>  
+.text:55796FA1 8D 4D A8                                lea     ecx, [ebp+var_58]
+.text:55796FA4 6A 04                                   push    4
+.text:55796FA6 83 C6 14                                add     esi, 14h  // .......................................................................................................>  
+.text:55796FA9 56                                      push    esi
+.text:55796FAA FF D7                                   call    edi ; CTXCommPack::AddBuf(uchar const *,uint) ; CTXCommPack::AddBuf(uchar const *,uint)
+.text:55796FAC 8D 46 04                                lea     eax, [esi+4]	// .......................................................................................................>  
+.text:55796FAF 8B 75 EC                                mov     esi, [ebp+lpMultiByteStr]
+
+
+													[ 000000000000 ]
+.text:55796FB2 89 45 F8                                mov     [ebp+var_8], eax		// 赋值 .......................................................................................................>  
+.text:55796FB5 8D 45 A8                                lea     eax, [ebp+var_58]   		
+.text:55796FB8 50                                      push    eax             ; int
+.text:55796FB9 8D 45 F8                                lea     eax, [ebp+var_8]		//.......................................................................................................>  
+.text:55796FBC 56                                      push    esi             ; lpMultiByteStr
+.text:55796FBD 50                                      push    eax             ; int
+.text:55796FBE E8 69 F6 FE FF                          call    sub_5578662C
+.text:55796FC3 83 C4 0C                                add     esp, 0Ch
+.text:55796FC6 85 C0                                   test    eax, eax
+.text:55796FC8 75 52                                   jnz     short loc_5579701C
+.text:55796FCA 68 D8 3A 82 55                          push    offset aTranslatemsgpa ; "TranslateMsgPackToSessionMsg font name "...
+.text:55796FCF 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55796FD4 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:55796FD9 53                                      push    ebx
+.text:55796FDA 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:55796FDF 68 3C 21 00 00                          push    213Ch
+.text:55796FE4 68 70 26 80 55                          push    offset aFile    ; "file"
+.text:55796FE9 E8 24 BC F1 FF                          call    sub_556B2C12
+.text:55796FEE 83 C4 1C                                add     esp, 1Ch
+.text:55796FF1
+.text:55796FF1                         loc_55796FF1:                           ; CODE XREF: sub_55796DC3+169j
+.text:55796FF1                                                                 ; sub_55796DC3+191j ...
+.text:55796FF1 33 DB                                   xor     ebx, ebx
+.text:55796FF3
+.text:55796FF3                         loc_55796FF3:                           ; CODE XREF: sub_55796DC3+611j
+.text:55796FF3 8B 45 F0                                mov     eax, [ebp+var_10]
+.text:55796FF6 5F                                      pop     edi
+.text:55796FF7 5E                                      pop     esi
+.text:55796FF8 85 C0                                   test    eax, eax
+.text:55796FFA 74 0A                                   jz      short loc_55797006
+.text:55796FFC 8B 08                                   mov     ecx, [eax]
+.text:55796FFE 50                                      push    eax
+.text:55796FFF FF 51 08                                call    dword ptr [ecx+8]
+.text:55797002 83 65 F0 00                             and     [ebp+var_10], 0
+.text:55797006
+.text:55797006                         loc_55797006:                           ; CODE XREF: sub_55796DC3+237j
+.text:55797006 8D 4D DC                                lea     ecx, [ebp+var_24]
+.text:55797009 E8 47 E2 F1 FF                          call    sub_556B5255
+.text:5579700E
+.text:5579700E                         loc_5579700E:                           ; CODE XREF: sub_55796DC3+24j
+.text:5579700E 8D 4D A8                                lea     ecx, [ebp+var_58]
+.text:55797011 FF 15 F0 12 80 55                       call    ds:??1CTXCommPack@@UAE@XZ ; CTXCommPack::~CTXCommPack(void)
+.text:55797017 8B C3                                   mov     eax, ebx
+.text:55797019 5B                                      pop     ebx
+.text:5579701A C9                                      leave
+.text:5579701B C3                                      retn
+.text:5579701C                         ; ---------------------------------------------------------------------------
+.text:5579701C
+.text:5579701C                         loc_5579701C:                           ; CODE XREF: sub_55796DC3+205j
+.text:5579701C 8B 7D F8                                mov     edi, [ebp+var_8]	//赋值 ...............................> edi
+.text:5579701F 8D 47 01                                lea     eax, [edi+1]
+.text:55797022 3B C6                                   cmp     eax, esi
+.text:55797024 77 CB                                   ja      short loc_55796FF1
+.text:55797026 0F B7 37                                movzx   esi, word ptr [edi] 	//...............................> esi
+.text:55797029 8D 4D A8                                lea     ecx, [ebp+var_58]
+.text:5579702C 53                                      push    ebx
+.text:5579702D 6A 00                                   push    0
+.text:5579702F FF 15 68 15 80 55                       call    ds:?AddWord@CTXCommPack@@QAEHGH@Z ; CTXCommPack::AddWord(ushort,int)
+
+.text:55797035 8B C6                                   mov     eax, esi		//...............................>  [[edi+2] + esi] //内容	
+
+.text:55797037 8D 4F 02                                lea     ecx, [edi+2]	//...............................> [ecx+eax], [[edi+2] + eax] //内容
+.text:5579703A 8B 7D EC                                mov     edi, [ebp+lpMultiByteStr]
+.text:5579703D 03 C8                                   add     ecx, eax			//...............................> [ecx] //内容
+.text:5579703F 8D 41 FF                                lea     eax, [ecx-1]
+.text:55797042 3B C7                                   cmp     eax, edi
+.text:55797044 77 AB                                   ja      short loc_55796FF1
+.text:55797046 33 C0                                   xor     eax, eax
+.text:55797048 89 4D F8                                mov     [ebp+var_8], ecx		 //...............................>[ebp+var_8], ecx//内容
+.text:5579704B 89 45 D0                                mov     [ebp+var_30], eax
+.text:5579704E 89 45 D4                                mov     [ebp+var_2C], eax
+.text:55797051 89 45 D8                                mov     [ebp+var_28], eax
+.text:55797054 3B CF                                   cmp     ecx, edi
+.text:55797056 0F 87 64 03 00 00                       ja      loc_557973C0
+.text:5579705C 8B 7D 08                                mov     edi, [ebp+arg_0]
+.text:5579705F
+.text:5579705F                         loc_5579705F:                           ; CODE XREF: sub_55796DC3+5F7j
+.text:5579705F 8B 4D F8                                mov     ecx, [ebp+var_8] //...............................>[ebp+var_8], ecx//内容
+.text:55797062 8B 55 EC                                mov     edx, [ebp+lpMultiByteStr]
+.text:55797065 8A 01                                   mov     al, [ecx]
+.text:55797067 88 45 E8                                mov     byte ptr [ebp+var_18], al
+.text:5579706A 8D 41 02                                lea     eax, [ecx+2]
+.text:5579706D 3B C2                                   cmp     eax, edx
+.text:5579706F 0F 87 BC 03 00 00                       ja      loc_55797431
+.text:55797075 0F B7 41 01                             movzx   eax, word ptr [ecx+1] //...............................>[eax-1], ecx//内容
+.text:55797079 83 C1 03                                add     ecx, 3 //...............................>dump ecx//内容
+.text:5579707C 89 4D F8                                mov     [ebp+var_8], ecx
+.text:5579707F 66 85 C0                                test    ax, ax
+.text:55797082 0F 84 2C 03 00 00                       jz      loc_557973B4
+.text:55797088 8D 70 FF                                lea     esi, [eax-1]	//...............................>esi= arg_1  //内容
+.text:5579708B 89 45 08                                mov     [ebp+arg_0], eax
+.text:5579708E 0F B6 45 E8                             movzx   eax, byte ptr [ebp+var_18]
+.text:55797092 03 F1                                   add     esi, ecx   //...............................>esi= arg_1  //内容
+
+
+
+
+.text:55797094 83 F8 0D                                cmp     eax, 0Dh
+.text:55797097 0F 87 E8 01 00 00                       ja      loc_55797285
+.text:5579709D 0F 84 AA 01 00 00                       jz      loc_5579724D
+.text:557970A3 83 E8 01                                sub     eax, 1
+.text:557970A6 0F 84 69 01 00 00                       jz      loc_55797215
+.text:557970AC 83 E8 01                                sub     eax, 1
+.text:557970AF 0F 84 28 01 00 00                       jz      loc_557971DD
+.text:557970B5 83 E8 01                                sub     eax, 1
+.text:557970B8 0F 84 C2 00 00 00                       jz      loc_55797180
+.text:557970BE 83 E8 05                                sub     eax, 5
+.text:557970C1 0F 84 81 00 00 00                       jz      loc_55797148
+.text:557970C7 83 E8 01                                sub     eax, 1
+.text:557970CA 74 41                                   jz      short loc_5579710D
+.text:557970CC 83 E8 03                                sub     eax, 3
+.text:557970CF 0F 85 D6 01 00 00                       jnz     loc_557972AB
+.text:557970D5 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:557970D8 50                                      push    eax             ; int
+.text:557970D9 8D 45 F8                                lea     eax, [ebp+var_8]
+.text:557970DC 56                                      push    esi             ; lpMultiByteStr
+.text:557970DD 50                                      push    eax             ; int
+.text:557970DE E8 08 04 00 00                          call    sub_557974EB
+.text:557970E3 83 C4 0C                                add     esp, 0Ch
+.text:557970E6 85 C0                                   test    eax, eax
+.text:557970E8 0F 85 C6 02 00 00                       jnz     loc_557973B4
+.text:557970EE 68 48 3C 82 55                          push    offset aTranslatemsg_0 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:557970F3 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:557970F8 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:557970FD 53                                      push    ebx
+.text:557970FE 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:55797103 68 8B 21 00 00                          push    218Bh
+.text:55797108 E9 17 03 00 00                          jmp     loc_55797424
+.text:5579710D                         ; ---------------------------------------------------------------------------
+.text:5579710D
+.text:5579710D                         loc_5579710D:                           ; CODE XREF: sub_55796DC3+307j
+.text:5579710D FF 75 14                                push    [ebp+arg_C]
+.text:55797110 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:55797113 50                                      push    eax
+.text:55797114 8D 45 F8                                lea     eax, [ebp+var_8]
+.text:55797117 56                                      push    esi
+.text:55797118 50                                      push    eax
+.text:55797119 E8 F8 C8 FF FF                          call    sub_55793A16
+.text:5579711E 83 C4 10                                add     esp, 10h
+.text:55797121 85 C0                                   test    eax, eax
+.text:55797123 0F 85 8B 02 00 00                       jnz     loc_557973B4
+.text:55797129 68 E0 3D 82 55                          push    offset aTranslatemsg_8 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:5579712E 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55797133 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:55797138 53                                      push    ebx
+.text:55797139 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:5579713E 68 B6 21 00 00                          push    21B6h
+.text:55797143 E9 DC 02 00 00                          jmp     loc_55797424
+.text:55797148                         ; ---------------------------------------------------------------------------
+.text:55797148
+.text:55797148                         loc_55797148:                           ; CODE XREF: sub_55796DC3+2FEj
+.text:55797148 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:5579714B 50                                      push    eax
+.text:5579714C 8D 45 F8                                lea     eax, [ebp+var_8]
+.text:5579714F 56                                      push    esi
+.text:55797150 50                                      push    eax
+.text:55797151 E8 E5 CD FF FF                          call    sub_55793F3B
+.text:55797156 83 C4 0C                                add     esp, 0Ch
+.text:55797159 85 C0                                   test    eax, eax
+.text:5579715B 0F 85 53 02 00 00                       jnz     loc_557973B4
+.text:55797161 68 70 3E 82 55                          push    offset aTranslatemsg_1 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:55797166 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:5579716B 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:55797170 53                                      push    ebx
+.text:55797171 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:55797176 68 AD 21 00 00                          push    21ADh
+.text:5579717B E9 A4 02 00 00                          jmp     loc_55797424
+.text:55797180                         ; ---------------------------------------------------------------------------
+.text:55797180
+.text:55797180                         loc_55797180:                           ; CODE XREF: sub_55796DC3+2F5j
+.text:55797180 8B 07                                   mov     eax, [edi]
+.text:55797182 8D 4D 08                                lea     ecx, [ebp+arg_0]
+.text:55797185 83 65 08 00                             and     [ebp+arg_0], 0
+.text:55797189 51                                      push    ecx
+.text:5579718A 57                                      push    edi
+.text:5579718B FF 50 28                                call    dword ptr [eax+28h]
+.text:5579718E 8B 45 08                                mov     eax, [ebp+arg_0]
+.text:55797191 8B CB                                   mov     ecx, ebx
+.text:55797193 89 4D F4                                mov     [ebp+var_C], ecx
+.text:55797196 85 C0                                   test    eax, eax
+.text:55797198 74 12                                   jz      short loc_557971AC
+.text:5579719A 8B 08                                   mov     ecx, [eax]
+.text:5579719C 8D 55 F4                                lea     edx, [ebp+var_C]
+.text:5579719F 52                                      push    edx
+.text:557971A0 68 40 69 82 55                          push    offset aBonlysendfilen ; "bOnlySendFileName"
+.text:557971A5 50                                      push    eax
+.text:557971A6 FF 51 20                                call    dword ptr [ecx+20h]
+.text:557971A9 8B 4D F4                                mov     ecx, [ebp+var_C]
+.text:557971AC
+.text:557971AC                         loc_557971AC:                           ; CODE XREF: sub_55796DC3+3D5j
+.text:557971AC 51                                      push    ecx
+.text:557971AD FF 75 14                                push    [ebp+arg_C]
+.text:557971B0 8D 45 D0                                lea     eax, [ebp+var_30]
+.text:557971B3 FF 75 10                                push    [ebp+arg_8]
+.text:557971B6 50                                      push    eax
+.text:557971B7 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:557971BA 50                                      push    eax
+.text:557971BB 8D 45 F8                                lea     eax, [ebp+var_8]
+.text:557971BE 56                                      push    esi
+.text:557971BF 50                                      push    eax
+.text:557971C0 E8 81 D1 FF FF                          call    sub_55794346
+.text:557971C5 83 C4 1C                                add     esp, 1Ch
+.text:557971C8 85 C0                                   test    eax, eax
+.text:557971CA 0F 84 09 02 00 00                       jz      loc_557973D9
+.text:557971D0 8D 4D 08                                lea     ecx, [ebp+arg_0]
+.text:557971D3 E8 D8 B1 F1 FF                          call    sub_556B23B0
+.text:557971D8 E9 D7 01 00 00                          jmp     loc_557973B4
+.text:557971DD                         ; ---------------------------------------------------------------------------
+.text:557971DD
+.text:557971DD                         loc_557971DD:                           ; CODE XREF: sub_55796DC3+2ECj
+.text:557971DD 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:557971E0 50                                      push    eax
+.text:557971E1 8D 45 F8                                lea     eax, [ebp+var_8]
+.text:557971E4 56                                      push    esi
+.text:557971E5 50                                      push    eax
+.text:557971E6 E8 5B 05 00 00                          call    sub_55797746
+.text:557971EB 83 C4 0C                                add     esp, 0Ch
+.text:557971EE 85 C0                                   test    eax, eax
+.text:557971F0 0F 85 BE 01 00 00                       jnz     loc_557973B4
+.text:557971F6 68 D0 3C 82 55                          push    offset aTranslatemsg_2 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:557971FB 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55797200 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:55797205 53                                      push    ebx
+.text:55797206 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:5579720B 68 94 21 00 00                          push    2194h
+.text:55797210 E9 0F 02 00 00                          jmp     loc_55797424
+.text:55797215                         ; ---------------------------------------------------------------------------
+.text:55797215
+.text:55797215                         loc_55797215:                           ; CODE XREF: sub_55796DC3+2E3j
+.text:55797215 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:55797218 50                                      push    eax             ; int
+.text:55797219 8D 45 F8                                lea     eax, [ebp+var_8]
+.text:5579721C 56                                      push    esi             ; lpMultiByteStr     //.............> arg_1  //内容
+.text:5579721D 50                                      push    eax             ; int
+.text:5579721E E8 C6 06 00 00                          call    sub_557978E9    
+.text:55797223 83 C4 0C                                add     esp, 0Ch
+.text:55797226 85 C0                                   test    eax, eax
+.text:55797228 0F 85 86 01 00 00                       jnz     loc_557973B4
+.text:5579722E 68 38 3B 82 55                          push    offset aTranslatemsg_3 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:55797233 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55797238 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:5579723D 53                                      push    ebx
+.text:5579723E 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:55797243 68 79 21 00 00                          push    2179h
+.text:55797248 E9 D7 01 00 00                          jmp     loc_55797424
+.text:5579724D                         ; ---------------------------------------------------------------------------
+.text:5579724D
+.text:5579724D                         loc_5579724D:                           ; CODE XREF: sub_55796DC3+2DAj
+.text:5579724D 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:55797250 50                                      push    eax             ; int
+.text:55797251 8D 45 F8                                lea     eax, [ebp+var_8]
+.text:55797254 56                                      push    esi             ; lpMultiByteStr
+.text:55797255 50                                      push    eax             ; int
+.text:55797256 E8 06 C7 FF FF                          call    sub_55793961
+.text:5579725B 83 C4 0C                                add     esp, 0Ch
+.text:5579725E 85 C0                                   test    eax, eax
+.text:55797260 0F 85 4E 01 00 00                       jnz     loc_557973B4
+.text:55797266 68 B8 3B 82 55                          push    offset aTranslatemsg_4 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:5579726B 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55797270 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:55797275 53                                      push    ebx
+.text:55797276 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:5579727B 68 82 21 00 00                          push    2182h
+.text:55797280 E9 9F 01 00 00                          jmp     loc_55797424
+.text:55797285                         ; ---------------------------------------------------------------------------
+.text:55797285
+.text:55797285                         loc_55797285:                           ; CODE XREF: sub_55796DC3+2D4j
+.text:55797285 83 E8 0E                                sub     eax, 0Eh
+.text:55797288 0F 84 11 01 00 00                       jz      loc_5579739F
+.text:5579728E 83 E8 01                                sub     eax, 1
+.text:55797291 0F 84 D4 00 00 00                       jz      loc_5579736B
+.text:55797297 83 E8 05                                sub     eax, 5
+.text:5579729A 0F 84 94 00 00 00                       jz      loc_55797334
+.text:557972A0 48                                      dec     eax
+.text:557972A1 83 E8 01                                sub     eax, 1
+.text:557972A4 74 53                                   jz      short loc_557972F9
+.text:557972A6 83 E8 03                                sub     eax, 3
+.text:557972A9 74 16                                   jz      short loc_557972C1
+.text:557972AB
+.text:557972AB                         loc_557972AB:                           ; CODE XREF: sub_55796DC3+30Cj
+.text:557972AB 03 4D 08                                add     ecx, [ebp+arg_0]
+.text:557972AE 8D 41 FF                                lea     eax, [ecx-1]
+.text:557972B1 3B C2                                   cmp     eax, edx
+.text:557972B3 0F 87 78 01 00 00                       ja      loc_55797431
+.text:557972B9 89 4D F8                                mov     [ebp+var_8], ecx
+.text:557972BC E9 F3 00 00 00                          jmp     loc_557973B4
+.text:557972C1                         ; ---------------------------------------------------------------------------
+.text:557972C1
+.text:557972C1                         loc_557972C1:                           ; CODE XREF: sub_55796DC3+4E6j
+.text:557972C1 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:557972C4 50                                      push    eax
+.text:557972C5 8D 45 F8                                lea     eax, [ebp+var_8]
+.text:557972C8 56                                      push    esi
+.text:557972C9 50                                      push    eax
+.text:557972CA E8 D2 C4 FF FF                          call    sub_557937A1
+.text:557972CF 83 C4 0C                                add     esp, 0Ch
+.text:557972D2 85 C0                                   test    eax, eax
+.text:557972D4 0F 85 DA 00 00 00                       jnz     loc_557973B4
+.text:557972DA 68 18 40 82 55                          push    offset aTranslatemsg_5 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:557972DF 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:557972E4 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:557972E9 53                                      push    ebx
+.text:557972EA 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:557972EF 68 E4 21 00 00                          push    21E4h
+.text:557972F4 E9 2B 01 00 00                          jmp     loc_55797424
+.text:557972F9                         ; ---------------------------------------------------------------------------
+.text:557972F9
+.text:557972F9                         loc_557972F9:                           ; CODE XREF: sub_55796DC3+4E1j
+.text:557972F9 FF 75 E8                                push    [ebp+var_18]
+.text:557972FC 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:557972FF 50                                      push    eax
+.text:55797300 8D 45 F8                                lea     eax, [ebp+var_8]
+.text:55797303 56                                      push    esi
+.text:55797304 50                                      push    eax
+.text:55797305 E8 79 C5 FF FF                          call    sub_55793883
+.text:5579730A 83 C4 10                                add     esp, 10h
+.text:5579730D 85 C0                                   test    eax, eax
+.text:5579730F 0F 85 9F 00 00 00                       jnz     loc_557973B4
+.text:55797315 68 58 69 82 55                          push    offset aTranslatems_14 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:5579731A 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:5579731F 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:55797324 53                                      push    ebx
+.text:55797325 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:5579732A 68 DA 21 00 00                          push    21DAh
+.text:5579732F E9 F0 00 00 00                          jmp     loc_55797424
+.text:55797334                         ; ---------------------------------------------------------------------------
+.text:55797334
+.text:55797334                         loc_55797334:                           ; CODE XREF: sub_55796DC3+4D7j
+.text:55797334 FF 75 E8                                push    [ebp+var_18]
+.text:55797337 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:5579733A 50                                      push    eax
+.text:5579733B 8D 45 F8                                lea     eax, [ebp+var_8]
+.text:5579733E 56                                      push    esi
+.text:5579733F 50                                      push    eax
+.text:55797340 E8 CE 02 00 00                          call    sub_55797613
+.text:55797345 83 C4 10                                add     esp, 10h
+.text:55797348 85 C0                                   test    eax, eax
+.text:5579734A 75 68                                   jnz     short loc_557973B4
+.text:5579734C 68 58 69 82 55                          push    offset aTranslatems_14 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:55797351 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55797356 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:5579735B 53                                      push    ebx
+.text:5579735C 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:55797361 68 D1 21 00 00                          push    21D1h
+.text:55797366 E9 B9 00 00 00                          jmp     loc_55797424
+.text:5579736B                         ; ---------------------------------------------------------------------------
+.text:5579736B
+.text:5579736B                         loc_5579736B:                           ; CODE XREF: sub_55796DC3+4CEj
+.text:5579736B 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:5579736E 50                                      push    eax             ; int
+.text:5579736F 8D 45 F8                                lea     eax, [ebp+var_8]
+.text:55797372 56                                      push    esi             ; lpMultiByteStr
+.text:55797373 50                                      push    eax             ; int
+.text:55797374 E8 BC 00 00 00                          call    sub_55797435
+.text:55797379 83 C4 0C                                add     esp, 0Ch
+.text:5579737C 85 C0                                   test    eax, eax
+.text:5579737E 75 34                                   jnz     short loc_557973B4
+.text:55797380 68 F8 3E 82 55                          push    offset aTranslatemsg_7 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:55797385 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:5579738A 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:5579738F 53                                      push    ebx
+.text:55797390 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:55797395 68 C8 21 00 00                          push    21C8h
+.text:5579739A E9 85 00 00 00                          jmp     loc_55797424
+.text:5579739F                         ; ---------------------------------------------------------------------------
+.text:5579739F
+.text:5579739F                         loc_5579739F:                           ; CODE XREF: sub_55796DC3+4C5j
+.text:5579739F 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:557973A2 50                                      push    eax
+.text:557973A3 8D 45 F8                                lea     eax, [ebp+var_8]
+.text:557973A6 56                                      push    esi
+.text:557973A7 50                                      push    eax
+.text:557973A8 E8 EF 1F 00 00                          call    sub_5579939C
+.text:557973AD 83 C4 0C                                add     esp, 0Ch
+.text:557973B0 85 C0                                   test    eax, eax
+.text:557973B2 74 56                                   jz      short loc_5579740A
+.text:557973B4
+.text:557973B4                         loc_557973B4:                           ; CODE XREF: sub_55796DC3+2BFj
+.text:557973B4                                                                 ; sub_55796DC3+325j ...
+.text:557973B4 8B 45 EC                                mov     eax, [ebp+lpMultiByteStr]
+.text:557973B7 39 45 F8                                cmp     [ebp+var_8], eax
+.text:557973BA 0F 86 9F FC FF FF                       jbe     loc_5579705F
+.text:557973C0
+.text:557973C0                         loc_557973C0:                           ; CODE XREF: sub_55796DC3+293j
+.text:557973C0 FF 75 0C                                push    [ebp+arg_4]
+.text:557973C3 8D 4D A8                                lea     ecx, [ebp+var_58]
+.text:557973C6 FF 15 F4 12 80 55                       call    ds:?GetBufferOut@CTXCommPack@@QAEHAAVCTXBuffer@@@Z ; CTXCommPack::GetBufferOut(CTXBuffer &)
+.text:557973CC
+.text:557973CC                         loc_557973CC:                           ; CODE XREF: sub_55796DC3+670j
+.text:557973CC 8D 4D D0                                lea     ecx, [ebp+var_30]
+.text:557973CF E8 73 ED F3 FF                          call    sub_556D6147
+.text:557973D4 E9 1A FC FF FF                          jmp     loc_55796FF3
+.text:557973D9                         ; ---------------------------------------------------------------------------
+.text:557973D9
+.text:557973D9                         loc_557973D9:                           ; CODE XREF: sub_55796DC3+407j
+.text:557973D9 68 58 3D 82 55                          push    offset aTranslatemsg_9 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:557973DE 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:557973E3 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:557973E8 53                                      push    ebx
+.text:557973E9 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:557973EE 68 A4 21 00 00                          push    21A4h
+.text:557973F3 68 70 26 80 55                          push    offset aFile    ; "file"
+.text:557973F8 E8 15 B8 F1 FF                          call    sub_556B2C12
+.text:557973FD 83 C4 1C                                add     esp, 1Ch
+.text:55797400 8D 4D 08                                lea     ecx, [ebp+arg_0]
+.text:55797403 E8 A8 AF F1 FF                          call    sub_556B23B0
+.text:55797408 EB 27                                   jmp     short loc_55797431
+.text:5579740A                         ; ---------------------------------------------------------------------------
+.text:5579740A
+.text:5579740A                         loc_5579740A:                           ; CODE XREF: sub_55796DC3+5EFj
+.text:5579740A 68 F8 3E 82 55                          push    offset aTranslatemsg_7 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:5579740F 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55797414 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:55797419 53                                      push    ebx
+.text:5579741A 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:5579741F 68 BF 21 00 00                          push    21BFh
+.text:55797424
+.text:55797424                         loc_55797424:                           ; CODE XREF: sub_55796DC3+345j
+.text:55797424                                                                 ; sub_55796DC3+380j ...
+.text:55797424 68 70 26 80 55                          push    offset aFile    ; "file"
+.text:55797429 E8 E4 B7 F1 FF                          call    sub_556B2C12
+.text:5579742E 83 C4 1C                                add     esp, 1Ch
+.text:55797431
+.text:55797431                         loc_55797431:                           ; CODE XREF: sub_55796DC3+2ACj
+.text:55797431                                                                 ; sub_55796DC3+4F0j ...
+.text:55797431 33 DB                                   xor     ebx, ebx
+.text:55797433 EB 97                                   jmp     short loc_557973CC
+.text:55797433                         sub_55796DC3    endp
+.text:55797433
+ 
 
 //=============================================================================================
 
