@@ -250,6 +250,32 @@ LABEL_13:
 0019FFF0 00000000 771666AD     ntdll.771666AD             用户模块
 
 
+
+//多调试几次后，发送消息走这个流程?
+Address  To       From     Siz Comment               Party 
+0019F0E4 55795526 523CE14E C4  common.523CE14E       User
+0019F1A8 54C93F1D 55795526 74  kernelutil.55795526   User
+0019F21C 54C99405 54C93F1D 34  im.54C93F1D           User
+0019F250 54A6B0C6 54C99405 1C  im.54C99405           User
+0019F26C 54B47A90 54A6B0C6 40  im.54A6B0C6           User
+0019F2AC 51B224EE 54B47A90 28  im.54B47A90           User
+0019F2D4 51B22591 51B224EE C   asynctask.51B224EE    User
+0019F2E0 51B227CF 51B22591 34  asynctask.51B22591    User
+0019F314 51B24321 51B227CF 2C  asynctask.51B227CF    User
+0019F340 51B2207A 51B24321 24  asynctask.51B24321    User
+0019F364 53920B86 51B2207A 69C asynctask.51B2207A    User
+0019FA00 53927E8B 53920B86 80  hummerengine.53920B86 User
+0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B User
+0019FF1C 004012C6 0040289B C   qq.0040289B           User
+0019FF28 00403365 004012C6 4C  qq.004012C6           User
+0019FF74 75BD6359 00403365 10  qq.00403365           System
+0019FF84 77CB8944 75BD6359 5C  kernel32.75BD6359     System
+0019FFE0 77CB8914 77CB8944 10  ntdll.77CB8944        System
+0019FFF0 00000000 77CB8914     ntdll.77CB8914        User
+
+
+
+
 522A0000 common.dll
 54A10000 im.dll 
 51B20000 asynctask.dll 
@@ -1220,31 +1246,31 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:5579702D 6A 00                                   push    0
 .text:5579702F FF 15 68 15 80 55                       call    ds:?AddWord@CTXCommPack@@QAEHGH@Z ; CTXCommPack::AddWord(ushort,int)
 
-.text:55797035 8B C6                                   mov     eax, esi		//...............................>  [[edi+2] + esi] //内容	
+.text:55797035 8B C6                                   mov     eax, esi		//...............................>  eax,esi 为内容偏移量 	
 
-.text:55797037 8D 4F 02                                lea     ecx, [edi+2]	//...............................> [ecx+eax], [[edi+2] + eax] //内容
+.text:55797037 8D 4F 02                                lea     ecx, [edi+2]	//...............................> dump edi  //内容
 .text:5579703A 8B 7D EC                                mov     edi, [ebp+lpMultiByteStr]
 .text:5579703D 03 C8                                   add     ecx, eax			//...............................> [ecx] //内容
 .text:5579703F 8D 41 FF                                lea     eax, [ecx-1]
 .text:55797042 3B C7                                   cmp     eax, edi
 .text:55797044 77 AB                                   ja      short loc_55796FF1
 .text:55797046 33 C0                                   xor     eax, eax
-.text:55797048 89 4D F8                                mov     [ebp+var_8], ecx		 //...............................>[ebp+var_8], ecx//内容
+.text:55797048 89 4D F8                                mov     [ebp+var_8], ecx		 //...............................>dump ecx//内容
 .text:5579704B 89 45 D0                                mov     [ebp+var_30], eax
 .text:5579704E 89 45 D4                                mov     [ebp+var_2C], eax
 .text:55797051 89 45 D8                                mov     [ebp+var_28], eax
 .text:55797054 3B CF                                   cmp     ecx, edi
 .text:55797056 0F 87 64 03 00 00                       ja      loc_557973C0
-.text:5579705C 8B 7D 08                                mov     edi, [ebp+arg_0]
+.text:5579705C 8B 7D 08                                mov     edi, [ebp+arg_0] 
 .text:5579705F
-.text:5579705F                         loc_5579705F:                           ; CODE XREF: sub_55796DC3+5F7j
+.text:5579705F                         loc_5579705F:                           ; CODE XREF: sub_55796DC3+5F7j  //dump ecx
 .text:5579705F 8B 4D F8                                mov     ecx, [ebp+var_8] //...............................>[ebp+var_8], ecx//内容
 .text:55797062 8B 55 EC                                mov     edx, [ebp+lpMultiByteStr]
 .text:55797065 8A 01                                   mov     al, [ecx]
 .text:55797067 88 45 E8                                mov     byte ptr [ebp+var_18], al
 .text:5579706A 8D 41 02                                lea     eax, [ecx+2]
 .text:5579706D 3B C2                                   cmp     eax, edx
-.text:5579706F 0F 87 BC 03 00 00                       ja      loc_55797431
+.text:5579706F 0F 87 BC 03 00 00                       ja      loc_55797431			
 .text:55797075 0F B7 41 01                             movzx   eax, word ptr [ecx+1] //...............................>[eax-1], ecx//内容
 .text:55797079 83 C1 03                                add     ecx, 3 //...............................>dump ecx//内容
 .text:5579707C 89 4D F8                                mov     [ebp+var_8], ecx
