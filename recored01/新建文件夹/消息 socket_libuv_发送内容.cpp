@@ -200,7 +200,7 @@ LABEL_13:
 
 
 
-	=> memcpy 发送框内容
+	=> memcpy 发送框内容,多调试几次会不触发 Util::Msg::TranslateMsgPackToBuddyMsg
 1712FBFC 55786729 523CE14E 1C  common.523CE153             用户模块 //CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src, unsigned int Size)
 1712FC18 55797954 55786729 60  kernelutil.55786729         用户模块	//sub_5578662C
 1712FC78 55797223 55797954 78  kernelutil.55797954         用户模块	//sub_557978E9
@@ -278,7 +278,7 @@ LABEL_13:
 //多调试几次后，发送消息走这个流程?
 Address  To       From     Siz Comment               Party 
 0019F0E4 55795526 523CE14E C4  common.523CE14E       User
-0019F1A8 54C93F1D 55795526 74  kernelutil.55795526   User
+0019F1A8 54C93F1D 55795526 74  kernelutil.55795526   User  //Util::Msg *__usercall Util::Msg::TranslateMsgPackToMobileMsg@<eax>(int a1@<edi>, int a2@<esi>, Util::Msg *this, struct ITXMsgPack *a4, struct CTXBuffer *a5)
 0019F21C 54C99405 54C93F1D 34  im.54C93F1D           User
 0019F250 54A6B0C6 54C99405 1C  im.54C99405           User
 0019F26C 54B47A90 54A6B0C6 40  im.54A6B0C6           User
@@ -296,6 +296,7 @@ Address  To       From     Siz Comment               Party
 0019FF84 77CB8944 75BD6359 5C  kernel32.75BD6359     System
 0019FFE0 77CB8914 77CB8944 10  ntdll.77CB8944        System
 0019FFF0 00000000 77CB8914     ntdll.77CB8914        User
+
 
 
 
@@ -1159,7 +1160,7 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:55796F21 83 65 F0 00                             and     [ebp+var_10], 0
 .text:55796F25 51                                      push    ecx
 .text:55796F26 53                                      push    ebx
-																//传入 ecx 获得源内容
+																// [5301] dump [[ ebx +28]]      dump [[ [ebp+8] +28]] 发送消息内容
 .text:55796F27 FF 50 18                                call    dword ptr [eax+18h]  //   => 557EF0F9   获得内容 ebp-10  //dump [[ebp-10]+8] +27   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 .text:55796F2A 85 C0                                   test    eax, eax
 .text:55796F2C 0F 88 BF 00 00 00                       js      loc_55796FF1
@@ -1763,8 +1764,8 @@ signed int __userpurge sub_557EF0F9@<eax>(struct ITXBuffer **a1@<edi>, int a2, _
 .text:557EF0F9
 .text:557EF0F9 55                                      push    ebp
 .text:557EF0FA 8B EC                                   mov     ebp, esp
-.text:557EF0FC 56                                      push    esi
-.text:557EF0FD 8B 75 0C                                mov     esi, [ebp+arg_4]  // dump ebp+c
+.text:557EF0FC 56                                      push    esi //[5202] dump [[[ebp+8]+28]] 发送消息内容 
+.text:557EF0FD 8B 75 0C                                mov     esi, [ebp+arg_4]  
 .text:557EF100 85 F6                                   test    esi, esi
 .text:557EF102 75 07                                   jnz     short loc_557EF10B
 .text:557EF104 B8 57 00 07 80                          mov     eax, 80070057h
@@ -1789,7 +1790,7 @@ signed int __userpurge sub_557EF0F9@<eax>(struct ITXBuffer **a1@<edi>, int a2, _
 .text:557EF132 E8 5B 1B 00 00                          call    sub_557F0C92  //[5002] eax 引用了 arg_4,  call ========> sub_557F0C92   调用方法后 dump [ebp+c] 有了 MSG . dump [[ebp+c]+8]
 .text:557EF137 85 C0                                   test    eax, eax
 .text:557EF139 74 2F                                   jz      short loc_557EF16A
-.text:557EF13B 8B 4D 08                                mov     ecx, [ebp+arg_0]  //[] -----------------
+.text:557EF13B 8B 4D 08                                mov     ecx, [ebp+arg_0]  // [5202] dump [[[ebp+8]+28]] 发送消息内容 
 .text:557EF13E 8D 45 0C                                lea     eax, [ebp+arg_4]  //dump [ebp+c]; dump [[ebp+c]+8] 发送内容
 .text:557EF141 50                                      push    eax				//dump eax; dump [eax+8] 发送内容
 .text:557EF142 E8 F6 19 00 00                          call    sub_557F0B3D  //[5003] eax 引用了 arg_4,  call ========> sub_557F0B3D   调用方法后 dump [ebp+c] 有了发送框的文本内容 . dump [[ebp+c]+8]
@@ -1894,7 +1895,7 @@ signed int __userpurge sub_557F0B3D@<eax>(int a1@<ecx>, int a2@<ebx>, Util::Data
 .text:557F0B3D                         var_1           = byte ptr -1
 .text:557F0B3D                         arg_0           = dword ptr  8
 .text:557F0B3D
-.text:557F0B3D 55                                      push    ebp
+.text:557F0B3D 55                                      push    ebp			// [5201]   dump [[ecx+28]];dump [[ecx+28]]+1c  消息内容 
 .text:557F0B3E 8B EC                                   mov     ebp, esp
 .text:557F0B40 83 EC 10                                sub     esp, 10h     // dump ebp+8 有值
 .text:557F0B43 83 65 F8 00                             and     [ebp+var_8], 0
@@ -1906,13 +1907,13 @@ signed int __userpurge sub_557F0B3D@<eax>(int a1@<ecx>, int a2@<ebx>, Util::Data
 .text:557F0B52 8D 47 38                                lea     eax, [edi+38h]
 .text:557F0B55 50                                      push    eax
 .text:557F0B56 FF 15 68 11 80 55                       call    ds:??0CTXAutoSpinLock@Util@@QAE@AAVCTXSpinLock@1@@Z ; Util::CTXAutoSpinLock::CTXAutoSpinLock(Util::CTXSpinLock &)
-.text:557F0B5C 8B 77 28                                mov     esi, [edi+28h]
+.text:557F0B5C 8B 77 28                                mov     esi, [edi+28h]  // [5201]   dump [[edi+28]];dump [[edi+28]]+1c  消息内容 
 .text:557F0B5F 3B 77 2C                                cmp     esi, [edi+2Ch]
 .text:557F0B62 74 63                                   jz      short loc_557F0BC7
-.text:557F0B64 53                                      push    ebx
+.text:557F0B64 53                                      push    ebx  //ebx 有值
 .text:557F0B65
 .text:557F0B65                         loc_557F0B65:                           ; CODE XREF: sub_557F0B3D+87j
-.text:557F0B65 8B 1E                                   mov     ebx, [esi]
+.text:557F0B65 8B 1E                                   mov     ebx, [esi]  // [5201]   dump [esi];dump [esi]+1c  消息内容
 .text:557F0B67 85 DB                                   test    ebx, ebx
 .text:557F0B69 74 53                                   jz      short loc_557F0BBE
 .text:557F0B6B 8B 03                                   mov     eax, [ebx]
@@ -1950,7 +1951,7 @@ signed int __userpurge sub_557F0B3D@<eax>(int a1@<ecx>, int a2@<ebx>, Util::Data
 .text:557F0BB9
 .text:557F0BB9                         loc_557F0BB9:                           ; CODE XREF: sub_557F0B3D+6Dj
 .text:557F0BB9 51                                      push    ecx  // ecx 引用   ebp+8
-.text:557F0BBA 53                                      push    ebx
+.text:557F0BBA 53                                      push    ebx	//已有内容 dump ebx;dump ebx +1c 消息内容
 .text:557F0BBB FF 55 F4                                call    [ebp+var_C]   //[5105]  ====================> 557F0F90   获得内容,调用后 dump [[[ebp+8]]+8]
 .text:557F0BBE
 .text:557F0BBE                         loc_557F0BBE:                           ; CODE XREF: sub_557F0B3D+2Cj
@@ -2010,6 +2011,9 @@ int __userpurge sub_557F0F90@<eax>(int a1@<ebx>, int a2, int a3)
   return (*(int (__thiscall **)(int, int))(*(_DWORD *)v3 + 100))(v3, v4);
 }
 
+
+
+//arg_4(默认有值)      dump [[[ebp+8]]+8]  /dump [ebp+8]+1c 消息内容
 {
 	
 .text:557F0F90	    sub_557F0F90    proc near               ; DATA XREF: .rdata:5583664Co
@@ -2021,7 +2025,7 @@ int __userpurge sub_557F0F90@<eax>(int a1@<ebx>, int a2, int a3)
 .text:557F0F90
 .text:557F0F90 55                                      push    ebp
 .text:557F0F91 8B EC                                   mov     ebp, esp
-.text:557F0F93 51                                      push    ecx
+.text:557F0F93 51                                      push    ecx   //dump [ebp+8]+1c 消息内容
 .text:557F0F94 56                                      push    esi
 .text:557F0F95 8B 75 08                                mov     esi, [ebp+arg_0]
 .text:557F0F98 57                                      push    edi
@@ -2112,16 +2116,1093 @@ int __userpurge sub_557F0F90@<eax>(int a1@<ebx>, int a2, int a3)
 
 //=============================================================================================
 
+Util::Msg *__usercall Util::Msg::TranslateMsgPackToMobileMsg@<eax>(int a1@<edi>, int a2@<esi>, Util::Msg *this, struct ITXMsgPack *a4, struct CTXBuffer *a5)
+{
+  Util::Msg *v5; // ebx@3
+  int v6; // eax@4
+  unsigned int v7; // esi@4
+  int v8; // eax@5
+  int v9; // eax@7
+  int v10; // eax@12
+  int v11; // esi@13
+  int v12; // esi@14
+  int v13; // eax@14
+  LPSTR v14; // esi@14
+  int v16; // edi@20
+  int v17; // esi@21
+  unsigned int v18; // esi@21
+  LPSTR v19; // edx@22
+  Util::Msg *v20; // esi@23
+  int v21; // eax@25
+  int v22; // ecx@25
+  CHAR *v23; // edi@26
+  char v24; // al@41
+  int v25; // eax@42
+  int v26; // edi@42
+  int v27; // eax@43
+  int v28; // eax@46
+  __int16 v29; // ax@47
+  unsigned __int16 v30; // ax@47
+  int v31; // ST1C_4@47
+  int v32; // ecx@62
+  signed int v33; // [sp-20h] [bp-C8h]@35
+  const wchar_t *v34; // [sp-1Ch] [bp-C4h]@35
+  const wchar_t *v35; // [sp-14h] [bp-BCh]@35
+  const char *v36; // [sp-10h] [bp-B8h]@35
+  const wchar_t *v37; // [sp-Ch] [bp-B4h]@35
+  struct ITXArray **v38; // [sp-8h] [bp-B0h]@12
+  struct ITXMsgImage *v39; // [sp+0h] [bp-A8h]@9
+  int v40; // [sp+28h] [bp-80h]@3
+  int v41; // [sp+50h] [bp-58h]@22
+  int v42; // [sp+78h] [bp-30h]@24
+  unsigned int v43; // [sp+7Ch] [bp-2Ch]@42
+  unsigned int v44; // [sp+80h] [bp-28h]@4
+  char v45; // [sp+84h] [bp-24h]@40
+  int v46; // [sp+88h] [bp-20h]@46
+  int v47; // [sp+8Ch] [bp-1Ch]@12
+  LPSTR lpMultiByteStr; // [sp+90h] [bp-18h]@13
+  int v49; // [sp+94h] [bp-14h]@26
+  int v50; // [sp+98h] [bp-10h]@13
+  char v51; // [sp+9Fh] [bp-9h]@5
+  wchar_t *v52; // [sp+A0h] [bp-8h]@7
+  int v53; // [sp+A4h] [bp-4h]@14
 
+  if ( *(_DWORD *)a4 )
+    (*(void (__stdcall **)(_DWORD))(**(_DWORD **)a4 + 32))(*(_DWORD *)a4);
+  *(_BYTE *)a5 = 0;
+  CTXCommPack::CTXCommPack((CTXCommPack *)&v40);
+  v5 = this;
+  if ( !this )
+    goto LABEL_19;
+  v6 = *(_DWORD *)this;
+  v44 = 0;
+  (*(void (__stdcall **)(Util::Msg *, int *, int, int))(v6 + 64))(this, (int *)&v44, a1, a2);
+  v7 = 0;
+  if ( v44 )
+  {
+    do
+    {
+      v8 = *(_DWORD *)v5;
+      v51 = 0;
+      if ( (*(int (__stdcall **)(Util::Msg *, unsigned int, char *))(v8 + 68))(v5, v7, &v51) >= 0 && v51 == 3 )
+      {
+        v9 = *(_DWORD *)v5;
+        v52 = 0;
+        if ( (*(int (__stdcall **)(Util::Msg *, unsigned int, void *, wchar_t **))(v9 + 72))(
+               v5,
+               v7,
+               &unk_558206A4,
+               &v52) >= 0
+          && v52 )
+        {
+          Util::Msg::PreTranslateMsgImage((Util::Msg *)&Default, v52, v39);
+        }
+        sub_556B23B0(&v52);
+      }
+      ++v7;
+    }
+    while ( v7 < v44 );
+  }
+  v10 = *(_DWORD *)v5;
+  v47 = 0;
+  v38 = (struct ITXArray **)v5;
+  if ( (*(int (**)(void))(v10 + 24))() < 0
+    || (v11 = sub_556B28B5(&v47),
+        v50 = v11,
+        lpMultiByteStr = (LPSTR)(v11 + sub_556B28D6(&v47) - 1),
+        v11 + 23 > (unsigned int)lpMultiByteStr) )
+  {
+LABEL_16:
+    v5 = 0;
+    goto LABEL_17;
+  }
+  CTXCommPack::AddBuf((CTXCommPack *)&v40, (const unsigned __int8 *)v11, 4u);
+  v5 = (Util::Msg *)1;
+  CTXCommPack::AddDWord((CTXCommPack *)&v40, *(_DWORD *)(v11 + 4), 1);
+  CTXCommPack::AddDWord((CTXCommPack *)&v40, *(_DWORD *)(v50 + 8), 1);
+  CTXCommPack::AddDWord((CTXCommPack *)&v40, *(_DWORD *)(v50 + 12), 1);
+  CTXCommPack::AddDWord((CTXCommPack *)&v40, *(_DWORD *)(v50 + 16), 1);
+  v12 = v50 + 20;
+  CTXCommPack::AddBuf((CTXCommPack *)&v40, (const unsigned __int8 *)(v50 + 20), 4u);
+  v13 = v12 + 4;
+  v14 = lpMultiByteStr;
+  v53 = v13;
+  if ( !sub_5578662C((int)&v53, lpMultiByteStr, (int)&v40) )
+  {
+    sub_556B2C12(
+      L"file",
+      2586,
+      L"func",
+      1,
+      L"Msg",
+      (const char *)L"%s",
+      L"TranslateMsgPackToSessionMsg font name error");
+    goto LABEL_16;
+  }
+  v16 = v53;
+  if ( v53 + 1 > (unsigned int)v14 )
+    goto LABEL_16;
+  v17 = *(_WORD *)v53;
+  CTXCommPack::AddWord((CTXCommPack *)&v40, 0, 1);
+  v18 = v17 + v16 + 2;
+  if ( v18 - 1 > (unsigned int)lpMultiByteStr )
+    goto LABEL_16;
+  v53 = v18;
+  CTXCommPack::CTXCommPack((CTXCommPack *)&v41);
+  v19 = lpMultiByteStr;
+  LOBYTE(v52) = 0;
+  if ( v18 > (unsigned int)lpMultiByteStr )
+  {
+LABEL_82:
+    CTXCommPack::AddPack((CTXCommPack *)&v40, (const struct CTXCommPack *)&v41);
+    CTXCommPack::GetBufferOut((CTXCommPack *)&v40, a4);
+    *(_BYTE *)a5 = (_BYTE)v52 != 0;
+    goto LABEL_83;
+  }
+  v20 = this;
+  while ( 1 )
+  {
+    LOBYTE(v42) = *(_BYTE *)v53;
+    if ( v53 + 2 > (unsigned int)v19 )
+      goto LABEL_81;
+    v21 = *(_WORD *)(v53 + 1);
+    v22 = v53 + 3;
+    v53 += 3;
+    if ( !(_WORD)v21 )
+      goto LABEL_73;
+    v49 = v21;
+    v23 = (CHAR *)(v22 + v21 - 1);
+    if ( (unsigned __int8)v42 <= 0xDu )
+    {
+      switch ( (unsigned __int8)v42 ) //5579564A
+      {
+        case 0xDu:
+          if ( !sub_55793961((int)&v53, v23, (int)&v41) )
+          {
+            v37 = L"TranslateMsgPackToSessionMsg TranslateMsgEmojiFaceToSessionMsg error";
+            v36 = (const char *)L"%s";
+            v35 = L"Msg";
+            v34 = L"func";
+            v33 = 2665;
+            goto LABEL_80;
+          }
+          break;
+        case 1u:
+          if ( !sub_557978E9((int)&v53, v23, (int)&v41) )   // 557958C9  ========> sub_557978E9  
+          {
+            v37 = L"TranslateMsgPackToSessionMsg TranslateMsgTextToSessionMsg error";
+            v36 = (const char *)L"%s";
+            v35 = L"Msg";
+            v34 = L"func";
+            v33 = 2655;
+            goto LABEL_80;
+          }
+          break;
+        case 2u:
+          if ( !sub_55797746(&v53, v23, &v41) )
+          {
+            v37 = L"TranslateMsgPackToSessionMsg TranslateMsgSysFaceToSessionMsg error";
+            v36 = (const char *)L"%s";
+            v35 = L"Msg";
+            v34 = L"func";
+            v33 = 2685;
+            goto LABEL_80;
+          }
+          break;
+        case 3u:
+          CTXStringA::CTXStringA(&v45);
+          if ( !sub_55794029(&v53, v23, &v41, (char)v52, &v45) )
+          {
+            sub_556B2C12(
+              L"file",
+              2696,
+              L"func",
+              1,
+              L"Msg",
+              (const char *)L"%s",
+              L"TranslateMsgPackToSessionMsg TranslateMsgImageToSessionMsg error");
+            goto LABEL_78;
+          }
+          v24 = (char)v52;
+          if ( !(_BYTE)v52 )
+          {
+            v25 = *(_DWORD *)v20;
+            v43 = 0;
+            (*(void (__stdcall **)(Util::Msg *, int *))(v25 + 64))(v20, (int *)&v43);
+            v26 = 0;
+            if ( v43 )
+            {
+              while ( 1 )
+              {
+                v27 = *(_DWORD *)v20;
+                BYTE3(this) = 0;
+                (*(void (__stdcall **)(Util::Msg *, int, char *))(v27 + 68))(v20, v26, (char *)&this + 3);
+                if ( BYTE3(this) == 3 )
+                  break;
+                if ( ++v26 >= v43 )
+                  goto LABEL_48;
+              }
+              v28 = *(_DWORD *)v20;
+              v46 = 0;
+              (*(void (__stdcall **)(Util::Msg *, int, void *, int *))(v28 + 72))(v20, v26, &unk_558206A4, &v46);
+              if ( !v46 )
+              {
+                sub_556B23B0(&v46);
+LABEL_78:
+                CTXStringA::~CTXStringA((CTXStringA *)&v45);
+                goto LABEL_81;
+              }
+              CTXStringA::CTXStringA(&v50, &v45);
+              CTXStringA::operator+=(&v50, &unk_55823DDC);
+              CTXCommPack::CTXCommPack((CTXCommPack *)&v39);
+              CTXCommPack::AddByte((CTXCommPack *)&v39, 5u);
+              v29 = CTXStringA::GetLength((CTXStringA *)&v50);
+              CTXCommPack::AddWord((CTXCommPack *)&v39, v29 + 3, v38);
+              CTXCommPack::AddByte((CTXCommPack *)&v39, 0xFFu);
+              v30 = CTXStringA::GetLength((CTXStringA *)&v50);
+              CTXCommPack::AddWord((CTXCommPack *)&v39, v30, v31);
+              CTXCommPack::AddStrA((CTXCommPack *)&v39, (const struct CTXStringA *)&v50);
+              CTXCommPack::AddPack((CTXCommPack *)&v39, (const struct CTXCommPack *)&v41);
+              CTXCommPack::Swap((CTXCommPack *)&v41, (struct CTXCommPack *)&v39);
+              CTXCommPack::~CTXCommPack((CTXCommPack *)&v39);
+              CTXStringA::~CTXStringA((CTXStringA *)&v50);
+              sub_556B23B0(&v46);
+            }
+LABEL_48:
+            v24 = (char)v52;
+          }
+          LOBYTE(v52) = v24 + 1;
+          CTXStringA::~CTXStringA((CTXStringA *)&v45);
+          break;
+        case 8u:
+          if ( !sub_55793F3B(&v53, v23, &v41) )
+          {
+            v37 = L"TranslateMsgPackToSessionMsg TranslateMsgFlagsToSessionMsg error";
+            v36 = (const char *)L"%s";
+            v35 = L"Msg";
+            v34 = L"func";
+            v33 = 2780;
+            goto LABEL_80;
+          }
+          break;
+        case 9u:
+          v49 = 0;
+          Util::Data::CreateTXArray((Util::Data *)&v49, v38);
+          if ( !sub_55793A16(&v53, v23, &v41, v49) )
+          {
+            sub_556B2C12(
+              L"file",
+              2770,
+              L"func",
+              1,
+              L"Msg",
+              (const char *)L"%s",
+              L"TranslateMsgPackToSessionMsg TranslateMsgFileObjectToSessionMsg error");
+            sub_556B23B0(&v49);
+            goto LABEL_81;
+          }
+          sub_556B23B0(&v49);
+          break;
+        default:
+          if ( (unsigned __int8)v42 != 12 )
+            goto LABEL_62;
+          if ( !sub_557974EB((int)&v53, v23, (int)&v41) )
+          {
+            v37 = L"TranslateMsgPackToSessionMsg TranslateMsgStoreToSessionMsg error";
+            v36 = (const char *)L"%s";
+            v35 = L"Msg";
+            v34 = L"func";
+            v33 = 2675;
+            goto LABEL_80;
+          }
+          break;
+      }
+      goto LABEL_73;
+    }
+    if ( (unsigned __int8)v42 == 14 )
+      break;
+    switch ( (unsigned __int8)v42 ) //5579564A 
+    {
+      case 0xFu:
+        if ( !sub_55797435((int)&v53, v23, (int)&v41) )
+        {
+          v37 = L"TranslateMsgPackToSessionMsg TranslateMsgPublicGroupInfoToSessionMsg error";
+          v36 = (const char *)L"%s";
+          v35 = L"Msg";
+          v34 = L"func";
+          v33 = 2790;
+          goto LABEL_80;
+        }
+        break;
+      case 0x14u:
+        if ( !sub_55797613(&v53, v23, &v41, v42) )
+        {
+          v37 = L"TranslateMsgPackToSessionMsg TranslateMsgStrutMsgToSessionMsg error";
+          v36 = (const char *)L"%s";
+          v35 = L"Msg";
+          v34 = L"func";
+          v33 = 2800;
+          goto LABEL_80;
+        }
+        break;
+      case 0x16u:
+        if ( !sub_55793883(&v53, v23, &v41, v42) )
+        {
+          v37 = L"TranslateMsgPackToSessionMsg TranslateMsgStrutMsgToSessionMsg error";
+          v36 = (const char *)L"%s";
+          v35 = L"Msg";
+          v34 = L"func";
+          v33 = 2810;
+          goto LABEL_80;
+        }
+        break;
+      default:
+        if ( (unsigned __int8)v42 != 25 )
+        {
+          if ( (unsigned __int8)v42 == 27 )
+            goto LABEL_81;
+LABEL_62:
+          v32 = v49 + v22;
+          if ( v32 - 1 > (unsigned int)v19 )
+            goto LABEL_81;
+          v53 = v32;
+          break;
+        }
+        if ( !sub_557937A1(&v53, v23, &v41) )
+        {
+          v37 = L"TranslateMsgPackToSessionMsg TranslateMsgCommonToSessionMsg error";
+          v36 = (const char *)L"%s";
+          v35 = L"Msg";
+          v34 = L"func";
+          v33 = 2821;
+          goto LABEL_80;
+        }
+        break;
+    }
+LABEL_73:
+    if ( v53 > (unsigned int)lpMultiByteStr )
+      goto LABEL_82;
+    v19 = lpMultiByteStr;
+  }
+  if ( sub_5579939C(&v53, v23, &v41) )
+    goto LABEL_73;
+  v37 = L"TranslateMsgPackToSessionMsg TranslateMsgXXXXXXXXXToSessionMsg error";
+  v36 = (const char *)L"%s";
+  v35 = L"Msg";
+  v34 = L"func";
+  v33 = 2831;
+LABEL_80:
+  sub_556B2C12(L"file", v33, v34, 1, v35, v36, v37);
+LABEL_81:
+  v5 = 0;
+LABEL_83:
+  CTXCommPack::~CTXCommPack((CTXCommPack *)&v41);
+LABEL_17:
+  if ( v47 )
+  {
+    (*(void (__stdcall **)(int))(*(_DWORD *)v47 + 8))(v47);
+    v47 = 0;
+  }
+LABEL_19:
+  CTXCommPack::~CTXCommPack((CTXCommPack *)&v40);
+  return v5;
+}
 
 
 //=============================================================================================
 
+5579564A
 
 
+557958D0                         | 57                    | push edi                                                        |
+557958D1                         | 50                    | push eax                                                        |
+557958D2                         | E8 12200000           | call kernelutil.557978E9  //dump [eax] 发送内容                                      |
 
 //=============================================================================================
-
+{
+	5579543C                         ?TranslateMsgPackToMobileMsg@Msg@Util@@YAHPAUITXMsgPack@@AAVCTXBuffer@@AA_N@Z proc near
+.text:5579543C                                                                 ; DATA XREF: .rdata:off_5583FEE8o
+.text:5579543C
+.text:5579543C                         var_A8          = dword ptr -0A8h
+.text:5579543C                         var_80          = dword ptr -80h
+.text:5579543C                         var_58          = dword ptr -58h
+.text:5579543C                         var_30          = dword ptr -30h
+.text:5579543C                         var_2C          = dword ptr -2Ch
+.text:5579543C                         var_28          = dword ptr -28h
+.text:5579543C                         var_24          = byte ptr -24h
+.text:5579543C                         var_20          = dword ptr -20h
+.text:5579543C                         var_1C          = dword ptr -1Ch
+.text:5579543C                         lpMultiByteStr  = dword ptr -18h
+.text:5579543C                         var_14          = dword ptr -14h
+.text:5579543C                         var_10          = dword ptr -10h
+.text:5579543C                         var_9           = byte ptr -9
+.text:5579543C                         var_8           = dword ptr -8
+.text:5579543C                         var_4           = dword ptr -4
+.text:5579543C                         this            = dword ptr  8
+.text:5579543C                         arg_4           = dword ptr  0Ch
+.text:5579543C                         arg_8           = dword ptr  10h
+.text:5579543C
+.text:5579543C 55                                      push    ebp
+.text:5579543D 8B EC                                   mov     ebp, esp
+.text:5579543F 8B 4D 0C                                mov     ecx, [ebp+arg_4]
+.text:55795442 81 EC A8 00 00 00                       sub     esp, 0A8h
+.text:55795448 8B 09                                   mov     ecx, [ecx]
+.text:5579544A 85 C9                                   test    ecx, ecx
+.text:5579544C 74 06                                   jz      short loc_55795454
+.text:5579544E 8B 01                                   mov     eax, [ecx]
+.text:55795450 51                                      push    ecx
+.text:55795451 FF 50 20                                call    dword ptr [eax+20h]
+.text:55795454
+.text:55795454                         loc_55795454:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+10j
+.text:55795454 8B 45 10                                mov     eax, [ebp+arg_8]
+.text:55795457 8D 4D 80                                lea     ecx, [ebp+var_80]
+.text:5579545A 53                                      push    ebx
+.text:5579545B C6 00 00                                mov     byte ptr [eax], 0
+.text:5579545E FF 15 EC 12 80 55                       call    ds:??0CTXCommPack@@QAE@XZ ; CTXCommPack::CTXCommPack(void)
+.text:55795464 8B 5D 08                                mov     ebx, [ebp+this]
+.text:55795467 85 DB                                   test    ebx, ebx
+.text:55795469 0F 84 55 01 00 00                       jz      loc_557955C4
+.text:5579546F 8B 03                                   mov     eax, [ebx]
+.text:55795471 8D 4D D8                                lea     ecx, [ebp+var_28]
+.text:55795474 83 65 D8 00                             and     [ebp+var_28], 0
+.text:55795478 56                                      push    esi
+.text:55795479 57                                      push    edi
+.text:5579547A 51                                      push    ecx
+.text:5579547B 53                                      push    ebx
+.text:5579547C FF 50 40                                call    dword ptr [eax+40h]
+.text:5579547F 33 F6                                   xor     esi, esi
+.text:55795481 39 75 D8                                cmp     [ebp+var_28], esi
+.text:55795484 76 54                                   jbe     short loc_557954DA
+.text:55795486
+.text:55795486                         loc_55795486:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+9Cj
+.text:55795486 8B 03                                   mov     eax, [ebx]
+.text:55795488 8D 4D F7                                lea     ecx, [ebp+var_9]
+.text:5579548B 51                                      push    ecx
+.text:5579548C 56                                      push    esi
+.text:5579548D 53                                      push    ebx
+.text:5579548E C6 45 F7 00                             mov     [ebp+var_9], 0
+.text:55795492 FF 50 44                                call    dword ptr [eax+44h]
+.text:55795495 85 C0                                   test    eax, eax
+.text:55795497 78 3B                                   js      short loc_557954D4
+.text:55795499 80 7D F7 03                             cmp     [ebp+var_9], 3
+.text:5579549D 75 35                                   jnz     short loc_557954D4
+.text:5579549F 8B 03                                   mov     eax, [ebx]
+.text:557954A1 8D 4D F8                                lea     ecx, [ebp+var_8]
+.text:557954A4 83 65 F8 00                             and     [ebp+var_8], 0
+.text:557954A8 51                                      push    ecx
+.text:557954A9 68 A4 06 82 55                          push    offset unk_558206A4
+.text:557954AE 56                                      push    esi
+.text:557954AF 53                                      push    ebx
+.text:557954B0 FF 50 48                                call    dword ptr [eax+48h]
+.text:557954B3 85 C0                                   test    eax, eax
+.text:557954B5 78 15                                   js      short loc_557954CC
+.text:557954B7 83 7D F8 00                             cmp     [ebp+var_8], 0
+.text:557954BB 74 0F                                   jz      short loc_557954CC
+.text:557954BD FF 75 F8                                push    [ebp+var_8]     ; wchar_t *
+.text:557954C0 68 40 44 80 55                          push    offset Default  ; this
+.text:557954C5 E8 C6 C8 FF FF                          call    ?PreTranslateMsgImage@Msg@Util@@YAHPA_WPAUITXMsgImage@@@Z ; Util::Msg::PreTranslateMsgImage(wchar_t *,ITXMsgImage *)
+.text:557954CA 59                                      pop     ecx
+.text:557954CB 59                                      pop     ecx
+.text:557954CC
+.text:557954CC                         loc_557954CC:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+79j
+.text:557954CC                                                                 ; Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+7Fj
+.text:557954CC 8D 4D F8                                lea     ecx, [ebp+var_8]
+.text:557954CF E8 DC CE F1 FF                          call    sub_556B23B0
+.text:557954D4
+.text:557954D4                         loc_557954D4:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+5Bj
+.text:557954D4                                                                 ; Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+61j
+.text:557954D4 46                                      inc     esi
+.text:557954D5 3B 75 D8                                cmp     esi, [ebp+var_28]
+.text:557954D8 72 AC                                   jb      short loc_55795486
+.text:557954DA
+.text:557954DA                         loc_557954DA:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+48j
+.text:557954DA 8B 03                                   mov     eax, [ebx]
+.text:557954DC 8D 4D E4                                lea     ecx, [ebp+var_1C]
+.text:557954DF 83 65 E4 00                             and     [ebp+var_1C], 0
+.text:557954E3 51                                      push    ecx
+.text:557954E4 53                                      push    ebx
+.text:557954E5 FF 50 18                                call    dword ptr [eax+18h]
+.text:557954E8 85 C0                                   test    eax, eax
+.text:557954EA 0F 88 BF 00 00 00                       js      loc_557955AF
+.text:557954F0 8D 4D E4                                lea     ecx, [ebp+var_1C]
+.text:557954F3 E8 BD D3 F1 FF                          call    sub_556B28B5
+.text:557954F8 8B F0                                   mov     esi, eax
+.text:557954FA 8D 4D E4                                lea     ecx, [ebp+var_1C]
+.text:557954FD 89 75 F0                                mov     [ebp+var_10], esi
+.text:55795500 E8 D1 D3 F1 FF                          call    sub_556B28D6
+.text:55795505 8D 48 FF                                lea     ecx, [eax-1]
+.text:55795508 03 CE                                   add     ecx, esi
+.text:5579550A 8D 46 17                                lea     eax, [esi+17h]
+.text:5579550D 89 4D E8                                mov     [ebp+lpMultiByteStr], ecx
+.text:55795510 3B C1                                   cmp     eax, ecx
+.text:55795512 0F 87 97 00 00 00                       ja      loc_557955AF
+.text:55795518 8B 3D FC 12 80 55                       mov     edi, ds:?AddBuf@CTXCommPack@@QAEHPBEI@Z ; CTXCommPack::AddBuf(uchar const *,uint)
+.text:5579551E 8D 4D 80                                lea     ecx, [ebp+var_80]
+.text:55795521 6A 04                                   push    4
+.text:55795523 56                                      push    esi
+.text:55795524 FF D7                                   call    edi ; CTXCommPack::AddBuf(uchar const *,uint) ; CTXCommPack::AddBuf(uchar const *,uint)
+.text:55795526 33 DB                                   xor     ebx, ebx
+.text:55795528 8D 4D 80                                lea     ecx, [ebp+var_80]
+.text:5579552B 43                                      inc     ebx
+.text:5579552C 53                                      push    ebx
+.text:5579552D FF 76 04                                push    dword ptr [esi+4]
+.text:55795530 8B 35 6C 15 80 55                       mov     esi, ds:?AddDWord@CTXCommPack@@QAEHKH@Z ; CTXCommPack::AddDWord(ulong,int)
+.text:55795536 FF D6                                   call    esi ; CTXCommPack::AddDWord(ulong,int) ; CTXCommPack::AddDWord(ulong,int)
+.text:55795538 8B 45 F0                                mov     eax, [ebp+var_10]
+.text:5579553B 8D 4D 80                                lea     ecx, [ebp+var_80]
+.text:5579553E 53                                      push    ebx
+.text:5579553F FF 70 08                                push    dword ptr [eax+8]
+.text:55795542 FF D6                                   call    esi ; CTXCommPack::AddDWord(ulong,int) ; CTXCommPack::AddDWord(ulong,int)
+.text:55795544 8B 45 F0                                mov     eax, [ebp+var_10]
+.text:55795547 8D 4D 80                                lea     ecx, [ebp+var_80]
+.text:5579554A 53                                      push    ebx
+.text:5579554B FF 70 0C                                push    dword ptr [eax+0Ch]
+.text:5579554E FF D6                                   call    esi ; CTXCommPack::AddDWord(ulong,int) ; CTXCommPack::AddDWord(ulong,int)
+.text:55795550 8B 45 F0                                mov     eax, [ebp+var_10]
+.text:55795553 8D 4D 80                                lea     ecx, [ebp+var_80]
+.text:55795556 53                                      push    ebx
+.text:55795557 FF 70 10                                push    dword ptr [eax+10h]
+.text:5579555A FF D6                                   call    esi ; CTXCommPack::AddDWord(ulong,int) ; CTXCommPack::AddDWord(ulong,int)
+.text:5579555C 8B 75 F0                                mov     esi, [ebp+var_10]
+.text:5579555F 8D 4D 80                                lea     ecx, [ebp+var_80]
+.text:55795562 6A 04                                   push    4
+.text:55795564 83 C6 14                                add     esi, 14h
+.text:55795567 56                                      push    esi
+.text:55795568 FF D7                                   call    edi ; CTXCommPack::AddBuf(uchar const *,uint) ; CTXCommPack::AddBuf(uchar const *,uint)
+.text:5579556A 8D 46 04                                lea     eax, [esi+4]
+.text:5579556D 8B 75 E8                                mov     esi, [ebp+lpMultiByteStr]
+.text:55795570 89 45 FC                                mov     [ebp+var_4], eax
+.text:55795573 8D 45 80                                lea     eax, [ebp+var_80]
+.text:55795576 50                                      push    eax             ; int
+.text:55795577 8D 45 FC                                lea     eax, [ebp+var_4]
+.text:5579557A 56                                      push    esi             ; lpMultiByteStr
+.text:5579557B 50                                      push    eax             ; int
+.text:5579557C E8 AB 10 FF FF                          call    sub_5578662C
+.text:55795581 83 C4 0C                                add     esp, 0Ch
+.text:55795584 85 C0                                   test    eax, eax
+.text:55795586 75 4A                                   jnz     short loc_557955D2
+.text:55795588 68 D8 3A 82 55                          push    offset aTranslatemsgpa ; "TranslateMsgPackToSessionMsg font name "...
+.text:5579558D 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55795592 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:55795597 53                                      push    ebx
+.text:55795598 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:5579559D 68 1A 0A 00 00                          push    0A1Ah
+.text:557955A2 68 70 26 80 55                          push    offset aFile    ; "file"
+.text:557955A7 E8 66 D6 F1 FF                          call    sub_556B2C12
+.text:557955AC 83 C4 1C                                add     esp, 1Ch
+.text:557955AF
+.text:557955AF                         loc_557955AF:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+AEj
+.text:557955AF                                                                 ; Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+D6j ...
+.text:557955AF 33 DB                                   xor     ebx, ebx
+.text:557955B1
+.text:557955B1                         loc_557955B1:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+713j
+.text:557955B1 8B 4D E4                                mov     ecx, [ebp+var_1C]
+.text:557955B4 5F                                      pop     edi
+.text:557955B5 5E                                      pop     esi
+.text:557955B6 85 C9                                   test    ecx, ecx
+.text:557955B8 74 0A                                   jz      short loc_557955C4
+.text:557955BA 8B 11                                   mov     edx, [ecx]
+.text:557955BC 51                                      push    ecx
+.text:557955BD FF 52 08                                call    dword ptr [edx+8]
+.text:557955C0 83 65 E4 00                             and     [ebp+var_1C], 0
+.text:557955C4
+.text:557955C4                         loc_557955C4:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+2Dj
+.text:557955C4                                                                 ; Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+17Cj
+.text:557955C4 8D 4D 80                                lea     ecx, [ebp+var_80]
+.text:557955C7 FF 15 F0 12 80 55                       call    ds:??1CTXCommPack@@UAE@XZ ; CTXCommPack::~CTXCommPack(void)
+.text:557955CD 8B C3                                   mov     eax, ebx
+.text:557955CF 5B                                      pop     ebx
+.text:557955D0 C9                                      leave
+.text:557955D1 C3                                      retn
+.text:557955D2                         ; ---------------------------------------------------------------------------
+.text:557955D2
+.text:557955D2                         loc_557955D2:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+14Aj
+.text:557955D2 8B 7D FC                                mov     edi, [ebp+var_4]
+.text:557955D5 8D 47 01                                lea     eax, [edi+1]
+.text:557955D8 3B C6                                   cmp     eax, esi
+.text:557955DA 77 D3                                   ja      short loc_557955AF
+.text:557955DC 0F B7 37                                movzx   esi, word ptr [edi]
+.text:557955DF 8D 4D 80                                lea     ecx, [ebp+var_80]
+.text:557955E2 53                                      push    ebx
+.text:557955E3 6A 00                                   push    0
+.text:557955E5 FF 15 68 15 80 55                       call    ds:?AddWord@CTXCommPack@@QAEHGH@Z ; CTXCommPack::AddWord(ushort,int)
+.text:557955EB 8B C6                                   mov     eax, esi
+.text:557955ED 8D 77 02                                lea     esi, [edi+2]
+.text:557955F0 03 F0                                   add     esi, eax
+.text:557955F2 8D 46 FF                                lea     eax, [esi-1]
+.text:557955F5 3B 45 E8                                cmp     eax, [ebp+lpMultiByteStr]
+.text:557955F8 77 B5                                   ja      short loc_557955AF
+.text:557955FA 8D 4D A8                                lea     ecx, [ebp+var_58]
+.text:557955FD 89 75 FC                                mov     [ebp+var_4], esi
+.text:55795600 FF 15 EC 12 80 55                       call    ds:??0CTXCommPack@@QAE@XZ ; CTXCommPack::CTXCommPack(void)
+.text:55795606 8B 55 E8                                mov     edx, [ebp+lpMultiByteStr]
+.text:55795609 C6 45 F8 00                             mov     byte ptr [ebp+var_8], 0
+.text:5579560D 3B F2                                   cmp     esi, edx
+.text:5579560F 0F 87 0C 05 00 00                       ja      loc_55795B21
+.text:55795615 8B 75 08                                mov     esi, [ebp+this]
+.text:55795618
+.text:55795618                         loc_55795618:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+648j
+.text:55795618 8B 4D FC                                mov     ecx, [ebp+var_4]
+.text:5579561B 8A 01                                   mov     al, [ecx]
+.text:5579561D 88 45 D0                                mov     byte ptr [ebp+var_30], al
+.text:55795620 8D 41 02                                lea     eax, [ecx+2]
+.text:55795623 3B C2                                   cmp     eax, edx
+.text:55795625 0F 87 F2 04 00 00                       ja      loc_55795B1D
+.text:5579562B 0F B7 41 01                             movzx   eax, word ptr [ecx+1]
+.text:5579562F 83 C1 03                                add     ecx, 3
+.text:55795632 89 4D FC                                mov     [ebp+var_4], ecx
+.text:55795635 66 85 C0                                test    ax, ax
+.text:55795638 0F 84 38 04 00 00                       jz      loc_55795A76
+.text:5579563E 8D 78 FF                                lea     edi, [eax-1]
+.text:55795641 89 45 EC                                mov     [ebp+var_14], eax
+.text:55795644 0F B6 45 D0                             movzx   eax, byte ptr [ebp+var_30]
+.text:55795648 03 F9                                   add     edi, ecx
+.text:5579564A 83 F8 0D                                cmp     eax, 0Dh
+.text:5579564D 0F 87 E6 02 00 00                       ja      loc_55795939
+.text:55795653 0F 84 A8 02 00 00                       jz      loc_55795901
+.text:55795659 83 E8 01                                sub     eax, 1
+.text:5579565C 0F 84 67 02 00 00                       jz      loc_557958C9
+.text:55795662 83 E8 01                                sub     eax, 1
+.text:55795665 0F 84 26 02 00 00                       jz      loc_55795891
+.text:5579566B 83 E8 01                                sub     eax, 1
+.text:5579566E 0F 84 BA 00 00 00                       jz      loc_5579572E
+.text:55795674 83 E8 05                                sub     eax, 5
+.text:55795677 74 7D                                   jz      short loc_557956F6
+.text:55795679 83 E8 01                                sub     eax, 1
+.text:5579567C 74 41                                   jz      short loc_557956BF
+.text:5579567E 83 E8 03                                sub     eax, 3
+.text:55795681 0F 85 E2 02 00 00                       jnz     loc_55795969
+.text:55795687 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:5579568A 50                                      push    eax             ; int
+.text:5579568B 8D 45 FC                                lea     eax, [ebp+var_4]
+.text:5579568E 57                                      push    edi             ; lpMultiByteStr
+.text:5579568F 50                                      push    eax             ; int
+.text:55795690 E8 56 1E 00 00                          call    sub_557974EB
+.text:55795695 83 C4 0C                                add     esp, 0Ch
+.text:55795698 85 C0                                   test    eax, eax
+.text:5579569A 0F 85 D6 03 00 00                       jnz     loc_55795A76
+.text:557956A0 68 48 3C 82 55                          push    offset aTranslatemsg_0 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:557956A5 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:557956AA 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:557956AF 53                                      push    ebx
+.text:557956B0 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:557956B5 68 73 0A 00 00                          push    0A73h
+.text:557956BA E9 51 04 00 00                          jmp     loc_55795B10
+.text:557956BF                         ; ---------------------------------------------------------------------------
+.text:557956BF
+.text:557956BF                         loc_557956BF:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+240j
+.text:557956BF 83 65 EC 00                             and     [ebp+var_14], 0
+.text:557956C3 8D 45 EC                                lea     eax, [ebp+var_14]
+.text:557956C6 50                                      push    eax
+.text:557956C7 FF 15 F8 16 80 55                       call    ds:?CreateTXArray@Data@Util@@YAHPAPAUITXArray@@@Z ; Util::Data::CreateTXArray(ITXArray * *)
+.text:557956CD FF 75 EC                                push    [ebp+var_14]
+.text:557956D0 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:557956D3 50                                      push    eax
+.text:557956D4 8D 45 FC                                lea     eax, [ebp+var_4]
+.text:557956D7 57                                      push    edi
+.text:557956D8 50                                      push    eax
+.text:557956D9 E8 38 E3 FF FF                          call    sub_55793A16
+.text:557956DE 83 C4 14                                add     esp, 14h
+.text:557956E1 85 C0                                   test    eax, eax
+.text:557956E3 0F 84 A0 03 00 00                       jz      loc_55795A89
+.text:557956E9 8D 4D EC                                lea     ecx, [ebp+var_14]
+.text:557956EC E8 BF CC F1 FF                          call    sub_556B23B0
+.text:557956F1 E9 80 03 00 00                          jmp     loc_55795A76
+.text:557956F6                         ; ---------------------------------------------------------------------------
+.text:557956F6
+.text:557956F6                         loc_557956F6:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+23Bj
+.text:557956F6 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:557956F9 50                                      push    eax
+.text:557956FA 8D 45 FC                                lea     eax, [ebp+var_4]
+.text:557956FD 57                                      push    edi
+.text:557956FE 50                                      push    eax
+.text:557956FF E8 37 E8 FF FF                          call    sub_55793F3B
+.text:55795704 83 C4 0C                                add     esp, 0Ch
+.text:55795707 85 C0                                   test    eax, eax
+.text:55795709 0F 85 67 03 00 00                       jnz     loc_55795A76
+.text:5579570F 68 70 3E 82 55                          push    offset aTranslatemsg_1 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:55795714 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55795719 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:5579571E 53                                      push    ebx
+.text:5579571F 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:55795724 68 DC 0A 00 00                          push    0ADCh
+.text:55795729 E9 E2 03 00 00                          jmp     loc_55795B10
+.text:5579572E                         ; ---------------------------------------------------------------------------
+.text:5579572E
+.text:5579572E                         loc_5579572E:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+232j
+.text:5579572E 8D 4D DC                                lea     ecx, [ebp+var_24]
+.text:55795731 FF 15 DC 10 80 55                       call    ds:??0CTXStringA@@QAE@XZ ; CTXStringA::CTXStringA(void)
+.text:55795737 8D 45 DC                                lea     eax, [ebp+var_24]
+.text:5579573A 50                                      push    eax
+.text:5579573B FF 75 F8                                push    [ebp+var_8]
+.text:5579573E 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:55795741 50                                      push    eax
+.text:55795742 8D 45 FC                                lea     eax, [ebp+var_4]
+.text:55795745 57                                      push    edi
+.text:55795746 50                                      push    eax
+.text:55795747 E8 DD E8 FF FF                          call    sub_55794029
+.text:5579574C 83 C4 14                                add     esp, 14h
+.text:5579574F 85 C0                                   test    eax, eax
+.text:55795751 0F 84 6D 03 00 00                       jz      loc_55795AC4
+.text:55795757 8A 45 F8                                mov     al, byte ptr [ebp+var_8]
+.text:5579575A 84 C0                                   test    al, al
+.text:5579575C 0F 85 1C 01 00 00                       jnz     loc_5579587E
+.text:55795762 8B 06                                   mov     eax, [esi]
+.text:55795764 8D 4D D4                                lea     ecx, [ebp+var_2C]
+.text:55795767 83 65 D4 00                             and     [ebp+var_2C], 0
+.text:5579576B 51                                      push    ecx
+.text:5579576C 56                                      push    esi
+.text:5579576D FF 50 40                                call    dword ptr [eax+40h]
+.text:55795770 33 FF                                   xor     edi, edi
+.text:55795772 39 7D D4                                cmp     [ebp+var_2C], edi
+.text:55795775 0F 86 00 01 00 00                       jbe     loc_5579587B
+.text:5579577B
+.text:5579577B                         loc_5579577B:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+358j
+.text:5579577B 8B 06                                   mov     eax, [esi]
+.text:5579577D 8D 4D 0B                                lea     ecx, [ebp+this+3]
+.text:55795780 51                                      push    ecx
+.text:55795781 57                                      push    edi
+.text:55795782 56                                      push    esi
+.text:55795783 C6 45 0B 00                             mov     byte ptr [ebp+this+3], 0
+.text:55795787 FF 50 44                                call    dword ptr [eax+44h]
+.text:5579578A 80 7D 0B 03                             cmp     byte ptr [ebp+this+3], 3
+.text:5579578E 74 0B                                   jz      short loc_5579579B
+.text:55795790 47                                      inc     edi
+.text:55795791 3B 7D D4                                cmp     edi, [ebp+var_2C]
+.text:55795794 72 E5                                   jb      short loc_5579577B
+.text:55795796 E9 E0 00 00 00                          jmp     loc_5579587B
+.text:5579579B                         ; ---------------------------------------------------------------------------
+.text:5579579B
+.text:5579579B                         loc_5579579B:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+352j
+.text:5579579B 8B 06                                   mov     eax, [esi]
+.text:5579579D 8D 4D E0                                lea     ecx, [ebp+var_20]
+.text:557957A0 83 65 E0 00                             and     [ebp+var_20], 0
+.text:557957A4 51                                      push    ecx
+.text:557957A5 68 A4 06 82 55                          push    offset unk_558206A4
+.text:557957AA 57                                      push    edi
+.text:557957AB 56                                      push    esi
+.text:557957AC FF 50 48                                call    dword ptr [eax+48h]
+.text:557957AF 83 7D E0 00                             cmp     [ebp+var_20], 0
+.text:557957B3 0F 84 01 03 00 00                       jz      loc_55795ABA
+.text:557957B9 8D 45 DC                                lea     eax, [ebp+var_24]
+.text:557957BC 50                                      push    eax
+.text:557957BD 8D 4D F0                                lea     ecx, [ebp+var_10]
+.text:557957C0 FF 15 20 13 80 55                       call    ds:??0CTXStringA@@QAE@ABV0@@Z ; CTXStringA::CTXStringA(CTXStringA const &)
+.text:557957C6 68 DC 3D 82 55                          push    offset unk_55823DDC
+.text:557957CB 8D 4D F0                                lea     ecx, [ebp+var_10]
+.text:557957CE FF 15 08 15 80 55                       call    ds:??YCTXStringA@@QAEAAV0@PBD@Z ; CTXStringA::operator+=(char const *)
+.text:557957D4 8D 8D 58 FF FF FF                       lea     ecx, [ebp+var_A8]
+.text:557957DA FF 15 EC 12 80 55                       call    ds:??0CTXCommPack@@QAE@XZ ; CTXCommPack::CTXCommPack(void)
+.text:557957E0 6A 05                                   push    5
+.text:557957E2 8D 8D 58 FF FF FF                       lea     ecx, [ebp+var_A8]
+.text:557957E8 FF 15 F8 12 80 55                       call    ds:?AddByte@CTXCommPack@@QAEHE@Z ; CTXCommPack::AddByte(uchar)
+.text:557957EE 53                                      push    ebx
+.text:557957EF 8D 4D F0                                lea     ecx, [ebp+var_10]
+.text:557957F2 FF 15 DC 12 80 55                       call    ds:?GetLength@CTXStringA@@QBEHXZ ; CTXStringA::GetLength(void)
+.text:557957F8 8B 3D 68 15 80 55                       mov     edi, ds:?AddWord@CTXCommPack@@QAEHGH@Z ; CTXCommPack::AddWord(ushort,int)
+.text:557957FE 8D 8D 58 FF FF FF                       lea     ecx, [ebp+var_A8]
+.text:55795804 83 C0 03                                add     eax, 3
+.text:55795807 50                                      push    eax
+.text:55795808 FF D7                                   call    edi ; CTXCommPack::AddWord(ushort,int) ; CTXCommPack::AddWord(ushort,int)
+.text:5579580A 68 FF 00 00 00                          push    0FFh
+.text:5579580F 8D 8D 58 FF FF FF                       lea     ecx, [ebp+var_A8]
+.text:55795815 FF 15 F8 12 80 55                       call    ds:?AddByte@CTXCommPack@@QAEHE@Z ; CTXCommPack::AddByte(uchar)
+.text:5579581B 53                                      push    ebx
+.text:5579581C 8D 4D F0                                lea     ecx, [ebp+var_10]
+.text:5579581F FF 15 DC 12 80 55                       call    ds:?GetLength@CTXStringA@@QBEHXZ ; CTXStringA::GetLength(void)
+.text:55795825 50                                      push    eax
+.text:55795826 8D 8D 58 FF FF FF                       lea     ecx, [ebp+var_A8]
+.text:5579582C FF D7                                   call    edi ; CTXCommPack::AddWord(ushort,int) ; CTXCommPack::AddWord(ushort,int)
+.text:5579582E 8D 45 F0                                lea     eax, [ebp+var_10]
+.text:55795831 50                                      push    eax
+.text:55795832 8D 8D 58 FF FF FF                       lea     ecx, [ebp+var_A8]
+.text:55795838 FF 15 78 15 80 55                       call    ds:?AddStrA@CTXCommPack@@QAEHABVCTXStringA@@@Z ; CTXCommPack::AddStrA(CTXStringA const &)
+.text:5579583E 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:55795841 50                                      push    eax
+.text:55795842 8D 8D 58 FF FF FF                       lea     ecx, [ebp+var_A8]
+.text:55795848 FF 15 64 15 80 55                       call    ds:?AddPack@CTXCommPack@@QAEHABV1@@Z ; CTXCommPack::AddPack(CTXCommPack const &)
+.text:5579584E 8D 85 58 FF FF FF                       lea     eax, [ebp+var_A8]
+.text:55795854 50                                      push    eax
+.text:55795855 8D 4D A8                                lea     ecx, [ebp+var_58]
+.text:55795858 FF 15 60 15 80 55                       call    ds:?Swap@CTXCommPack@@QAEXAAV1@@Z ; CTXCommPack::Swap(CTXCommPack &)
+.text:5579585E 8D 8D 58 FF FF FF                       lea     ecx, [ebp+var_A8]
+.text:55795864 FF 15 F0 12 80 55                       call    ds:??1CTXCommPack@@UAE@XZ ; CTXCommPack::~CTXCommPack(void)
+.text:5579586A 8D 4D F0                                lea     ecx, [ebp+var_10]
+.text:5579586D FF 15 14 17 80 55                       call    ds:??1CTXStringA@@QAE@XZ ; CTXStringA::~CTXStringA(void)
+.text:55795873 8D 4D E0                                lea     ecx, [ebp+var_20]
+.text:55795876 E8 35 CB F1 FF                          call    sub_556B23B0
+.text:5579587B
+.text:5579587B                         loc_5579587B:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+339j
+.text:5579587B                                                                 ; Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+35Aj
+.text:5579587B 8A 45 F8                                mov     al, byte ptr [ebp+var_8]
+.text:5579587E
+.text:5579587E                         loc_5579587E:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+320j
+.text:5579587E FE C0                                   inc     al
+.text:55795880 8D 4D DC                                lea     ecx, [ebp+var_24]
+.text:55795883 88 45 F8                                mov     byte ptr [ebp+var_8], al
+.text:55795886 FF 15 14 17 80 55                       call    ds:??1CTXStringA@@QAE@XZ ; CTXStringA::~CTXStringA(void)
+.text:5579588C E9 E5 01 00 00                          jmp     loc_55795A76
+.text:55795891                         ; ---------------------------------------------------------------------------
+.text:55795891
+.text:55795891                         loc_55795891:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+229j
+.text:55795891 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:55795894 50                                      push    eax
+.text:55795895 8D 45 FC                                lea     eax, [ebp+var_4]
+.text:55795898 57                                      push    edi
+.text:55795899 50                                      push    eax
+.text:5579589A E8 A7 1E 00 00                          call    sub_55797746
+.text:5579589F 83 C4 0C                                add     esp, 0Ch
+.text:557958A2 85 C0                                   test    eax, eax
+.text:557958A4 0F 85 CC 01 00 00                       jnz     loc_55795A76
+.text:557958AA 68 D0 3C 82 55                          push    offset aTranslatemsg_2 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:557958AF 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:557958B4 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:557958B9 53                                      push    ebx
+.text:557958BA 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:557958BF 68 7D 0A 00 00                          push    0A7Dh
+.text:557958C4 E9 47 02 00 00                          jmp     loc_55795B10
+.text:557958C9                         ; ---------------------------------------------------------------------------
+.text:557958C9
+.text:557958C9                         loc_557958C9:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+220j
+.text:557958C9 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:557958CC 50                                      push    eax             ; int
+.text:557958CD 8D 45 FC                                lea     eax, [ebp+var_4]
+.text:557958D0 57                                      push    edi             ; lpMultiByteStr
+.text:557958D1 50                                      push    eax             ; int
+.text:557958D2 E8 12 20 00 00                          call    sub_557978E9  //[6001] dump [eax] 发送内容   
+.text:557958D7 83 C4 0C                                add     esp, 0Ch
+.text:557958DA 85 C0                                   test    eax, eax
+.text:557958DC 0F 85 94 01 00 00                       jnz     loc_55795A76
+.text:557958E2 68 38 3B 82 55                          push    offset aTranslatemsg_3 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:557958E7 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:557958EC 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:557958F1 53                                      push    ebx
+.text:557958F2 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:557958F7 68 5F 0A 00 00                          push    0A5Fh
+.text:557958FC E9 0F 02 00 00                          jmp     loc_55795B10
+.text:55795901                         ; ---------------------------------------------------------------------------
+.text:55795901
+.text:55795901                         loc_55795901:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+217j
+.text:55795901 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:55795904 50                                      push    eax             ; int
+.text:55795905 8D 45 FC                                lea     eax, [ebp+var_4]
+.text:55795908 57                                      push    edi             ; lpMultiByteStr
+.text:55795909 50                                      push    eax             ; int
+.text:5579590A E8 52 E0 FF FF                          call    sub_55793961
+.text:5579590F 83 C4 0C                                add     esp, 0Ch
+.text:55795912 85 C0                                   test    eax, eax
+.text:55795914 0F 85 5C 01 00 00                       jnz     loc_55795A76
+.text:5579591A 68 B8 3B 82 55                          push    offset aTranslatemsg_4 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:5579591F 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55795924 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:55795929 53                                      push    ebx
+.text:5579592A 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:5579592F 68 69 0A 00 00                          push    0A69h
+.text:55795934 E9 D7 01 00 00                          jmp     loc_55795B10
+.text:55795939                         ; ---------------------------------------------------------------------------
+.text:55795939
+.text:55795939                         loc_55795939:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+211j
+.text:55795939 83 E8 0E                                sub     eax, 0Eh
+.text:5579593C 0F 84 1B 01 00 00                       jz      loc_55795A5D
+.text:55795942 83 E8 01                                sub     eax, 1
+.text:55795945 0F 84 DE 00 00 00                       jz      loc_55795A29
+.text:5579594B 83 E8 05                                sub     eax, 5
+.text:5579594E 0F 84 9E 00 00 00                       jz      loc_557959F2
+.text:55795954 48                                      dec     eax
+.text:55795955 83 E8 01                                sub     eax, 1
+.text:55795958 74 5D                                   jz      short loc_557959B7
+.text:5579595A 83 E8 03                                sub     eax, 3
+.text:5579595D 74 20                                   jz      short loc_5579597F
+.text:5579595F 48                                      dec     eax
+.text:55795960 83 E8 01                                sub     eax, 1
+.text:55795963 0F 84 B4 01 00 00                       jz      loc_55795B1D
+.text:55795969
+.text:55795969                         loc_55795969:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+245j
+.text:55795969 03 4D EC                                add     ecx, [ebp+var_14]
+.text:5579596C 8D 41 FF                                lea     eax, [ecx-1]
+.text:5579596F 3B C2                                   cmp     eax, edx
+.text:55795971 0F 87 A6 01 00 00                       ja      loc_55795B1D
+.text:55795977 89 4D FC                                mov     [ebp+var_4], ecx
+.text:5579597A E9 F7 00 00 00                          jmp     loc_55795A76
+.text:5579597F                         ; ---------------------------------------------------------------------------
+.text:5579597F
+.text:5579597F                         loc_5579597F:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+521j
+.text:5579597F 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:55795982 50                                      push    eax
+.text:55795983 8D 45 FC                                lea     eax, [ebp+var_4]
+.text:55795986 57                                      push    edi
+.text:55795987 50                                      push    eax
+.text:55795988 E8 14 DE FF FF                          call    sub_557937A1
+.text:5579598D 83 C4 0C                                add     esp, 0Ch
+.text:55795990 85 C0                                   test    eax, eax
+.text:55795992 0F 85 DE 00 00 00                       jnz     loc_55795A76
+.text:55795998 68 18 40 82 55                          push    offset aTranslatemsg_5 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:5579599D 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:557959A2 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:557959A7 53                                      push    ebx
+.text:557959A8 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:557959AD 68 05 0B 00 00                          push    0B05h
+.text:557959B2 E9 59 01 00 00                          jmp     loc_55795B10
+.text:557959B7                         ; ---------------------------------------------------------------------------
+.text:557959B7
+.text:557959B7                         loc_557959B7:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+51Cj
+.text:557959B7 FF 75 D0                                push    [ebp+var_30]
+.text:557959BA 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:557959BD 50                                      push    eax
+.text:557959BE 8D 45 FC                                lea     eax, [ebp+var_4]
+.text:557959C1 57                                      push    edi
+.text:557959C2 50                                      push    eax
+.text:557959C3 E8 BB DE FF FF                          call    sub_55793883
+.text:557959C8 83 C4 10                                add     esp, 10h
+.text:557959CB 85 C0                                   test    eax, eax
+.text:557959CD 0F 85 A3 00 00 00                       jnz     loc_55795A76
+.text:557959D3 68 90 3F 82 55                          push    offset aTranslatemsg_6 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:557959D8 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:557959DD 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:557959E2 53                                      push    ebx
+.text:557959E3 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:557959E8 68 FA 0A 00 00                          push    0AFAh
+.text:557959ED E9 1E 01 00 00                          jmp     loc_55795B10
+.text:557959F2                         ; ---------------------------------------------------------------------------
+.text:557959F2
+.text:557959F2                         loc_557959F2:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+512j
+.text:557959F2 FF 75 D0                                push    [ebp+var_30]
+.text:557959F5 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:557959F8 50                                      push    eax
+.text:557959F9 8D 45 FC                                lea     eax, [ebp+var_4]
+.text:557959FC 57                                      push    edi
+.text:557959FD 50                                      push    eax
+.text:557959FE E8 10 1C 00 00                          call    sub_55797613
+.text:55795A03 83 C4 10                                add     esp, 10h
+.text:55795A06 85 C0                                   test    eax, eax
+.text:55795A08 75 6C                                   jnz     short loc_55795A76
+.text:55795A0A 68 90 3F 82 55                          push    offset aTranslatemsg_6 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:55795A0F 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55795A14 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:55795A19 53                                      push    ebx
+.text:55795A1A 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:55795A1F 68 F0 0A 00 00                          push    0AF0h
+.text:55795A24 E9 E7 00 00 00                          jmp     loc_55795B10
+.text:55795A29                         ; ---------------------------------------------------------------------------
+.text:55795A29
+.text:55795A29                         loc_55795A29:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+509j
+.text:55795A29 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:55795A2C 50                                      push    eax             ; int
+.text:55795A2D 8D 45 FC                                lea     eax, [ebp+var_4]
+.text:55795A30 57                                      push    edi             ; lpMultiByteStr
+.text:55795A31 50                                      push    eax             ; int
+.text:55795A32 E8 FE 19 00 00                          call    sub_55797435
+.text:55795A37 83 C4 0C                                add     esp, 0Ch
+.text:55795A3A 85 C0                                   test    eax, eax
+.text:55795A3C 75 38                                   jnz     short loc_55795A76
+.text:55795A3E 68 F8 3E 82 55                          push    offset aTranslatemsg_7 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:55795A43 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55795A48 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:55795A4D 53                                      push    ebx
+.text:55795A4E 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:55795A53 68 E6 0A 00 00                          push    0AE6h
+.text:55795A58 E9 B3 00 00 00                          jmp     loc_55795B10
+.text:55795A5D                         ; ---------------------------------------------------------------------------
+.text:55795A5D
+.text:55795A5D                         loc_55795A5D:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+500j
+.text:55795A5D 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:55795A60 50                                      push    eax
+.text:55795A61 8D 45 FC                                lea     eax, [ebp+var_4]
+.text:55795A64 57                                      push    edi
+.text:55795A65 50                                      push    eax
+.text:55795A66 E8 31 39 00 00                          call    sub_5579939C
+.text:55795A6B 83 C4 0C                                add     esp, 0Ch
+.text:55795A6E 85 C0                                   test    eax, eax
+.text:55795A70 0F 84 80 00 00 00                       jz      loc_55795AF6
+.text:55795A76
+.text:55795A76                         loc_55795A76:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+1FCj
+.text:55795A76                                                                 ; Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+25Ej ...
+.text:55795A76 8B 45 E8                                mov     eax, [ebp+lpMultiByteStr]
+.text:55795A79 39 45 FC                                cmp     [ebp+var_4], eax
+.text:55795A7C 0F 87 9F 00 00 00                       ja      loc_55795B21
+.text:55795A82 8B D0                                   mov     edx, eax
+.text:55795A84 E9 8F FB FF FF                          jmp     loc_55795618
+.text:55795A89                         ; ---------------------------------------------------------------------------
+.text:55795A89
+.text:55795A89                         loc_55795A89:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+2A7j
+.text:55795A89 68 E0 3D 82 55                          push    offset aTranslatemsg_8 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:55795A8E 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55795A93 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:55795A98 53                                      push    ebx
+.text:55795A99 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:55795A9E 68 D2 0A 00 00                          push    0AD2h
+.text:55795AA3 68 70 26 80 55                          push    offset aFile    ; "file"
+.text:55795AA8 E8 65 D1 F1 FF                          call    sub_556B2C12
+.text:55795AAD 83 C4 1C                                add     esp, 1Ch
+.text:55795AB0 8D 4D EC                                lea     ecx, [ebp+var_14]
+.text:55795AB3 E8 F8 C8 F1 FF                          call    sub_556B23B0
+.text:55795AB8 EB 63                                   jmp     short loc_55795B1D
+.text:55795ABA                         ; ---------------------------------------------------------------------------
+.text:55795ABA
+.text:55795ABA                         loc_55795ABA:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+377j
+.text:55795ABA 8D 4D E0                                lea     ecx, [ebp+var_20]
+.text:55795ABD E8 EE C8 F1 FF                          call    sub_556B23B0
+.text:55795AC2 EB 27                                   jmp     short loc_55795AEB
+.text:55795AC4                         ; ---------------------------------------------------------------------------
+.text:55795AC4
+.text:55795AC4                         loc_55795AC4:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+315j
+.text:55795AC4 68 58 3D 82 55                          push    offset aTranslatemsg_9 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:55795AC9 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55795ACE 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:55795AD3 53                                      push    ebx
+.text:55795AD4 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:55795AD9 68 88 0A 00 00                          push    0A88h
+.text:55795ADE 68 70 26 80 55                          push    offset aFile    ; "file"
+.text:55795AE3 E8 2A D1 F1 FF                          call    sub_556B2C12
+.text:55795AE8 83 C4 1C                                add     esp, 1Ch
+.text:55795AEB
+.text:55795AEB                         loc_55795AEB:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+686j
+.text:55795AEB 8D 4D DC                                lea     ecx, [ebp+var_24]
+.text:55795AEE FF 15 14 17 80 55                       call    ds:??1CTXStringA@@QAE@XZ ; CTXStringA::~CTXStringA(void)
+.text:55795AF4 EB 27                                   jmp     short loc_55795B1D
+.text:55795AF6                         ; ---------------------------------------------------------------------------
+.text:55795AF6
+.text:55795AF6                         loc_55795AF6:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+634j
+.text:55795AF6 68 A0 40 82 55                          push    offset aTranslatems_10 ; "TranslateMsgPackToSessionMsg TranslateM"...
+.text:55795AFB 68 D0 25 80 55                          push    offset aS       ; "%s"
+.text:55795B00 68 B4 9B 80 55                          push    offset aMsg     ; "Msg"
+.text:55795B05 53                                      push    ebx
+.text:55795B06 68 64 26 80 55                          push    offset aFunc    ; "func"
+.text:55795B0B 68 0F 0B 00 00                          push    0B0Fh
+.text:55795B10
+.text:55795B10                         loc_55795B10:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+27Ej
+.text:55795B10                                                                 ; Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+2EDj ...
+.text:55795B10 68 70 26 80 55                          push    offset aFile    ; "file"
+.text:55795B15 E8 F8 D0 F1 FF                          call    sub_556B2C12
+.text:55795B1A 83 C4 1C                                add     esp, 1Ch
+.text:55795B1D
+.text:55795B1D                         loc_55795B1D:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+1E9j
+.text:55795B1D                                                                 ; Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+527j ...
+.text:55795B1D 33 DB                                   xor     ebx, ebx
+.text:55795B1F EB 25                                   jmp     short loc_55795B46
+.text:55795B21                         ; ---------------------------------------------------------------------------
+.text:55795B21
+.text:55795B21                         loc_55795B21:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+1D3j
+.text:55795B21                                                                 ; Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+640j
+.text:55795B21 8D 45 A8                                lea     eax, [ebp+var_58]
+.text:55795B24 50                                      push    eax
+.text:55795B25 8D 4D 80                                lea     ecx, [ebp+var_80]
+.text:55795B28 FF 15 64 15 80 55                       call    ds:?AddPack@CTXCommPack@@QAEHABV1@@Z ; CTXCommPack::AddPack(CTXCommPack const &)
+.text:55795B2E FF 75 0C                                push    [ebp+arg_4]
+.text:55795B31 8D 4D 80                                lea     ecx, [ebp+var_80]
+.text:55795B34 FF 15 F4 12 80 55                       call    ds:?GetBufferOut@CTXCommPack@@QAEHAAVCTXBuffer@@@Z ; CTXCommPack::GetBufferOut(CTXBuffer &)
+.text:55795B3A 80 7D F8 00                             cmp     byte ptr [ebp+var_8], 0
+.text:55795B3E 8B 4D 10                                mov     ecx, [ebp+arg_8]
+.text:55795B41 0F 97 C0                                setnbe  al
+.text:55795B44 88 01                                   mov     [ecx], al
+.text:55795B46
+.text:55795B46                         loc_55795B46:                           ; CODE XREF: Util::Msg::TranslateMsgPackToMobileMsg(ITXMsgPack *,CTXBuffer &,bool &)+6E3j
+.text:55795B46 8D 4D A8                                lea     ecx, [ebp+var_58]
+.text:55795B49 FF 15 F0 12 80 55                       call    ds:??1CTXCommPack@@UAE@XZ ; CTXCommPack::~CTXCommPack(void)
+.text:55795B4F E9 5D FA FF FF                          jmp     loc_557955B1
+.text:55795B4F                         ?TranslateMsgPackToMobileMsg@Msg@Util@@YAHPAUITXMsgPack@@AAVCTXBuffer@@AA_N@Z endp
+	
+}
 
 
 
