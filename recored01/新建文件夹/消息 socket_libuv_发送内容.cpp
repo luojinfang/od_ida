@@ -26,13 +26,37 @@ __cdecl 是C Declaration的缩写,__cdecl是C和C++程序的缺省调用方式
 	__stdcall 调用约定在输出函数名前加上一个下划线前缀，后面加上一个"@"符号和其参数的字节数，格式为 _functionname@number,例如 ：function(int a, int b)，其修饰名为：_function@8
 	__cdecl 调用约定仅在输出函数名前加上一个下划线前缀，格式为 _functionname。
 	__fastcall 调用约定在输出函数名前加上一个 "@" 符号，后面也是一个"@"符号和其参数的字节数，格式为 @functionname@number。
-
+ 
 
 //栈平衡
 //https://bbs.huaweicloud.com/blogs/101007
 __cdecl   ：函数调用结束后由函数调用者清除栈内数据。  
 __stdcall ：函数调用结束后由被调用函数清除栈内数据。
 __fastcall：函数调用结束后由被调用函数清除栈内数据。
+
+
+//IDA
+ https://blog.csdn.net/xkdlzy/article/details/107786348
+ 
+IDA中支持用户自定义函数调用约定，用户可以显式指定参数和返回值的位置，
+例如：
+	int __usercall func@<ebx>(int x, int y@<esi>);
+	表示函数有两个参数:第一个参数通过堆栈传递，第二个参数通过esi寄存器传递，返回值保存在ebx寄存器中。用户自定义函数调用约定的一般规则如下：
+
+	返回值必须位于寄存器中
+	如果返回值类型是 void，不能指定返回值的位置
+	如果参数的位置没有指定，假设参数通过堆栈传递
+	可以允许嵌套声明，如: int **__usercall func16@<eax>(int *(__usercall *x)@<ebx> (int, long@<ecx>, int)@<esi>);
+	用于指定位置名的寄存器必须在当前处理器中有效
+	寄存器对可以像这样 <edx:eax> 用冒号的形式指定
+	IDA也支持 __userpurge 调用约定，它和 __usercall 相同，唯一的区别是 __userpurge 表示由被调用者清理堆栈。
+
+	IDA中函数声明也可以使用__spoils关键字，它用于指明被函数破坏的寄存器列表，语法如下：
+
+	int __spoils<eax, bh> func(int x);
+
+	如果存在__spoils关键字，指定的列表会覆盖标准的寄存器破坏列表。在x86处理器中标准的破坏列表是<eax, edx, ecx>,破坏列表也可以为空。
+
 
 
 -------------
@@ -413,8 +437,8 @@ signed int __usercall sub_55796DC3@<eax>(struct ITXMsgImage *a1@<edi>, int a2, s
   }
   v16 = *(_DWORD *)v5;
   v47 = 0;
-  if ( (*(int (__stdcall **)(signed int, int *))(v16 + 24))(v5, &v47) < 0
-    || (v17 = sub_556B28B5(&v47),
+  if ( (*(int (__stdcall **)(signed int, int *))(v16 + 24))(v5, &v47) < 0 //-----------------------------------> 557EF0F9 获得内容
+    || (v17 = sub_556B28B5(&v47),   //-----------------------------------> 获得内容
         v48 = v17,
         lpMultiByteStr = (LPSTR)(v17 + sub_556B28D6(&v47) - 1),
         v17 + 23 > (unsigned int)lpMultiByteStr) )
@@ -961,8 +985,8 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 
 
  
-//=============================================================================================
-
+//-------------------
+{
 .text:55796DC3                         sub_55796DC3    proc near               ; CODE XREF: Util::Msg::TranslateMsgPackToBuddyMsg(ITXMsgPack *,CTXBuffer &)+Dp
 .text:55796DC3                                                                 ; Util::Msg::TranslateMsgPackToBuddyMsgWithOfflinePic(ITXMsgPack *,CTXBuffer &,ITXArray *)+Ep ...
 .text:55796DC3
@@ -1015,7 +1039,7 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:55796E08 0F 85 DE 00 00 00                       jnz     loc_55796EEC
 .text:55796E0E 21 45 E8                                and     [ebp+var_18], eax
 .text:55796E11 8D 4D E8                                lea     ecx, [ebp+var_18]
-.text:55796E14 8B 03                                   mov     eax, [ebx]
+.text:55796E14 8B 03                                   mov     eax, [ebx] // [2000] .......................................................................................................>  
 .text:55796E16 51                                      push    ecx
 .text:55796E17 53                                      push    ebx
 .text:55796E18 FF 50 40                                call    dword ptr [eax+40h]
@@ -1026,7 +1050,7 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:55796E29 8B 3D D8 16 80 55                       mov     edi, ds:??1CTXBSTR@@QAE@XZ ; CTXBSTR::~CTXBSTR(void)
 .text:55796E2F
 .text:55796E2F                         loc_55796E2F:                           ; CODE XREF: sub_55796DC3+11Dj
-.text:55796E2F 8B 03                                   mov     eax, [ebx]
+.text:55796E2F 8B 03                                   mov     eax, [ebx] // [2010] .......................................................................................................>  
 .text:55796E31 8D 55 FF                                lea     edx, [ebp+var_1]
 .text:55796E34 52                                      push    edx
 .text:55796E35 51                                      push    ecx
@@ -1037,7 +1061,7 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:55796E40 0F 88 90 00 00 00                       js      loc_55796ED6
 .text:55796E46 80 7D FF 03                             cmp     [ebp+var_1], 3
 .text:55796E4A 0F 85 86 00 00 00                       jnz     loc_55796ED6
-.text:55796E50 8B 03                                   mov     eax, [ebx]
+.text:55796E50 8B 03                                   mov     eax, [ebx]	// [2020] .......................................................................................................>  
 .text:55796E52 8D 4D F8                                lea     ecx, [ebp+var_8]
 .text:55796E55 83 65 F8 00                             and     [ebp+var_8], 0
 .text:55796E59 51                                      push    ecx
@@ -1052,14 +1076,14 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:55796E70 68 E8 68 82 55                          push    offset aC2c     ; "C2C"
 .text:55796E75 8D 4D EC                                lea     ecx, [ebp+lpMultiByteStr]
 .text:55796E78 FF 15 08 11 80 55                       call    ds:??0CTXBSTR@@QAE@PB_W@Z ; CTXBSTR::CTXBSTR(wchar_t const *)
-.text:55796E7E 8B 75 F8                                mov     esi, [ebp+var_8]		 
+.text:55796E7E 8B 75 F8                                mov     esi, [ebp+var_8]	 // [3010] .......................................................................................................>  	 
 .text:55796E81 8D 4D EC                                lea     ecx, [ebp+lpMultiByteStr]
 .text:55796E84 FF 15 94 13 80 55                       call    ds:??BCTXBSTR@@QBEPA_WXZ ; CTXBSTR::operator wchar_t *(void)
 
 .text:55796E8A 56                                      push    esi             ; wchar_t *
 .text:55796E8B 50                                      push    eax             ; this
 .text:55796E8C E8 FF AE FF FF                          call    ?PreTranslateMsgImage@Msg@Util@@YAHPA_WPAUITXMsgImage@@@Z ; Util::Msg::PreTranslateMsgImage(wchar_t *,ITXMsgImage *)
-.text:55796E91 59                                      pop     ecx
+.text:55796E91 59                                      pop     ecx  // esi  [3020] .......................................................................................................>  	
 .text:55796E92 59                                      pop     ecx
 
 
@@ -1074,7 +1098,7 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:55796EB0 68 70 26 80 55                          push    offset aFile    ; "file"
 .text:55796EB5 E8 58 BD F1 FF                          call    sub_556B2C12
 .text:55796EBA 83 C4 1C                                add     esp, 1Ch
-.text:55796EBD 8D 45 F4                                lea     eax, [ebp+var_C]
+.text:55796EBD 8D 45 F4                                lea     eax, [ebp+var_C] // [2030] .......................................................................................................>  
 .text:55796EC0 8D 4D DC                                lea     ecx, [ebp+var_24]
 .text:55796EC3 50                                      push    eax
 .text:55796EC4 E8 5E B1 F2 FF                          call    sub_556C2027
@@ -1095,10 +1119,10 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:55796EDA 89 4D F4                                mov     [ebp+var_C], ecx
 .text:55796EDD 3B 4D E8                                cmp     ecx, [ebp+var_18]
 .text:55796EE0 0F 82 49 FF FF FF                       jb      loc_55796E2F
-.text:55796EE6 8B 75 DC                                mov     esi, [ebp+var_24]
+.text:55796EE6 8B 75 DC                                mov     esi, [ebp+var_24] // [3030] .......................................................................................................>  
 .text:55796EE9
 .text:55796EE9                         loc_55796EE9:                           ; CODE XREF: sub_55796DC3+60j
-.text:55796EE9 8B 45 E0                                mov     eax, [ebp+var_20]
+.text:55796EE9 8B 45 E0                                mov     eax, [ebp+var_20] // [2040] .......................................................................................................>  
 .text:55796EEC
 .text:55796EEC                         loc_55796EEC:                           ; CODE XREF: sub_55796DC3+3Cj
 .text:55796EEC                                                                 ; sub_55796DC3+45j
@@ -1115,37 +1139,39 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:55796F03                         ; ---------------------------------------------------------------------------
 .text:55796F03
 .text:55796F03                         loc_55796F03:                           ; CODE XREF: sub_55796DC3+157j
-.text:55796F03 8B 06                                   mov     eax, [esi]
+.text:55796F03 8B 06                                   mov     eax, [esi] // [2050] .......................................................................................................>  
 .text:55796F05 8B 0B                                   mov     ecx, [ebx]
-.text:55796F07 2B C2                                   sub     eax, edx
+.text:55796F07 2B C2                                   sub     eax, edx // [2060] .......................................................................................................>  
 .text:55796F09 50                                      push    eax
 .text:55796F0A 53                                      push    ebx
 .text:55796F0B FF 51 4C                                call    dword ptr [ecx+4Ch]
 .text:55796F0E 8B 55 E8                                mov     edx, [ebp+var_18]
-.text:55796F11 8D 76 04                                lea     esi, [esi+4]
+.text:55796F11 8D 76 04                                lea     esi, [esi+4] // [3040] .......................................................................................................>  
 .text:55796F14 42                                      inc     edx
 .text:55796F15 3B D7                                   cmp     edx, edi
 .text:55796F17
 .text:55796F17                         loc_55796F17:                           ; CODE XREF: sub_55796DC3+13Ej
 .text:55796F17 89 55 E8                                mov     [ebp+var_18], edx
 .text:55796F1A 75 E7                                   jnz     short loc_55796F03
-.text:55796F1C 8B 03                                   mov     eax, [ebx] // eax .......................................................................................................>  
-.text:55796F1E 8D 4D F0                                lea     ecx, [ebp+var_10]
+.text:55796F1C 8B 03                                   mov     eax, [ebx]  // 未触发 [2070] .......................................................................................................>  
+
+.text:55796F1E 8D 4D F0                                lea     ecx, [ebp+var_10]  //ecx 引用 ebp-10
 .text:55796F21 83 65 F0 00                             and     [ebp+var_10], 0
 .text:55796F25 51                                      push    ecx
 .text:55796F26 53                                      push    ebx
-.text:55796F27 FF 50 18                                call    dword ptr [eax+18h]
+																//传入 ecx 获得源内容
+.text:55796F27 FF 50 18                                call    dword ptr [eax+18h]  //   => 557EF0F9   获得内容 ebp-10  //dump [[ebp-10]+8] +27   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 .text:55796F2A 85 C0                                   test    eax, eax
 .text:55796F2C 0F 88 BF 00 00 00                       js      loc_55796FF1
-.text:55796F32 8D 4D F0                                lea     ecx, [ebp+var_10]
-.text:55796F35 E8 7B B9 F1 FF                          call    sub_556B28B5
-.text:55796F3A 8B F0                                   mov     esi, eax	//esi .......................................................................................................>  
+.text:55796F32 8D 4D F0                                lea     ecx, [ebp+var_10] // =======================>  dump [[ebp-10]+8]  实例
+.text:55796F35 E8 7B B9 F1 FF                          call    sub_556B28B5  // =======================> 获得内容  dump eax+17 / dump [[ebp-10]+8] +17 /dump [[ebp-10]+8] +27
+.text:55796F3A 8B F0                                   mov     esi, eax	// eax [3050] .......................................................................................................>  
 .text:55796F3C 8D 4D F0                                lea     ecx, [ebp+var_10]
 .text:55796F3F 89 75 F4                                mov     [ebp+var_C], esi // .......................................................................................................>  
 .text:55796F42 E8 8F B9 F1 FF                          call    sub_556B28D6
 .text:55796F47 8D 48 FF                                lea     ecx, [eax-1]
 .text:55796F4A 03 CE                                   add     ecx, esi
-.text:55796F4C 8D 46 17                                lea     eax, [esi+17h]
+.text:55796F4C 8D 46 17                                lea     eax, [esi+17h]// dump esi+17 内容    [2080] .......................................................................................................>  
 .text:55796F4F 89 4D EC                                mov     [ebp+lpMultiByteStr], ecx
 .text:55796F52 3B C1                                   cmp     eax, ecx
 .text:55796F54 0F 87 97 00 00 00                       ja      loc_55796FF1
@@ -1171,7 +1197,7 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:55796F8C 53                                      push    ebx
 .text:55796F8D FF 70 0C                                push    dword ptr [eax+0Ch]
 .text:55796F90 FF D6                                   call    esi ; CTXCommPack::AddDWord(ulong,int) ; CTXCommPack::AddDWord(ulong,int)
-.text:55796F92 8B 45 F4                                mov     eax, [ebp+var_C]
+.text:55796F92 8B 45 F4                                mov     eax, [ebp+var_C] // [2090] .......................................................................................................>  
 .text:55796F95 8D 4D A8                                lea     ecx, [ebp+var_58]
 .text:55796F98 53                                      push    ebx
 .text:55796F99 FF 70 10                                push    dword ptr [eax+10h]
@@ -1179,15 +1205,15 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:55796F9E 8B 75 F4                                mov     esi, [ebp+var_C] // .......................................................................................................>  
 .text:55796FA1 8D 4D A8                                lea     ecx, [ebp+var_58]
 .text:55796FA4 6A 04                                   push    4
-.text:55796FA6 83 C6 14                                add     esi, 14h  // .......................................................................................................>  
+.text:55796FA6 83 C6 14                                add     esi, 14h   
 .text:55796FA9 56                                      push    esi
 .text:55796FAA FF D7                                   call    edi ; CTXCommPack::AddBuf(uchar const *,uint) ; CTXCommPack::AddBuf(uchar const *,uint)
-.text:55796FAC 8D 46 04                                lea     eax, [esi+4]	// .......................................................................................................>  
+.text:55796FAC 8D 46 04                                lea     eax, [esi+4]	// [2100] .......................................................................................................>  
 .text:55796FAF 8B 75 EC                                mov     esi, [ebp+lpMultiByteStr]
 
 
 													[ 000000000000 ]
-.text:55796FB2 89 45 F8                                mov     [ebp+var_8], eax		// 赋值 .......................................................................................................>  
+.text:55796FB2 89 45 F8                                mov     [ebp+var_8], eax		// 赋值  dump eax .......................................................................................................>  
 .text:55796FB5 8D 45 A8                                lea     eax, [ebp+var_58]   		
 .text:55796FB8 50                                      push    eax             ; int
 .text:55796FB9 8D 45 F8                                lea     eax, [ebp+var_8]		//.......................................................................................................>  
@@ -1236,7 +1262,7 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:5579701C                         ; ---------------------------------------------------------------------------
 .text:5579701C
 .text:5579701C                         loc_5579701C:                           ; CODE XREF: sub_55796DC3+205j
-.text:5579701C 8B 7D F8                                mov     edi, [ebp+var_8]	//赋值 ...............................> edi
+.text:5579701C 8B 7D F8                                mov     edi, [ebp+var_8]	//  dump [[ebp+8]] 赋值 ...............................> edi
 .text:5579701F 8D 47 01                                lea     eax, [edi+1]
 .text:55797022 3B C6                                   cmp     eax, esi
 .text:55797024 77 CB                                   ja      short loc_55796FF1
@@ -1616,28 +1642,464 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:55797433 EB 97                                   jmp     short loc_557973CC
 .text:55797433                         sub_55796DC3    endp
 .text:55797433
- 
+}
 
 //=============================================================================================
 
+//高频调用,可在 sub_55796DC3 先断
+int __thiscall sub_556B28B5(void *this)
+{
+  int v1; // ecx@1
+  int result; // eax@2
+  int v3; // [sp+0h] [bp-4h]@1
 
+  v3 = (int)this;
+  v1 = *(_DWORD *)this;
+  if ( v1 )
+  {
+    v3 = 0;
+    (*(void (__stdcall **)(int, int *))(*(_DWORD *)v1 + 48))(v1, &v3);  //=============> common.522E8A40/sub_522E8A40
+    result = v3;
+  }
+  else
+  {
+    result = 0;
+  }
+  return result;
+}
 
+1136FC70 556B28D1 522E8A40 14       common.522E8A40            用户模块
+1136FC84 55796F3A 556B28D1 6C       kernelutil.556B28D1        用户模块
+1136FCF0 55795407 55796F3A 18       kernelutil.55796F3A        用户模块
+1136FD08 54C99925 55795407 10       kernelutil.55795407        用户模块
+1136FD18 54C99969 54C99925 20       im.54C99925                用户模块
+1136FD38 54A6B0C6 54C99969 1C       im.54C99969                用户模块
+1136FD54 54B47A90 54A6B0C6 40       im.54A6B0C6                用户模块
+1136FD94 51B224EE 54B47A90 28       im.54B47A90                用户模块
+1136FDBC 51B22591 51B224EE C        asynctask.51B224EE         用户模块
+1136FDC8 51B227CF 51B22591 38       asynctask.51B22591         用户模块
+1136FE00 51B24321 51B227CF 2C       asynctask.51B227CF         用户模块
+1136FE2C 51B2207A 51B24321 24       asynctask.51B24321         用户模块
+1136FE50 51B25FE7 51B2207A 8        asynctask.51B2207A         用户模块
+1136FE58 51B26082 51B25FE7 114      asynctask.51B25FE7         用户模块
+1136FF6C 51B25E47 51B26082 8        asynctask.51B26082         用户模块
+1136FF74 75FE0419 51B25E47 10       asynctask.51B25E47         系统模块
+1136FF84 770566DD 75FE0419 5C       kernel32.75FE0419          系统模块
+1136FFE0 770566AD 770566DD 10       ntdll.770566DD             系统模块
+1136FFF0 00000000 770566AD          ntdll.770566AD             用户模块
 
 //=============================================================================================
+signed int __stdcall sub_522E8A40(int a1, _DWORD *a2)
+{
+  signed int result; // eax@2
+
+  if ( a2 )
+  {
+    *a2 = *(_DWORD *)(a1 + 8);
+    result = 0;
+  }
+  else
+  {
+    result = -2147467259;
+  }
+  return result;
+}
 
 
 
+//(int (__stdcall **)(signed int, int *))(v16 + 24))(v5, &v47)
+//创建 a3 发送框内容
+signed int __userpurge sub_557EF0F9@<eax>(struct ITXBuffer **a1@<edi>, int a2, _DWORD *a3)
+{
+  _DWORD *v3; // esi@1
+  signed int result; // eax@2
+  struct ITXBuffer **v5; // ST04_4@3
+  signed int v6; // edi@3
+  _DWORD *v7; // eax@5
 
+  v3 = a3;
+  if ( a3 )
+  {
+    v5 = a1;
+    v6 = 0;
+    a3 = 0;
+    Util::Data::CreateTXBuffer((Util::Data *)&a3, v5);
+    (*(void (__stdcall **)(_DWORD *))(*a3 + 88))(a3);
+    if ( sub_557F0C92(&a3) && sub_557F0B3D(&a3) )
+    {
+      v7 = a3;
+      if ( !a3 )
+      {
+        Util::Data::CreateTXBuffer((Util::Data *)&a3, (struct ITXBuffer **)0x200);
+        v7 = a3;
+      }
+      *v3 = v7;
+      (*(void (__stdcall **)(_DWORD *))(*v7 + 4))(v7);
+    }
+    else
+    {
+      v6 = -2147467259;
+    }
+    if ( a3 )
+      (*(void (__stdcall **)(_DWORD *))(*a3 + 8))(a3);
+    result = v6;
+  }
+  else
+  {
+    result = -2147024809;
+  }
+  return result;
+}
+
+
+//创建 a3 发送框内容 => arg_4
+{
+.text:557EF0F9
+.text:557EF0F9                         sub_557EF0F9    proc near               ; DATA XREF: .rdata:55809D04o
+.text:557EF0F9
+.text:557EF0F9                         var_8           = dword ptr -8
+.text:557EF0F9                         arg_0           = dword ptr  8
+.text:557EF0F9                         arg_4           = dword ptr  0Ch
+.text:557EF0F9
+.text:557EF0F9 55                                      push    ebp
+.text:557EF0FA 8B EC                                   mov     ebp, esp
+.text:557EF0FC 56                                      push    esi
+.text:557EF0FD 8B 75 0C                                mov     esi, [ebp+arg_4]  // dump ebp+c
+.text:557EF100 85 F6                                   test    esi, esi
+.text:557EF102 75 07                                   jnz     short loc_557EF10B
+.text:557EF104 B8 57 00 07 80                          mov     eax, 80070057h
+.text:557EF109 EB 74                                   jmp     short loc_557EF17F
+.text:557EF10B                         ; ---------------------------------------------------------------------------
+.text:557EF10B
+.text:557EF10B                         loc_557EF10B:                           ; CODE XREF: sub_557EF0F9+9j
+.text:557EF10B 57                                      push    edi
+.text:557EF10C 8D 45 0C                                lea     eax, [ebp+arg_4]
+.text:557EF10F 33 FF                                   xor     edi, edi
+.text:557EF111 50                                      push    eax
+.text:557EF112 89 7D 0C                                mov     [ebp+arg_4], edi
+.text:557EF115 FF 15 FC 16 80 55                       call    ds:?CreateTXBuffer@Data@Util@@YAHPAPAUITXBuffer@@@Z ; Util::Data::CreateTXBuffer(ITXBuffer * *)
+.text:557EF11B 8B 45 0C                                mov     eax, [ebp+arg_4]
+.text:557EF11E C7 04 24 00 02 00 00                    mov     [esp+8+var_8], 200h
+.text:557EF125 50                                      push    eax
+.text:557EF126 8B 08                                   mov     ecx, [eax]	// 	
+.text:557EF128 FF 51 58                                call    dword ptr [ecx+58h]    //[5001] eax 引用了 arg_4,  call ========> 522E8E00   eax=0
+.text:557EF12B 8B 4D 08                                mov     ecx, [ebp+arg_0]	//[] -----------------		
+.text:557EF12E 8D 45 0C                                lea     eax, [ebp+arg_4]
+.text:557EF131 50                                      push    eax
+.text:557EF132 E8 5B 1B 00 00                          call    sub_557F0C92  //[5002] eax 引用了 arg_4,  call ========> sub_557F0C92   调用方法后 dump [ebp+c] 有了 MSG . dump [[ebp+c]+8]
+.text:557EF137 85 C0                                   test    eax, eax
+.text:557EF139 74 2F                                   jz      short loc_557EF16A
+.text:557EF13B 8B 4D 08                                mov     ecx, [ebp+arg_0]  //[] -----------------
+.text:557EF13E 8D 45 0C                                lea     eax, [ebp+arg_4]  //dump [ebp+c]; dump [[ebp+c]+8] 发送内容
+.text:557EF141 50                                      push    eax				//dump eax; dump [eax+8] 发送内容
+.text:557EF142 E8 F6 19 00 00                          call    sub_557F0B3D  //[5003] eax 引用了 arg_4,  call ========> sub_557F0B3D   调用方法后 dump [ebp+c] 有了发送框的文本内容 . dump [[ebp+c]+8]
+.text:557EF147 85 C0                                   test    eax, eax   		//dump eax; dump [eax+8] 发送内容
+.text:557EF149 74 1F                                   jz      short loc_557EF16A
+.text:557EF14B 8B 45 0C                                mov     eax, [ebp+arg_4]
+.text:557EF14E 85 C0                                   test    eax, eax
+.text:557EF150 75 0E                                   jnz     short loc_557EF160
+.text:557EF152 8D 45 0C                                lea     eax, [ebp+arg_4]
+.text:557EF155 50                                      push    eax
+.text:557EF156 FF 15 FC 16 80 55                       call    ds:?CreateTXBuffer@Data@Util@@YAHPAPAUITXBuffer@@@Z ; Util::Data::CreateTXBuffer(ITXBuffer * *) //[5004] eax 引用了 arg_4 
+.text:557EF15C 8B 45 0C                                mov     eax, [ebp+arg_4]
+.text:557EF15F 59                                      pop     ecx	//[] -----------------
+.text:557EF160
+.text:557EF160                         loc_557EF160:                           ; CODE XREF: sub_557EF0F9+57j
+.text:557EF160 89 06                                   mov     [esi], eax
+.text:557EF162 8B 08                                   mov     ecx, [eax] //[] -----------------
+.text:557EF164 50                                      push    eax
+.text:557EF165 FF 51 04                                call    dword ptr [ecx+4] 	//[5005] eax 引用了 arg_4  call ========>  
+.text:557EF168 EB 05                                   jmp     short loc_557EF16F
+.text:557EF16A                         ; ---------------------------------------------------------------------------
+.text:557EF16A
+.text:557EF16A                         loc_557EF16A:                           ; CODE XREF: sub_557EF0F9+40j
+.text:557EF16A                                                                 ; sub_557EF0F9+50j
+.text:557EF16A BF 05 40 00 80                          mov     edi, 80004005h
+.text:557EF16F
+.text:557EF16F                         loc_557EF16F:                           ; CODE XREF: sub_557EF0F9+6Fj
+.text:557EF16F 8B 4D 0C                                mov     ecx, [ebp+arg_4] //[] -----------------
+.text:557EF172 85 C9                                   test    ecx, ecx
+.text:557EF174 74 06                                   jz      short loc_557EF17C
+.text:557EF176 8B 11                                   mov     edx, [ecx]
+.text:557EF178 51                                      push    ecx					//dump eax; dump [eax+8] 发送内容
+.text:557EF179 FF 52 08                                call    dword ptr [edx+8]  //[5006] ecx 引用了 arg_4 call ========>  
+.text:557EF17C
+.text:557EF17C                         loc_557EF17C:                           ; CODE XREF: sub_557EF0F9+7Bj
+.text:557EF17C 8B C7                                   mov     eax, edi
+.text:557EF17E 5F                                      pop     edi
+.text:557EF17F
+.text:557EF17F                         loc_557EF17F:                           ; CODE XREF: sub_557EF0F9+10j
+.text:557EF17F 5E                                      pop     esi
+.text:557EF180 5D                                      pop     ebp
+.text:557EF181 C2 08 00                                retn    8
+.text:557EF181                         sub_557EF0F9    endp
+}
+
+1 2 3 6
 //=============================================================================================
 
+signed int __userpurge sub_557F0B3D@<eax>(int a1@<ecx>, int a2@<ebx>, Util::Data *a3)
+{
+  int v3; // edi@1
+  int *v4; // esi@1
+  int v5; // ebx@3
+  int v6; // ecx@4
+  int v8; // [sp-4h] [bp-1Ch]@2
+  char v9; // [sp+8h] [bp-10h]@1
+  void (__stdcall *v10)(int); // [sp+Ch] [bp-Ch]@4
+  int v11; // [sp+10h] [bp-8h]@1
+  char v12; // [sp+17h] [bp-1h]@1
 
+  v11 = 0;
+  v3 = a1;
+  v12 = 0;
+  Util::CTXAutoSpinLock::CTXAutoSpinLock((Util::CTXAutoSpinLock *)&v9, (struct Util::CTXSpinLock *)(a1 + 56));
+  v4 = *(int **)(v3 + 40);
+  if ( v4 != *(int **)(v3 + 44) )
+  {
+    v8 = a2;
+    do
+    {
+      v5 = *v4;
+      if ( *v4 )
+      {
+        (*(void (__stdcall **)(int, char *, int))(*(_DWORD *)v5 + 12))(v5, &v12, v8);
+        sub_556BA464(&v12, 1);
+        (*(void (__stdcall **)(int, int *))(*(_DWORD *)v5 + 20))(v5, &v11);
+        sub_556BA464(&v11, 2);
+        v10 = *(void (__stdcall **)(int))(*(_DWORD *)v5 + 24);
+        v6 = *(_DWORD *)a3;
+        if ( !*(_DWORD *)a3 )
+        {
+          Util::Data::CreateTXBuffer(a3);
+          v6 = *(_DWORD *)a3;
+        }
+        v8 = v6;
+        v10(v5); // ==> sub_557F0F90
+      }
+      ++v4;
+    }
+    while ( v4 != *(int **)(v3 + 44) );
+  }
+  Util::CTXAutoSpinLock::~CTXAutoSpinLock((Util::CTXAutoSpinLock *)&v9);
+  return 1;
+}
 
-
+{ 	
+.text:557F0B3D                         sub_557F0B3D    proc near               ; CODE XREF: sub_557EF0F9+49p
+.text:557F0B3D
+.text:557F0B3D                         var_10          = byte ptr -10h
+.text:557F0B3D                         var_C           = dword ptr -0Ch
+.text:557F0B3D                         var_8           = dword ptr -8
+.text:557F0B3D                         var_1           = byte ptr -1
+.text:557F0B3D                         arg_0           = dword ptr  8
+.text:557F0B3D
+.text:557F0B3D 55                                      push    ebp
+.text:557F0B3E 8B EC                                   mov     ebp, esp
+.text:557F0B40 83 EC 10                                sub     esp, 10h     // dump ebp+8 有值
+.text:557F0B43 83 65 F8 00                             and     [ebp+var_8], 0
+.text:557F0B47 56                                      push    esi
+.text:557F0B48 57                                      push    edi
+.text:557F0B49 8B F9                                   mov     edi, ecx
+.text:557F0B4B C6 45 FF 00                             mov     [ebp+var_1], 0
+.text:557F0B4F 8D 4D F0                                lea     ecx, [ebp+var_10]
+.text:557F0B52 8D 47 38                                lea     eax, [edi+38h]
+.text:557F0B55 50                                      push    eax
+.text:557F0B56 FF 15 68 11 80 55                       call    ds:??0CTXAutoSpinLock@Util@@QAE@AAVCTXSpinLock@1@@Z ; Util::CTXAutoSpinLock::CTXAutoSpinLock(Util::CTXSpinLock &)
+.text:557F0B5C 8B 77 28                                mov     esi, [edi+28h]
+.text:557F0B5F 3B 77 2C                                cmp     esi, [edi+2Ch]
+.text:557F0B62 74 63                                   jz      short loc_557F0BC7
+.text:557F0B64 53                                      push    ebx
+.text:557F0B65
+.text:557F0B65                         loc_557F0B65:                           ; CODE XREF: sub_557F0B3D+87j
+.text:557F0B65 8B 1E                                   mov     ebx, [esi]
+.text:557F0B67 85 DB                                   test    ebx, ebx
+.text:557F0B69 74 53                                   jz      short loc_557F0BBE
+.text:557F0B6B 8B 03                                   mov     eax, [ebx]
+.text:557F0B6D 8D 4D FF                                lea     ecx, [ebp+var_1]
+.text:557F0B70 51                                      push    ecx
+.text:557F0B71 53                                      push    ebx
+.text:557F0B72 FF 50 0C                                call    dword ptr [eax+0Ch]
+.text:557F0B75 8B 4D 08                                mov     ecx, [ebp+arg_0]  //[5101] ebp+8
+.text:557F0B78 8D 45 FF                                lea     eax, [ebp+var_1]
+.text:557F0B7B 6A 01                                   push    1
+.text:557F0B7D 50                                      push    eax
+.text:557F0B7E E8 E1 98 EC FF                          call    sub_556BA464
+.text:557F0B83 8B 03                                   mov     eax, [ebx]
+.text:557F0B85 8D 4D F8                                lea     ecx, [ebp+var_8]
+.text:557F0B88 51                                      push    ecx
+.text:557F0B89 53                                      push    ebx
+.text:557F0B8A FF 50 14                                call    dword ptr [eax+14h]
+.text:557F0B8D 8B 4D 08                                mov     ecx, [ebp+arg_0] //[5102] ebp+8
+.text:557F0B90 8D 45 F8                                lea     eax, [ebp+var_8]
+.text:557F0B93 6A 02                                   push    2
+.text:557F0B95 50                                      push    eax
+.text:557F0B96 E8 C9 98 EC FF                          call    sub_556BA464   // eax 获得 "MSG"
+.text:557F0B9B 8B 03                                   mov     eax, [ebx]	//dump eax, .faq 此时 eax会丢失,找到 eax 引用的地方 dump [[[ebp+8]]+8]
+.text:557F0B9D 8B 40 18                                mov     eax, [eax+18h]
+.text:557F0BA0 89 45 F4                                mov     [ebp+var_C], eax
+.text:557F0BA3 8B 45 08                                mov     eax, [ebp+arg_0] //[5103] ebp+8
+.text:557F0BA6 8B 08                                   mov     ecx, [eax]
+.text:557F0BA8 85 C9                                   test    ecx, ecx
+.text:557F0BAA 75 0D                                   jnz     short loc_557F0BB9
+.text:557F0BAC 50                                      push    eax
+.text:557F0BAD FF 15 FC 16 80 55                       call    ds:?CreateTXBuffer@Data@Util@@YAHPAPAUITXBuffer@@@Z ; Util::Data::CreateTXBuffer(ITXBuffer * *)
+.text:557F0BB3 8B 45 08                                mov     eax, [ebp+arg_0] //[5104]
+.text:557F0BB6 59                                      pop     ecx
+.text:557F0BB7 8B 08                                   mov     ecx, [eax]
+.text:557F0BB9
+.text:557F0BB9                         loc_557F0BB9:                           ; CODE XREF: sub_557F0B3D+6Dj
+.text:557F0BB9 51                                      push    ecx  // ecx 引用   ebp+8
+.text:557F0BBA 53                                      push    ebx
+.text:557F0BBB FF 55 F4                                call    [ebp+var_C]   //[5105]  ====================> 557F0F90   获得内容,调用后 dump [[[ebp+8]]+8]
+.text:557F0BBE
+.text:557F0BBE                         loc_557F0BBE:                           ; CODE XREF: sub_557F0B3D+2Cj
+.text:557F0BBE 83 C6 04                                add     esi, 4
+.text:557F0BC1 3B 77 2C                                cmp     esi, [edi+2Ch]
+.text:557F0BC4 75 9F                                   jnz     short loc_557F0B65
+.text:557F0BC6 5B                                      pop     ebx
+.text:557F0BC7
+.text:557F0BC7                         loc_557F0BC7:                           ; CODE XREF: sub_557F0B3D+25j
+.text:557F0BC7 8D 4D F0                                lea     ecx, [ebp+var_10]
+.text:557F0BCA FF 15 6C 11 80 55                       call    ds:??1CTXAutoSpinLock@Util@@QAE@XZ ; Util::CTXAutoSpinLock::~CTXAutoSpinLock(void)
+.text:557F0BD0 33 C0                                   xor     eax, eax
+.text:557F0BD2 5F                                      pop     edi
+.text:557F0BD3 40                                      inc     eax   //dump eax
+.text:557F0BD4 5E                                      pop     esi 
+.text:557F0BD5 C9                                      leave
+.text:557F0BD6 C2 04 00                                retn    4
+.text:557F0BD6                         sub_557F0B3D    endp  
+	
+}
 //=============================================================================================
 
+int __userpurge sub_557F0F90@<eax>(int a1@<ebx>, int a2, int a3)
+{
+  int v3; // esi@1
+  int v4; // edi@1
+  int v5; // ecx@3
+  int v6; // eax@3
+  void (__stdcall *v7)(int, int); // ebx@3
+  int v8; // eax@3
+  int v10; // [sp+8h] [bp-4h]@3
 
+  v3 = a2;
+  v4 = a3;
+  if ( *(_DWORD *)(a2 + 4)
+    && !Util::Data::EqualBool(*(Util::Data **)(a2 + 4), (struct ITXDataRead *)"bSkipStream", (const char *)1) )
+  {
+    v5 = *(_DWORD *)(v3 + 4);
+    a3 = 0;
+    (*(void (__stdcall **)(int, int *, int))(*(_DWORD *)v5 + 164))(v5, &a3, a1);
+    v6 = *(_DWORD *)v4;
+    BYTE3(a2) = 0;
+    (*(void (__stdcall **)(int, char *, signed int, _DWORD))(v6 + 80))(v4, (char *)&a2 + 3, 1, 0);
+    v10 = (unsigned __int16)sub_556B28D6(&a3);
+    (*(void (__stdcall **)(int, int *, signed int, _DWORD))(*(_DWORD *)v4 + 80))(v4, &v10, 2, 0);
+    v7 = *(void (__stdcall **)(int, int))(*(_DWORD *)v4 + 84);
+    v8 = a3;
+    if ( !a3 )
+    {
+      Util::Data::CreateTXBuffer((Util::Data *)&a3);
+      v8 = a3;
+    }
+    v7(v4, v8);
+    if ( a3 )
+      (*(void (__stdcall **)(int))(*(_DWORD *)a3 + 8))(a3);
+  }
+  return (*(int (__thiscall **)(int, int))(*(_DWORD *)v3 + 100))(v3, v4);
+}
 
-
+{
+	
+.text:557F0F90	    sub_557F0F90    proc near               ; DATA XREF: .rdata:5583664Co
+.text:557F0F90                                                                 ; .rdata:55838000o
+.text:557F0F90
+.text:557F0F90                         var_4           = dword ptr -4
+.text:557F0F90                         arg_0           = dword ptr  8
+.text:557F0F90                         arg_4           = dword ptr  0Ch
+.text:557F0F90
+.text:557F0F90 55                                      push    ebp
+.text:557F0F91 8B EC                                   mov     ebp, esp
+.text:557F0F93 51                                      push    ecx
+.text:557F0F94 56                                      push    esi
+.text:557F0F95 8B 75 08                                mov     esi, [ebp+arg_0]
+.text:557F0F98 57                                      push    edi
+.text:557F0F99 8B 7D 0C                                mov     edi, [ebp+arg_4]
+.text:557F0F9C 83 7E 04 00                             cmp     dword ptr [esi+4], 0
+.text:557F0FA0 0F 84 86 00 00 00                       jz      loc_557F102C
+.text:557F0FA6 6A 01                                   push    1
+.text:557F0FA8 68 04 8F 80 55                          push    offset aBskipstream ; "bSkipStream"
+.text:557F0FAD FF 76 04                                push    dword ptr [esi+4]
+.text:557F0FB0 FF 15 70 11 80 55                       call    ds:?EqualBool@Data@Util@@YAHPAUITXDataRead@@PBDH@Z ; Util::Data::EqualBool(ITXDataRead *,char const *,int)
+.text:557F0FB6 83 C4 0C                                add     esp, 0Ch
+.text:557F0FB9 85 C0                                   test    eax, eax
+.text:557F0FBB 75 6F                                   jnz     short loc_557F102C
+.text:557F0FBD 8B 4E 04                                mov     ecx, [esi+4]
+.text:557F0FC0 8D 55 0C                                lea     edx, [ebp+arg_4]
+.text:557F0FC3 53                                      push    ebx
+.text:557F0FC4 33 DB                                   xor     ebx, ebx
+.text:557F0FC6 89 5D 0C                                mov     [ebp+arg_4], ebx
+.text:557F0FC9 8B 01                                   mov     eax, [ecx]
+.text:557F0FCB 52                                      push    edx
+.text:557F0FCC 51                                      push    ecx
+.text:557F0FCD FF 90 A4 00 00 00                       call    dword ptr [eax+0A4h]
+.text:557F0FD3 8B 07                                   mov     eax, [edi]
+.text:557F0FD5 8D 4D 0B                                lea     ecx, [ebp+arg_0+3]
+.text:557F0FD8 53                                      push    ebx
+.text:557F0FD9 6A 01                                   push    1
+.text:557F0FDB 51                                      push    ecx
+.text:557F0FDC 57                                      push    edi
+.text:557F0FDD 88 5D 0B                                mov     byte ptr [ebp+arg_0+3], bl
+.text:557F0FE0 FF 50 50                                call    dword ptr [eax+50h]
+.text:557F0FE3 8D 4D 0C                                lea     ecx, [ebp+arg_4]
+.text:557F0FE6 E8 EB 18 EC FF                          call    sub_556B28D6
+.text:557F0FEB 53                                      push    ebx
+.text:557F0FEC 0F B7 C0                                movzx   eax, ax
+.text:557F0FEF 8D 4D FC                                lea     ecx, [ebp+var_4]
+.text:557F0FF2 6A 02                                   push    2
+.text:557F0FF4 89 45 FC                                mov     [ebp+var_4], eax
+.text:557F0FF7 8B 07                                   mov     eax, [edi]
+.text:557F0FF9 51                                      push    ecx
+.text:557F0FFA 57                                      push    edi
+.text:557F0FFB FF 50 50                                call    dword ptr [eax+50h]
+.text:557F0FFE 8B 07                                   mov     eax, [edi]
+.text:557F1000 8B 58 54                                mov     ebx, [eax+54h]
+.text:557F1003 8B 45 0C                                mov     eax, [ebp+arg_4]
+.text:557F1006 85 C0                                   test    eax, eax
+.text:557F1008 75 0E                                   jnz     short loc_557F1018
+.text:557F100A 8D 45 0C                                lea     eax, [ebp+arg_4]
+.text:557F100D 50                                      push    eax
+.text:557F100E FF 15 FC 16 80 55                       call    ds:?CreateTXBuffer@Data@Util@@YAHPAPAUITXBuffer@@@Z ; Util::Data::CreateTXBuffer(ITXBuffer * *)
+.text:557F1014 8B 45 0C                                mov     eax, [ebp+arg_4]
+.text:557F1017 59                                      pop     ecx
+.text:557F1018
+.text:557F1018                         loc_557F1018:                           ; CODE XREF: sub_557F0F90+78j
+.text:557F1018 6A 00                                   push    0
+.text:557F101A 50                                      push    eax
+.text:557F101B 57                                      push    edi
+.text:557F101C FF D3                                   call    ebx
+.text:557F101E 8B 45 0C                                mov     eax, [ebp+arg_4]
+.text:557F1021 5B                                      pop     ebx
+.text:557F1022 85 C0                                   test    eax, eax
+.text:557F1024 74 06                                   jz      short loc_557F102C
+.text:557F1026 8B 10                                   mov     edx, [eax]
+.text:557F1028 50                                      push    eax
+.text:557F1029 FF 52 08                                call    dword ptr [edx+8]
+.text:557F102C
+.text:557F102C                         loc_557F102C:                           ; CODE XREF: sub_557F0F90+10j
+.text:557F102C                                                                 ; sub_557F0F90+2Bj ...
+.text:557F102C 8B 06                                   mov     eax, [esi]
+.text:557F102E 8B CE                                   mov     ecx, esi
+.text:557F1030 57                                      push    edi
+.text:557F1031 FF 50 64                                call    dword ptr [eax+64h]
+.text:557F1034 5F                                      pop     edi
+.text:557F1035 5E                                      pop     esi
+.text:557F1036 C9                                      leave
+.text:557F1037 C2 08 00                                retn    8
+.text:557F1037                         sub_557F0F90    endp
+	
+}
 //=============================================================================================
 
 
