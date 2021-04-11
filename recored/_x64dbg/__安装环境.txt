@@ -1,0 +1,4 @@
+ida 和 x64dbg 很多插件依赖python，所以一定要安装python,并设置好python path环境变量
+
+
+x64dbg 在符号栏可以看到对应加载的模块，下面的输出栏会有对应pdb加载日志.当没有加载到pdb时，显示的状态是unloaded. 会在系统和分析文件的目录搜索pdb, 也可以选项->杂项 里设置pdb搜索目录
