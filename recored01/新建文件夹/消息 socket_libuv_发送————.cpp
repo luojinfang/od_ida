@@ -399,7 +399,7 @@ void __thiscall sub_57EB429(int this)
     v28 = sub_57E69A6(    //  057EB494 ============================> sub_57E69A6
             *(_DWORD **)(v1 + 36),
             *(_DWORD *)(v1 + 16),
-            *(_DWORD *)(v3 + 12), //---->
+            *(_DWORD *)(v3 + 12), // ---->
             (arksocket::IPEndPoint *)(v3 + 4),
             v5 != 0 ? v5 + 8 : 0,
             *(_DWORD *)v3);
@@ -427,6 +427,15 @@ void __thiscall sub_57EB429(int this)
     sub_57EBACB((void *)v3, v6);
   }
 }
+
+
+
+.text:057EB432                 mov     edi, ecx
+.text:057EB44B                 mov     eax, [edi+44h]
+.text:057EB450                 mov     ecx, [eax]      ; Memory
+.text:057EB457                 mov     esi, [ecx+8] //-------------- 
+.text:057EB48B                 push    dword ptr [esi+0Ch] ; int   //-------------- 
+
 
 {
 .text:057EB429 ; =============== S U B R O U T I N E =======================================
@@ -466,7 +475,7 @@ void __thiscall sub_57EB429(int this)
 .text:057EB450                 mov     ecx, [eax]      ; Memory
 .text:057EB452                 mov     edx, [ecx+4]
 .text:057EB455                 mov     eax, [ecx]
-.text:057EB457                 mov     esi, [ecx+8] //--------------
+.text:057EB457                 mov     esi, [ecx+8] //-------------- 
 
 .text:057EB45A                 mov     [edx], eax
 .text:057EB45C                 mov     edx, [ecx]

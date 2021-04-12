@@ -1004,7 +1004,7 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:55796DC3                         var_C           = dword ptr -0Ch
 .text:55796DC3                         var_8           = dword ptr -8
 .text:55796DC3                         var_1           = byte ptr -1
-.text:55796DC3                         arg_0           = dword ptr  8
+.text:55796DC3                         arg_0           = dword ptr  8    //[ebp+8]
 .text:55796DC3                         arg_4           = dword ptr  0Ch
 .text:55796DC3                         arg_8           = dword ptr  10h
 .text:55796DC3                         arg_C           = dword ptr  14h
@@ -1024,7 +1024,7 @@ int __thiscall CTXCommPack::AddBuf(CTXCommPack *this, const unsigned __int8 *Src
 .text:55796DD8 53                                      push    ebx
 .text:55796DD9 8D 4D A8                                lea     ecx, [ebp+var_58]
 .text:55796DDC FF 15 EC 12 80 55                       call    ds:??0CTXCommPack@@QAE@XZ ; CTXCommPack::CTXCommPack(void)
-.text:55796DE2 8B 5D 08                                mov     ebx, [ebp+arg_0] //ebx .......................................................................................................>  
+.text:55796DE2 8B 5D 08                                mov     ebx, [ebp+arg_0] // [5300]  dump [[ ebx +28]]; dump [[ [ebp+8] +28]]  发送消息内容   .......................................................................................................>  
 .text:55796DE5 85 DB                                   test    ebx, ebx
 .text:55796DE7 0F 84 21 02 00 00                       jz      loc_5579700E
 .text:55796DED 33 C0                                   xor     eax, eax
@@ -3213,6 +3213,505 @@ LABEL_19:
 
 //=============================================================================================
 
+557953FC | FF75 0C             | push dword ptr ss:[ebp+C]                     | [ebp+C]:&"旃JR\x01"
+557953FF | FF75 08             | push dword ptr ss:[ebp+8]                     | [ebp+8]  //[5301]  dump [[ [ebp+8] +28]]
+55795402 | E8 BC190000         | call kernelutil.55796DC3                      |
+
+
+//=============================================================================================
+
+54C99919 | FF75 0C             | push dword ptr ss:[ebp+C]                     | [ebp+C]:&"旃JR\x01"
+54C9991C | FF75 08             | push dword ptr ss:[ebp+8]                     | [ebp+8]: //[5401]  dump [[ [ebp+8] +28]]
+54C9991F | FF15 A46DDC54       | call dword ptr ds:[<&?TranslateMsgPackToBuddy |  //=> 557953FC
+
+
+//=============================================================================================
+54C99962 | 50                  | push eax                                      |
+54C99963 | 56                  | push esi                                      | esi://[5501]  dump [[ esi +28]]
+54C99964 | E8 ADFFFFFF         | call im.54C99916                              |
+
+ 
+
+{
+	
+.text:54C99959                 mov     esi, [ebp+arg_0]   //dump [[ [ebp+8] +28]]
+.text:54C9995C                 lea     eax, [ebp+var_4]
+.text:54C9995F                 mov     ecx, [ebp+var_8]
+.text:54C99962                 push    eax
+.text:54C99963                 push    esi
+.text:54C99964                 call    sub_54C99916	//im.54C99916 => 54C99919
+	
+}
+
+//=============================================================================================
+
+54A6B0AC | 8B45 14             | mov eax,dword ptr ss:[ebp+14]                 | [ebp+14]:&"鞙€UH潃UX潃U\x02"
+54A6B0AF | 8B4D 08             | mov ecx,dword ptr ss:[ebp+8]                  |
+54A6B0B2 | 034D 10             | add ecx,dword ptr ss:[ebp+10]                 |
+54A6B0B5 | FF70 10             | push dword ptr ds:[eax+10]                    |
+54A6B0B8 | FF70 0C             | push dword ptr ds:[eax+C]                     |
+54A6B0BB | FF70 08             | push dword ptr ds:[eax+8]                     |
+54A6B0BE | FF70 04             | push dword ptr ds:[eax+4]                     |
+54A6B0C1 | FF30                | push dword ptr ds:[eax]                       |
+54A6B0C3 | FF55 0C             | call dword ptr ss:[ebp+C]                     | //=> 54C99962 //5601 dump [[[[ebp+14]]+28]]
+
+//=============================================================================================
+
+ 
+54B47A7D | 8B4F 08             | mov ecx,dword ptr ds:[edi+8]                  |
+54B47A80 | 8D47 18             | lea eax,dword ptr ds:[edi+18]                 | [edi+18]:"鞙€UH潃UX潃U\x02"
+54B47A83 | 50                  | push eax                                      |  //--->   dump [[[ edi+18 ]+28]]
+54B47A84 | FF77 14             | push dword ptr ds:[edi+14]                    |
+54B47A87 | FF77 10             | push dword ptr ds:[edi+10]                    | [edi+10]:"U嬱冹\f僥?"
+54B47A8A | 51                  | push ecx                                      |
+54B47A8B | E8 1936F2FF         | call im.54A6B0A9   //=>54A6B0AC               |//5701  dump [[[ edi+18 ]+28]]    //点击发送，第二次断点有内容
+
+
+void __thiscall sub_54B47A13(int this)
+{
+  int v1; // edx@1
+  int v2; // eax@1
+  int v3; // ST14_4@5
+  int v4; // ST10_4@5
+  Util::Misc *v5; // esi@5
+  int v6; // eax@5
+  int v7; // ecx@5
+  unsigned __int32 v8; // ST08_4@8
+  int v9; // [sp+0h] [bp-20h]@1
+  wchar_t v10[12]; // [sp+4h] [bp-1Ch]@5
+
+  v1 = *(_DWORD *)(this + 4);
+  v2 = 0;
+  v9 = this;
+  if ( v1 && *(_DWORD *)(v1 + 4) )
+    v2 = *(_DWORD *)(this + 8);
+  if ( v2 )
+  {
+    memset(v10, 0, sizeof(v10));
+    v3 = *(_DWORD *)(this + 20);
+    v4 = *(_DWORD *)(this + 16);
+    sub_54A375DC();
+    v5 = (Util::Misc *)Util::Misc::LogTaskStart((Util::Misc *)v10, v10);
+    v6 = *(_DWORD *)(v9 + 4);
+    v7 = 0;
+    if ( v6 )
+    {
+      if ( *(_DWORD *)(v6 + 4) )
+        v7 = *(_DWORD *)(v9 + 8);
+    }
+    sub_54A6B0A9(v7, *(_DWORD *)(v9 + 16), *(_DWORD *)(v9 + 20), v9 + 24);
+    Util::Misc::LogTaskEnd(v5, v8);
+  }
+}
+
+{	
+.text:54B47A13 sub_54B47A13    proc near               ; DATA XREF: .rdata:54E2AD04o
+.text:54B47A13                                         ; .rdata:54E2C070o ...
+.text:54B47A13
+.text:54B47A13 var_20          = dword ptr -20h
+.text:54B47A13 var_1C          = word ptr -1Ch
+.text:54B47A13 var_4           = dword ptr -4
+.text:54B47A13
+.text:54B47A13                 push    ebp
+.text:54B47A14                 mov     ebp, esp
+.text:54B47A16                 sub     esp, 20h
+.text:54B47A19                 mov     eax, ___security_cookie
+.text:54B47A1E                 xor     eax, ebp
+.text:54B47A20                 mov     [ebp+var_4], eax
+.text:54B47A23                 mov     edx, [ecx+4]
+.text:54B47A26                 xor     eax, eax
+.text:54B47A28                 mov     [ebp+var_20], ecx //--->   dump [[[ ecx+18 ]+28]]  //点击发送，第二次断点有发送内容
+.text:54B47A2B                 test    edx, edx
+.text:54B47A2D                 jz      short loc_54B47A37
+.text:54B47A2F                 cmp     [edx+4], eax
+.text:54B47A32                 jz      short loc_54B47A37
+.text:54B47A34                 mov     eax, [ecx+8]
+.text:54B47A37
+.text:54B47A37 loc_54B47A37:                           ; CODE XREF: sub_54B47A13+1Aj
+.text:54B47A37                                         ; sub_54B47A13+1Fj
+.text:54B47A37                 test    eax, eax
+.text:54B47A39                 jz      short loc_54B47A9C
+.text:54B47A3B                 push    esi
+.text:54B47A3C                 push    edi
+.text:54B47A3D                 push    6
+.text:54B47A3F                 pop     ecx
+.text:54B47A40                 xor     eax, eax
+.text:54B47A42                 lea     edi, [ebp+var_1C]
+.text:54B47A45                 rep stosd
+.text:54B47A47                 mov     edi, [ebp+var_20] 
+.text:54B47A4A                 lea     eax, [ebp+var_1C] 	//--->   dump [[[ edi+18 ]+28]]  //点击发送，第二次断点有内容
+.text:54B47A4D                 push    dword ptr [edi+14h]
+.text:54B47A50                 push    dword ptr [edi+10h]
+.text:54B47A53                 push    offset aP       ; "%p"
+.text:54B47A58                 push    0Ch
+.text:54B47A5A                 push    eax
+.text:54B47A5B                 call    sub_54A375DC 
+.text:54B47A60                 lea     eax, [ebp+var_1C]
+.text:54B47A63                 push    eax
+.text:54B47A64                 call    ds:?LogTaskStart@Misc@Util@@YAKPB_W@Z ; Util::Misc::LogTaskStart(wchar_t const *)
+.text:54B47A6A                 mov     esi, eax
+.text:54B47A6C                 add     esp, 18h
+.text:54B47A6F                 mov     eax, [edi+4]
+.text:54B47A72                 xor     ecx, ecx
+.text:54B47A74                 test    eax, eax
+.text:54B47A76                 jz      short loc_54B47A80
+.text:54B47A78                 cmp     [eax+4], ecx
+.text:54B47A7B                 jz      short loc_54B47A80
+.text:54B47A7D                 mov     ecx, [edi+8]
+.text:54B47A80
+.text:54B47A80 loc_54B47A80:                           ; CODE XREF: sub_54B47A13+63j
+.text:54B47A80                                         ; sub_54B47A13+68j
+.text:54B47A80                 lea     eax, [edi+18h]
+.text:54B47A83                 push    eax					//--->   dump [[[ edi+18 ]+28]]  //点击发送，第二次断点有内容
+.text:54B47A84                 push    dword ptr [edi+14h]
+.text:54B47A87                 push    dword ptr [edi+10h]
+.text:54B47A8A                 push    ecx
+.text:54B47A8B                 call    sub_54A6B0A9
+.text:54B47A90                 push    esi
+.text:54B47A91                 call    ds:?LogTaskEnd@Misc@Util@@YAXK@Z ; Util::Misc::LogTaskEnd(ulong)
+.text:54B47A97                 add     esp, 14h
+.text:54B47A9A                 pop     edi
+.text:54B47A9B                 pop     esi
+.text:54B47A9C
+.text:54B47A9C loc_54B47A9C:                           ; CODE XREF: sub_54B47A13+26j
+.text:54B47A9C                 mov     ecx, [ebp+var_4]
+.text:54B47A9F                 xor     ecx, ebp
+.text:54B47AA1                 call    sub_54DBD21C
+.text:54B47AA6                 leave
+.text:54B47AA7                 retn
+.text:54B47AA7 sub_54B47A13    endp	
+} 
+//-------------------------
+			=>54B47A7D
+      171EFD94 51B224EE 54B47A90 28   im.54B47A90                用户模块
+      171EFDBC 51B22591 51B224EE C    asynctask.51B224EE         用户模块
+      171EFDC8 51B227CF 51B22591 38   asynctask.51B22591         用户模块
+      171EFE00 51B24321 51B227CF 2C   asynctask.51B227CF         用户模块
+      171EFE2C 51B2207A 51B24321 24   asynctask.51B24321         用户模块
+      171EFE50 51B25FE7 51B2207A 8    asynctask.51B2207A         用户模块
+      171EFE58 51B26082 51B25FE7 114  asynctask.51B25FE7         用户模块
+      171EFF6C 51B25E47 51B26082 8    asynctask.51B26082         用户模块
+      171EFF74 75FE0419 51B25E47 10   asynctask.51B25E47         系统模块
+      171EFF84 770566DD 75FE0419 5C   kernel32.75FE0419          系统模块
+      171EFFE0 770566AD 770566DD 10   ntdll.770566DD             系统模块
+      171EFFF0 00000000 770566AD      ntdll.770566AD             用户模块
+	  
+ 
+//=============================================================================================
+//被循环调用? 
+51B224E6 | 8B4D 08             | mov ecx,dword ptr ss:[ebp+8]                  | //dump [[[ [ebp+8]+18 ]+28]]  点击发送，第二次断点有内容
+51B224E9 | 8B01                | mov eax,dword ptr ds:[ecx]                    | 
+51B224EB | FF50 04             | call dword ptr ds:[eax+4]                     | //=> 54B47A13 dump [[[ ecx+18 ]+28]]
+
+ 
+//=============================================================================================
+
+
+
+
+//=============================================================================================
+//51B224EE
+void __thiscall AsyncTask::MessageLoop::RunTask(AsyncTask::MessageLoop *this, struct AsyncTask::Task *a2)
+{
+  AsyncTask::MessageLoop *v2; // esi@1
+  AsyncTask::WaitableEvent *v3; // ecx@2
+  int v4; // edi@5
+  int v5; // ecx@6
+  int v6; // eax@6
+  void (__thiscall ***v7)(_DWORD); // eax@12
+  bool v8; // zf@13
+  int v9; // eax@20
+  HANDLE *v10; // eax@24
+  AsyncTask::MessageLoop *v11; // [sp+10h] [bp-10h]@3
+  int v12; // [sp+14h] [bp-Ch]@3
+  int v13; // [sp+18h] [bp-8h]@8
+
+  v2 = this;
+  if ( AsyncTask::MessageLoop::is_dispatcher(this) )
+  {
+    AsyncTask::MessageLoop::PostTask(*((AsyncTask::MessageLoop **)v2 + 58), a2);
+    v3 = *(AsyncTask::WaitableEvent **)(*((_DWORD *)v2 + 58) + 236);
+    if ( v3 )
+    {
+      v11 = (AsyncTask::MessageLoop *)5000;
+      v12 = 0;
+      if ( !AsyncTask::WaitableEvent::TimedWait(v3, (const struct AsyncTask::TimeDelta *)&v11)
+        && *((_DWORD *)v2 + 56) < 3u )
+      {
+        v4 = (*(int (**)(void))(**((_DWORD **)v2 + 51) + 4))();
+        v11 = (AsyncTask::MessageLoop *)v4;
+        if ( v4 )
+        {
+          v5 = *((_DWORD *)v2 + 58);
+          *(_DWORD *)(v5 + 228) = 0;
+          AsyncTask::MessageLoop::Quit((AsyncTask::MessageLoop *)v5);
+          sub_51B22C1F(&v11);
+          v6 = *(_DWORD *)(v4 + 16);
+          *((_DWORD *)v2 + 58) = v6;
+          *(_BYTE *)(v6 + 200) = 1;
+          *(_DWORD *)(*((_DWORD *)v2 + 58) + 228) = v2;
+          AsyncTask::MessageLoop::create_work_event(*((AsyncTask::MessageLoop **)v2 + 58));
+        }
+      }
+    }
+  }
+  else
+  {
+    v11 = (AsyncTask::MessageLoop *)((char *)v2 + 180);
+    v12 = 0;
+    if ( *((_DWORD *)v2 + 49) )
+      v13 = (*((_DWORD *)v2 + 46) - *((_DWORD *)v2 + 45)) >> 2;
+    else
+      v13 = -1;
+    ++*((_DWORD *)v2 + 48);
+    while ( 1 )
+    {
+      v7 = (void (__thiscall ***)(_DWORD))sub_51B22A3D(&v11);
+      if ( !v7 )
+        break;
+      (**v7)(v7);
+    }
+    v8 = (*((_DWORD *)v11 + 3))-- == 1;
+    if ( v8 )
+      sub_51B22C9B();
+    (*(void (**)(void))(*(_DWORD *)a2 + 4))(); //=> 54B47A13
+    v11 = (AsyncTask::MessageLoop *)((char *)v2 + 180);
+    v12 = 0;
+    if ( *((_DWORD *)v2 + 49) )
+      v13 = (*((_DWORD *)v2 + 46) - *((_DWORD *)v2 + 45)) >> 2;
+    else
+      v13 = -1;
+    ++*((_DWORD *)v2 + 48);
+    while ( 1 )
+    {
+      v9 = sub_51B22A3D(&v11);
+      if ( !v9 )
+        break;
+      (*(void (__thiscall **)(int))(*(_DWORD *)v9 + 4))(v9);
+    }
+    v8 = (*((_DWORD *)v11 + 3))-- == 1;
+    if ( v8 )
+      sub_51B22C9B();
+    (**(void (__stdcall ***)(_DWORD))a2)(1);
+    *((_BYTE *)v2 + 88) = 1;
+    if ( *((_BYTE *)v2 + 200) )
+    {
+      v10 = (HANDLE *)*((_DWORD *)v2 + 59);
+      if ( v10 )
+        SetEvent(*v10);
+    }
+  }
+}
+
+
+//=============================================================================================
+
+//51B22591
+char __thiscall AsyncTask::MessageLoop::DeferOrRunPendingTask(AsyncTask::MessageLoop *this, const struct AsyncTask::MessageLoop::PendingTask *a2)
+{
+  char result; // al@3
+
+  if ( *((_BYTE *)a2 + 20) || **((_DWORD **)this + 40) == 1 )
+  {
+    AsyncTask::MessageLoop::RunTask(this, *(struct AsyncTask::Task **)a2); //==========>
+    result = 1;
+  }
+  else
+  {
+    sub_51B23198(a2);
+    result = 0;
+  }
+  return result;
+}
+
+//=============================================================================================
+//51B227CF
+char __thiscall AsyncTask::MessageLoop::DoWork(AsyncTask::MessageLoop *this)
+{
+  AsyncTask::MessageLoop *v1; // ebx@1
+  int v2; // eax@3
+  bool v3; // zf@4
+  int v5; // [sp+10h] [bp-18h]@4
+  __int64 v6; // [sp+18h] [bp-10h]@7
+
+  v1 = this;
+  if ( !*((_BYTE *)this + 88) )
+    return 0;
+  AsyncTask::MessageLoop::ReloadWorkQueue(this);
+  if ( !*((_DWORD *)v1 + 6) )
+    return 0;
+  v2 = (int)v1 + 8;
+  while ( 1 )
+  {
+    qmemcpy(&v5, (const void *)sub_51B22B52(v2), 0x18u);
+    v3 = (*((_DWORD *)v1 + 6))-- == 1;
+    if ( v3 )
+      *((_DWORD *)v1 + 5) = 0;
+    else
+      ++*((_DWORD *)v1 + 5);
+    if ( v6 )
+    {
+      AsyncTask::MessageLoop::AddToDelayedWorkQueue(v1, (const struct AsyncTask::MessageLoop::PendingTask *)&v5);
+      if ( **((_DWORD **)v1 + 7) == v5 )
+        (*(void (__stdcall **)(__int64 *))(**((_DWORD **)v1 + 16) + 16))(&v6);
+      goto LABEL_11;
+    }
+    if ( AsyncTask::MessageLoop::DeferOrRunPendingTask(v1, (const struct AsyncTask::MessageLoop::PendingTask *)&v5) )  //==========>
+      return 1;
+LABEL_11:
+    v2 = (int)v1 + 8;
+    if ( !*((_DWORD *)v1 + 6) )
+    {
+      AsyncTask::MessageLoop::ReloadWorkQueue(v1);
+      v2 = (int)v1 + 8;
+      if ( !*((_DWORD *)v1 + 6) )
+        return 0;
+    }
+  }
+}
+
+
+//=============================================================================================
+//51B24321
+void __thiscall AsyncTask::MessagePumpForUI::DoRunLoop(AsyncTask::MessagePumpForUI *this)
+{
+  AsyncTask::MessagePumpForUI *v1; // esi@1
+  bool v2; // bl@1
+  int i; // eax@1
+  char v4; // al@2
+  int v5; // ecx@2
+  char v6; // bl@2
+  char v7; // bl@3
+  int v8; // ecx@6
+  char v9; // al@8
+
+  v1 = this;
+  v2 = AsyncTask::MessagePumpForUI::ProcessNextWindowsMessage(this);
+  for ( i = *((_DWORD *)v1 + 11); !*(_BYTE *)(i + 4); i = *((_DWORD *)v1 + 11) )
+  {
+    v4 = (*(int (**)(void))(**(_DWORD **)i + 4))();  //==========> AsyncTask::MessageLoop::DoWork
+    v5 = *((_DWORD *)v1 + 11);
+    v6 = v4 | v2;
+    if ( *(_BYTE *)(v5 + 4) )
+      break;
+    v7 = (*(int (__stdcall **)(char *))(**(_DWORD **)v5 + 8))((char *)v1 + 32) | v6;
+    if ( v7 && !*((_QWORD *)v1 + 4) )
+      KillTimer(*((HWND *)v1 + 12), (UINT_PTR)v1);
+    v8 = *((_DWORD *)v1 + 11);
+    if ( *(_BYTE *)(v8 + 4) )
+      break;
+    if ( !v7 )
+    {
+      v9 = (*(int (**)(void))(**(_DWORD **)v8 + 12))();
+      if ( *(_BYTE *)(*((_DWORD *)v1 + 11) + 4) )
+        return;
+      if ( !v9 )
+        AsyncTask::MessagePumpForUI::WaitForWork(v1);
+    }
+    v2 = AsyncTask::MessagePumpForUI::ProcessNextWindowsMessage(v1); //循环
+  }
+}
+
+//=============================================================================================
+//51B2207A
+void __thiscall AsyncTask::MessageLoop::RunHandler(AsyncTask::MessageLoop *this)
+{
+  JUMPOUT(*((_BYTE *)this + 89), 0, AsyncTask::MessageLoop::RunInternalInSEHFrame);
+  (*(void (__stdcall **)(_DWORD))(**((_DWORD **)this + 16) + 4))(this); //===> 51B24321 / AsyncTask::MessagePumpForUI::DoRunLoop
+}
+ 
+
+void __thiscall AsyncTask::MessageLoopForUI::Run(AsyncTask::MessageLoopForUI *this)
+{
+  AsyncTask::MessageLoop *v1; // esi@1
+  char v2; // [sp+4h] [bp-10h]@1
+  int v3; // [sp+Ch] [bp-8h]@1
+  int v4; // [sp+10h] [bp-4h]@1
+
+  v1 = this;
+  AsyncTask::MessageLoop::AutoRunState::AutoRunState((AsyncTask::MessageLoop::AutoRunState *)&v2, this);
+  AsyncTask::MessageLoop::RunHandler(v1); //=========>
+  *(_DWORD *)(v3 + 160) = v4;
+}
+//=============================================================================================
+//51B25FE7
+void __stdcall AsyncTask::Thread::Run(struct AsyncTask::MessageLoop *a2)
+{
+  AsyncTask::MessageLoopForUI::Run(a2); //=====>
+}
+
+
+//=============================================================================================
+//51B26082 
+void __thiscall AsyncTask::Thread::ThreadMain(AsyncTask::Thread *this)
+{
+  AsyncTask::Thread *v1; // edi@1
+  const char *v2; // eax@1
+  LONG *v3; // eax@3
+  char v4; // [sp+Ch] [bp-FCh]@3
+  char v5; // [sp+10h] [bp-F8h]@1
+
+  v1 = this;
+  AsyncTask::MessageLoop::MessageLoop(&v5, ***((_DWORD ***)this + 2));
+  *((_DWORD *)v1 + 6) = GetCurrentThreadId();
+  v2 = (char *)v1 + 28;
+  if ( *((_DWORD *)v1 + 12) >= 0x10u )
+    v2 = (const char *)*((_DWORD *)v1 + 7);
+  AsyncTask::Thread::SetName(v2);
+  AsyncTask::MessageLoop::set_thread_name((char *)v1 + 28);
+  *((_DWORD *)v1 + 4) = &v5;
+  v3 = (LONG *)AsyncTask::MessageLoopProxy::CreateForCurrentThread(&v4);
+  sub_51B260BF((volatile LONG *)v1 + 5, *v3);
+  sub_51B229D2(&v4);
+  (*(void (__thiscall **)(AsyncTask::Thread *))(*(_DWORD *)v1 + 8))(v1);
+  SetEvent(*(HANDLE *)(*((_DWORD *)v1 + 2) + 4));
+  (*(void (__thiscall **)(AsyncTask::Thread *, _DWORD))(*(_DWORD *)v1 + 12))(v1, *((_DWORD *)v1 + 4)); //=============> 51B25FE7 / AsyncTask::Thread::Run
+  (*(void (__thiscall **)(AsyncTask::Thread *))(*(_DWORD *)v1 + 16))(v1);
+  *((_DWORD *)v1 + 4) = 0;
+  sub_51B260BF((volatile LONG *)v1 + 5, 0);
+  AsyncTask::MessageLoop::~MessageLoop((AsyncTask::MessageLoop *)&v5);
+  (*(void (__thiscall **)(AsyncTask::Thread *))(*(_DWORD *)v1 + 20))(v1);
+  *((_DWORD *)v1 + 6) = 0;
+}
+
+
+//=============================================================================================
+//51B25E47 打开聊天窗口时调用一次？
+DWORD __stdcall StartAddress(LPVOID lpThreadParameter)
+{
+  (*(void (**)(void))(*(_DWORD *)lpThreadParameter + 4))();  // 51B26082 / AsyncTask::Thread::ThreadMain
+  return 0;
+}
+
+{
+.text:51B25E3C
+.text:51B25E3C ; DWORD __stdcall StartAddress(LPVOID lpThreadParameter)
+.text:51B25E3C StartAddress    proc near               ; DATA XREF: AsyncTask::Thread::Create(uint,AsyncTask::ThreadDelegate *,void * *)+27o
+.text:51B25E3C
+.text:51B25E3C lpThreadParameter= dword ptr  8
+.text:51B25E3C
+.text:51B25E3C                 push    ebp
+.text:51B25E3D                 mov     ebp, esp
+.text:51B25E3F                 mov     ecx, [ebp+lpThreadParameter]
+.text:51B25E42                 mov     eax, [ecx]
+.text:51B25E44                 call    dword ptr [eax+4]
+.text:51B25E47                 xor     eax, eax
+.text:51B25E49                 pop     ebp
+.text:51B25E4A                 retn    4
+.text:51B25E4A StartAddress    endp
+	
+}
+ 
+.text:51B25F7B                 and     dword ptr [edi+8], 0
+
+.text:51B25E44                 call    dword ptr [eax+4]
+
+
+
+//=============================================================================================
+
+
+
 
 
 
@@ -3236,10 +3735,6 @@ LABEL_19:
 
 
 
-//=============================================================================================
-
-
-
 
 //=============================================================================================
 
@@ -3261,10 +3756,6 @@ LABEL_19:
 
 
 
-//=============================================================================================
-
-
-
 
 //=============================================================================================
 
@@ -3286,6 +3777,12 @@ LABEL_19:
 
 
 
+
+//=============================================================================================
+
+
+
+
 //=============================================================================================
 
 
@@ -3293,6 +3790,10 @@ LABEL_19:
 
 //=============================================================================================
 
+
+
+
+//=============================================================================================
 
 
 
