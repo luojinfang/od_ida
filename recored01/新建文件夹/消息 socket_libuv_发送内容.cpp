@@ -3474,7 +3474,7 @@ void __thiscall AsyncTask::MessageLoop::RunTask(AsyncTask::MessageLoop *this, st
     v8 = (*((_DWORD *)v11 + 3))-- == 1;
     if ( v8 )
       sub_51B22C9B();
-    (*(void (**)(void))(*(_DWORD *)a2 + 4))(); //=> 54B47A13
+    (*(void (**)(void))(*(_DWORD *)a2 + 4))(); //=> 54B47A13 / sub_54B47A13  
     v11 = (AsyncTask::MessageLoop *)((char *)v2 + 180);
     v12 = 0;
     if ( *((_DWORD *)v2 + 49) )

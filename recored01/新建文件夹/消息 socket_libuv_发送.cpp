@@ -22,98 +22,612 @@ Windows 平台上有一个 WSASend 函数,可以支持一次发送多个BUFFER�
 然后传递给WSASend函数同时提供BUF的数量,这样WSASend就能上面的工作而减少send的调用次数,来提高了性能
  
 //消息发送实例，怎样添加到 uv_loop_t 的?   并没有调用 uv_write, uv_write2  
-
-
-      0E18FA6C 55EE50AD 76F23500 38       ws2_32.76F23500            用户模块
-      0E18FAA4 55EE5334 55EE50AD 2C       libuv.55EE50AD             用户模块
-      0E18FAD0 55ED2EEC 55EE5334 24       libuv.55EE5334             用户模块
-      0E18FAF4 05136A5C 55ED2EEC 4C       libuv.55ED2EEC             用户模块
-      0E18FB40 0513B499 05136A5C 5C       arksocket.05136A5C         用户模块
-      0E18FB9C 0513B413 0513B499 54       arksocket.0513B499         用户模块
-      0E18FBF0 0513B124 0513B413 50       arksocket.0513B413         用户模块
-      0E18FC40 05132E4B 0513B124 18       arksocket.0513B124         用户模块
-      0E18FC58 05132602 05132E4B 20       arksocket.05132E4B         用户模块
-      0E18FC78 051325B9 05132602 28       arksocket.05132602         用户模块
-      0E18FCA0 0513A17F 051325B9 28       arksocket.051325B9         用户模块
-      0E18FCC8 05139FD2 0513A17F 70       arksocket.0513A17F         用户模块
-      0E18FD38 56DF4302 05139FD2 2C       arksocket.05139FD2         用户模块
-      0E18FD64 56DF9E9A 56DF4302 2C       preloginlogic.56DF4302     用户模块
-      0E18FD90 56DFCEEC 56DF9E9A 70       preloginlogic.56DF9E9A     用户模块
-      0E18FE00 56DF7973 56DFCEEC 24       preloginlogic.56DFCEEC     用户模块
-      0E18FE24 56DF7DDB 56DF7973 24       preloginlogic.56DF7973     用户模块
-      0E18FE48 56DF7A03 56DF7DDB 20       preloginlogic.56DF7DDB     用户模块
-      0E18FE68 56DF75D2 56DF7A03 24       preloginlogic.56DF7A03     用户模块
-      0E18FE8C 0513159A 56DF75D2 C        preloginlogic.56DF75D2     用户模块
-      0E18FE98 05135297 0513159A 28       arksocket.0513159A         用户模块
-      0E18FEC0 55ED39A7 05135297 20       arksocket.05135297         用户模块
-      0E18FEE0 55ED3A9C 55ED39A7 24       libuv.55ED39A7             用户模块
-      0E18FF04 05135696 55ED3A9C 20       libuv.55ED3A9C             用户模块
-      0E18FF24 55EE0E29 05135696 18       arksocket.05135696         用户模块
-      0E18FF3C 7590738F 55EE0E29 38       libuv.55EE0E29             系统模块
-      0E18FF74 74F70419 7590738F 10       ucrtbase.7590738F          系统模块
-      0E18FF84 771666DD 74F70419 5C       kernel32.74F70419          系统模块
-      0E18FFE0 771666AD 771666DD 10       ntdll.771666DD             系统模块
-      0E18FFF0 00000000 771666AD          ntdll.771666AD             用户模块
-
-
-
-      0E18F8E4 55EE50AD 76F23500 38  ws2_32.76F23500            用户模块
-      0E18F91C 55EE5334 55EE50AD 2C  libuv.55EE50AD             用户模块
-      0E18F948 55ED2EEC 55EE5334 24  libuv.55EE5334             用户模块
-      0E18F96C 05136A5C 55ED2EEC 4C  libuv.55ED2EEC             用户模块
-      0E18F9B8 0513B499 05136A5C 5C  arksocket.05136A5C         用户模块
-      0E18FA14 0513B413 0513B499 54  arksocket.0513B499         用户模块
-      0E18FA68 0513B124 0513B413 50  arksocket.0513B413         用户模块
-      0E18FAB8 05132E4B 0513B124 18  arksocket.0513B124         用户模块
-      0E18FAD0 05132602 05132E4B 20  arksocket.05132E4B         用户模块
-      0E18FAF0 051325B9 05132602 28  arksocket.05132602         用户模块
-      0E18FB18 0513A17F 051325B9 28  arksocket.051325B9         用户模块
-      0E18FB40 05139FD2 0513A17F 70  arksocket.0513A17F         用户模块
-      0E18FBB0 56DF4302 05139FD2 2C  arksocket.05139FD2         用户模块
-      0E18FBDC 56DF9E9A 56DF4302 2C  preloginlogic.56DF4302     用户模块
-      0E18FC08 56DFB5E1 56DF9E9A 38  preloginlogic.56DF9E9A     用户模块
-      0E18FC40 56DFAF47 56DFB5E1 64  preloginlogic.56DFB5E1     用户模块
-      0E18FCA4 56DFABE2 56DFAF47 2C  preloginlogic.56DFAF47     用户模块
-      0E18FCD0 56DFAB28 56DFABE2 20  preloginlogic.56DFABE2     用户模块
-      0E18FCF0 56DF51C3 56DFAB28 80  preloginlogic.56DFAB28     用户模块
-      0E18FD70 0513A596 56DF51C3 38  preloginlogic.56DF51C3     用户模块
-      0E18FDA8 0513B936 0513A596 20  arksocket.0513A596         用户模块
-      0E18FDC8 05136F09 0513B936 34  arksocket.0513B936         用户模块
-      0E18FDFC 55EE554E 05136F09 C4  arksocket.05136F09         用户模块
-      0E18FEC0 55ED3990 55EE554E 20  libuv.55EE554E             用户模块
-      0E18FEE0 55ED3A9C 55ED3990 24  libuv.55ED3990             用户模块
-      0E18FF04 05135696 55ED3A9C 20  libuv.55ED3A9C             用户模块
-      0E18FF24 55EE0E29 05135696 18  arksocket.05135696         用户模块
-      0E18FF3C 7590738F 55EE0E29 38  libuv.55EE0E29             系统模块
-      0E18FF74 74F70419 7590738F 10  ucrtbase.7590738F          系统模块
-      0E18FF84 771666DD 74F70419 5C  kernel32.74F70419          系统模块
-      0E18FFE0 771666AD 771666DD 10  ntdll.771666DD             系统模块
-      0E18FFF0 00000000 771666AD     ntdll.771666AD             用户模块
-
-
-      0E18FD3C 55EE50AD 76F23500 38  ws2_32.76F23500            用户模块
-      0E18FD74 55EE5334 55EE50AD 2C  libuv.55EE50AD             用户模块
-      0E18FDA0 55ED2EEC 55EE5334 24  libuv.55EE5334             用户模块
-      0E18FDC4 05136A5C 55ED2EEC 4C  libuv.55ED2EEC             用户模块
-      0E18FE10 0513B499 05136A5C 5C  arksocket.05136A5C         用户模块
-      0E18FE6C 0513B578 0513B499 1C  arksocket.0513B499         用户模块
-      0E18FE88 05136B73 0513B578 1C  arksocket.0513B578         用户模块
-      0E18FEA4 55EE561D 05136B73 1C  arksocket.05136B73         用户模块
-      0E18FEC0 55ED399C 55EE561D 20  libuv.55EE561D             用户模块
-      0E18FEE0 55ED3A9C 55ED399C 24  libuv.55ED399C             用户模块
-      0E18FF04 05135696 55ED3A9C 20  libuv.55ED3A9C             用户模块
-      0E18FF24 55EE0E29 05135696 18  arksocket.05135696         用户模块
-      0E18FF3C 7590738F 55EE0E29 38  libuv.55EE0E29             系统模块
-      0E18FF74 74F70419 7590738F 10  ucrtbase.7590738F          系统模块
-      0E18FF84 771666DD 74F70419 5C  kernel32.74F70419          系统模块
-      0E18FFE0 771666AD 771666DD 10  ntdll.771666DD             系统模块
-      0E18FFF0 00000000 771666AD     ntdll.771666AD             用户模块
-
-*/    
+================================================================================
+Address  To       From     Si Comment                Party 
+07E9FA14 55F0DA6B 775612E0 54 ws2_32.775612E0        User
+07E9FA68 55F0C1C5 55F0DA6B 2C libuv.55F0DA6B         User
+07E9FA94 55ED87CB 55F0C1C5 28 libuv.55F0C1C5         User
+07E9FABC 52AF6A5C 55ED87CB 4C libuv.55ED87CB         User
+07E9FB08 52AFB499 52AF6A5C 5C arksocket.52AF6A5C     User
+07E9FB64 52AFB413 52AFB499 54 arksocket.52AFB499     User  //sub_52AFB429
+07E9FBB8 52AFB124 52AFB413 50 arksocket.52AFB413     User
+07E9FC08 52AF2E4B 52AFB124 18 arksocket.52AFB124     User
+07E9FC20 52AF2602 52AF2E4B 20 arksocket.52AF2E4B     User //sub_52AF2E27
+07E9FC40 52AF25B9 52AF2602 28 arksocket.52AF2602     User
+07E9FC68 52AFA17F 52AF25B9 28 arksocket.52AF25B9     User
+07E9FC90 52AF9FD2 52AFA17F 70 arksocket.52AFA17F     User
+07E9FD00 56DF4302 52AF9FD2 2C arksocket.52AF9FD2     User //sub_52AFA10A
+07E9FD2C 56DF9E9A 56DF4302 2C preloginlogic.56DF4302 User
+07E9FD58 56DFCB24 56DF9E9A 74 preloginlogic.56DF9E9A User
+07E9FDCC 56DF79DF 56DFCB24 24 preloginlogic.56DFCB24 User
+07E9FDF0 56DF7DFF 56DF79DF 24 preloginlogic.56DF79DF User
+07E9FE14 56DF7A27 56DF7DFF 20 preloginlogic.56DF7DFF User
+07E9FE34 56DF75F0 56DF7A27 24 preloginlogic.56DF7A27 User
+07E9FE58 52AF159A 56DF75F0 C  preloginlogic.56DF75F0 User
+07E9FE64 52AF5297 52AF159A 2C arksocket.52AF159A     User
+07E9FE90 55EDBD3B 52AF5297 3C arksocket.52AF5297     User
+07E9FECC 55EDAE74 55EDBD3B 18 libuv.55EDBD3B         User
+07E9FEE4 52AF5696 55EDAE74 20 libuv.55EDAE74         User
+07E9FF04 55EF3370 52AF5696 28 arksocket.52AF5696     User
+07E9FF2C 7C2A6CF2 55EF3370 48 libuv.55EF3370         System
+07E9FF74 759F6359 7C2A6CF2 10 ucrtbased.7C2A6CF2     System
+07E9FF84 77808944 759F6359 5C kernel32.759F6359      System
+07E9FFE0 77808914 77808944 10 ntdll.77808944         System
+07E9FFF0 00000000 77808914    ntdll.77808914         User
 
 
 
-/*
+signed int __thiscall sub_52AF9F70(void *this, int a2, int a3, int *a4)
+{
+  void *v4; // ebx@1
+  signed int v5; // esi@4
+  int v6; // ST28_4@5
+  signed int result; // eax@6
+  char v8; // [sp-28h] [bp-78h]@0
+  int v9; // [sp-24h] [bp-74h]@0
+  int v10; // [sp-20h] [bp-70h]@0
+  int v11; // [sp-1Ch] [bp-6Ch]@0
+  int v12; // [sp-18h] [bp-68h]@0
+  int v13; // [sp-14h] [bp-64h]@0
+  int v14; // [sp-10h] [bp-60h]@0
+  int v15; // [sp-Ch] [bp-5Ch]@0
+  int v16; // [sp-8h] [bp-58h]@0
+  int v17; // [sp+Ch] [bp-44h]@3
+  int (__thiscall **v18)(void *, char); // [sp+10h] [bp-40h]@5
+  int v19; // [sp+14h] [bp-3Ch]@5
+  int (__thiscall **v20)(void *, char); // [sp+18h] [bp-38h]@5
+  int v21; // [sp+1Ch] [bp-34h]@5
+  int (__stdcall *v22)(char, int, char, int, int, int, int); // [sp+20h] [bp-30h]@5
+  int v23; // [sp+24h] [bp-2Ch]@5
+  int v24; // [sp+28h] [bp-28h]@5
+  int v25; // [sp+2Ch] [bp-24h]@5
+  int v26; // [sp+30h] [bp-20h]@5
+  char v27; // [sp+38h] [bp-18h]@5
+  char v28; // [sp+40h] [bp-10h]@5
+  void *v29; // [sp+48h] [bp-8h]@5
+
+  v4 = this;
+  if ( a2 && (*(int (__thiscall **)(int))(*(_DWORD *)a2 + 16))(a2) )
+  {
+    *a4 = arksocket::CookieMgr::GetCookie((volatile LONG *)v4 + 45);
+    v17 = GetTickCount();
+    if ( arksocket::IOLoop::IsLoopThread(*((arksocket::IOLoop **)v4 + 4)) )
+    {
+      v5 = sub_52AFA10A((int)v4, a2, a3, *a4, v17, 0); //52AF9FD2===============>sub_52AFA10A
+    }
+    else
+    {
+      v21 = 0;
+      v20 = &off_52AFE370;
+      sub_52AF1D01(a3);
+      v19 = 0;
+      v18 = &off_52AFE370;
+      sub_52AF1D01(a2);
+      v23 = 0;
+      v25 = 0;
+      v24 = v17;
+      v22 = sub_52AFA0AF;
+      v26 = *a4;
+      sub_52AF7676(&v20);
+      sub_52AF7676(&v18);
+      v29 = v4;
+      v6 = sub_52AFAADA(&v22);
+      sub_52AF1648(&v28);
+      sub_52AF1648(&v27);
+      v5 = arksocket::Async::AsyncCall(v8, v9, v10, v11, v12, v13, v14, v15, v16, v6);
+      sub_52AF1648(&v18);
+      sub_52AF1648(&v20);
+    }
+    result = v5;
+  }
+  else
+  {
+    sub_52AF4ED2("udp_channel", "UdpChannelImpl::Send, buffer is NULL.");
+    result = -1;
+  }
+  return result;
+}
+
+
+signed int __thiscall sub_52AFA10A(int this, int a2, int a3, int a4, int a5, int a6)
+{
+  int v6; // edi@1
+  int v8; // eax@4
+  int v9; // esi@6
+
+  v6 = this;
+  if ( !a2 )
+  {
+    sub_52AF4ED2("udp_channel", "UdpChannelImpl::_SendData, buffer is NULL.");
+    return -1;
+  }
+  v8 = a3;
+  if ( !a3 )
+  {
+    v8 = *(_DWORD *)(this + 188);
+    if ( !v8 )
+    {
+      arksocket::ChannelSendOption::ChannelSendOption((arksocket::ChannelSendOption *)&a3);
+      v9 = a3;
+      (*(void (__thiscall **)(int))(*(_DWORD *)a3 + 20))(a3);
+      sub_52AF1D01(v9);
+      (*(void (__thiscall **)(int))(*(_DWORD *)v9 + 8))(v9);
+      v8 = *(_DWORD *)(v6 + 188);
+    }
+  }
+  if ( !sub_52AF24FC((char *)(v6 + 112), a2, v8, a4, a5, a6) ) //52AFA17F  =====>sub_52AF24FC
+  {
+    sub_52AF4ED2("udp_channel", "UdpChannelImpl::_SendData, SendPacket fail.");
+    return -1;
+  }
+  return 0;
+}
+
+
+char __thiscall sub_52AF24FC(char *this, int a2, int a3, int a4, int a5, int a6)
+{
+  char *v6; // esi@1
+  int v7; // eax@3
+  int v8; // edi@3
+  int v9; // ebx@3
+  int v11; // eax@7
+  int v12; // ecx@7
+  char v13; // [sp+10h] [bp-Ch]@7
+
+  v6 = this;
+  if ( !a2 || !a3 )
+    return 0;
+  v7 = sub_52AFCBDF(0x40u);
+  v8 = sub_52AF23DC(v7);
+  sub_52AF1D01(a2);
+  v9 = a4;
+  *(_DWORD *)v8 = a4;
+  arksocket::IPEndPoint::operator=(v6 + 8);
+  sub_52AF1D01(a3);
+  *(_DWORD *)(v8 + 32) = a5;
+  *(_DWORD *)(v8 + 36) = a6;
+  a2 = v9;
+  if ( *(_DWORD *)sub_52AF2EC3(&a3, &a2) != *((_DWORD *)v6 + 4) )
+  {
+    sub_52AF4ED2("data_sender", "DataSender::SendPacket, same cookie found, cookie=%u");
+    return 0;
+  }
+  a5 = v9;
+  a6 = v8;
+  v11 = sub_52AF39E7(&a5);
+  sub_52AF3A34(&v13, v12, v11 + 16, v11);
+  sub_52AF25C4((int)v6, v8);  //52AF25B9 =============>
+  sub_52AF2D3A(v6);
+  return 1;
+}
+
+int __thiscall sub_52AF25C4(int this, int a2)
+{
+  int v2; // esi@1
+  int v3; // edi@1
+  __time64_t v4; // rax@7
+  int v5; // ebx@7
+  int v6; // edx@7
+  int v7; // eax@7
+  __int64 v9; // [sp+Ch] [bp-8h]@7
+  _DWORD *v10; // [sp+1Ch] [bp+8h]@7
+
+  v2 = a2;
+  v3 = this;
+  if ( !*(_BYTE *)(this + 4) && arksocket::IPEndPoint::IsValid((arksocket::IPEndPoint *)(this + 8)) )
+  {
+    if ( !arksocket::IPEndPoint::IsValid((arksocket::IPEndPoint *)(a2 + 12)) )
+      arksocket::IPEndPoint::operator=(v3 + 8);
+    if ( !(*(int (__thiscall **)(int, int))(*(_DWORD *)v3 + 4))(v3, a2) )  // 52AF2602 ============>sub_52AF2E27
+      ++*(_DWORD *)(a2 + 20);
+  }
+  v4 = time64(0);
+  v5 = *(_DWORD *)(a2 + 56);
+  v9 = v4;
+  v10 = *(_DWORD **)(v5 + 4);
+  v6 = sub_52AF387B(v5, *(_DWORD *)(v5 + 4), &v9);
+  v7 = *(_DWORD *)(v2 + 60);
+  if ( (unsigned int)(268435454 - v7) < 1 )
+    std::_Xlength_error("list<T> too long");
+  *(_DWORD *)(v2 + 60) = v7 + 1;
+  *(_DWORD *)(v5 + 4) = v6;
+  *v10 = v6;
+  return sub_52AF2663(v2);
+}
+
+int __thiscall sub_52AF2E27(int this, int a2)
+{
+  int v2; // ecx@1
+  int result; // eax@2
+
+  v2 = *(_DWORD *)(this + 64);
+  if ( v2 )
+    result = (*(int (__stdcall **)(_DWORD, int, _DWORD))(*(_DWORD *)v2 + 24))(
+               *(_DWORD *)(a2 + 8),
+               a2 + 12,
+               *(_DWORD *)a2);   // 52AF2E4B =====>  sub_52AFB0D7/52AFB124
+  else
+    result = -1;
+  return result;
+}
+
+
+int __thiscall sub_52AFB0D7(int this, int a2, arksocket::IPEndPoint *a3, int a4)
+{
+  int v4; // ebx@1
+  int result; // eax@5
+  int v6; // ST28_4@6
+  int v7; // esi@6
+  char v8; // [sp-28h] [bp-60h]@0
+  int v9; // [sp-24h] [bp-5Ch]@0
+  int v10; // [sp-20h] [bp-58h]@0
+  int v11; // [sp-1Ch] [bp-54h]@0
+  int v12; // [sp-18h] [bp-50h]@0
+  int v13; // [sp-14h] [bp-4Ch]@0
+  int v14; // [sp-10h] [bp-48h]@0
+  int v15; // [sp-Ch] [bp-44h]@0
+  int v16; // [sp-8h] [bp-40h]@0
+  int (__thiscall **v17)(void *, char); // [sp+10h] [bp-28h]@6
+  int v18; // [sp+14h] [bp-24h]@6
+  int (__stdcall *v19)(char, int, int, int); // [sp+18h] [bp-20h]@6
+  int v20; // [sp+1Ch] [bp-1Ch]@6
+  int v21; // [sp+20h] [bp-18h]@6
+  char v22; // [sp+24h] [bp-14h]@6
+  int v23; // [sp+30h] [bp-8h]@6
+
+  v4 = this;
+  if ( *(_DWORD *)(this + 12) && a2 && arksocket::IPEndPoint::IsValid(a3) )
+  {
+    if ( arksocket::IOLoop::IsLoopThread(*(arksocket::IOLoop **)(v4 + 12)) )
+    {
+      result = sub_52AFB21C((_DWORD *)v4, a2, (int)a3, a4); //52AFB124 =============> sub_52AFB21C
+    }
+    else
+    {
+      v18 = 0;
+      v17 = &off_52AFE370;
+      sub_52AF1D01(a2);
+      v20 = 0;
+      v19 = sub_52AFB1E6;
+      v21 = a4;
+      arksocket::IPEndPoint::IPEndPoint((arksocket::IPEndPoint *)&v22, a3);
+      sub_52AF7676(&v17);
+      v23 = v4;
+      v6 = sub_52AFC04A(&v19);
+      sub_52AFB1CA(&v21);
+      v7 = arksocket::Async::AsyncCall(v8, v9, v10, v11, v12, v13, v14, v15, v16, v6);
+      sub_52AF1648(&v17);
+      if ( v7 )
+        sub_52AF4ED2("udp", "UdpImpl::Send, AsyncCall fail, ret=%d");
+      result = v7;
+    }
+  }
+  else
+  {
+    result = -1;
+  }
+  return result;
+}
+
+signed int __thiscall sub_52AFB21C(_DWORD *this, int a2, int a3, int a4)
+{
+  _DWORD *v4; // ebx@1
+  int v5; // edi@1
+  int v6; // eax@1
+  const void **v7; // eax@2
+  int v8; // esi@4
+  int v9; // eax@5
+  int v10; // eax@6
+  signed int result; // eax@7
+  int v12; // eax@10
+  int v13; // eax@11
+  int v14; // ST08_4@12
+  int v15; // eax@13
+  int v16; // esi@13
+  int v17; // ST0C_4@13
+  int v18; // ecx@13
+  int v19; // esi@13
+  _DWORD *v20; // edi@13
+  int v21; // edx@13
+  int v22; // eax@13
+  void *Memory; // [sp+10h] [bp-38h]@2
+  int v24; // [sp+14h] [bp-34h]@13
+  void *v25; // [sp+18h] [bp-30h]@2
+  char v26; // [sp+1Ch] [bp-2Ch]@2
+  int v27; // [sp+20h] [bp-28h]@1
+  int v28; // [sp+24h] [bp-24h]@1
+  int v29; // [sp+28h] [bp-20h]@1
+  char v30; // [sp+2Ch] [bp-1Ch]@5
+
+  v27 = -1;
+  v4 = this;
+  v29 = a2;
+  v5 = a3;
+  v6 = *this;
+  v28 = a3;
+  if ( !(unsigned __int8)(*(int (**)(void))(v6 + 44))() )
+  {
+    arksocket::IPEndPoint::IPEndPoint((arksocket::IPEndPoint *)&v25);
+    v26 = 1;
+    v7 = (const void **)arksocket::IPEndPoint::IPEndPoint(
+                          (arksocket::IPEndPoint *)&Memory,
+                          (const struct arksocket::IPAddress *)&arksocket::IPAddress::Any,
+                          0);
+    if ( (const void **)&v25 != v7 )
+    {
+      qmemcpy(v25, *v7, 0x80u);
+      v5 = v28;
+    }
+    sub_52AFCC0F(Memory);
+    sub_52AFAED3((arksocket::IPEndPoint *)&v25, (int)&v27);
+    v8 = v27;
+    if ( v27 )
+    {
+      arksocket::IPEndPoint::GetAddress(v5, &Memory);
+      v9 = arksocket::IPAddress::GetString(&v30);
+      if ( *(_DWORD *)(v9 + 20) >= 0x10u )
+        v10 = *(_DWORD *)v9;
+      sub_52AF4ED2("udp", "UvUdpImpl, _Send, Open Fail, ret=%d, dest-addr=%s");
+      sub_52AF3015(&v30);
+      arksocket::IPAddress::~IPAddress((arksocket::IPAddress *)&Memory);
+      sub_52AFCC0F(v25);
+      return v8;
+    }
+    sub_52AFCC0F(v25);
+  }
+  if ( v4[19] <= 0x20000 )
+  {
+    v15 = sub_52AFCBDF(0x10u);
+    v16 = v15;
+    *(_DWORD *)v15 = 0;
+    *(_DWORD *)(v15 + 4) = 0;
+    *(_DWORD *)(v15 + 8) = 0;
+    *(_DWORD *)(v15 + 12) = 0;
+    arksocket::IPEndPoint::IPEndPoint((arksocket::IPEndPoint *)(v15 + 4));
+    v17 = v29;
+    v18 = v16 + 8;
+    *(_DWORD *)(v18 + 4) = 0;
+    *(_DWORD *)v18 = &off_52AFE370;
+    v24 = v16;
+    sub_52AF1D01(v17);
+    arksocket::IPEndPoint::operator=(v28);
+    *(_DWORD *)v24 = a4;
+    v19 = v4[17];
+    v20 = *(_DWORD **)(v19 + 4);
+    v21 = sub_52AF19C1(v4[17], *(_DWORD *)(v19 + 4), &v24);
+    v22 = v4[18];
+    if ( (unsigned int)(357913940 - v22) < 1 )
+      std::_Xlength_error("list<T> too long");
+    v4[18] = v22 + 1;
+    *(_DWORD *)(v19 + 4) = v21;
+    *v20 = v21;
+    v4[19] += (*(int (**)(void))(**(_DWORD **)(v24 + 12) + 16))();
+    sub_52AFB429((int)v4); // ===============>
+    result = 0;
+  }
+  else
+  {
+    arksocket::IPEndPoint::GetAddress(v5, &Memory);
+    v12 = arksocket::IPAddress::GetString(&v30);
+    if ( *(_DWORD *)(v12 + 20) >= 0x10u )
+      v13 = *(_DWORD *)v12;
+    v14 = v4[19];
+    sub_52AF4ED2("udp", "UvUdpImpl, _Send, send queue is full, drop the data, queue-size=%u, dest-addr=%s.");
+    sub_52AF3015(&v30);
+    arksocket::IPAddress::~IPAddress((arksocket::IPAddress *)&Memory);
+    result = -1;
+  }
+  return result;
+} 
+
+
+
+--------------
+.text:52AFB437                 cmp     dword ptr [edi+48h], 0     // edi 为 基址 off_52AFF580 虚表内容.  edi是 CreateUdp创建的 arksocket 实例？ 
+.text:52AFB43B                 jz      loc_52AFB52A
+.text:52AFB441                 test    byte ptr [edi+50h], 1
+.text:52AFB445                 jnz     loc_52AFB52A
+
+//52AF9575
+char __cdecl arksocket::CreateUdp(arksocket *this, struct arksocket::IUdp **a2)
+{
+  int v2; // ebp@0
+  char result; // al@2
+  _DWORD *v4; // esi@3
+
+  if ( this )
+  {
+    *(_DWORD *)this = 0;
+    v4 = sub_52AFCBDF(0x54u); //申请内存
+    sub_52AFAB2A((int)v4, v2, (struct arksocket::IOLoop *)a2);  //构造方法
+    *v4 = &off_52AFF580; //虚表 
+    result = 1;
+    v4[1] = &off_52AFF5BC; //继承方法？？
+    *(_DWORD *)this = v4;
+  }
+  else
+  {
+    result = 0;
+  }
+  return result;
+}
+Address  To       From     Si Comment            Party 
+0CA8FD44 52AF95C5 52AF9575 18 arksocket.52AF9575 User
+0CA8FD5C 52AF9C88 52AF95C5 38 arksocket.52AF95C5 User
+0CA8FD94 52AF4449 52AF9C88 18 arksocket.52AF9C88 User
+0CA8FDAC 52AF4832 52AF4449 1C arksocket.52AF4449 User
+0CA8FDC8 52AF40DE 52AF4832 98 arksocket.52AF4832 User
+0CA8FE60 52AF47FF 52AF40DE 30 arksocket.52AF40DE User
+0CA8FE90 55EDBD3B 52AF47FF 3C arksocket.52AF47FF User
+0CA8FECC 55EDAE74 55EDBD3B 18 libuv.55EDBD3B     User
+0CA8FEE4 52AF5696 55EDAE74 20 libuv.55EDAE74     User
+0CA8FF04 55EF3370 52AF5696 28 arksocket.52AF5696 User
+0CA8FF2C 7C2A6CF2 55EF3370 48 libuv.55EF3370     System
+0CA8FF74 759F6359 7C2A6CF2 10 ucrtbased.7C2A6CF2 System
+0CA8FF84 77808944 759F6359 5C kernel32.759F6359  System
+0CA8FFE0 77808914 77808944 10 ntdll.77808944     System
+0CA8FFF0 00000000 77808914    ntdll.77808914     User
+
+
+--------------
+//循环
+void __thiscall sub_52AFB429(int this)
+{
+  int v1; // edi@1
+  _DWORD *v2; // ecx@3
+  int v3; // esi@3
+  int v4; // eax@3
+  int v5; // edx@3
+  int v6; // ecx@3
+  int v7; // eax@4
+  int v8; // ecx@4
+  int v9; // edi@4
+  int v10; // ST28_4@4
+  int v11; // ST20_4@4
+  int v12; // ST24_4@4
+  char v13; // [sp-28h] [bp-68h]@0
+  int v14; // [sp-24h] [bp-64h]@0
+  int v15; // [sp-20h] [bp-60h]@0
+  int v16; // [sp-1Ch] [bp-5Ch]@0
+  int v17; // [sp-18h] [bp-58h]@0
+  int v18; // [sp-14h] [bp-54h]@3
+  int v19; // [sp-10h] [bp-50h]@3
+  int (__stdcall *v20)(int, int, int, int); // [sp+10h] [bp-30h]@4
+  int v21; // [sp+14h] [bp-2Ch]@4
+  int v22; // [sp+18h] [bp-28h]@4
+  char v23; // [sp+1Ch] [bp-24h]@4
+  int v24; // [sp+28h] [bp-18h]@4
+  int v25; // [sp+2Ch] [bp-14h]@4
+  char v26; // [sp+30h] [bp-10h]@4
+  int v27; // [sp+38h] [bp-8h]@1
+  int v28; // [sp+3Ch] [bp-4h]@3
+
+  v1 = this;
+  v27 = this;
+  if ( *(_DWORD *)(this + 72) && !(*(_BYTE *)(this + 80) & 1) )   //循环 ------------------------>触发变化
+  {
+    v2 = **(_DWORD ***)(this + 68);
+    v3 = v2[2];
+    *(_DWORD *)v2[1] = *v2;
+    *(_DWORD *)(*v2 + 4) = v2[1];
+    --*(_DWORD *)(v1 + 72);
+    sub_52AF194D(v2);
+    v4 = (*(int (**)(void))(**(_DWORD **)(v3 + 12) + 16))();
+    v5 = *(_DWORD *)(v1 + 56);
+    *(_DWORD *)(v1 + 76) -= v4;
+    v28 = sub_52AF69A6(
+            *(_DWORD **)(v1 + 36),
+            *(_DWORD *)(v1 + 16),
+            *(_DWORD *)(v3 + 12),
+            (arksocket::IPEndPoint *)(v3 + 4),
+            v5 != 0 ? v5 + 8 : 0,
+            *(_DWORD *)v3);  // 52AFB499 =========================> sub_52AF69A6
+    if ( v28 )
+    {
+      sub_52AF4ED2("udp", "UvUdpImpl::_SendQueueData, Send fail, ret=%d");
+      v7 = sub_52AF7676(v3 + 8);
+      v8 = *(_DWORD *)v3;
+      v21 = 0;
+      v9 = v7;
+      v22 = v8;
+      v20 = sub_52AFB52F;
+      arksocket::IPEndPoint::IPEndPoint((arksocket::IPEndPoint *)&v23, (const struct arksocket::IPEndPoint *)(v3 + 4));
+      sub_52AF7676(v9);
+      v1 = v27;
+      v24 = v28;
+      v25 = v27;
+      v10 = sub_52AFC092(&v20);
+      sub_52AFB1CA(&v22);
+      arksocket::Async::AsyncCall(v13, v14, v15, v16, v17, v18, v19, v11, v12, v10);
+      sub_52AF1648(&v26);
+    }
+    *(_DWORD *)(v1 + 80) |= 1u;
+    sub_52AFBACB((void *)v3, v6);
+  }
+}
+
+
+int __thiscall sub_52AF69A6(_DWORD *this, int a2, int a3, arksocket::IPEndPoint *a4, int a5, int a6)
+{
+  _DWORD *v6; // edi@1
+  int v7; // eax@7
+  int v8; // ebx@7
+  int *v9; // esi@7
+  int v10; // ecx@7
+  _DWORD *v11; // ebx@9
+  int v12; // edi@9
+  int v13; // eax@9
+  int v14; // edx@9
+  int v15; // eax@9
+  int v16; // edi@9
+  int *v17; // ecx@10
+  int *v18; // ebx@11
+  int v19; // edi@11
+  int v21; // [sp+10h] [bp-14h]@9
+  int v22; // [sp+14h] [bp-10h]@9
+  int v23; // [sp+18h] [bp-Ch]@1
+
+  v6 = this;
+  v23 = (int)this;
+  if ( !a2 || !a3 || !arksocket::IPEndPoint::IsValid(a4) || !a5 )
+  {
+    sub_52AF4ED2("op", "UvUdpSend::Send, Invalid Arg");
+    return -1;
+  }
+  if ( v6[3] )
+  {
+    sub_52AF4ED2("op", "UvUdpSend::Send, sending in progress.");
+    return -1;
+  }
+  v7 = sub_52AFCBDF(0x68u);
+  v8 = sub_52AF6916(v7);
+  v9 = (int *)v8;
+  v10 = *(_DWORD *)(v8 + 84);
+  if ( v10 )
+    (*(void (**)(void))(*(_DWORD *)v10 + 8))();
+  *(_DWORD *)(v8 + 84) = v6;
+  (*(void (__thiscall **)(void *))(*v6 + 4))(v6);
+  v11 = (_DWORD *)(v8 + 4);
+  *v11 = v6;
+  v12 = (*(int (**)(void))(*(_DWORD *)a3 + 16))();
+  v13 = (*(int (__thiscall **)(int))(*(_DWORD *)a3 + 12))(a3);
+  v21 = uv_buf_init(v13, v12);
+  v22 = v14;
+  v15 = uv_udp_send(v11, a2, &v21, 1, *(_DWORD *)a4, sub_52AF6B21);   //52AF6A5C================>uv_udp_send
+  v16 = v15;
+  if ( v15 )
+  {
+    uv_strerror(v15);
+    sub_52AF4ED2("op", "UvUdpSend, uv_udp_send fail, check=%d, ret=%d, %s");
+  }
+  else
+  {
+    v18 = v9;
+    *v9 = a2;
+    sub_52AF1D01(a5);
+    sub_52AF1D01(a3);
+    arksocket::IPEndPoint::operator=(a4);
+    v19 = v23;
+    v9 = 0;
+    v18[19] = a6;
+    v17 = *(int **)(v19 + 12);
+    if ( v18 != v17 && v17 )
+      sub_52AF7792(v17, *(_DWORD *)(v19 + 12));
+    *(_DWORD *)(v19 + 12) = v18;
+    v16 = 0;
+  }
+  if ( v9 )
+    sub_52AF7792(v9, (int)v17);
+  return v16;
+}
+
+
+
+
+
+
+ 
+ 
       0CF0FA14 706DDA6B 76D73500 54  ws2_32.76D73500            用户模块
       0CF0FA68 706DC1C5 706DDA6B 2C  libuv.uv__send+9B          用户模块
       0CF0FA94 706A881B 706DC1C5 28  libuv.uv__udp_send+95      用户模块
@@ -280,7 +794,7 @@ signed int __thiscall sub_51AF54CA(int this)
   if ( !*(_DWORD *)(this + 4) && !(*(_DWORD *)(this + 16) & 1) )
   {
     v2 = calloc(1u, 0x100u);
-    *(_DWORD *)(v1 + 4) = v2;
+    *(_DWORD *)(v1 + 4) = v2; //--------------------------------->
     if ( !v2 || uv_loop_init(v2) )
     {
       v6 = *(_DWORD *)(v1 + 4);
@@ -501,7 +1015,7 @@ int uv_thread_create(uv_thread_t *tid, void (*entry)(void *arg), void *arg) {
 	
 }
 
-
+//dump [ebp+8];dump [ebp+8]+4 ;dump [[ebp+8]+4]  =>dword_51B06298
 static UINT __stdcall uv__thread_start(void* arg) {
   struct thread_ctx *ctx_p;
   struct thread_ctx ctx;
@@ -513,9 +1027,13 @@ static UINT __stdcall uv__thread_start(void* arg) {
   uv_once(&uv__current_thread_init_guard, uv__init_current_thread_key);
   uv_key_set(&uv__current_thread_key, (void*) ctx.self);
 
-  ctx.entry(ctx.arg);
+  ctx.entry(ctx.arg); //sub_51AF563A
 
   return 0;
+}
+void uv_key_set(uv_key_t* key, void* value) {
+  if (TlsSetValue(key->tls_index, value) == FALSE)
+    abort();
 }
 {
 .text:55EF3300 uv__thread_start proc near              ; DATA XREF: _uv_thread_create+50o
@@ -586,6 +1104,13 @@ static UINT __stdcall uv__thread_start(void* arg) {
 	
 }
 
+struct thread_ctx {
+  void (*entry)(void* arg);
+  void* arg;
+  uv_thread_t self; // 保存 _beginthreadex 返回值
+};
+
+//lpTlsValue  dump ecx; dump [ecx]; / dump esi; dump [esi];
 int __cdecl sub_51AF563A(LPVOID lpTlsValue)
 {
   _DWORD *v1; // esi@1
@@ -607,7 +1132,10 @@ int __cdecl sub_51AF563A(LPVOID lpTlsValue)
   uv_rwlock_wrunlock(v2);
   TlsSetValue(v3, lpTlsValuea);
   uv_sem_post(v1[6]);
-  return uv_run(v1[1], 0);
+  
+int uv_run(uv_loop_t *loop, uv_run_mode mode) {
+  //v1[1] 是 uv_loop_t. 对应上边的 sub_51AF54CA => *(_DWORD *)(v1 + 4) = v2;
+  return uv_run(v1[1], 0); // 
 }
 
 .text:51AF563F                 mov     esi, [ebp+lpTlsValue]
