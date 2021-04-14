@@ -1934,27 +1934,7 @@ typedef struct _WSABUF {
 } WSABUF, FAR * LPWSABUF;
 
 
-#include <winsock2.h>
-int WSAAPI WSASendTo (
-	SOCKET s,
-	LPWSABUF lpBuffers,
-	DWORD dwBufferCount,
-	LPDWORD lpNumberOfBytesSent,
-	int iFlags,
-	LPVOID lpTo,
-	int iToLen,
-	LPWSAOVERLAPPED lpOverlapped,
-	LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine
-);
-s：	用于标识一个已连接的套接口，该套接口以WSA_FLAG_OVERLAPPED标志调用WSASocket()创建。
-lpBuffers：	一个指向 WSABUF 结构数组的指针。每个WSABUF结构包含缓冲区的指针和缓冲区的大小。
-dwBufferCount：	lpBuffers数组中WSABUF结构的数目。
-lpNumberOfBytesSent：	如果发送操作立即完成，则为一个指向所发送数据字节数的指针。
-iFlags：	标志位。
-lpTo：	（可选）指针，指向目标套接口的地址。
-lpTolen：	lpTo中地址的大小。
-lpOverlapped：	指向WSAOVERLAPPED结构的指针（对于非重叠套接口则忽略）。
-lpCompletionRoutine：	一个指向发送操作完成后调用的完成例程的指针（对于非重叠套接口则忽略）。
+
 
 //=================================
 	  
