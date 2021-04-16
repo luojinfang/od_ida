@@ -54,12 +54,9 @@
 	   
 	   
 	   
-	   
-	   
-	   
-	   
-	   
-	   
+libuv.dll/base=55ED0000	   
+arksocket.dll/base=52AF0000
+
 	   
 	   
 	   
