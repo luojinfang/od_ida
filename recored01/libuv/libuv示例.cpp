@@ -34,7 +34,11 @@ uv_req_t 及其子类
 		uv_worker_t：用于向线程提交一个任务。
 	除了 uv_worker_t 之外，其它几个操作都有以下的特点：可能会阻塞线程，所以就单独拿出来处理了
 
- 
+//libuv udp  server
+//libuv udp  client
+//libuv timer 
+
+
 
 */
 
@@ -228,6 +232,139 @@ int main(int argc, char** argv) {
  
 	system("pause");
 	return 0;
+}
+ 
+ 
+ 
+ 
+ 
+ 
+//==================================================================================================================================
+//libuv udp  client
+ 
+
+ #include "uv.h"
+ #include "task.h"
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ 
+ static uv_udp_t client;
+ 
+ static uv_loop_t *loop;
+ 
+ static void alloc_cb(uv_handle_t* handle,
+     size_t suggested_size,
+     uv_buf_t* buf) 
+ {
+     static char slab[65536];
+     buf->base = slab;
+     buf->len = sizeof(slab);
+ }
+ 
+ static void close_cb(uv_handle_t* handle) 
+ {
+     uv_is_closing(handle);
+ }
+ 
+ static void cl_recv_cb(uv_udp_t* handle,
+     ssize_t nread,
+     const uv_buf_t* buf,
+     const struct sockaddr* addr,
+     unsigned flags) 
+ {
+     if (nread < 0) 
+     {
+ 
+     }
+ 
+     if (nread == 0) 
+     {
+         return;
+     }
+ 
+     printf("I receive the message from server:%s\n", buf->base);
+     
+     uv_close((uv_handle_t*) handle, close_cb);
+ }
+ 
+ 
+ static void cl_send_cb(uv_udp_send_t* req, int status) 
+ {   
+     uv_udp_recv_start(req->handle, alloc_cb, cl_recv_cb);
+ }
+ 
+ int main(void) 
+ {
+     struct sockaddr_in addr;    
+     uv_udp_send_t req;
+     uv_buf_t buf;
+     int r;
+     
+     loop = uv_default_loop();
+        
+     r = uv_ip4_addr("0.0.0.0", 0, &addr);  
+     r = uv_udp_init(loop, &client);   
+     r = uv_udp_bind(&client, (const struct sockaddr*) &addr, 0);  
+     r = uv_udp_set_broadcast(&client, 1);
+     uv_ip4_addr("255.255.255.255", 8899, &addr); 
+     buf = uv_buf_init("PING", 4);
+     printf("I am sending message to server:%s.\n", buf.base);         
+     uv_udp_send(&req,
+         &client,
+         &buf,
+         1,
+         (const struct sockaddr*) &addr,
+         cl_send_cb);    
+ 
+     uv_run(loop, UV_RUN_DEFAULT);
+ 
+     return 0;
+ }
+ 
+
+
+//==================================================================================================================================
+//libuv timer 
+ 
+
+#ifdef _WIN32 
+#include <vld.h>
+#pragma comment(lib,"ws2_32.lib")
+#pragma comment(lib,"Iphlpapi.lib")
+#pragma comment(lib,"Psapi.lib")
+#endif
+ 
+#include <stdio.h>
+#include <iostream>
+#include <uv.h>
+ 
+using namespace std;
+ 
+int repeat = 0;
+static int repeatCount = 10;
+ 
+static void callback(uv_timer_t *handle) {
+	repeat = repeat + 1;
+	if (repeatCount == repeat) {
+		uv_timer_stop(handle);
+		//用完一定要调用uv_close,不然会内存泄露
+		uv_close((uv_handle_t*)handle, NULL);
+	}
+}
+ 
+ 
+int main() {
+	uv_loop_t *loop = uv_default_loop();
+ 
+	uv_timer_t timer_req;
+ 
+	uv_timer_init(loop, &timer_req);
+ 
+	uv_timer_start(&timer_req, callback, 1000, repeatCount);
+ 
+	return uv_run(loop, UV_RUN_DEFAULT);
 }
  
 //==================================================================================================================================
@@ -428,3 +565,29 @@ static int uv__send(uv_udp_send_t* req,
 
 //==================================================================================================================================
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//==================================================================================================================================
+
+
+
+
+
+
+//==================================================================================================================================

@@ -122,9 +122,24 @@
       0019FFF0 00000000 778966AD     ntdll.778966AD           用户模块
  
 	
-10.运行不久会弹出,qq文件已损坏的提示	
+10.运行不久会弹出,qq文件已损坏的提示	// 解决6后Ok
 	
 	
+11.把 libuv 的timer 回调方法 ret.不让他生效.减少干扰
+	.text:52AF55F6                 push    dword ptr [ebx+40h]
+	.text:52AF55F9                 push    dword ptr [ebx+4]
+	.text:52AF55FC                 call    ds:uv_timer_init
+	.text:52AF5602                 push    0
+	.text:52AF5604                 push    32h
+	.text:52AF5606                 push    0
+	.text:52AF5608                 push    32h
+	.text:52AF560A                 push    offset sub_52AF58D7  ----------------------> 回调方法
+	.text:52AF560F                 push    dword ptr [ebx+40h]
+	.text:52AF5612                 call    ds:uv_timer_start
+	.text:52AF5618                 add     esp, 50h	
+		
+	
+		
 	
 	
 跳转指令
