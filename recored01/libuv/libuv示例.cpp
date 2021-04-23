@@ -123,7 +123,7 @@ struct uv_udp_send_s {
   uv_udp_send_cb cb;
   UV_UDP_SEND_PRIVATE_FIELDS
 };
-
+//------------------
 #define UV_REQ_FIELDS                                                         \
   /* public */                                                                \
   void* data;                                                                 \
@@ -132,6 +132,11 @@ struct uv_udp_send_s {
   /* private */                                                               \
   void* reserved[6];                                                          \
   UV_REQ_PRIVATE_FIELDS                                                       \
+  
+ //------------------ 
+  #define UV_UDP_SEND_PRIVATE_FIELDS                                            \
+  /* empty */
+  
 //------------------
 
 #define UV_REQ_PRIVATE_FIELDS                                                 \
@@ -144,8 +149,6 @@ struct uv_udp_send_s {
   } u;                                                                        \
   struct uv_req_s* next_req;
 //------------------
-
-
 
 
 
@@ -564,18 +567,151 @@ static int uv__send(uv_udp_send_t* req,
 
 
 //==================================================================================================================================
+//https://blog.csdn.net/paohui0134/article/details/51647648
+//PostQueuedCompletionStatus / GetQueuedCompletionStatus
+//uv_async_init
+//uv_async_send
 
 
+//----------------
+OVERLAPPED 是一个包含了用于异步输入输出的信息的结构体
+第一种声明
+	typedef struct _OVERLAPPED {
+		　　DWORD Internal;
+		　　DWORD InternalHigh;
+		　　DWORD Offset;
+		　　DWORD OffsetHigh;
+		　　HANDLE hEvent;
+	　　} OVERLAPPED
+参数说明
+	Internal: 预留给操作系统使用。它指定一个独立于系统的状态,当GetOverlappedResult函数返回时没有设置扩展错误信息ERROR_IO_PENDING时有效。
+	InternalHigh: 预留给操作系统使用。它指定长度的数据转移,当GetOverlappedResult函数返回TRUE时有效。
+	Offset: 该文件的位置是从文件起始处的字节偏移量。调用进程设置这个成员之前调用ReadFile或WriteFile函数。当读取或写入命名管道和通信设备时这个成员被忽略设为零。
+	OffsetHigh: 指定文件传送的字节偏移量的高位字。当读取或写入命名管道和通信设备时这个成员被忽略设为零。
+	hEvent: 在转移完成时处理一个事件设置为有信号状态。调用进程集这个成员在调用ReadFile、 WriteFile、TransactNamedPipe、 ConnectNamedPipe函数之前。
+第二种声明
+	typedef struct _OVERLAPPED {
+		ULONG_PTR Internal; //操作系统保留，指出一个和系统相关的状态
+		ULONG_PTR InternalHigh; //指出发送或接收的数据长度
+		union {
+			struct {
+				DWORD Offset; //文件传送的字节偏移量的低位字
+				DWORD OffsetHigh; //文件传送的字节偏移量的高位字
+			};
+			PVOID Pointer; //指针，指向文件传送位置
+		};
+		HANDLE hEvent; //指定一个I/O操作完成后触发的事件
+	} OVERLAPPED, *LPOVERLAPPED;
+	
+	
+//----------------
+	typedef struct _OVERLAPPEDPLUS
+	{
+		OVERLAPPED ol;
+		SOCKET s, sclient;
+		int OpCode;
+		WSABUF wbuf;
+		DWORD dwBytes, dwFlags;
+	} OVERLAPPEDPLUS;
+	调用函数， GetQueuedCompletionStatus(hIocp, &dwBytesXfered,(PULONG_PTR)&PerHandleKey, &Overlap, INFINITE); 最后一个参数为等待时间，为INFINITE时直至有信号返回。
+	函数返回后，一般使用 OverlapPlus = CONTAINING_RECORD(Overlap, OVERLAPPEDPLUS, ol) 得到一些信息。这是一个宏，查找Overlap在哪个OVERLAPPEDPLUS结构体的ol元素中，并返回这个结构体的指针。我们在设计结构体的时候，一般加入重叠结构，操作类型，这样就可以判断这个重叠结构对应的是哪一个操作。
+Overlap->OpCode,操作类型是在投递WSASend,WSARecv的时候，由你自己指定填充这个字段。
+因为是非堵塞的，等于投递到与套接字相关联的完成端口上，系统会把把WSASend对应的缓冲区提交到底层缓冲，也可以把WSARecv投递的缓冲区，用接收到的数据填充，每一个WSASend，WSARecv，都应有新申请一个overlaspped plus结构提交，以存放本次投递的IO操作的相关数据，——单IO操作数据所以工作器线程中，从完成端口队列中get得到一个完成包的时候，可以根据单句柄数据知道在这个完成端口上是哪一个套接字投递的IO操作完成了，从get到的overlapped中得到相关的已经完成IO数据和信息，并作相应的处理。比如投递了1M，完成包却告知只完成512K，那么你就知道要把余下的512K继续投递WSASend,当然上一个WSASend的Overlapped这个时候可以重用到下一个WSASend中，这个是允许的，可以用一个字段存放全部1M，把余下未Send成功512k放到wbuf中，继续投递或者投递WSARecv1M数据，却收到一个512K的完成通知，那么你要继续投递WSARecv，当然前一个WSARecv的overlapped也可以重用，不过需要一些处理，把已经接收到的512K保存到某个字段中，再投递一个512K的请求去接收完成端口内部，对投递的Overlapped的填充，好像只有WSARecv的时候填充WSABUF,其他都是投递IO前，代码中显式填充，并投递的。至于完成了多少个字节，是在lpNumberOfBytes中得到。
+对GetQueuedCompletionStatus函数解释：
+实现从指定的IOCP获取CP。当CP队列为空时，对此函数的调用将被阻塞，而不是一直等待I/O的完成。当CP队列不为空时，被阻塞的线程将以后进先出（LIFO）顺序被释放。对于IOCP机制，它允许多线程并发调用GetQueuedCompletionStatus函数，最大并发数是在调用CreateIoCompletionPort函数时指定的，超出最大并发数的调用线程，将被阻塞
 
 
+INLINE static uv_req_t* uv_overlapped_to_req(OVERLAPPED* overlapped) {
+  return CONTAINING_RECORD(overlapped, uv_req_t, u.io.overlapped);
+}
 
 
+uv__poll() => {
+	
+	success = GetQueuedCompletionStatusEx(loop->iocp,
+                                          overlappeds,
+                                          ARRAY_SIZE(overlappeds),
+                                          &count,
+                                          timeout,
+                                          FALSE);
+
+    if (success) {
+      for (i = 0; i < count; i++) {
+        /* Package was dequeued, but see if it is not a empty package
+         * meant only to wake us up.
+         */
+        if (overlappeds[i].lpOverlapped) {
+          req = uv_overlapped_to_req(overlappeds[i].lpOverlapped); //-----------------> 通过 lpOverlapped 找到对应的 req; (此时的 req 就相当于 libuv 定义的 OVERLAPPEDPLUS )
+          uv_insert_pending_req(loop, req);
+        }
+      }
+	}
+}
+
+//----------------
+
+//[1]
+Address  To       From     Siz Comment                Party 
+0019EF48 52AF5A66 55EDA5C0 30  libuv.55EDA5C0         User
+0019EF78 52AF50D7 52AF5A66 3C  arksocket.52AF5A66     User
+0019EFB4 52AF14A7 52AF50D7 20  arksocket.52AF50D7     User
+0019EFD4 52AF162F 52AF14A7 38  arksocket.52AF14A7     User
+0019F00C 56DF6DC8 52AF162F 50  arksocket.52AF162F     User
+0019F05C 56E59CCC 56DF6DC8 38  preloginlogic.56DF6DC8 User
+0019F094 54D60C1C 56E59CCC 40  preloginlogic.56E59CCC User
+0019F0D4 54D5C69D 54D60C1C 28  im.54D60C1C            User
+0019F0FC 54C98AC4 54D5C69D C4  im.54D5C69D            User
+0019F1C0 54C99727 54C98AC4 8C  im.54C98AC4            User
+0019F24C 54B196FC 54C99727 20  im.54C99727            User
+0019F26C 54B22591 54B196FC 40  im.54B196FC            User
+0019F2AC 51B224EE 54B22591 28  im.54B22591            User
+0019F2D4 51B22591 51B224EE C   asynctask.51B224EE     User
+0019F2E0 51B227CF 51B22591 34  asynctask.51B22591     User
+0019F314 51B24321 51B227CF 2C  asynctask.51B227CF     User
+0019F340 51B2207A 51B24321 24  asynctask.51B24321     User
+0019F364 53920B86 51B2207A 69C asynctask.51B2207A     User
+0019FA00 53927E8B 53920B86 80  hummerengine.53920B86  User
+0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B  User
+0019FF1C 004012C6 0040289B C   qq.0040289B            User
+0019FF28 00403365 004012C6 4C  qq.004012C6            User
+0019FF74 759F6359 00403365 10  qq.00403365            System
+0019FF84 77808944 759F6359 5C  kernel32.759F6359      System
+0019FFE0 77808914 77808944 10  ntdll.77808944         System
+0019FFF0 00000000 77808914     ntdll.77808914         User
 
 
-
-
-
-
+//[2]
+Address  To       From     Siz Comment                Party 
+0019EE9C 52AF5A66 55EDA5C0 30  libuv.55EDA5C0         User
+0019EECC 52AF50D7 52AF5A66 3C  arksocket.52AF5A66     User
+0019EF08 52AF14A7 52AF50D7 20  arksocket.52AF50D7     User
+0019EF28 52AF162F 52AF14A7 38  arksocket.52AF14A7     User
+0019EF60 56DF6DC8 52AF162F 50  arksocket.52AF162F     User
+0019EFB0 56E59CCC 56DF6DC8 38  preloginlogic.56DF6DC8 User
+0019EFE8 56E5444A 56E59CCC 28  preloginlogic.56E59CCC User
+0019F010 56E55DFF 56E5444A 14  preloginlogic.56E5444A User
+0019F024 56DE26C6 56E55DFF 10  preloginlogic.56E55DFF User
+0019F034 523E11D8 56DE26C6 98  preloginlogic.56DE26C6 User
+0019F0CC 523DEDFD 523E11D8 28  common.523E11D8        User
+0019F0F4 771847AB 523DEDFD 2C  common.523DEDFD        System
+0019F120 771652AC 771847AB E4  user32.771847AB        System
+0019F204 771643FE 771652AC 74  user32.771652AC        System
+0019F278 771641E0 771643FE C   user32.771643FE        System
+0019F284 51B24578 771641E0 18  user32.771641E0        User
+0019F29C 51B2460F 51B24578 34  asynctask.51B24578     User
+0019F2D0 51B2456F 51B2460F 14  asynctask.51B2460F     User
+0019F2E4 51B244FB 51B2456F 30  asynctask.51B2456F     User
+0019F314 51B2437C 51B244FB 2C  asynctask.51B244FB     User
+0019F340 51B2207A 51B2437C 24  asynctask.51B2437C     User
+0019F364 53920B86 51B2207A 69C asynctask.51B2207A     User
+0019FA00 53927E8B 53920B86 80  hummerengine.53920B86  User
+0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B  User
+0019FF1C 004012C6 0040289B C   qq.0040289B            User
+0019FF28 00403365 004012C6 4C  qq.004012C6            User
+0019FF74 759F6359 00403365 10  qq.00403365            System
+0019FF84 77808944 759F6359 5C  kernel32.759F6359      System
+0019FFE0 77808914 77808944 10  ntdll.77808944         System
+0019FFF0 00000000 77808914     ntdll.77808914         User
 
 
 
@@ -586,6 +722,17 @@ static int uv__send(uv_udp_send_t* req,
 //==================================================================================================================================
 
 
+ 
+0019F340 51B2207A 51B24321 24  asynctask.51B24321     User
+0019F364 53920B86 51B2207A 69C asynctask.51B2207A     User
+0019FA00 53927E8B 53920B86 80  hummerengine.53920B86  User
+0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B  User
+0019FF1C 004012C6 0040289B C   qq.0040289B            User
+0019FF28 00403365 004012C6 4C  qq.004012C6            User
+0019FF74 759F6359 00403365 10  qq.00403365            System
+0019FF84 77808944 759F6359 5C  kernel32.759F6359      System
+0019FFE0 77808914 77808944 10  ntdll.77808944         System
+0019FFF0 00000000 77808914     ntdll.77808914         User
 
 
 

@@ -77,6 +77,7 @@ hummerengine.dll/Base=53910000
 asynctask.dll/Base=51B20000
 IM.dll/Base=54A10000
  
+ 
 	   
 //==============================================================================================================================
 //timer 	   
@@ -120,9 +121,9 @@ int __thiscall sub_52AF55A1(int this)
   return uv_async_init(*(_DWORD *)(v1 + 4), *(_DWORD *)(v1 + 108), sub_52AF5BC0);
 }	   
 	   
+//==============================================================================================================================
 
 		   
-//==============================================================================================================================
 //https://blog.csdn.net/paohui0134/article/details/51647648
 	   
 //uv_async_send
@@ -201,6 +202,83 @@ void __thiscall sub_54C9B801(CCmdCodecBase *this)
   CCmdCodecBase::CodeNumber("cMsgType", 2);
   CCmdCodecBase::CodeBuffer(v1, "bufMsg");
 }
+
+
+//==============================================================================================================================
+0019EF48 52AF5A66 55EDA5C0 30  libuv.55EDA5C0         User  //uv_async_send
+
+ 
+
+int uv_async_send(uv_async_t* handle) {
+  uv_loop_t* loop = handle->loop;
+
+  if (handle->type != UV_ASYNC) {
+    /* Can't set errno because that's not thread-safe. */
+    return -1;
+  }
+
+  /* The user should make sure never to call uv_async_send to a closing or
+   * closed handle. */
+  assert(!(handle->flags & UV_HANDLE_CLOSING));
+
+  if (!uv__atomic_exchange_set(&handle->async_sent)) {
+    POST_COMPLETION_FOR_REQ(loop, &handle->async_req);
+  }
+
+  return 0;
+}
+
+#define POST_COMPLETION_FOR_REQ(loop, req)                              \
+  if (!PostQueuedCompletionStatus((loop)->iocp,                         \
+                                  0,                                    \
+                                  0,                                    \
+                                  &((req)->u.io.overlapped))) {         \    ------------------------> (req)->u.io.overlapped
+    uv_fatal_error(GetLastError(), "PostQueuedCompletionStatus");       \
+  }
+
+
+//==============================================================================================================================
+0019EF78 52AF50D7 52AF5A66 3C  arksocket.52AF5A66     User
+
+
+
+
+
+//==============================================================================================================================
+0019EFB4 52AF14A7 52AF50D7 20  arksocket.52AF50D7     User
+
+
+
+
+
+//==============================================================================================================================
+0019EFD4 52AF162F 52AF14A7 38  arksocket.52AF14A7     User
+
+
+
+
+
+//==============================================================================================================================
+0019F00C 56DF6DC8 52AF162F 50  arksocket.52AF162F     User
+
+
+
+
+
+//==============================================================================================================================
+0019F05C 56E59CCC 56DF6DC8 38  preloginlogic.56DF6DC8 User
+
+
+
+
+
+//==============================================================================================================================
+0019F094 54D60C1C 56E59CCC 40  preloginlogic.56E59CCC User
+
+
+
+ 
+
 
 
 //==============================================================================================================================
