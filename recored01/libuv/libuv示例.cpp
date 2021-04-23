@@ -37,6 +37,7 @@ uv_req_t 及其子类
 //libuv udp  server
 //libuv udp  client
 //libuv timer 
+//libuv async 
 
 
 
@@ -99,7 +100,46 @@ struct uv_udp_s {
   } u;                                                                        \
   UV_HANDLE_PRIVATE_FIELDS                                                    \
 
+
+#define UV_HANDLE_PRIVATE_FIELDS                                              \
+  uv_handle_t* endgame_next;                                                  \
+  unsigned int flags;
+
+
+#define UV_UDP_PRIVATE_FIELDS                                                 \
+  SOCKET socket;                                                              \
+  unsigned int reqs_pending;                                                  \
+  int activecnt;                                                              \
+  uv_req_t recv_req;                                                          \
+  uv_buf_t recv_buffer;                                                       \
+  struct sockaddr_storage recv_from;                                          \
+  int recv_from_len;                                                          \
+  uv_udp_recv_cb recv_cb;                                                     \
+  uv_alloc_cb alloc_cb;                                                       \
+  LPFN_WSARECV func_wsarecv;                                                  \
+  LPFN_WSARECVFROM func_wsarecvfrom;
+
+
+
 //------------------
+
+struct uv_async_s {
+  UV_HANDLE_FIELDS
+  UV_ASYNC_PRIVATE_FIELDS
+};
+
+#define UV_ASYNC_PRIVATE_FIELDS                                               \
+  struct uv_req_s async_req;                                                  \
+  uv_async_cb async_cb;                                                       \
+  /* char to avoid alignment issues */                                        \
+  char volatile async_sent;
+
+
+//------------------
+
+
+
+//------------------------------------------------------
 /* Request types. */
 typedef struct uv_req_s uv_req_t;
 typedef struct uv_getaddrinfo_s uv_getaddrinfo_t;
@@ -567,7 +607,9 @@ static int uv__send(uv_udp_send_t* req,
 
 
 //==================================================================================================================================
+//libuv async 
 //https://blog.csdn.net/paohui0134/article/details/51647648
+//https://blog.csdn.net/qq_35886593/article/details/88898432
 //PostQueuedCompletionStatus / GetQueuedCompletionStatus
 //uv_async_init
 //uv_async_send
@@ -648,11 +690,121 @@ uv__poll() => {
 	}
 }
 
+INLINE static void uv_insert_pending_req(uv_loop_t* loop, uv_req_t* req) {
+  req->next_req = NULL;
+  if (loop->pending_reqs_tail) {
+#ifdef _DEBUG
+    /* Ensure the request is not already in the queue, or the queue
+     * will get corrupted.
+     */
+    uv_req_t* current = loop->pending_reqs_tail;
+    do {
+      assert(req != current);
+      current = current->next_req;
+    } while(current != loop->pending_reqs_tail);
+#endif
+
+    req->next_req = loop->pending_reqs_tail->next_req;
+    loop->pending_reqs_tail->next_req = req;
+    loop->pending_reqs_tail = req;
+  } else {
+    req->next_req = req;
+    loop->pending_reqs_tail = req;
+  }
+}
+ 
+//----------------
+int uv_async_init(uv_loop_t* loop, uv_async_t* handle, uv_async_cb async_cb) 
+{
+  uv_req_t* req;
+  //初始化handle,将handle与传入的loop联系起来，并添加到 loop 的handle队列中
+  uv__handle_init(loop, (uv_handle_t*) handle, UV_ASYNC);
+
+  handle->async_sent = 0;//初始化为0
+  handle->async_cb = async_cb;
+
+  req = &handle->async_req;
+  uv_req_init(loop, req);//初始化请求
+  req->type = UV_WAKEUP;//类型为wakeup
+  req->data = handle;
+  //激活handle，状态变为UV__HANDLE_ACTIVE，loop活动handle计数加一
+  uv__handle_start(handle);
+
+  return 0;
+}
+
+
+
+// uv_async_t 是我们要用的 handle，这个 handle 用来在线程间通信的。
+// 也就是说配合 uv_async_send，可以唤醒持有async的消息队列，并调用async的回调，而且这个是可以跨线程的
+// 只保证 uv_async_send 调用一次之后，callback 也必然至少调用一次，但是因为是很多线程可以同时发送唤醒消息，所以，也可能被多次调用 
+int uv_async_send(uv_async_t* handle) 
+{
+  uv_loop_t* loop = handle->loop;
+
+  if (handle->type != UV_ASYNC) {
+    /* Can't set errno because that's not thread-safe. */
+    return -1;
+  }
+
+  //用户必须保证发送的uv_async_t不是关闭或正在关闭状态
+  assert(!(handle->flags & UV__HANDLE_CLOSING));
+
+  //原子方式改变async_sent，这样就实现了多次调用 send 发送同一个 uv_async_t，在回调调用一次之前，不会多次调用
+  if (!uv__atomic_exchange_set(&handle->async_sent)) //函数返回async_sent原来的值，并将其
+                                                     //设置为1
+  {
+    //POST_COMPLETION_FOR_REQ(loop, &handle->async_req);展开：
+    //向iocp端口发送事件
+    if (!PostQueuedCompletionStatus((loop)->iocp,                        
+                                  0,                                   
+                                  0,                                   
+                                  &((req)->u.io.overlapped))) 
+    {         
+      uv_fatal_error(GetLastError(), "PostQueuedCompletionStatus");       
+    }
+  }
+
+  return 0;
+}
+
+
+uv_run 对于 wakeup 类型请求的处理（通过 uv_process_reqs 函数）
+uv_run 在i/o轮询是会获取到 send 发送的事件，并将 uv_async_t 内部的请求添加到 loop 的 pending_reqs_tail 列表。
+
+//遍历每一个请求做处理
+...
+switch (req->type) {
+  ...
+  case UV_WAKEUP:
+        uv_process_async_wakeup_req(loop, (uv_async_t*) req->data, req);
+        break;
+...
+ 
+void uv_process_async_wakeup_req(uv_loop_t* loop, uv_async_t* handle,
+    uv_req_t* req) 
+{
+  assert(handle->type == UV_ASYNC);
+  assert(req->type == UV_WAKEUP);
+  //还原标记为0
+  handle->async_sent = 0;
+
+  //如果handle正在关闭（调用了uv_close），将handle加入关闭handle队列，不再调用回调函数
+  if (handle->flags & UV__HANDLE_CLOSING) {
+    uv_want_endgame(loop, (uv_handle_t*)handle);
+  } else if (handle->async_cb != NULL) {
+    handle->async_cb(handle);//调用回调
+  }
+}
+//----------------
+ 
+
+
 //----------------
 
 //[1]
 Address  To       From     Siz Comment                Party 
-0019EF48 52AF5A66 55EDA5C0 30  libuv.55EDA5C0         User
+0019EF48 52AF5A66 55EDA5C0 30  libuv.55EDA5C0         User //uv_async_send
 0019EF78 52AF50D7 52AF5A66 3C  arksocket.52AF5A66     User
 0019EFB4 52AF14A7 52AF50D7 20  arksocket.52AF50D7     User
 0019EFD4 52AF162F 52AF14A7 38  arksocket.52AF14A7     User
@@ -667,9 +819,9 @@ Address  To       From     Siz Comment                Party
 0019F2AC 51B224EE 54B22591 28  im.54B22591            User
 0019F2D4 51B22591 51B224EE C   asynctask.51B224EE     User
 0019F2E0 51B227CF 51B22591 34  asynctask.51B22591     User
-0019F314 51B24321 51B227CF 2C  asynctask.51B227CF     User
-0019F340 51B2207A 51B24321 24  asynctask.51B24321     User
-0019F364 53920B86 51B2207A 69C asynctask.51B2207A     User
+0019F314 51B24321 51B227CF 2C  asynctask.51B227CF     User //AsyncTask::MessageLoop::DoWork(AsyncTask::MessageLoop *this)
+0019F340 51B2207A 51B24321 24  asynctask.51B24321     User //AsyncTask::MessagePumpForUI::DoRunLoop(AsyncTask::MessagePumpForUI *this)
+0019F364 53920B86 51B2207A 69C asynctask.51B2207A     User //AsyncTask::MessageLoop::RunHandler(AsyncTask::MessageLoop *this)
 0019FA00 53927E8B 53920B86 80  hummerengine.53920B86  User
 0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B  User
 0019FF1C 004012C6 0040289B C   qq.0040289B            User
@@ -682,7 +834,7 @@ Address  To       From     Siz Comment                Party
 
 //[2]
 Address  To       From     Siz Comment                Party 
-0019EE9C 52AF5A66 55EDA5C0 30  libuv.55EDA5C0         User
+0019EE9C 52AF5A66 55EDA5C0 30  libuv.55EDA5C0         User //uv_async_send
 0019EECC 52AF50D7 52AF5A66 3C  arksocket.52AF5A66     User
 0019EF08 52AF14A7 52AF50D7 20  arksocket.52AF50D7     User
 0019EF28 52AF162F 52AF14A7 38  arksocket.52AF14A7     User
@@ -701,9 +853,9 @@ Address  To       From     Siz Comment                Party
 0019F29C 51B2460F 51B24578 34  asynctask.51B24578     User
 0019F2D0 51B2456F 51B2460F 14  asynctask.51B2460F     User
 0019F2E4 51B244FB 51B2456F 30  asynctask.51B2456F     User
-0019F314 51B2437C 51B244FB 2C  asynctask.51B244FB     User
-0019F340 51B2207A 51B2437C 24  asynctask.51B2437C     User
-0019F364 53920B86 51B2207A 69C asynctask.51B2207A     User
+0019F314 51B2437C 51B244FB 2C  asynctask.51B244FB     User	//AsyncTask::MessagePumpForUI::ProcessNextWindowsMessage(AsyncTask::MessagePumpForUI *this)
+0019F340 51B2207A 51B2437C 24  asynctask.51B2437C     User //AsyncTask::MessagePumpForUI::DoRunLoop(AsyncTask::MessagePumpForUI *this)
+0019F364 53920B86 51B2207A 69C asynctask.51B2207A     User //AsyncTask::MessageLoop::RunHandler(AsyncTask::MessageLoop *this)
 0019FA00 53927E8B 53920B86 80  hummerengine.53920B86  User
 0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B  User
 0019FF1C 004012C6 0040289B C   qq.0040289B            User
@@ -720,21 +872,436 @@ Address  To       From     Siz Comment                Party
 
 
 //==================================================================================================================================
+//调用uv_async_init
+ 线程 ID  地址       返回到      返回自      大小  注释                        方   
+9356                                                            
+       0019E54C 55EDACC8 55EDA4E0 24  libuv._uv_async_init      用户模块
+       0019E570 52AF5502 55EDACC8 38  libuv.uv_loop_init+1F8    用户模块
+       0019E5A8 56E2E16F 52AF5502 48C arksocket.52AF5502        用户模块
+       0019EA34 0C210B00 56E2E16F 44  preloginlogic.56E2E16F    用户模块
+       0019EA78 0C210C5F 0C210B00 64  appframework.0C210B00     用户模块
+       0019EADC 0C210F7E 0C210C5F 18  appframework.0C210C5F     用户模块
+       0019EAF4 0C12D830 0C210F7E 18  appframework.0C210F7E     用户模块
+       0019EB0C 532A9720 0C12D830 84  appframework.0C12D830     用户模块
+       0019EB90 5319C864 532A9720 10  gf.532A9720               用户模块
+       0019EBA0 05763518 5319C864 18  gf.5319C864               用户模块
+       0019EBB8 0576138B 05763518 20  loginlogic.05763518       用户模块
+       0019EBD8 0576B191 0576138B 4C8 loginlogic.0576138B       用户模块
+       0019F0A0 0576D6D1 0576B191 24  loginlogic.0576B191       用户模块
+       0019F0C4 0576D0A9 0576D6D1 10  loginlogic.0576D6D1       用户模块
+       0019F0D4 0576D3FD 0576D0A9 28  loginlogic.0576D0A9       用户模块
+       0019F0FC 0576EC6A 0576D3FD 20  loginlogic.0576D3FD       用户模块
+       0019F11C 0576EB3E 0576EC6A 20  loginlogic.0576EC6A       用户模块
+       0019F13C 767C5CAB 0576EB3E 2C  loginlogic.0576EB3E       系统模块
+       0019F168 767B67BC 767C5CAB E4  user32.767C5CAB           系统模块
+       0019F24C 767B58FB 767B67BC 74  user32.767B67BC           系统模块
+       0019F2C0 767B56D0 767B58FB C   user32.767B58FB           系统模块
+       0019F2CC 51B24578 767B56D0 18  user32.767B56D0           用户模块
+       0019F2E4 51B244FB 51B24578 30  asynctask.51B24578        用户模块
+       0019F314 51B2437C 51B244FB 2C  asynctask.51B244FB        用户模块
+       0019F340 51B2207A 51B2437C 24  asynctask.51B2437C        用户模块
+       0019F364 53920B86 51B2207A 69C asynctask.51B2207A        用户模块
+       0019FA00 53927E8B 53920B86 80  hummerengine.53920B86     用户模块
+       0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B     用户模块
+       0019FF1C 004012C6 0040289B C   qq.0040289B               用户模块
+       0019FF28 00403365 004012C6 4C  qq.004012C6               用户模块
+       0019FF74 758B0419 00403365 10  qq.00403365               系统模块
+       0019FF84 778866DD 758B0419 5C  kernel32.758B0419         系统模块
+       0019FFE0 778866AD 778866DD 10  ntdll.778866DD            系统模块
+       0019FFF0 00000000 778866AD     ntdll.778866AD            用户模块
+
+线程 ID  地址       返回到      返回自      大小  注释                        方   
+110508                                                          
+       0DA4FECC 52AF55D3 55EDA4E0 38  libuv._uv_async_init      用户模块
+       0DA4FF04 55EF3370 52AF55D3 28  arksocket.52AF55D3        用户模块
+       0DA4FF2C 5E4C6CF2 55EF3370 48  libuv.uv__thread_start+70 系统模块
+       0DA4FF74 758B0419 5E4C6CF2 10  ucrtbased.5E4C6CF2        系统模块
+       0DA4FF84 778866DD 758B0419 5C  kernel32.758B0419         系统模块
+       0DA4FFE0 778866AD 778866DD 10  ntdll.778866DD            系统模块
+       0DA4FFF0 00000000 778866AD     ntdll.778866AD            用户模块
+	   
+	   
+线程 ID  地址       返回到      返回自      大小  注释                        方   
+110508                                                          
+       0DA4FEB8 52AF55EB 55EDA4E0 4C  libuv._uv_async_init      用户模块
+       0DA4FF04 55EF3370 52AF55EB 28  arksocket.52AF55EB        用户模块
+       0DA4FF2C 5E4C6CF2 55EF3370 48  libuv.uv__thread_start+70 系统模块
+       0DA4FF74 758B0419 5E4C6CF2 10  ucrtbased.5E4C6CF2        系统模块
+       0DA4FF84 778866DD 758B0419 5C  kernel32.758B0419         系统模块
+       0DA4FFE0 778866AD 778866DD 10  ntdll.778866DD            系统模块
+       0DA4FFF0 00000000 778866AD     ntdll.778866AD            用户模块
+	   
+线程 ID  地址       返回到      返回自      大小  注释                        方   
+110508                                                          
+       0DA4FECC 52AF5633 55EDA4E0 38  libuv._uv_async_init      用户模块
+       0DA4FF04 55EF3370 52AF5633 28  arksocket.52AF5633        用户模块
+       0DA4FF2C 5E4C6CF2 55EF3370 48  libuv.uv__thread_start+70 系统模块
+       0DA4FF74 758B0419 5E4C6CF2 10  ucrtbased.5E4C6CF2        系统模块
+       0DA4FF84 778866DD 758B0419 5C  kernel32.758B0419         系统模块
+       0DA4FFE0 778866AD 778866DD 10  ntdll.778866DD            系统模块
+       0DA4FFF0 00000000 778866AD     ntdll.778866AD            用户模块
+
+
+
+
+
+
+//--------------------------------------------------
+
+线程 ID  地址       返回到      返回自      大小  注释                                   方   
+108488                                                                     
+       0509FDF4 51A8C3ED 55EDA4E0 24  libuv._uv_async_init                 用户模块
+       0509FE18 51A90B52 51A8C3ED 18  arkhttpclient.51A8C3ED               用户模块
+       0509FE30 51A910D9 51A90B52 1C  arkhttpclient.51A90B52               用户模块
+       0509FE4C 51A8C563 51A910D9 1C  arkhttpclient.51A910D9               用户模块
+       0509FE68 55EDA90D 51A8C563 10  arkhttpclient.51A8C563               用户模块
+       0509FE78 55EDBD7B 55EDA90D 3C  libuv.uv_process_async_wakeup_req+8D 用户模块
+       0509FEB4 55EDAEB4 55EDBD7B 18  libuv.$LN50+13                       用户模块
+       0509FECC 51A8BEFC 55EDAEB4 38  libuv.uv_run+74                      用户模块
+       0509FF04 55EF3370 51A8BEFC 28  arkhttpclient.51A8BEFC               用户模块
+       0509FF2C 5E4C6CF2 55EF3370 48  libuv.uv__thread_start+70            系统模块
+       0509FF74 758B0419 5E4C6CF2 10  ucrtbased.5E4C6CF2                   系统模块
+       0509FF84 778866DD 758B0419 5C  kernel32.758B0419                    系统模块
+       0509FFE0 778866AD 778866DD 10  ntdll.778866DD                       系统模块
+       0509FFF0 00000000 778866AD     ntdll.778866AD                       用户模块	   
+	   
+线程 ID  地址       返回到      返回自      大小  注释                                   方   
+108488                                                                     
+       0509FDE0 51A8C3ED 55EDA4E0 24  libuv._uv_async_init                 用户模块
+       0509FE04 51A887E5 51A8C3ED 18  arkhttpclient.51A8C3ED               用户模块
+       0509FE1C 51A907AF 51A887E5 10  arkhttpclient.51A887E5               用户模块
+       0509FE2C 51A90D24 51A907AF 2C  arkhttpclient.51A907AF               用户模块
+       0509FE58 51A8C427 51A90D24 10  arkhttpclient.51A90D24               用户模块
+       0509FE68 55EDA90D 51A8C427 10  arkhttpclient.51A8C427               用户模块
+       0509FE78 55EDBD7B 55EDA90D 3C  libuv.uv_process_async_wakeup_req+8D 用户模块
+       0509FEB4 55EDAEB4 55EDBD7B 18  libuv.$LN50+13                       用户模块
+       0509FECC 51A8BEFC 55EDAEB4 38  libuv.uv_run+74                      用户模块
+       0509FF04 55EF3370 51A8BEFC 28  arkhttpclient.51A8BEFC               用户模块
+       0509FF2C 5E4C6CF2 55EF3370 48  libuv.uv__thread_start+70            系统模块
+       0509FF74 758B0419 5E4C6CF2 10  ucrtbased.5E4C6CF2                   系统模块
+       0509FF84 778866DD 758B0419 5C  kernel32.758B0419                    系统模块
+       0509FFE0 778866AD 778866DD 10  ntdll.778866DD                       系统模块
+       0509FFF0 00000000 778866AD     ntdll.778866AD                       用户模块	   
+	   
+线程 ID  地址       返回到      返回自      大小  注释                                   方   
+108488                                                                     
+       0509FD94 51A8C3ED 55EDA4E0 24  libuv._uv_async_init                 用户模块
+       0509FDB8 51A82EC2 51A8C3ED 30  arkhttpclient.51A8C3ED               用户模块
+       0509FDE8 51A88B2B 51A82EC2 28  arkhttpclient.51A82EC2               用户模块
+       0509FE10 55ED4D18 51A88B2B 18  arkhttpclient.51A88B2B               用户模块
+       0509FE28 55ED4544 55ED4D18 40  libuv.uv__queue_done+78              用户模块
+       0509FE68 55EDA90D 55ED4544 10  libuv.uv__work_done+1E4              用户模块
+       0509FE78 55EDBD7B 55EDA90D 3C  libuv.uv_process_async_wakeup_req+8D 用户模块
+       0509FEB4 55EDAEB4 55EDBD7B 18  libuv.$LN50+13                       用户模块
+       0509FECC 51A8BEFC 55EDAEB4 38  libuv.uv_run+74                      用户模块
+       0509FF04 55EF3370 51A8BEFC 28  arkhttpclient.51A8BEFC               用户模块
+       0509FF2C 5E4C6CF2 55EF3370 48  libuv.uv__thread_start+70            系统模块
+       0509FF74 758B0419 5E4C6CF2 10  ucrtbased.5E4C6CF2                   系统模块
+       0509FF84 778866DD 758B0419 5C  kernel32.758B0419                    系统模块
+       0509FFE0 778866AD 778866DD 10  ntdll.778866DD                       系统模块
+       0509FFF0 00000000 778866AD     ntdll.778866AD                       用户模块	  
+
+
+线程 ID  地址       返回到      返回自      大小  注释                                   方   
+108488                                                                     
+       0509FDF8 51A8C3ED 55EDA4E0 24  libuv._uv_async_init                 用户模块
+       0509FE1C 51A92DEC 51A8C3ED 14  arkhttpclient.51A8C3ED               用户模块
+       0509FE30 51A83122 51A92DEC 28  arkhttpclient.51A92DEC               用户模块
+       0509FE58 51A8C427 51A83122 10  arkhttpclient.51A83122               用户模块
+       0509FE68 55EDA90D 51A8C427 10  arkhttpclient.51A8C427               用户模块
+       0509FE78 55EDBD7B 55EDA90D 3C  libuv.uv_process_async_wakeup_req+8D 用户模块
+       0509FEB4 55EDAEB4 55EDBD7B 18  libuv.$LN50+13                       用户模块
+       0509FECC 51A8BEFC 55EDAEB4 38  libuv.uv_run+74                      用户模块
+       0509FF04 55EF3370 51A8BEFC 28  arkhttpclient.51A8BEFC               用户模块
+       0509FF2C 5E4C6CF2 55EF3370 48  libuv.uv__thread_start+70            系统模块
+       0509FF74 758B0419 5E4C6CF2 10  ucrtbased.5E4C6CF2                   系统模块
+       0509FF84 778866DD 758B0419 5C  kernel32.758B0419                    系统模块
+       0509FFE0 778866AD 778866DD 10  ntdll.778866DD                       系统模块
+       0509FFF0 00000000 778866AD     ntdll.778866AD                       用户模块
+	   
+	   
+线程 ID  地址       返回到      返回自      大小  注释                                   方   
+108488                                                                     
+       0509FCC4 51A8C3ED 55EDA4E0 24  libuv._uv_async_init                 用户模块
+       0509FCE8 51A8E6CD 51A8C3ED 14  arkhttpclient.51A8C3ED               用户模块
+       0509FCFC 51A833BF 51A8E6CD 18  arkhttpclient.51A8E6CD               用户模块
+       0509FD14 51A83391 51A833BF 18  arkhttpclient.51A833BF               用户模块
+       0509FD2C 51A92CFA 51A83391 B0  arkhttpclient.51A83391               用户模块
+       0509FDDC 51A93849 51A92CFA 80  arkhttpclient.51A92CFA               用户模块
+       0509FE5C 55EFEB92 51A93849 1C  arkhttpclient.51A93849               用户模块
+       0509FE78 55EDBC7F 55EFEB92 3C  libuv.uv_process_tcp_connect_req+1E2 用户模块
+       0509FEB4 55EDAEB4 55EDBC7F 18  libuv.$LN23+34                       用户模块
+       0509FECC 51A8BEFC 55EDAEB4 38  libuv.uv_run+74                      用户模块
+       0509FF04 55EF3370 51A8BEFC 28  arkhttpclient.51A8BEFC               用户模块
+       0509FF2C 5E4C6CF2 55EF3370 48  libuv.uv__thread_start+70            系统模块
+       0509FF74 758B0419 5E4C6CF2 10  ucrtbased.5E4C6CF2                   系统模块
+       0509FF84 778866DD 758B0419 5C  kernel32.758B0419                    系统模块
+       0509FFE0 778866AD 778866DD 10  ntdll.778866DD                       系统模块
+       0509FFF0 00000000 778866AD     ntdll.778866AD                       用户模块	   
+
+
+线程 ID  地址       返回到      返回自      大小  注释                                   方   
+108488                                                                     
+       0509FD94 51A8C3ED 55EDA4E0 24  libuv._uv_async_init                 用户模块
+       0509FDB8 51A8EABE 51A8C3ED 14  arkhttpclient.51A8C3ED               用户模块
+       0509FDCC 51A85716 51A8EABE 2C  arkhttpclient.51A8EABE               用户模块
+       0509FDF8 51A85CC5 51A85716 18  arkhttpclient.51A85716               用户模块
+       0509FE10 55ED4D18 51A85CC5 18  arkhttpclient.51A85CC5               用户模块
+       0509FE28 55ED4544 55ED4D18 40  libuv.uv__queue_done+78              用户模块
+       0509FE68 55EDA90D 55ED4544 10  libuv.uv__work_done+1E4              用户模块
+       0509FE78 55EDBD7B 55EDA90D 3C  libuv.uv_process_async_wakeup_req+8D 用户模块
+       0509FEB4 55EDAEB4 55EDBD7B 18  libuv.$LN50+13                       用户模块
+       0509FECC 51A8BEFC 55EDAEB4 38  libuv.uv_run+74                      用户模块
+       0509FF04 55EF3370 51A8BEFC 28  arkhttpclient.51A8BEFC               用户模块
+       0509FF2C 5E4C6CF2 55EF3370 48  libuv.uv__thread_start+70            系统模块
+       0509FF74 758B0419 5E4C6CF2 10  ucrtbased.5E4C6CF2                   系统模块
+       0509FF84 778866DD 758B0419 5C  kernel32.758B0419                    系统模块
+       0509FFE0 778866AD 778866DD 10  ntdll.778866DD                       系统模块
+       0509FFF0 00000000 778866AD     ntdll.778866AD                       用户模块
+	   
+	   
+	   
+	   
+线程 ID  地址       返回到      返回自      大小  注释                                   方   
+108488                                                                     
+       0509FDF4 51A8C3ED 55EDA4E0 24  libuv._uv_async_init                 用户模块
+       0509FE18 51A90B52 51A8C3ED 18  arkhttpclient.51A8C3ED               用户模块
+       0509FE30 51A910D9 51A90B52 1C  arkhttpclient.51A90B52               用户模块
+       0509FE4C 51A8C563 51A910D9 1C  arkhttpclient.51A910D9               用户模块
+       0509FE68 55EDA90D 51A8C563 10  arkhttpclient.51A8C563               用户模块
+       0509FE78 55EDBD7B 55EDA90D 3C  libuv.uv_process_async_wakeup_req+8D 用户模块
+       0509FEB4 55EDAEB4 55EDBD7B 18  libuv.$LN50+13                       用户模块
+       0509FECC 51A8BEFC 55EDAEB4 38  libuv.uv_run+74                      用户模块
+       0509FF04 55EF3370 51A8BEFC 28  arkhttpclient.51A8BEFC               用户模块
+       0509FF2C 5E4C6CF2 55EF3370 48  libuv.uv__thread_start+70            系统模块
+       0509FF74 758B0419 5E4C6CF2 10  ucrtbased.5E4C6CF2                   系统模块
+       0509FF84 778866DD 758B0419 5C  kernel32.758B0419                    系统模块
+       0509FFE0 778866AD 778866DD 10  ntdll.778866DD                       系统模块
+       0509FFF0 00000000 778866AD     ntdll.778866AD                       用户模块	  
+	   
+//==================================================================================================================================
+//arksocket::CreateUdp
+线程 ID  地址       返回到      返回自      大小  注释                        方   
+110508                                                          
+       0DA4FD44 52AF95C5 52AF9575 18  arksocket.52AF9575        用户模块
+       0DA4FD5C 52AF9C88 52AF95C5 38  arksocket.52AF95C5        用户模块
+       0DA4FD94 52AF4449 52AF9C88 18  arksocket.52AF9C88        用户模块
+       0DA4FDAC 52AF4832 52AF4449 1C  arksocket.52AF4449        用户模块
+       0DA4FDC8 52AF40DE 52AF4832 98  arksocket.52AF4832        用户模块
+       0DA4FE60 52AF47FF 52AF40DE 30  arksocket.52AF40DE        用户模块
+       0DA4FE90 55EDBD7B 52AF47FF 3C  arksocket.52AF47FF        用户模块
+       0DA4FECC 55EDAEB4 55EDBD7B 18  libuv.$LN50+13            用户模块
+       0DA4FEE4 52AF5696 55EDAEB4 20  libuv.uv_run+74           用户模块
+       0DA4FF04 55EF3370 52AF5696 28  arksocket.52AF5696        用户模块
+       0DA4FF2C 5E4C6CF2 55EF3370 48  libuv.uv__thread_start+70 系统模块
+       0DA4FF74 758B0419 5E4C6CF2 10  ucrtbased.5E4C6CF2        系统模块
+       0DA4FF84 778866DD 758B0419 5C  kernel32.758B0419         系统模块
+       0DA4FFE0 778866AD 778866DD 10  ntdll.778866DD            系统模块
+       0DA4FFF0 00000000 778866AD     ntdll.778866AD            用户模块
+
+//==================================================================================================================================
+      
+
+//----------------------
+0DA4FECC 52AF5633 55EDA4E0 38  libuv._uv_async_init      用户模块
+
+int uv_async_init(uv_loop_t* loop, uv_async_t* handle, uv_async_cb async_cb) 
+ 
+//----------------------  
+0DA4FF04 55EF3370 52AF5633 28  arksocket.52AF5633        用户模块
+int __thiscall sub_52AF55A1(int this)
+{
+  int v1; // ebx@1
+  _DWORD *v2; // eax@1
+  _DWORD *v3; // eax@1
+  _DWORD *v4; // eax@1
+  _DWORD *v5; // eax@1
+
+  v1 = this;
+  *(_DWORD *)(this + 12) = uv_thread_self();
+  v2 = calloc(1u, 0x74u);
+  *(_DWORD *)(v1 + 20) = v2;
+  *v2 = v1;
+  uv_async_init(*(_DWORD *)(v1 + 4), *(_DWORD *)(v1 + 20), sub_52AF569E);   //===========> uv_close()
+  v3 = calloc(1u, 0x74u);
+  *(_DWORD *)(v1 + 28) = v3;
+  *v3 = v1;
+  uv_async_init(*(_DWORD *)(v1 + 4), *(_DWORD *)(v1 + 28), sub_52AF583D);   //===========> preloginlogic.56DF75F0
+  v4 = calloc(1u, 0x60u);
+  *(_DWORD *)(v1 + 64) = v4;
+  *v4 = v1;
+  uv_timer_init(*(_DWORD *)(v1 + 4), *(_DWORD *)(v1 + 64));
+  uv_timer_start(*(_DWORD *)(v1 + 64), sub_52AF58D7, 50, 0, 50, 0);
+  v5 = calloc(1u, 0x74u);
+  *(_DWORD *)(v1 + 108) = v5;
+  *v5 = v1;
+  return uv_async_init(*(_DWORD *)(v1 + 4), *(_DWORD *)(v1 + 108), sub_52AF5BC0);   //===========> sub_52AF5BC0 => uv_queue_work()
+}
+//------
+
+//------
+
+//------
+//https://blog.csdn.net/lc250123/article/details/52619314 
+uv_queue_work() 是一个辅助函数, 它可以使得应用程序在单独的线程中运行某一任务, 并在任务完成后触发回调函数. 
+uv_queue_work 看似简单, 但是在某些情况下却很实用, 因为该函数使得第三方库可以以事件循环的方式在你的程序中被使用.
+当你使用事件循环时, 应该 确保在事件循环中运行的函数执行 I/O 任务时不被阻塞, 或者事件循环的回调函数不会占用太多 
+CPU 的计算能力. 因为一旦发生了上述情况, 则意味着事件循环的执行速度会减慢, 事件得不到及时的处理.
+
+但是也有一些代码在线程的事件循环的回调中使用了阻塞函数(例如执行 I/O 任务), (典型的 ‘one thread per client’ 服务器模型), 
+并在单独的线程中运行某一任务. libuv 只是提供了一层抽象而已.
+
+int uv_queue_work(uv_loop_t* loop,
+                  uv_work_t* req,
+                  uv_work_cb work_cb,
+                  uv_after_work_cb after_work_cb) {
+  if (work_cb == NULL)
+    return UV_EINVAL;
+
+  uv__req_init(loop, req, UV_WORK);
+  req->loop = loop;
+  req->work_cb = work_cb;
+  req->after_work_cb = after_work_cb;
+  uv__work_submit(loop, &req->work_req, uv__queue_work, uv__queue_done);
+  return 0;
+}
 
 
  
-0019F340 51B2207A 51B24321 24  asynctask.51B24321     User
-0019F364 53920B86 51B2207A 69C asynctask.51B2207A     User
-0019FA00 53927E8B 53920B86 80  hummerengine.53920B86  User
-0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B  User
-0019FF1C 004012C6 0040289B C   qq.0040289B            User
-0019FF28 00403365 004012C6 4C  qq.004012C6            User
-0019FF74 759F6359 00403365 10  qq.00403365            System
-0019FF84 77808944 759F6359 5C  kernel32.759F6359      System
-0019FFE0 77808914 77808944 10  ntdll.77808944         System
-0019FFF0 00000000 77808914     ntdll.77808914         User
+ 
+//----------------------  
+0DA4FF2C 5E4C6CF2 55EF3370 48  libuv.uv__thread_start+70 系统模块
+	   
+static UINT __stdcall uv__thread_start(void* arg) {
+  struct thread_ctx *ctx_p;
+  struct thread_ctx ctx;
+
+  ctx_p = arg;
+  ctx = *ctx_p;
+  uv__free(ctx_p);
+
+  uv_once(&uv__current_thread_init_guard, uv__init_current_thread_key);
+  uv_key_set(&uv__current_thread_key, (void*) ctx.self);
+
+  ctx.entry(ctx.arg);
+
+  return 0;
+}
+
+int uv_thread_create(uv_thread_t *tid, void (*entry)(void *arg), void *arg) {
+  struct thread_ctx* ctx;
+  int err;
+  HANDLE thread;
+
+  ctx = uv__malloc(sizeof(*ctx));
+  if (ctx == NULL)
+    return UV_ENOMEM;
+
+  ctx->entry = entry;
+  ctx->arg = arg;
+
+  /* Create the thread in suspended state so we have a chance to pass
+   * its own creation handle to it */   
+  thread = (HANDLE) _beginthreadex(NULL,
+                                   0,
+                                   uv__thread_start,
+                                   ctx,
+                                   CREATE_SUSPENDED,
+                                   NULL);
+  if (thread == NULL) {
+    err = errno;
+    uv__free(ctx);
+  } else {
+    err = 0;
+    *tid = thread;
+    ctx->self = thread;
+    ResumeThread(thread);
+  }
+
+  switch (err) {
+    case 0:
+      return 0;
+    case EACCES:
+      return UV_EACCES;
+    case EAGAIN:
+      return UV_EAGAIN;
+    case EINVAL:
+      return UV_EINVAL;
+  }
+
+  return UV_EIO;
+}
+	   
+ 
+	   
+//----------------------  
+//调用 uv_thread_create   
+	   
+	   
+//----------------------  
+	   
+	   
+	   
 
 
+//==================================================================================================================================
+	   
+	   
+
+
+//==================================================================================================================================
+	   
+	   
+
+
+//==================================================================================================================================
+	   
+	   
+
+
+//==================================================================================================================================
+	   
+	   
+
+
+//==================================================================================================================================
+	   
+	   
+
+
+//==================================================================================================================================
+	   
+	   
+
+
+//==================================================================================================================================
+	   
+	   
+
+
+//==================================================================================================================================
+	   
+	   
+
+
+//==================================================================================================================================
+	   
+	   
+
+
+//==================================================================================================================================
+	   
+	   
+
+
+//==================================================================================================================================
+	   
+	   
+
+
+//==================================================================================================================================
+	   
+	   
 
 
 //==================================================================================================================================

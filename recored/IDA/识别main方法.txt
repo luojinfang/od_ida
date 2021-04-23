@@ -1,0 +1,79 @@
+__dcrt_initial_narrow_environment  
+
+在 main 之前会调用取参数的方法
+
+
+
+
+ 
+
+int sub_418C50()
+{
+  int v0; // ST14_4@1
+  int v1; // ST10_4@1
+  _DWORD *v2; // eax@1
+
+  v0 = j__get_initial_narrow_environment();
+  v1 = *(_DWORD *)j___p___argv();
+  v2 = (_DWORD *)j___p___argc();
+  return sub_411591(*v2, v1, v0);
+}
+
+
+
+int __cdecl sub_411591()
+{
+  return sub_41BF10();
+}
+
+
+int sub_41BF10()
+{
+  char v1; // [sp+Ch] [bp-124h]@1
+  unsigned int v2; // [sp+120h] [bp-10h]@1
+  int savedregs; // [sp+130h] [bp+0h]@1
+
+  memset(&v1, 0xCCu, 0x118u);
+  v2 = (unsigned int)&savedregs ^ __security_cookie;   //防止栈溢出,编译器的安全检查机制  https://www.cnblogs.com/zheh/p/4549014.html  ; vs,cl 编译器时的 /GS选项
+  sub_411609(&unk_426035);
+  sub_411735();
+  sub_4113D9((int)&savedregs, (int)dword_41C064);
+  sub_4112DF((unsigned int)&savedregs ^ v2);
+  return sub_411479(savedregs);
+}
+
+
+int __cdecl sub_411735() 	// int main()  //不带参数
+{
+  return sub_4179E0();
+}
+
+
+
+int sub_4179E0()   
+{
+  int v0; // eax@1
+  unsigned int v2; // [sp-4h] [bp-104h]@1
+  _DWORD *v3; // [sp+Ch] [bp-F4h]@1
+  int v4; // [sp+14h] [bp-ECh]@1
+  int v5; // [sp+FCh] [bp-4h]@1
+  int savedregs; // [sp+100h] [bp+0h]@1
+
+  memset(&v3, 0xCCu, 0xE8u);
+  v2 = (unsigned int)&savedregs ^ __security_cookie;
+  sub_411609(&unk_426035);
+  v0 = sub_411320(std::cout, "testclass");
+  std::basic_ostream<char,std::char_traits<char>>::operator<<(v0, &sub_411069);
+  sub_411479(v2);
+  v4 = sub_4111E0(8u);
+  v5 = 0;
+  if ( v4 )
+    v3 = (_DWORD *)sub_411730(v4);
+  else
+    v3 = 0;
+  *v3 = 100;
+  return sub_411479(savedregs);
+}
+
+
+

@@ -36,6 +36,13 @@ rep movsd
  
 */
 //================================================================================================================
+/*
+//todo 
+有几个线程调用 uv_run 
+uv_async_send 和  TranslateMsgPackToBuddyMsg 在不在同一线程调用
+ 
+*/
+//================================================================================================================
 Address  To       From     Siz Comment               Party 
 0019CBDC 52985B28 557EF13B 554 kernelutil.557EF13B   User  //dump [[[ebp+8]+28]]
 0019D130 5296569E 52985B28 18  customface.52985B28   User
@@ -295,7 +302,7 @@ Address  To       From     Siz Comment             Party
 //================================================================================================================
 1108FD18 54C99969 54C99925 20  im.54C99925         User
 
-//注意,多线程调用. 要找 调用到 TranslateMsgPackToBuddyMsg的线程分析
+//注意,多线程调用. 要找 调用到 TranslateMsgPackToBuddyMsg 的线程分析
 {
 	
 .text:54C99916 sub_54C99916    proc near               ; CODE XREF: sub_54C9431D+3Cp
@@ -322,7 +329,7 @@ Address  To       From     Siz Comment             Party
 
 //================================================================================================================
 1108FD38 54A6B0C6 54C99969 1C  im.54C99969         User
-//注意,多线程调用. 要找 调用到 TranslateMsgPackToBuddyMsg的线程分析
+//注意,多线程调用. 要找 调用到 TranslateMsgPackToBuddyMsg 的线程分析
 {
 .text:54C99931 sub_54C99931    proc near               ; DATA XREF: sub_54C93E33+A4o
 .text:54C99931
@@ -365,7 +372,7 @@ Address  To       From     Siz Comment             Party
 //================================================================================================================
 
 1108FD54 54B47A90 54A6B0C6 40  im.54A6B0C6         User
-//注意,多线程调用. 要找 调用到 TranslateMsgPackToBuddyMsg的线程分析
+//注意,多线程调用. 要找 调用到 TranslateMsgPackToBuddyMsg 的线程分析
 
 {
 .text:54A6B0A9
@@ -399,7 +406,7 @@ Address  To       From     Siz Comment             Party
 
 //================================================================================================================
 1108FD94 51B224EE 54B47A90 28  im.54B47A90         User
-//注意,多线程调用. 要找 调用到 TranslateMsgPackToBuddyMsg的线程分析
+//注意,多线程调用. 要找 调用到 TranslateMsgPackToBuddyMsg 的线程分析
 
 {
 .text:54B47A13 sub_54B47A13    proc near               ; DATA XREF: .rdata:54E2AD04o
@@ -556,16 +563,108 @@ Address  To       From     Siz Comment             Party
 	
 }
  
-//todo 打印的地址怎样切换了？
+//todo 打印的地址怎样切换了？  追踪 RunTask 参数  struct AsyncTask::Task *a2
 {
 51B22536                         | 8B4D 08               | mov ecx,dword ptr ss:[ebp+8]                                    |
 51B22539                         | 6A 01                 | push 1                                                          |
 51B2253B                         | 8B01                  | mov eax,dword ptr ds:[ecx]                                      |
-51B2253D                         | FF10                  | call dword ptr ds:[eax]  //===>54C93CF9                                      |	 
+51B2253D                         | FF10                  | call dword ptr ds:[eax]  //===>IM.54C93CF9                                      |	 
 }
 
 
 
+
+void __thiscall AsyncTask::MessageLoop::RunTask(AsyncTask::MessageLoop *this, struct AsyncTask::Task *a2)
+{
+  AsyncTask::MessageLoop *v2; // esi@1
+  AsyncTask::WaitableEvent *v3; // ecx@2
+  int v4; // edi@5
+  int v5; // ecx@6
+  int v6; // eax@6
+  void (__thiscall ***v7)(_DWORD); // eax@12
+  bool v8; // zf@13
+  int v9; // eax@20
+  HANDLE *v10; // eax@24
+  AsyncTask::MessageLoop *v11; // [sp+10h] [bp-10h]@3
+  int v12; // [sp+14h] [bp-Ch]@3
+  int v13; // [sp+18h] [bp-8h]@8
+
+  v2 = this;
+  if ( AsyncTask::MessageLoop::is_dispatcher(this) )
+  {
+    AsyncTask::MessageLoop::PostTask(*((AsyncTask::MessageLoop **)v2 + 58), a2);
+    v3 = *(AsyncTask::WaitableEvent **)(*((_DWORD *)v2 + 58) + 236);
+    if ( v3 )
+    {
+      v11 = (AsyncTask::MessageLoop *)5000;
+      v12 = 0;
+      if ( !AsyncTask::WaitableEvent::TimedWait(v3, (const struct AsyncTask::TimeDelta *)&v11)
+        && *((_DWORD *)v2 + 56) < 3u )
+      {
+        v4 = (*(int (**)(void))(**((_DWORD **)v2 + 51) + 4))();
+        v11 = (AsyncTask::MessageLoop *)v4;
+        if ( v4 )
+        {
+          v5 = *((_DWORD *)v2 + 58);
+          *(_DWORD *)(v5 + 228) = 0;
+          AsyncTask::MessageLoop::Quit((AsyncTask::MessageLoop *)v5);
+          sub_51B22C1F((int)v2 + 208, (int *)&v11);
+          v6 = *(_DWORD *)(v4 + 16);
+          *((_DWORD *)v2 + 58) = v6;
+          *(_BYTE *)(v6 + 200) = 1;
+          *(_DWORD *)(*((_DWORD *)v2 + 58) + 228) = v2;
+          AsyncTask::MessageLoop::create_work_event(*((AsyncTask::MessageLoop **)v2 + 58));
+        }
+      }
+    }
+  }
+  else
+  {
+    v11 = (AsyncTask::MessageLoop *)((char *)v2 + 180);
+    v12 = 0;
+    if ( *((_DWORD *)v2 + 49) )
+      v13 = (*((_DWORD *)v2 + 46) - *((_DWORD *)v2 + 45)) >> 2;
+    else
+      v13 = -1;
+    ++*((_DWORD *)v2 + 48);
+    while ( 1 )
+    {
+      v7 = (void (__thiscall ***)(_DWORD))sub_51B22A3D(&v11);
+      if ( !v7 )
+        break;
+      (**v7)(v7);
+    }
+    v8 = (*((_DWORD *)v11 + 3))-- == 1;
+    if ( v8 )
+      sub_51B22C9B();
+    (*(void (**)(void))(*(_DWORD *)a2 + 4))();  //===================================> im.54B47A90
+    v11 = (AsyncTask::MessageLoop *)((char *)v2 + 180);
+    v12 = 0;
+    if ( *((_DWORD *)v2 + 49) )
+      v13 = (*((_DWORD *)v2 + 46) - *((_DWORD *)v2 + 45)) >> 2;
+    else
+      v13 = -1;
+    ++*((_DWORD *)v2 + 48);
+    while ( 1 )
+    {
+      v9 = sub_51B22A3D(&v11);
+      if ( !v9 )
+        break;
+      (*(void (__thiscall **)(int))(*(_DWORD *)v9 + 4))(v9);
+    }
+    v8 = (*((_DWORD *)v11 + 3))-- == 1;
+    if ( v8 )
+      sub_51B22C9B();
+    (**(void (__stdcall ***)(_DWORD))a2)(1);
+    *((_BYTE *)v2 + 88) = 1;
+    if ( *((_BYTE *)v2 + 200) )
+    {
+      v10 = (HANDLE *)*((_DWORD *)v2 + 59);
+      if ( v10 )
+        SetEvent(*v10);
+    }
+  }
+}
 
 
 //================================================================================================================
@@ -649,7 +748,22 @@ Address  To       From     Siz Comment             Party
 	
 }
 
- 
+
+
+//------------------
+//PendingTask 构造类
+//51B2184C
+AsyncTask::MessageLoop::PendingTask *__thiscall AsyncTask::MessageLoop::PendingTask::PendingTask(AsyncTask::MessageLoop::PendingTask *this, struct AsyncTask::Task *a2, bool a3)
+{
+  *(_DWORD *)this = a2;
+  *((_DWORD *)this + 2) = 0;
+  *((_DWORD *)this + 3) = 0;
+  *((_DWORD *)this + 4) = 0;
+  *((_BYTE *)this + 20) = a3;
+  return this;
+}
+
+
 
 //================================================================================================================
 1108FE00 51B24321 51B227CF 2C  asynctask.51B227CF  User//AsyncTask::MessageLoop::DoWork(AsyncTask::MessageLoop *this)
