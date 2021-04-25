@@ -1629,7 +1629,7 @@ int __usercall sub_56E2F41C@<eax>(int a1@<esi>, int a2, int a3, int a4)
   {
     v13 = 0;
     Memory = (void *)sub_56DF18D2(v4, 0, 0);
-    (*(void (__stdcall **)(int, void **, int))(*(_DWORD *)v16 + 48))(v16, &Memory, a1);///////////////////----try
+    (*(void (__stdcall **)(int, void **, int))(*(_DWORD *)v16 + 48))(v16, &Memory, a1);///////////////////----try    =>common.522D8620
     v5 = Memory; //链表
     for ( i = *(_DWORD *)Memory; (void *)i != Memory; v5 = Memory )
     {
@@ -1708,14 +1708,99 @@ int __cdecl sub_56DEDAC4(int a1, int a2)
 
   v2 = 0;
   v4 = 0;
+  
+  //common
   Util::Core::GetPlatformCore((Util::Core *)&v4);
+  
+  //56DEDADE
   if ( v4 )
-    LOBYTE(v2) = (*(int (__stdcall **)(int, int, int))(*(_DWORD *)v4 + 40))(v4, a1, a2) >= 0;
+    LOBYTE(v2) = (*(int (__stdcall **)(int, int, int))(*(_DWORD *)v4 + 40))(v4, a1, a2) >= 0;  //==>common.522CE850/sub_522CE850
   sub_56DE1E2F((unsigned int *)&v4);
   return v2;
 }
 
+//522DFBF0
+int __cdecl Util::Core::GetPlatformCore(Util::Core *this)
+{
+  int v1; // ecx@1
+  int result; // eax@3
 
+  v1 = dword_524E8A34;
+  if ( dword_524E8A34 && this )
+  {
+    *(_DWORD *)this = dword_524E8A34;
+    (*(void (__stdcall **)(int))(*(_DWORD *)v1 + 4))(v1);
+    result = 1;
+  }
+  else
+  {
+    result = 0;
+  }
+  return result;
+}
+
+
+int __stdcall sub_522CE850(int a1, int a2, int a3)
+{
+  int v3; // ecx@1
+  int result; // eax@2
+
+  v3 = *(_DWORD *)(a1 + 24);
+  if ( v3 )
+    result = (*(int (__stdcall **)(int, int, int, int))(*(_DWORD *)v3 + 36))(v3, a1, a2, a3); //==>common.522C8280/sub_522C8280
+  else
+    result = 0x80004005;
+  return result;
+}
+
+
+int __stdcall sub_522C8280(int a1, int a2, int a3, int a4)
+{
+  int v4; // edx@1
+  int v5; // ecx@2
+  signed int v7; // ecx@6
+  int v8; // edx@7
+  int v9; // edx@9
+  int v10; // esi@12
+
+  v4 = *(_DWORD *)(a1 + 12);
+  if ( !v4 )
+  {
+    v5 = *(_DWORD *)(a1 + 16);
+    if ( !v5 || !*(_DWORD *)(v5 + 4) || !*(_DWORD *)(a1 + 20) )
+      return 0x8000FFFF;
+  }
+  v7 = 0x80004001;
+  if ( v4 )
+  {
+    v8 = *(_DWORD *)(a1 + 48);
+    if ( v8 )
+      return (*(int (__thiscall **)(int, int, int, int))(*(_DWORD *)v8 + 4))(v8, a2, a3, a4);  //================>common.522C8EE0/sub_522C8EE0
+  }
+  v9 = *(_DWORD *)(a1 + 16);
+  if ( !v9 || !*(_DWORD *)(v9 + 4) )
+  {
+LABEL_14:
+    if ( *(_DWORD *)(a1 + 20) && (!v9 || !*(_DWORD *)(v9 + 4)) )
+      v7 = 0x8000FFFF;
+    return v7;
+  }
+  if ( *(_DWORD *)(a1 + 20) )
+  {
+    v10 = *(_DWORD *)(a1 + 48);
+    if ( v10 )
+      return (*(int (__thiscall **)(int, int, int, int))(*(_DWORD *)v10 + 4))(v10, a2, a3, a4); //================>common.522C82F5
+    goto LABEL_14;
+  }
+  return v7;
+}
+
+
+//.faq od和ida显示代码差别很大  
+int __thiscall sub_522C8EE0(int this)
+{
+  return (*(int (__thiscall **)(int))(this + 8))(  *(_DWORD *)(this + 4) + *(_DWORD *)(this + 12)  );
+}
 //==================================================================================================================================
 0019EA78 0BD70C5F 0BD70B00 64  appframework.0BD70B00  User
 int __cdecl sub_BD70A56(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
