@@ -1,0 +1,1635 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://blog.csdn.net/qq_36535153/article/details/105215746"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="report" content='{"pid": "blog", "spm":"1001.2101"}'>
+    <meta name="referrer" content="always">
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <meta name="applicable-device" content="pc">
+    <link  href="https://g.csdnimg.cn/static/logo/favicon32.ico"  rel="shortcut icon" type="image/x-icon" />
+    <title>IDA反编译的几个注意和技巧_抬头就是一枪的博客-CSDN博客</title>
+    <script__>
+      (function(){ 
+        var el = document.createElement("script"); 
+        el.src = "https://s3a.pstatp.com/toutiao/push.js?1abfa13dfe74d72d41d83c86d240de427e7cac50c51ead53b2e79d40c7952a23ed7716d05b4a0f683a653eab3e214672511de2457e74e99286eb2c33f4428830"; 
+        el.id = "ttzz"; 
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(el, s);
+      })(window)
+    </script__>
+        <meta name="keywords" content="IDA反编译的几个注意和技巧">
+        <meta name="csdn-baidu-search"  content='{"autorun":true,"install":true,"keyword":"IDA反编译的几个注意和技巧"}'>
+    <meta name="description" content="IDA逆向程序的经验总结关于F5汇编代码不能转成c的伪代码的几个问题总结关于一些类型转换以及指针和地址的总结最可以拿来当教训的应该是 hide cast 功能1.jmpout的问题功能快捷键合理的创建标题，有助于目录的生成如何改变文本的样式插入链接与图片如何插入一段漂亮的代码片生成一个适合你的列表创建一个表格设定内容居中、居左、居右SmartyPants创建一个自定义列表如何创建一个注脚注释也是必...">
+    <script__ src="//g.csdnimg.cn/tingyun/1.8.5/blog.js" type='text/javascript'></script__>
+        <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/css/detail_enter-afe1ba669a.min.css">
+        <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin3-template/skin3-template-45808e735f.min.css">
+    <script__ src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script__>
+    <script__ type="text/javascript">
+        var isCorporate = false;//注释删除enterprise
+        var username =  "qq_36535153";
+        var skinImg = "white";
+        var blog_address = "https://blog.csdn.net/qq_36535153";
+        var currentUserName = "";
+        var isOwner = false;
+        var loginUrl = "http://passport.csdn.net/account/login?from=https://blog.csdn.net/qq_36535153/article/details/105215746";
+        var blogUrl = "https://blog.csdn.net/";
+        var avatar = "https://profile.csdnimg.cn/B/2/5/3_qq_36535153";
+        var articleTitle = "IDA反编译的几个注意和技巧";
+        var articleDesc = "IDA逆向程序的经验总结关于F5汇编代码不能转成c的伪代码的几个问题总结关于一些类型转换以及指针和地址的总结最可以拿来当教训的应该是 hide cast 功能1.jmpout的问题功能快捷键合理的创建标题，有助于目录的生成如何改变文本的样式插入链接与图片如何插入一段漂亮的代码片生成一个适合你的列表创建一个表格设定内容居中、居左、居右SmartyPants创建一个自定义列表如何创建一个注脚注释也是必...";
+        var articleTitles = "IDA反编译的几个注意和技巧_抬头就是一枪的博客-CSDN博客";
+        var nickName = "抬头就是一枪";
+        var articleDetailUrl = "https://blog.csdn.net/qq_36535153/article/details/105215746";
+        if(window.location.host.split('.').length == 3) {
+            blog_address = blogUrl + username;
+        }
+        var skinStatus = "White";
+        var blogStaticHost = "https://csdnimg.cn/release/blogv2/"
+    </script__>
+    <script__ src="https://g.csdnimg.cn/??fixed-sidebar/1.1.6/fixed-sidebar.js" type="text/javascript"></script__>
+    <script__ src='//g.csdnimg.cn/common/csdn-report/report.js' type='text/javascript'></script__>
+    <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+    <script__ src="https://dup.baidustatic.com/js/ds.js"></script__>
+</head>
+<body class="nodata " style="">
+        <script__>
+            var toolbarSearchExt = '{"landingWord":[],"queryWord":"","tag":["单片机","指针"],"title":"IDA反编译的几个注意和技巧"}';
+        </script__>
+    <script__ src="https://g.csdnimg.cn/common/csdn-toolbar/csdn-toolbar.js" type="text/javascript"></script__>
+    <script__>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+    </script__>
+<link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/pc/css/blog_code-01256533b5.min.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/chart-3456820cac.css" />
+<div class="main_father clearfix d-flex justify-content-center" style="height:100%;"> 
+    <div class="container clearfix" id="mainBox">
+        <main>
+<script__ type="text/javascript">
+    var blogSensitiveWords = "";
+    function getQueryString(name) {   
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象  
+      var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+      if( r != null ) return decodeURIComponent( r[2] ); return '';   
+    }
+    function stripscript(s){ 
+      var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%]") 
+      var rs = ""; 
+      for (var i = 0; i < s.length; i++) { 
+        rs = rs+s.substr(i, 1).replace(pattern, ''); 
+      } 
+      return rs; 
+    }
+    var blogHotWords = stripscript(getQueryString('utm_term')).length > 1 ? stripscript(getQueryString('utm_term')) : ''
+</script__>
+<div class="blog-content-box">
+    <div class="article-header-box">
+        <div class="article-header">
+            <div class="article-title-box">
+                <h1 class="title-article" id="articleContentId">IDA反编译的几个注意和技巧</h1>
+            </div>
+            <div class="article-info-box">
+                <div class="article-bar-top">
+                    <img class="article-type-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/original.png" alt="">
+                    <div class="bar-content">
+                        <span class="c-gray">置顶</span>
+                    <a class="follow-nickName " href="https://blog.csdn.net/qq_36535153" target="_blank" rel="noopener">抬头就是一枪</a>
+                    <span class="time">2020-04-08 10:32:55</span>
+                    <img class="article-read-img article-heard-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/articleReadEyes.png" alt="">
+                    <span class="read-count">2385</span>
+                    <a id="blog_detail_zk_collection" class="un-collection" data-report-click='{"mod":"popu_823","spm":"1001.2101.3001.4232","ab":"new"}'>
+                        <img class="article-collect-img article-heard-img un-collect-status isdefault" style="display:inline-block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollect.png" alt="">
+                        <img class="article-collect-img article-heard-img collect-status isactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollectionActive.png" alt="">
+                        <span class="name">收藏</span>
+                        <span class="get-collection">
+                            8
+                        </span>
+                    </a>
+                    </div>
+                </div>
+                <div class="blog-tags-box">
+                    <div class="tags-box artic-tag-box">
+                            <span class="label">分类专栏：</span>
+                                <a class="tag-link" href="https://blog.csdn.net/qq_36535153/category_9883137.html" target="_blank" rel="noopener">逆向</a>
+                                <a class="tag-link" href="https://blog.csdn.net/qq_36535153/category_9498792.html" target="_blank" rel="noopener">破解</a>
+                            <span class="label">文章标签：</span>
+                                <a data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"单片机","ab":"new"}' class="tag-link" href="https://www.csdn.net/tags/MtTagg2sMzc0Ni1ibG9n.html" target="_blank" rel="noopener">单片机</a>
+                                <a data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"指针","ab":"new"}' class="tag-link" href="https://www.csdn.net/tags/MtTaEg0sMjI4MDgtYmxvZwO0O0OO0O0O.html" target="_blank" rel="noopener">指针</a>
+                    </div>
+                </div>
+                <div class="slide-content-box">
+                    <div class="article-copyright">
+                        <div class="creativecommons">
+                            版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。
+                        </div>
+                        <div class="article-source-link">
+                            本文链接：<a href="https://blog.csdn.net/qq_36535153/article/details/105215746" target="_blank">https://blog.csdn.net/qq_36535153/article/details/105215746</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="operating">
+                    <a class="href-article-edit slide-toggle">版权</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="csdn-shop-window-top" class="csdn-shop-window-common" style="margin-top:18px;padding:0"></div>
+    <article class="baidu_pl">
+        <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-b5506197d8.css">
+                <div id="content_views" class="markdown_views prism-atom-one-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                    <p></p>
+<div class="toc">
+ <h3>IDA逆向程序的经验总结</h3>
+ <ul><li><a href="#_1">关于一些类型转换以及指针和地址的总结</a></li><li><a href="#F5c_7">关于F5汇编代码不能转成c的伪代码的几个问题总结</a></li><li><ul><li><a href="#1jmpout_8">1.jmpout的问题</a></li><li><a href="#2positive_sp_value_has_been_found__14">2.positive sp value has been found 的问题</a></li><li><a href="#3call_analysis_failed_20">3.call analysis failed</a></li></ul>
+  </li><li><a href="#_31">对于浮点数的逆向思路</a></li><li><a href="#ARM_35">对于ARM汇编的一些思路和技巧</a></li><li><a href="#_42">对单片机项目的逆向要点</a></li><li><a href="#IDA__51">IDA 反编译一些可变参数的技巧和总结</a></li><li><ul><li><a href="#Cva_startva_argva_end_55">C语言中对可变参数的读写依赖于宏va_start、va_arg和va_end</a></li><li><a href="#_66">还有一种方法不用去使用定义的都参数的宏也能去读取参数</a></li><li><a href="#IDA__103">IDA 识别可变参数</a></li></ul>
+ </li></ul>
+</div>
+<p></p> 
+<h1><a id="_1"></a>关于一些类型转换以及指针和地址的总结</h1> 
+<p>最可以拿来当教训的应该是 hide cast 功能<br /> <img src="https://img-blog.csdnimg.cn/20200331100049630.png?x-oss-process&#61;image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTM1MTUz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /><br /> 如果隐藏了,就是这样的<br /> <img src="https://img-blog.csdnimg.cn/20200331100141263.png" alt="在这里插入图片描述" /><br /> 如果SaveAShouldShowStreamIndex是char类型的数组,那会怎么样呢,一次取一个字节和取四个字节就完全不一样了.当然如果你再逆向的时候就已经知道了这个数组的类型那就没问题,但是也应该注意没到必要的时候不要Hide Casts ,虽然你的代码会被很多类型转换搞得头晕,但是关掉真的影响你的逆向准确性.</p> 
+<h1><a id="F5c_7"></a>关于F5汇编代码不能转成c的伪代码的几个问题总结</h1> 
+<h2><a id="1jmpout_8"></a>1.jmpout的问题</h2> 
+<p>jumpot<br /> <img src="https://img-blog.csdnimg.cn/20200408095104828.png" alt="在这里插入图片描述" /><br /> 如果遇上jumpout的话,一般是只能动态调试去跟踪调试代码.很少能将jumpOut的汇编修改成能反出伪C的形式.</p> 
+<h2><a id="2positive_sp_value_has_been_found__14"></a>2.positive sp value has been found 的问题</h2> 
+<p><img src="https://img-blog.csdnimg.cn/20200331100630953.png" alt="在这里插入图片描述" /><br /> 出现这个问题一般都是能解决的<br /> 这个请参考这个帖子:<br /> https://blog.csdn.net/u010334666/article/details/82937413</p> 
+<h2><a id="3call_analysis_failed_20"></a>3.call analysis failed</h2> 
+<p><img src="https://img-blog.csdnimg.cn/20200408100205813.png" alt="在这里插入图片描述" /><br /> 这种一般是函数内部的参数没有解析正确,所以如果想正确解析,需要读取去修改函数内部调用函数的参数.<br /> 参考帖子:https://www.cnblogs.com/echo579/p/6564433.html</p> 
+<p>有时候 switch 也可能会导致 出现 jumpout 解决办法是 把jumpout签名的一截汇编 先U 撤销然后再重新反编译 就能正确反编译出来了<br /> 或者说函数的没有定位到正确的结尾 也会导致jumpout 这就需要正确定位到函数的末尾 才能将jumpout改成正确的代码<br /> 有时候 换一个版本的IDA 去看 也能看出一些问题 比如你用IDA7.0 有时候反编译出来的内容不正确 那就用IDA6.8 去分析 没准比IDA7.0 分析的要准确一点</p> 
+<h1><a id="_31"></a>对于浮点数的逆向思路</h1> 
+<p><img src="https://img-blog.csdnimg.cn/2020040810100577.png" alt="在这里插入图片描述" /><br /> 出现COERCE_FLOAT的宏一般是接收的返回值错了,或者是函数的返回值有问题,<br /> 还有出现这种LOWWORD的宏一般是参数的问题,有时可能是double的参数,IDA反成了两个Int的类型的参数,因为32位的ARM本身就没有64位的类型,需要自己修改函数的参数和返回值才能得到正确的值,还有一些其他的标志也可以看出是浮点数的运算:比如函数内部大量的位移运算,大量参数未赋值直接参与运算等</p> 
+<h1><a id="ARM_35"></a>对于ARM汇编的一些思路和技巧</h1> 
+<p>局部变量的地址 sp&#43;xx标识<br /> <img src="https://img-blog.csdnimg.cn/20200408101743343.png" alt="在这里插入图片描述" /><br /> 临时变量,在使用的时候用什么寄存器标识<br /> <img src="https://img-blog.csdnimg.cn/20200408102117846.png" alt="在这里插入图片描述" /><br /> 暂时先想到这些,以后再补充</p> 
+<h1><a id="_42"></a>对单片机项目的逆向要点</h1> 
+<p>需要掌握一定的单片机开发知识.<br /> 很多地方涉及到一些硬件的接口和屏幕显示的接口,都是以地址的形式表示,如:0x20004F64,0x20005014 ,0x64000400 ,0x4001300等的地址<br /> <img src="https://img-blog.csdnimg.cn/20200408102646746.png" alt="在这里插入图片描述" /><br /> <img src="https://img-blog.csdnimg.cn/20200408102731256.png?x-oss-process&#61;image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTM1MTUz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p> 
+<p><img src="https://img-blog.csdnimg.cn/20200408102926802.png" alt="在这里插入图片描述" /><br /> 看到这种地址上的赋值,就需要去参考手册了<br /> <img src="https://img-blog.csdnimg.cn/20200408103132172.png?x-oss-process&#61;image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTM1MTUz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p> 
+<h1><a id="IDA__51"></a>IDA 反编译一些可变参数的技巧和总结</h1> 
+<p>要IDA 能正确识别出可变参数的函数的参数 首先要清楚定位到可变参数前最后一个确定的参数 这样IDA才能识别出来</p> 
+<h2><a id="Cva_startva_argva_end_55"></a>C语言中对可变参数的读写依赖于宏va_start、va_arg和va_end</h2> 
+<p>这三个宏的定义如下:</p> 
+<ol><li> <p>void va_start(va_list ap,<br /> last);//取第一个可变参数&#xff08;如上述printf中的i&#xff09;的指针给ap&#xff0c;last是函数声明中的最后一个固定参数&#xff08;比如printf函数原型中的*fromat&#xff09;&#xff1b;</p> </li><li> <p>type va_arg(va_list ap,<br /> type);//返回当前ap指向的可变参数的值&#xff0c;然后ap指向下一个可变参数&#xff1b;type表示当前可变参数的类型&#xff08;支持的类型位int和double&#xff09;&#xff1b;</p> </li><li> <p>void va_end(va_list ap);//将ap置为NULL</p> </li></ol> 
+<h2><a id="_66"></a>还有一种方法不用去使用定义的都参数的宏也能去读取参数</h2> 
+<p>这是我在IDA反汇编中看到的 既然IDA把他反汇编成这样 那也肯定可以 然后就写代码测试一下吧</p> 
+<p>为了测试可变参数 如何在IDA中被识别 写了一个测试程序 如下:</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">int</span> <span class="token function">function</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> b<span class="token punctuation">,</span><span class="token keyword">int</span> Num<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	<span class="token keyword">int</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
+	p <span class="token operator">&#61;</span> <span class="token operator">&amp;</span>Num<span class="token punctuation">;</span><span class="token comment">//通过一个指针指向可变参数的最后一个确定位置 </span>
+	<span class="token keyword">int</span> k <span class="token operator">&#61;</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+	p<span class="token operator">&#43;&#43;</span><span class="token punctuation">;</span><span class="token comment">//指针向后偏移就可以取到参数的值</span>
+	<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">&#61;</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> Num<span class="token punctuation">;</span> i<span class="token operator">&#43;&#43;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		k <span class="token operator">&#43;</span><span class="token operator">&#61;</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
+		p<span class="token operator">&#43;&#43;</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">return</span> k<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span> argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&#34;hello&#34;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token function">function</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p>这应该是应该传递参数的时候是根据栈的循序来的 所以通过指针去指向栈的地址 然后&#43;1 就取到了下一个参数的值<br /> 但是这样的话就对反汇编产生了一些困难<br /> 所以还是需要手动去解析下 让他变成那种 宏的模式</p> 
+<h2><a id="IDA__103"></a>IDA 识别可变参数</h2> 
+<p>然后我把函数改成了这种宏的形式让IDA去识别</p> 
+<pre><code class="prism language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&#34;stdafx.h&#34;</span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdarg.h&gt;</span></span>
+
+
+<span class="token keyword">int</span> <span class="token function">function</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> b<span class="token punctuation">,</span><span class="token keyword">int</span> Num<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+
+	<span class="token keyword">int</span> k <span class="token operator">&#61;</span> <span class="token number">0</span><span class="token punctuation">;</span>
+	va_list ap<span class="token punctuation">;</span>
+	<span class="token comment">/*int *p;
+	p &#61; &amp;Num;
+	
+
+	p&#43;&#43;;*/</span>
+
+	<span class="token function">va_start</span><span class="token punctuation">(</span>ap<span class="token punctuation">,</span>Num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">&#61;</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> Num<span class="token punctuation">;</span> i<span class="token operator">&#43;&#43;</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		k <span class="token operator">&#43;</span><span class="token operator">&#61;</span> <span class="token function">va_arg</span><span class="token punctuation">(</span>ap<span class="token punctuation">,</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token function">va_end</span><span class="token punctuation">(</span>ap<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> k<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span> argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&#34;hello&#34;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token function">function</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+</code></pre> 
+<p>IDA反汇编的function的代码如下:</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">int</span> __cdecl <span class="token function">sub_411710</span><span class="token punctuation">(</span><span class="token keyword">int</span> a1<span class="token punctuation">,</span> <span class="token keyword">int</span> a2<span class="token punctuation">,</span> <span class="token keyword">int</span> a3<span class="token punctuation">,</span> <span class="token keyword">char</span> a4<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+  <span class="token keyword">int</span> v4<span class="token punctuation">;</span> <span class="token comment">// ecx</span>
+  <span class="token keyword">int</span> i<span class="token punctuation">;</span> <span class="token comment">// [esp&#43;D0h] [ebp-20h]</span>
+  <span class="token keyword">char</span> <span class="token operator">*</span>v7<span class="token punctuation">;</span> <span class="token comment">// [esp&#43;DCh] [ebp-14h]</span>
+  <span class="token keyword">int</span> v8<span class="token punctuation">;</span> <span class="token comment">// [esp&#43;E8h] [ebp-8h]</span>
+
+  v8 <span class="token operator">&#61;</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token function">sub_41135C</span><span class="token punctuation">(</span>v4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  v7 <span class="token operator">&#61;</span> <span class="token operator">&amp;</span>a4<span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span> i <span class="token operator">&#61;</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> a3<span class="token punctuation">;</span> <span class="token operator">&#43;&#43;</span>i <span class="token punctuation">)</span>
+  <span class="token punctuation">{<!-- --></span>
+    v7 <span class="token operator">&#43;</span><span class="token operator">&#61;</span> <span class="token number">4</span><span class="token punctuation">;</span>
+    v8 <span class="token operator">&#43;</span><span class="token operator">&#61;</span> <span class="token operator">*</span><span class="token punctuation">(</span><span class="token punctuation">(</span>_DWORD <span class="token operator">*</span><span class="token punctuation">)</span>v7 <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> v8<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p>可以看出来 既识别不对参数 也没认出这是可变参数<br /> 然后手动修改函数参数<br /> <img src="https://img-blog.csdnimg.cn/20200731172655503.png?x-oss-process&#61;image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTM1MTUz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /><br /> 修改两个地方:<br /> <strong>1.找到可变参数前的最后一个确定的参数<br /> 2.在最后一个参数后加上三个 …</strong></p> 
+<p>然后代码变成了如下形式:</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">int</span> <span class="token function">sub_411710</span><span class="token punctuation">(</span><span class="token keyword">int</span> a1<span class="token punctuation">,</span> <span class="token keyword">int</span> a2<span class="token punctuation">,</span> <span class="token keyword">int</span> a3<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+  <span class="token keyword">int</span> i<span class="token punctuation">;</span> <span class="token comment">// [esp&#43;D0h] [ebp-20h]</span>
+  va_list v5<span class="token punctuation">;</span> <span class="token comment">// [esp&#43;DCh] [ebp-14h]//变量的类型也识别出来了</span>
+  <span class="token keyword">int</span> v6<span class="token punctuation">;</span> <span class="token comment">// [esp&#43;E8h] [ebp-8h]</span>
+  va_list a4<span class="token punctuation">;</span> <span class="token comment">// [esp&#43;104h] [ebp&#43;14h]</span>
+
+  <span class="token function">va_start</span><span class="token punctuation">(</span>a4<span class="token punctuation">,</span> a3<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//识别出了宏</span>
+  v6 <span class="token operator">&#61;</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token function">sub_41135C</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">va_copy</span><span class="token punctuation">(</span>v5<span class="token punctuation">,</span> a4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span> i <span class="token operator">&#61;</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> a3<span class="token punctuation">;</span> <span class="token operator">&#43;&#43;</span>i <span class="token punctuation">)</span>
+  <span class="token punctuation">{<!-- --></span>
+    v5 <span class="token operator">&#43;</span><span class="token operator">&#61;</span> <span class="token number">4</span><span class="token punctuation">;</span><span class="token comment">//指向参数的指针</span>
+    v6 <span class="token operator">&#43;</span><span class="token operator">&#61;</span> <span class="token operator">*</span><span class="token punctuation">(</span><span class="token punctuation">(</span>_DWORD <span class="token operator">*</span><span class="token punctuation">)</span>v5 <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> v6<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+                </div>
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-d7a94ec6ab.css" rel="stylesheet">
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-f1c5feb645.css" rel="stylesheet">
+        </div>
+    </article>
+</div>
+            <div id="csdn-shop-window" class="csdn-shop-window-common"></div>
+<div class="more-toolbox" id="toolBarBox">
+    <span id="fixedBar"></span>
+    <div class="left-toolbox">
+        <ul class="toolbox-list">
+            <li class="tool-item tool-item-size tool-active is-like" id="is-like"><a>
+            <img style="display:none;" id="is-like-imgactive-animation-like" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarThumbUpactive.png" alt="">
+            <img class="isactive" style="display:none" id="is-like-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarThumbUpactive.png" alt="">
+            <img class="isdefault" style="display:block" id="is-like-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarThumbUp.png" alt="">   
+            <span class="name" id="is-like-span">点赞</span>
+            <span id="spanCount" class="count">
+                    3
+            </span>
+            </a></li>
+            <li class="tool-item tool-item-size tool-active tool-item-comment">
+                <a href="#commentBox">
+                    <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarComment.png" alt="">
+                    <img class="isactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCommentactive.png" style="display:none;" alt="">
+                    <span class="name">评论</span>
+                    <span class="count">
+                    </span>
+                </a>
+            </li>
+            <li class="tool-item tool-item-size tool-active tool-QRcode" id="tool-share">
+                <a href="javascript:;" data-report-click='{"mod":"1582594662_002","spm":"1001.2101.3001.4129","ab":"new"}'>
+                    <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarShare.png" alt="">
+                    <img class="isactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarShareactive.png" style="display:none;" alt="">
+                    <span class="name">分享</span>
+                </a>
+                <div class="QRcode" id="tool-QRcode" style="left:-92%;">
+                    <span id="QRcode-close">x</span>
+                    <p class="title">
+                    海报分享
+                    </p>
+                    <div id='shareCode'></div>
+                    <p>
+                    扫一扫，分享海报
+                    </p>
+                </div>
+            </li>
+            <li class="tool-item tool-item-size tool-active is-collection ">
+                <a href="javascript:;" data-report-click='{"mod":"popu_824","spm":"1001.2101.3001.4130","ab":"new"}'>
+                    <img style="display:none" id="is-collection-img-collection" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollectionActive.png" alt="">
+                    <img class="isdefault" id="is-collection-img" style="display:block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollect.png" alt="">
+                    <img class="isactive" id="is-collection-imgactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollectionActive.png" alt="">
+                    <span class="name" id="is-collection">收藏</span>
+                    <span class="count get-collection" id="get-collection">
+                        8
+                    </span>
+                </a>
+            </li>
+            <li class="tool-item tool-item-size tool-active tool-reward">
+                <a  id="toolreward" data-report-click='{"mod":"popu_830","spm":"1001.2101.3001.4237","dest":"","ab":"new"}'>
+                    <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarReward.png" alt="">
+                    <img class="isactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarRewardactive.png" style="display:none;" alt="">
+                    <span class="name">打赏</span>
+                </a>
+<div id="reward" class="reward-box">
+	<p class="rewad-title">打赏<span class="reward-close"><svg t="1567152543821" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10924" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12"><defs><style type="text/css"></style></defs><path d="M512 438.378667L806.506667 143.893333a52.032 52.032 0 1 1 73.6 73.621334L585.621333 512l294.485334 294.485333a52.074667 52.074667 0 0 1-73.6 73.642667L512 585.621333 217.514667 880.128a52.053333 52.053333 0 1 1-73.621334-73.642667L438.378667 512 143.893333 217.514667a52.053333 52.053333 0 1 1 73.621334-73.621334L512 438.378667z" fill="" p-id="10925"></path></svg></span></p>
+	<dl>
+		<dd>
+		<a href="https://blog.csdn.net/qq_36535153" data-report-click='{"mod":"popu_379","dest":"https://blog.csdn.net/qq_36535153","ab":"new"}'>
+			<img src="https://profile.csdnimg.cn/B/2/5/3_qq_36535153" class="avatar_pic">
+		</a>
+		</dd>
+		<dt>
+			<p class="blog-name">抬头就是一枪</p>
+			<p class="blog-discript">你的鼓励将是我创作的最大动力</p>
+		</dt>
+	</dl>
+	<div class="change-bt-box">
+		<span class="reward-bt reward-bt-coin">C币</span>
+		<span class="reward-bt-space"></span>
+		<span class="reward-bt reward-bt-money reward-bt-active">余额</span>
+	</div>
+	<div class="money-box">
+			<span class="choose_money choosed" data-id="2">2C币</span>
+			<span class="choose_money " data-id="4">4C币</span>
+			<span class="choose_money " data-id="6">6C币</span>
+			<span class="choose_money " data-id="10">10C币</span>
+			<span class="choose_money " data-id="20">20C币</span>
+			<span class="choose_money " data-id="50">50C币</span>
+	</div>
+	<div class="sure-box">
+		<p class="is-have-money"><a class="reward-sure">确定</a></p>
+	</div>
+</div>
+            </li>
+            <li class="tool-item tool-item-size tool-active tool-more">
+              <a class="article-report">
+                <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarReport.png" alt="">
+                <img class="isactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarReportactive.png" style="display:none;" alt="">
+                <span class="name">举报</span>
+              </a>
+            </li>
+            <li class="tool-item">
+                    <a class="tool-attend tool-bt-button tool-bt-attend" href="javascript:;" data-report-view='{"mod":"1592215036_002","spm":"1001.2101.3001.4232","extend1":"关注"}'>关注</a>
+                <a class="tool-item-follow active-animation" style="display:none;">关注</a>
+            </li>
+            <li class="tool-item">
+                    <p class="company active" id="health-companies" href="javascript:;" >一键三连</p>
+            </li>
+        </ul>
+        <div style="display:flex" class="right-toolbox">
+         </div>
+         <div class="hot-word-tip-box">
+          <span class="hot-word-text">已标记关键词</span>
+          <span class="hot-word-count"></span> 
+          <span class="hot-word-bar"></span>
+          <span class="hot-word-clear">清除标记</span>
+        </div>
+    </div>  
+</div>
+<script__ type=text/javascript crossorigin src="https://csdnimg.cn/release/phoenix/production/qrcode-7c90a92189.min.js"></script__>
+<script__ src="//g.csdnimg.cn/??sharewx/1.2.1/sharewx.js" type="text/javascript"></script__>
+<script__ type="text/javascript" crossorigin src="https://g.csdnimg.cn/collection-box/2.0.3/collection-box.js"></script__>
+                <div id="dmp_ad_58" style="width:100%;overflow-x:hidden"><div id="kp_box_58" data-pid="58"><iframe  src="https://kunpeng-sc.csdnimg.cn/?timestamp=1623163941/#/preview/7239?positionId=58&queryWord=&spm=1001.2101.3001.5002" frameborder="0" width= "100%"  height= "75px" scrolling="no" ></iframe><img class="pre-img-lasy"  data-src="https://kunyu.csdn.net/1.png?p=58&a=3990&c=7239&k=&spm=1001.2101.3001.5002&d=1&t=3&u=0bf04a201d8c4d2dbec9af1c531aa613" style="display: block;width: 0px;height: 0px;"></div></div>
+            <div class="second-recommend-box recommend-box">
+<div class="recommend-item-box type_download clearfix" data-url="http://download.csdn.net/download/hujuanshaoyan/1226457"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromMachineLearnPai2~default-1.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"1","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"http://download.csdn.net/download/hujuanshaoyan/1226457"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="http://download.csdn.net/download/hujuanshaoyan/1226457" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromMachineLearnPai2~default-1.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"1","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"http://download.csdn.net/download/hujuanshaoyan/1226457"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control'>
+					用<em>IDA</em>反汇编DLL文件心得
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">04-19</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="http://download.csdn.net/download/hujuanshaoyan/1226457" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromMachineLearnPai2~default-1.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"1","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"http://download.csdn.net/download/hujuanshaoyan/1226457"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">最近在学习如何用<em>IDA</em> 反汇编DLL文件，由于是初步接触，水平有限，错误在所难免，不过如果能对像我同样的初学者有点帮助，那就倍感欣慰。由于是原创，收取点资源分安慰自己吧，哈哈，大家不要砖头之哦</div>
+			</a>
+		</div>
+	</div>
+</div>
+            </div>
+<a id="commentBox" name="commentBox"></a>
+<div class="comment-box">
+	<div class="comment-edit-box d-flex">
+		<a id="commentsedit"></a>
+		<div class="user-img">
+			<a href="javascript:void(0);" >
+				<img class="show_loginbox" src="https://g.csdnimg.cn/static/user-img/anonymous-User-img.png">
+			</a>
+		</div>
+		<form id="commentform">
+			<img class="comment-sofa-flag" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentFlag@2x.png">
+      <textarea class="comment-content" name="comment_content" id="comment_content" placeholder="优质评论可以帮助作者获得更高权重" maxlength="1000"></textarea>
+			<div class="comment-emoticon"><img class="comment-emoticon-img" data-url="https://csdnimg.cn/release/blogv2/dist/pc/img/" src="https://csdnimg.cn/release/blogv2/dist/pc/img/emoticon.png" alt="表情包"></div> 
+      <span class="comment-emoticon-tip">插入表情</span>
+      <div class="comment-emoticon-box">
+        <div class="comment-emoticon-img-box">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:001.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/001.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:002.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/002.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:003.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/003.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:004.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/004.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:005.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/005.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:006.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/006.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:007.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/007.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:008.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/008.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:009.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/009.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:010.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/010.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:011.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/011.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:012.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/012.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:013.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/013.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:014.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/014.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:015.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/015.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:016.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/016.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:017.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/017.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:018.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/018.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:019.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/019.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:020.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/020.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:021.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/021.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:022.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/022.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:023.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/023.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:024.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/024.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:025.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/025.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:026.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/026.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:027.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/027.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:028.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/028.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:029.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/029.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:030.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/030.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:031.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/031.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:032.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/032.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:033.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/033.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:034.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/034.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:035.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/035.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:036.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/036.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:037.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/037.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:038.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/038.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:039.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/039.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:040.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/040.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:041.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/041.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:042.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/042.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:043.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/043.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:044.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/044.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:045.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/045.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:046.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/046.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:047.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/047.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:048.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/048.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:049.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/049.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:050.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/050.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:051.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/051.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:052.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/052.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:053.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/053.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:054.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/054.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:055.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/055.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:056.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/056.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:057.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/057.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:058.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/058.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:059.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/059.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:060.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/060.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:061.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/061.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:062.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/062.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:063.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/063.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:064.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/064.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:065.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/065.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:066.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/066.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:067.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/067.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:068.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/068.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:069.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/069.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:070.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/070.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:071.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/071.png">
+            <img class="emoticon-monkey-img" data-emoticon="[face]emoji:072.png[/face]" src="https://g.csdnimg.cn/static/face/emoji/072.png">
+        </div>
+      </div>
+      <div class="opt-box">
+				<div id="ubbtools" class="add_code">
+					<a href="#insertcode" code="code" target="_self"><i class="icon iconfont icon-daima"></i></a>
+				</div>
+				<input type="hidden" id="comment_replyId" name="comment_replyId">
+				<input type="hidden" id="article_id" name="article_id" value="105215746">
+				<input type="hidden" id="comment_userId" name="comment_userId" value="">
+				<input type="hidden" id="commentId" name="commentId" value="">
+				<div class="dropdown" id="myDrap">
+					<a class="dropdown-face d-flex align-items-center" data-toggle="dropdown" role="button"
+						aria-haspopup="true" aria-expanded="false">
+						<div class="txt-selected text-truncate">添加代码片</div>
+						<svg class="icon d-block" width="200px" height="100.00px" viewBox="0 0 2048 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path  d="M597.33333292 298.666667h853.333334L1023.99999992 725.333333 597.33333292 298.666667z"  /></svg>
+					</a>
+					<ul class="dropdown-menu" id="commentCode" aria-labelledby="drop4">
+						<li><a data-code="html">HTML/XML</a></li>
+						<li><a data-code="objc">objective-c</a></li>
+						<li><a data-code="ruby">Ruby</a></li>
+						<li><a data-code="php">PHP</a></li>
+						<li><a data-code="csharp">C</a></li>
+						<li><a data-code="cpp">C++</a></li>
+						<li><a data-code="javascript">JavaScript</a></li>
+						<li><a data-code="python">Python</a></li>
+						<li><a data-code="java">Java</a></li>
+						<li><a data-code="css">CSS</a></li>
+						<li><a data-code="sql">SQL</a></li>
+						<li><a data-code="plain">其它</a></li>
+					</ul>
+				</div>
+				<div class="right-box" id="rightBox" data-type="2">
+							<span id="tip_comment" class="tip">还能输入<em>1000</em>个字符</span>
+							<a data-report-click='{"mod":"1582594662_003","spm":"1001.2101.3001.4227","ab":"new"}'><input type="submit"
+									class="btn btn-sm btn-comment" value="发表评论"></a>
+				</div>
+			</div>
+		</form>
+		<input type="button" class="bt-comment-show" value="评论">
+	</div>
+	<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<div class="btn btn-sm btn-link-blue" id="btnMoreComment"></div>
+		</div>
+	</div>
+</div>            <div class="recommend-tit-mod">相关推荐</div>
+            <div class="recommend-box insert-baidu-box">
+                <div class="recommend-item-box clearfix" style="display:none"></div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/cssxn/article/details/82911687"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"2","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/cssxn/article/details/82911687"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/cssxn/article/details/82911687" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"2","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/cssxn/article/details/82911687"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-2.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-2.control'>
+					<em>IDA</em> F5还原伪代码的小问题
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/cssxn" target="_blank"><span class="blog-title">Sven的忘却日记</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">09-30</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					7450
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/cssxn/article/details/82911687" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"2","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/cssxn/article/details/82911687"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-2.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-2.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">这个函数是DialogBoxParamsA函数注册的窗口回调，代码中有个红箭头标示处，EAX 的值来自GetDlgItemTextA函数获取输入框控件中用户输入字符的长度。然后cmp eax,5 判断用户输入点的字符是不是5个。
+
+下面有个jnz条件判断，此时如果按F5，<em>IDA</em>只显示了左边红色框框中的代码，调用MessageBoxA。
+
+上图中，F5后的结果，GetDlgItemTextA获取完长...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/lixiangminghate/article/details/83752367"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-3.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"3","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/lixiangminghate/article/details/83752367"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/lixiangminghate/article/details/83752367" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-3.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"3","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/lixiangminghate/article/details/83752367"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-3.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-3.control'>
+					<em>IDA</em><em>反编译</em>器的使用
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/lixiangminghate" target="_blank"><span class="blog-title">lixiangminghate的专栏</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">11-07</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2万+
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/lixiangminghate/article/details/83752367" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-3.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"3","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/lixiangminghate/article/details/83752367"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-3.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-3.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">&nbsp;&nbsp; <em>IDA</em><em>反编译</em>器，正如<em>IDA</em>官网所说，虽然还原出来的代码不能直接使用，但是其参考作用不容否认。这里记录一些<em>反编译</em>时会用到的功能。
+
+1.生成伪代码：
+
+view-Open subviews-Generate pesudocode (快捷键F5)
+
+-&amp;gt;
+
+(F5前后对比图)
+
+2.伪代码切换到对应的反汇编代码：
+
+前面说了，<em>IDA</em>生成的伪代码不可全信。当怀疑伪代码的正确性时，需要返回到反...</div>
+			</a>
+		</div>
+	</div>
+</div>
+		<dl id="recommend-item-box-tow" class="recommend-item-box type_blog clearfix">
+			
+		</dl>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/instruder/article/details/6008771"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-4.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"4","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/instruder/article/details/6008771"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/instruder/article/details/6008771" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-4.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"4","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/instruder/article/details/6008771"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.control'>
+					<em>IDA</em>插件-----获取指定函数参数个数
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/instruder" target="_blank"><span class="blog-title">爱杀之爪的矩阵</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">11-14</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					4293
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/instruder/article/details/6008771" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-4.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"4","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/instruder/article/details/6008771"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-4.control'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>ida</em>读取函数参数插件</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/weixin_33994444/article/details/86261629"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-5.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"5","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/weixin_33994444/article/details/86261629"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/weixin_33994444/article/details/86261629" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-5.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"5","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/weixin_33994444/article/details/86261629"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-5.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-5.control'>
+					【<em>反编译</em>系列】四、<em>反编译</em>so文件（<em>IDA</em>_Pro）
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/weixin_33994444" target="_blank"><span class="blog-title">weixin_33994444的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">06-10</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					5778
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/weixin_33994444/article/details/86261629" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-5.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"5","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/weixin_33994444/article/details/86261629"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-5.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-5.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">版权声明：本文为HaiyuKing原创文章，转载请注明出处！
+概述
+　　安卓应用程序的开发语言是java，但是由于java层的代码很容易被<em>反编译</em>，而<em>反编译</em>c/c++程序的难度比较大，所以现在很多安卓应用程序的核心部分都使用NDK进行开发。使用NDK开发能够编译c/c++程序，最终生成so文件。而so文件是一个二进制文件，我们是无法直接分析so文件的，所以这里需要用到一个<em>反编译</em>工具<em>IDA</em> Pro...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/yuqian123455/article/details/103011474"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-6.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"6","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/yuqian123455/article/details/103011474"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/yuqian123455/article/details/103011474" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-6.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"6","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/yuqian123455/article/details/103011474"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-6.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-6.control'>
+					<em>IDA</em> 逆向代码 --- 双精度浮点型jumpout
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/yuqian123455" target="_blank"><span class="blog-title">生命不息 折腾不止</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">11-11</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2261
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/yuqian123455/article/details/103011474" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-6.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"6","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/yuqian123455/article/details/103011474"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-6.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-6.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">场景：
+<em>IDA</em>识别出一个函数为：
+
+
+int __fastcall _floatsidf(int result)
+{
+  if ( result )
+    JUMPOUT(&amp;loc_DD7F4AA4);
+  return result;
+}
+
+分析：
+调试一下，通过输入和输出发现：函数floatsidf 实际上就是将int 转换成为 double型；
+
+
+浮点数，<em>注意</em>R0 和R1，是使用...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/wq57885/article/details/103211799"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-7.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"7","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/wq57885/article/details/103211799"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/wq57885/article/details/103211799" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-7.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"7","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/wq57885/article/details/103211799"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-7.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-7.control'>
+					浅谈安卓逆向月报（1）- 抖音 - <em>ida</em> - native层F5伪代码堆栈平衡修复
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/wq57885" target="_blank"><span class="blog-title">wq57885的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">11-23</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1694
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/wq57885/article/details/103211799" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-7.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"7","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/wq57885/article/details/103211799"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-7.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-7.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">这章主要聊聊如何修复可以F5伪代码
+
+以最新的抖音840的so为例，这边仅仅说下如何修复F5，解决&ldquo;positive sp value has been found&rdquo;错误提示。
+
+后续的我也没深入跟进，写这篇文章仅为方便自己日后查阅。
+
+首先inline_hook确定RegisterNatives函数地址
+
+
+
+
+
+
+leviathan地址为0x4e1c1
+
+<em>IDA</em> 按F5会提示&ldquo;4E24E p...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/lixiangminghate/article/details/78820388"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-8.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"8","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/lixiangminghate/article/details/78820388"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/lixiangminghate/article/details/78820388" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-8.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"8","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/lixiangminghate/article/details/78820388"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-8.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-8.control'>
+					<em>IDA</em>出现&quot;sp-analysis failed&quot;和F5(<em>反编译</em>)失败
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/lixiangminghate" target="_blank"><span class="blog-title">lixiangminghate的专栏</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">12-16</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1万+
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/lixiangminghate/article/details/78820388" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-8.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"8","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/lixiangminghate/article/details/78820388"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-8.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-8.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">本来想拟的标题是&quot;<em>IDA</em> sp-analysis failed F5失败&quot;，因为网上有很多这种类型为标题的讨论。可是，我实际了一把，发现出现这种现象至少是有2个原因导致，就有了这篇文章的标题。
+先来看看产生&ldquo;sp-analysis failed&rdquo;现象的原因，摘自<em>ida</em>官网：
+
+Problem: Failed to trace the value of the stack pointer
+
+ </div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/yuqian123455/article/details/82317425"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-9.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"9","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/yuqian123455/article/details/82317425"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/yuqian123455/article/details/82317425" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-9.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"9","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/yuqian123455/article/details/82317425"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-9.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-9.control'>
+					<em>IDA</em>逆向<em>技巧</em>(持续更新)
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/yuqian123455" target="_blank"><span class="blog-title">生命不息 折腾不止</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">09-02</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2万+
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/yuqian123455/article/details/82317425" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-9.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"9","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/yuqian123455/article/details/82317425"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-9.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-9.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">读者如果发现错误，请指正。
+
+<em>IDA</em>的逆向分析水平就是一个逆向工程师的水平；7.1 <em>IDA</em>与OD的联合使用
+
+一般使用OD下断点，找到关键代码位置，然后使用<em>IDA</em>静态看流程。
+需要<em>注意</em>的是<em>IDA</em>需要与OD基地址对齐，这样才方便在<em>IDA</em>中查找代码位置，具体方式如下：
+
+Edit ---&gt; Segment ----- Rebase Program : 设置基地址；
+
+在WINdbg中基地址...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/u010334666/article/details/82937413"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-10.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"10","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/u010334666/article/details/82937413"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/u010334666/article/details/82937413" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-10.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"10","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/u010334666/article/details/82937413"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-10.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-10.control'>
+					<em>IDA</em>小<em>技巧</em>之&mdash;&mdash;F5不能出现伪代码
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/u010334666" target="_blank"><span class="blog-title">NoOneGroup</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">10-04</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2万+
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/u010334666/article/details/82937413" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-10.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"10","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/u010334666/article/details/82937413"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-10.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-10.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">博客已经转移
+
+https://noone-hub.github.io/
+
+打开<em>ida</em>，打开一个文件，我用的是安恒月赛的一个文件，出现
+
+
+
+postive sp value has been found ,这个问题其实干扰我很久了，然后网上的很多说平衡堆栈，平衡平衡，发觉一个很长的函数，用手去计算堆栈吗，显然不是的，网上又没解释清楚，然后今天我搞懂了，就分享一下，进入正文：
+
+首先打开optio...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="http://download.csdn.net/download/weixin_39841882/11396278"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromMachineLearnPai2~default-11.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"11","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"http://download.csdn.net/download/weixin_39841882/11396278"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="http://download.csdn.net/download/weixin_39841882/11396278" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromMachineLearnPai2~default-11.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"11","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"http://download.csdn.net/download/weixin_39841882/11396278"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-11.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-11.control'>
+					<em>IDA</em>基础视频教程【20集】
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">07-22</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="http://download.csdn.net/download/weixin_39841882/11396278" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromMachineLearnPai2~default-11.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"11","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"http://download.csdn.net/download/weixin_39841882/11396278"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-11.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-11.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">资源名称：<em>IDA</em>基础视频教程【20集】资源目录：【】1.反汇编简介【】10.栈帧---2【】11.<em>IDA</em>搜索功能【】12.重命名与局部变量【】13.<em>IDA</em>的注释与代码转换【】14.<em>IDA</em>中操纵函数【】15.<em>IDA</em>字符与数据间的转换【】16.<em>IDA</em>中数组元素的访问【】17.<em>IDA</em>中结构体与数据库【】1
+资源太大，传百度网盘了，链接在附件中，有需要的同学自取。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/weixin_39840515/11461338"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromMachineLearnPai2~default-12.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"12","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://download.csdn.net/download/weixin_39840515/11461338"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/weixin_39840515/11461338" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromMachineLearnPai2~default-12.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"12","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://download.csdn.net/download/weixin_39840515/11461338"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-12.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-12.control'>
+					<em>IDA</em>牛逼插件keypatchfor<em>IDA</em>pro7.0支持armarm64
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">08-02</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/weixin_39840515/11461338" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromMachineLearnPai2~default-12.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"12","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://download.csdn.net/download/weixin_39840515/11461338"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-12.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-12.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">keypatch是一套<em>ida</em> pro7.0最新版的牛逼插件，支持x86 arm x64 f5插件最新版，需要的朋友可下载试试！
+<em>IDA</em>&nbsp;Pro 7.0 最新版下载地址
+通常<em>ida</em>在修改二进制文件，自带的edit-&gt;patch program-&gt;assemble( Ilfak Guilfanov在论坛里也提到, 未来很可能会把assemble汇编器相关的功能彻底移除掉) 可以修改x86, x64</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/gengyiping18/article/details/44220649"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-13.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"13","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/gengyiping18/article/details/44220649"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/gengyiping18/article/details/44220649" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-13.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"13","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/gengyiping18/article/details/44220649"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-13.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-13.control'>
+					利用<em>IDA</em> Pro<em>反编译</em>破解.exe
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/gengyiping18" target="_blank"><span class="blog-title">gengyiping18的专栏</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">03-12</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1万+
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/gengyiping18/article/details/44220649" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-13.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"13","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://blog.csdn.net/gengyiping18/article/details/44220649"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-13.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-13.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">参考文章：http://www.cnblogs.com/vento/archive/2013/02/09/2909579.html</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/yangjun111122/article/details/6074468"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-14.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"14","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/yangjun111122/article/details/6074468"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/yangjun111122/article/details/6074468" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-14.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"14","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/yangjun111122/article/details/6074468"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-14.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-14.control'>
+					防止<em>IDA</em>逆向工程的花指令。
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/yangjun111122" target="_blank"><span class="blog-title">yangjun111122的专栏</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">12-14</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					4838
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/yangjun111122/article/details/6074468" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-14.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"14","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/yangjun111122/article/details/6074468"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-14.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-14.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">&lt;br /&gt;发现，要使<em>IDA</em>的反汇编失败的最简单花指令，就是在c/c++的函数里头使用retn指令。例如：&lt;br /&gt;#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#pragma auto_inline(off)
+int __stdcall Proc(int n)
+{
+	char* strParam = &quot;A test to inspect stack, n=%d, a=%d.&quot;;
+	int a = n;
+	__asm 
+	{
+		push label;</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/weixin_30867015/article/details/98553482"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-15.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"15","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/weixin_30867015/article/details/98553482"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/weixin_30867015/article/details/98553482" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-15.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"15","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/weixin_30867015/article/details/98553482"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-15.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-15.control'>
+					[C++] <em>反编译</em>器
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/weixin_30867015" target="_blank"><span class="blog-title">weixin_30867015的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">02-09</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					6495
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/weixin_30867015/article/details/98553482" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-15.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"15","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/weixin_30867015/article/details/98553482"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-15.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-15.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">各种开源的decompiler都不太好用，目前最好的<em>反编译</em>器是<em>IDA</em> pro。虽然是收费的，不过破解版很好找。我试过5.5版本的，还不错。我把windows notepad进行了<em>反编译</em>，多少算有点可读性：/* This file has been generated by the Hex-Rays decompiler.
+   Copyright (c) 2009 Hex-Rays &lt;i...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/for4for/760598"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromMachineLearnPai2~default-16.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"16","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://download.csdn.net/download/for4for/760598"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/for4for/760598" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromMachineLearnPai2~default-16.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"16","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://download.csdn.net/download/for4for/760598"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-16.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-16.control'>
+					<em>ida</em>反汇编工具使用教程
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">11-08</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/for4for/760598" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromMachineLearnPai2~default-16.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"16","strategy":"2~default~BlogCommendFromMachineLearnPai2~default","dest":"https://download.csdn.net/download/for4for/760598"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-16.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-16.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">win32反汇编，<em>ida</em>教程，win32编程及学习好工具</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/weixin_30468137/article/details/98007071"  data-report-view='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-17.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"17","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/weixin_30468137/article/details/98007071"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/weixin_30468137/article/details/98007071" class="tit ellipsis-online ellipsis-online-1" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-17.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"17","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/weixin_30468137/article/details/98007071"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-17.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-17.control'>
+					jump out用法
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/weixin_30468137" target="_blank"><span class="blog-title">weixin_30468137的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">08-01</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2199
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/weixin_30468137/article/details/98007071" target="_blank"  data-report-click='{"ab":"new","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-17.control\"}","dist_request_id":"1332041.11808.16192592772894683","index":"17","strategy":"2~default~BlogCommendFromBaidu~default","dest":"https://blog.csdn.net/weixin_30468137/article/details/98007071"}'  data-report-query='utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-17.control&dist_request_id=1332041.11808.16192592772894683&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-17.control'>
+				<div class="desc ellipsis-online ellipsis-online-1">You ready to jump out the airplane without your parachute? ---《老友记》 第一季 第一集
+你准备好不用降落伞跳出飞机吗？
+拓展：
+to jump right out of one&#39;s skin
+all skin and bones
+今天我们 来给大家介绍两个由skin组成的习惯用语。我们要讲的第一个常用语所形容的景象可能你们永...</div>
+			</a>
+		</div>
+	</div>
+</div>
+            </div>
+            <div class="template-box">
+                <span>©️2020 CSDN</span>
+                <span>皮肤主题: 大白</span>
+                <span> 设计师:CSDN官方博客</span>
+                <span>
+                    <a href="https://blog.csdn.net/" class="back-home c-blue c-blue-hover c-blue-focus">返回首页</a>
+                </span>
+            </div>
+<div class="blog-footer-bottom" style="margin-top:10px;"></div>
+<script__ src="https://g.csdnimg.cn/common/csdn-footer/csdn-footer.js" data-isfootertrack="false" type="text/javascript"></script__>
+<script__ type="text/javascript">
+    window.csdn.csdnFooter.options = {
+        el: '.blog-footer-bottom',
+        type: 2
+    }
+</script__>        </main>
+<aside class="blog_container_aside">
+	<div id="asideProfile" class="aside-box">
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/qq_36535153" data-report-click='{"mod":"popu_379","spm":"1001.2101.3001.4121","dest":"https://blog.csdn.net/qq_36535153","ab":"new"}'>
+                <img src="https://profile.csdnimg.cn/B/2/5/3_qq_36535153" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex flex-column profile-intro-name-box">
+            <div class="profile-intro-name-boxTop">
+                <a href="https://blog.csdn.net/qq_36535153" class="" id="uid" title="抬头就是一枪" data-report-click='{"mod":"popu_379","spm":"1001.2101.3001.4122","dest":"https://blog.csdn.net/qq_36535153","ab":"new"}'>
+                    <span class="name " username="qq_36535153">抬头就是一枪</span>
+                </a>
+                <span>
+                </span>
+                <span class="flag expert-blog">
+                <span class="bubble">CSDN认证博客专家</span>
+                </span>
+                <span class="flag company-blog">
+                <span class="bubble">CSDN认证企业博客</span>
+                </span>
+            </div>
+            <div class="profile-intro-name-boxFooter">
+                <span class="personal-home-page personal-home-years">码龄4年</span>
+                    <span class="personal-home-page">
+                    <a class="personal-home-certification" href="https://i.csdn.net/#/uc/profile?utm_source=14998968" target="_blank" title="暂无认证">
+                    <img src="https://csdnimg.cn/identity/nocErtification.png" alt="">
+                    暂无认证
+                    </a>
+                    </span>
+            </div>
+        </div>
+    </div>
+    <div class="data-info d-flex item-tiling">
+        <dl class="text-center" title="23">
+            <a href="https://blog.csdn.net/qq_36535153" data-report-click='{"mod":"1598321000_001","spm":"1001.2101.3001.4310"}' data-report-query="t=1">  
+                <dt><span class="count">23</span></dt>
+                <dd class="font">原创</dd>
+            </a>
+        </dl>
+        <dl class="text-center" data-report-click='{"mod":"1598321000_002","spm":"1001.2101.3001.4311"}' title="112514">
+            <a href="https://blog.csdn.net/rank/list/weekly" target="_blank">
+                <dt><span class="count">11万+</span></dt>
+                <dd class="font">周排名</dd>
+            </a>
+        </dl>
+        <dl class="text-center" title="217366">
+            <a href="https://blog.csdn.net/rank/list/total" data-report-click='{"mod":"1598321000_003","spm":"1001.2101.3001.4312"}' target="_blank">
+                <dt><span class="count">21万+</span></dt>
+                <dd class="font">总排名</dd>
+            </a>
+        </dl>
+        <dl class="text-center" style="min-width:58px" title="21210">  
+            <dt><span class="count">2万+</span></dt>
+            <dd>访问</dd>
+        </dl>
+        <dl class="text-center" title="3级,点击查看等级说明">
+            <dt><a href="https://blog.csdn.net/blogdevteam/article/details/103478461" target="_blank">
+                <img class="level" src="https://csdnimg.cn/identity/blog3.png">
+            </a>
+            </dt>
+            <dd>等级</dd>
+        </dl>
+    </div>
+    <div class="item-rank"></div>
+    <div class="data-info d-flex item-tiling">
+        <dl class="text-center" title="462">
+            <dt><span class="count">462</span></dt>
+            <dd>积分</dd>
+        </dl>
+         <dl class="text-center" id="fanBox" title="5">
+            <dt><span class="count" id="fan">5</span></dt>
+            <dd>粉丝</dd>
+        </dl>
+        <dl class="text-center" title="31">
+            <dt><span class="count">31</span></dt>
+            <dd>获赞</dd>
+        </dl>
+        <dl class="text-center" title="2">
+            <dt><span class="count">2</span></dt>
+            <dd>评论</dd>
+        </dl>
+        <dl class="text-center" title="37">
+            <dt><span class="count">37</span></dt>
+            <dd>收藏</dd>
+        </dl>
+    </div>
+    <div class="aside-box-footer" data-report-view='{"spm":"3001.4296"}'>
+        <div class="badge-box d-flex">
+            <div class="badge d-flex">
+                <div class="icon-badge" title="签到新秀">
+                    <div class="mouse-box">
+                        <img class="medal-img" data-report-click='{"spm":"3001.4296"}' src="https://csdnimg.cn/medal/qiandao3@240.png" alt="签到新秀">
+                    </div>
+                </div>
+                <div class="icon-badge" title="持之以恒">
+                    <div class="mouse-box">
+                        <img class="medal-img" data-report-click='{"spm":"3001.4296"}' src="https://csdnimg.cn/medal/chizhiyiheng@240.png" alt="持之以恒">
+                    </div>
+                </div>
+                <div class="icon-badge" title="勤写标兵Lv1">
+                    <div class="mouse-box">
+                        <img class="medal-img" data-report-click='{"spm":"3001.4296"}' src="https://csdnimg.cn/medal/qixiebiaobing1@240.png" alt="勤写标兵Lv1">
+                    </div>
+                </div>
+                <div class="icon-badge" title="原力新人">
+                    <div class="mouse-box">
+                        <img class="medal-img" data-report-click='{"spm":"3001.4296"}' src="https://csdnimg.cn/medal/yuanli_xinren@240.png" alt="原力新人">
+                    </div>
+                </div>
+                <div class="icon-badge" title="分享学徒">
+                    <div class="mouse-box">
+                        <img class="medal-img" data-report-click='{"spm":"3001.4296"}' src="https://csdnimg.cn/medal/fenxiangxuetu@240.png" alt="分享学徒">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-intro-name-boxOpration">
+        <div class="opt-letter-watch-box">
+        <a class="bt-button personal-letter" href="https://im.csdn.net/chat/qq_36535153" target="_blank" rel="noopener">私信</a>
+        </div>
+        <div class="opt-letter-watch-box"> 
+            <a class="personal-watch bt-button" id="btnAttent" >关注</a>  
+        </div>
+    </div>
+</div>
+<div id="asideSearchArticle" class="aside-box">
+	<div class="aside-content search-comter">
+    <div class="aside-search aside-search-blog">         
+        <input type="text" class="input-serch-blog" name="" autocomplete="off" value="" id="search-blog-words" placeholder="搜博主文章">
+        <a class="btn-search-blog">
+                    <img src="//csdnimg.cn/cdn/content-toolbar/csdn-sou.png?v=1587021042">
+        </a>
+    </div>
+    </div>
+</div>
+
+
+<div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list">
+			<li>
+				<a href="https://blog.csdn.net/qq_36535153/article/details/99314223" target="_blank"  data-report-click='{"mod":"popu_541","spm":"1001.2101.3001.4139","dest":"https://blog.csdn.net/qq_36535153/article/details/99314223","ab":"new"}'>
+				VS2019 windows驱动开发环境配置
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">10940</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/qq_36535153/article/details/105215746" target="_blank"  data-report-click='{"mod":"popu_541","spm":"1001.2101.3001.4139","dest":"https://blog.csdn.net/qq_36535153/article/details/105215746","ab":"new"}'>
+				IDA反编译的几个注意和技巧
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">2378</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/qq_36535153/article/details/100579927" target="_blank"  data-report-click='{"mod":"popu_541","spm":"1001.2101.3001.4139","dest":"https://blog.csdn.net/qq_36535153/article/details/100579927","ab":"new"}'>
+				python对采集的CAN数据进行整理
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">2267</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/qq_36535153/article/details/99314607" target="_blank"  data-report-click='{"mod":"popu_541","spm":"1001.2101.3001.4139","dest":"https://blog.csdn.net/qq_36535153/article/details/99314607","ab":"new"}'>
+				Go 读取和写入xml文件示例
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">1069</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/qq_36535153/article/details/105974748" target="_blank"  data-report-click='{"mod":"popu_541","spm":"1001.2101.3001.4139","dest":"https://blog.csdn.net/qq_36535153/article/details/105974748","ab":"new"}'>
+				C语言不区分大小写比较字符串代码
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">657</span>
+                </a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div id="asideCategory" class="aside-box ">
+    <h3 class="aside-title">分类专栏</h3>
+    <div class="aside-content">
+        <ul>
+            <li class="">
+                <a class="clearfix" target="_blank" href="https://blog.csdn.net/qq_36535153/category_9883137.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_36535153/category_9883137.html","ab":"new"}'>
+                    <img src="https://img-blog.csdnimg.cn/20201014180756754.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        <span class="text">逆向</span>
+                    </span>
+                    <span class="count float-right">12篇</span>
+                </a>
+            </li>
+            <li class="">
+                <a class="clearfix" target="_blank" href="https://blog.csdn.net/qq_36535153/category_9498792.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_36535153/category_9498792.html","ab":"new"}'>
+                    <img src="https://img-blog.csdnimg.cn/20201014180756919.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        <span class="text">破解</span>
+                    </span>
+                    <span class="count float-right">14篇</span>
+                </a>
+            </li>
+            <li class="">
+                <a class="clearfix" target="_blank" href="https://blog.csdn.net/qq_36535153/category_9963301.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_36535153/category_9963301.html","ab":"new"}'>
+                    <img src="https://img-blog.csdnimg.cn/20201014180756928.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        <span class="text">c++ GBK</span>
+                    </span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+            <li class="">
+                <a class="clearfix" target="_blank" href="https://blog.csdn.net/qq_36535153/category_9220559.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_36535153/category_9220559.html","ab":"new"}'>
+                    <img src="https://img-blog.csdnimg.cn/20201014180756724.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        <span class="text">开发</span>
+                    </span>
+                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+            <li class="">
+                <a class="clearfix" target="_blank" href="https://blog.csdn.net/qq_36535153/category_9220614.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_36535153/category_9220614.html","ab":"new"}'>
+                    <img src="https://img-blog.csdnimg.cn/20201014180756913.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        <span class="text">学习</span>
+                    </span>
+                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+            <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/qq_36535153/article/details/99314223#comments_13691227" data-report-click='{"mod":"popu_542","spm":"1001.2101.3001.4231","dest":"https://blog.csdn.net/qq_36535153/article/details/99314223#comments_13691227","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"1001.2101.3001.4231","dest":"https://blog.csdn.net/qq_36535153/article/details/99314223#comments_13691227","ab":"new"}'>VS2019 windows驱动开发环境配置</a>
+                <p class="comment ellipsis">
+                    <a href="https://blog.csdn.net/hellsun" class="user-name" target="_blank">bbslucky: </a>
+                    <span class="code-comments">KDMF模板还是不出来，Vsix目录没有，WDK.vsix没有</span>
+                </p>
+            </li>
+            <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/qq_36535153/article/details/107528668#comments_13581845" data-report-click='{"mod":"popu_542","spm":"1001.2101.3001.4231","dest":"https://blog.csdn.net/qq_36535153/article/details/107528668#comments_13581845","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"1001.2101.3001.4231","dest":"https://blog.csdn.net/qq_36535153/article/details/107528668#comments_13581845","ab":"new"}'>Ghidra踩坑记录</a>
+                <p class="comment ellipsis">
+                    <a href="https://blog.csdn.net/shenye1141664884" class="user-name" target="_blank">琴海笙歌: </a>
+                    <span class="code-comments">最后问题解决了吗，同等问题 求救</span>
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="asideArchive" class="aside-box" style="display:block!important; width:300px;">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix">
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/qq_36535153/article/details/112961346" target="_blank" data-report-click='{"mod":"popu_382","spm":"1001.2101.3001.4136","dest":"https://blog.csdn.net/qq_36535153/article/details/112961346","ab":"new"}' data-report-view='{"mod":"popu_382","dest":"https://blog.csdn.net/qq_36535153/article/details/112961346","ab":"new"}'>IDA7.2使用问题记录</a>
+            </li>
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/qq_36535153/article/details/112263804" target="_blank" data-report-click='{"mod":"popu_382","spm":"1001.2101.3001.4136","dest":"https://blog.csdn.net/qq_36535153/article/details/112263804","ab":"new"}' data-report-view='{"mod":"popu_382","dest":"https://blog.csdn.net/qq_36535153/article/details/112263804","ab":"new"}'>IDA 对switch case反编译不出来的问题 解决方法</a>
+            </li>
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/qq_36535153/article/details/111357434" target="_blank" data-report-click='{"mod":"popu_382","spm":"1001.2101.3001.4136","dest":"https://blog.csdn.net/qq_36535153/article/details/111357434","ab":"new"}' data-report-view='{"mod":"popu_382","dest":"https://blog.csdn.net/qq_36535153/article/details/111357434","ab":"new"}'>IDA 使用小技巧</a>
+            </li>
+        </ul>
+        <div class="archive-bar"></div>
+        <div class="archive-box">
+                <div class="archive-list-item"><a href="https://blog.csdn.net/qq_36535153/article/month/2021/01" target="_blank" data-report-click='{"mod":"popu_538","spm":"1001.2101.3001.4138","ab":"new","dest":""}'><span class="year">2021年</span><span class="num">2篇</span></a></div>
+                <div class="archive-list-item"><a href="https://blog.csdn.net/qq_36535153/article/month/2020/12" target="_blank" data-report-click='{"mod":"popu_538","spm":"1001.2101.3001.4138","ab":"new","dest":""}'><span class="year">2020年</span><span class="num">14篇</span></a></div>
+                <div class="archive-list-item"><a href="https://blog.csdn.net/qq_36535153/article/month/2019/11" target="_blank" data-report-click='{"mod":"popu_538","spm":"1001.2101.3001.4138","ab":"new","dest":""}'><span class="year">2019年</span><span class="num">7篇</span></a></div>
+        </div>
+    </div>
+</div>
+	<div id="footerRightAds" class="isShowFooterAds">
+		<div class="aside-box">
+			<div id="kp_box_57" data-pid="57"><script__ async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script__>
+<!-- PC-博客详情页-左下视窗（300*600） -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="1173711872"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script__>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script__><img class="pre-img-lasy" data-src="https://kunyu.csdn.net/1.png?p=57&a=2488&c=0&k=&spm=1001.2101.3001.5001&d=1&t=3&u=988175c9faed4b509a42c9326188a1df" style="display: block;width: 0px;height: 0px;"></div>
+		</div>
+	</div>
+    <!-- 详情页显示目录 -->
+<!--文章目录-->
+<div id="asidedirectory" class="aside-box">
+    <div class='groupfile' id="directory">
+        <h3 class="aside-title">目录</h3>
+        <div class="align-items-stretch group_item">
+            <div class="pos-box">
+            <div class="scroll-box">
+                <div class="toc-box"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</aside>
+<script__>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).parents("p.text-center").remove();
+	})
+</script__>
+<script__ type="text/javascript"  src="https://g.csdnimg.cn/user-tooltip/2.4/user-tooltip.js"></script__>
+<script__ type="text/javascript"  src="https://g.csdnimg.cn/user-medal/1.0.6/user-medal.js"></script__>    </div>
+<div class="recommend-right  align-items-stretch clearfix" id="rightAside" data-type="recommend">
+    <aside class="recommend-right_aside">
+        <div id="recommend-right" >
+                        <div class='flex-column aside-box groupfile' id="groupfile">
+                <div class="groupfile-div">
+                <h3 class="aside-title">目录</h3>
+                <div class="align-items-stretch group_item">
+                    <div class="pos-box">
+                        <div class="scroll-box">
+                            <div class="toc-box"></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+                <div id="recommendAdBox">
+                    <div id="kp_box_479" data-pid="479"><script__ async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script__>
+<!-- PC-博客详情页-右侧视窗300*600 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="8441704093"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script__>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script__><img class="pre-img-lasy" data-src="https://kunyu.csdn.net/1.png?p=479&a=2487&c=0&k=&spm=1001.2101.3001.4834&d=1&t=3&u=9175442164b94412aaf3b0f7528072a0" style="display: block;width: 0px;height: 0px;"></div>
+                </div>
+            <div class='aside-box kind_person d-flex flex-column'>
+                    <h3 class="aside-title">分类专栏</h3>
+                    <div class="align-items-stretch kindof_item" id="kind_person_column">
+                        <div class="aside-content">
+                            <ul>
+                                <li class="">
+                                    <a class="clearfix" target="_blank" href="https://blog.csdn.net/qq_36535153/category_9883137.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_36535153/category_9883137.html","ab":"new"}'>
+                                        <img src="https://img-blog.csdnimg.cn/20201014180756754.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                        <span class="title oneline">
+                                            <span class="text">逆向</span>
+                                        </span>
+                                        <span class="count float-right">12篇</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a class="clearfix" target="_blank" href="https://blog.csdn.net/qq_36535153/category_9498792.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_36535153/category_9498792.html","ab":"new"}'>
+                                        <img src="https://img-blog.csdnimg.cn/20201014180756919.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                        <span class="title oneline">
+                                            <span class="text">破解</span>
+                                        </span>
+                                        <span class="count float-right">14篇</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a class="clearfix" target="_blank" href="https://blog.csdn.net/qq_36535153/category_9963301.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_36535153/category_9963301.html","ab":"new"}'>
+                                        <img src="https://img-blog.csdnimg.cn/20201014180756928.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                        <span class="title oneline">
+                                            <span class="text">c++ GBK</span>
+                                        </span>
+                                        <span class="count float-right">2篇</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a class="clearfix" target="_blank" href="https://blog.csdn.net/qq_36535153/category_9220559.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_36535153/category_9220559.html","ab":"new"}'>
+                                        <img src="https://img-blog.csdnimg.cn/20201014180756724.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                        <span class="title oneline">
+                                            <span class="text">开发</span>
+                                        </span>
+                                        <span class="count float-right">8篇</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a class="clearfix" target="_blank" href="https://blog.csdn.net/qq_36535153/category_9220614.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/qq_36535153/category_9220614.html","ab":"new"}'>
+                                        <img src="https://img-blog.csdnimg.cn/20201014180756913.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://img-blog.csdnimg.cn/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                        <span class="title oneline">
+                                            <span class="text">学习</span>
+                                        </span>
+                                        <span class="count float-right">8篇</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </aside>
+</div>
+
+</div>
+<div class="mask-dark"></div>
+<script__ type="text/javascript">
+    var timert = setInterval(function(){
+      sideToolbar = $(".csdn-side-toolbar");
+      if (sideToolbar.length > 0) {
+        sideToolbar.css('cssText','bottom:64px !important;')
+        clearInterval(timert);
+      }
+    }, 200);
+</script__>
+<script__>
+    var articleId = 105215746;
+    var commentscount = 0;
+    var curentUrl = "https://blog.csdn.net/qq_36535153/article/details/105215746";
+    var myUrl = "https://my.csdn.net/";
+    var highlight = ["IDA","反编译","注意","技巧"];//高亮数组
+    var isRecommendModule = true;
+    var isBaiduPre = true;
+    var baiduCount = 2;
+    var share_card_url = "https://blog.csdn.net/qq_36535153/article/shareArticleCardPage?article_id=105215746"
+	var articleType = 1;
+    var baiduKey = "IDA反编译的几个注意和技巧";
+    var userNewReport = false;
+    var needInsertBaidu = true;
+    var recommendRegularDomainArr = ["blog.csdn.net/.+/article/details/","download.csdn.net/download/","edu.csdn.net/course/detail/","ask.csdn.net/questions/","bbs.csdn.net/topics/","www.csdn.net/gather_.+/"]
+    var codeStyle = "";
+    var baiduSearchType = "title";
+    var canRead = true;
+    var blogMoveHomeArticle = false;
+    var showPcWindowAd = false;
+    var showSearchText = "";
+    var linkPage = true;
+    var articleSource = 1;
+    var articleReport = '{"pid": "blog", "spm":"1001.2101"}';
+</script__>
+<script__ src="https://csdnimg.cn/public/sandalstrap/1.4/js/sandalstrap.min.js"></script__>
+<div class="skin-boxshadow"></div>
+ 
+</body>
+<script__ src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_highlight-db1e81323a.min.js" type="text/javascript"></script__>
+<script__ src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_common-906586e915.min.js" type="text/javascript"></script__>
+<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-light.css">
+<script__>
+ // 全局声明
+ if (window.csdn === undefined) {
+      window.csdn = {};
+    }
+    window.csdn.sideToolbar = {
+        options: {
+            report:{
+                isShow: true,
+            },
+            qr: {
+                isShow: false,
+            },
+            guide: {
+                isShow: true
+            }
+        }
+    }
+    $(function(){
+        $(document).on('click',"a.option-box[data-type='report']",function() {
+            window.csdn.userLogin.loadAjax(function(res){
+                if(userNewReport){
+                    showReportNew(false,articleTitles);
+                }else{
+                    showReport(false,articleTitles);
+                }
+            })
+        });
+    })
+</script__>
+    <script__ src="https://g.csdnimg.cn/baidu-search/1.0.9/baidu-search.js"  type="text/javascript"></script__>
+<script__ src="https://csdnimg.cn/release/download/old_static/js/qrcode.js"></script__>
+<script__ src="https://csdnimg.cn/release/blogv2/dist/pc/js/common-cc21cbaf03.min.js" type="text/javascript"></script__>
+<script__ src="https://csdnimg.cn/release/blogv2/dist/pc/js/detail-f1051f3870.min.js" type="text/javascript"></script__>
+<script__ src="https://g.csdnimg.cn/user-ordercart/1.0.6/user-ordercart.js" type="text/javascript"></script__>
+<script__ src="https://csdnimg.cn/release/blogv2/dist/pc/js/column-78261cfea6.min.js" type="text/javascript"></script__>
+<script__ src="https://g.csdnimg.cn/side-toolbar/3.0/side-toolbar.js" type="text/javascript"></script__>
+<script__ src="https://g.csdnimg.cn/common/shop-window-v2/shop-window.js" type="text/javascript"></script__>
+<script__>
+    var shopUserName = username;
+    ;$(function(){
+        window.csdn.shop.show({
+            userName: shopUserName,
+            topEl: $("#csdn-shop-window-top"),
+            bottomEl: $("#csdn-shop-window"),
+            callBack: function(res){
+                if(!res.top){
+                    $("#blogColumnPayAdvert").css({"display":"block"})
+                    $("#csdn-shop-window-top").css({"display":"none"})
+                }
+            }
+        })
+    })
+</script__>
+<script__ src="https://g.csdnimg.cn/copyright/1.0.3/copyright.js" type="text/javascript"></script__>
+<script__>
+    $(".MathJax").remove();
+    if ($('div.markdown_views pre.prettyprint code.hljs').length > 0) {
+        $('div.markdown_views')[0].className = 'markdown_views';
+    }
+</script__>
+<script__ type="text/javascript" src="https://csdnimg.cn/release/blog_mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script__>
+<script__ type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            "HTML-CSS": {
+                    linebreaks: { automatic: true, width: "94%container" },
+                    imageFont: null
+            },
+            tex2jax: {
+                preview: "none",
+                ignoreClass:"title-article"
+            },
+            mml2jax: {
+                preview: 'none'
+            }
+    });
+</script__>
+<script__ type="text/javascript" crossorigin src="https://g.csdnimg.cn/user-login/2.3.2/user-login.js"></script__>
+<script__ type="text/javascript" crossorigin src="https://g.csdnimg.cn/login-box/1.1.4/login-box.js"></script__></html>
