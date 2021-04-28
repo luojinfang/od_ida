@@ -1334,7 +1334,7 @@ Address  To       From     Si Comment                Party
 //==================================================================================================================================
 
 0019E5A8 56E2E16F 52AF5531 48C arksocket.52AF5531     User //sub_52AF54CA => uv_thread_create(v1 + 8, sub_52AF563A, v1)
-//创建 loop实例
+//创建 loop 实例
 signed int __thiscall sub_52AF54CA(int this)
 {
   int v1; // esi@1
@@ -1343,11 +1343,11 @@ signed int __thiscall sub_52AF54CA(int this)
   int v4; // eax@5
   int v6; // ST08_4@8
 
-  v1 = this; //[loop实例]
+  v1 = this; //v1[1]为 loop实例, v1[2] 为 uv_thread_t *tid
   if ( !*(_DWORD *)(this + 4) && !(*(_DWORD *)(this + 16) & 1) )
   {
     v2 = calloc(1u, 0x100u);
-    *(_DWORD *)(v1 + 4) = v2;
+    *(_DWORD *)(v1 + 4) = v2; // 创建  v1[1] loop 实例
     if ( !v2 || uv_loop_init(v2) )
     {
       v6 = *(_DWORD *)(v1 + 4);
@@ -1358,7 +1358,7 @@ signed int __thiscall sub_52AF54CA(int this)
       v3 = (arksocket::Semaphore *)sub_52AFCBDF(4u);
       v4 = arksocket::Semaphore::Semaphore(v3);
       sub_52AF5D62(v4);
-      if ( !uv_thread_create(v1 + 8, sub_52AF563A, v1) )
+      if ( !uv_thread_create(v1 + 8, sub_52AF563A, v1) )  //uv_thread_create(uv_thread_t *tid, void (*entry)(void *arg), void *arg)
       {
         uv_sem_wait(*(_DWORD *)(v1 + 24));
         return 0;
@@ -1606,6 +1606,7 @@ int __stdcall sub_56E2DCEB(int a1, wchar_t *a2, int a3, int a4, int a5, Util::Mi
 } 
 	
 //------------
+//@需要跟踪 a2, a2为返回上级使用的链表头  //.faq
 int __usercall sub_56E2F41C@<eax>(int a1@<esi>, int a2, int a3, int a4)
 {
   int v4; // ebp@0
@@ -1628,8 +1629,8 @@ int __usercall sub_56E2F41C@<eax>(int a1@<esi>, int a2, int a3, int a4)
   if ( sub_56DEDAC4(&unk_56EBDE30, &v16) && v16 ) //-------------->什么基址?
   {
     v13 = 0;
-    Memory = (void *)sub_56DF18D2(v4, 0, 0);
-    (*(void (__stdcall **)(int, void **, int))(*(_DWORD *)v16 + 48))(v16, &Memory, a1);///////////////////----try    =>common.522D8620
+    Memory = (void *)sub_56DF18D2(v4, 0, 0); //-------------->
+    (*(void (__stdcall **)(int, void **, int))(*(_DWORD *)v16 + 48))(v16, &Memory, a1);///////////////////----try    =>common.522D8620 /sub_522D8620
     v5 = Memory; //链表
     for ( i = *(_DWORD *)Memory; (void *)i != Memory; v5 = Memory )
     {
@@ -1638,7 +1639,7 @@ int __usercall sub_56E2F41C@<eax>(int a1@<esi>, int a2, int a3, int a4)
       if ( (!a4 || (*(int (__stdcall **)(int, int))(*(_DWORD *)v7 + 60))(v7, a4))
         && (!a3 || !(*(int (__stdcall **)(int, int))(*(_DWORD *)a3 + 28))(a3, v7)) )
       {
-        v15 = 0;
+        v15 = 0;`
         if ( (*(int (__stdcall **)(int, void *, int *))(*(_DWORD *)v7 + 44))(v7, &unk_56EBDE30, &v15) >= 0 )
         {
           if ( v15 )
@@ -1796,11 +1797,92 @@ LABEL_14:
 }
 
 
-//.faq od和ida显示代码差别很大  
+//common.522C8EE0  
 int __thiscall sub_522C8EE0(int this)
 {
   return (*(int (__thiscall **)(int))(this + 8))(  *(_DWORD *)(this + 4) + *(_DWORD *)(this + 12)  );
 }
+
+
+
+//common
+unsigned int __stdcall sub_522D8620(int a1, _DWORD *a2)
+{
+  int *v2; // ebx@1
+  LPCRITICAL_SECTION *v4; // edi@3
+  _DWORD *v5; // eax@3
+  _DWORD *v6; // esi@3
+  _DWORD *v7; // eax@4
+  int v8; // edx@4
+  bool v9; // zf@7
+  _DWORD *v10; // [sp+4h] [bp-8h]@4
+  int v11; // [sp+8h] [bp-4h]@4
+
+  v2 = a2;
+  if ( !a2 )
+    return 0x80070057;
+  v4 = (LPCRITICAL_SECTION *)(a1 + 84);
+  Util::CTXSpinLock::Lock((volatile LONG *)(a1 + 84));
+  v5 = *(_DWORD **)(a1 + 44);  //  (a1 + 44) 指向链表头?
+  v6 = (_DWORD *)*v5; //链表头
+  if ( (_DWORD *)*v5 != v5 )
+  {
+    while ( 1 )
+    {
+      a2 = (_DWORD *)v6[2];
+      v11 = *v2;
+      v10 = *(_DWORD **)(*v2 + 4);
+      v7 = sub_522D9CD0(*v2, (int)v10, &a2); //初始化链表节点？
+      v8 = v2[1];
+      if ( (unsigned int)(0x15555554 - v8) < 1 )
+        break;
+      v2[1] = v8 + 1;
+      *(_DWORD *)(v11 + 4) = v7;
+      *v10 = v7;
+      (*(void (__stdcall **)(_DWORD))(*(_DWORD *)v6[2] + 4))(v6[2]);
+      v6 = (_DWORD *)*v6;
+      if ( v6 == *(_DWORD **)(a1 + 44) )//链表尾节点指向  (a1 + 44) ？
+        goto LABEL_6; //链表初始化结束
+    }
+    std::_Xlength_error("list<T> too long");
+    goto LABEL_10;
+  }
+LABEL_6:
+  if ( Util::CTXSpinLock::g_cProcessorNum <= 1 )
+  {
+LABEL_10:
+    LeaveCriticalSection(*v4);
+    return 0;
+  }
+  v9 = (*(_DWORD *)(a1 + 88))-- == 1;
+  if ( v9 )
+  {
+    InterlockedExchange((volatile LONG *)v4, 0);
+    return 0;
+  }
+  return 0;
+}
+
+//---------------------------
+//common.522C8EE0 硬件写断点
+199044                                                      
+       0019F028 522C867F 522C8EE0 C   common.522C8EE0       用户模块  =>522C6610
+       0019F034 52407F61 522C867F F0  common.522C867F       用户模块
+       0019F124 5391E748 52407F61 23C common.52407F61       用户模块  //int __cdecl Util::Boot::InitPlatformCoreConfig()
+       0019F360 5391FC84 5391E748 6A0 hummerengine.5391E748 用户模块
+       0019FA00 53927E8B 5391FC84 80  hummerengine.5391FC84 用户模块
+       0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B 用户模块
+       0019FF1C 004012C6 0040289B C   qq.0040289B           用户模块
+       0019FF28 00403365 004012C6 4C  qq.004012C6           用户模块
+       0019FF74 758B0419 00403365 10  qq.00403365           系统模块
+       0019FF84 778866DD 758B0419 5C  kernel32.758B0419     系统模块
+       0019FFE0 778866AD 778866DD 10  ntdll.778866DD        系统模块
+       0019FFF0 00000000 778866AD     ntdll.778866AD        用户模块
+	   
+	   
+	   
+	   
+
 //==================================================================================================================================
 0019EA78 0BD70C5F 0BD70B00 64  appframework.0BD70B00  User
 int __cdecl sub_BD70A56(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8)

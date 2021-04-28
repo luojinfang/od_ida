@@ -1,8 +1,12 @@
+0.修改文件后,重新运新,要把之前运行的 QQ保护进程 关闭
 0.看进程里是否有QQ保护进程，先关闭, showWindow方法下断点时，会跑飞
+0.不知道是哪里加断点时会跑飞，可先关闭所有断点，看看能不能在 x64dbg里正常运行
+		在   74DB71F0  jmp dword ptr ds:[<&NtUserShowWindow>] 下断后，会跑飞
+
 1.用 pelib库,在pe文件里把 ALSR关闭. 处理qq.exe和所有用到的qq库文件
 2.分析 调用 IsDebuggerPresent()/kernelbase.dll 的地方,返回的地方处理一下，不要走到异常. 
 	IsDebuggerPresent 返回eax处,把 eax改为 0x0 
-	asynctask.dll   0x51b25e5f 调用 IsDebuggerPresent
+	asynctask.dll   0x51b25e5f 调用 IsDebuggerPresent  //调用代码,改为 mov eax,0
 	 
 	 
 		77BB4E80 <kernelbase.IsDebuggerPresent  | 64:A1 30000000        | mov eax,dword ptr fs:[30]                      |
@@ -122,7 +126,22 @@
       0019FFF0 00000000 778966AD     ntdll.778966AD           用户模块
  
 	
-10.运行不久会弹出,qq文件已损坏的提示	// 解决6后Ok
+10.运行不久会弹出,qq文件已损坏的提示	// 解决6后Ok 
+// 还有问题  错误码 0x80010001
+//sub_100203BD 把 直接 ret
+	
+	线程 ID  地址       返回到      返回自      大小  注释                     方   
+202664                                                       
+       0940FEFC 10020603 76F52E00 2C  kernelbase.76F52E00    用户模块  //IsDebuggerPresent
+       0940FF28 100203AE 10020603 8   qscanengine.10020603   用户模块  //sub_100203BD ===> IsDebuggerPresent
+       0940FF30 5A38C5C6 100203AE 38  qscanengine.100203AE   系统模块
+       0940FF68 5A38C670 5A38C5C6 C   msvcr100.5A38C5C6      系统模块
+       0940FF74 758B0419 5A38C670 10  msvcr100.5A38C670      系统模块
+       0940FF84 778866DD 758B0419 5C  kernel32.758B0419      系统模块
+       0940FFE0 778866AD 778866DD 10  ntdll.778866DD         系统模块
+       0940FFF0 00000000 778866AD     ntdll.778866AD         用户模块
+	
+	
 	
 	
 11.把 libuv 的timer 回调方法 ret.不让他生效.减少干扰
