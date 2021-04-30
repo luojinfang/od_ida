@@ -49,6 +49,7 @@
  
 	
 9.查看日志，发现会加载 QPSection.dll,QQProtect.exe, 想办法弄清关系，关闭保护.
+{
 	callstack: LoadLibraryW(L"C:\\Program Files (x86)\\Common Files\\Tencent\\QQProtect\\Bin\\QPSection.dll")
 		Address  To       From     Siz Comment               Party 
 		0019F0D0 52401C7E 7715F630 28  kernelbase.7715F630   User
@@ -124,11 +125,11 @@
       0019FF84 778966DD 74FB0419 5C  kernel32.74FB0419        系统模块
       0019FFE0 778966AD 778966DD 10  ntdll.778966DD           系统模块
       0019FFF0 00000000 778966AD     ntdll.778966AD           用户模块
- 
+ }
 	
 10.运行不久会弹出,qq文件已损坏的提示	// 解决6后Ok 
 // 还有问题  错误码 0x80010001
-//sub_100203BD 把 直接 ret
+//sub_100203BD 直接 ret
 	
 	线程 ID  地址       返回到      返回自      大小  注释                     方   
 202664                                                       
