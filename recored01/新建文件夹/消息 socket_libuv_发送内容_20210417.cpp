@@ -1,40 +1,6 @@
 
 //================================================================================================================
-/*
-stosd(dword==>四个字节)
 
-stosb(byte==>一个字节)
-
-stosw(word==>两个字节)
-
-
-
-stosd:将eax的内容复制到edi的内存空间，复制四个字节，并将edi加4个字节
-
-mov  dword ptr es:[edi],eax
-
-add edi,4
-
---------------------------------------------------
-
-mov esi ， offset @s1
-mov edi ， offset @s2
-mov ecx ， 10
-cld
-rep movsd
-
-1.rep movsd 每次ecx！=0便执行movsd ，然后ecx=ecx-1 movsd移动ds：[si] 到es：[di]，在32位汇编下可以用esi代替si，edi代替di
-
-2.同时由于在一般exe中ds = es 程序起始位置所以另esi = offset @s1就可以找到变量s1 ,edi= offset @s2就可以找到变量s2
-
-3.movsd此类指令有个性质，当标志位d=0时执行一次esi = esi +1,edi= edi+ 1  
-
-   d=1时执行一次 esi = esi +1,edi= edi+ 1
-
-所以此段指令的含义是从 s1 复制 ecx 个dword到s2
-
- 
-*/
 //================================================================================================================
 /*
 //todo 
@@ -128,13 +94,13 @@ Address  To       From     Siz Comment               Party
 0019F24C 771643FE 771652AC 74  user32.771652AC       System
 0019F2C0 771641E0 771643FE C   user32.771643FE       System
 0019F2CC 51B24578 771641E0 18  user32.771641E0       User
-0019F2E4 51B244FB 51B24578 30  asynctask.51B24578    User//AsyncTask::MessagePumpForUI::ProcessMessageHelper(AsyncTask::MessagePumpForUI *this, LPMSG lpMsg)
-0019F314 51B2437C 51B244FB 2C  asynctask.51B244FB    User  //AsyncTask::MessagePumpForUI::ProcessNextWindowsMessage(AsyncTask::MessagePumpForUI *this)
-0019F340 51B2207A 51B2437C 24  asynctask.51B2437C    User  //AsyncTask::MessagePumpForUI::DoRunLoop  
+0019F2E4 51B244FB 51B24578 30  asynctask.51B24578    User	//AsyncTask::MessagePumpForUI::ProcessMessageHelper(AsyncTask::MessagePumpForUI *this, LPMSG lpMsg)
+0019F314 51B2437C 51B244FB 2C  asynctask.51B244FB    User  	//AsyncTask::MessagePumpForUI::ProcessNextWindowsMessage(AsyncTask::MessagePumpForUI *this)
+0019F340 51B2207A 51B2437C 24  asynctask.51B2437C    User  	//AsyncTask::MessagePumpForUI::DoRunLoop  
 0019F364 53920B86 51B2207A 69C asynctask.51B2207A    User	//AsyncTask::MessageLoop::RunHandler(AsyncTask::MessageLoop *this)
-0019FA00 53927E8B 53920B86 80  hummerengine.53920B86 User
-0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B User
-0019FF1C 004012C6 0040289B C   qq.0040289B           User
+0019FA00 53927E8B 53920B86 80  hummerengine.53920B86 User 	//sub_5391F82B = > AsyncTask::MessageLoopForUI::Run((AsyncTask::MessageLoopForUI *)&v110);
+0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B User 	//signed int RunQQHummerEngine()
+0019FF1C 004012C6 0040289B C   qq.0040289B           User	
 0019FF28 00403365 004012C6 4C  qq.004012C6           User
 0019FF74 759F6359 00403365 10  qq.00403365           System
 0019FF84 77808944 759F6359 5C  kernel32.759F6359     System

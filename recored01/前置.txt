@@ -1,9 +1,16 @@
 0.修改文件后,重新运新,要把之前运行的 QQ保护进程 关闭
 0.看进程里是否有QQ保护进程，先关闭, showWindow方法下断点时，会跑飞
 0.不知道是哪里加断点时会跑飞，可先关闭所有断点，看看能不能在 x64dbg里正常运行
-		在   74DB71F0  jmp dword ptr ds:[<&NtUserShowWindow>] 下断后，会跑飞
+		在   74DB71F0  jmp dword ptr ds:[<&NtUserShowWindow>] 下断后，有概率会跑飞
 
-1.用 pelib库,在pe文件里把 ALSR关闭. 处理qq.exe和所有用到的qq库文件
+
+//增加 .blue 节区
+//设置 imagebase 
+//做好 1,6,8 就可以正常调试了
+
+
+
+1.用 pelib库,修改pe文件里把 ALSR关闭. 处理qq.exe和所有用到的qq库文件
 2.分析 调用 IsDebuggerPresent()/kernelbase.dll 的地方,返回的地方处理一下，不要走到异常. 
 	IsDebuggerPresent 返回eax处,把 eax改为 0x0 
 	asynctask.dll   0x51b25e5f 调用 IsDebuggerPresent  //调用代码,改为 mov eax,0
@@ -31,6 +38,7 @@
 			
 
 7. hummerengine.dll,Base=53900000
+//初始化报错(修改6后这条忽略)
 	5390E819         | E8 4AFAFFFF           | call hummerengine.5390E268                          |
 
 	cmp eip,5390E6A9 // ** 修改 mov eax,1
@@ -129,8 +137,10 @@
 	
 10.运行不久会弹出,qq文件已损坏的提示	// 解决6后Ok 
 // 还有问题  错误码 0x80010001
-//sub_100203BD 直接 ret
+ 	//直接把提示窗口关掉？
+     0019F0EC 52376F70 5110530D 10  apputil.5110530D           用户模块  //sub_5110525A  处理文件损坏异常?先直接 ret 8 以后再查为什么会触发异常消息
 	
+------------------------------	
 	线程 ID  地址       返回到      返回自      大小  注释                     方   
 202664                                                       
        0940FEFC 10020603 76F52E00 2C  kernelbase.76F52E00    用户模块  //IsDebuggerPresent
@@ -141,7 +151,172 @@
        0940FF84 778866DD 758B0419 5C  kernel32.758B0419      系统模块
        0940FFE0 778866AD 778866DD 10  ntdll.778866DD         系统模块
        0940FFF0 00000000 778866AD     ntdll.778866AD         用户模块
+ 
 	
+100203C9 | FF15 A8110410       | call dword ptr ds:[<&IsDebuggerPresent>]                      |
+100203CF | 85C0                | test eax,eax                                                  | 改为 jmp qscanengine.10020413   让下面的 je 直接可执行
+100203D1 | 74 40               | je qscanengine.10020413                                       |	
+
+
+
+100203C9 | FF15 A8110410       | call dword ptr ds:[<&IsDebuggerPresent>]                      |
+100203CF | EB 42               | jmp qscanengine.10020413                                      |
+100203D1 | 90                  | nop                                                           |
+100203D2 | 90                  | nop                                                           |
+------------------------------	
+	
+	
+//AsyncTask.dll  
+void __usercall sub_51B27095(int a1@<ebx>, int a2@<edi>, int a3@<esi>, unsigned int a4)
+{
+  void *v4; // eax@3
+  int v5; // ecx@3
+  int v6; // edx@3
+  unsigned int v7; // et0@3
+  BOOL v8; // eax@3
+  bool v9; // bl@3
+  int Dst; // [sp+8h] [bp-324h]@3
+  __int16 v11; // [sp+94h] [bp-298h]@3
+  __int16 v12; // [sp+98h] [bp-294h]@3
+  __int16 v13; // [sp+9Ch] [bp-290h]@3
+  __int16 v14; // [sp+A0h] [bp-28Ch]@3
+  int v15; // [sp+A4h] [bp-288h]@3
+  int v16; // [sp+A8h] [bp-284h]@3
+  int v17; // [sp+ACh] [bp-280h]@3
+  int v18; // [sp+B0h] [bp-27Ch]@3
+  int v19; // [sp+B4h] [bp-278h]@3
+  void *v20; // [sp+B8h] [bp-274h]@3
+  int v21; // [sp+BCh] [bp-270h]@3
+  int v22; // [sp+C0h] [bp-26Ch]@3
+  __int16 v23; // [sp+C4h] [bp-268h]@3
+  unsigned int v24; // [sp+C8h] [bp-264h]@3
+  void **v25; // [sp+CCh] [bp-260h]@3
+  __int16 v26; // [sp+D0h] [bp-25Ch]@3
+  int v27; // [sp+2D4h] [bp-58h]@3
+  int v28; // [sp+2D8h] [bp-54h]@3
+  int v29; // [sp+2E0h] [bp-4Ch]@3
+  struct _EXCEPTION_POINTERS ExceptionInfo; // [sp+324h] [bp-8h]@3
+  int savedregs; // [sp+32Ch] [bp+0h]@3
+  int retaddr; // [sp+330h] [bp+4h]@3
+
+  if ( IsProcessorFeaturePresent(0x17u) )
+    __fastfail(a4);
+  sub_51B271AF();
+  v4 = memset(&Dst, 0, 0x2CCu);
+  v20 = v4;
+  v19 = v5;
+  v18 = v6;
+  v17 = a1;
+  v16 = a3;
+  v15 = a2;
+  v26 = __SS__;
+  v23 = __CS__;
+  v14 = __DS__;
+  v13 = __ES__;
+  v12 = __FS__;
+  v11 = __GS__;
+  v7 = __readeflags();
+  v24 = v7;
+  v22 = retaddr;
+  v25 = (void **)&retaddr;
+  Dst = 0x10001;
+  v21 = savedregs;
+  memset(&v27, 0, 0x50u);
+  v27 = 0x40000015;
+  v28 = 1;
+  v29 = retaddr;
+  v8 = IsDebuggerPresent();
+  ExceptionInfo.ExceptionRecord = (PEXCEPTION_RECORD)&v27;
+  ExceptionInfo.ContextRecord = (PCONTEXT)&Dst;
+  v9 = v8 == 1;
+  SetUnhandledExceptionFilter(0);
+  if ( !UnhandledExceptionFilter(&ExceptionInfo) && !v9 )
+    sub_51B271AF();
+}
+
+
+
+.text:51B271A0                 test    bl, bl
+.text:51B271A2                 jnz     short loc_51B271AC
+.text:51B271A4                 push    3
+.text:51B271A6                 call    sub_51B271AF
+
+
+
+
+------------------------------
+
+
+线程 ID 地址       返回到      返回自      大小  注释                     方   
+38264                                                       
+      0FE1FEE4 5AB47015 75602E00 24  kernelbase.75602E00    用户模块
+      0FE1FF08 5AB46E48 5AB47015 18  xplatform_dl.5AB47015  用户模块
+      0FE1FF20 5AB3B47E 5AB46E48 1C  xplatform_dl.5AB46E48  用户模块
+      0FE1FF3C 7641738F 5AB3B47E 38  xplatform_dl.5AB3B47E  系统模块
+      0FE1FF74 76660419 7641738F 10  ucrtbase.7641738F      系统模块
+      0FE1FF84 778C66DD 76660419 5C  kernel32.76660419      系统模块
+      0FE1FFE0 778C66AD 778C66DD 10  ntdll.778C66DD         系统模块
+      0FE1FFF0 00000000 778C66AD     ntdll.778C66AD         用户模块
+	  
+	  
+	  
+7116                                                          
+      049AFF6C 5242021B 75602E00 8   kernelbase.75602E00      用户模块
+      049AFF74 76660419 5242021B 10  common.5242021B          系统模块
+      049AFF84 778C66DD 76660419 5C  kernel32.76660419        系统模块
+      049AFFE0 778C66AD 778C66DD 10  ntdll.778C66DD           系统模块
+      049AFFF0 00000000 778C66AD     ntdll.778C66AD           用户模块	 
+	  
+	  
+17212                                                         
+      0FF1FEE4 5AB47015 75602E00 24  kernelbase.75602E00      用户模块
+      0FF1FF08 5AB46E48 5AB47015 18  xplatform_dl.5AB47015    用户模块
+      0FF1FF20 5AB3B47E 5AB46E48 1C  xplatform_dl.5AB46E48    用户模块
+      0FF1FF3C 7641738F 5AB3B47E 38  xplatform_dl.5AB3B47E    系统模块
+      0FF1FF74 76660419 7641738F 10  ucrtbase.7641738F        系统模块
+      0FF1FF84 778C66DD 76660419 5C  kernel32.76660419        系统模块
+      0FF1FFE0 778C66AD 778C66DD 10  ntdll.778C66DD           系统模块
+      0FF1FFF0 00000000 778C66AD     ntdll.778C66AD           用户模块	  
+	  
+	  
+34736                                                           
+      1798FB54 1AB3E40D 75602E00 3C0 kernelbase.75602E00        用户模块
+      1798FF14 116D934F 1AB3E40D 44  qbcore.1AB3E40D            用户模块
+      1798FF58 116D93CD 116D934F 1C  webctrl.116D934F           用户模块
+      1798FF74 76660419 116D93CD 10  webctrl.116D93CD           系统模块
+      1798FF84 778C66DD 76660419 5C  kernel32.76660419          系统模块
+      1798FFE0 778C66AD 778C66DD 10  ntdll.778C66DD             系统模块
+      1798FFF0 00000000 778C66AD     ntdll.778C66AD             用户模块	  
+	  
+40844                                                           
+      1B6EFEDC 18BE4A74 75602E00 1C  kernelbase.75602E00        用户模块
+      1B6EFEF8 18BCA381 18BE4A74 1C  qbcore.18BE4A74            用户模块
+      1B6EFF14 116D934F 18BCA381 44  qbcore.18BCA381            用户模块
+      1B6EFF58 116D93CD 116D934F 1C  webctrl.116D934F           用户模块
+      1B6EFF74 76660419 116D93CD 10  webctrl.116D93CD           系统模块
+      1B6EFF84 778C66DD 76660419 5C  kernel32.76660419          系统模块
+      1B6EFFE0 778C66AD 778C66DD 10  ntdll.778C66DD             系统模块
+      1B6EFFF0 00000000 778C66AD     ntdll.778C66AD             用户模块	  
+	  
+	  
+40844                                                           
+      1B6EFB70 19D7E9BC 75602E00 58  kernelbase.75602E00        用户模块
+      1B6EFBC8 19D7EE02 19D7E9BC 1CC qbcore.19D7E9BC            用户模块
+      1B6EFD94 19D4F1D5 19D7EE02 80  qbcore.19D7EE02            用户模块
+      1B6EFE14 18B5DC65 19D4F1D5 CC  qbcore.19D4F1D5            用户模块
+      1B6EFEE0 18BE4AEC 18B5DC65 18  qbcore.18B5DC65            用户模块
+      1B6EFEF8 18BCA381 18BE4AEC 1C  qbcore.18BE4AEC            用户模块
+      1B6EFF14 116D934F 18BCA381 44  qbcore.18BCA381            用户模块
+      1B6EFF58 116D93CD 116D934F 1C  webctrl.116D934F           用户模块
+      1B6EFF74 76660419 116D93CD 10  webctrl.116D93CD           系统模块
+      1B6EFF84 778C66DD 76660419 5C  kernel32.76660419          系统模块
+      1B6EFFE0 778C66AD 778C66DD 10  ntdll.778C66DD             系统模块
+      1B6EFFF0 00000000 778C66AD     ntdll.778C66AD             用户模块	  
+	  
+	  
+	  
+------------------------------
+
 	
 	
 	

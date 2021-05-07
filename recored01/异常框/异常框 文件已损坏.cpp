@@ -450,9 +450,9 @@ sub_532F0444//可疑方法,调用了 isdebugpresent
       0019EBE4 5318A802 5318AA64 46C gf.5318AA64                用户模块
       0019F050 50210791 5318A802 20  gf.5318A802                用户模块
       0019F070 50233A2C 50210791 1C  afctrl.50210791            用户模块
-      0019F08C 503468ED 50233A2C 24  afctrl.50233A2C            用户模块
-      0019F0B0 5110530D 503468ED 3C  afctrl.503468ED            用户模块
-      0019F0EC 52376F70 5110530D 10  apputil.5110530D           用户模块
+      0019F08C 503468ED 50233A2C 24  afctrl.50233A2C            用户模块 
+      0019F0B0 5110530D 503468ED 3C  afctrl.503468ED            用户模块   
+      0019F0EC 52376F70 5110530D 10  apputil.5110530D           用户模块  //sub_5110525A  处理文件损坏异常?先直接ret 8 以后再查为什么会触发异常消息
       0019F0FC 52381992 52376F70 10  common.52376F70            用户模块
       0019F10C 5237D150 52381992 1C  common.52381992            用户模块
       0019F128 523780E0 5237D150 14  common.5237D150            用户模块
@@ -473,6 +473,32 @@ sub_532F0444//可疑方法,调用了 isdebugpresent
       0019FF84 771A66DD 75E30419 5C  kernel32.75E30419          系统模块
       0019FFE0 771A66AD 771A66DD 10  ntdll.771A66DD             系统模块
       0019FFF0 00000000 771A66AD     ntdll.771A66AD             用户模块
+
+
+
+//提示框界面
+__int32 __stdcall sub_50346892(int a1, int a2, int a3)
+{
+  const struct CTXStringW *v3; // eax@1
+  Util::GF *v4; // eax@1
+  struct IGFElement **v5; // ST08_4@1
+  struct IGFElement *v6; // ST0C_4@1
+  __int32 v7; // esi@1
+  char v9; // [sp+4h] [bp-Ch]@1
+  char v10; // [sp+8h] [bp-8h]@1
+  char v11; // [sp+Ch] [bp-4h]@1
+
+  CTXStringW::CTXStringW((CTXStringW *)&v11, L"sysxtml:");
+  v3 = (const struct CTXStringW *)operator+(&v9, &v11, L"AFCtrl\\MsgBoxEx.xml|MsgBoxEx");
+  CTXBSTR::CTXBSTR((CTXBSTR *)&v10, v3);
+  CTXStringW::~CTXStringW((CTXStringW *)&v9);
+  CTXStringW::~CTXStringW((CTXStringW *)&v11);
+  v4 = (Util::GF *)CTXBSTR::operator wchar_t *(&v10);
+  v7 = sub_50233A0F(a1, (int)CTXStringW::~CTXStringW, v4, v5, v6);
+  sub_503487D0((char *)a1);
+  CTXBSTR::~CTXBSTR((CTXBSTR *)&v10);
+  return v7;
+}
 
 //============================================================================================================================================================================
 
