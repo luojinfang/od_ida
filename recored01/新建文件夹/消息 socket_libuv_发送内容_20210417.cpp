@@ -6,7 +6,10 @@
 //todo 
 有几个线程调用 uv_run 
 uv_async_send 和  TranslateMsgPackToBuddyMsg 在不在同一线程调用
- 
+
+
+//PendingTask 构造类
+
 */
 //================================================================================================================
 Address  To       From     Siz Comment               Party 
@@ -654,7 +657,22 @@ void __thiscall AsyncTask::MessageLoop::RunTask(AsyncTask::MessageLoop *this, st
 	
 	
 }
- 
+char __thiscall AsyncTask::MessageLoop::DeferOrRunPendingTask(AsyncTask::MessageLoop *this, const struct AsyncTask::MessageLoop::PendingTask *a2)
+{
+  char result; // al@3
+
+  if ( *((_BYTE *)a2 + 20) || **((_DWORD **)this + 40) == 1 )
+  {
+    AsyncTask::MessageLoop::RunTask(this, *(struct AsyncTask::Task **)a2);  //=========================>AsyncTask::MessageLoop::RunTask
+    result = 1;
+  }
+  else
+  {
+    sub_51B23198((int)this + 44, (const void *)a2);
+    result = 0;
+  }
+  return result;
+}
  
  
 //asynctask.51B23198
@@ -717,7 +735,7 @@ void __thiscall AsyncTask::MessageLoop::RunTask(AsyncTask::MessageLoop *this, st
 
 
 //------------------
-//PendingTask 构造类
+//PendingTask 构造类   发送消息时没有调用
 //51B2184C
 AsyncTask::MessageLoop::PendingTask *__thiscall AsyncTask::MessageLoop::PendingTask::PendingTask(AsyncTask::MessageLoop::PendingTask *this, struct AsyncTask::Task *a2, bool a3)
 {

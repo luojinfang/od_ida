@@ -1,14 +1,21 @@
 //----------------
 //类
 
-//AsyncTask::Thread  创建
+//创建 AsyncTask::Thread  
 
-//AsyncTask::MessageLoop::PendingTask 创建
+//创建 AsyncTask::MessageLoop::PendingTask 
 
-//AsyncTask::Task 创建
+//创建 AsyncTask::Task 
 
+//创建 Util::SessionTask
 
 //处理默认事件id
+
+
+//创建内存方法
+
+
+//AsyncTask::Thread::Start 启动线程
 
 //----------------
 
@@ -197,8 +204,9 @@ AsyncTask::Thread *__thiscall AsyncTask::Thread::Thread(AsyncTask::Thread *this,
 
 
 //----------------------------------------------------------------------
- //创建内存 51B265B4
-void *__cdecl sub_51B265B4(size_t Size)
+//创建内存方法
+//AsyncTask
+ void *__cdecl sub_51B265B4(size_t Size)
 {
   void *result; // eax@3
 
@@ -228,7 +236,13 @@ Up        p    AsyncTask::MessageLoopProxy::CreateForCurrentThread(void)+6      
 Up        p    AsyncTask::MessagePumpForUI::InitMessageWnd(void)+5                   call    sub_51B265B4
 Up        p    AsyncTask::Thread::StopSoon(void)+15                                  call    sub_51B265B4
 
+--------- ---- -------                                                               ----                
+//im
+  sub_54DBD177
 
+
+
+--------- ---- -------                                                               ----                
 
 
 3424                                                                 
@@ -480,7 +494,7 @@ Up        p    AsyncTask::Thread::StopSoon(void)+15                             
 
  
 //==================================================================================================================================
-//AsyncTask::Thread  创建
+//创建 AsyncTask::Thread  
 
 Address  To       From     Siz Comment               Party 
 0019D464 54B18704 51B25DC5 10  asynctask.51B25DC5    User   //AsyncTask::Thread::Thread
@@ -537,65 +551,10 @@ Address  To       From     Siz Comment               Party
 
 
 //==================================================================================================================================
-//AsyncTask::MessageLoop::PendingTask 创建
+ 
 
 //==================================================================================================================================
  
-char __thiscall AsyncTask::Thread::Start(AsyncTask::Thread *this)
-{
-  int v2; // [sp+0h] [bp-8h]@1
-  int v3; // [sp+4h] [bp-4h]@1
-
-  v2 = 0;
-  v3 = 0;
-  return AsyncTask::Thread::StartWithOptions(this, (const struct AsyncTask::Thread::Options *)&v2);
-}
-
-char __thiscall AsyncTask::Thread::StartWithOptions(AsyncTask::Thread *this, const struct AsyncTask::Thread::Options *a2)
-{
-  char v2; // bl@1
-  AsyncTask::Thread *v3; // edi@1
-  const struct AsyncTask::Thread::Options *v5; // [sp+Ch] [bp-8h]@1
-  HANDLE hObject; // [sp+10h] [bp-4h]@1
-
-  v2 = 0;
-  v3 = this;
-  v5 = a2;
-  hObject = CreateEventW(0, 0, 0, 0);
-  *((_DWORD *)v3 + 2) = &v5;
-  if ( AsyncTask::Thread::Create(*((_DWORD *)a2 + 1), v3, (void **)v3 + 3) )
-  {
-    AsyncTask::WaitableEvent::Wait((AsyncTask::WaitableEvent *)&hObject);
-    v2 = 1;
-    *((_BYTE *)v3 + 4) = 1;
-  }
-  *((_DWORD *)v3 + 2) = 0;
-  CloseHandle(hObject);
-  return v2;
-}
-
-bool __cdecl AsyncTask::Thread::Create(SIZE_T dwStackSize, struct AsyncTask::ThreadDelegate *lpParameter, void **a3)
-{
-  SIZE_T v3; // esi@1
-  DWORD v4; // edi@1
-  HANDLE v5; // eax@5
-
-  v3 = dwStackSize;
-  v4 = 0;
-  if ( dwStackSize && sub_51B264FE() >= 2 )
-    v4 = 0x10000;
-  else
-    v3 = 0;
-  v5 = CreateThread(0, v3, StartAddress, (LPVOID)lpParameter, v4, 0);
-  *a3 = v5;
-  return v5 != 0;
-}
-
-DWORD __stdcall StartAddress(LPVOID lpThreadParameter)
-{
-  (*(void (**)(void))(*(_DWORD *)lpThreadParameter + 4))();
-  return 0;
-}
 //==================================================================================================================================
 
 //==================================================================================================================================
@@ -611,7 +570,7 @@ DWORD __stdcall StartAddress(LPVOID lpThreadParameter)
 
 //==================================================================================================================================
 
-//AsyncTask::Task 创建
+//创建 AsyncTask::Task 
 44272                                                                
       0019D3C4 51B214B9 51B265B4 2C       asynctask.51B265B4         用户模块//创建内存 =>  malloc(Size);
       0019D3F0 51B231B3 51B214B9 18       asynctask.51B214B9         用户模块//sub_51B2147F(size_t Size)
@@ -714,8 +673,7 @@ DWORD __stdcall StartAddress(LPVOID lpThreadParameter)
  
  
  
- 
- 	  
+
 	  
 //==================================================================================================================================
 0019D48C 54C91FBF 54B186F3 1C       im.54B186F3                用户模块
@@ -739,7 +697,7 @@ void __thiscall sub_54B18692(AsyncTask::Thread *this, struct AsyncTask::Task *a2
   if ( AsyncTask::Thread::message_loop(this) )
   {
     v3 = AsyncTask::Thread::message_loop(v2);
-    AsyncTask::MessageLoop::PostTask(v3, a2);  //=================>AsyncTask::MessageLoop::PostTask()
+    AsyncTask::MessageLoop::PostTask(v3, a2);  //=================>51B22169/AsyncTask::MessageLoop::PostTask()
   }
   else
   {
@@ -747,7 +705,7 @@ void __thiscall sub_54B18692(AsyncTask::Thread *this, struct AsyncTask::Task *a2
   }
 }
  
-//创建  AsyncTask::Thread  /dword_54EEB2FC
+//创建 AsyncTask::Thread  /dword_54EEB2FC
 int sub_54B18634()
 {
   int result; // eax@1
@@ -756,7 +714,7 @@ int sub_54B18634()
   result = dword_54EEB2FC;
   if ( !dword_54EEB2FC )
   {
-    v1 = sub_54DBD177(0x34u);
+    v1 = sub_54DBD177(0x34u);//申请 AsyncTask::Thread 内存
     if ( v1 )
       result = sub_54B1861B(v1);// sub_54B186F5()=>  AsyncTask::Thread::Thread(this, a2);  AsyncTask::Thread::Start(v1);
     else
@@ -765,9 +723,104 @@ int sub_54B18634()
   }
   return result;
 } 
- 
- 	  
-	  
+
+AsyncTask::Thread *__thiscall sub_54B1861B(AsyncTask::Thread *this)
+{
+  AsyncTask::Thread *v1; // esi@1
+
+  v1 = this;
+  sub_54B186F5(this, "SessionThread");
+  AsyncTask::Thread::Start(v1);  //--------> 
+  return v1;
+}
+AsyncTask::Thread *__thiscall sub_54B186F5(AsyncTask::Thread *this, const char *a2)
+{
+  AsyncTask::Thread *v2; // esi@1
+
+  v2 = this;
+  AsyncTask::Thread::Thread(this, a2);
+  return v2;
+}
+AsyncTask::Thread *__thiscall AsyncTask::Thread::Thread(AsyncTask::Thread *this, const char *Src)
+{
+  AsyncTask::Thread *v2; // esi@1
+  char *v3; // ecx@1
+
+  v2 = this;
+  *(_DWORD *)this = &AsyncTask::Thread::`vftable';
+  v3 = (char *)this + 28; //-------------------->字符串
+  *((_WORD *)v2 + 2) = 0;
+  *((_DWORD *)v2 + 2) = 0;
+  *((_DWORD *)v2 + 3) = 0;
+  *((_DWORD *)v2 + 4) = 0;
+  *((_DWORD *)v2 + 5) = 0;
+  *((_DWORD *)v2 + 6) = 0;
+  *((_DWORD *)v3 + 4) = 0;
+  *((_DWORD *)v3 + 5) = 15;
+  *v3 = 0;
+  sub_51B231F7(v3, (void *)Src, strlen(Src));
+  return v2;
+}
+//------------------------------
+//AsyncTask::Thread::Start 启动线程
+char __thiscall AsyncTask::Thread::Start(AsyncTask::Thread *this)
+{
+  int v2; // [sp+0h] [bp-8h]@1
+  int v3; // [sp+4h] [bp-4h]@1
+
+  v2 = 0;
+  v3 = 0;
+  return AsyncTask::Thread::StartWithOptions(this, (const struct AsyncTask::Thread::Options *)&v2);
+}
+
+char __thiscall AsyncTask::Thread::StartWithOptions(AsyncTask::Thread *this, const struct AsyncTask::Thread::Options *a2)
+{
+  char v2; // bl@1
+  AsyncTask::Thread *v3; // edi@1
+  const struct AsyncTask::Thread::Options *v5; // [sp+Ch] [bp-8h]@1
+  HANDLE hObject; // [sp+10h] [bp-4h]@1
+
+  v2 = 0;
+  v3 = this;
+  v5 = a2;
+  hObject = CreateEventW(0, 0, 0, 0);
+  *((_DWORD *)v3 + 2) = &v5;
+  if ( AsyncTask::Thread::Create(*((_DWORD *)a2 + 1), v3, (void **)v3 + 3) )
+  {
+    AsyncTask::WaitableEvent::Wait((AsyncTask::WaitableEvent *)&hObject);
+    v2 = 1;
+    *((_BYTE *)v3 + 4) = 1;
+  }
+  *((_DWORD *)v3 + 2) = 0;
+  CloseHandle(hObject);
+  return v2;
+}
+
+//@lpParameter  为 AsyncTask::Thread *
+bool __cdecl AsyncTask::Thread::Create(SIZE_T dwStackSize, struct AsyncTask::ThreadDelegate *lpParameter, void **a3)
+{
+  SIZE_T v3; // esi@1
+  DWORD v4; // edi@1
+  HANDLE v5; // eax@5
+
+  v3 = dwStackSize;
+  v4 = 0;
+  if ( dwStackSize && sub_51B264FE() >= 2 )
+    v4 = 0x10000;
+  else
+    v3 = 0;
+  v5 = CreateThread(0, v3, StartAddress, (LPVOID)lpParameter, v4, 0);
+  *a3 = v5;
+  return v5 != 0;
+}
+
+//@lpThreadParameter  为 AsyncTask::Thread *
+DWORD __stdcall StartAddress(LPVOID lpThreadParameter)
+{
+  (*(void (**)(void))(*(_DWORD *)lpThreadParameter + 4))(); // 执行了 &AsyncTask::Thread::`vftable 的第二个方法 => AsyncTask::Thread::ThreadMain()
+  return 0;
+}
+	
 //==================================================================================================================================
 0019D4A8 0975725C 54C91FBF 44       im.54C91FBF                用户模块
 signed int __userpurge sub_54C91E47@<eax>(int a1@<esi>, _DWORD *a2, _DWORD *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6)
@@ -4254,7 +4307,7 @@ LABEL_26:
     Point.y = a4;
     ClientToScreen(hWnd, &Point);
     (*(void (__stdcall **)(_DWORD, LONG, LONG, int, int))(**(_DWORD **)(v6 + 36) + 168))(
-      *(_DWORD *)(v6 + 36),
+      *(_DWORD *)(v6 + 36),  //v6为 gf单例? (v6 + 36)为界面实例？
       Point.x,
       Point.y,
       a5,/*wParam*/
