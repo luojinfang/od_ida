@@ -265,6 +265,7 @@ void __thiscall AsyncTask::MessagePumpForUI::InitMessageWnd(AsyncTask::MessagePu
 }
   
 
+//51B260F6
 AsyncTask::CThreadSwitch *__thiscall AsyncTask::CThreadSwitch::CThreadSwitch(AsyncTask::CThreadSwitch *this)
 {
   AsyncTask::CThreadSwitch *v1; // esi@1
@@ -292,6 +293,20 @@ AsyncTask::CThreadSwitch *__thiscall AsyncTask::CThreadSwitch::CThreadSwitch(Asy
   if ( v3 )
     SetWindowLongW(v3, -4, (LONG)AsyncTask::CThreadSwitch::ThreadWindowProc); //GWL_WNDPROC -4  为窗口设定一个新的处理函数。
   return v1;
+}
+
+//51B23F86
+AsyncTask::CThreadSwitch *__thiscall AsyncTask::CThreadSwitch::CThreadSwitch(AsyncTask::CThreadSwitch *this, const struct AsyncTask::CThreadSwitch *a2)
+{
+  AsyncTask::CThreadSwitch *v2; // edi@1
+  AsyncTask::CThreadSwitch *result; // eax@1
+
+  v2 = this;
+  ATL::CWindowImplRoot<ATL::CWindow>::operator=(a2);
+  *((_DWORD *)v2 + 8) = *((_DWORD *)a2 + 8);
+  result = v2;
+  *(_DWORD *)v2 = &AsyncTask::CThreadSwitch::`vftable';
+  return result;
 }
 
 
@@ -458,29 +473,116 @@ void __thiscall AsyncTask::MessagePumpWin::WillProcessMessage(AsyncTask::Message
 	
 }
 //==================================================================================================
+//第一进程
+//AsyncTask::CThreadSwitch::CThreadSwitch(AsyncTask::CThreadSwitch *this)
 {
+
+Address  To       From     Siz Comment               Party 
+0019F358 51B2198F 51B260F6 6A8 asynctask.51B260F6    User
+0019FA00 53927E8B 51B2198F 80  asynctask.51B2198F    User
+0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B User
+0019FF1C 004012C6 0040289B C   qq.0040289B           User
+0019FF28 00403365 004012C6 4C  qq.004012C6           User
+0019FF74 759F6359 00403365 10  qq.00403365           System
+0019FF84 77808944 759F6359 5C  kernel32.759F6359     System
+0019FFE0 77808914 77808944 10  ntdll.77808944        System
+0019FFF0 00000000 77808914     ntdll.77808914        User
+
+  
+	
+}
+//==================================================================================================
+//第一进程
+//AsyncTask::Thread::Thread
+{
+	
+Address  To       From     Siz Comment               Party 
+0019F360 5391F96B 51B25DC5 6A0 asynctask.51B25DC5    User
+0019FA00 53927E8B 5391F96B 80  hummerengine.5391F96B User
+0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B User
+0019FF1C 004012C6 0040289B C   qq.0040289B           User
+0019FF28 00403365 004012C6 4C  qq.004012C6           User
+0019FF74 759F6359 00403365 10  qq.00403365           System
+0019FF84 77808944 759F6359 5C  kernel32.759F6359     System
+0019FFE0 77808914 77808944 10  ntdll.77808944        System
+0019FFF0 00000000 77808914     ntdll.77808914        User
+	
+	
+}
+//==================================================================================================
+//第一进程
+//多次调用 
+{
+Address  To       From     Siz Comment            Party 
+041DFE58 51B26019 51B260F6 114 asynctask.51B260F6 User
+041DFF6C 51B25E47 51B26019 8   asynctask.51B26019 User
+041DFF74 759F6359 51B25E47 10  asynctask.51B25E47 System
+041DFF84 77808944 759F6359 5C  kernel32.759F6359  System
+041DFFE0 77808914 77808944 10  ntdll.77808944     System
+041DFFF0 00000000 77808914     ntdll.77808914     User
 	
 	
 	
 }
 //==================================================================================================
+//第二进程
+//五次调用
+//AsyncTask::CThreadSwitch::CThreadSwitch(AsyncTask::CThreadSwitch *this)
 {
-	
-	
-	
+Address  To       From     Siz Comment            Party 
+0E3BFE58 51B26019 51B260F6 114 asynctask.51B260F6 User
+0E3BFF6C 51B25E47 51B26019 8   asynctask.51B26019 User
+0E3BFF74 759F6359 51B25E47 10  asynctask.51B25E47 System
+0E3BFF84 77808944 759F6359 5C  kernel32.759F6359  System
+0E3BFFE0 77808914 77808944 10  ntdll.77808944     System
+0E3BFFF0 00000000 77808914     ntdll.77808914     User
+
+
 }
-//==================================================================================================
+--------
+0E3BFF6C 51B25E47 51B26019 8   asynctask.51B26019 User
+void __thiscall AsyncTask::Thread::ThreadMain(AsyncTask::Thread *this)
 {
-	
-	
-	
+  AsyncTask::Thread *v1; // edi@1
+  const char *v2; // eax@1
+  LONG *v3; // eax@3
+  char v4; // [sp+Ch] [bp-FCh]@3
+  char v5; // [sp+10h] [bp-F8h]@1
+
+  v1 = this;
+  AsyncTask::MessageLoop::MessageLoop(&v5, ***((_DWORD ***)this + 2));
+  *((_DWORD *)v1 + 6) = GetCurrentThreadId();
+  v2 = (char *)v1 + 28;
+  if ( *((_DWORD *)v1 + 12) >= 0x10u )
+    v2 = (const char *)*((_DWORD *)v1 + 7);
+  AsyncTask::Thread::SetName(v2);
+  AsyncTask::MessageLoop::set_thread_name((char *)v1 + 28);
+  *((_DWORD *)v1 + 4) = &v5;
+  v3 = (LONG *)AsyncTask::MessageLoopProxy::CreateForCurrentThread(&v4);
+  sub_51B260BF((volatile LONG *)v1 + 5, *v3);
+  sub_51B229D2(&v4);
+  (*(void (__thiscall **)(AsyncTask::Thread *))(*(_DWORD *)v1 + 8))(v1);
+  SetEvent(*(HANDLE *)(*((_DWORD *)v1 + 2) + 4));
+  (*(void (__thiscall **)(AsyncTask::Thread *, _DWORD))(*(_DWORD *)v1 + 12))(v1, *((_DWORD *)v1 + 4));
+  (*(void (__thiscall **)(AsyncTask::Thread *))(*(_DWORD *)v1 + 16))(v1);
+  *((_DWORD *)v1 + 4) = 0;
+  sub_51B260BF((volatile LONG *)v1 + 5, 0);
+  AsyncTask::MessageLoop::~MessageLoop((AsyncTask::MessageLoop *)&v5);
+  (*(void (__thiscall **)(AsyncTask::Thread *))(*(_DWORD *)v1 + 20))(v1);
+  *((_DWORD *)v1 + 6) = 0;
 }
-//==================================================================================================
+
+--------
+0E3BFF74 759F6359 51B25E47 10  asynctask.51B25E47 System
+DWORD __stdcall StartAddress(LPVOID lpThreadParameter)
 {
-	
-	
-	
+  (*(void (**)(void))(*(_DWORD *)lpThreadParameter + 4))();
+  return 0;
 }
+
+
+
+
 //==================================================================================================
 {
 	
