@@ -13,6 +13,23 @@ class  AsyncTask::CThreadSwitch
   
 */
 
+
+
+/*
+const AsyncTask::CThreadSwitch::`vftable'                                                                  51B28508 96          
+const AsyncTask::MessageLoop::`vftable'                                                                    51B283DC 97          
+const AsyncTask::MessageLoopForUI::`vftable'                                                               51B28440 98          
+const AsyncTask::MessageLoopProxy::`vftable'                                                               51B28464 99          
+const AsyncTask::MessageLoopProxyImpl::`vftable'{for `AsyncTask::MessageLoop::DestructionObserver'}        51B284B4 100         
+const AsyncTask::MessageLoopProxyImpl::`vftable'{for `AsyncTask::MessageLoopProxy'}                        51B28490 101         
+const AsyncTask::MessagePump::`vftable'                                                                    51B28450 102         
+const AsyncTask::MessagePumpForUI::`vftable'                                                               51B284F0 103         
+const AsyncTask::MessagePumpWin::`vftable'                                                                 51B283C4 104         
+const AsyncTask::TaskQueue::`vftable'                                                                      51B28530 105         
+const AsyncTask::Thread::`vftable'                                                                         51B28540 106         
+
+
+*/
 //==================================================================================================
 {
 void *__cdecl sub_51B265B4(size_t Size)
