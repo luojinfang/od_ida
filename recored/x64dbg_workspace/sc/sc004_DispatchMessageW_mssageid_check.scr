@@ -1,0 +1,73 @@
+st:
+	push eax
+
+	//cmp eip,0x5390E65F //  
+	//je stop 
+//===========================================================================	
+//命中断点
+ 	cmp eip,0x761B56C5  //DispatchMessageW  
+	je op001
+	
+	
+//===========================================================================	
+	jmp end //没有命中的跳到 end
+//===========================================================================
+op001:
+	
+	
+	mov eax,[ebp+8]
+	mov eax,eax+4
+	
+	cmp [eax],0x113 
+	je end
+	
+	cmp [eax],0x47B 
+	je end	
+	
+	cmp [eax],0x374 
+	je end
+	
+	cmp [eax],0x801 
+	je end	
+	
+	cmp [eax],0x465 
+	je end
+	
+	cmp [eax],0x373 
+	je end
+	
+	cmp [eax],0x7b5 
+	je end
+	
+	cmp [eax],0x7eb 
+	je end	
+	
+	cmp [eax],0x31f 
+	je end
+	
+	cmp [eax],0x503 
+	je end
+
+	
+	
+	
+	
+	
+	
+//===========================================================================	
+
+	//jmp end 	
+
+//===========================================================================	
+log001:
+	log "tid: 0x{tid()} ,DispatchMessageW messageid: 0x{[[ebp+8]+4]}" 
+end:
+
+	pop eax 
+	
+	run
+	jmp st
+stop:
+	pop eax 
+
+

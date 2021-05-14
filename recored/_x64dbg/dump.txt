@@ -5,5 +5,7 @@ dump [ebp]	//dump  ebp地址指向的地址
 
 log {s:ebp} //log 字符串 
 
-
+log {ebp} //log ebp存储的数值
+log {[ebp]} //ebp存储的就地址,log该地址存储的数值
+log {[[ebp+8]+4]} //log [ebp+8]+4 地址存储的数值
 
