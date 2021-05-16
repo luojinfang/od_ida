@@ -12,6 +12,10 @@
 //创建 AsyncTask::Thread
 //AsyncTask::Thread::Start 
 
+
+//task 计数
+//task增加
+
 */
 
 /*
@@ -196,6 +200,7 @@ void __thiscall AsyncTask::MessageLoop::RunTask(AsyncTask::MessageLoop *this, st
 
 //================================================================================================================
 1108FDC8 51B227CF 51B22591 38  asynctask.51B22591  User//AsyncTask::MessageLoop::DeferOrRunPendingTask(AsyncTask::MessageLoop *this, const struct AsyncTask::MessageLoop::PendingTask *a2)
+//51B22566
 char __thiscall AsyncTask::MessageLoop::DeferOrRunPendingTask(AsyncTask::MessageLoop *this, const struct AsyncTask::MessageLoop::PendingTask *a2)
 {
   char result; // al@3
@@ -217,7 +222,6 @@ char __thiscall AsyncTask::MessageLoop::DeferOrRunPendingTask(AsyncTask::Message
 
 //================================================================================================================
 1108FE00 51B24321 51B227CF 2C  asynctask.51B227CF  User//AsyncTask::MessageLoop::DoWork(AsyncTask::MessageLoop *this)
-
 char __thiscall AsyncTask::MessageLoop::DoWork(AsyncTask::MessageLoop *this)
 {
   AsyncTask::MessageLoop *v1; // ebx@1
@@ -322,7 +326,7 @@ int __thiscall sub_51B22B52(int this)
 .text:51B22761                 cmp     byte ptr [ebx+58h], 0
 .text:51B22765                 jz      loc_51B227EC
 .text:51B2276B                 call    ?ReloadWorkQueue@MessageLoop@AsyncTask@@IAEXXZ ; AsyncTask::MessageLoop::ReloadWorkQueue(void)
-.text:51B22770                 cmp     dword ptr [ebx+18h], 0    //判断是否有 task? 
+.text:51B22770                 cmp     dword ptr [ebx+18h], 0    //判断是否有 task?      //task 计数   可内存断点查看变化
 .text:51B22774                 jz      short loc_51B227EC
 .text:51B22776                 lea     eax, [ebx+8] //eax  为封装 task队例 的类的指针？
 .text:51B22779
@@ -455,6 +459,291 @@ int __thiscall sub_51B2186B(_DWORD *this, int a2)
   }
   return result;
 }
+
+
+
+{
+//task 计数
+ 
+
+//value =1   //计数增加
+Address  To       From     Size     Comment               Party 
+0EA1FDAC 51B22651 51B218C0 44       asynctask.51B218C0    User			//sub_51B2186B(_DWORD *this, int a2)
+0EA1FDF0 51B24321 51B22651 2C       asynctask.51B22651    User			//AsyncTask::MessageLoop::ReloadWorkQueue(AsyncTask::MessageLoop *this)
+0EA1FE1C 51B2207A 51B24321 24       asynctask.51B24321    User			//AsyncTask::MessagePumpForUI::DoRunLoop(AsyncTask::MessagePumpForUI *this)
+0EA1FE40 51B25FE7 51B2207A 8        asynctask.51B2207A    User          //AsyncTask::MessageLoop::RunHandler(AsyncTask::MessageLoop *this)
+0EA1FE48 5391EF8E 51B25FE7 10       asynctask.51B25FE7    User          //AsyncTask::Thread::Run(struct AsyncTask::MessageLoop *a2)
+0EA1FE58 51B26082 5391EF8E 114      hummerengine.5391EF8E User
+0EA1FF6C 51B25E47 51B26082 8        asynctask.51B26082    User
+0EA1FF74 76516359 51B25E47 10       asynctask.51B25E47    System
+0EA1FF84 76F48944 76516359 5C       kernel32.76516359     System
+0EA1FFE0 76F48914 76F48944 6C       ntdll.76F48944        System
+0EA2004C 685421CD 76F48914 F15DFFB8 ntdll.76F48914        User
+00000004 00000000 685421CD          audiovideo.685421CD   User
+
+
+
+
+//value =0  //计数减少
+Address  To       From     Size     Comment               Party 
+   =>v3 = (*((_DWORD *)v1 + 6))-- == 1;
+0EA1FDF0 51B24321 51B2278F 2C       asynctask.51B2278F    User	//AsyncTask::MessageLoop::DoWork(AsyncTask::MessageLoop *this)
+0EA1FE1C 51B2207A 51B24321 24       asynctask.51B24321    User	//AsyncTask::MessagePumpForUI::DoRunLoop(AsyncTask::MessagePumpForUI *this)
+0EA1FE40 51B25FE7 51B2207A 8        asynctask.51B2207A    User	//AsyncTask::MessageLoop::RunHandler(AsyncTask::MessageLoop *this)
+0EA1FE48 5391EF8E 51B25FE7 10       asynctask.51B25FE7    User  //AsyncTask::Thread::Run(struct AsyncTask::MessageLoop *a2)
+0EA1FE58 51B26082 5391EF8E 114      hummerengine.5391EF8E User
+0EA1FF6C 51B25E47 51B26082 8        asynctask.51B26082    User
+0EA1FF74 76516359 51B25E47 10       asynctask.51B25E47    System
+0EA1FF84 76F48944 76516359 5C       kernel32.76516359     System
+0EA1FFE0 76F48914 76F48944 6C       ntdll.76F48944        System
+0EA2004C 685421CD 76F48914 F15DFFB8 ntdll.76F48914        User
+00000004 00000000 685421CD          audiovideo.685421CD   User//AsyncTask
+
+	
+	
+
+
+
+	{ //计数增加
+	//================================================================================================================	
+	0EA1FDAC 51B22651 51B218C0 44       asynctask.51B218C0    User
+
+
+
+	//================================================================================================================
+	0EA1FDF0 51B24321 51B22651 2C       asynctask.51B22651    User
+
+
+
+	//================================================================================================================
+	0EA1FE1C 51B2207A 51B24321 24       asynctask.51B24321    User
+
+
+
+	//================================================================================================================
+	0EA1FE40 51B25FE7 51B2207A 8        asynctask.51B2207A    User
+
+
+
+	//================================================================================================================
+	0EA1FE48 5391EF8E 51B25FE7 10       asynctask.51B25FE7    User
+
+
+
+	//================================================================================================================
+	0EA1FE58 51B26082 5391EF8E 114      hummerengine.5391EF8E User
+
+
+
+	//================================================================================================================
+	0EA1FF6C 51B25E47 51B26082 8        asynctask.51B26082    User
+	0EA1FF74 76516359 51B25E47 10       asynctask.51B25E47    System
+	0EA1FF84 76F48944 76516359 5C       kernel32.76516359     System
+	0EA1FFE0 76F48914 76F48944 6C       ntdll.76F48944        System
+	0EA2004C 685421CD 76F48914 F15DFFB8 ntdll.76F48914        User
+	00000004 00000000 685421CD          audiovideo.685421CD   User	
+	}
+	
+	
+}
+
+
+//计数
+int __thiscall AsyncTask::MessageLoop::QueryTaskCount(AsyncTask::MessageLoop *this)
+{
+  AsyncTask::MessageLoop *v1; // edi@1
+  struct _RTL_CRITICAL_SECTION *v2; // esi@1
+  int v3; // edi@1
+
+  v1 = this;
+  v2 = (struct _RTL_CRITICAL_SECTION *)((char *)this + 136);
+  EnterCriticalSection((LPCRITICAL_SECTION)((char *)this + 136));
+  v3 = *((_DWORD *)v1 + 33);
+  LeaveCriticalSection(v2);
+  return v3;
+}
+
+
+//task增加
+//51B22204
+void __thiscall AsyncTask::MessageLoop::PostTask_Helper(AsyncTask::MessageLoop *this, struct AsyncTask::Task *a2, __int64 a3, bool a4, bool a5)
+{
+	
+ => EnterCriticalSection((LPCRITICAL_SECTION)((char *)v7 + 136));	
+	
+}
+
+{
+
+
+	{
+		Address  To       From     Siz Comment               Party 
+041FFB68 51B22169 51B22204 20  asynctask.51B22204    User
+041FFB88 51B223F0 51B22169 2C  asynctask.51B22169    User
+041FFBB4 51B22591 51B223F0 C   asynctask.51B223F0    User
+041FFBC0 51B2287F 51B22591 40  asynctask.51B22591    User
+041FFC00 51B244AF 51B2287F 18  asynctask.51B2287F    User
+041FFC18 74E747AB 51B244AF 2C  asynctask.51B244AF    System
+041FFC44 74E552AC 74E747AB E4  user32.74E747AB       System
+041FFD28 74E543FE 74E552AC 74  user32.74E552AC       System
+041FFD9C 74E541E0 74E543FE C   user32.74E543FE       System
+041FFDA8 51B24578 74E541E0 18  user32.74E541E0       User
+041FFDC0 51B244FB 51B24578 30  asynctask.51B24578    User
+041FFDF0 51B2437C 51B244FB 2C  asynctask.51B244FB    User
+041FFE1C 51B2207A 51B2437C 24  asynctask.51B2437C    User
+041FFE40 51B25FE7 51B2207A 8   asynctask.51B2207A    User
+041FFE48 5391EF8E 51B25FE7 10  asynctask.51B25FE7    User
+041FFE58 51B26082 5391EF8E 114 hummerengine.5391EF8E User
+041FFF6C 51B25E47 51B26082 8   asynctask.51B26082    User
+041FFF74 76516359 51B25E47 10  asynctask.51B25E47    System
+041FFF84 76F48944 76516359 5C  kernel32.76516359     System
+041FFFE0 76F48914 76F48944 10  ntdll.76F48944        System
+041FFFF0 00000000 76F48914     ntdll.76F48914        User
+
+		
+	}
+
+	{
+	Address  To       From     Size     Comment               Party 
+0EA1FC90 51B22187 51B22204 20       asynctask.51B22204    User
+0EA1FCB0 523DF57C 51B22187 30       asynctask.51B22187    User
+0EA1FCE0 523DF4E4 523DF57C 58       common.523DF57C       User
+0EA1FD38 523E3771 523DF4E4 4C       common.523DF4E4       User
+0EA1FD84 51B224EE 523E3771 28       common.523E3771       User
+0EA1FDAC 51B22591 51B224EE C        asynctask.51B224EE    User
+0EA1FDB8 51B227CF 51B22591 38       asynctask.51B22591    User
+0EA1FDF0 51B24321 51B227CF 2C       asynctask.51B227CF    User
+0EA1FE1C 51B2207A 51B24321 24       asynctask.51B24321    User
+0EA1FE40 51B25FE7 51B2207A 8        asynctask.51B2207A    User
+0EA1FE48 5391EF8E 51B25FE7 10       asynctask.51B25FE7    User
+0EA1FE58 51B26082 5391EF8E 114      hummerengine.5391EF8E User
+0EA1FF6C 51B25E47 51B26082 8        asynctask.51B26082    User
+0EA1FF74 76516359 51B25E47 10       asynctask.51B25E47    System
+0EA1FF84 76F48944 76516359 5C       kernel32.76516359     System
+0EA1FFE0 76F48914 76F48944 6C       ntdll.76F48944        System
+0EA2004C 685421CD 76F48914 F15DFFB8 ntdll.76F48914        User
+00000004 00000000 685421CD          audiovideo.685421CD   User
+	
+		
+	}
+
+	{
+		Address  To       From     Siz Comment               Party 
+0019EBB0 51B22169 51B22204 20  asynctask.51B22204    User
+0019EBD0 55746F30 51B22169 18  asynctask.51B22169    User
+0019EBE8 55746E30 55746F30 20  kernelutil.55746F30   User
+0019EC08 556E09C5 55746E30 60  kernelutil.55746E30   User
+0019EC68 556DEA84 556E09C5 40  kernelutil.556E09C5   User
+0019ECA8 556DCEA4 556DEA84 2C  kernelutil.556DEA84   User
+0019ECD4 556DBDC8 556DCEA4 1C  kernelutil.556DCEA4   User
+0019ECF0 556E13E0 556DBDC8 20  kernelutil.556DBDC8   User
+0019ED10 556E12E1 556E13E0 20  kernelutil.556E13E0   User
+0019ED30 523D6988 556E12E1 48C kernelutil.556E12E1   User
+0019F1BC 523D52C8 523D6988 34  common.523D6988       User
+0019F1F0 523D2246 523D52C8 14  common.523D52C8       User
+0019F204 523DD4A5 523D2246 30  common.523D2246       User
+0019F234 50C5A073 523DD4A5 2C  common.523DD4A5       User
+0019F260 50C58A83 50C5A073 3C  appmisc.50C5A073      User
+0019F29C 51B224EE 50C58A83 28  appmisc.50C58A83      User
+0019F2C4 51B22591 51B224EE C   asynctask.51B224EE    User
+0019F2D0 51B2287F 51B22591 40  asynctask.51B22591    User	
+0019F310 51B24339 51B2287F 30  asynctask.51B2287F    User
+0019F340 51B2207A 51B24339 24  asynctask.51B24339    User
+0019F364 53920B86 51B2207A 69C asynctask.51B2207A    User
+0019FA00 53927E8B 53920B86 80  hummerengine.53920B86 User
+0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B User
+0019FF1C 004012C6 0040289B C   qq.0040289B           User
+0019FF28 00403365 004012C6 4C  qq.004012C6           User
+0019FF74 76516359 00403365 10  qq.00403365           System
+0019FF84 76F48944 76516359 5C  kernel32.76516359     System
+0019FFE0 76F48914 76F48944 10  ntdll.76F48944        System
+0019FFF0 00000000 76F48914     ntdll.76F48914        User
+
+		
+	}
+
+	{
+	Address  To       From     Siz Comment               Party 
+0019F218 51B22187 51B22204 1C  asynctask.51B22204    User
+0019F234 50B1465F 51B22187 18  asynctask.51B22187    User
+0019F24C 50C58A9A 50B1465F 50  appmisc.50B1465F      User
+0019F29C 51B224EE 50C58A9A 28  appmisc.50C58A9A      User
+0019F2C4 51B22591 51B224EE C   asynctask.51B224EE    User
+0019F2D0 51B2287F 51B22591 40  asynctask.51B22591    User
+0019F310 51B24339 51B2287F 30  asynctask.51B2287F    User
+0019F340 51B2207A 51B24339 24  asynctask.51B24339    User
+0019F364 53920B86 51B2207A 69C asynctask.51B2207A    User
+0019FA00 53927E8B 53920B86 80  hummerengine.53920B86 User
+0019FA80 0040289B 53927E8B 49C hummerengine.53927E8B User
+0019FF1C 004012C6 0040289B C   qq.0040289B           User
+0019FF28 00403365 004012C6 4C  qq.004012C6           User
+0019FF74 76516359 00403365 10  qq.00403365           System
+0019FF84 76F48944 76516359 5C  kernel32.76516359     System
+0019FFE0 76F48914 76F48944 10  ntdll.76F48944        System
+0019FFF0 00000000 76F48914     ntdll.76F48914        User
+	
+		
+	}
+
+	{
+		Address  To       From     Siz Comment               Party 
+041FFB20 51B22169 51B22204 20  asynctask.51B22204    User
+041FFB40 51B223F0 51B22169 2C  asynctask.51B22169    User
+041FFB6C 51B22591 51B223F0 C   asynctask.51B223F0    User
+041FFB78 51B2287F 51B22591 40  asynctask.51B22591    User
+041FFBB8 51B244AF 51B2287F 18  asynctask.51B2287F    User
+041FFBD0 74E747AB 51B244AF 2C  asynctask.51B244AF    System
+041FFBFC 74E552AC 74E747AB E4  user32.74E747AB       System
+041FFCE0 74E543FE 74E552AC 74  user32.74E552AC       System
+041FFD54 74E541E0 74E543FE C   user32.74E543FE       System
+041FFD60 51B24578 74E541E0 18  user32.74E541E0       User
+041FFD78 51B2460F 51B24578 34  asynctask.51B24578    User
+041FFDAC 51B2456F 51B2460F 14  asynctask.51B2460F    User
+041FFDC0 51B244FB 51B2456F 30  asynctask.51B2456F    User
+041FFDF0 51B2437C 51B244FB 2C  asynctask.51B244FB    User
+041FFE1C 51B2207A 51B2437C 24  asynctask.51B2437C    User
+041FFE40 51B25FE7 51B2207A 8   asynctask.51B2207A    User
+041FFE48 5391EF8E 51B25FE7 10  asynctask.51B25FE7    User
+041FFE58 51B26082 5391EF8E 114 hummerengine.5391EF8E User
+041FFF6C 51B25E47 51B26082 8   asynctask.51B26082    User
+041FFF74 76516359 51B25E47 10  asynctask.51B25E47    System
+041FFF84 76F48944 76516359 5C  kernel32.76516359     System
+041FFFE0 76F48914 76F48944 10  ntdll.76F48944        System
+041FFFF0 00000000 76F48914     ntdll.76F48914        User
+
+		
+	}
+	
+	
+	{
+		Address  To       From     Siz Comment               Party 
+		041FFD60 51B22169 51B22204 20  asynctask.51B22204    User
+		041FFD80 51B223F0 51B22169 2C  asynctask.51B22169    User	//AsyncTask::MessageLoop::PostTask(AsyncTask::MessageLoop *this, struct AsyncTask::Task *a2)
+		041FFDAC 51B22591 51B223F0 C   asynctask.51B223F0    User	//AsyncTask::MessageLoop::RunTask(AsyncTask::MessageLoop *this, struct AsyncTask::Task *a2)
+		041FFDB8 51B227CF 51B22591 38  asynctask.51B22591    User	//AsyncTask::MessageLoop::DeferOrRunPendingTask(AsyncTask::MessageLoop *this, const struct AsyncTask::MessageLoop::PendingTask *a2)			
+		041FFDF0 51B24321 51B227CF 2C  asynctask.51B227CF    User   //AsyncTask::MessageLoop::DoWork(AsyncTask::MessageLoop *this)
+		041FFE1C 51B2207A 51B24321 24  asynctask.51B24321    User   //AsyncTask::MessagePumpForUI::DoRunLoop(AsyncTask::MessagePumpForUI *this)
+		041FFE40 51B25FE7 51B2207A 8   asynctask.51B2207A    User   //AsyncTask::MessageLoop::RunHandler(AsyncTask::MessageLoop *this)
+		041FFE48 5391EF8E 51B25FE7 10  asynctask.51B25FE7    User   //AsyncTask::Thread::Run(struct AsyncTask::MessageLoop *a2)
+		041FFE58 51B26082 5391EF8E 114 hummerengine.5391EF8E User
+		041FFF6C 51B25E47 51B26082 8   asynctask.51B26082    User
+		041FFF74 76516359 51B25E47 10  asynctask.51B25E47    System
+		041FFF84 76F48944 76516359 5C  kernel32.76516359     System
+		041FFFE0 76F48914 76F48944 10  ntdll.76F48944        System
+		041FFFF0 00000000 76F48914     ntdll.76F48914        User
+//================================================================================================== 
+		
+	}
+	
+	
+	{ 
+		
+		
+	}
+	
+}
+
+
 
 
 
