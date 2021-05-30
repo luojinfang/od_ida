@@ -1,4 +1,13 @@
 /*
+//定位消息类型
+char __thiscall AsyncTask::MessagePumpForUI::ProcessMessageHelper(AsyncTask::MessagePumpForUI *this, LPMSG lpMsg)
+
+
+*/
+
+
+
+/*
 	//弹出错误框 
 	0019EE88 532E7071 753A71F0 4C  user32.753A71F0            用户模块
 	0019EED4 5320DD3D 532E7071 14  gf.532E7071                用户模块
@@ -1081,7 +1090,7 @@ void __thiscall AsyncTask::MessagePumpForUI::DoRunLoop(AsyncTask::MessagePumpFor
   v2 = AsyncTask::MessagePumpForUI::ProcessNextWindowsMessage(this);
   for ( i = *((_DWORD *)v1 + 11); !*(_BYTE *)(i + 4); i = *((_DWORD *)v1 + 11) )
   {
-    v4 = (*(int (**)(void))(**(_DWORD **)i + 4))();  //.faq 
+    v4 = (*(int (**)(void))(**(_DWORD **)i + 4))();  //==========> AsyncTask::MessageLoop::DoWork
     v5 = *((_DWORD *)v1 + 11);
     v6 = v4 | v2;
     if ( *(_BYTE *)(v5 + 4) )
@@ -1100,11 +1109,14 @@ void __thiscall AsyncTask::MessagePumpForUI::DoRunLoop(AsyncTask::MessagePumpFor
       if ( !v9 )
         AsyncTask::MessagePumpForUI::WaitForWork(v1);
     }
-    v2 = AsyncTask::MessagePumpForUI::ProcessNextWindowsMessage(v1);
+    v2 = AsyncTask::MessagePumpForUI::ProcessNextWindowsMessage(v1); //循环,  for 里面每次 v1 没有变化,这是一个 AsyncTask::MessagePumpForUI 单例?
   }
+  
+  //51B24388
+  //什么时候会退出这个方法循环？一直不会
 }
 
-
+//返回bool=true, 说明有其他线程或应用程序发送的消息在消息队列里
 bool __thiscall AsyncTask::MessagePumpForUI::ProcessNextWindowsMessage(AsyncTask::MessagePumpForUI *this)
 {
   AsyncTask::MessagePumpForUI *v1; // edi@1
@@ -1126,6 +1138,8 @@ bool __thiscall AsyncTask::MessagePumpForUI::ProcessNextWindowsMessage(AsyncTask
   return result;
 }
 
+
+//定位消息类型
 char __thiscall AsyncTask::MessagePumpForUI::ProcessMessageHelper(AsyncTask::MessagePumpForUI *this, LPMSG lpMsg)
 {
   AsyncTask::MessagePumpForUI *v2; // edi@1
@@ -1134,13 +1148,16 @@ char __thiscall AsyncTask::MessagePumpForUI::ProcessMessageHelper(AsyncTask::Mes
   if ( lpMsg->message == 18 )
   {
     *(_BYTE *)(*((_DWORD *)this + 11) + 4) = 1;
-    PostQuitMessage(lpMsg->wParam);
+    PostQuitMessage(lpMsg->wParam); //退出
     return 0;
   }
   if ( lpMsg->message == 36863 && lpMsg->hwnd == (HWND)*((_DWORD *)this + 12) )
     return AsyncTask::MessagePumpForUI::ProcessPumpReplacementMessage(this);   //=> ProcessMessageHelper
-  if ( !CallMsgFilterW(lpMsg, 20481) )
+
+	  //51B24543 当前好像没有设置钩子
+  if ( !CallMsgFilterW(lpMsg, 20481) )  //是否通过钩子处理对应消息,通过 SetWindowsHookEx 方法来安装该钩子子程
   {
+	  //51B24550
     AsyncTask::MessagePumpWin::WillProcessMessage(v2, lpMsg);
     TranslateMessage(lpMsg);
     if ( lpMsg->message == 36863 && lpMsg->hwnd == (HWND)*((_DWORD *)v2 + 12) )
@@ -1148,8 +1165,9 @@ char __thiscall AsyncTask::MessagePumpForUI::ProcessMessageHelper(AsyncTask::Mes
       this = v2;
       return AsyncTask::MessagePumpForUI::ProcessPumpReplacementMessage(this);  //=> ProcessMessageHelper
     }
+	//51B24572
     DispatchMessageW(lpMsg); //=> winproc ?   
-    AsyncTask::MessagePumpWin::DidProcessMessage(v2, lpMsg);
+    AsyncTask::MessagePumpWin::DidProcessMessage(v2, lpMsg);//-----> 把 lpMsg放入 v2，AsyncTask::MessagePumpForUI？ 
   }
   return 1;
 }
@@ -1207,6 +1225,120 @@ LRESULT __stdcall sub_52378040(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
   }
   return result;
 }
+
+void __thiscall AsyncTask::MessagePumpWin::DidProcessMessage(AsyncTask::MessagePumpWin *this, const struct tagMSG *a2)
+{
+  char *v2; // ecx@1
+  int v3; // eax@6
+  bool v4; // zf@7
+  char *v5; // [sp+0h] [bp-Ch]@1
+  int v6; // [sp+4h] [bp-8h]@1
+  int v7; // [sp+8h] [bp-4h]@2
+
+  v6 = 0;
+  v2 = (char *)this + 8; //  AsyncTask::MessagePumpWin.[8*1] 为取出要处理的下一个任务数据？不是... todo
+  v5 = v2;
+  if ( *((_DWORD *)v2 + 4) )
+    v7 = (*((_DWORD *)v2 + 1) - *(_DWORD *)v2) >> 2;
+  else
+    v7 = -1;
+  ++*((_DWORD *)v2 + 3);
+  while ( 1 )
+  {
+	  //51B24127
+    v3 = sub_51B22A3D(&v5); //-------------->
+    if ( !v3 )
+      break;
+	//51B24121   只有主线程会触发？
+    (*(void (__thiscall **)(int, const struct tagMSG *))(*(_DWORD *)v3 + 8))(v3, a2); // =====>hummerengine.539257E5 => TranslateMessage(&Msg);  DispatchMessageW(&Msg);
+  }
+  
+  v4 = (*((_DWORD *)v5 + 3))-- == 1;
+  //51B24137  
+  if ( v4 )
+    sub_51B22C9B(v5, v6, v7);   //所有线程都可能触发, 获取一个任务数据到 v5？不是... todo  --------------->
+}
+
+
+_BYTE *__thiscall sub_51B22C9B(int this)
+{
+  int v1; // edi@1
+  _BYTE *v2; // esi@1
+  _BYTE *result; // eax@1
+  const void *v4; // ebx@2
+
+  v1 = this;
+  v2 = *(_BYTE **)this;
+  result = *(_BYTE **)(this + 4);
+  if ( *(_BYTE **)this != result )
+  {
+    v4 = v2 + 4;
+    do
+    {
+      if ( *(_DWORD *)v2 )
+      {
+        v2 += 4;
+        v4 = (char *)v4 + 4;
+      }
+      else
+      {
+		  
+		//void *memmove( void* dest, const void* src, size_t count );
+        memmove(v2, v4, result - (_BYTE *)v4);
+        *(_DWORD *)(v1 + 4) -= 4;
+        result = *(_BYTE **)(v1 + 4);
+      }
+    }
+    while ( v2 != result );
+  }
+  return result;
+}
+
+
+void __thiscall AsyncTask::MessageLoopForUI::DidProcessMessage(AsyncTask::MessageLoopForUI *this, const struct tagMSG *a2)
+{
+  AsyncTask::MessagePumpWin::DidProcessMessage(*((AsyncTask::MessagePumpWin **)this + 16), a2);
+}
+
+int __thiscall sub_51B22A3D(int this)
+{
+  int v1; // ebx@1
+  int v2; // edi@1
+  unsigned int v3; // edx@1
+  unsigned int v4; // ecx@1
+  int v5; // esi@3
+  unsigned int v6; // edi@4
+  _DWORD *v7; // edi@7
+
+  v1 = this;
+  v2 = *(_DWORD *)this;
+  v3 = *(_DWORD *)(this + 8);
+  v4 = *(_DWORD *)(this + 4);
+  if ( (*(_DWORD *)(v2 + 4) - *(_DWORD *)v2) >> 2 < v3 )
+    v3 = (*(_DWORD *)(v2 + 4) - *(_DWORD *)v2) >> 2;
+  v5 = 0;
+  if ( v4 < v3 )
+  {
+    v6 = v4;
+    do
+    {
+      if ( *(_DWORD *)(**(_DWORD **)v1 + 4 * v6) )
+        break;
+      v4 = v6 + 1;
+      *(_DWORD *)(v1 + 4) = v6 + 1;
+      v6 = v4;
+    }
+    while ( v4 < v3 );
+    v7 = *(_DWORD **)v1;
+    if ( v4 < v3 )
+    {
+      *(_DWORD *)(v1 + 4) = v4 + 1;
+      v5 = *(_DWORD *)(*v7 + 4 * v4);
+    }
+  }
+  return v5;
+}
+
 
 char __thiscall AsyncTask::MessagePumpForUI::ProcessPumpReplacementMessage(AsyncTask::MessagePumpForUI *this)
 {

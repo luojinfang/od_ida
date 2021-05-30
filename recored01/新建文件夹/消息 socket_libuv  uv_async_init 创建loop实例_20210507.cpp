@@ -2321,8 +2321,11 @@ char __thiscall AsyncTask::MessagePumpForUI::ProcessMessageHelper(AsyncTask::Mes
   }
   if ( lpMsg->message == 36863 && lpMsg->hwnd == (HWND)*((_DWORD *)this + 12) )
     return AsyncTask::MessagePumpForUI::ProcessPumpReplacementMessage(this);
-  if ( !CallMsgFilterW(lpMsg, 20481) )
+  
+  //51B24543 当前好像没有设置钩子
+  if ( !CallMsgFilterW(lpMsg, 20481) )   //是否通过钩子处理对应消息,通过 SetWindowsHookEx 方法来安装该钩子子程
   {
+	 //51B24550
     AsyncTask::MessagePumpWin::WillProcessMessage(v2, lpMsg);
     TranslateMessage(lpMsg);
     if ( lpMsg->message == 36863 && lpMsg->hwnd == (HWND)*((_DWORD *)v2 + 12) )
@@ -2330,10 +2333,44 @@ char __thiscall AsyncTask::MessagePumpForUI::ProcessMessageHelper(AsyncTask::Mes
       this = v2;
       return AsyncTask::MessagePumpForUI::ProcessPumpReplacementMessage(this);
     }
+	//51B24572
     DispatchMessageW(lpMsg);  //===================> 771641E0
-    AsyncTask::MessagePumpWin::DidProcessMessage(v2, lpMsg);
+    AsyncTask::MessagePumpWin::DidProcessMessage(v2, lpMsg); //------------------>
   }
   return 1;
+}
+
+void __thiscall AsyncTask::MessagePumpWin::DidProcessMessage(AsyncTask::MessagePumpWin *this, const struct tagMSG *a2)
+{
+  char *v2; // ecx@1
+  int v3; // eax@6
+  bool v4; // zf@7
+  char *v5; // [sp+0h] [bp-Ch]@1
+  int v6; // [sp+4h] [bp-8h]@1
+  int v7; // [sp+8h] [bp-4h]@2
+
+  v6 = 0;
+  v2 = (char *)this + 8;
+  v5 = v2;
+  if ( *((_DWORD *)v2 + 4) )
+    v7 = (*((_DWORD *)v2 + 1) - *(_DWORD *)v2) >> 2;
+  else
+    v7 = -1;
+  ++*((_DWORD *)v2 + 3);
+  while ( 1 )
+  {
+    v3 = sub_51B22A3D(&v5);
+    if ( !v3 )
+      break;
+    (*(void (__thiscall **)(int, const struct tagMSG *))(*(_DWORD *)v3 + 8))(v3, a2);
+  }
+  v4 = (*((_DWORD *)v5 + 3))-- == 1;
+  if ( v4 )
+    sub_51B22C9B(v5, v6, v7);
+}
+void __thiscall AsyncTask::MessageLoopForUI::DidProcessMessage(AsyncTask::MessageLoopForUI *this, const struct tagMSG *a2)
+{
+  AsyncTask::MessagePumpWin::DidProcessMessage(*((AsyncTask::MessagePumpWin **)this + 16), a2);
 }
 
 //==================================================================================================================================

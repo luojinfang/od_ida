@@ -1,0 +1,90 @@
+钩子教程 - 原理(八) : CallMsgFilter / CallNextHookEx
+原文地址 : http://www.zdexe.com/program/201004/582.html
+
+认识完各种钩子类型之后，接下来了解和钩子如影随形的钩子子程，即相应的回调函数。
+
+了解这些是可以使用钩子的一个开始。
+
+方法1： CallMsgFilter
+
+The CallMsgFilter function passes the specified message and hook code to the hook procedures associated with the WH_SYSMSGFILTER and WH_MSGFILTER hooks. A WH_SYSMSGFILTER or WH_MSGFILTER hook procedure is an application-defined callback function that examines and, optionally, modifies messages for a dialog box, message box, menu, or scroll bar.
+
+CallMsgFilter方法传递特定的消息和钩子代码到与WH_SYSMSGFILTER 和WH_MSGFILTER钩子相关联的钩子子程。 WH_SYSMSGFILTER或者WH_MSGFILTER钩子子程是应用程序定义的回调函数，该回调函数用来检验、选择、修改传递给对话框、消息框、菜单或者滚动条的消息，
+
+ 
+
+语法：BOOL CallMsgFilter
+
+(      
+        LPMSG lpMsg,
+
+    int nCode
+
+);
+
+参数说明 ：
+
+lpMsg ：[in] Pointer to an MSG structure that contains the message to be passed to the hook procedures.指向MSG结构的指针，该结构包含有即将传递给钩子子程的消息。
+
+nCode ：[in] Specifies an application-defined code used by the hook procedure to determine how to process the message. The code must not have the same value as system-defined hook codes (MSGF_ and HC_) associated with the WH_SYSMSGFILTER and WH_MSGFILTER hooks.
+
+指定应用程序定义的代码，钩子子程使用该代码来决定如何处理消息。该代码不能与系统定义的与WH_SYSMSGFILTER 和 WH_MSGFILTER钩子相关的钩子代码(MSGF_ and HC_)相同。
+
+Return Value：If the application should process the message further, the return value is zero.
+
+If the application should not process the message further, the return value is nonzero.
+
+如果应用程序应该进一步处理该消息，返回值为0；如果不处理，返回非0值。
+
+Remarks
+
+The system calls CallMsgFilter to enable applications to examine and control the flow of messages during internal processing of dialog boxes, message boxes, menus, and scroll bars, or when the user activates a different window by pressing the ALT+TAB key combination.
+
+Install this hook procedure by using the SetWindowsHookEx function.
+
+系统调用CallMsgFilter方法来允许应用程序检查、控制在对话框、消息框、菜单、滚动条内部处理中的消息的流动，或者当用户通过按下ALT+TAB组合键激活不同的窗口时的信息流动。
+
+通过SetWindowsHookEx方法来安装该钩子子程。
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+方法2 ： CallNextHookEx Function
+
+The CallNextHookEx function passes the hook information to the next hook procedure in the current hook chain. A hook procedure can call this function either before or after processing the hook information.
+
+CallNextHookEx方法将钩子信息传递给当前钩子链表中的下一个钩子子程。钩子子程能够在处理钩子信息之前或者之后调用该方法。
+
+Syntax  ：LRESULT CallNextHookEx(      
+                  HHOOK hhk,
+
+    int nCode,
+
+    WPARAM wParam,
+
+    LPARAM lParam
+
+);
+
+Parameters
+
+hhk ：Ignored. 被忽略。
+
+nCode  ：[in] Specifies the hook code passed to the current hook procedure. The next hook procedure uses this code to determine how to process the hook information.
+
+wParam ：[in] Specifies the wParam value passed to the current hook procedure. The meaning of this parameter depends on the type of hook associated with the current hook chain.。
+
+lParam ：[in] Specifies the lParam value passed to the current hook procedure. The meaning of this parameter depends on the type of hook associated with the current hook chain.
+
+wParam  /  lParam ：这两个参数分别指定传递给当前钩子子程的wParam  / lParam值。参数的意义取决于与当前钩子链表相关联的钩子类型。
+
+Return Value:返回值
+
+This value is returned by the next hook procedure in the chain. The current hook procedure must also return this value. The meaning of the return value depends on the hook type.该值由钩子链表中的下一个钩子子程返回。当前钩子子程也必须返回该值。返回值的意义取决于钩子类型。
+
+Remarks 注意
+
+Hook procedures are installed in chains for particular hook types.CallNextHookEx calls the next hook in the chain.
+
+Calling CallNextHookEx is optional, but it is highly recommended; otherwise, other applications that have installed hooks will not receive hook notifications and may behave incorrectly as a result. You should callCallNextHookEx unless you absolutely need to prevent the notification from being seen by other applications.
+
+钩子子程为了特定的钩子类型而被安装。CallNextHookEx方法调用钩子链表中的下一个钩子。调用CallNextHookEx是可选的，但是强烈要求调用该函数；否则，其他已经安装有钩子的应用程序将收不到钩子通知，从而可能导致不正确的行为。除非绝对需要阻止通知被其他应用程序看到，其它情况下都应该调用CallNextHookEx方法。.
