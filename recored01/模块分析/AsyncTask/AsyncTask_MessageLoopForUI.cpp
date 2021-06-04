@@ -1158,7 +1158,7 @@ char __thiscall AsyncTask::MessagePumpForUI::ProcessMessageHelper(AsyncTask::Mes
   if ( !CallMsgFilterW(lpMsg, 20481) )  //是否通过钩子处理对应消息,通过 SetWindowsHookEx 方法来安装该钩子子程
   {
 	  //51B24550
-    AsyncTask::MessagePumpWin::WillProcessMessage(v2, lpMsg);
+    AsyncTask::MessagePumpWin::WillProcessMessage(v2, lpMsg); //------------->
     TranslateMessage(lpMsg);
     if ( lpMsg->message == 36863 && lpMsg->hwnd == (HWND)*((_DWORD *)v2 + 12) )
     {
@@ -1166,11 +1166,47 @@ char __thiscall AsyncTask::MessagePumpForUI::ProcessMessageHelper(AsyncTask::Mes
       return AsyncTask::MessagePumpForUI::ProcessPumpReplacementMessage(this);  //=> ProcessMessageHelper
     }
 	//51B24572
-    DispatchMessageW(lpMsg); //=> winproc ?   
+    DispatchMessageW(lpMsg); //=> winproc /sub_52378040?   
     AsyncTask::MessagePumpWin::DidProcessMessage(v2, lpMsg);//-----> 把 lpMsg放入 v2，AsyncTask::MessagePumpForUI？ 
   }
   return 1;
 }
+
+
+void __thiscall AsyncTask::MessagePumpWin::WillProcessMessage(AsyncTask::MessagePumpWin *this, const struct tagMSG *a2)
+{
+  char *v2; // ecx@1
+  int v3; // eax@6
+  int v4; // ecx@7
+  bool v5; // zf@7
+  char *v6; // [sp+0h] [bp-Ch]@1
+  int v7; // [sp+4h] [bp-8h]@1
+  int v8; // [sp+8h] [bp-4h]@2
+
+  v7 = 0;
+  v2 = (char *)this + 8;
+  v6 = v2;
+  if ( *((_DWORD *)v2 + 4) )
+    v8 = (*((_DWORD *)v2 + 1) - *(_DWORD *)v2) >> 2;
+  else
+    v8 = -1;
+  ++*((_DWORD *)v2 + 3);
+  while ( 1 )
+  {
+    v3 = sub_51B22A3D((int)&v6); //------->
+    if ( !v3 )
+      break;
+    (*(void (__thiscall **)(int, const struct tagMSG *))(*(_DWORD *)v3 + 4))(v3, a2);
+  }
+  v4 = (int)v6;
+  v5 = *((_DWORD *)v6 + 3) == 1;
+  --*(_DWORD *)(v4 + 12);
+  if ( v5 )
+    sub_51B22C9B(v4);
+}
+
+
+
 
 //common.dll  winproc?
 LRESULT __stdcall sub_52378040(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
@@ -1236,7 +1272,7 @@ void __thiscall AsyncTask::MessagePumpWin::DidProcessMessage(AsyncTask::MessageP
   int v7; // [sp+8h] [bp-4h]@2
 
   v6 = 0;
-  v2 = (char *)this + 8; //  AsyncTask::MessagePumpWin.[8*1] 为取出要处理的下一个任务数据？不是... todo
+  v2 = (char *)this + 8; //  AsyncTask::MessagePumpWin.[8*1] 为取出要处理的响应 回调结构?
   v5 = v2;
   if ( *((_DWORD *)v2 + 4) )
     v7 = (*((_DWORD *)v2 + 1) - *(_DWORD *)v2) >> 2;
@@ -1246,7 +1282,7 @@ void __thiscall AsyncTask::MessagePumpWin::DidProcessMessage(AsyncTask::MessageP
   while ( 1 )
   {
 	  //51B24127
-    v3 = sub_51B22A3D(&v5); //-------------->
+    v3 = sub_51B22A3D(&v5); //--------------> 循环遍历使用一个当前要处理的 回调结构v3, 只记数,并没有取出?  回调结构 在哪里注册的？
     if ( !v3 )
       break;
 	//51B24121   只有主线程会触发？
@@ -1255,8 +1291,8 @@ void __thiscall AsyncTask::MessagePumpWin::DidProcessMessage(AsyncTask::MessageP
   
   v4 = (*((_DWORD *)v5 + 3))-- == 1;
   //51B24137  
-  if ( v4 )
-    sub_51B22C9B(v5, v6, v7);   //所有线程都可能触发, 获取一个任务数据到 v5？不是... todo  --------------->
+  if ( v4 ) 
+    sub_51B22C9B(v5, v6, v7);   //所有线程都可能触发, 记数最后一个回调处理？  --------------->
 }
 
 
@@ -1300,6 +1336,9 @@ void __thiscall AsyncTask::MessageLoopForUI::DidProcessMessage(AsyncTask::Messag
   AsyncTask::MessagePumpWin::DidProcessMessage(*((AsyncTask::MessagePumpWin **)this + 16), a2);
 }
 
+//多处调用
+//@this   AsyncTask::MessagePumpWin.[8*1] ,   this为 内存池,链表?
+//取一个未处理的 tagMSG?
 int __thiscall sub_51B22A3D(int this)
 {
   int v1; // ebx@1
@@ -1312,25 +1351,26 @@ int __thiscall sub_51B22A3D(int this)
 
   v1 = this;
   v2 = *(_DWORD *)this;
-  v3 = *(_DWORD *)(this + 8);
-  v4 = *(_DWORD *)(this + 4);
-  if ( (*(_DWORD *)(v2 + 4) - *(_DWORD *)v2) >> 2 < v3 )
-    v3 = (*(_DWORD *)(v2 + 4) - *(_DWORD *)v2) >> 2;
+  v3 = *(_DWORD *)(this + 8);  //最后一个？
+  v4 = *(_DWORD *)(this + 4);  //当前处理到的这个?
+  if ( (*(_DWORD *)(v2 + 4) - *(_DWORD *)v2) >> 2 < v3 ) //容量被清理过？
+    v3 = (*(_DWORD *)(v2 + 4) - *(_DWORD *)v2) >> 2;  
   v5 = 0;
-  if ( v4 < v3 )
+  if ( v4 < v3 ) 
   {
     v6 = v4;
     do
     {
-      if ( *(_DWORD *)(**(_DWORD **)v1 + 4 * v6) )
+      if ( *(_DWORD *)(**(_DWORD **)v1 + 4 * v6) ) //处理标识,未处理过就跳出？
         break;
-      v4 = v6 + 1;
+      v4 = v6 + 1; //下一个
       *(_DWORD *)(v1 + 4) = v6 + 1;
       v6 = v4;
     }
-    while ( v4 < v3 );
+    while ( v4 < v3 ); // 
+	
     v7 = *(_DWORD **)v1;
-    if ( v4 < v3 )
+    if ( v4 < v3 ) 
     {
       *(_DWORD *)(v1 + 4) = v4 + 1;
       v5 = *(_DWORD *)(*v7 + 4 * v4);
