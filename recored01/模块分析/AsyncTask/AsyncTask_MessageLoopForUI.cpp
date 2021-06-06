@@ -3,6 +3,12 @@
 char __thiscall AsyncTask::MessagePumpForUI::ProcessMessageHelper(AsyncTask::MessagePumpForUI *this, LPMSG lpMsg)
 
 
+
+
+AsyncTask::MessagePumpWin: class AsyncTask::MessagePumpForUI
+
+AsyncTask::MessageLoopForUI //界面循环处理结构
+AsyncTask::MessageLoopForUI::AddObserver //为 界面循环处理结构 设置回调处理,如 MessagePumpForUI
 */
 
 
@@ -1090,7 +1096,7 @@ void __thiscall AsyncTask::MessagePumpForUI::DoRunLoop(AsyncTask::MessagePumpFor
   v2 = AsyncTask::MessagePumpForUI::ProcessNextWindowsMessage(this);
   for ( i = *((_DWORD *)v1 + 11); !*(_BYTE *)(i + 4); i = *((_DWORD *)v1 + 11) )
   {
-    v4 = (*(int (**)(void))(**(_DWORD **)i + 4))();  //==========> AsyncTask::MessageLoop::DoWork
+    v4 = (*(int (**)(void))(**(_DWORD **)i + 4))();  //==========> AsyncTask::MessageLoop::DoWork,  做了什么?todo..
     v5 = *((_DWORD *)v1 + 11);
     v6 = v4 | v2;
     if ( *(_BYTE *)(v5 + 4) )
