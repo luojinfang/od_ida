@@ -1,0 +1,176 @@
+在2000/XP等基于NT 的操作系统中，有一个服务管理器，它管理的后台进程被称为 service。
+
+服务是一种应用程序类型，它在后台运行，与 UNIX 后台应用程序类似。服务应用程序通常可以
+在本地和通过网络为用户提供一些功能，例如客户端/服务器应用程序、Web 服务器、数据库服
+务器以及其他基于服务器的应用程序。
+后台服务 程序是在后台悄悄运行的。我们通过将自己的程序登记为服务，可以使自己的程序不出现
+在任务管理器中，并且随系统启动而最先运行，随系统关闭而最后停止。
+服务控制管理器是一个 RPC 服务器，它显露了一组应用编程接口，程序员可以方便的编写程序来配置
+服务和控制远程服务器中服务程序。
+
+服务程序通常编写成控制台类型的应用程序，总的来说，一个遵守服务控制管理程序接口要求的程序
+包含下面三个函数：
+1。服务程序主函数（main）：调用系统函数 StartServiceCtrlDispatcher 连接程序主线程到服务控制管理程序。
+2。服务入口点函数（ServiceMain）：执行服务初始化任务，同时执行多个服务的服务进程有多个服务入口函数。
+3。控制服务处理程序函数（Handler）：在服务程序收到控制请求时由控制分发线程引用。（此处是Service_Ctrl）。
+另外在系统运行此服务之前需要安装登记服务程序：installService 函数。删除服务程序则需要先删除服务安装登记：removeService 函数。
+
+服务类型：
+	SERVICE_FILE_SYSTEM_DRIVER＝2
+	文件系统驱动服务。
+
+	SERVICE_KERNEL_DRIVER＝1
+	驱动服务。
+
+	SERVICE_WIN32_OWN_PROCESS＝16
+	独占一个进程的服务。
+
+	SERVICE_WIN32_SHARE_PROCESS＝32
+	与其他服务共享一个进程的服务。
+
+
+新建WIN32控制台程序， 其源文件名为service.cpp 。我用的开发工具是VC++.NET。
+1．服务程序主函数
+服务控制管理程序启动服务程序后，等待服务程序主函数调用系统函 StartServiceCtrlDispatcher。
+一个 SERVICE_WIN32_OWN_PROCESS 类型的服务应该立即调用 StartServiceCtrlDispatcher 函数，可以在服务启动后让服务入口点函数完成初始化工作。
+对于 SERVICE_WIN32_OWN_PROCESS 类型的服务和程序中所有服务共同的初始化工作可以在主函数中完成，但不要超过30秒。
+否则必须建立另外的线程完成这些共同的初始化工作，从而保证服务程序主函数能及时地调用 StartServiceCtrlDispatcher 函数。
+主函数处理了三中命令行参数：- install,- remove,- debug,分别用于安装，删除和调试服务程序。如果不带参数运行，则认为是服务控制管理出现启动该服务程序。参数不正确则给出提示信息。
+
+
+StartServiceCtrlDispatcher 函数负责把程序主线程连接到服务控制管理程序。具体描述如下：
+	BOOL StartServiceCtrlDispatcher( const LPSERVICE_TABLE_ENTRY lpServiceTable);
+	
+	lpServiceTable 指向 SERVICE_TABLE_ENTRY 结构类型的数组，他包含了调用进程所提供的每个服务的入口函数和字符串名。
+					表中的最后一个元素必须为 NULL，指明入口表结束。SERVICE_TABLE_ENTRY 结构具体描述如下：
+						typedef struct _SERVICE_TABLE_ENTRY { 
+								LPTSTR lpServiceName; 
+								LPSERVICE_MAIN_FUNCTION lpServiceProc;
+							} SERVICE_TABLE_ENTRY, *LPSERVICE_TABLE_ENTRY;
+
+					lpServiceName 是一个以 NULL 结尾的字符串，标识服务名。如果是 SERVICE_WIN32_OWN_PROCESS 类型的服务，这个字符串会被忽略。
+					lpServiceProc 指向服务入口点函数。
+
+//服务程序主函数。
+#include "stdafx.h"
+#include "Windows.h"
+#define SZAPPNAME "serverSample" //服务程序名
+#define SZSERVICENAME "serviceSample" //标识服务的内部名
+//内部变量
+bool bDebugServer=false;
+SERVICE_STATUS ssStatus;
+SERVICE_STATUS_HANDLE sshStatusHandle;
+DWORD dwErr=0;
+TCHAR szErr[256];
+//下面的函数由程序实现
+void WINAPI Service_Main(DWORD dwArgc, LPTSTR *lpszArgv);
+void WINAPI Service_Ctrl(DWORD dwCtrlCode);
+void installService();
+void removeService();
+void debugService(int argc,char** argv);
+bool ReportStatusToSCMgr(DWORD dwCurrentState,DWORD dwWin32ExitCode,DWORD dwWaitHint);
+void AddToMessageLog(LPTSTR lpszMsg);
+int _tmain(int argc, _TCHAR* argv[])
+{
+SERVICE_TABLE_ENTRY dispatchTable[]=
+{
+{TEXT(SZSERVICENAME),(LPSERVICE_MAIN_FUNCTION)Service_Main},
+{ NULL,NULL}
+};
+if((argc>1)&&((*argv[1]=='-')||(argv[1]=="/")))
+{
+if(_stricmp("install",argv[1]+1)==0)
+{
+installService();
+}
+else if(_stricmp("remove",argv[1]+1)==0)
+{
+removeService();
+}
+else if(_stricmp("debug",argv[1]+1)==0)
+{
+bDebugServer=true;
+debugService(argc,argv);
+}
+else
+{ //如果未能和上面的如何参数匹配，则可能是服务控制管理程序来启动该程序。立即调用
+//StartServiceCtrlDispatcher 函数。
+printf("%s - install to install the service \n",SZAPPNAME);
+printf("%s - remove to remove the service \n",SZAPPNAME);
+printf("%s - debug to debug the service \n",SZAPPNAME);
+printf("\n StartServiceCtrlDispatcher being called.\n");
+printf("This may take several seconds.Please wait.\n");
+if(!StartServiceCtrlDispatcher(dispatchTable))
+AddToMessageLog(TEXT("StartServiceCtrlDispatcher failed."));
+else
+AddToMessageLog(TEXT("StartServiceCtrlDispatcher OK."));
+}
+exit(0);
+}
+return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+StartServiceCtrlDispatcher 函数
+
+道格拉斯范朋克 2019-04-04 13:57:25  3538  收藏 5
+分类专栏： API 文章标签： StartServiceCtrlDispatcher 服务
+版权
+将服务进程的主线程连接到服务控制管理器，这使得线程成为调用进程的服务控制调度程序线程。
+
+语法
+
+BOOL WINAPI StartServiceCtrlDispatcher（
+  _In_ const SERVICE_TABLE_ENTRY * lpServiceTable
+）;
+        
+参数
+lpServiceTable [in]
+指向SERVICE_TABLE_ENTRY结构数组的指针，该结构包含可在调用进程中执行的每个服务的一个条目。表中最后一个条目的成员必须具有NULL值才能指定表的结尾。
+
+返回值
+如果函数成功，则返回值为非零值。
+
+如果函数失败，则返回值为零。要获取扩展错误信息，请调用GetLastError。
+
+服务控制管理器可以设置以下错误代码。其他错误代码可以由服务控制管理器调用的注册表函数设置。
+
+返回码说明
+ERROR_FAILED_SERVICE_CONTROLLER_CONNECT
+如果程序作为控制台应用程序而不是作为服务运行，则会返回此错误。如果程序将作为控制台应用程序运行以进行调试，请对其进行构造，以便在返回此错误时不会调用特定于服务的代码。
+
+ERROR_INVALID_DATA
+指定的调度表包含格式不正确的条目。
+
+ERROR_SERVICE_ALREADY_RUNNING
+该进程已调用StartServiceCtrlDispatcher。每个进程只能调用一次StartServiceCtrlDispatcher。
+
+ 
+
+备注
+当服务控制管理器启动服务进程时，它等待进程调用StartServiceCtrlDispatcher函数。服务进程的主线程应该在启动后（30秒内）尽快进行此调用。
+如果StartServiceCtrlDispatcher成功，它将调用线程连接到服务控制管理器，并且直到进程中的所有正在运行的服务都进入SERVICE_STOPPED状态才会返回
+。服务控制管理器使用此连接将控制和服务启动请求发送到服务进程的主线程。主线程通过调用适当的HandlerEx函数来处理控制请求，或者通过创建新线程来在启动新服务时执行适当的ServiceMain函数来充当调度程序。
+
+lpServiceTable参数包含可在调用进程中运行的每个服务的条目。每个条目都指定该服务的ServiceMain函数。对于SERVICE_WIN32_SHARE_PROCESS服务，
+每个条目都必须包含服务的名称。此名称是安装服务时由CreateService函数指定的服务名称。对于SERVICE_WIN32_OWN_PROCESS服务，将忽略表条目中的服务名称。
+
+如果服务在其自己的进程中运行，则服务进程的主线程应立即调用StartServiceCtrlDispatcher。启动服务时，所有初始化任务都在服务的ServiceMain函数中完成。
+
+如果多个服务共享一个进程，并且需要在调用任何ServiceMain函数之前完成一些常见的进程范围初始化，则主线程可以在调用StartServiceCtrlDispatcher之前完成工作，
+只要它花费不到30秒。否则，必须创建另一个线程来执行进程范围的初始化，而主线程调用StartServiceCtrlDispatcher并成为服务控制调度程序。任何特定于服务的初始化仍应在各个服务主要功能中完成。
+
+服务不应尝试直接显示用户界面。有关更多信息，请参阅交互式服务。

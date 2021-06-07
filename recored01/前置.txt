@@ -57,6 +57,12 @@
  
 	
 9.查看日志，发现会加载 QPSection.dll,QQProtect.exe, 想办法弄清关系，关闭保护.
+
+//通过 LoadLibraryW 加载的
+//断点已设置在 08A51750 (TLS回调函数 1 (qqprotect.exe)) ！
+//DLL已载入： 08A50000 C:\Program Files (x86)\Common Files\Tencent\QQProtect\Bin\QQProtect.exe
+
+
 {
 	callstack: LoadLibraryW(L"C:\\Program Files (x86)\\Common Files\\Tencent\\QQProtect\\Bin\\QPSection.dll")
 		Address  To       From     Siz Comment               Party 
